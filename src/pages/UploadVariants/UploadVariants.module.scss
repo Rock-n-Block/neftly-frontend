@@ -1,0 +1,103 @@
+@import "../../styles/helpers";
+
+.section {
+  text-align: center;
+
+  .container {
+    max-width: 896px;
+  }
+}
+
+.control{
+  border-bottom: 1px solid $purple2 !important;
+}
+
+.top {
+  max-width: 736px;
+  margin: 0 auto 80px;
+
+  @include d {
+    margin-bottom: 64px;
+  }
+
+
+  @include m {
+    margin-bottom: 32px;
+  }
+}
+
+.title {
+  margin-bottom: 16px;
+}
+
+.info {
+  color: $neutrals4;
+
+  span {
+    color: $neutrals8;
+
+    @include dark {
+      color: $neutrals8;
+    }
+  }
+}
+
+.list {
+  display: flex;
+  margin: 0 -16px 32px;
+
+  @include m {
+    display: block;
+    margin: 0 0 32px;
+  }
+}
+
+.item {
+  flex: 0 0 calc(50% - 32px);
+  width: calc(50% - 32px);
+  margin: 0 16px;
+  padding: 16px 16px 24px;
+  border-radius: 16px;
+  border: 1px solid $neutrals3;
+  transition: box-shadow 0.2s;
+
+  @include m {
+    width: 100%;
+    margin: 0;
+  }
+
+
+  @include dark {
+    border-color: $neutrals3;
+  }
+
+
+  &:not(:last-child) {
+    @include m {
+      margin-bottom: 24px;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0px 40px 32px -24px rgba(15, 15, 15, 0.12);
+  }
+
+  a.button-stroke:hover{
+    background: $purple2;
+  }
+}
+
+.preview {
+  margin-bottom: 24px;
+
+  img {
+    width: 100%;
+    border-radius: 8px;
+  }
+}
+
+.note {
+  @include caption-2;
+
+  color: $neutrals4;
+}

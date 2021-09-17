@@ -1,0 +1,91 @@
+// common styles
+body {
+  min-width: 375px;
+  background: $neutrals8;
+
+  @include poppins;
+
+  font-size: 14px;
+  line-height: (24 / 14);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $neutrals8;
+
+  // @include dark-body {
+  background: $neutrals1;
+  color: $neutrals8;
+  // }
+}
+
+a {
+  text-decoration: none;
+}
+
+svg,
+img {
+  vertical-align: middle;
+}
+
+.desktop {
+  &-hide {
+    @include d {
+      display: none !important;
+    }
+  }
+
+  &-show {
+    display: none !important;
+
+    @include d {
+      display: block !important;
+    }
+  }
+
+  &-text-right {
+    @include d {
+      text-align: right;
+    }
+  }
+}
+
+.tablet {
+  &-hide {
+    @include t {
+      display: none !important;
+    }
+  }
+
+  &-show {
+    display: none !important;
+
+    @include t {
+      display: block !important;
+    }
+  }
+}
+
+.mobile {
+  &-hide {
+    @include m {
+      display: none !important;
+    }
+  }
+
+  &-show {
+    display: none !important;
+
+    @include m {
+      display: block !important;
+    }
+  }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,30 @@
+@import '../../../../styles/helpers';
+
+.wrapper{
+  width: 92px;
+  height: 92px;
+  background: $gradient;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 32px;
+}
+.icon {
+  width: 84px;
+  height: 84px;
+  background: $gradient2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title{
+  margin: 32px 48px;
+  text-align: center;
+}
+
+.button {
+  width: 100%;
+}

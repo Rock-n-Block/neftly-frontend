@@ -1,0 +1,321 @@
+@import '../../styles/helpers';
+
+.top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid $neutrals6;
+
+  @include t {
+    display: block;
+    margin-bottom: 32px;
+    padding-bottom: 0;
+    border: none;
+  }
+
+  @include m {
+    margin-bottom: 24px;
+  }
+
+  // @include dark {
+  border-color: $neutrals3;
+  // }
+}
+
+.title {
+  margin-right: auto;
+
+  @include body-1;
+  @include t {
+    display: none;
+  }
+}
+
+.search {
+  position: relative;
+  flex-shrink: 0;
+  width: 320px;
+  margin-left: 30px;
+
+  @include t {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.input {
+  width: 100%;
+  height: 48px;
+  padding: 0 48px 0 14px;
+  border-radius: 12px;
+  background: none;
+  border: 2px solid $neutrals6;
+
+  @include poppins;
+  @include caption-1;
+
+  color: $neutrals2;
+  transition: border-color 0.2s;
+
+  // @include dark {
+  border-color: $neutrals3;
+  color: $neutrals8;
+  // }
+
+  @include placeholder {
+    color: $neutrals4;
+  }
+
+  &:focus {
+    border-color: $neutrals4;
+  }
+}
+
+.result {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  bottom: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: $gradient;
+  transition: background 0.2s;
+
+  svg {
+    fill: $neutrals8;
+  }
+
+  &:hover {
+    background: darken($blue, 10);
+  }
+}
+
+.sorting {
+  display: flex;
+  align-items: center;
+  margin-bottom: 48px;
+
+  @include t {
+    display: block;
+  }
+
+  @include m {
+    margin-bottom: 32px;
+  }
+
+  .dropdown {
+    width: 256px;
+    margin-right: auto;
+
+    @include t {
+      width: 100%;
+      margin: 0 0 32px;
+    }
+  }
+}
+
+.nav {
+  display: flex;
+
+  @include m {
+    margin: 0 -32px;
+    overflow: auto;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &:before,
+    &:after {
+      content: '';
+      flex-shrink: 0;
+      width: 32px;
+      height: 1px;
+    }
+  }
+}
+
+.link {
+  flex-shrink: 0;
+  margin: 0 6px;
+  padding: 6px 12px;
+  border-radius: 14px;
+  background: none;
+
+  @include button-2;
+
+  color: $purple2;
+  transition: all 0.2s;
+
+  @include m {
+    margin: 0;
+  }
+
+  &:hover {
+    color: $neutrals3;
+
+    // @include dark {
+    // color: $purple2;
+    // }
+  }
+
+  &.active {
+    background: $neutrals3;
+    color: $neutrals8;
+
+    // @include dark {
+    background: $gradient;
+    // color: $neutrals2;
+    // }
+  }
+
+  &:not(:last-child) {
+    @include m {
+      margin-right: 12px;
+    }
+  }
+}
+
+.row {
+  display: flex;
+
+  @include t {
+    display: block;
+  }
+}
+
+.wrapper {
+  flex-grow: 1;
+  padding-left: 32px;
+
+  @include t {
+    padding-left: 0;
+  }
+}
+
+.filters {
+  flex-shrink: 0;
+  width: 256px;
+
+  @include t {
+    width: 100%;
+    margin-bottom: 32px;
+  }
+}
+
+.range {
+  margin-bottom: 24px;
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.group {
+  margin-bottom: 24px;
+  padding: 24px 0;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: $neutrals6;
+
+  // @include dark {
+  border-color: $neutrals3;
+  // }
+}
+
+.item {
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+}
+
+.label {
+  margin-bottom: 12px;
+
+  @include hairline-2;
+
+  color: $neutrals5;
+}
+
+.reset {
+  display: inline-flex;
+  align-items: center;
+
+  @include button-2;
+
+  cursor: pointer;
+  transition: color 0.2s;
+
+  svg {
+    margin-right: 8px;
+    fill: $neutrals2;
+    transition: fill 0.2s;
+
+    // @include dark {
+    fill: $neutrals8;
+    // }
+  }
+
+  &:hover {
+    color: $blue;
+
+    svg {
+      fill: $blue;
+    }
+  }
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: (-32px) -16px 0;
+
+  @include m {
+    display: block;
+    margin: 0;
+  }
+}
+
+.card {
+  flex: 0 0 calc(33.333% - 32px);
+  max-width: calc(33.333% - 32px);
+  margin: 32px 16px 0;
+  padding: 12px;
+  // box-shadow: 0px 32px 32px rgba(31, 47, 70, 0.12);
+  border-radius: 20px;
+
+  @include r(1279) {
+    flex: 0 0 calc(50% - 32px);
+    max-width: calc(50% - 32px);
+  }
+
+  @include m {
+    max-width: 100%;
+    margin: 0;
+
+    &:not(:last-child) {
+      margin-bottom: 32px;
+    }
+  }
+
+  // @include dark {
+  background: $dark-bg;
+  // }
+}
+
+.btns {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.checkbox {
+  margin-bottom: 24px;
+}

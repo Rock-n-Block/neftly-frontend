@@ -1,0 +1,132 @@
+@import '../../../styles/helpers';
+
+.top {
+  max-width: 840px;
+  margin-bottom: 80px;
+
+  @include t {
+    margin-bottom: 64px;
+  }
+
+  @include m {
+    margin-bottom: 40px;
+  }
+}
+
+.stage {
+  margin-bottom: 12px;
+
+  @include hairline-2;
+
+  color: $neutrals4;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.info {
+  @include body-2;
+
+  color: $neutrals6;
+
+  @include m {
+    margin-bottom: 40px;
+  }
+
+  @include dark {
+    color: $neutrals6;
+  }
+
+  a {
+    font-weight: 500;
+    color: $purple;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.row {
+  display: flex;
+
+  @include m {
+    display: block;
+  }
+}
+
+.col {
+  &:first-child {
+    flex-shrink: 0;
+    width: 160px;
+
+    @include m {
+      display: none;
+    }
+  }
+
+  &:nth-child(2) {
+    flex-grow: 1;
+    padding-left: 225px;
+
+    @include x {
+      padding-left: 128px;
+    }
+
+    @include d {
+      padding-left: 64px;
+    }
+
+    @include t {
+      padding-left: 32px;
+    }
+
+    @include m {
+      padding: 0;
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+
+  @include button-2;
+
+  color: $purple2;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  svg {
+    margin-right: 16px;
+    transition: fill 0.2s;
+  }
+
+  // &:hover,
+  // &.active {
+  //   color: $gradient;
+
+  //   svg {
+  //     fill: $gradient;
+  //   }
+
+  //   @include dark {
+  //     color: $neutrals8;
+
+  //     svg {
+  //       fill: $neutrals8;
+  //     }
+  //   }
+  // }
+
+  &:not(:last-child) {
+    margin-bottom: 40px;
+  }
+}

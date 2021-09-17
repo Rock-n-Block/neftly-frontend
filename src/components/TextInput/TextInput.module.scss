@@ -1,0 +1,57 @@
+@import '../../styles/helpers';
+
+.wrap {
+  position: relative;
+}
+
+.label {
+  margin-bottom: 12px;
+
+  @include hairline-2;
+
+  color: $neutrals5;
+}
+
+.input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 2px solid $neutrals6;
+  background: none;
+
+  @include poppins;
+  @include caption-bold-1;
+
+  // color: $neutrals2;
+  transition: border-color 0.2s;
+
+  // @include dark {
+  border-color: $neutrals3;
+  color: $neutrals8;
+  // }
+
+  @include placeholder {
+    color: $neutrals4;
+  }
+
+  &:focus {
+    border-color: $neutrals4;
+  }
+}
+
+.input_prefix {
+  padding-left: 70px;
+}
+
+.prefix {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: 24px;
+}
+
+.suffix {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 24px;
+}

@@ -1,0 +1,70 @@
+@import '../../../../styles/helpers';
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  .icon:hover{
+    cursor: pointer
+  }
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+  text-transform: uppercase;
+  color: $neutrals5;
+}
+
+.wrapper {
+  text-align: left;
+
+  @include body-bold-2;
+
+  input {
+    background: transparent;
+    color: $neutrals8 !important;
+
+    &::placeholder {
+      color: $purple2;
+    }
+  }
+}
+
+.input {
+  margin-top: 12px;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  margin: 20px auto 0;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+.suffix {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  width: 56px;
+  height: 28px;
+  background: #674df6;
+  border-radius: 33px;
+  top: calc(50% - 15px)
+}

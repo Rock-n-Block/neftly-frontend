@@ -1,0 +1,104 @@
+@import '../../styles/helpers';
+
+.player {
+  position: relative;
+  img, video {
+    width: 100%;
+    border-radius: 16px;
+  }
+  audio{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.control {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 20px;
+  background: $neutrals1;
+
+  @include dark {
+    background: $neutrals1;
+  }
+}
+
+.play {
+  svg {
+    fill: $neutrals8;
+  }
+}
+
+.button {
+  svg {
+    fill: $neutrals4;
+    transition: fill 0.2s;
+  }
+
+  &:hover {
+    svg {
+      fill: $neutrals8;
+
+      @include dark {
+        fill: $neutrals8;
+      }
+    }
+  }
+
+  &:not(:last-child) {
+    margin-right: 24px;
+
+    @include m {
+      margin-right: 16px;
+    }
+  }
+}
+
+.line {
+  position: relative;
+  flex-grow: 1;
+  height: 8px;
+  margin-right: 24px;
+  background: $neutrals3;
+  border-radius: 4px;
+
+  @include m {
+    margin-right: 16px;
+  }
+
+  @include dark {
+    background: $neutrals3;
+  }
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 4px;
+  background: $blue;
+}
+
+.time {
+  margin-right: 24px;
+  .button {
+    svg {
+      fill: $neutrals4;
+    }
+  }
+
+  @include body-bold-2;
+  @include m {
+    margin-right: 16px;
+  }
+}

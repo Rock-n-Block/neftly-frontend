@@ -1,0 +1,331 @@
+@import '../../../styles/helpers';
+
+.user {
+  padding: 32px 28px;
+  border-radius: 16px;
+  box-shadow: 0px 40px 32px -24px rgba(15, 15, 15, 0.12);
+  background: $dark-bg;
+  // border: 1px solid $neutrals6;
+  text-align: center;
+
+  // @include dark {
+  //   background: $neutrals2;
+  //   border-color: $neutrals3;
+  // }
+
+  @include r('1024') {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.avatar {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+
+.name {
+  margin-bottom: 4px;
+
+  @include body-bold-1;
+}
+
+.code {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.number {
+  @include button-2;
+
+  color: $neutrals2;
+
+  // @include dark {
+  color: $neutrals8;
+  // }
+}
+
+.copy {
+  margin-left: 8px;
+
+  svg {
+    fill: $purple2;
+    transition: fill 0.2s;
+  }
+
+  &:hover {
+    svg {
+      fill: darken($purple2, 10);
+    }
+  }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px solid black;
+  visibility: hidden;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+}
+.copy:hover .tooltiptext {
+  visibility: visible;
+}
+
+.followers {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.text {
+  color: $purple2;
+}
+
+.circle {
+  display: flex;
+  background: $gradient;
+  border-radius: 30px;
+  padding: 1px;
+}
+
+.inner {
+  color: $white;
+  background: $dark-bg;
+  border-radius: 30px;
+  padding: 0 7px;
+}
+
+.info {
+  margin-bottom: 20px;
+
+  @include caption-2;
+
+  color: $neutrals4;
+}
+
+.site {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 48px;
+
+  @include button-2;
+
+  color: $neutrals2;
+
+  // @include dark {
+  color: $neutrals8;
+  // }
+
+  svg {
+    margin-right: 8px;
+    fill: $neutrals4;
+  }
+}
+
+.control {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 48px;
+
+  @include r('1024') {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.box {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  z-index: 2;
+  width: 220px;
+  transform: translateX(-50%);
+  padding: 32px 16px;
+  background: $neutrals8;
+  border: 1px solid $neutrals6;
+  box-shadow: 0px 32px 32px -8px rgba(31, 47, 70, 0.12);
+  border-radius: 16px;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s;
+
+  // @include dark {
+  background: $neutrals2;
+  border-color: $neutrals3;
+  // }
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.stage {
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.share {
+  display: flex;
+  justify-content: center;
+}
+
+.direction {
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: $neutrals6;
+    transition: all 0.2s;
+
+    svg {
+      transition: fill 0.2s;
+    }
+
+    &:hover {
+      background: $blue;
+
+      svg {
+        fill: $neutrals8;
+      }
+    }
+
+    // @include dark {
+    background: $neutrals3;
+
+    svg {
+      fill: $neutrals8;
+    }
+
+    &:hover {
+      background: $purple2;
+
+      svg {
+        fill: $neutrals8;
+      }
+    }
+    // }
+  }
+
+  &:not(:last-child) {
+    margin-right: 24px;
+  }
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  span {
+    &:nth-child(2) {
+      display: none;
+    }
+  }
+
+  &.active {
+    background: $purple2;
+    box-shadow: inset 0 0 0 2px $purple2;
+
+    // @include dark {
+    background: $purple2;
+    // }
+
+    svg {
+      fill: $neutrals8;
+    }
+
+    span {
+      &:first-child {
+        display: none;
+      }
+
+      &:nth-child(2) {
+        display: inline;
+      }
+    }
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+}
+
+.social {
+  svg {
+    fill: $neutrals4;
+    transition: fill 0.2s;
+  }
+
+  &:hover {
+    svg {
+      fill: $purple2;
+    }
+  }
+
+  &:not(:last-child) {
+    margin-right: 24px;
+  }
+}
+
+.note {
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid $neutrals6;
+
+  @include caption-2;
+
+  color: $neutrals4;
+
+  // @include dark {
+  border-color: $neutrals3;
+  // }
+}

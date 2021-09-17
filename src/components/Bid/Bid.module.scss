@@ -1,0 +1,78 @@
+@import "../../styles/helpers";
+
+.title {
+  margin-bottom: 32px;
+}
+
+.info {
+  margin-bottom: 32px;
+
+  @include body-2;
+
+  strong {
+    font-weight: 500;
+  }
+}
+
+.stage {
+  margin-bottom: 16px;
+
+  @include body-bold-1;
+}
+
+.row {
+  display: flex;
+  padding-top: 12px;
+  align-items: center;
+}
+
+.input_row {
+  display: flex;
+  padding-top: 12px;
+  align-items: center;
+  border-bottom: 1px solid $neutrals6;
+  font-weight: 500;
+
+  // @include dark {
+  border-color: $neutrals3;
+  // }
+}
+
+.input {
+  width: 100%;
+
+  input {
+    padding: 0;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 0;
+    border: none;
+  }
+}
+
+.col {
+  @include body-2;
+
+  &:first-child {
+    color: $purple2;
+  }
+
+  &:nth-child(2) {
+    margin-left: auto;
+    padding-left: 16px;
+    font-weight: 500;
+    color: $neutrals8;
+  }
+}
+
+.btns {
+  margin-top: 32px;
+}
+
+.button {
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}

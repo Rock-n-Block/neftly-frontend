@@ -1,0 +1,29 @@
+@import "../../styles/helpers";
+
+.section {
+  overflow: hidden;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.title {
+  margin-bottom: 64px;
+
+  @include m {
+    margin-bottom: 48px;
+  }
+}
+
+.inner {
+  margin: 0 -16px;
+
+  @include m {
+    margin: 0 -8px;
+  }
+}
+
+.card {
+  width: 100%;
+}

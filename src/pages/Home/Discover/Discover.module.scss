@@ -1,0 +1,280 @@
+@import '../../../styles/helpers';
+
+.title {
+  margin-bottom: 64px;
+
+  @include m {
+    margin-bottom: 32px;
+  }
+}
+
+.top {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+
+  @include m {
+    display: block;
+  }
+
+  .dropdown {
+    width: 180px;
+
+    @include t {
+      width: 260px;
+    }
+
+    @include m {
+      width: 100%;
+      margin-bottom: 12px;
+    }
+  }
+}
+
+.nav {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  transform: translateX(-50%);
+
+  @include t {
+    display: none;
+  }
+}
+
+.link {
+  margin: 0 6px;
+  padding: 6px 12px;
+  border-radius: 14px;
+  background: none;
+  flex-shrink: 0;
+
+  @include button-2;
+
+  color: $purple2;
+  transition: all 0.2s;
+
+  &:hover {
+    color: $neutrals3;
+
+    @include dark {
+      color: $neutrals6;
+    }
+  }
+
+  &.active {
+    background: $gradient;
+    color: $neutrals8;
+
+    // @include dark {
+    //   background: $neutrals8;
+    //   color: $neutrals2;
+    // }
+  }
+
+  &:nth-child(n + 5) {
+    @include d {
+      display: none;
+    }
+  }
+}
+
+.filter {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 0 24px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  background: $gradient;
+
+  @include dm-sans;
+
+  font-size: 16px;
+  line-height: 48px;
+  color: $neutrals8;
+  transition: background 0.2s, box-shadow 0.2s;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  @include m {
+    width: 100%;
+  }
+
+  &.active {
+    .toggle {
+      svg {
+        &:first-child {
+          display: none;
+        }
+
+        &:nth-child(2) {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+.toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 52px;
+  padding-right: 10px;
+  background: none;
+  font-size: 0;
+
+  svg {
+    fill: $neutrals8;
+
+    &:first-child {
+      width: 18px;
+      height: 18px;
+    }
+
+    &:nth-child(2) {
+      display: none;
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
+
+.filters {
+  display: none;
+  padding: 32px 0;
+  border-top: 1px solid $neutrals6;
+
+  // @include dark {
+  border-color: $neutrals3;
+  // }
+
+  &.active {
+    display: block;
+  }
+}
+
+.sorting {
+  display: flex;
+  flex-wrap: wrap;
+  margin: (-32px) -16px 0;
+  justify-content: space-between;
+
+  @include d {
+    margin: (-24px) -8px 0;
+  }
+
+  @include m {
+    display: block;
+    margin: 0;
+  }
+}
+
+.cell {
+  flex: 0 0 calc(25% - 32px);
+  max-width: calc(25% - 32px);
+  margin: 32px 16px 0;
+
+  @include d {
+    flex: 0 0 calc(25% - 16px);
+    max-width: calc(25% - 16px);
+    margin: 24px 8px 0;
+  }
+
+  @include t {
+    flex: 0 0 calc(50% - 32px);
+    max-width: calc(50% - 32px);
+    margin: 32px 16px 0;
+  }
+
+  @include m {
+    max-width: 100%;
+    margin: 0;
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.label {
+  margin-bottom: 12px;
+
+  @include hairline-2;
+
+  color: $neutrals5;
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: -3px;
+  font-weight: 500;
+}
+
+.list {
+  @include m {
+    margin: 0 -8px;
+  }
+}
+
+.slider {
+  display: flex;
+  flex-wrap: wrap;
+  margin: (-32px) -16px 0;
+
+  @include m {
+    display: block;
+    margin: 0;
+  }
+}
+
+.card {
+  flex: 0 0 calc(25% - 32px);
+  max-width: calc(25% - 32px);
+  margin: 32px 16px 0;
+
+  @include d {
+    flex: 0 0 calc(33.333% - 32px);
+    max-width: calc(33.333% - 32px);
+  }
+
+  @include t {
+    flex: 0 0 calc(50% - 32px);
+    max-width: calc(50% - 32px);
+  }
+
+  @include m {
+    max-width: 100%;
+    margin: 0;
+  }
+}
+
+.btns {
+  margin-top: 32px;
+  text-align: center;
+
+  .button {
+    box-shadow: 0 0 0 2px $purple2 inset;
+  }
+
+  @include m {
+    display: none;
+  }
+}
+
+.switchWrapper{
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.nobids{
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}

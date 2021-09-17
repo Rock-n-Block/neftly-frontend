@@ -1,0 +1,41 @@
+@import "../../../styles/helpers";
+
+.options {
+  display: flex;
+  flex-direction: column;
+  border-radius: 32px;
+  gap: 16px;
+
+  @include r('1024') {
+   flex-direction: row;
+   background: $neutrals2;
+   padding: 8px;
+   gap: 0px;
+  }
+
+  // @include dark {
+  //   background: $neutrals2;
+  // }
+}
+
+.button {
+  &:not(:last-child) {
+    margin-right: 24px;
+  }
+}
+
+.favorite {
+  
+    &.active {
+      svg {
+        fill: $pink;
+      }
+    }
+  
+
+  &:hover {
+    svg {
+      fill: $pink !important;
+    }
+  }
+}

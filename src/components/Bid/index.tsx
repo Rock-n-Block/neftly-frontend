@@ -1,0 +1,141 @@
+import { useCallback, useEffect, useState } from 'react';
+// import BigNumber from 'bignumber.js/bignumber';
+import cn from 'classnames';
+import { observer } from 'mobx-react';
+
+import { storeApi } from '../../services/api';
+import { useWalletConnectorContext } from '../../services/walletConnect';
+import MetamaskService from '../../services/web3';
+import { useMst } from '../../store/store';
+import TextInput from '../TextInput';
+
+import styles from './Bid.module.scss';
+
+interface IBidProps {
+  className?: string;
+  id: number;
+  available: number;
+  title: string;
+  creatorName: string;
+  price: number;
+  currency: string;
+}
+
+const Bid: React.FC<IBidProps> = observer(
+  ({ className, available = 1, title, creatorName, id, currency }) => {
+    const walletConnector = useWalletConnectorContext();
+    const { user } = useMst();
+    const [bidValue, setBidValue] = useState<string>('');
+    const [quantity, setQuantity] = useState<string>(available.toString());
+    const [balance, setBalance] = useState<string>('');
+    // const [youPay, setYouPay] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [fee, setFee] = useState(0);
+
+    const getUserBalance = useCallback(() => {
+      walletConnector.metamaskService.getEthBalance().then((data: string) => {
+        setBalance(MetamaskService.weiToEth(data));
+      });
+    }, [walletConnector.metamaskService]);
+    const handlePlaceABid = () => {
+      setIsLoading(true);
+      storeApi
+        .createBid(id, +bidValue, +quantity, currency)
+        .then(() => {
+          // walletConnector.metamaskService
+          //   .sendTransaction(data.initial_tx)
+          //   .catch((e: any) => console.error('Bid modal sendTranscation', e));
+        })
+        .catch((e) => console.error('Bid modal createBid', e))
+        .finally(() => setIsLoading(false));
+    };
+
+    const fetchFee = useCallback(() => {
+      storeApi.getFee().then(({ data }: any) => setFee(data));
+    }, []);
+    // useEffect(() => {
+    //   setYouPay(
+    //     new BigNumber(bidValue || 0)
+    //       .multipliedBy(fee)
+    //       .dividedBy(100)
+    //       .plus(bidValue || 0)
+    //       .toString(10),
+    //   );
+    // }, [bidValue, fee]);
+    useEffect(() => {
+      if (!user.address) return;
+      getUserBalance();
+    }, [getUserBalance, user.address]);
+    useEffect(() => {
+      fetchFee();
+    }, [fetchFee]);
+    return (
+      <div className={cn(className, styles.checkout)}>
+        <div className={cn('h4', styles.title)}>Place a bid</div>
+        <div className={styles.info}>
+          You are about to purchase <strong>{title}</strong> from <strong>{creatorName}</strong>
+        </div>
+        <div className={styles.stage}>Your bid</div>
+        <div className={styles.table}>
+          <div className={styles.input_row}>
+            <TextInput
+              name="bid"
+              label=""
+              type="number"
+              className={styles.input}
+              placeholder="Enter bid"
+              value={bidValue}
+              onChange={(e) => setBidValue(e.target.value)}
+            />
+            <div className={styles.col}>{currency.toUpperCase()}</div>
+          </div>
+          {available > 1 && (
+            <div className={styles.input_row}>
+              <TextInput
+                name="bid"
+                label=""
+                type="number"
+                className={styles.input}
+                placeholder="Enter quantity"
+                value={quantity.toString()}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+              <div className={styles.col}>Quantity</div>
+            </div>
+          )}
+          <div className={styles.row}>
+            <div className={styles.col}>Your balance</div>
+            <div className={styles.col}>
+              {balance} {currency.toUpperCase()}
+            </div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.col}>Service fee</div>
+            <div className={styles.col}>{fee}%</div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.col}>Total bid amount</div>
+            <div className={styles.col}>
+              {bidValue ? `${bidValue} ${currency.toUpperCase()}` : ''}
+            </div>
+          </div>
+        </div>
+        <div className={styles.btns}>
+          <button
+            type="button"
+            disabled={isLoading}
+            className={cn('button', styles.button)}
+            onClick={handlePlaceABid}
+          >
+            {isLoading ? 'Pending' : 'Place a bid'}
+          </button>
+          <button type="button" className={cn('button-stroke', styles.button)}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    );
+  },
+);
+
+export default Bid;
