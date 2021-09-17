@@ -24,6 +24,10 @@
     color: $color-neutral-100;
     background: $color-action-default;
 
+    & > svg {
+      fill: $color-neutral-100;
+    }
+
     &:hover {
       background: $color-action-hovered;
     }
@@ -35,6 +39,10 @@
     &.disabled {
       color: $color-neutral-20;
       background: $color-action-disabled;
+
+      & > svg {
+        fill: $color-neutral-20;
+      }
     }  
   }
 
@@ -42,6 +50,10 @@
     background: none;
     color: $color-neutral-0;
     border: 1px solid $color-action-default;
+
+    & > svg {
+      fill: $color-neutral-0;
+    }
 
     &:hover {
       background: $color-neutral-80;
@@ -57,6 +69,14 @@
       color: $color-neutral-40;
       background: $color-neutral-80;
       border-color: $color-neutral-60;
+
+      & > svg {
+        fill: $color-neutral-20;
+      }
     }
   }
+}
+
+.icon {
+  margin-right: 10px;
 }

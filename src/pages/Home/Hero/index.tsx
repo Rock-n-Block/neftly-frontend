@@ -166,8 +166,10 @@ const Hero: React.FC = observer(() => {
                           color="outline"
                           className={cn('button', styles.button)}
                           onClick={() => setVisibleModalBid(true)}
+                          icon="eye"
+                          disabled
                         >
-                          Place a bid
+                          Place a bid 123
                         </Button>
                         <Link className={cn('button-stroke', styles.button)} to={`/item/${x.id}`}>
                           View item
