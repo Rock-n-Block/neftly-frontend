@@ -163,7 +163,7 @@ const Hero: React.FC = observer(() => {
                       </div>
                       <div className={styles.btns}>
                         <Button
-                          styledType="filled"
+                          color="outline"
                           className={cn('button', styles.button)}
                           onClick={() => setVisibleModalBid(true)}
                         >

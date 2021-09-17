@@ -1,52 +1,48 @@
-import React, { PropsWithChildren } from 'react';
-import cn from 'classnames';
+import { FC, PropsWithChildren } from 'react';
+import cx from 'classnames';
 
-import Loader from '../Loader';
+import styles from './styles.module.scss';
 
-export interface IStyledType {
-  styledType?: 'outline' | 'filled' | 'nav' | 'clear';
-}
-interface IButton extends IStyledType, React.ButtonHTMLAttributes<HTMLButtonElement> {
+type Props = {
+  color?: 'blue' | 'outline';
+  size?: any;
+  isFullWidth?: boolean;
   className?: string;
-  onClick?: () => void;
-  tabIndex?: number;
-  onKeyDown?: () => void;
-  ariaLabel?: string;
-  filledColor?: string;
-  outlinedColor?: string;
-  onMouseLeave?: () => void;
+  onClick?: (event: any) => void;
+  type?: 'button' | 'submit';
   disabled?: boolean;
+  icon?: any;
+  iconClassName?: string;
   loading?: boolean;
-  type?: 'button' | 'submit' | 'reset' | undefined;
-}
-const Button: React.FC<IButton> = (props: PropsWithChildren<IButton>) => {
-  const {
-    children,
-    className,
-    styledType,
-    filledColor,
-    outlinedColor,
-    disabled,
-    loading,
-    type = 'button',
-    ...otherButtonProps
-  } = props;
-
-  const Btn = (
-    <button
-      type={type === 'submit' ? 'submit' : 'button'}
-      disabled={disabled || loading}
-      className={cn(className, `${styledType ? `button-${styledType}` : ''}`, {
-        'button-loading': loading,
-      })}
-      style={{ background: filledColor, border: `1px solid ${outlinedColor}` }}
-      {...otherButtonProps}
-    >
-      {children}
-      {loading ? <Loader className="loader-btn" /> : ''}
-    </button>
-  );
-  return Btn;
+  styledType?: string;
+  onMouseLeave?: any;
 };
+
+const Button: FC<PropsWithChildren<Props>> = ({
+  color = 'blue',
+  size = 'normal',
+  isFullWidth = false,
+  onClick = () => {},
+  className,
+  type = 'button',
+  children,
+  disabled,
+  // icon,
+  // iconClassName,
+}) => (
+  <button
+    // eslint-disable-next-line react/button-has-type
+    type={type}
+    className={cx(styles.button, styles[size], styles[color], className, {
+      [styles.isFullWidth]: isFullWidth,
+      [styles.disabled]: disabled,
+    })}
+    onClick={onClick}
+    disabled={disabled as boolean}
+  >
+    {/* {icon && <Icon icon={icon} className={iconClassName as string} />} */}
+    {children}
+  </button>
+);
 
 export default Button;

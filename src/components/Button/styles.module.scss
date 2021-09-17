@@ -1,0 +1,62 @@
+// @import '../../assets/styles/mixins';
+@import '../../styles/helpers.scss';
+
+.button {
+  // @include flexbox(center, center);
+  font-weight: 400;
+  cursor: pointer;
+  height: 40px;
+
+  &:focus {
+    outline: none;
+  }
+
+
+  &.isFullWidth {
+    width: 100%;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  &.blue {
+    color: $color-neutral-100;
+    background: $color-action-default;
+
+    &:hover {
+      background: $color-action-hovered;
+    }
+  
+    &:active {
+      background: $color-action-pressed;
+    }
+  
+    &.disabled {
+      color: $color-neutral-20;
+      background: $color-action-disabled;
+    }  
+  }
+
+  &.outline {
+    background: none;
+    color: $color-neutral-0;
+    border: 1px solid $color-action-default;
+
+    &:hover {
+      background: $color-neutral-80;
+      border-color: $color-action-hovered;
+    }
+  
+    &:active {
+      background: $color-neutral-60;
+      border-color: $color-action-pressed;
+    }
+  
+    &.disabled {
+      color: $color-neutral-40;
+      background: $color-neutral-80;
+      border-color: $color-neutral-60;
+    }
+  }
+}
