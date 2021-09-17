@@ -22,6 +22,7 @@ const Swap: React.FC<ISwapProps> = observer(({ className, close }) => {
   const { user } = useMst();
   const [swappingCurrency, setSwappingCurrency] = useState<Array<'ETH' | 'WETH'>>(['ETH', 'WETH']);
   const [isLoading, setLoading] = useState<boolean>(false);
+  console.log(isLoading);
   const walletConnector = useWalletConnectorContext();
   const [payInput, setPayInput] = useState('');
   const handleConvert = (): void => {
@@ -130,7 +131,7 @@ const Swap: React.FC<ISwapProps> = observer(({ className, close }) => {
         <Button
           className={cn('button', styles.button)}
           onClick={handleSubmitConvert}
-          loading={isLoading}
+          // loading={isLoading}
         >
           Convert
         </Button>
