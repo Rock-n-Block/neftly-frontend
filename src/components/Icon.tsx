@@ -106,34 +106,33 @@ const icons = {
     'M8 1.333a28.06 28.06 0 0 1 3.639.246c1.465.193 2.588 1.317 2.782 2.782.133 1.007.246 2.266.246 3.639s-.113 2.632-.246 3.639c-.193 1.465-1.317 2.588-2.782 2.782-1.007.133-2.266.246-3.639.246s-2.632-.113-3.639-.246c-1.465-.193-2.588-1.317-2.782-2.782A28.06 28.06 0 0 1 1.333 8a28.06 28.06 0 0 1 .246-3.639c.193-1.465 1.317-2.588 2.782-2.782A28.06 28.06 0 0 1 8 1.333zm2.667 6H5.333c-.368 0-.667.298-.667.667s.298.667.667.667h5.333c.368 0 .667-.298.667-.667s-.298-.667-.667-.667z',
 };
 
-type IIcons = keyof typeof icons;
+export type IIcons = keyof typeof icons;
 
-interface IIconProps {
+type Props = {
   name: IIcons;
-  size: string;
+  size?: string;
   fill?: string;
-  className?: boolean;
-}
+  className?: string;
+};
 
-const Icon: React.FC<IIconProps> = (props) => {
-  const size = props.size ? props.size : 16;
-  const fill = props.fill ? props.fill : 'inherit';
+const Icon: React.FC<Props> = ({ name, size = 16, fill = 'inherit', className }) => {
   return (
     <svg
-      className={cn(props.className)}
+      className={cn(className)}
       width={size}
       height={size}
       viewBox="0 0 16 16"
       fill={String(fill)}
     >
-      <path d={icons[props.name]} />
+      <path d={icons[name]} />
     </svg>
   );
 };
 
 Icon.defaultProps = {
   fill: '',
-  className: false,
+  className: '',
+  size: '16',
 };
 
 export default Icon;

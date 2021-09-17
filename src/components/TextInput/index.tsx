@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import Icon, { IIcons } from '../Icon';
+
 import cn from 'classnames';
+import { useEffect, useRef, useState } from 'react';
 
 import styles from './TextInput.module.scss';
 
-interface ITextInputProps {
+interface Props {
   className?: string;
-  label: string;
+  label?: string;
   name?: string;
   type: string;
   placeholder: string;
@@ -16,17 +18,23 @@ interface ITextInputProps {
   onChange?: (value: any) => void;
   onBlur?: (value: any) => void;
   value?: string;
+  disabled?: boolean;
+  error?: boolean;
+  icon?: IIcons;
 }
 
-const TextInput: React.FC<ITextInputProps> = ({
+const TextInput: React.FC<Props> = ({
   className,
   label,
-  prefix,
   suffix,
   onChange,
   value,
   suffixClassName,
   name,
+  disabled,
+  prefix,
+  error,
+  icon,
   ...props
 }) => {
   const ref = useRef(null);
@@ -44,17 +52,27 @@ const TextInput: React.FC<ITextInputProps> = ({
       setElWidth(ref.current.offsetWidth);
     }
   }, []);
+
   return (
     <div className={cn(styles.field, className)}>
       {label && <div className={styles.label}>{label}</div>}
       <div className={styles.wrap}>
+        {icon && (
+          <Icon
+            className={cn(styles.icon, { [styles.disabled]: disabled })}
+            name={icon}
+            size="24"
+            fill="#fff"
+          />
+        )}
         {prefixElement}
         <input
           id={name}
           value={value}
-          className={cn(styles.input)}
+          className={cn(styles.input, { [styles.error]: error, [styles.withIcon]: icon })}
           onChange={onChange}
           onWheel={(e) => e.currentTarget.blur()}
+          disabled={disabled}
           {...props}
           style={
             elWidth
