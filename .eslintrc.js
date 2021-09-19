@@ -148,9 +148,8 @@ module.exports = {
   },
   settings: {
     'import/resolver': {
-      alias: {
-        map: [['@', './src/', './node_modules/']],
-        extensions: ['.ts', '.tsx', '.json', 'js', 'jsx'],
+      node: {
+        paths: ['src'],
       },
     },
   },

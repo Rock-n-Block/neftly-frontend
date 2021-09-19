@@ -3,6 +3,8 @@ import nextId from 'react-id-generator';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick/lib/index';
 import cn from 'classnames';
+import { Text } from 'components';
+import { observer } from 'mobx-react';
 
 import Button from '../../../components/Button';
 import Connect from '../../../components/Connect';
@@ -12,7 +14,6 @@ import Player from '../../../components/Player';
 import { storeApi } from '../../../services/api';
 
 import styles from './Hero.module.scss';
-import { observer } from 'mobx-react';
 // import Bid from "../../../components/Bid";
 
 // const items = [
@@ -169,7 +170,7 @@ const Hero: React.FC = observer(() => {
                           icon="eye"
                           disabled
                         >
-                          Place a bid 123
+                          <Text tag="span">Place a bid 123</Text>
                         </Button>
                         <Link className={cn('button-stroke', styles.button)} to={`/item/${x.id}`}>
                           View item
