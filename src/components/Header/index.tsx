@@ -4,11 +4,11 @@ import { useLocation } from 'react-router';
 import { Link, useHistory } from 'react-router-dom';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
+import TextInput from '../TextInput/index';
 
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import { useMst } from '../../store/store';
 import Button from '../Button';
-import Icon from '../Icon';
 import Image from '../Image';
 
 import Notification from './Notification';
@@ -89,18 +89,17 @@ const Headers: React.FC = observer(() => {
             ))}
           </nav>
           <form className={styles.search} action="" onSubmit={(e: any) => handleSubmit(e)}>
-            <input
-              className={styles.input}
+            <TextInput
               type="text"
+              placeholder="Search by tags, themes, artists, etc"
+              icon="search"
+              name="search"
               value={user.search}
               onChange={(e) => user.setSearch(e.target.value)}
-              name="search"
-              placeholder="Search"
-              // required
             />
-            <button type="submit" className={styles.result}>
+            {/* <button type="submit" className={styles.result}>
               <Icon name="search" size="20" />
-            </button>
+            </button> */}
           </form>
           {user.address ? (
             <Link className={cn('button-small', styles.button)} to="/upload-variants">
@@ -120,7 +119,7 @@ const Headers: React.FC = observer(() => {
         )}
         {!user.address ? (
           <Button
-            tabIndex={0}
+            // tabIndex={0}
             className={cn('button-stroke button-small', styles.button)}
             onClick={() => walletConnector.connect()}
             // to="/connect-wallet"
