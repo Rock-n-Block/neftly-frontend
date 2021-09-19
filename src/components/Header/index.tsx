@@ -119,7 +119,7 @@ const Headers: React.FC = observer(() => {
         )}
         {!user.address ? (
           <Button
-            tabIndex={0}
+            // tabIndex={0}
             className={cn('button-stroke button-small', styles.button)}
             onClick={() => walletConnector.connect()}
             // to="/connect-wallet"

@@ -66,6 +66,7 @@ module.exports = {
     'prettier/prettier': ['warn', prettierConfig],
     'quote-props': ['error', 'consistent-as-needed'],
 
+    'react/require-default-props': 'off',
     'react/prop-types': 'off',
     'react/destructuring-assignment': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
@@ -147,9 +148,8 @@ module.exports = {
   },
   settings: {
     'import/resolver': {
-      alias: {
-        map: [['@', './src/', './node_modules/']],
-        extensions: ['.ts', '.tsx', '.json', 'js', 'jsx'],
+      node: {
+        paths: ['src'],
       },
     },
   },

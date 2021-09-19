@@ -107,7 +107,7 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
               <Button
                 className={styles.copy}
                 onClick={handleCopy}
-                onMouseLeave={() => setCopyAddress(false)}
+                // onMouseLeave={() => setCopyAddress(false)}
               >
                 <Circles />
                 <div className={styles.tooltip}>

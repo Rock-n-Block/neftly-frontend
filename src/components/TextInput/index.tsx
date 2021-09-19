@@ -1,7 +1,7 @@
-import Icon, { IIcons } from '../Icon';
-
-import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
+import cn from 'classnames';
+import { Icon } from 'components';
+import { IconNames } from 'typings';
 
 import styles from './TextInput.module.scss';
 
@@ -20,7 +20,7 @@ interface Props {
   value?: string;
   disabled?: boolean;
   error?: boolean;
-  icon?: IIcons;
+  icon?: IconNames;
 }
 
 const TextInput: React.FC<Props> = ({
@@ -37,7 +37,7 @@ const TextInput: React.FC<Props> = ({
   icon,
   ...props
 }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [elWidth, setElWidth] = useState(0);
   const prefixElement = (
     <div ref={ref} className={styles.prefix}>
@@ -47,8 +47,6 @@ const TextInput: React.FC<Props> = ({
 
   useEffect(() => {
     if (ref.current) {
-      // eslint-disable-next-line
-      // @ts-ignore
       setElWidth(ref.current.offsetWidth);
     }
   }, []);
