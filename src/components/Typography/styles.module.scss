@@ -1,0 +1,96 @@
+@import '../../styles/helpers.scss';
+
+.h1 {
+  font-size: 80px;
+}
+
+.h2 {
+  font-size: 40px;
+}
+
+.h3 {
+  font-size: 36px;
+}
+
+.h4 {
+  font-size: 28px;
+}
+
+.h5 {
+  font-size: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.text {
+  &.xxxs {
+    font-size: 10px;
+  }
+
+  &.xxs {
+    font-size: 11px;
+  }
+
+  &.xs {
+    font-size: 12px;
+  }
+
+  &.s {
+    font-size: 14px;
+  }
+
+  &.m {
+    font-size: 16px;
+  }
+
+  &.l {
+    font-size: 18px;
+  }
+
+  &.xl {
+    font-size: 20px;
+  }
+
+  &.xxl {
+    font-size: 24px;
+  }
+
+  &.xxxl {
+    font-size: 32px;
+  }
+  
+  &.xxxxl {
+    font-size: 48px;
+  }
+}
+
+.error {
+  color: $color-state-error;
+}
+
+
+.white {
+  color: $color-neutral-0;
+}
+
+.normalWeight {
+  font-weight: 400;
+}
+
+.mediumWeight {
+  font-weight: 500;
+}
+
+.boldWeight {
+  font-weight: 700;
+}
