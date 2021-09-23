@@ -1,0 +1,63 @@
+@import '../../styles/helpers';
+
+.header {
+  position: relative;
+  height: 90px;
+  padding: 0 88px;
+  max-width: 1600px;
+  margin: 0 auto;
+  @include flexbox(center, flex-start);
+  &:after {
+    content: ' ';
+    position: absolute;
+    bottom: 0;
+    width: 500%;
+    left: -250%;
+    height: 1px;
+    background: $color-neutral-80;
+  }
+}
+.flex {
+  @include flexbox;
+}
+
+.headerSearch {
+  width: 350px;
+  margin-left: 40px;
+}
+
+.headerNavigation {
+  @include flexbox;
+  flex-basis: 50%;
+  & > * {
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+}
+
+.headerConnectBtn {
+  margin-left: auto;
+  width: 180px;
+}
+
+.profileImageWrapper {
+  width: 45px;
+  height: 45px;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.profileInfo {
+  width: 180px;
+  margin-left: auto;
+  display: flex;
+  & > * {
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+}

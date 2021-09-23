@@ -5,7 +5,6 @@
   // @include flexbox(center, center);
   font-weight: 400;
   cursor: pointer;
-  height: 40px;
 
   &:focus {
     outline: none;
@@ -21,6 +20,7 @@
   }
 
   &.blue {
+    height: 40px;
     color: $color-neutral-100;
     background: $color-action-default;
 
@@ -47,6 +47,7 @@
   }
 
   &.outline {
+    height: 40px;
     background: none;
     color: $color-neutral-0;
     border: 1px solid $color-action-default;
@@ -77,6 +78,11 @@
   }
 }
 
+.transparent {
+
+}
+
 .icon {
   margin-right: 10px;
+  height: unset;
 }

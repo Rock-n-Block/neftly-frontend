@@ -2,6 +2,7 @@
 
 .wrap {
   position: relative;
+  @include flexbox;
 }
 
 .label {
@@ -54,6 +55,17 @@
 
   &.withIcon {
     padding-left: 50px;
+  }
+}
+
+.field .wrap .inputButton {
+  position: absolute;
+  right: 3px;
+  width: 35px;
+  height: 36px;
+  transform: rotate(180deg);
+  & > img {
+    filter: brightness(0) saturate(100%);
   }
 }
 

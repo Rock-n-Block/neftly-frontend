@@ -1,0 +1,14 @@
+@import '../../styles/helpers.scss';
+
+.text {
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    color: $color-action-hovered;
+  }
+
+  &:active {
+    color: $color-action-pressed;
+  }
+}

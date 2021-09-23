@@ -1,0 +1,38 @@
+@import "../../../styles/helpers";
+
+.ourArtworkGallery {
+  padding: 88px;
+  max-width: 1600px;
+  margin: 0 auto;
+  & > * {
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.title {
+  width: 100%;
+  @include flexbox;
+}
+
+.gradientTitle {
+  @include gradientText;
+}
+
+.artCardsWrapper {
+  @include flexbox();
+  flex-wrap: wrap;
+  margin: -16px;
+  & > * {
+    margin: 16px;
+  }
+}
+
+.viewMoreBtnWrapper {
+  @include flexbox;
+}
+
+.viewMoreBtn {
+  width: 150px;
+}

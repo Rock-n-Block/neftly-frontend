@@ -1,8 +1,5 @@
 // common styles
 body {
-  min-width: 375px;
-  background: $neutrals8;
-
   @include poppins;
 
   font-size: 14px;
@@ -12,7 +9,7 @@ body {
   color: $neutrals8;
 
   // @include dark-body {
-  background: $neutrals1;
+  background: $color-bg;
   color: $neutrals8;
   // }
 }
