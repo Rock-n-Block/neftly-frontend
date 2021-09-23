@@ -2,6 +2,11 @@
 
 .logo {
   @include flexbox;
+  transition: 200ms;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .logoImage {

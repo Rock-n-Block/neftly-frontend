@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { routes } from 'appConstants';
 import { logo } from 'assets/img';
 import cx from 'classnames';
 import { Text } from 'components';
@@ -10,15 +12,10 @@ type Props = {
 };
 
 const Logo: FC<Props> = ({ className }) => (
-  <a
-    href="https://google.com"
-    rel="noopener noreferrer"
-    target="_blank"
-    className={cx(styles.logo, className)}
-  >
+  <Link className={cx(styles.logo, className)} to={routes.home.root}>
     <img className={styles.logoImage} src={logo} alt="" />
     <Text className={styles.logoText}>Netfly</Text>
-  </a>
+  </Link>
 );
 
 export default Logo;
