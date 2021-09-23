@@ -112,7 +112,6 @@
   z-index: 2;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   font-size: 0;
   transition: all 0.2s;
 
@@ -413,12 +412,7 @@
 // discover slider
 .discover-slider {
   .slick-list {
-    overflow: visible;
     padding-bottom: 72px;
-  }
-
-  .slick-slide {
-    padding: 0 8px;
   }
 
   .slick-arrow {
@@ -426,10 +420,16 @@
   }
 
   .slick-prev {
-    left: calc(50% - 44px);
+    right: 5%;
   }
 
   .slick-next {
-    right: calc(50% - 44px);
+    right: 0;
+  }
+}
+
+@include forDesktopSm {
+  .slick-list {
+    overflow: visible;
   }
 }

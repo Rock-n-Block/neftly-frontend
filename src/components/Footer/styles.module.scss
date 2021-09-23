@@ -1,0 +1,54 @@
+@import '../../styles/helpers';
+
+.footer {
+  padding: 88px 88px 20px 88px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.linksAndControls {
+  @include flexbox(flex-start, center);
+}
+
+.footerLogo {
+  flex-basis: 25%;
+  @include flexbox(flex-start, flex-start);
+  flex-direction: column;
+}
+
+.logo {
+  margin-bottom: 32px;
+}
+
+.footerLinks {
+  flex-basis: 50%;
+  @include flexbox;
+
+  & > .linkBlock {
+    &:not(:last-child) {
+      margin-right: 100px;
+    }
+  }
+}
+
+.linkBlock {
+  @include flexbox(flex-start, flex-start);
+  flex-direction: column;
+  & > * {
+    margin-bottom: 20px;
+  }
+}
+
+.footerActions {
+  flex-basis: 25%;
+  & > * {
+    margin-bottom: 20px;
+  }
+  margin-bottom: 60px;
+}
+
+.copyrightBlock {
+  height: 100px;
+  @include flexbox;
+  border-top: 1px solid $color-neutral-80;
+}

@@ -1,6 +1,10 @@
 enum Values {
   white,
   red,
+  black,
+  gray,
+  lightGray,
+  secondary,
 }
 
 enum SizeValues {

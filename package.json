@@ -14,9 +14,11 @@
     "lint:ts": "eslint \"{src,types}/**/*.ts{,x}\"",
     "lint-fix:ts": "eslint \"{src,types}/**/*.ts{,x}\" --fix",
     "lint:scss": "stylelint \"src/**/*.scss\"",
-    "lint-fix:scss": "stylelint \"src/**/*.scss\" --fix"
+    "lint-fix:scss": "stylelint \"src/**/*.scss\" --fix",
+    "new": "plop --plopfile generators/index.js"
   },
   "dependencies": {
+    "connected-react-router": "6.8.0",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
     "antd": "^4.16.13",
@@ -53,6 +55,7 @@
     "react-scripts": "4.0.3",
     "react-share": "^4.4.0",
     "react-slick": "^0.28.1",
+    "react-tabs": "^3.2.2",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
@@ -70,13 +73,9 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.20",
-    "jest-html-reporter": "^3.3.0",
-    "jest-junit": "^12.0.0",
-    "lint-staged": "^10.5.4",
-    "remark-preset-lint-recommended": "^5.0.0",
-    "ts-jest": "^26.5.3",
     "@types/body-scroll-lock": "^2.6.2",
+    "@types/jest": "^26.0.20",
+    "@types/lodash": "^4.14.173",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -84,9 +83,17 @@
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.8",
     "@types/react-slick": "^0.23.5",
+    "@types/react-tabs": "^2.3.3",
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.8",
-    "@types/redux-thunk": "^2.1.0"
+    "@types/redux-thunk": "^2.1.0",
+    "jest-html-reporter": "^3.3.0",
+    "jest-junit": "^12.0.0",
+    "lint-staged": "^10.5.4",
+    "lodash": "^4.17.21",
+    "plop": "^2.7.4",
+    "remark-preset-lint-recommended": "^5.0.0",
+    "ts-jest": "^26.5.3"
   },
   "browserslist": {
     "production": [

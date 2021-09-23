@@ -138,6 +138,26 @@ $color-gradient: linear-gradient(89.92deg, #016DB0 1.29%, #01FFCA 99.94%);
   }
 }
 
+$defaultFlexBoxAlign: center;
+$defaultFlexBoxJustify: center;
+@mixin flexbox($align: $defaultFlexBoxAlign, $justify: $defaultFlexBoxJustify) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin inlineFlexbox($align: $defaultFlexBoxAlign, $justify: $defaultFlexBoxJustify) {
+  display: inline-flex;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin gradientText() {
+  background: $color-gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 @mixin body-1 {
   font-size: 24px;
   line-height: (32 / 24);
@@ -280,6 +300,36 @@ $color-gradient: linear-gradient(89.92deg, #016DB0 1.29%, #01FFCA 99.94%);
 
 @mixin rmin($width) {
   @media only screen and (min-width: $width + "px") {
+    @content;
+  }
+}
+
+@mixin forTablet {
+  @media screen and (max-width: 481px) {
+    @content;
+  }
+}
+
+@mixin forDesktopSm {
+  @media screen and (max-width: 782px) {
+    @content;
+  }
+}
+
+@mixin forDesktopMiddle {
+  @media screen and (max-width: 900px) {
+    @content;
+  }
+}
+
+@mixin forDesktopBig {
+  @media screen and (max-width: 1281px) {
+    @content;
+  }
+}
+
+@mixin forDesktopHuge {
+  @media screen and (max-width: 1441px) {
     @content;
   }
 }

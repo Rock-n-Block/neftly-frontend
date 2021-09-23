@@ -1,0 +1,8 @@
+@import "../../../../../styles/helpers";
+
+.priceWrapper {
+  @include flexbox(center, space-between);
+  & > * {
+    margin-right: 10px;
+  }
+}

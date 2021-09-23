@@ -1,19 +1,20 @@
 import { FC, PropsWithChildren } from 'react';
 import cx from 'classnames';
+import { IconNames } from 'typings';
 
 import { Icon } from '..';
 
 import styles from './styles.module.scss';
 
 type Props = {
-  color?: 'blue' | 'outline';
+  color?: 'blue' | 'outline' | 'transparent';
   size?: any;
   isFullWidth?: boolean;
   className?: string;
   onClick?: (event: any) => void;
   type?: 'button' | 'submit';
   disabled?: boolean;
-  icon?: any;
+  icon?: IconNames;
   loading?: boolean;
   styledType?: string;
   onMouseLeave?: any;
@@ -29,7 +30,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
   children,
   disabled,
   icon,
-  }) => (
+}) => (
   <button
     // eslint-disable-next-line react/button-has-type
     type={type}

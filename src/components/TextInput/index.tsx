@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
+import { arrowLeft } from 'assets/img';
 import cn from 'classnames';
 import { Icon } from 'components';
+import Button from 'components/Button';
 import { IconNames } from 'typings';
 
 import styles from './TextInput.module.scss';
@@ -21,6 +23,7 @@ interface Props {
   disabled?: boolean;
   error?: boolean;
   icon?: IconNames;
+  isButton?: boolean;
 }
 
 const TextInput: React.FC<Props> = ({
@@ -35,6 +38,7 @@ const TextInput: React.FC<Props> = ({
   prefix,
   error,
   icon,
+  isButton,
   ...props
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -78,6 +82,11 @@ const TextInput: React.FC<Props> = ({
               : { paddingRight: suffix ? '74px' : '' }
           }
         />
+        {isButton && (
+          <Button className={styles.inputButton}>
+            <img src={arrowLeft} alt="" />
+          </Button>
+        )}
         <div className={cn(styles.suffix, suffixClassName)}>{suffix}</div>
       </div>
     </div>

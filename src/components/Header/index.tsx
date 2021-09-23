@@ -1,56 +1,36 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
-import nextId from 'react-id-generator';
 import { useLocation } from 'react-router';
-import { Link, useHistory } from 'react-router-dom';
-import cn from 'classnames';
+import { bell, profileHeader, wallet } from 'assets/img';
+// import { Link } from 'react-router-dom';
+// import cn from 'classnames';
+import { Link, Logo } from 'components';
+import Button from 'components/Button';
 import { observer } from 'mobx-react-lite';
+
+// import { useWalletConnectorContext } from '../../services/walletConnect';
+import { useMst } from '../../store/store';
 import TextInput from '../TextInput/index';
 
-import { useWalletConnectorContext } from '../../services/walletConnect';
-import { useMst } from '../../store/store';
-import Button from '../Button';
-import Image from '../Image';
-
-import Notification from './Notification';
-import User from './User';
-
-import styles from './Header.module.scss';
+// import User from './User';
+import styles from './styles.module.scss';
 
 const nav = [
   {
-    url: '/search01',
+    url: '/discover',
     title: 'Discover',
   },
   {
     url: '/faq',
     title: 'How it work',
   },
-  {
-    url: '/item',
-    title: 'Create item',
-  },
-  {
-    url: '/profile',
-    title: 'Profile',
-  },
 ];
 
 const Headers: React.FC = observer(() => {
-  const [visibleNav, setVisibleNav] = useState(false);
   const { pathname } = useLocation();
-  const history = useHistory();
-  // const [search, setSearch] = useState('');
-  const walletConnector = useWalletConnectorContext();
+  // const walletConnector = useWalletConnectorContext();
   const { user } = useMst();
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    user.setIsSearching(true);
-    history.push('/');
-  };
-
-  // useEffect(() => {
-  //   user.setSearch(search);
-  // }, [user, search]);
+  const [isConnected, setConnected] = useState(false);
 
   useEffect(() => {
     if (pathname !== '/') {
@@ -60,84 +40,47 @@ const Headers: React.FC = observer(() => {
     }
   }, [user, pathname]);
 
-  // useEffect(() => {
-  //   if (isLoading) handleSubmit()
-  // }, [handleSubmit, isLoading])
-
   return (
     <header className={styles.header}>
-      <div className={cn('container', styles.container)}>
-        <Link className={styles.logo} to="/">
-          <Image
-            className={styles.pic}
-            src="/images/logo.svg"
-            // srcDark="/images/logo-light.png"
-            alt="Fitness Pro"
-          />
-        </Link>
-        <div className={cn(styles.wrapper, { [styles.active]: visibleNav })}>
-          <nav className={styles.nav}>
-            {nav.map((x) => (
-              <Link
-                className={styles.link}
-                // activeClassName={styles.active}
-                to={x.url}
-                key={nextId()}
-              >
-                {x.title}
-              </Link>
-            ))}
-          </nav>
-          <form className={styles.search} action="" onSubmit={(e: any) => handleSubmit(e)}>
-            <TextInput
-              type="text"
-              placeholder="Search by tags, themes, artists, etc"
-              icon="search"
-              name="search"
-              value={user.search}
-              onChange={(e) => user.setSearch(e.target.value)}
-            />
-            {/* <button type="submit" className={styles.result}>
-              <Icon name="search" size="20" />
-            </button> */}
-          </form>
-          {user.address ? (
-            <Link className={cn('button-small', styles.button)} to="/upload-variants">
-              Upload
-            </Link>
-          ) : (
-            ''
-          )}
-        </div>
-        <Notification className={styles.notification} />
-        {user.address ? (
-          <Link className={cn('button-small', styles.button)} to="/upload-variants">
-            Upload
-          </Link>
-        ) : (
-          ''
-        )}
-        {!user.address ? (
-          <Button
-            // tabIndex={0}
-            className={cn('button-stroke button-small', styles.button)}
-            onClick={() => walletConnector.connect()}
-            // to="/connect-wallet"
-          >
-            Connect Wallet
-          </Button>
-        ) : (
-          <User className={styles.user} />
-        )}
-        <button
-          type="button"
-          aria-label="Toogle visibility"
-          tabIndex={0}
-          onKeyDown={() => {}}
-          className={cn(styles.burger, { [styles.active]: visibleNav })}
-          onClick={() => setVisibleNav(!visibleNav)}
+      <div className={styles.flex}>
+        <Logo className={styles.headerLogo} />
+        <TextInput
+          type="text"
+          placeholder="Search by tags, themes, artists, etc"
+          icon="search"
+          name="search"
+          value={user.search}
+          onChange={(e) => user.setSearch(e.target.value)}
+          className={styles.headerSearch}
         />
       </div>
+      <div className={styles.headerNavigation}>
+        {nav.map(({ url, title }) => {
+          // eslint-disable-next-line jsx-a11y/anchor-is-valid
+          return <Link name={title} link={url} />;
+        })}
+      </div>
+      {isConnected ? (
+        <div className={styles.profileInfo}>
+          <Button color="transparent">
+            <img src={bell} alt="" />
+          </Button>
+          <Button color="transparent">
+            <img src={wallet} alt="" />
+          </Button>
+          <Button color="transparent" className={styles.profileImageWrapper}>
+            <img src={profileHeader} alt="" />
+          </Button>
+        </div>
+      ) : (
+        <Button
+          onClick={() => setConnected(!isConnected)}
+          className={styles.headerConnectBtn}
+          color="outline"
+        >
+          Connect Wallet
+        </Button>
+      )}
     </header>
   );
 });
