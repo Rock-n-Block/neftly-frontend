@@ -1,6 +1,12 @@
 @import '../../styles/helpers';
 
 .footer {
+  
+  background: $color-bg2;
+  border-top: 1px solid $color-neutral-80;
+}
+
+.footerContent {
   padding: 88px 88px 20px 88px;
   max-width: 1500px;
   margin: 0 auto;

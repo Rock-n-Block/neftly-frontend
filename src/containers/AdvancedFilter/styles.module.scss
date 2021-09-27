@@ -1,0 +1,58 @@
+@import '../../styles//helpers.scss';
+
+.advancedFilter {
+  height: 100%;
+  padding: 32px;
+  & > * {
+    margin-bottom: 30px
+  }
+}
+
+.rangeFilter {
+  margin-top: 20px;
+}
+
+.colorButtonContainer {
+  margin-top: 10px;
+  @include flexbox(center, flex-start);
+}
+
+.tagContainer {
+  @include flexbox(center, flex-start);
+  flex-wrap: wrap;
+}
+
+.filterTag {
+  margin: 0 10px 10px 0;
+}
+
+.colorButtonContainer .colorBtn {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-left: 10px;
+
+  &.selected {
+   &:after {
+     position: absolute;
+     content: '';
+     width: 12px;
+     height: 12px;
+     background: $color-neutral-0;
+     border-radius: 50%;
+     left: 50%;
+     top: 50%;
+     transform: translate(-50%, -50%);
+
+   }
+  }
+}
+
+.clearColorBtn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid $color-neutral-20;
+  @include flexbox;
+}
