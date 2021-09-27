@@ -43,32 +43,36 @@ const nav = [
 const Footers: React.FC = () => {
   return (
     <footer className={styles.footer}>
-      <div className={styles.linksAndControls}>
-        <div className={styles.footerLogo}>
-          <Logo className={styles.logo} />
-          <Text size="xxl">The New Creative Economy.</Text>
+      <div className={styles.footerContent}>
+        <div className={styles.linksAndControls}>
+          <div className={styles.footerLogo}>
+            <Logo className={styles.logo} />
+            <Text size="xxl">The New Creative Economy.</Text>
+          </div>
+          <div className={styles.footerLinks}>
+            {nav.map((block) => {
+              const { title, links } = block;
+              return (
+                <div className={styles.linkBlock}>
+                  <Text size="m">{title}</Text>
+                  {links.map((link) => (
+                    <Link color="lightGray" name={link.title} link={link.link} />
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+          <div className={styles.footerActions}>
+            <Text size="m">Join Newsletter</Text>
+            <Text size="m">
+              Subscribe our newsletter to get more free design course and resource
+            </Text>
+            <TextInput isButton placeholder="Enter your email" type="text" />
+          </div>
         </div>
-        <div className={styles.footerLinks}>
-          {nav.map((block) => {
-            const { title, links } = block;
-            return (
-              <div className={styles.linkBlock}>
-                <Text size="m">{title}</Text>
-                {links.map((link) => (
-                  <Link color="lightGray" name={link.title} link={link.link} />
-                ))}
-              </div>
-            );
-          })}
+        <div className={styles.copyrightBlock}>
+          <Text color="gray">Copyright © 2021 UI8 LLC. All rights reserved</Text>
         </div>
-        <div className={styles.footerActions}>
-          <Text size="m">Join Newsletter</Text>
-          <Text size="m">Subscribe our newsletter to get more free design course and resource</Text>
-          <TextInput isButton placeholder="Enter your email" type="text" />
-        </div>
-      </div>
-      <div className={styles.copyrightBlock}>
-        <Text color="gray">Copyright © 2021 UI8 LLC. All rights reserved</Text>
       </div>
     </footer>
   );

@@ -8,4 +8,8 @@ export { default as ArtCard } from './ArtCard';
 export { default as Tag } from './Tag';
 export { default as Link } from './Link';
 export { default as Logo } from './Logo';
+export { default as TabLookingComponent } from './TabLookingComponent';
+export { default as Select } from './Select';
+export { default as RangePicker } from './RangePicker';
+export { default as Switcher } from './Switcher';
 export * from './Typography';

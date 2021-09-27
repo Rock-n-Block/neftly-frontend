@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import { CSSProperties, FC, PropsWithChildren } from 'react';
 import cx from 'classnames';
 import { IconNames } from 'typings';
 
@@ -18,6 +18,7 @@ type Props = {
   loading?: boolean;
   styledType?: string;
   onMouseLeave?: any;
+  style?: CSSProperties;
 };
 
 const Button: FC<PropsWithChildren<Props>> = ({
@@ -30,6 +31,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
   children,
   disabled,
   icon,
+  style,
 }) => (
   <button
     // eslint-disable-next-line react/button-has-type
@@ -40,6 +42,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
     })}
     onClick={onClick}
     disabled={disabled as boolean}
+    style={style}
   >
     {icon && <Icon className={styles.icon} name={icon} />}
     {children}

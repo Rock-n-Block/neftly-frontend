@@ -6,11 +6,6 @@
   padding: 30px 0 0 0;
 }
 
-.scrollProvider {
-  overflow-x: auto;
-  margin: 20px 0 0 0;
-}
-
 .gradientTitle {
   @include gradientText;
   margin: 0 auto;
@@ -18,32 +13,13 @@
 }
 
 
-.tabWrapper {
-  margin: 0 auto;
-  width: 180px * 4;
+.tabs {
   height: 75px;
-  @include flexbox(center, space-around);
-  .tab {
-    position: relative;
-    @include flexbox;
-    height: 100%;
-    width: 100%;
-    
-    &:before {
-      content: ' ';
-      transition: 150ms ease-out;
-      position: absolute;
-      width: 0;
-      bottom: 0;
-      height: 2px;
-      background: $color-secondary;
-    }
-    &.selected {
-      &:before {
-        width: 100%;
-      }
-    }
-  }
+  margin-top: 20px;
+}
+
+.tab {
+  width: 170px;
 }
 
 .artistsWrapper {
@@ -51,9 +27,4 @@
   & > * {
     margin-top: 20px;
   }
-}
-
-
-.scrollProvider::-webkit-scrollbar {
-  display: none;
 }
