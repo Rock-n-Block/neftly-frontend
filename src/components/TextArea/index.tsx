@@ -2,6 +2,7 @@ import cn from 'classnames';
 import styles from './TextArea.module.scss';
 
 import {emoji, italic, olList, ulList, link, bold} from 'assets/img/icons/textEditor';
+import {Button} from "../index";
 
 interface ITextAreaProps {
   className?: string;
@@ -42,12 +43,20 @@ const TextArea: React.FC<ITextAreaProps> = ({
         <textarea value={value} onChange={handleChange} className={styles.textarea} {...props} />
         {editable ? (
           <div className={styles.edit}>
-            <img src={emoji} alt='emoji' width={24} height={24}/>
-            <img src={bold} alt='emoji' width={24} height={24}/>
-            <img src={italic} alt='emoji' width={24} height={24}/>
-            <img src={olList} alt='emoji' width={24} height={24}/>
-            <img src={ulList} alt='emoji' width={24} height={24}/>
-            <img src={link} alt='emoji' width={24} height={24}/>
+            <Button color="transparent">
+              <img src={emoji} alt='emoji' width={24} height={24}/></Button>
+            <Button color="transparent">
+              <img src={bold} alt='emoji' width={24} height={24}/></Button>
+            <Button color="transparent">
+              <img src={italic} alt='emoji' width={24} height={24}/></Button>
+            <Button color="transparent">
+              <img src={olList} alt='emoji' width={24} height={24}/></Button>
+            <Button color="transparent">
+              <img src={ulList} alt='emoji' width={24} height={24}/></Button>
+            <Button color="transparent">
+              <img src={link} alt='emoji' width={24} height={24}/></Button>
+
+
           </div>
         ) : (<></>)}
         {maxLettersCount ? (<p>{value?.length}/{maxLettersCount}</p>) : (<></>)}
