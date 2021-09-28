@@ -1,6 +1,8 @@
 import cn from 'classnames';
-import styles from './Report.module.scss';
+
 import TextArea from '../TextArea';
+
+import styles from './Report.module.scss';
 
 interface IReportProps {
   className?: string;

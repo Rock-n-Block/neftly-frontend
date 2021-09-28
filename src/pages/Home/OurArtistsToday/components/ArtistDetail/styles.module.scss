@@ -1,13 +1,14 @@
-@import "../../../../../styles/helpers";
+@import '../../../../../styles/helpers';
 
 .artistDetail {
   position: relative;
+
   height: 100%;
 }
 
 .addressAndName {
   :not(:last-child) {
-    margin-right: 20px
+    margin-right: 20px;
   }
   @include flexbox(center, flex-start);
 }
@@ -16,9 +17,9 @@
   width: 90%;
 
   & > img {
-    max-height: 375px;
-    max-width: 396px;
     width: 100%;
+    max-width: 396px;
+    max-height: 375px;
   }
 }
 
@@ -27,8 +28,9 @@
 }
 
 .detailsSection {
-  line-height: 33px;
   padding: 32px;
+
+  line-height: 33px;
 }
 
 .artistDescription {
@@ -38,8 +40,9 @@
 .artistDetailsControls {
   @include flexbox(center, space-between);
   position: absolute;
-  width: 80%;
   bottom: 88px;
+
+  width: 80%;
 }
 
 .viewArtworkBtn {

@@ -1,6 +1,8 @@
 import cn from 'classnames';
-import styles from './Form.module.scss';
+
 import Icon from '../Icon';
+
+import styles from './Form.module.scss';
 
 interface IFormProps {
   className?: string;

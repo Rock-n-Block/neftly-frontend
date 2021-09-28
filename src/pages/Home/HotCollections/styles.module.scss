@@ -1,9 +1,11 @@
-@import "../../../styles/helpers";
+@import '../../../styles/helpers';
 
 .hotCollections {
-  padding: 88px;
-  max-width: 1600px;
   margin: 0 auto;
+  padding: 88px;
+
+  max-width: 1600px;
+
   & > * {
     &:not(:last-child) {
       margin-bottom: 30px;
@@ -23,7 +25,9 @@
 .artCardsWrapper {
   @include flexbox();
   flex-wrap: wrap;
+
   margin: -20px;
+
   & > * {
     margin: 20px;
   }

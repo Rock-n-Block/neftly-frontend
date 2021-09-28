@@ -7,31 +7,38 @@ $trackSize: 16px;
 }
 
 .rc-slider {
-  height: $trackSize;
   padding: 0;
+
+  height: $trackSize;
+
   .rc-slider-rail {
-    border-radius: 2px;
     height: $trackSize;
+
     background-color: $color-neutral-0;
+    border-radius: 2px;
     opacity: 0.1;
   }
 
   .rc-slider-track {
-    border-radius: 2px;
     height: $trackSize;
+
     background: $color-primary;
+    border-radius: 2px;
+
     transition: 0.2s width;
   }
 
   .rc-slider-handle {
+    margin-top: -8px;
+
     width: 28px;
     height: 28px;
+
     background-color: $color-primary;
     border: 4px solid $color-neutral-0;
     border-radius: 20px;
-
-    margin-top: -8px;
     box-shadow: none;
+
     transition: 0.2s left;
   }
 }
@@ -40,12 +47,12 @@ $trackSize: 16px;
   @include flexbox;
   height: 100%;
 
-
   .rc-slider-rail {
-    border-radius: 2px;
     width: $trackSize;
     height: 100%;
-    background-color: #191D2B;
+
+    background-color: #191d2b;
+    border-radius: 2px;
   }
 
   .rc-slider-handle {
@@ -53,9 +60,11 @@ $trackSize: 16px;
   }
 
   .rc-slider-track {
+    left: calc(50% - #{$trackSize / 2});
+
     width: $trackSize;
     height: 100%;
-    left: calc(50% - #{$trackSize / 2});
+
     transition: 0.2s height;
   }
 

@@ -1,27 +1,31 @@
-@import "../../styles/helpers";
+@import '../../styles/helpers';
 
 .head {
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  height: 326px;
+
   padding: 32px 0;
+
+  display: flex;
+  overflow: hidden;
+  align-items: flex-end;
+
+  height: 326px;
+
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
-  overflow: hidden;
 
   @include t {
-    height: 260px;
     padding-bottom: 64px;
-  }
 
+    height: 260px;
+  }
 
   @include m {
-    height: 230px;
     padding-bottom: 56px;
-  }
 
+    height: 230px;
+  }
 
   .container {
     display: flex;
@@ -34,8 +38,9 @@
     }
 
     .file {
-      opacity: 1;
       visibility: visible;
+
+      opacity: 1;
     }
   }
 }
@@ -44,14 +49,13 @@
   transition: opacity 0.2s;
 
   .button {
-    box-shadow: 0 0 0 2px $neutrals4 inset;
     color: $neutrals8;
+    box-shadow: 0 0 0 2px $neutrals4 inset;
 
     @include m {
-      flex-grow: 1;
       padding: 0 10px;
+      flex-grow: 1;
     }
-
 
     svg {
       fill: $neutrals8;
@@ -71,52 +75,63 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+
   display: flex;
+  visibility: hidden;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+  height: 100%;
+
   text-align: center;
+
   color: $neutrals8;
   opacity: 0;
-  visibility: hidden;
+
   transition: all 0.2s;
 
   @include m {
-    align-items: flex-start;
     padding-top: 40px;
+
+    align-items: flex-start;
   }
 
+  &::before,
+  &::after {
+    content: '';
 
-  &:before,
-  &:after {
-    content: "";
     position: absolute;
   }
 
-  &:before {
+  &::before {
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
+
     background: rgba($neutrals1, 0.6);
   }
 
-  &:after {
+  &::after {
     top: 8px;
-    left: 8px;
     right: 8px;
+    left: 8px;
     bottom: 8px;
+
     border: 2px dashed $neutrals6;
     border-radius: 12px;
   }
 
   input {
     position: absolute;
+    z-index: 3;
     top: 0;
     left: 0;
-    z-index: 3;
+
     font-size: 1400px;
+
     opacity: 0;
   }
 
@@ -125,25 +140,26 @@
     fill: $neutrals8;
 
     @include m {
+      margin-bottom: 12px;
+
       width: 24px;
       height: 24px;
-      margin-bottom: 12px;
     }
   }
 
   .button {
     position: absolute;
+    z-index: 4;
     right: 16px;
     bottom: 16px;
-    z-index: 4;
 
     @include t {
       bottom: 48px;
     }
 
-
     @include m {
       right: 50%;
+
       transform: translateX(50%);
     }
   }
@@ -156,8 +172,8 @@
 
 .info {
   font-size: 24px;
-  line-height: (32 / 24);
   font-weight: 600;
+  line-height: (32 / 24);
 
   @include m {
     font-size: 16px;
@@ -174,18 +190,18 @@
 .body {
   position: relative;
   z-index: 3;
+
   padding: 80px 0;
+
   background: $dark-bg;
 
   @include t {
     padding-top: 0;
   }
 
-
   @include m {
     padding: 0 0 64px;
   }
-
 
   .container {
     display: flex;
@@ -198,38 +214,43 @@
 }
 
 .user {
-  flex-shrink: 0;
-  width: 256px;
   margin-top: -193px;
 
+  width: 256px;
+  flex-shrink: 0;
+
   @include t {
-    width: 100%;
     margin: (-32px) 0 48px;
+
+    width: 100%;
   }
 }
 
 .wrapper {
-  flex: 0 0 calc(100% - 256px);
-  width: calc(100% - 256px);
   padding-left: 64px;
+
+  width: calc(100% - 256px);
+  flex: 0 0 calc(100% - 256px);
 
   @include x {
     padding-left: 32px;
   }
 
-
   @include t {
-    width: 100%;
     padding-left: 0;
+
+    width: 100%;
   }
 }
 
 .nav {
-  display: flex;
   margin: 0 -6px 32px;
+
+  display: flex;
 
   @include m {
     margin: 0 -32px 32px;
+
     overflow: auto;
     overflow-x: auto;
     -ms-overflow-style: none;
@@ -240,48 +261,49 @@
       display: none;
     }
 
-    &:before,
-    &:after {
-      content: "";
-      flex-shrink: 0;
+    &::before,
+    &::after {
+      content: '';
+
       width: 32px;
       height: 1px;
+      flex-shrink: 0;
     }
   }
 }
 
 .link {
-  flex-shrink: 0;
   margin: 0 6px;
   padding: 6px 12px;
-  border-radius: 14px;
-  background: none;
-
-  @include button-2;
 
   color: $purple2;
+  background: none;
+  border-radius: 14px;
+
   transition: all 0.2s;
+  flex-shrink: 0;
+
+  @include button-2;
 
   @include m {
     margin: 0;
   }
 
-
   &:hover {
     color: $neutrals4;
 
     // @include dark {
-      // color: $purple2;
+    // color: $purple2;
     // }
   }
 
   &.active {
-    background: $neutrals3;
     color: $neutrals8;
+    color: $white;
+    background: $neutrals3;
 
     // @include dark {
-      background: $gradient;
-      color: $white;
+    background: $gradient;
     // }
   }
 

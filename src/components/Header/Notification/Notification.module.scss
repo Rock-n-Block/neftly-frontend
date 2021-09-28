@@ -1,4 +1,4 @@
-@import "../../../styles/helpers";
+@import '../../../styles/helpers';
 
 .notification {
   position: relative;
@@ -10,12 +10,14 @@
 
 .head {
   position: relative;
+
   width: 40px;
   height: 40px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   svg {
     fill: $purple2;
+
     transition: fill 0.2s;
   }
 
@@ -26,15 +28,18 @@
   }
 
   &.active {
-    &:before {
-      content: "";
+    &::before {
+      content: '';
+
       position: absolute;
       top: 0;
       right: 0;
+
       width: 12px;
       height: 12px;
-      border-radius: 50%;
+
       background: $gradient;
+      border-radius: 50%;
     }
   }
 }
@@ -43,36 +48,45 @@
   position: absolute;
   top: calc(100% + 30px);
   left: 50%;
-  width: 396px;
+
   margin-left: -198px;
   padding: 40px 32px 32px;
-  box-shadow: 0px 16px 64px -48px rgba(31, 47, 70, 0.4);
-  border-radius: 24px;
+
+  width: 396px;
+
   background: $gradient4;
+  border-radius: 24px;
   opacity: 0;
+  box-shadow: 0 16px 64px -48px rgba(31, 47, 70, 0.4);
+
   transform: scale(0.9);
   transform-origin: 50% 50px;
-  will-change: transform;
   animation: showNotification 0.4s forwards;
+  will-change: transform;
 
   @include m {
-    left: 16px;
-    right: 16px;
     top: calc(100% + 16px);
-    width: auto;
+    right: 16px;
+    left: 16px;
+
     margin: 0;
     padding: 32px 16px;
-    box-shadow: 0px 16px 32px 0 rgba(31, 47, 70, 0.4);
+
+    width: auto;
+
+    box-shadow: 0 16px 32px 0 rgba(31, 47, 70, 0.4);
   }
 
-
   .triangle {
-    content: "";
+    content: '';
+
     position: absolute;
     left: 50%;
     bottom: 100%;
+
     width: 32px;
     height: 13px;
+
     transform: translateX(-50%);
 
     @include m {
@@ -81,23 +95,25 @@
   }
 
   // @include dark {
-    // background: $neutrals1;
-    // box-shadow: 0px 16px 32px 0 rgba($neutrals1, 0.6);
+  // background: $neutrals1;
+  // box-shadow: 0px 16px 32px 0 rgba($neutrals1, 0.6);
 
-    // &:before {
-    //   background-image: url("data:image/svg+xml,%3Csvg width='32' height='13' viewBox='0 0 32 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.3432 2.65685L0 13H32L21.6569 2.65686C18.5327 -0.467339 13.4673 -0.467344 10.3432 2.65685Z' fill='%23141416'/%3E%3C/svg%3E%0A");
-    // }
+  // &:before {
+  //   background-image: url("data:image/svg+xml,%3Csvg width='32' height='13' viewBox='0 0 32 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.3432 2.65685L0 13H32L21.6569 2.65686C18.5327 -0.467339 13.4673 -0.467344 10.3432 2.65685Z' fill='%23141416'/%3E%3C/svg%3E%0A");
+  // }
   // }
 }
 
 @keyframes showNotification {
   0% {
     opacity: 0;
+
     transform: scale(0.9);
   }
 
   100% {
     opacity: 1;
+
     transform: scale(1);
   }
 }
@@ -120,37 +136,42 @@
 
 .item {
   position: relative;
+
+  padding: 16px 40px 16px 16px;
+
   display: flex;
   align-items: center;
-  padding: 16px 40px 16px 16px;
+
   border-radius: 16px;
+
   transition: background 0.2s;
 
   &:hover {
     background: $neutrals7;
 
     // @include dark {
-      background: $dark-bg;
+    background: $dark-bg;
     // }
   }
 }
 
 .preview {
-  flex-shrink: 0;
+  margin-right: 24px;
+
   width: 64px;
   height: 64px;
-  margin-right: 24px;
+  flex-shrink: 0;
 
   @include m {
     margin-right: 16px;
   }
 
-
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+
     border-radius: 16px;
+    object-fit: cover;
   }
 }
 
@@ -160,26 +181,25 @@
 
 .subtitle {
   @include body-bold-2;
-
   color: $neutrals1;
 
   // @include dark {
-    color: $neutrals8;
+  color: $neutrals8;
   // }
 }
 
 .price {
   font-weight: 500;
+
   color: $neutrals3;
 
   // @include dark {
-    color: $neutrals6;
+  color: $neutrals6;
   // }
 }
 
 .date {
   @include caption-2;
-
   color: $neutrals4;
 }
 
@@ -187,10 +207,13 @@
   position: absolute;
   top: 50%;
   right: 16px;
-  transform: translateY(-50%);
+
   width: 12px;
   height: 12px;
+
   border-radius: 50%;
+
+  transform: translateY(-50%);
 }
 
 .button {
@@ -200,7 +223,9 @@
 
   @include m {
     position: static;
-    width: 100%;
+
     margin-top: 20px;
+
+    width: 100%;
   }
 }

@@ -5,4 +5,8 @@ export const routes = {
   discover: {
     root: '/discover',
   },
+  profile: {
+    root: '/profile/:userId',
+    edit: '/profile/edit',
+  },
 };

@@ -1,4 +1,4 @@
-@import "../../../../styles/helpers";
+@import '../../../../styles/helpers';
 
 .category {
   @include body-bold-2;
@@ -8,13 +8,13 @@
   margin-top: 4px;
 
   @include caption-2;
-
   color: $neutrals4;
 }
 
 .cards {
-  display: flex;
   margin: 24px -4px 0;
+
+  display: flex;
   overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -24,33 +24,35 @@
     margin: 24px -32px 0;
   }
 
-
   &::-webkit-scrollbar {
     display: none;
   }
 
   @include m {
-    &:before,
-    &:after {
-      content: "";
-      flex-shrink: 0;
+    &::before,
+    &::after {
+      content: '';
+
       width: 32px;
       height: 1px;
+      flex-shrink: 0;
     }
   }
 }
 
 .card {
-  flex-shrink: 0;
-  width: 160px;
   margin: 0 4px;
   padding: 24px;
-  border-radius: 16px;
-  background: $gradient2;
 
-  @include button-2;
+  width: 160px;
 
   cursor: pointer;
+
+  background: $gradient2;
+  border-radius: 16px;
+  flex-shrink: 0;
+
+  @include button-2;
 
   @include m {
     margin: 0;
@@ -60,12 +62,9 @@
     }
   }
 
-
   // @include dark {
   //   background: $neutrals2;
   // }
-
-
   &:hover {
     .plus {
       svg {
@@ -76,21 +75,25 @@
 }
 
 .plus {
+  margin-bottom: 12px;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 32px;
   height: 32px;
+
   border-radius: 50%;
-  margin-bottom: 12px;
 
   svg {
-    fill: $neutrals8;
     opacity: 0;
+
     transition: opacity 0.2s;
+    fill: $neutrals8;
   }
 }
 
-.active{
-  border: 2px solid #674DF6
+.active {
+  border: 2px solid #674df6;
 }

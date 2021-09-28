@@ -1,15 +1,15 @@
 @import '../../styles/helpers';
 
 .footer {
-  
   background: $color-bg2;
   border-top: 1px solid $color-neutral-80;
 }
 
 .footerContent {
-  padding: 88px 88px 20px 88px;
-  max-width: 1500px;
   margin: 0 auto;
+  padding: 88px 88px 20px 88px;
+
+  max-width: 1500px;
 }
 
 .linksAndControls {
@@ -40,6 +40,7 @@
 .linkBlock {
   @include flexbox(flex-start, flex-start);
   flex-direction: column;
+
   & > * {
     margin-bottom: 20px;
   }
@@ -47,10 +48,12 @@
 
 .footerActions {
   flex-basis: 25%;
+
+  margin-bottom: 60px;
+
   & > * {
     margin-bottom: 20px;
   }
-  margin-bottom: 60px;
 }
 
 .copyrightBlock {

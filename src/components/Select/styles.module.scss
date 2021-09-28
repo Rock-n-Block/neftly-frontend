@@ -2,12 +2,14 @@
 
 @mixin disabled {
   pointer-events: none;
-  opacity: .6;
+
+  opacity: 0.6;
 }
 
 .label {
-  display: inline-block;
   margin-right: 12px;
+
+  display: inline-block;
   flex: 0 0 auto;
 
   &.disabled {
@@ -41,7 +43,6 @@
 }
 
 .select {
-
   &.disabled {
     .control {
       // background: $color-gray;
@@ -53,11 +54,13 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 
 :root {
   .select .control {
-    height: 40px;
     box-sizing: border-box;
     min-width: 140px;
-    border: 1px solid $color-neutral-80;
+    height: 40px;
+
     background: none;
+    border: 1px solid $color-neutral-80;
+
     &:hover {
       border-color: $color-neutral-60;
     }
@@ -71,7 +74,6 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
       // border-bottom-right-radius: 0;
       // background-color: $color-light-green;
       // box-shadow: $box-shadow;
-
       &.dark {
         // background-color: $color-black;
         // border: 1px solid $color-black;
@@ -82,8 +84,8 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   }
 
   .valueContainer {
-    padding: 0;
     margin-right: 10px;
+    padding: 0;
 
     height: 100%;
 
@@ -94,6 +96,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   .singleValue {
     font-size: 16px;
     font-weight: 600;
+
     color: $color-neutral-0;
   }
 }
@@ -104,6 +107,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 
 .control {
   height: 50px;
+
   border-radius: 0 !important;
 
   &.focused {
@@ -111,20 +115,23 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   }
 
   &.s {
-    height: 34px;
     padding: 10px 16px;
+
+    height: 34px;
 
     font-size: 12px;
   }
 
   &.m {
-    height: 44px;
     padding: 10px 20px;
+
+    height: 44px;
   }
 
   &.l {
-    height: 58px;
     padding: 10px 20px;
+
+    height: 58px;
   }
 
   &.dark {
@@ -139,18 +146,20 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 
 :root .placeholder {
   display: block;
-  width: 90%;
-
-  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+
+  width: 90%;
 
   font-size: 16px;
   font-weight: 600;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 :root .menu {
-  margin: 30px 0 0 0 ;
+  margin: 30px 0 0 0;
+
   background: $color-bg;
   border: 1px solid $color-neutral-80;
   border-radius: 0;
@@ -167,10 +176,11 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 
 :root .option {
   @include flexbox(center, flex-start);
+  margin: -2px 0;
   padding: 10px 20px;
+
   background-color: none;
 
-  margin: -2px 0;
   &:not(:last-child) {
     border-bottom: 1px solid $color-neutral-80;
   }
@@ -178,7 +188,6 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   // &:hover {
   //   background-color: $color-neutral-20;
   // }
-
   &.selected {
   }
 
@@ -200,8 +209,9 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 
 .dropdownIndicator {
   width: 25px;
-  transform: rotate(-90deg);
+
   transition: all 200ms ease-in;
+  transform: rotate(-90deg);
 
   &.open {
     transform: rotate(-270deg);
@@ -217,11 +227,11 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 }
 
 .iconOption {
+  margin-right: 12px;
+
   width: 34px;
   height: 34px;
 
   object-fit: contain;
   object-position: center;
-
-  margin-right: 12px;
 }

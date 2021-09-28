@@ -1,13 +1,13 @@
-@import "../../../styles/helpers";
+@import '../../../styles/helpers';
 
 .section {
-  overflow: hidden;
   padding-bottom: 140px;
+
+  overflow: hidden;
 
   @include x {
     padding-bottom: 112px;
   }
-
 
   @include m {
     padding-bottom: 64px;
@@ -15,19 +15,20 @@
 }
 
 .top {
-  display: flex;
-  align-items: center;
   margin-bottom: 54px;
 
+  display: flex;
+  align-items: center;
+
   @include m {
-    display: block;
     margin-bottom: 32px;
+
+    display: block;
   }
 }
 
 .stage {
   @include body-bold-1;
-
   color: $neutrals4;
 }
 
@@ -35,7 +36,6 @@
   margin-bottom: 12px;
 
   @include hairline-2;
-
   color: $neutrals5;
 }
 
@@ -56,10 +56,10 @@
     margin: 0 0 16px;
   }
 
-
   .dropdown {
-    min-width: auto;
     margin-left: -24px;
+
+    min-width: auto;
 
     @include m {
       display: inline-block;
@@ -77,17 +77,18 @@
 
 .item {
   padding: 24px;
-  border-radius: 16px;
+
   background: $neutrals8;
+  border-radius: 16px;
+
   transition: box-shadow 0.2s;
 
   @include dark {
     background: $neutrals1;
   }
 
-
   &:hover {
-    box-shadow: 0px 64px 64px -48px rgba(31, 47, 70, 0.12);
+    box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
 
     .avatar {
       width: 80px;
@@ -100,10 +101,12 @@
 }
 
 .head {
-  display: flex;
-  align-items: center;
   margin-bottom: 24px;
   padding-bottom: 24px;
+
+  display: flex;
+  align-items: center;
+
   border-bottom: 1px solid $neutrals6;
 
   @include dark {
@@ -112,16 +115,18 @@
 }
 
 .rating {
-  display: flex;
-  align-items: center;
-  height: 24px;
   margin-right: auto;
   padding: 0 8px;
+
+  display: flex;
+  align-items: center;
+
+  height: 24px;
+
+  color: $neutrals8;
   border-radius: 12px;
 
   @include caption-bold-2;
-
-  color: $neutrals8;
 }
 
 .icon {
@@ -139,6 +144,7 @@
 .button {
   svg {
     fill: $neutrals5;
+
     transition: fill 0.2s;
   }
 
@@ -159,24 +165,31 @@
 
 .avatar {
   position: relative;
-  width: 64px;
+
   margin: 0 auto 16px;
+
+  width: 64px;
+
   transition: width 0.2s;
 
   & > img {
     position: absolute;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
-    object-fit: cover;
+
     border-radius: 50%;
+    object-fit: cover;
   }
 
-  &:before {
-    content: "";
-    display: block;
+  &::before {
+    content: '';
+
     padding-bottom: 100%;
+
+    display: block;
   }
 }
 
@@ -188,16 +201,17 @@
 
 .name {
   margin-bottom: 2px;
+
   font-weight: 500;
 }
 
 .price {
   @include caption-2;
-
   color: $neutrals4;
 
   span {
     font-weight: 600;
+
     color: $neutrals2;
 
     @include dark {

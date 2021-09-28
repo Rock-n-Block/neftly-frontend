@@ -11,7 +11,6 @@
 }
 
 .container {
-  
   position: relative;
 
   @include t {
@@ -20,28 +19,32 @@
 }
 
 .wrapper {
-  flex: 0 0 calc(100% - 352px);
-  width: calc(100% - 352px);
   padding-right: 128px;
+
+  width: calc(100% - 352px);
+  flex: 0 0 calc(100% - 352px);
 
   @include x {
     padding-right: 64px;
   }
 
   @include d {
-    flex: 0 0 calc(100% - 304px);
-    width: calc(100% - 304px);
     padding-right: 32px;
+
+    width: calc(100% - 304px);
+    flex: 0 0 calc(100% - 304px);
   }
 
   @include t {
-    width: 100%;
     padding: 0;
+
+    width: 100%;
   }
 }
 
 .preview {
   flex-shrink: 0;
+
   width: 352px;
 
   img,
@@ -54,26 +57,31 @@
   }
 
   @include t {
-    display: flex;
     position: fixed;
+    z-index: 999;
     top: 0;
     left: 0;
+
+    padding: 48px;
+
+    display: flex;
+    visibility: hidden;
+    overflow: auto;
+
     width: 100%;
     height: 100%;
-    padding: 48px;
+
     background: rgba($neutrals1, 0.9);
-    overflow: auto;
-    z-index: 999;
-    visibility: hidden;
     opacity: 0;
+
     transition: all 0.4s;
 
     // @include dark {
     //   background: rgba($neutrals2, 0.9);
     // }
-
     &.active {
       visibility: visible;
+
       opacity: 1;
     }
   }
@@ -84,8 +92,9 @@
 }
 
 .head {
-  display: flex;
   margin-bottom: 40px;
+
+  display: flex;
 
   @include d {
     flex-direction: column-reverse;
@@ -97,8 +106,8 @@
   }
 
   .button {
-    flex-shrink: 0;
     margin-left: 24px;
+    flex-shrink: 0;
 
     @include d {
       margin: 0 0 16px;
@@ -113,6 +122,7 @@
 .list {
   margin-bottom: 40px;
   padding-bottom: 40px;
+
   border-bottom: 1px solid $neutrals3;
 
   @include m {
@@ -128,12 +138,15 @@
 .item {
   .preview {
     margin: 0 auto;
+
     display: flex;
     justify-content: center;
+
     video {
       width: 100%;
     }
   }
+
   &:not(:last-child) {
     margin-bottom: 40px;
 
@@ -147,21 +160,25 @@
   margin-top: 4px;
 
   @include caption-2;
-
   color: $purple2;
 }
 
 .file {
   position: relative;
+
+  margin-top: 16px;
+
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   height: 182px;
-  margin-top: 16px;
-  border-radius: 16px;
-  overflow: hidden;
+
   background: $purple-dark;
+  border-radius: 16px;
+
   input[type='file'],
   input[type='file']::-webkit-file-upload-button {
     cursor: pointer;
@@ -175,7 +192,9 @@
   position: absolute;
   top: 0;
   left: 0;
+
   font-size: 400px;
+
   opacity: 0;
 }
 
@@ -188,7 +207,6 @@
 
 .format {
   @include caption-2;
-
   color: $purple2;
 }
 
@@ -204,6 +222,7 @@
     input::placeholder {
       color: $purple2;
     }
+
     &:not(:last-child) {
       margin-bottom: 32px;
 
@@ -218,28 +237,31 @@
   margin-bottom: 12px;
 
   @include hairline-2;
-
   color: $neutrals5;
 }
 
 .row {
-  display: flex;
   margin: 0 -10px;
 
+  display: flex;
+
   @include m {
-    display: block;
     margin: 0;
+
+    display: block;
   }
 }
 
 .col {
-  flex: 0 0 calc(33.333% - 20px);
-  width: calc(33.333% - 20px);
   margin: 0 10px;
 
+  width: calc(33.333% - 20px);
+  flex: 0 0 calc(33.333% - 20px);
+
   @include m {
-    width: 100%;
     margin: 0;
+
+    width: 100%;
 
     &:not(:last-child) {
       margin-bottom: 20px;
@@ -265,19 +287,22 @@
 }
 
 .squares {
+  margin-bottom: 32px;
+
   display: flex;
   gap: 18px;
-  margin-bottom: 32px;
 }
 
 .circle {
-  background: $gradient;
-  border-radius: 50%;
-  width: 52px;
-  height: 52px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: 52px;
+  height: 52px;
+
+  background: $gradient;
+  border-radius: 50%;
 }
 
 .hidden {
@@ -289,16 +314,20 @@
 }
 
 .square {
+  padding: 2px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 24px;
-  text-transform: uppercase;
-  font-weight: 700;
+
   width: 142px;
   height: 142px;
-  padding: 2px;
+
+  font-weight: 700;
+  text-transform: uppercase;
+
   background: $purple2;
+  border-radius: 24px;
 
   :hover {
     cursor: pointer;
@@ -306,8 +335,9 @@
 }
 
 .active {
-  background: $gradient;
   padding: 4px;
+
+  background: $gradient;
 }
 
 .box {
@@ -315,38 +345,47 @@
 }
 
 .disabled {
-  background: $dark-bg;
   padding: 0;
-  border: 2px solid $white;
+
   display: block;
+
+  background: $dark-bg;
+  border: 2px solid $white;
   opacity: 0.34;
+
   :hover {
     cursor: default;
   }
 }
 
 .header {
+  padding: 8px 24px 9px 23px;
+
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.34);
-  gap: 5px;
   align-items: center;
-  padding: 8px 24px 9px 23px;
-  border-radius: 22px 22px 0px 0px;
+
+  background: rgba(255, 255, 255, 0.34);
+  border-radius: 22px 22px 0 0;
+  gap: 5px;
+
   span {
-    color: $white;
     font-size: 12px;
     line-height: 12px;
+
+    color: $white;
   }
 }
 
 .body {
   margin-top: 6px;
+  padding: 0 40px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 7px;
-  padding: 0 40px;
+
   span {
     font-size: 12px;
     line-height: 12px;
@@ -359,22 +398,27 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  background: $dark-bg;
-  border-radius: 22px;
+
   width: 100%;
   height: 100%;
+
+  background: $dark-bg;
+  border-radius: 22px;
+  gap: 20px;
+
   span {
-    max-width: 80px;
     width: 100%;
-    text-align: center;
+    max-width: 80px;
+
     font-size: 12px;
     line-height: 12px;
+    text-align: center;
   }
 }
 
 .switch {
   flex-shrink: 0;
+
   margin-left: 24px;
 }
 
@@ -382,12 +426,12 @@
   margin-top: 4px;
 
   @include caption-2;
-
   color: $white;
 }
 
 .priceBid {
   margin-bottom: 24px;
+
   input::placeholder {
     color: $purple2;
   }
@@ -399,6 +443,7 @@
 
   @include m {
     display: block;
+
     text-align: center;
   }
 
@@ -418,9 +463,10 @@
 }
 
 .saving {
+  margin-left: auto;
+
   display: inline-flex;
   align-items: center;
-  margin-left: auto;
 
   @include button-1;
 }
@@ -438,7 +484,9 @@
 
     .bodyCurrency {
       visibility: visible;
+
       opacity: 1;
+
       transform: translateY(0);
     }
   }
@@ -446,53 +494,68 @@
 
 .headCurrency {
   position: relative;
+
   padding: 2px 15px;
-  background: #674df6;
-  border-radius: 33px;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 24px;
+
   display: flex;
   align-items: center;
-  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 24px;
+
   cursor: pointer;
+
+  color: #fff;
+  background: #674df6;
+  border-radius: 33px;
 }
 
 .selection {
   overflow: hidden;
-  text-overflow: ellipsis;
+
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .bodyCurrency {
   position: absolute;
   top: calc(100% + 2px);
-  left: 0;
   right: 0;
+  left: 0;
+
+  padding: 8px 0;
+
+  visibility: hidden;
+
   width: 256px;
   height: 206px;
-  padding: 8px 0;
-  border-radius: 12px;
+
   background: $neutrals8;
-  box-shadow: inset 0 0 0 2px $neutrals6, 0 4px 12px rgba($neutrals2, 0.1);
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(3px);
-  transition: all 0.2s;
 
   // @include dark {
   background: $dark-bg;
+  border-radius: 12px;
+  opacity: 0;
+  box-shadow: inset 0 0 0 2px $neutrals6, 0 4px 12px rgba($neutrals2, 0.1);
   box-shadow: inset 0 0 0 2px $neutrals3, 0 4px 12px rgba($neutrals1, 0.1);
+
+  transition: all 0.2s;
+  transform: translateY(3px);
   // }
 }
 
 .optionCurrency {
   padding: 8px 16px;
+
   display: flex;
   align-items: center;
-  color: #f4f5f6;
-  transition: color 0.2s;
+
   cursor: pointer;
+
+  color: #f4f5f6;
+
+  transition: color 0.2s;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   &:hover,
@@ -503,8 +566,9 @@
 
 .textCurrency {
   margin-left: 10px;
-  font-weight: 500;
+
   font-size: 14px;
+  font-weight: 500;
   line-height: 24px;
 }
 
@@ -520,9 +584,11 @@
 .fee {
   display: flex;
   flex-direction: column;
-  font-weight: 500;
+
   font-size: 12px;
+  font-weight: 500;
   line-height: 24px;
+
   .purple {
     color: $purple2;
   }

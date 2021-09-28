@@ -126,7 +126,7 @@ const Activity: React.FC = observer(() => {
 
   const readAllNotifications = useCallback(() => {
     activityApi.readNotification({ activity_id: 0, method: 'all' }).then((data: any) => {
-      if(data.statusText === 'OK') history.push('/activity')
+      if (data.statusText === 'OK') history.push('/activity');
     });
   }, [history]);
 

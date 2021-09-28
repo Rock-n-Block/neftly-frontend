@@ -43,83 +43,94 @@
 
 // fonts
 @mixin dm-sans {
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
 }
 
 @mixin poppins {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+@mixin monument-extended {
+  font-family: 'Monument Extended', sans-serif;
+}
+
+@mixin epilogue {
+  font-family: 'Epilogue', sans-serif;
 }
 
 // colors
-$white: #ffffff;
-$blue: #3772FF;
-$blue-light: #4BC9F0;
-$purple: #9757D7;
-$purple2: #674DF6;
-$purple-light: #CDB4DB;
+$white: #fff;
+$blue: #3772ff;
+$blue-light: #4bc9f0;
+$purple: #9757d7;
+$purple2: #674df6;
+$purple-light: #cdb4db;
 $purple-dark: #261849;
-$pink: #EF466F;
-$green: #45B26B;
-$asphalt: #E4D7CF;
-$yellow: #FFD166;
-$grey: #D9DBE1;
-$dark-grey: #21283C;
+$pink: #ef466f;
+$green: #45b26b;
+$asphalt: #e4d7cf;
+$yellow: #ffd166;
+$grey: #d9dbe1;
+$dark-grey: #21283c;
 
 $neutrals1: #141416;
-$neutrals2: #23262F;
+$neutrals2: #23262f;
 $neutrals3: #353945;
-$neutrals4: #777E91;
-$neutrals5: #B1B5C3;
-$neutrals6: #E6E8EC;
-$neutrals7: #F4F5F6;
-$neutrals8: #FCFCFD;
+$neutrals4: #777e91;
+$neutrals5: #b1b5c3;
+$neutrals6: #e6e8ec;
+$neutrals7: #f4f5f6;
+$neutrals8: #fcfcfd;
 
-$dark-bg: linear-gradient(90deg, #190F31 0%, #000000 100%);
-$gradient-hover: linear-gradient(90deg, #5423FD 0%, #FF3B3E 100%);
-$gradient: linear-gradient(90deg, #6F45FF 0%, #FF6365 100%);
-$gradient2: linear-gradient(90deg, #040404 0%, #1C0E40 100%);
-$gradient3: linear-gradient(90deg, #190F31 0%, #000000 100%);
-$gradient4: linear-gradient(90deg, #190F31 0%, #190F31 100%);
-$gradient-vertical: radial-gradient(883.01% 239.84% at 71.43% 0.88%, rgba(111, 69, 255, 0) 0%, #FF6365 100%);
+$dark-bg: linear-gradient(90deg, #190f31 0%, #000 100%);
+$gradient-hover: linear-gradient(90deg, #5423fd 0%, #ff3b3e 100%);
+$gradient: linear-gradient(90deg, #6f45ff 0%, #ff6365 100%);
+$gradient2: linear-gradient(90deg, #040404 0%, #1c0e40 100%);
+$gradient3: linear-gradient(90deg, #190f31 0%, #000 100%);
+$gradient4: linear-gradient(90deg, #190f31 0%, #190f31 100%);
+$gradient-vertical: radial-gradient(
+  883.01% 239.84% at 71.43% 0.88%,
+  rgba(111, 69, 255, 0) 0%,
+  #ff6365 100%
+);
 
-$color-primary:#018DF0;
-$color-secondary:#01C5BA;
+$color-primary: #018df0;
+$color-secondary: #01c5ba;
 $color-bg: #080134;
-$color-bg2: #0B062D;
+$color-bg2: #0b062d;
 
-$color-action-default: #01C5BA;
-$color-action-hovered: #1CAAA2;
-$color-action-pressed: #398D88;
-$color-action-disabled: #003F3B;
+$color-action-default: #01c5ba;
+$color-action-hovered: #1caaa2;
+$color-action-pressed: #398d88;
+$color-action-disabled: #003f3b;
 
 $color-neutral-100: #080134;
 $color-neutral-80: #393556;
-$color-neutral-60: #6B6785;
-$color-neutral-40: #9C99AE;
-$color-neutral-20: #CECCD6;
-$color-neutral-10: #E6E6EB;
-$color-neutral-0: #FFFFFF;
+$color-neutral-60: #6b6785;
+$color-neutral-40: #9c99ae;
+$color-neutral-20: #ceccd6;
+$color-neutral-10: #e6e6eb;
+$color-neutral-0: #fff;
 
-$color-actions-light-green: #27D1AA;
-$color-actions-light-pink: #FF72D2;
-$color-actions-light-purple: #C379F6;
-$color-actions-light-yellow: #FFD166;
-$color-actions-light-blue: #6B6785;
+$color-actions-light-green: #27d1aa;
+$color-actions-light-pink: #ff72d2;
+$color-actions-light-purple: #c379f6;
+$color-actions-light-yellow: #ffd166;
+$color-actions-light-blue: #6b6785;
 $color-actions-dark-green: #064462;
 $color-actions-dark-pink: #561857;
-$color-actions-dark-purple: #2D1446;
+$color-actions-dark-purple: #2d1446;
 $color-actions-dark-yellow: #433340;
 $color-actions-dark-blue: #211857;
 $color-actions-dark-red: #571848;
 
-$color-state-error: #EF466F;
-$color-state-success: #45E498;
-$color-state-warning: #FAE637;
+$color-state-error: #ef466f;
+$color-state-success: #45e498;
+$color-state-warning: #fae637;
 
-$color-gradient: linear-gradient(89.92deg, #016DB0 1.29%, #01FFCA 99.94%);
+$color-gradient: linear-gradient(89.92deg, #016db0 1.29%, #01ffca 99.94%);
 
 // typography
-
 .text-gradient {
   display: inline-block;
 
@@ -142,14 +153,14 @@ $defaultFlexBoxAlign: center;
 $defaultFlexBoxJustify: center;
 @mixin flexbox($align: $defaultFlexBoxAlign, $justify: $defaultFlexBoxJustify) {
   display: flex;
-  align-items: $align;
   justify-content: $justify;
+  align-items: $align;
 }
 
 @mixin inlineFlexbox($align: $defaultFlexBoxAlign, $justify: $defaultFlexBoxJustify) {
   display: inline-flex;
-  align-items: $align;
   justify-content: $justify;
+  align-items: $align;
 }
 
 @mixin gradientText() {
@@ -166,8 +177,8 @@ $defaultFlexBoxJustify: center;
 
 @mixin body-bold-1 {
   font-size: 24px;
-  line-height: (32 / 24);
   font-weight: 600;
+  line-height: (32 / 24);
   letter-spacing: -0.01em;
 }
 
@@ -178,8 +189,8 @@ $defaultFlexBoxJustify: center;
 
 @mixin body-bold-2 {
   font-size: 16px;
-  line-height: (24 / 16);
   font-weight: 500;
+  line-height: (24 / 16);
 }
 
 @mixin caption-1 {
@@ -189,8 +200,8 @@ $defaultFlexBoxJustify: center;
 
 @mixin caption-bold-1 {
   font-size: 14px;
-  line-height: (24 / 14);
   font-weight: 500;
+  line-height: (24 / 14);
 }
 
 @mixin caption-2 {
@@ -200,27 +211,26 @@ $defaultFlexBoxJustify: center;
 
 @mixin caption-bold-2 {
   font-size: 12px;
-  line-height: (20 / 12);
   font-weight: 600;
+  line-height: (20 / 12);
 }
 
 @mixin hairline-1 {
   font-size: 16px;
-  line-height: 1;
   font-weight: 700;
+  line-height: 1;
   text-transform: uppercase;
 }
 
 @mixin hairline-2 {
   font-size: 12px;
-  line-height: 1;
   font-weight: 700;
+  line-height: 1;
   text-transform: uppercase;
 }
 
 @mixin button-1 {
   @include dm-sans;
-
   font-size: 16px;
   font-weight: 700;
   line-height: 1;
@@ -228,16 +238,16 @@ $defaultFlexBoxJustify: center;
 
 @mixin button-2 {
   @include dm-sans;
-
   font-size: 14px;
-  line-height: (16 / 14);
   font-weight: 700;
+  line-height: (16 / 14);
 }
 
 //triangle
 @mixin arr($width, $height, $bg, $direction) {
-  width: 0px;
-  height: 0px;
+  width: 0;
+  height: 0;
+
   border-style: solid;
 
   @if $direction == t {
@@ -293,13 +303,13 @@ $defaultFlexBoxJustify: center;
 
 // media query width
 @mixin r($width) {
-  @media only screen and (max-width: $width + "px") {
+  @media only screen and (max-width: $width + 'px') {
     @content;
   }
 }
 
 @mixin rmin($width) {
-  @media only screen and (min-width: $width + "px") {
+  @media only screen and (min-width: $width + 'px') {
     @content;
   }
 }

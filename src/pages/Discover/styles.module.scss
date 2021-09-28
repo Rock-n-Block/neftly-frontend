@@ -1,13 +1,15 @@
 @import '../../styles/helpers.scss';
 
 .discover {
-  max-width: 1600px;
   margin: 0 auto;
   padding: 0 88px;
+
+  max-width: 1600px;
 }
 
 .filterControls {
   @include flexbox(center, space-between);
+
   .advancedFilterBtn {
     padding: 0 20px;
   }
@@ -21,60 +23,75 @@
   position: relative;
   @include flexbox(flex-start);
   padding: 44px 0;
+
   transition: 200ms;
 
-  &:before {
+  &::before {
+    content: '';
+
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    content: '';
+
     width: 1000%;
     height: 100%;
+
     border-width: 1px 0 1px 0;
     border-style: solid;
     border-color: $color-neutral-80;
+
+    transform: translate(-50%, -50%);
   }
 
-  &:after {
+  &::after {
+    content: '';
+
     position: absolute;
     top: 0%;
     left: 24%;
-    content: '';
-    height: 0;
+
     width: 1px;
+    height: 0;
+
     background: $color-neutral-80;
+
     transition: 200ms;
   }
 
   &.open {
-    &:after {
+    &::after {
       height: 100%;
     }
   }
 
   .filter {
     margin-top: 30px;
-    transform: translateX(-100vw);
-    flex-basis: 0%;
-    transition: 200ms;
+
     width: 0;
 
+    transition: 200ms;
+    transform: translateX(-100vw);
+    flex-basis: 0%;
+
     &.open {
+      width: 100%;
+
       transform: translateX(0);
       flex-basis: 27%;
-      width: 100%;
     }
   }
 
   .filterResultsContainer {
     flex-basis: 100%;
+
     padding: 0 20px;
 
     .filterResults {
       @include flexbox(center, space-between);
       flex-wrap: wrap;
+
       margin: -16px;
+
       & > * {
         margin: 16px;
       }
@@ -99,7 +116,6 @@
 
 .liveAuction {
   margin-top: 100px;
-
 }
 
 .recommendedArtworkBtn {
@@ -112,14 +128,15 @@
 }
 
 .recommendArtworkCardContainer {
-  @include flexbox(center, space-between);
   flex-wrap: wrap;
 
   margin: -20px;
+  padding-bottom: 50px;
+
   & > * {
     margin: 20px;
   }
-  padding-bottom: 50px;
+  @include flexbox(center, space-between);
 }
 
 @include forTablet {

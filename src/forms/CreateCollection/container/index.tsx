@@ -24,7 +24,7 @@ export default observer(({ isSingle }: any) => {
       shortUrl: '',
       preview: '',
       isLoading: false,
-      showModal: false
+      showModal: false,
     }),
     validate: (values) => {
       const errors = validateForm({ values, notRequired: ['description', 'shortUrl', 'img'] });
@@ -61,7 +61,7 @@ export default observer(({ isSingle }: any) => {
               storeApi
                 .saveCollection(formData)
                 .then(() => {
-                  setFieldValue('showModal', true)
+                  setFieldValue('showModal', true);
                 })
                 .catch((err: any) => {
                   // modals.info.setMsg('An error occurred while creating the collection', 'error');

@@ -4,12 +4,12 @@
 .button {
   // @include flexbox(center, center);
   font-weight: 400;
+
   cursor: pointer;
 
   &:focus {
     outline: none;
   }
-
 
   &.isFullWidth {
     width: 100%;
@@ -21,6 +21,7 @@
 
   &.blue {
     height: 40px;
+
     color: $color-neutral-100;
     background: $color-action-default;
 
@@ -31,11 +32,11 @@
     &:hover {
       background: $color-action-hovered;
     }
-  
+
     &:active {
       background: $color-action-pressed;
     }
-  
+
     &.disabled {
       color: $color-neutral-20;
       background: $color-action-disabled;
@@ -43,13 +44,14 @@
       & > svg {
         fill: $color-neutral-20;
       }
-    }  
+    }
   }
 
   &.outline {
     height: 40px;
-    background: none;
+
     color: $color-neutral-0;
+    background: none;
     border: 1px solid $color-action-default;
 
     & > svg {
@@ -60,12 +62,12 @@
       background: $color-neutral-80;
       border-color: $color-action-hovered;
     }
-  
+
     &:active {
       background: $color-neutral-60;
       border-color: $color-action-pressed;
     }
-  
+
     &.disabled {
       color: $color-neutral-40;
       background: $color-neutral-80;
@@ -79,10 +81,10 @@
 }
 
 .transparent {
-
 }
 
 .icon {
   margin-right: 10px;
+
   height: unset;
 }

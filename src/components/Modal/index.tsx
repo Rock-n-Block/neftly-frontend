@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import cn from 'classnames';
-import styles from './Modal.module.scss';
+
 import Icon from '../Icon';
+
+import styles from './Modal.module.scss';
 
 // TODO: убрать any
 const Modal: React.FC<any> = ({

@@ -2,18 +2,24 @@
 
 .artCard {
   position: relative;
-  border: 1px solid $color-neutral-80;
+
   width: fit-content;
+
+  border: 1px solid $color-neutral-80;
 }
 
 .tagContainer {
-  padding: 15px;
   position: absolute;
+
+  padding: 15px;
+
   width: inherit;
-  @include flexbox(center, flex-start);
   flex-wrap: wrap;
+  @include flexbox(center, flex-start);
+
   & > .tag {
     margin-bottom: 10px;
+
     &:not(:last-child) {
       margin-right: 10px;
     }
@@ -23,6 +29,7 @@
 .mainImageWrapperSmall {
   width: 292px;
   height: 304px;
+
   & > img {
     width: 292px;
     height: 304px;
@@ -32,6 +39,7 @@
 .mainImageWrapperMedium {
   width: 402px;
   height: 236px;
+
   & > img {
     width: 402px;
     height: 236px;
@@ -45,6 +53,7 @@
 .secondaryImageWrapper {
   width: 134px;
   height: 81px;
+
   & > img {
     width: 134px;
     height: 81px;
@@ -57,15 +66,18 @@
 }
 
 .allArtNumber {
-  display: block;
   position: absolute;
   top: 50%;
   left: 50%;
+
+  display: block;
+
   transform: translate(-50%, -50%);
 }
 
 .artCardInfo {
   padding: 16px;
+
   line-height: 32px;
 }
 
@@ -75,15 +87,16 @@
 
 .artCardAuthorContainer {
   padding: 10px 0 0 0;
-  border-width: 1px 0 0 0 ;
+
+  border-width: 1px 0 0 0;
   border-style: solid;
   border-color: $color-neutral-80;
-  
 }
 
 .artCardPrice {
-  color: $color-state-warning;
   text-transform: uppercase;
+
+  color: $color-state-warning;
 }
 
 .artCardSmallLikes {
@@ -102,6 +115,7 @@
   .mainImageWrapperMedium {
     width: 281px;
     height: 165px;
+
     & > img {
       width: 281px;
       height: 165px;
@@ -111,6 +125,7 @@
   .secondaryImageWrapper {
     width: 94px;
     height: 57px;
+
     & > img {
       width: 94px;
       height: 57px;

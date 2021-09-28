@@ -19,7 +19,17 @@ const OurArtworkGallery: FC<Props> = ({ className }) => (
     </div>
     <div className={styles.artCardsWrapper}>
       {data.map((art) => {
-        const { image, name, price, asset, inStockNumber, author, authorAvatar, likesNumber, tags } = art;
+        const {
+          image,
+          name,
+          price,
+          asset,
+          inStockNumber,
+          author,
+          authorAvatar,
+          likesNumber,
+          tags,
+        } = art;
         return (
           <ArtCard
             imageMain={image}

@@ -1,53 +1,64 @@
-@import "../../styles/helpers";
+@import '../../styles/helpers';
 
 .react-tabs {
   -webkit-tap-highlight-color: transparent;
 
   &__tab-list {
     @include flexbox(center, space-around);
-    border-bottom: 1px solid $color-neutral-80;
     margin: 0 0 10px;
     padding: 0;
+
+    border-bottom: 1px solid $color-neutral-80;
   }
 
   &__tab {
-    flex-grow: 1;
-    @include flexbox();
-    border: 1px solid transparent;
-    border-bottom: none;
-    bottom: -1px;
     position: relative;
-    list-style: none;
+    bottom: -1px;
+
     padding: 6px 12px;
-    cursor: pointer;
+
     height: 60px;
-    color: $color-neutral-0;
+
+    list-style: none;
+
     font-size: 16px;
     font-weight: 500;
 
+    cursor: pointer;
+
+    color: $color-neutral-0;
+    border: 1px solid transparent;
+    border-bottom: none;
+    flex-grow: 1;
+    @include flexbox();
+
     &--selected {
       border-width: 0 0 2px 0;
-      border-color: $color-secondary;
       border-style: solid;
+      border-color: $color-secondary;
     }
 
     &--disabled {
-      color: yellow;
       cursor: default;
+
+      color: yellow;
     }
 
     &:focus {
-      box-shadow: 0 0 5px hsl(208, 99%, 50%);
       border-color: hsl(208, 99%, 50%);
       outline: none;
+      box-shadow: 0 0 5px hsl(208, 99%, 50%);
 
-      &:after {
-        content: "";
+      &::after {
+        content: '';
+
         position: absolute;
-        height: 5px;
-        left: -4px;
         right: -4px;
+        left: -4px;
         bottom: -5px;
+
+        height: 5px;
+
         background: #fff;
       }
     }
