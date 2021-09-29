@@ -1,45 +1,47 @@
 import React from 'react';
 import nextId from 'react-id-generator';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import cn from 'classnames';
+import {single, multiple} from 'assets/img/uploadVariants';
 
 import styles from './UploadVariants.module.scss';
+import {Button} from "../../components";
 
 const items = [
   {
     url: '/create/single',
     buttonText: 'Create Single',
-    image: '/images/content/upload-pic-01.png',
+    image: single,
   },
   {
     url: '/create/multiple',
     buttonText: 'Create Multiple',
-    image: '/images/content/upload-pic-02.png',
+    image: multiple,
   },
 ];
 
 const Upload: React.FC = () => {
   return (
-    <div className={styles.page}>
-      <div className={cn('section-pt80', styles.section)}>
-        <div className={cn('container', styles.container)}>
+    <div className={styles.upload}>
+      <div className={styles.section}>
+        <div className={cn(styles.container)}>
           <div className={styles.top}>
             <h1 className={cn('h2', styles.title)}>Upload item</h1>
             <div className={styles.info}>
-              Choose <span>“Single”</span> if you want your collectible to be one of a kind or{' '}
-              <span>“Multiple”</span> if you want to sell one collectible multiple times
+              Choose “Single” if you want your collectible to be one of a kind or “Multiple” if you want to sell one
+              collectible multiple times
             </div>
           </div>
           <div className={styles.list}>
             {items.map((x) => (
-              <div className={styles.item} key={nextId()}>
+              <Link className={styles.item} key={nextId()} to={x.url}>
                 <div className={styles.preview}>
-                  <img src={x.image} alt="Upload" />
+                  <img src={x.image} alt="Upload"/>
                 </div>
-                <Link className={cn('button-stroke', styles.button)} to={x.url}>
+                <Button color="blue" className={styles.button}>
                   {x.buttonText}
-                </Link>
-              </div>
+                </Button>
+              </Link>
             ))}
           </div>
           <div className={styles.note}>

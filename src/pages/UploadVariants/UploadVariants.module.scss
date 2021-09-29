@@ -1,11 +1,14 @@
 @import '../../styles/helpers';
 
+.upload {
+
+}
+
 .section {
   text-align: center;
+  margin-top: 44px;
+  margin-bottom: 91px;
 
-  .container {
-    max-width: 896px;
-  }
 }
 
 .control {
@@ -13,10 +16,7 @@
 }
 
 .top {
-  margin: 0 auto 80px;
-
-  max-width: 736px;
-
+  margin: 0 auto 45px;
   @include d {
     margin-bottom: 64px;
   }
@@ -28,67 +28,31 @@
 
 .title {
   margin-bottom: 16px;
+  @include monument-extended;
+  font-size: 40px;
+  line-height: 120%;
+  color: $color-neutral-0;
 }
 
 .info {
-  color: $neutrals4;
+  color: $color-neutral-20;
 
-  span {
-    color: $neutrals8;
-
-    @include dark {
-      color: $neutrals8;
-    }
-  }
 }
 
 .list {
-  margin: 0 -16px 32px;
+  padding: 91px 0 32px;
+  border-top: 1px solid $color-neutral-80;
 
-  display: flex;
+  @include flexbox(center);
+  gap: 32px;
 
-  @include m {
-    margin: 0 0 32px;
-
-    display: block;
-  }
 }
 
 .item {
-  margin: 0 16px;
-  padding: 16px 16px 24px;
-
-  width: calc(50% - 32px);
-
-  border: 1px solid $neutrals3;
-  border-radius: 16px;
-
-  transition: box-shadow 0.2s;
-  flex: 0 0 calc(50% - 32px);
-
-  @include m {
-    margin: 0;
-
-    width: 100%;
-  }
-
-  @include dark {
-    border-color: $neutrals3;
-  }
-
-  &:not(:last-child) {
-    @include m {
-      margin-bottom: 24px;
-    }
-  }
-
-  &:hover {
-    box-shadow: 0 40px 32px -24px rgba(15, 15, 15, 0.12);
-  }
-
-  a.button-stroke:hover {
-    background: $purple2;
-  }
+  padding: 61px 222px;
+  background: $color-neutral-80;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 .preview {
@@ -100,8 +64,14 @@
     border-radius: 8px;
   }
 }
-
+.button{
+  width: 173px;
+}
 .note {
-  @include caption-2;
-  color: $neutrals4;
+  @include epilogue;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  color: $color-neutral-20;
 }
