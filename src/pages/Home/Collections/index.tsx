@@ -1,4 +1,4 @@
-import nextId from 'react-id-generator'; 
+import nextId from 'react-id-generator';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick/lib/index';
 import cn from 'classnames';

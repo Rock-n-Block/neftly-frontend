@@ -2,14 +2,16 @@
 body {
   @include poppins;
   overflow-x: hidden;
+
   font-size: 14px;
   line-height: (24 / 14);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+  color: $neutrals8;
   color: $neutrals8;
 
   background: $color-bg;
-  color: $neutrals8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -74,9 +76,11 @@ img {
     }
   }
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+
   margin: 0;
 }
 

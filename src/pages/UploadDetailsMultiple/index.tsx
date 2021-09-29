@@ -175,16 +175,17 @@ const UploadMultiple: React.FC = observer(() => {
     newFormData.append('total_supply', formData.total_supply);
     newFormData.append('format', format);
     storeApi
-      .createToken(newFormData
-      //   , {
-      //   [formData.size]: formData.propertie,
-      // }
+      .createToken(
+        newFormData,
+        //   , {
+        //   [formData.size]: formData.propertie,
+        // }
       )
       .then(({ data }) => {
         walletConnector.metamaskService
           .sendTransaction(data.initial_tx)
           .then(() => {
-            setVisibleSuccess(true)
+            setVisibleSuccess(true);
           })
           .finally(() => {
             handleClear();

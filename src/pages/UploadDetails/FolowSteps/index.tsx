@@ -1,8 +1,10 @@
 import cn from 'classnames';
-import styles from './FolowSteps.module.scss';
+
 import Icon from '../../../components/Icon';
 import Loader from '../../../components/Loader';
 import LoaderCircle from '../../../components/LoaderCircle';
+
+import styles from './FolowSteps.module.scss';
 
 interface IFolowStepsProps {
   className?: string;

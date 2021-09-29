@@ -1,8 +1,9 @@
-@import "../../../../../styles/helpers";
+@import '../../../../../styles/helpers';
 
 .bidderContainer {
-  height: 250px;
   overflow: auto;
+
+  height: 250px;
 }
 
 .bidderContainer::-webkit-scrollbar {
@@ -20,7 +21,9 @@
 .bidderWrapper {
   @include flexbox(center, flex-start);
   margin-bottom: 10px;
+
   line-height: 160%;
+
   & > img {
     margin-right: 10px;
   }

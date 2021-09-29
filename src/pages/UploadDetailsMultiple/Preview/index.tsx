@@ -14,7 +14,14 @@ interface IPreviewProps {
   price?: string;
 }
 
-const Preview: React.FC<IPreviewProps> = ({ className, onClose, onClear, mediaURL, name, price }) => {
+const Preview: React.FC<IPreviewProps> = ({
+  className,
+  onClose,
+  onClear,
+  mediaURL,
+  name,
+  price,
+}) => {
   const getImage = (url: string) => {
     let result;
     if (url.slice(0, url.indexOf('/')) === 'data:image') {
@@ -45,7 +52,7 @@ const Preview: React.FC<IPreviewProps> = ({ className, onClose, onClear, mediaUR
         <div className={styles.info}>Preview</div>
         <div className={styles.card}>
           <div className={styles.preview}>
-          {mediaURL ? (
+            {mediaURL ? (
               getImage(mediaURL)
             ) : (
               <img
@@ -58,7 +65,7 @@ const Preview: React.FC<IPreviewProps> = ({ className, onClose, onClear, mediaUR
           <div className={styles.link}>
             <div className={styles.body}>
               <div className={styles.line}>
-                <div className={styles.title}>{name || "Black Golden Tiger"}</div>
+                <div className={styles.title}>{name || 'Black Golden Tiger'}</div>
                 <div className={styles.price}>
                   <div className={styles.innerPrice}>
                     <span className="text-gradient">{price || 2.45} ETH</span>

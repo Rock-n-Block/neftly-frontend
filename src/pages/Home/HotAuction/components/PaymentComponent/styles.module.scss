@@ -1,4 +1,4 @@
-@import "../../../../../styles/helpers";
+@import '../../../../../styles/helpers';
 
 .paymentSell {
   border: 1px solid $color-neutral-80;
@@ -9,6 +9,7 @@
   position: relative;
   @include flexbox(center, space-between);
   text-transform: uppercase;
+
   & > * {
     margin-right: 10px;
   }

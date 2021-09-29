@@ -54,7 +54,8 @@ const HotAuctionCardMobile: FC<Props> = ({
       price={currentPrice}
       asset={priceAsset}
     />
-    <Tab className={styles.tabs}
+    <Tab
+      className={styles.tabs}
       tabs={[
         {
           title: 'Description',

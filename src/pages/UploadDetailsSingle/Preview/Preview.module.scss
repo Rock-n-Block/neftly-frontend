@@ -2,9 +2,10 @@
 
 .inner {
   padding: 48px;
+
   background: $gradient2;
-  box-shadow: 0px 64px 64px rgba(31, 47, 70, 0.12);
   border-radius: 16px;
+  box-shadow: 0 64px 64px rgba(31, 47, 70, 0.12);
 
   @include d {
     padding: 24px;
@@ -12,8 +13,10 @@
 
   @include t {
     position: relative;
-    width: 352px;
+
     margin: auto;
+
+    width: 352px;
   }
 
   // @include dark {
@@ -23,32 +26,36 @@
 }
 
 .close {
-  display: none;
   position: absolute;
   top: 20px;
   right: 24px;
+
+  display: none;
+
   width: 40px;
   height: 40px;
-  background: $neutrals8;
-  border: 2px solid $neutrals6;
-  border-radius: 50%;
+
   font-size: 0;
 
-  @include t {
-    display: inline-block;
-  }
-
-  svg {
-    fill: $neutrals2;
-    transition: transform 0.2s;
-  }
+  background: $neutrals8;
+  background: $neutrals1;
+  border: 2px solid $neutrals6;
 
   // @include dark {
   border-color: $neutrals3;
-  background: $neutrals1;
+  border-radius: 50%;
+
+  svg {
+    transition: transform 0.2s;
+    fill: $neutrals2;
+  }
 
   svg {
     fill: $neutrals8;
+  }
+
+  @include t {
+    display: inline-block;
   }
   // }
 }
@@ -61,12 +68,15 @@
 
 .preview {
   position: relative;
-  border-radius: 16px;
+
   overflow: hidden;
+
+  border-radius: 16px;
 
   & > img {
     width: 100%;
   }
+
   video {
     width: 100%;
     height: 100%;
@@ -76,6 +86,7 @@
 
 .link {
   padding: 20px 0;
+
   color: $neutrals2;
 
   // @include dark {
@@ -100,20 +111,23 @@
 }
 
 .price {
-  flex-shrink: 0;
   margin-left: 12px;
   padding: 2px;
-  border-radius: 4px;
+
   font-size: 12px;
-  line-height: 26px;
   font-weight: 700;
+  line-height: 26px;
   text-transform: uppercase;
+
   background: $gradient;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
 
 .innerPrice {
-  background: $dark-bg;
   padding: 0 6px;
+
+  background: $dark-bg;
   border-radius: 3px;
 }
 
@@ -124,26 +138,28 @@
 }
 
 .users {
-  display: flex;
   margin-right: auto;
+
+  display: flex;
 }
 
 .avatar {
-  flex-shrink: 0;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
+
   border: 2px solid $neutrals8;
 
   // @include dark {
   border-color: $neutrals1;
+  border-radius: 50%;
+  flex-shrink: 0;
   // }
-
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+
     border-radius: 50%;
+    object-fit: cover;
   }
 
   &:not(:first-child) {
@@ -152,19 +168,20 @@
 }
 
 .foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid $neutrals6;
 
-  @include caption-2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   color: $neutrals4;
 
   // @include dark {
   border-color: $neutrals3;
+  border-top: 1px solid $neutrals6;
+
+  @include caption-2;
   // }
 }
 
@@ -176,6 +193,7 @@
 
   span {
     font-weight: 600;
+
     color: $neutrals3;
 
     @include dark {
@@ -185,19 +203,22 @@
 }
 
 .clear {
+  margin-top: 24px;
+
   display: inline-flex;
   align-items: center;
-  margin-top: 24px;
+
+  color: $neutrals4;
+
+  transition: color 0.2s;
 
   @include button-1;
 
-  color: $neutrals4;
-  transition: color 0.2s;
-
   svg {
     margin-right: 8px;
-    fill: $neutrals4;
+
     transition: fill 0.2s;
+    fill: $neutrals4;
   }
 
   &:hover {

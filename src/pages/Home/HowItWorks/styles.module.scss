@@ -1,9 +1,11 @@
-@import "../../../styles/helpers";
+@import '../../../styles/helpers';
 
 .ourArtworkGallery {
-  padding: 88px;
-  max-width: 1500px;
   margin: 0 auto;
+  padding: 88px;
+
+  max-width: 1500px;
+
   & > * {
     &:not(:last-child) {
       margin-bottom: 30px;
@@ -28,6 +30,7 @@
 .howItWorksCard {
   @include flexbox(center, flex-start);
   flex-direction: column;
+
   width: 350px;
   height: 200px;
 }
@@ -44,6 +47,7 @@
   .ourArtworkGallery {
     padding: 20px;
   }
+
   .howItWorksCard {
     margin-bottom: 70px;
   }

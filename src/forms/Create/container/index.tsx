@@ -20,7 +20,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
       preview: '',
       coverPreview: '',
       putOnSale: true,
-      instantSalePrice: true, 
+      instantSalePrice: true,
       // unlockOncePurchased: false,
       format: '',
       instantSalePriceEth: '',
@@ -37,9 +37,9 @@ export default observer(({ isSingle, walletConnector }: any) => {
       ],
       isLoading: false,
       collectionId: '16',
-      currency: "WETH",
+      currency: 'WETH',
       bid: '',
-      showModal: false
+      showModal: false,
     }),
     validate: (values: any) => {
       const notRequired: string[] = ['tokenDescr', 'preview'];

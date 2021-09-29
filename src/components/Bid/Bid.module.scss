@@ -1,4 +1,4 @@
-@import "../../styles/helpers";
+@import '../../styles/helpers';
 
 .title {
   margin-bottom: 32px;
@@ -21,20 +21,23 @@
 }
 
 .row {
-  display: flex;
   padding-top: 12px;
+
+  display: flex;
   align-items: center;
 }
 
 .input_row {
-  display: flex;
   padding-top: 12px;
+
+  display: flex;
   align-items: center;
-  border-bottom: 1px solid $neutrals6;
+
   font-weight: 500;
 
   // @include dark {
   border-color: $neutrals3;
+  border-bottom: 1px solid $neutrals6;
   // }
 }
 
@@ -43,10 +46,12 @@
 
   input {
     padding: 0;
+
     font-size: 16px;
     line-height: 24px;
-    border-radius: 0;
+
     border: none;
+    border-radius: 0;
   }
 }
 
@@ -60,7 +65,9 @@
   &:nth-child(2) {
     margin-left: auto;
     padding-left: 16px;
+
     font-weight: 500;
+
     color: $neutrals8;
   }
 }

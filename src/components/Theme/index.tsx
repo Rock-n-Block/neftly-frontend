@@ -1,6 +1,7 @@
 import cn from 'classnames';
-import styles from './Theme.module.scss';
 import useDarkMode from 'use-dark-mode';
+
+import styles from './Theme.module.scss';
 
 interface IThemeProps {
   className?: string;

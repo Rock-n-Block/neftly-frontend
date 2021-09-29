@@ -1,31 +1,34 @@
-@import "../../styles/helpers";
+@import '../../styles/helpers';
 
 .top {
   position: relative;
   z-index: 3;
+
+  padding-right: 128px;
+
   display: flex;
   align-items: center;
+
   width: calc(100% - 352px);
-  padding-right: 128px;
 
   @include x {
     padding-right: 64px;
   }
 
-
   @include d {
-    width: calc(100% - 304px);
     padding-right: 32px;
+
+    width: calc(100% - 304px);
   }
 
-
   @include t {
-    width: 100%;
     padding: 0;
+
+    width: 100%;
   }
 }
 
-.control{
+.control {
   background: $dark-bg;
   border-color: $neutrals3;
 }
@@ -36,13 +39,15 @@
 
 .button {
   @include m {
-    width: 100%;
     margin-top: 16px;
+
+    width: 100%;
   }
 }
 
 .toggle {
   position: relative;
+
   margin-left: 24px;
 
   svg {
@@ -50,8 +55,10 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+
       opacity: 0;
+
+      transform: translate(-50%, -50%);
     }
   }
 
@@ -62,7 +69,6 @@
     @include dark {
       background: $blue;
     }
-
 
     svg {
       fill: $neutrals8;
@@ -79,67 +85,68 @@
 }
 
 .row {
-  display: flex;
-  align-items: flex-start;
   margin-top: -56px;
 
+  display: flex;
+  align-items: flex-start;
+
   @include t {
-    flex-direction: column-reverse;
     margin-top: 0;
+
+    flex-direction: column-reverse;
   }
 }
 
 .wrapper {
-  flex-grow: 1;
-  padding-right: 128px;
   padding-top: 120px;
+  padding-right: 128px;
+  flex-grow: 1;
 
   @include x {
     padding-right: 64px;
   }
 
-
   @include d {
     padding-right: 32px;
   }
 
-
   @include t {
-    width: 100%;
     padding: 0;
+
+    width: 100%;
   }
 }
 
 .filters {
-  flex-shrink: 0;
-  width: 352px;
   padding: 48px;
+
+  width: 352px;
+
   background: $dark-bg;
+  flex-shrink: 0;
 
   @include d {
-    width: 304px;
     padding: 32px;
-  }
 
+    width: 304px;
+  }
 
   @include t {
     display: none;
+
     width: 100%;
   }
-
 
   // @include dark {
   //   box-shadow: inset 0 0 0 1px $neutrals3, 0px 40px 32px -24px rgba(15, 15, 15, 0.12);
   //   background: $neutrals2;
   // }
-
-
   &.active {
     @include t {
-      display: block;
       margin-top: 32px;
-    }
 
+      display: block;
+    }
 
     @include m {
       margin-top: 16px;
@@ -148,14 +155,14 @@
 }
 
 .nav {
+  margin: 0 -6px 32px;
+
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -6px 32px;
 
   @include t {
     margin-top: 40px;
   }
-
 
   @include m {
     margin-top: 32px;
@@ -165,58 +172,66 @@
 .link {
   margin: 0 6px;
   padding: 6px 12px;
-  border-radius: 14px;
-  background: none;
-
-  @include button-2;
 
   color: $neutrals4;
+  background: none;
+  border-radius: 14px;
+
   transition: all 0.2s;
+
+  @include button-2;
 
   &:hover {
     color: $purple2;
 
     // @include dark {
-      // color: $neutrals6;
+    // color: $neutrals6;
     // }
   }
 
   &.active {
-    background: $gradient;
     color: $neutrals8;
+    background: $gradient;
   }
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
 .item {
   position: relative;
+
+  padding: 16px 64px 16px 16px;
+
   display: flex;
   align-items: center;
-  padding: 16px 64px 16px 16px;
-  border-radius: 20px;
+
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  transition: background 0.2s;
+
   background: $gradient3;
+  border-radius: 20px;
+
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   @include m {
     padding-right: 32px;
   }
 
-
   .circle,
-  &:after {
-    content: "";
+  &::after {
+    content: '';
+
     position: absolute;
     top: 50%;
     right: 24px;
+
     width: 12px;
     height: 12px;
-    transform: translateY(-50%);
+
     transition: all 0.2s;
+    transform: translateY(-50%);
 
     @include m {
       right: 12px;
@@ -227,9 +242,9 @@
   //   border-radius: 50%;
   //   background: $gradient;
   // }
-
-  &:after {
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' fill='none' viewBox='0 0 6 10'%3E%3Cpath fill-rule='evenodd' d='M.793.793a1 1 0 0 0 0 1.414L3.586 5 .793 7.793a1 1 0 0 0 1.414 1.414l3.5-3.5a1 1 0 0 0 0-1.414l-3.5-3.5a1 1 0 0 0-1.414 0z' fill='%23777e91'/%3E%3C/svg%3E") no-repeat 50% 50% / 6px auto;
+  &::after {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' fill='none' viewBox='0 0 6 10'%3E%3Cpath fill-rule='evenodd' d='M.793.793a1 1 0 0 0 0 1.414L3.586 5 .793 7.793a1 1 0 0 0 1.414 1.414l3.5-3.5a1 1 0 0 0 0-1.414l-3.5-3.5a1 1 0 0 0-1.414 0z' fill='%23777e91'/%3E%3C/svg%3E")
+      no-repeat 50% 50% / 6px auto;
     opacity: 0;
   }
 
@@ -237,15 +252,13 @@
     background: $neutrals7;
 
     // @include dark {
-      background: $neutrals2;
+    background: $neutrals2;
     // }
-
-
     .circle {
       transform: translateY(-50%) scale(0);
     }
 
-    &:after {
+    &::after {
       opacity: 1;
     }
   }
@@ -257,21 +270,24 @@
 
 .preview {
   position: relative;
-  flex-shrink: 0;
-  width: 96px;
-  height: 96px;
+
   margin-right: 24px;
 
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+
   @include m {
+    margin-right: 16px;
+
     width: 64px;
     height: 64px;
-    margin-right: 16px;
   }
-
 
   & > img {
     width: 100%;
     height: 100%;
+
     border-radius: 50%;
     object-fit: cover;
   }
@@ -281,9 +297,11 @@
   position: absolute;
   top: 0;
   right: 0;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   border-radius: 50%;
 
   @include m {
@@ -291,12 +309,9 @@
     height: 24px;
   }
 
-
   // @include dark {
   //   border: 1px solid $neutrals3;
   // }
-
-
   img {
     width: 32px;
     height: 32px;
@@ -315,28 +330,26 @@
   @include body-bold-1;
   @include m {
     margin-bottom: 3px;
+
     font-size: 16px;
   }
 }
 
 .description {
   @include body-2;
-
   color: $neutrals3;
 
   @include m {
     font-size: 12px;
   }
 
-
   // @include dark {
-    color: $neutrals6;
+  color: $neutrals6;
   // }
 }
 
 .date {
   @include caption-bold-2;
-
   color: $neutrals4;
 }
 

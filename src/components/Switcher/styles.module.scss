@@ -2,22 +2,27 @@
 
 .label {
   display: inline-flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+
   background-color: $color-neutral-80;
   border-radius: 25px;
 }
 
 .btn {
-  min-width: 115px;
   padding: 15px;
-  border-radius: 25px;
+
+  min-width: 115px;
+
   color: $color-neutral-80;
+  border-radius: 25px;
+
   transition: 0.4s $color-neutral-80;
 
   &.active {
-    background-color: white;
     font-weight: bold;
+
     color: black;
+    background-color: white;
   }
 }

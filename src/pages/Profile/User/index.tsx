@@ -7,10 +7,10 @@ import { observer } from 'mobx-react';
 import { ReactComponent as Circles } from '../../../assets/img/icons/circles-gradient.svg';
 import Button from '../../../components/Button';
 import Icon from '../../../components/Icon';
+import Loader from '../../../components/Loader';
 import Modal from '../../../components/Modal';
 import Report from '../../../components/Report';
 import { userApi } from '../../../services/api';
-import Loader from '../../../components/Loader';
 import { useMst } from '../../../store/store';
 
 import styles from './User.module.scss';

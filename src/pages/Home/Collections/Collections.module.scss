@@ -1,4 +1,4 @@
-@import "../../../styles/helpers";
+@import '../../../styles/helpers';
 
 .section {
   overflow: hidden;
@@ -15,9 +15,9 @@
     margin-bottom: 64px;
   }
 
-
   @include m {
     margin-bottom: 32px;
+
     text-align: center;
   }
 }
@@ -27,23 +27,26 @@
 }
 
 .gallery {
+  margin: (-8px) -4px 16px;
+
   display: flex;
   flex-wrap: wrap;
-  margin: (-8px) -4px 16px;
 }
 
 .preview {
-  flex: 0 0 calc(33.333% - 8px);
-  width: calc(33.333% - 8px);
   margin: 8px 4px 0;
 
+  width: calc(33.333% - 8px);
+  flex: 0 0 calc(33.333% - 8px);
+
   &:first-child {
-    flex: 0 0 calc(100% - 8px);
     width: calc(100% - 8px);
+    flex: 0 0 calc(100% - 8px);
   }
 
   img {
     width: 100%;
+
     border-radius: 8px;
   }
 }
@@ -52,7 +55,6 @@
   margin-bottom: 8px;
 
   @include body-bold-1;
-
   color: $neutrals2;
 
   @include dark {
@@ -66,15 +68,16 @@
 }
 
 .user {
+  margin-right: auto;
+
   display: flex;
   align-items: center;
-  margin-right: auto;
+
   color: $neutrals3;
 
   @include dark {
     color: $neutrals6;
   }
-
 
   span {
     font-weight: 500;
@@ -82,16 +85,18 @@
 }
 
 .avatar {
-  flex-shrink: 0;
+  margin-right: 12px;
+
   width: 24px;
   height: 24px;
-  margin-right: 12px;
+  flex-shrink: 0;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+
     border-radius: 50%;
+    object-fit: cover;
   }
 }
 

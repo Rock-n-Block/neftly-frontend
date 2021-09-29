@@ -1,7 +1,9 @@
 import cn from 'classnames';
-import styles from './Preview.module.scss';
-import Icon from '../../../components/Icon';
+
 import Button from '../../../components/Button';
+import Icon from '../../../components/Icon';
+
+import styles from './Preview.module.scss';
 
 interface IPreviewProps {
   className?: string;

@@ -9,7 +9,7 @@ import TextInput from '../../../components/TextInput';
 import Uploader from '../../../components/Uploader';
 import { validateField } from '../../../utils/validate';
 
-import SuccessCreated from './SuccessCreated'
+import SuccessCreated from './SuccessCreated';
 
 import styles from './CreateCollection.module.scss';
 
@@ -21,7 +21,7 @@ export interface ICreateCollection {
   shortUrl: string;
   preview?: string;
   isLoading: boolean;
-  showModal: boolean
+  showModal: boolean;
 }
 
 const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
@@ -31,7 +31,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
   handleBlur,
   values,
   handleSubmit,
-  setFieldValue
+  setFieldValue,
 }) => {
   const onSubmit = () => {
     handleSubmit();

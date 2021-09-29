@@ -1,4 +1,5 @@
 import cn from 'classnames';
+
 import styles from './Player.module.scss';
 // import Icon from '../Icon';
 

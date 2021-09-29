@@ -1,12 +1,16 @@
 .slick-slider {
   position: relative;
+
   display: block;
+
   box-sizing: border-box;
+
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
+
   -khtml-user-select: none;
   -ms-touch-action: pan-y;
   touch-action: pan-y;
@@ -15,10 +19,12 @@
 
 .slick-list {
   position: relative;
-  display: block;
-  overflow: hidden;
+
   margin: 0;
   padding: 0;
+
+  display: block;
+  overflow: hidden;
 
   &:focus {
     outline: none;
@@ -31,7 +37,8 @@
 }
 
 .slick-slider {
-  .slick-track, .slick-list {
+  .slick-track,
+  .slick-list {
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
     -ms-transform: translate3d(0, 0, 0);
@@ -44,18 +51,22 @@
   position: relative;
   top: 0;
   left: 0;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 
-  &:before {
+  margin-right: auto;
+  margin-left: auto;
+
+  display: block;
+
+  &::before {
+    content: '';
+
     display: table;
-    content: "";
   }
 
-  &:after {
+  &::after {
+    content: '';
+
     display: table;
-    content: "";
     clear: both;
   }
 }
@@ -67,9 +78,9 @@
 .slick-slide {
   display: none;
   float: left;
+
   height: 100%;
   min-height: 1px;
-  
 }
 
 [dir='rtl'] .slick-slide {
@@ -100,7 +111,9 @@
 
 .slick-vertical .slick-slide {
   display: block;
+
   height: auto;
+
   border: 1px solid transparent;
 }
 
@@ -111,15 +124,19 @@
 .slick-arrow {
   position: absolute;
   z-index: 2;
+
   width: 40px;
   height: 40px;
+
   font-size: 0;
+
   transition: all 0.2s;
 
   svg {
     position: relative;
     z-index: 2;
     fill: $neutrals4;
+
     transition: fill 0.2s;
   }
 
@@ -137,7 +154,6 @@
     }
   }
 
-
   // &.slick-disabled
   //     opacity: .7
 }
@@ -145,21 +161,25 @@
 // creative slider
 .creative-slider {
   position: static;
+
   :hover {
     // cursor: grab;
   }
+
   :active {
     cursor: grabbing;
   }
+
   .slick-list {
     overflow: visible;
   }
 
   .slick-slide {
     padding: 0 12px;
+
     opacity: 0;
+
     transition: opacity 0.4s;
-    
 
     &.slick-active {
       opacity: 1;
@@ -168,6 +188,7 @@
 
   .slick-arrow {
     bottom: 8px;
+
     border: 2px solid $neutrals3;
     border-radius: 50%;
 
@@ -183,12 +204,10 @@
       right: 276px;
     }
 
-
     @include t {
       right: auto;
       left: calc(50% - 56px);
     }
-
 
     @include m {
       left: calc(50% - 44px);
@@ -202,11 +221,9 @@
       right: 228px;
     }
 
-
     @include t {
       right: calc(50% - 56px);
     }
-
 
     @include m {
       right: calc(50% - 44px);
@@ -222,11 +239,9 @@
     padding-bottom: 80px;
   }
 
-
   @include m {
     padding-bottom: 72px;
   }
-
 
   .slick-list {
     overflow: visible;
@@ -241,15 +256,17 @@
   }
 
   .slick-slide {
-    height: auto;
     padding: 0 16px;
+
+    height: auto;
+
     opacity: 0;
+
     transition: opacity 0.4s;
 
     @include m {
       padding: 0 4px;
     }
-
 
     &.slick-active {
       opacity: 1;
@@ -257,6 +274,7 @@
 
     & > div {
       display: flex;
+
       height: 100%;
       flex-grow: 1;
     }
@@ -264,11 +282,13 @@
 
   .slick-arrow {
     top: 50%;
+
     transform: translateY(-50%);
 
     @include t {
       top: auto;
       bottom: 0;
+
       transform: translateY(0);
     }
   }
@@ -280,11 +300,9 @@
       left: -40px;
     }
 
-
     @include t {
       left: calc(50% - 56px);
     }
-
 
     @include m {
       left: calc(50% - 44px);
@@ -298,11 +316,9 @@
       right: -40px;
     }
 
-
     @include t {
       right: calc(50% - 56px);
     }
-
 
     @include m {
       right: calc(50% - 44px);
@@ -327,15 +343,17 @@
   }
 
   .slick-slide {
-    height: auto;
     margin: 0 16px;
+
+    height: auto;
+
     opacity: 0;
+
     transition: opacity 0.4s;
 
     @include m {
       margin: 0 8px;
     }
-
 
     &.slick-active {
       opacity: 1;
@@ -343,6 +361,7 @@
 
     & > div {
       display: flex;
+
       height: 100%;
       flex-grow: 1;
     }
@@ -369,14 +388,15 @@
     padding-bottom: 72px;
   }
 
-
   .slick-list {
     overflow: visible;
   }
 
   .slick-slide {
     padding: 0 16px;
+
     opacity: 0;
+
     transition: opacity 0.4s;
 
     &.slick-active {

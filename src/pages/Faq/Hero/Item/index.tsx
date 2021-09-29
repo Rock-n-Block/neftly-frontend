@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import cn from 'classnames';
+
 import styles from './Item.module.scss';
 
-// TODO: fix any type 
+// TODO: fix any type
 
 interface IPreviewProps {
   className?: string;

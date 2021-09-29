@@ -1,21 +1,24 @@
-@import "../../../../../styles/helpers";
+@import '../../../../../styles/helpers';
 
 .mobileOurArtist {
-  background: $color-bg;
-  line-height: 34px;
   padding: 30px 0 0 0;
+
+  line-height: 34px;
+
+  background: $color-bg;
 }
 
 .gradientTitle {
   @include gradientText;
   margin: 0 auto;
+
   width: fit-content;
 }
 
-
 .tabs {
-  height: 75px;
   margin-top: 20px;
+
+  height: 75px;
 }
 
 .tab {
@@ -24,6 +27,7 @@
 
 .artistsWrapper {
   padding: 32px;
+
   & > * {
     margin-top: 20px;
   }

@@ -39,5 +39,5 @@ export default {
     );
   },
   getNotification: () => axios.get('activity/notification/'),
-  readNotification: (data: any) => axios.post('/activity/notification/', data) 
+  readNotification: (data: any) => axios.post('/activity/notification/', data),
 };

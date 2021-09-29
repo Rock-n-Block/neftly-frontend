@@ -6,35 +6,41 @@
 
 .upload {
   display: flex;
+
   img {
     width: 128px;
     height: 128px;
+
     border-radius: 160px;
   }
-  .empty{
+
+  .empty {
     min-width: 128px;
     height: 128px;
-    border-radius: 100%;
+
     background: $gradient;
+    border-radius: 100%;
   }
 }
 
-.wrapper{
-  display: flex;
+.wrapper {
   margin-top: 20px;
   margin-right: 24px;
   margin-left: 32px;
+
+  display: flex;
   flex-direction: column;
   gap: 16px;
 
-  .text{
+  .text {
     color: $neutrals4;
   }
 }
 
 .file {
-  display: inline-block;
   position: relative;
+
+  display: inline-block;
   overflow: hidden;
 }
 
@@ -42,7 +48,9 @@
   position: absolute;
   top: 0;
   left: 0;
+
   font-size: 140px;
+
   opacity: 0;
 }
 
@@ -53,6 +61,7 @@
     input::placeholder {
       color: $purple2;
     }
+
     &:not(:last-child) {
       margin-bottom: 32px;
 
@@ -64,6 +73,7 @@
 }
 
 .button {
-  width: 100%;
   margin-top: 32px;
+
+  width: 100%;
 }

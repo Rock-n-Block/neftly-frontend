@@ -1,4 +1,4 @@
-import { profilePic, smallArtCardImage } from "assets/img";
+import { profilePic, smallArtCardImage } from 'assets/img';
 
 export const data = [
   {

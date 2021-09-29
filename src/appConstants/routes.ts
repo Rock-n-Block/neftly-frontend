@@ -10,5 +10,9 @@ export const routes = {
       root: '/gallery/detailed-artwork/:id',
       link: '/gallery/detailed-artwork',
     },
+    profile: {
+      root: '/profile/:userId',
+      edit: '/profile/edit',
+    },
   },
 };

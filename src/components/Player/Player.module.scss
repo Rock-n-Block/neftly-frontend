@@ -2,30 +2,39 @@
 
 .player {
   position: relative;
-  img, video {
+
+  img,
+  video {
     width: 100%;
+
     border-radius: 16px;
   }
-  audio{
-    width: 100%;
+
+  audio {
     position: absolute;
-    bottom: 0;
     left: 0;
+    bottom: 0;
+
+    width: 100%;
   }
 }
 
 .control {
   position: absolute;
-  left: 8px;
-  right: 8px;
-  bottom: 8px;
   z-index: 3;
+  right: 8px;
+  left: 8px;
+  bottom: 8px;
+
+  padding: 0 20px;
+
   display: flex;
   align-items: center;
+
   height: 40px;
-  padding: 0 20px;
-  border-radius: 20px;
+
   background: $neutrals1;
+  border-radius: 20px;
 
   @include dark {
     background: $neutrals1;
@@ -41,6 +50,7 @@
 .button {
   svg {
     fill: $neutrals4;
+
     transition: fill 0.2s;
   }
 
@@ -65,11 +75,14 @@
 
 .line {
   position: relative;
-  flex-grow: 1;
-  height: 8px;
+
   margin-right: 24px;
+
+  height: 8px;
+
   background: $neutrals3;
   border-radius: 4px;
+  flex-grow: 1;
 
   @include m {
     margin-right: 16px;
@@ -85,12 +98,14 @@
   top: 0;
   left: 0;
   bottom: 0;
-  border-radius: 4px;
+
   background: $blue;
+  border-radius: 4px;
 }
 
 .time {
   margin-right: 24px;
+
   .button {
     svg {
       fill: $neutrals4;
