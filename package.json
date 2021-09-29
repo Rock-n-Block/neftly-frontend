@@ -60,6 +60,7 @@
     "react-select": "^4.3.1",
     "react-share": "^4.4.0",
     "react-slick": "^0.28.1",
+    "react-table": "^7.7.0",
     "react-tabs": "^3.2.2",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
@@ -91,6 +92,7 @@
     "@types/react-router-dom": "^5.1.8",
     "@types/react-select": "^4.0.18",
     "@types/react-slick": "^0.23.5",
+    "@types/react-table": "^7.7.5",
     "@types/react-tabs": "^2.3.3",
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.8",
@@ -99,6 +101,7 @@
     "jest-junit": "^12.0.0",
     "lint-staged": "^10.5.4",
     "lodash": "^4.17.21",
+    "namor": "^2.0.3",
     "plop": "^2.7.4",
     "remark-preset-lint-recommended": "^5.0.0",
     "ts-jest": "^26.5.3"

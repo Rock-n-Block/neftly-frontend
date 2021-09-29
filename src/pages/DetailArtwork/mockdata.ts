@@ -1,5 +1,4 @@
-import { bigArtCard, profilePic } from 'assets/img';
-
+import { bigArtCard, profilePic, smallArtCardImage } from 'assets/img';
 
 export const data = {
   image: bigArtCard,
@@ -18,3 +17,189 @@ export const data = {
     'Glassy Cube on the Block is a collection of 10,000 unique Cube NFTs. They live, as you have guessed by the name, in the Ethereum blockchain. They were aesthetically perfected to please the human eye and their owners have exclusive access to a community wallet.',
   tags: ['netfly', 'rare', 'art'],
 };
+
+export const tableData = [
+  {
+    event: {
+      type: 'purchase',
+      isDeclined: false,
+    },
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    event: {
+      type: 'offer',
+      isDeclined: true,
+    },
+    price: {
+      amount: '0.201',
+      asset: 'eth',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'Maria',
+      date: 'a day ago',
+    },
+  },
+  {
+    event: {
+      type: 'purchase',
+      isDeclined: false,
+    },
+    price: {
+      amount: '0.12',
+      asset: 'eth',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'LUCHO',
+      date: 'a day ago',
+    },
+  },
+  {
+    event: {
+      type: 'purchase',
+      isDeclined: false,
+    },
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    event: {
+      type: 'offer',
+      isDeclined: true,
+    },
+    price: {
+      amount: '0.201',
+      asset: 'eth',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'Maria',
+      date: 'a day ago',
+    },
+  },
+  {
+    event: {
+      type: 'purchase',
+      isDeclined: false,
+    },
+    price: {
+      amount: '0.12',
+      asset: 'eth',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'LUCHO',
+      date: 'a day ago',
+    },
+  },
+  {
+    event: {
+      type: 'purchase',
+      isDeclined: false,
+    },
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    event: {
+      type: 'offer',
+      isDeclined: true,
+    },
+    price: {
+      amount: '0.201',
+      asset: 'eth',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'Maria',
+      date: 'a day ago',
+    },
+  },
+  {
+    event: {
+      type: 'purchase',
+      isDeclined: false,
+    },
+    price: {
+      amount: '0.12',
+      asset: 'eth',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'LUCHO',
+      date: 'a day ago',
+    },
+  },
+];
+
+export const artworkData = [
+  {
+    image: smallArtCardImage,
+    name: 'Waves on chain',
+    price: '2.00',
+    asset: 'eth',
+    inStockNumber: '7',
+    author: 'Gremmy Thoumeaux',
+    authorAvatar: profilePic,
+    likesNumber: 3500,
+    tags: ['featured'],
+  },
+  {
+    image: smallArtCardImage,
+    name: 'Waves on chain',
+    price: '2.00',
+    asset: 'eth',
+    inStockNumber: '7',
+    author: 'Gremmy Thoumeaux',
+    authorAvatar: profilePic,
+    likesNumber: 3500,
+    tags: ['featured', 'rare'],
+  },
+  {
+    image: smallArtCardImage,
+    name: 'Waves on chain',
+    price: '2.00',
+    asset: 'eth',
+    inStockNumber: '7',
+    author: 'Gremmy Thoumeaux',
+    authorAvatar: profilePic,
+    likesNumber: 3500,
+    tags: ['featured'],
+  },
+  {
+    image: smallArtCardImage,
+    name: 'Waves on chain',
+    price: '2.00',
+    asset: 'eth',
+    inStockNumber: '7',
+    author: 'Gremmy Thoumeaux',
+    authorAvatar: profilePic,
+    likesNumber: 3500,
+    tags: ['featured', 'rare'],
+  },
+];
+

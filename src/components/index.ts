@@ -12,4 +12,5 @@ export { default as TabLookingComponent } from './TabLookingComponent';
 export { default as Select } from './Select';
 export { default as RangePicker } from './RangePicker';
 export { default as Switcher } from './Switcher';
+export { default as Table } from './Table';
 export * from './Typography';

@@ -212,7 +212,6 @@ const Select: FC<Props> = ({
           className={cx(styles.label, styles[size], disabled && styles.disabled, classNameLabel)}
           size={size === 's' ? 's' : 'm'}
           tag="span"
-          color="black"
           weight="medium"
         >
           {label}

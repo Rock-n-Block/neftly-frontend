@@ -33,3 +33,6 @@ export { default as motion } from './Motion.svg';
 export { default as cross } from './cross.svg';
 export { default as bigArtCard } from './bigArtCard.png';
 export { default as growth } from './growth.svg';
+export { default as tradingPurchase } from './tradingPurchase.svg';
+export { default as tradingOffer } from './tradingOffer.svg';
+export { default as tradingEth } from './tradingEth.svg';

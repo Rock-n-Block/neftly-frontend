@@ -1,0 +1,15 @@
+@import "../../../../styles/helpers";
+
+
+.tradingHistoryCells {
+  position: relative;
+  @include flexbox(center, flex-start);
+  & > img {
+    margin-right: 5px;
+  }
+}
+
+.eventDeclined {
+  position: absolute;
+  left: 30px;
+}
