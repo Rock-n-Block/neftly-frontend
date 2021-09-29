@@ -2,16 +2,16 @@
 
 .actions {
   position: relative;
+
   &.active {
     .button {
       background: $neutrals2;
-      box-shadow: inset 0 0 0 2px $neutrals2;
 
       // @include dark {
       background: $neutrals1;
+      box-shadow: inset 0 0 0 2px $neutrals2;
       box-shadow: inset 0 0 0 2px $neutrals1;
       // }
-
       svg {
         fill: $neutrals8;
       }
@@ -19,6 +19,7 @@
 
     .body {
       visibility: visible;
+
       opacity: 1;
     }
   }
@@ -26,39 +27,48 @@
 
 .body {
   position: absolute;
-  right: calc(100% + 20px);
   top: 50%;
-  width: 208px;
+  right: calc(100% + 20px);
+
   padding: 16px 16px 20px;
-  border-radius: 12px;
-  background: $neutrals8;
-  box-shadow: 0px 16px 64px -16px rgba(31, 47, 70, 0.3);
+
   visibility: hidden;
-  opacity: 0;
-  transform: translateY(-50%);
-  transition: all 0.2s;
+
+  width: 208px;
+
+  background: $neutrals8;
 
   // @include dark {
   background: $neutrals2;
+  border-radius: 12px;
+  opacity: 0;
+  box-shadow: 0 16px 64px -16px rgba(31, 47, 70, 0.3);
   box-shadow: inset 0 0 0 2px $neutrals2, 0 4px 24px rgba($neutrals1, 0.5);
+
+  transition: all 0.2s;
+  transform: translateY(-50%);
   // }
 }
 
 .item {
+  padding: 16px 0 12px;
+
   display: flex;
   align-items: center;
-  padding: 16px 0 12px;
+
+  cursor: pointer;
+
+  color: $neutrals4;
+
+  transition: color 0.2s;
 
   @include button-2;
 
-  cursor: pointer;
-  color: $neutrals4;
-  transition: color 0.2s;
-
   svg {
     margin-right: 8px;
-    fill: $neutrals4;
+
     transition: fill 0.2s;
+    fill: $neutrals4;
   }
 
   &:hover {
@@ -70,10 +80,10 @@
   }
 
   &:not(:last-child) {
-    border-bottom: 1px solid $neutrals6;
 
     // @include dark {
     border-color: $neutrals3;
+    border-bottom: 1px solid $neutrals6;
     // }
   }
 }

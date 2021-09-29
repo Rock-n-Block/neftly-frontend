@@ -11,12 +11,13 @@ export const Store = RootModel.create({
     address: '',
     is_verificated: false,
     display_name: '',
+    email: '',
     balance: { eth: '0', weth: '0' },
     follows_count: 0,
     followers_count: 0,
     search: '',
-    is_searching: false
-  }
+    is_searching: false,
+  },
 });
 
 export const rootStore = Store;

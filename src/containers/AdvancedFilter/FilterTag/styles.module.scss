@@ -2,7 +2,9 @@
 
 .filterTag {
   padding: 2px 10px;
+
   width: fit-content;
+
   background: $color-primary;
   @include flexbox(center, space-between);
 

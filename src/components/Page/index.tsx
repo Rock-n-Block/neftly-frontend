@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { withRouter, useLocation } from 'react-router-dom';
+import { useLocation, withRouter } from 'react-router-dom';
 import { clearAllBodyScrollLocks } from 'body-scroll-lock';
+
 import styles from './Page.module.scss';
 
 // TODO: fix any property

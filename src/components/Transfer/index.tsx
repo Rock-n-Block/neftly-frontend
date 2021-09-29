@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import cn from 'classnames';
+
 import { storeApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
-import cn from 'classnames';
-import styles from './Transfer.module.scss';
 import Button from '../Button';
+
+import styles from './Transfer.module.scss';
 
 interface ITransferProps {
   className?: string;

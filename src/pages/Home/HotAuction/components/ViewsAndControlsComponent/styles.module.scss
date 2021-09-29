@@ -1,4 +1,4 @@
-@import "../../../../../styles/helpers";
+@import '../../../../../styles/helpers';
 
 .viewsAndControls {
   width: 100%;
@@ -7,8 +7,10 @@
 
 .controls {
   @include flexbox;
+
   & > button {
     margin-right: 10px;
+
     min-width: 38px;
   }
 }

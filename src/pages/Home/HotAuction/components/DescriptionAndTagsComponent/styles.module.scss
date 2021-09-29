@@ -1,14 +1,17 @@
-@import "../../../../../styles/helpers";
+@import '../../../../../styles/helpers';
 
 .tagWrapper {
   display: flex;
   flex-wrap: wrap;
+
   .tag {
     @include flexbox;
-    height: 25px;
-    width: 90px;
-    border: 1px solid $color-neutral-80;
     margin-right: 10px;
+
+    width: 90px;
+    height: 25px;
+
+    border: 1px solid $color-neutral-80;
   }
 }
 

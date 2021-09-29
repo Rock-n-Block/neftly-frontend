@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
-import styles from './Add.module.scss';
+
 import Icon from '../../../../components/Icon';
+
+import styles from './Add.module.scss';
 
 interface IAddProps {
   className?: string;

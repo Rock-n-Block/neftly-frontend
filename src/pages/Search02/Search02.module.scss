@@ -1,4 +1,4 @@
-@import "../../styles/helpers";
+@import '../../styles/helpers';
 
 .section {
   overflow: hidden;
@@ -15,16 +15,13 @@
     margin: 0 -64px 90px;
   }
 
-
   @include t {
     margin-bottom: 64px;
   }
 
-
   @include m {
     margin: 0 -160px 32px;
   }
-
 
   img {
     width: 100%;
@@ -32,8 +29,10 @@
 }
 
 .wrap {
-  max-width: 736px;
   margin: 0 auto 96px;
+
+  max-width: 736px;
+
   text-align: center;
 
   @include m {
@@ -47,12 +46,14 @@
 
 .info {
   margin-bottom: 24px;
+
   color: $neutrals4;
 }
 
 .form {
-  max-width: 300px;
   margin: 0 auto;
+
+  max-width: 300px;
 
   @include m {
     max-width: 100%;
@@ -61,17 +62,20 @@
 
 .subtitle {
   margin-bottom: 48px;
+
   text-align: center;
 
   @include body-bold-1;
 }
 
 .list {
-  display: flex;
   margin: 0 -16px;
+
+  display: flex;
 
   @include d {
     margin: 0 -80px;
+
     overflow: auto;
     overflow-x: auto;
     -ms-overflow-style: none;
@@ -82,34 +86,36 @@
       display: none;
     }
 
-    &:before,
-    &:after {
-      content: "";
-      flex-shrink: 0;
+    &::before,
+    &::after {
+      content: '';
+
       width: 80px;
       height: 1px;
+      flex-shrink: 0;
     }
   }
 }
 
 .item {
-  display: flex;
-  align-items: center;
-  flex: 0 0 calc(25% - 32px);
-  width: calc(25% - 32px);
   margin: 0 16px;
   padding: 9px;
-  border: 1px solid $neutrals6;
-  border-radius: 32px;
+
+  display: flex;
+  align-items: center;
+
+  width: calc(25% - 32px);
+
   cursor: pointer;
+
+  border: 1px solid $neutrals6;
+
+  // @include dark {
+  border-color: $neutrals3;
+  border-radius: 32px;
+
   transition: all 0.2s;
-
-  @include d {
-    flex: 0 0 256px;
-    width: 256px;
-    margin: 0;
-  }
-
+  flex: 0 0 calc(25% - 32px);
 
   &:not(:last-child) {
     @include d {
@@ -118,29 +124,35 @@
   }
 
   &:hover {
-    box-shadow: 0px 24px 24px -16px rgba(15, 15, 15, 0.2);
+    box-shadow: 0 24px 24px -16px rgba(15, 15, 15, 0.2);
   }
 
-  // @include dark {
-    border-color: $neutrals3;
+  &:hover {
+    border-color: $neutrals4;
+  }
 
-    &:hover {
-      border-color: $neutrals4;
-    }
+  @include d {
+    margin: 0;
+
+    width: 256px;
+    flex: 0 0 256px;
+  }
   // }
 }
 
 .picture {
-  flex-shrink: 0;
+  margin-right: 12px;
+
   width: 44px;
   height: 44px;
-  margin-right: 12px;
+  flex-shrink: 0;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+
     border-radius: 50%;
+    object-fit: cover;
   }
 }
 
@@ -150,6 +162,5 @@
 
 .text {
   @include caption-2;
-
   color: $neutrals4;
 }

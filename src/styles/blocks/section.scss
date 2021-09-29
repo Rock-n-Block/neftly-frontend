@@ -1,10 +1,10 @@
-[class^="section"] {
+[class^='section'] {
   padding: 128px 0;
+
   background: $dark-bg;
   @include x {
     padding: 112px 0;
   }
-
 
   @include m {
     padding: 64px 0;
@@ -26,7 +26,6 @@
     padding-top: 0;
   }
 
-
   @include m {
     padding-top: 0;
   }
@@ -38,7 +37,6 @@
   @include d {
     padding-top: 64px;
   }
-
 
   @include m {
     padding-top: 32px;

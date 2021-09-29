@@ -1,12 +1,13 @@
-@import "../../../../../styles/helpers";
-
+@import '../../../../../styles/helpers';
 
 .mobileCard {
-   padding: 10px;
+  padding: 10px;
+
   & > * {
     margin-bottom: 20px;
   }
 }
+
 .imageWrapper {
   @include flexbox;
 
@@ -16,8 +17,9 @@
 }
 
 .paymentMobile {
+  padding-top: 20px;
+
   border-width: 1px 0 0 0;
   border-style: solid;
   border-color: $color-neutral-80;
-  padding-top: 20px;
 }

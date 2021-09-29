@@ -1,4 +1,4 @@
-@import "../../../../styles/helpers";
+@import '../../../../styles/helpers';
 
 .title {
   margin-bottom: 32px;
@@ -15,24 +15,24 @@
 }
 
 .row {
-  display: flex;
   padding-top: 12px;
+
+  display: flex;
 
   &:first-child {
     padding: 0 0 12px;
-    border-bottom: 1px solid $neutrals6;
+
     font-weight: 500;
 
     // @include dark {
-      border-color: $neutrals3;
+    border-color: $neutrals3;
+    border-bottom: 1px solid $neutrals6;
     // }
-
-
     .col {
       color: $neutrals2;
 
       // @include dark {
-        color: $neutrals8;
+      color: $neutrals8;
       // }
     }
   }
@@ -48,6 +48,7 @@
   &:nth-child(2) {
     margin-left: auto;
     padding-left: 30px;
+
     font-weight: 500;
   }
 }
@@ -65,13 +66,15 @@
 }
 
 .attention {
-  display: flex;
-  align-items: center;
   margin-top: 32px;
   padding: 24px;
-  border-radius: 8px;
-  background: rgba($pink, 0.08);
+
+  display: flex;
+  align-items: center;
+
   color: $pink;
+  background: rgba($pink, 0.08);
+  border-radius: 8px;
 
   @include m {
     align-items: stretch;
@@ -79,9 +82,10 @@
 }
 
 .preview {
-  flex-shrink: 0;
-  width: 32px;
   margin-right: 16px;
+
+  width: 32px;
+  flex-shrink: 0;
 
   svg {
     fill: $pink;
@@ -111,46 +115,54 @@
 
 .icon {
   position: relative;
+
+  margin-right: 20px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
+
   width: 40px;
   height: 40px;
-  margin-right: 20px;
+
   background: $neutrals6;
   border: 2px solid $neutrals6;
   border-radius: 50%;
+
   transition: all 0.2s;
+  flex-shrink: 0;
 
   svg {
-    fill: $neutrals4;
     transition: fill 0.2s;
+    fill: $neutrals4;
   }
 
   .loader {
     position: absolute;
     top: -3px;
-    left: -3px;
     right: -3px;
+    left: -3px;
     bottom: -3px;
+
     background: $neutrals8;
 
     // @include dark {
-      background: $neutrals1;
+    background: $neutrals1;
     // }
   }
 }
 
 .avatar {
-  flex-shrink: 0;
+  margin-left: 16px;
+
   width: 48px;
   height: 48px;
-  margin-left: 16px;
+  flex-shrink: 0;
 
   img {
     width: 100%;
     height: 100%;
+
     border-radius: 50%;
     object-fit: cover;
   }
@@ -159,26 +171,25 @@
 .input {
   width: 100%;
   height: 48px;
-  border-bottom: 1px solid $neutrals6;
+
+  color: $neutrals2;
+  color: $neutrals8;
   background: none;
+
+  // @include dark {
+  border-color: $neutrals3;
+  border-bottom: 1px solid $neutrals6;
   border-radius: 0;
+
+  transform: border-color 0.2s;
 
   @include poppins;
   @include body-bold-2;
-
-  color: $neutrals2;
-  transform: border-color 0.2s;
-
-  // @include dark {
-    border-color: $neutrals3;
-    color: $neutrals8;
   // }
-
 
   @include placeholder {
     color: $neutrals4;
   }
-
 
   &:focus {
     border-color: $neutrals4;

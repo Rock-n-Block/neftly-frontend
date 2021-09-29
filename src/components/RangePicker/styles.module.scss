@@ -9,16 +9,19 @@ $minHeight: 250px;
 
   &.verticalContainer {
     flex-direction: row;
+
     height: 100%;
 
     .valueInput {
-      border-color: transparentize($color: white, $amount: 0.8);
-      min-width: 0;
       width: 90%;
+      min-width: 0;
+
+      border-color: transparentize($color: white, $amount: 0.8);
     }
 
     .labelWrap {
       position: relative;
+
       width: 100%;
     }
 
@@ -39,27 +42,33 @@ $minHeight: 250px;
     }
 
     .values {
-      width: 25%;
-      height: 100%;
       margin-top: 0;
       padding: 20px 0;
+
       flex-direction: column;
+
+      width: 25%;
+      height: 100%;
       flex-basis: 100%;
 
       &.top {
         position: relative;
+
         padding: 0;
 
         &::after {
-          position: absolute;
           content: 'TRX';
+
+          position: absolute;
           top: 0;
-          bottom: 0;
           right: 12px;
+          bottom: 0;
+
           padding-top: 7px;
           padding-bottom: 7px;
 
           font-size: 12px;
+
           color: white;
         }
 
@@ -70,25 +79,27 @@ $minHeight: 250px;
     }
 
     .sliderContainer {
+      flex-direction: column;
+
       width: auto;
       height: 100%;
-      flex-direction: column;
     }
 
     .manageBtnPlus {
-      margin-left: 0;
       margin-bottom: 20px;
+      margin-left: 0;
       order: 1;
     }
 
     .manageBtnMinus {
-      margin-right: 0;
       margin-top: 20px;
+      margin-right: 0;
       order: 3;
     }
 
     .slider {
       order: 2;
+
       min-height: 10px;
     }
   }
@@ -101,16 +112,20 @@ $minHeight: 250px;
 
 .manageBtn {
   display: block;
+
   width: 26px;
   height: 26px;
-  flex-shrink: 0;
-  border-radius: 6px;
-  background-color: white;
-  color: $color-neutral-80;
-  font-weight: bold;
+
   font-size: 20px;
+  font-weight: bold;
   line-height: 20px;
+
+  color: $color-neutral-80;
+  background-color: white;
+  border-radius: 6px;
+
   transition: 0.2s $color-neutral-80;
+  flex-shrink: 0;
 
   &:hover {
     background-color: darken(white, 10%);
@@ -126,9 +141,11 @@ $minHeight: 250px;
 }
 
 .labelWrap {
-  text-align: left;
-  cursor: default;
   width: 100%;
+
+  text-align: left;
+
+  cursor: default;
 }
 
 .label {
@@ -142,8 +159,9 @@ $minHeight: 250px;
 
 .values {
   @include flexbox(center, space-between);
-  width: 100%;
   margin-top: 20px;
+
+  width: 100%;
 
   &.top {
     margin-top: 0;
@@ -161,15 +179,17 @@ $minHeight: 250px;
 }
 
 .valueInput {
-  min-width: 130px;
-  height: 30px;
   padding-left: 12px;
 
+  min-width: 130px;
+  height: 30px;
+
   font-size: 14px;
+
+  color: white;
+  background-color: transparent;
   border: 1px solid $color-neutral-80;
   border-radius: 6px;
-  background-color: transparent;
-  color: white;
 
   -moz-appearance: textfield;
 
@@ -178,29 +198,29 @@ $minHeight: 250px;
   }
 
   &::-webkit-inner-spin-button {
+    margin: 0;
     -webkit-appearance: none;
     appearance: none;
-    margin: 0;
   }
 }
 
 body {
-
   .switcher {
     @include flexbox(center, space-between);
   }
 
   .switcherBtn {
-    min-width: auto;
     padding: 0;
 
-    border-radius: 100%;
+    min-width: auto;
 
     color: white;
 
+    border-radius: 100%;
+
     &.activeSwitcher {
-      border: 2px solid $color-neutral-80;
       color: white;
+      border: 2px solid $color-neutral-80;
     }
   }
 
@@ -222,16 +242,16 @@ body {
 }
 
 .switcher {
-  width: 92px;
-  flex: 0 0 auto;
-
   margin-bottom: 15px;
   padding: 3px;
+
+  width: 92px;
+  flex: 0 0 auto;
 }
 
 .switcherBtn {
   @include flexbox;
   width: 30px;
-  height: 30px;
   min-width: auto;
+  height: 30px;
 }

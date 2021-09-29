@@ -12,7 +12,7 @@ interface IUploadDetails {
 }
 
 const UploadDetails: React.FC<IUploadDetails> = observer(({ isSingle }) => {
-  const history = useHistory()
+  const history = useHistory();
   const walletConnector = useWalletConnectorContext();
   return (
     <>
@@ -25,7 +25,9 @@ const UploadDetails: React.FC<IUploadDetails> = observer(({ isSingle }) => {
               </div>
               <button
                 type="button"
-                onClick={() => history.push(isSingle ? '/upload-details-multiple' : '/upload-details-single')}
+                onClick={() =>
+                  history.push(isSingle ? '/upload-details-multiple' : '/upload-details-single')
+                }
                 className={cn('button-stroke button-small', styles.button)}
               >
                 Switch to {isSingle ? 'Multiple' : 'Single'}

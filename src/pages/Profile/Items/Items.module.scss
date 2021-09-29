@@ -1,48 +1,50 @@
-@import "../../../styles/helpers";
+@import '../../../styles/helpers';
 
 .list {
+  margin: (-32px) -16px 0;
+
   display: flex;
   flex-wrap: wrap;
-  margin: (-32px) -16px 0;
 
   @include x {
     margin: (-32px) -10px 0;
   }
 
-
   @include d {
     margin: (-32px) -16px 0;
   }
 
-
   @include m {
-    display: block;
     margin: 0;
+
+    display: block;
   }
 }
 
 .card {
-  flex: 0 0 calc(33.333% - 32px);
-  width: calc(33.333% - 32px);
   margin: 32px 16px 0;
 
-  @include x {
-    flex: 0 0 calc(33.333% - 20px);
-    width: calc(33.333% - 20px);
-    margin: 32px 10px 0;
-  }
+  width: calc(33.333% - 32px);
+  flex: 0 0 calc(33.333% - 32px);
 
+  @include x {
+    margin: 32px 10px 0;
+
+    width: calc(33.333% - 20px);
+    flex: 0 0 calc(33.333% - 20px);
+  }
 
   @include d {
-    flex: 0 0 calc(50% - 32px);
-    width: calc(50% - 32px);
     margin: 32px 16px 0;
+
+    width: calc(50% - 32px);
+    flex: 0 0 calc(50% - 32px);
   }
 
-
   @include m {
-    width: 100%;
     margin: 0;
+
+    width: 100%;
 
     &:not(:last-child) {
       margin-bottom: 32px;

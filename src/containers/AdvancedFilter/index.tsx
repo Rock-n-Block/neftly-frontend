@@ -1,11 +1,11 @@
 import { FC, useCallback, useState } from 'react';
+import { cross } from 'assets/img';
 import cx from 'classnames';
 import { Button, RangePicker, Select, Text, TextInput } from 'components';
 
 import FilterTag from './FilterTag';
 
 import styles from './styles.module.scss';
-import { cross } from 'assets/img';
 
 type Props = {
   className?: string;
@@ -183,7 +183,9 @@ const AdvancedFilter: FC<Props> = () => {
         />
       </div>
       <div>
-        <Text color="gray" size="m">Currency</Text>
+        <Text color="gray" size="m">
+          Currency
+        </Text>
         <Select
           onChange={handleFilterCurrency}
           value={filterCurrency}
@@ -191,7 +193,9 @@ const AdvancedFilter: FC<Props> = () => {
         />
       </div>
       <div>
-        <Text color="gray" size="m">Likes</Text>
+        <Text color="gray" size="m">
+          Likes
+        </Text>
         <Select
           onChange={handleFilterLikes}
           value={filterLikes}
@@ -199,7 +203,9 @@ const AdvancedFilter: FC<Props> = () => {
         />
       </div>
       <div>
-        <Text color="gray" size="m">Artists</Text>
+        <Text color="gray" size="m">
+          Artists
+        </Text>
         <Select
           onChange={handleFilterArtists}
           value={filterArtists}
@@ -207,7 +213,9 @@ const AdvancedFilter: FC<Props> = () => {
         />
       </div>
       <div>
-        <Text color="gray" size="m">Color Scheme</Text>
+        <Text color="gray" size="m">
+          Color Scheme
+        </Text>
         <TextInput
           value={filterColorScheme}
           onChange={(e) => handleInputChange(e.target.value)}

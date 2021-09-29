@@ -11,13 +11,13 @@ import RSelect, {
   OptionProps,
   PlaceholderProps,
 } from 'react-select';
+import { arrowLeft } from 'assets/img';
 import cx from 'classnames';
 import { OptionType, SelectColor, SelectProps, SelectSize } from 'typings';
 
 import { Text } from '..';
 
 import styles from './styles.module.scss';
-import { arrowLeft } from 'assets/img';
 
 const ROOT = document.querySelector('body');
 

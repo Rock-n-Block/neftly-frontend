@@ -1,22 +1,25 @@
-@import "../../../styles/helpers";
+@import '../../../styles/helpers';
 
 .item {
-  display: flex;
   padding-bottom: 32px;
+
+  display: flex;
+
   border-bottom: 1px solid $neutrals6;
 
   @include m {
     position: relative;
-    display: block;
+
     padding: 0 100px 0 0;
+
+    display: block;
+
     border: none;
   }
-
 
   @include dark {
     border-color: $neutrals3;
   }
-
 
   &:not(:last-child) {
     margin-bottom: 48px;
@@ -28,21 +31,23 @@
 }
 
 .follower {
-  display: flex;
-  align-items: center;
-  width: 326px;
-  flex: 0 0 326px;
   padding-right: 24px;
 
+  display: flex;
+  align-items: center;
+
+  width: 326px;
+  flex: 0 0 326px;
+
   @include d {
-    flex: 0 0 244px;
     width: 244px;
+    flex: 0 0 244px;
   }
 
-
   @include m {
-    width: 100%;
     padding-right: 0;
+
+    width: 100%;
   }
 }
 
@@ -55,30 +60,31 @@
     flex: 0 0 calc(100% - 244px);
   }
 
-
   @include m {
     display: none;
   }
 }
 
 .avatar {
-  flex-shrink: 0;
-  width: 88px;
-  height: 88px;
   margin-right: 20px;
 
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
+
   @include m {
+    margin-right: 16px;
+
     width: 72px;
     height: 72px;
-    margin-right: 16px;
   }
-
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+
     border-radius: 50%;
+    object-fit: cover;
   }
 }
 
@@ -88,27 +94,30 @@
 
 .counter {
   @include caption-2;
-
   color: $neutrals4;
 }
 
 .button {
-  height: 32px;
   margin-top: 12px;
   padding: 0 12px;
+
+  height: 32px;
 
   @include m {
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translateY(-50%);
+
     margin-top: 0;
+
+    transform: translateY(-50%);
   }
 }
 
 .gallery {
-  display: flex;
   margin: 0 -4px;
+
+  display: flex;
   overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -120,12 +129,14 @@
 }
 
 .preview {
-  flex-shrink: 0;
-  width: 112px;
   margin: 0 4px;
+
+  width: 112px;
+  flex-shrink: 0;
 
   img {
     width: 100%;
+
     border-radius: 12px;
   }
 }

@@ -1,14 +1,17 @@
-@import "../../../styles/helpers";
+@import '../../../styles/helpers';
 
 .artistsDesktop {
-  line-height: 48px;
-  @include flexbox;
-  height: 650px;
-  max-width: 1500px;
   margin: 0 auto;
+
+  max-width: 1500px;
+  height: 650px;
+
+  line-height: 48px;
+
   border-width: 0 0 1px 1px;
   border-style: solid;
   border-color: $color-neutral-80;
+  @include flexbox;
 }
 
 .title {
@@ -21,23 +24,29 @@
 
 .categorySection {
   position: relative;
-  height: 100%;
-  padding: 88px 40px 88px 88px;
-  flex-basis: 33%;
-  background: $color-bg2;
-  border-right: 1px;
-  border-style: solid;
-  border-color: $color-neutral-80;
   z-index: 10;
 
-  &:before {
+  padding: 88px 40px 88px 88px;
+
+  height: 100%;
+
+  background: $color-bg2;
+  border-style: solid;
+  border-color: $color-neutral-80;
+  border-right: 1px;
+  flex-basis: 33%;
+
+  &::before {
     content: ' ';
+
     position: absolute;
     z-index: -1;
+    top: 0;
+    right: 0;
+
     width: 300%;
     height: 100%;
-    right: 0;
-    top: 0;
+
     background: $color-bg2;
     border-bottom: 1px solid $color-neutral-80;
   }
@@ -57,19 +66,24 @@
 
   &::before {
     content: ' ';
+
     position: absolute;
-    width: 0;
-    height: 2px;
-    background: $color-secondary;
     top: 50%;
     left: -50px;
+
+    width: 0;
+    height: 2px;
+
+    background: $color-secondary;
   }
 
   &.selected {
-    color: $color-secondary;
-    margin-left: 50px;
-    color: $color-secondary;
     position: relative;
+
+    margin-left: 50px;
+
+    color: $color-secondary;
+    color: $color-secondary;
 
     &::before {
       width: 40px;
@@ -82,46 +96,56 @@
   bottom: 88px;
 }
 
-
 .artistsSection {
-  @include flexbox(flex-start, flex-start);
-  flex-direction: column;
-  height: 100%;
   padding: 88px 40px 88px 40px;
+
+  flex-direction: column;
+
+  height: 100%;
+
+  background: $color-bg;
+  border-style: solid;
+  border-color: $color-secondary;
+  border-right: 1px;
   flex-basis: 33%;
+
   & > button {
     margin-bottom: 20px;
   }
-  background: $color-bg;
-  border-right: 1px;
-  border-style: solid;
-  border-color: $color-secondary;
+  @include flexbox(flex-start, flex-start);
 }
 
 .artistDetails {
   position: relative;
   flex-basis: 34%;
+
   height: 100%;
 
-  &:before {
+  &::before {
     content: ' ';
+
     position: absolute;
-    height: 72px;
-    width: 1px;
-    background: $color-neutral-80;
     top: -72px;
     left: -1px;
+
+    width: 1px;
+    height: 72px;
+
+    background: $color-neutral-80;
   }
 
-  &:after {
+  &::after {
     content: ' ';
+
     position: absolute;
-    height: 132.5%;
-    width: 300%;
-    background: $color-bg2;
+    z-index: -1;
     top: -132.5%;
     left: 0;
-    z-index: -1;
+
+    width: 300%;
+    height: 132.5%;
+
+    background: $color-bg2;
   }
 }
 
@@ -139,7 +163,7 @@
   }
 
   .categorySection {
-    &:before {
+    &::before {
       display: none;
     }
   }

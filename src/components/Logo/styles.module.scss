@@ -3,15 +3,16 @@
 .logo {
   @include flexbox;
   transition: 200ms;
-  
+
   &:hover {
     transform: scale(1.1);
   }
 }
 
 .logoImage {
-  width: 24px;
   margin-right: 8px;
+
+  width: 24px;
 
   img {
     width: 100%;

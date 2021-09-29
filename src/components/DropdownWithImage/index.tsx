@@ -21,14 +21,14 @@ interface IDropdownWithImageProps {
     body?: string;
     option?: string;
   };
-  name?: string
+  name?: string;
 }
 const DropdownWithImage: React.FC<IDropdownWithImageProps> = ({
   // className,
   value,
   setValue,
   options,
-  name
+  name,
   // imageSrc,
   // customClasses = {},
 }) => {

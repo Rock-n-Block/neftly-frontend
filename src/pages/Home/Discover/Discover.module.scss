@@ -10,9 +10,11 @@
 
 .top {
   position: relative;
+
+  margin-bottom: 32px;
+
   display: flex;
   justify-content: space-between;
-  margin-bottom: 32px;
 
   @include m {
     display: block;
@@ -26,8 +28,9 @@
     }
 
     @include m {
-      width: 100%;
       margin-bottom: 12px;
+
+      width: 100%;
     }
   }
 }
@@ -36,8 +39,10 @@
   position: absolute;
   top: 10px;
   left: 50%;
+
   display: flex;
   justify-content: center;
+
   transform: translateX(-50%);
 
   @include t {
@@ -48,14 +53,15 @@
 .link {
   margin: 0 6px;
   padding: 6px 12px;
-  border-radius: 14px;
+
+  color: $purple2;
   background: none;
+  border-radius: 14px;
+
+  transition: all 0.2s;
   flex-shrink: 0;
 
   @include button-2;
-
-  color: $purple2;
-  transition: all 0.2s;
 
   &:hover {
     color: $neutrals3;
@@ -66,8 +72,8 @@
   }
 
   &.active {
-    background: $gradient;
     color: $neutrals8;
+    background: $gradient;
 
     // @include dark {
     //   background: $neutrals8;
@@ -84,21 +90,25 @@
 
 .filter {
   position: relative;
+
+  padding: 0 0 0 24px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 0 0 24px;
-  flex-shrink: 0;
-  border-radius: 24px;
-  background: $gradient;
-
-  @include dm-sans;
 
   font-size: 16px;
   line-height: 48px;
+
   color: $neutrals8;
+  background: $gradient;
+  border-radius: 24px;
+
   transition: background 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  @include dm-sans;
 
   @include m {
     width: 100%;
@@ -120,13 +130,17 @@
 }
 
 .toggle {
+  padding-right: 10px;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 52px;
-  padding-right: 10px;
-  background: none;
+
   font-size: 0;
+
+  background: none;
 
   svg {
     fill: $neutrals8;
@@ -138,6 +152,7 @@
 
     &:nth-child(2) {
       display: none;
+
       width: 10px;
       height: 10px;
     }
@@ -145,55 +160,61 @@
 }
 
 .filters {
-  display: none;
   padding: 32px 0;
-  border-top: 1px solid $neutrals6;
+
+  display: none;
 
   // @include dark {
   border-color: $neutrals3;
+  border-top: 1px solid $neutrals6;
   // }
-
   &.active {
     display: block;
   }
 }
 
 .sorting {
-  display: flex;
-  flex-wrap: wrap;
   margin: (-32px) -16px 0;
+
+  display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   @include d {
     margin: (-24px) -8px 0;
   }
 
   @include m {
-    display: block;
     margin: 0;
+
+    display: block;
   }
 }
 
 .cell {
-  flex: 0 0 calc(25% - 32px);
-  max-width: calc(25% - 32px);
   margin: 32px 16px 0;
 
+  max-width: calc(25% - 32px);
+  flex: 0 0 calc(25% - 32px);
+
   @include d {
-    flex: 0 0 calc(25% - 16px);
-    max-width: calc(25% - 16px);
     margin: 24px 8px 0;
+
+    max-width: calc(25% - 16px);
+    flex: 0 0 calc(25% - 16px);
   }
 
   @include t {
-    flex: 0 0 calc(50% - 32px);
-    max-width: calc(50% - 32px);
     margin: 32px 16px 0;
+
+    max-width: calc(50% - 32px);
+    flex: 0 0 calc(50% - 32px);
   }
 
   @include m {
-    max-width: 100%;
     margin: 0;
+
+    max-width: 100%;
 
     &:not(:last-child) {
       margin-bottom: 20px;
@@ -205,57 +226,63 @@
   margin-bottom: 12px;
 
   @include hairline-2;
-
   color: $neutrals5;
 }
 
 .scale {
+  margin-bottom: -3px;
+
   display: flex;
   justify-content: space-between;
-  margin-bottom: -3px;
+
   font-weight: 500;
 }
 
 .list {
   @include m {
-    margin: 0px;
+    margin: 0;
   }
 }
 
 .slider {
-  display: flex;
-  flex-wrap: wrap;
   margin: (-32px) -16px 0;
 
+  display: flex;
+  flex-wrap: wrap;
+
   @include m {
-    display: block;
     margin: 0;
+
+    display: block;
   }
 }
 
 .card {
-  flex: 0 0 calc(25% - 32px);
-  max-width: calc(25% - 32px);
   margin: 32px 16px 0;
 
+  max-width: calc(25% - 32px);
+  flex: 0 0 calc(25% - 32px);
+
   @include d {
-    flex: 0 0 calc(33.333% - 32px);
     max-width: calc(33.333% - 32px);
+    flex: 0 0 calc(33.333% - 32px);
   }
 
   @include t {
-    flex: 0 0 calc(50% - 32px);
     max-width: calc(50% - 32px);
+    flex: 0 0 calc(50% - 32px);
   }
 
   @include m {
-    max-width: 100%;
     margin: 0;
+
+    max-width: 100%;
   }
 }
 
 .btns {
   margin-top: 32px;
+
   text-align: center;
 
   .button {
@@ -267,14 +294,16 @@
   }
 }
 
-.switchWrapper{
+.switchWrapper {
   display: flex;
   gap: 16px;
+
   align-items: center;
 }
 
-.nobids{
+.nobids {
+  padding: 20px 0;
+
   display: flex;
   justify-content: center;
-  padding: 20px 0;
 }

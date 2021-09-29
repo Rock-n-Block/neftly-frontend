@@ -1,7 +1,9 @@
 import React from 'react';
 import cn from 'classnames';
-import styles from './Connect.module.scss';
+
 import Icon from '../Icon';
+
+import styles from './Connect.module.scss';
 
 interface IConnectProps {
   className?: string;

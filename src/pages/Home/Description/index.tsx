@@ -1,7 +1,9 @@
-import cn from 'classnames';
 import { Link } from 'react-router-dom';
-import styles from './Description.module.scss';
+import cn from 'classnames';
+
 import Image from '../../../components/Image';
+
+import styles from './Description.module.scss';
 
 const Description: React.FC = () => {
   return (
