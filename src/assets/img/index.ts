@@ -31,3 +31,6 @@ export { default as art } from './Art.svg';
 export { default as camera } from './Camera.svg';
 export { default as motion } from './Motion.svg';
 export { default as cross } from './cross.svg';
+export { default as heart } from './heart.svg';
+export { default as me } from './me.svg';
+export { default as folders } from './folders.svg';
