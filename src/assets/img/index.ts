@@ -31,3 +31,5 @@ export { default as art } from './Art.svg';
 export { default as camera } from './Camera.svg';
 export { default as motion } from './Motion.svg';
 export { default as cross } from './cross.svg';
+export { default as bigArtCard } from './bigArtCard.png';
+export { default as growth } from './growth.svg';

@@ -12,3 +12,21 @@
     min-width: 38px;
   }
 }
+
+.likeButton {
+  @include flexbox;
+  padding: 0 10px;
+  img {
+    margin-right: 5px;
+  }
+}
+
+@include forTablet {
+  .viewsAndControls {
+    display: block;
+  }
+
+  .controls {
+    justify-content: flex-start;
+  }
+}

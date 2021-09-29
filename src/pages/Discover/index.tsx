@@ -1,4 +1,6 @@
 import { useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { routes } from 'appConstants';
 import { allCategory, arrowUpRight, art, burn, camera, filter, motion, threeD } from 'assets/img';
 import cx from 'classnames';
 import { ArtCard, Button, Carousel, H2, H3, Select, TabLookingComponent, Text } from 'components';
@@ -100,7 +102,7 @@ const Discover = () => {
         <div className={cx(styles.filterResultsContainer, { [styles.withFilter]: isFilterOpen })}>
           <H3>3,150,000 results</H3>
           <div className={styles.filterResults}>
-            {data.map((artCard) => {
+            {data.map((artCard, index) => {
               const {
                 image,
                 name,
@@ -113,17 +115,19 @@ const Discover = () => {
                 tags,
               } = artCard;
               return (
-                <ArtCard
-                  imageMain={image}
-                  name={name}
-                  price={price}
-                  asset={asset}
-                  inStockNumber={inStockNumber}
-                  author={author}
-                  authorAvatar={authorAvatar}
-                  likesNumber={likesNumber}
-                  tags={tags}
-                />
+                <Link to={`${routes.gallery.detailArtwork.link}/${index}`}>
+                  <ArtCard
+                    imageMain={image}
+                    name={name}
+                    price={price}
+                    asset={asset}
+                    inStockNumber={inStockNumber}
+                    author={author}
+                    authorAvatar={authorAvatar}
+                    likesNumber={likesNumber}
+                    tags={tags}
+                  />
+                </Link>
               );
             })}
           </div>

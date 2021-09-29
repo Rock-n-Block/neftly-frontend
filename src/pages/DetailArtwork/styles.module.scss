@@ -1,0 +1,13 @@
+@import "../../styles/helpers";
+
+.detailArtworkContent {
+  max-width: 1600px;
+  padding: 88px;
+  margin: 0 auto;
+}
+
+@include forDesktopSm {
+  .detailArtworkContent {
+    padding: 20px;
+  }
+}

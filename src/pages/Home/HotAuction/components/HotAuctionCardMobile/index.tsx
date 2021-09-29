@@ -48,10 +48,11 @@ const HotAuctionCardMobile: FC<Props> = ({
     <H3>{title}</H3>
     <AuthorComponent authorPic={authorPic} author={author} />
     <PaymentComponent
+      type="auction"
       className={styles.paymentMobile}
       bidAction={() => alert('bid')}
-      currentPrice={currentPrice}
-      priceAsset={priceAsset}
+      price={currentPrice}
+      asset={priceAsset}
     />
     <Tab className={styles.tabs}
       tabs={[
