@@ -3,28 +3,16 @@ import nextId from 'react-id-generator';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import Control from '../../components/Control';
-
 import styles from './UploadVariants.module.scss';
-
-const breadcrumbs = [
-  {
-    title: 'Home',
-    url: '/',
-  },
-  {
-    title: 'Upload Item',
-  },
-];
 
 const items = [
   {
-    url: '/upload-details-single',
+    url: '/create/single',
     buttonText: 'Create Single',
     image: '/images/content/upload-pic-01.png',
   },
   {
-    url: '/upload-details-multiple',
+    url: '/create/multiple',
     buttonText: 'Create Multiple',
     image: '/images/content/upload-pic-02.png',
   },
@@ -33,7 +21,6 @@ const items = [
 const Upload: React.FC = () => {
   return (
     <div className={styles.page}>
-      <Control className={styles.control} item={breadcrumbs} />
       <div className={cn('section-pt80', styles.section)}>
         <div className={cn('container', styles.container)}>
           <div className={styles.top}>
