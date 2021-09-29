@@ -6,6 +6,7 @@ import { HotAuctionCard } from './components';
 import { data } from './mockData';
 
 import styles from './styles.module.scss';
+import { title } from 'process';
 
 type Props = {
   className?: string;
@@ -19,6 +20,7 @@ const HotAuction: FC<Props> = ({ className }) => (
     <Carousel classNameProp={styles.hotAuctionCarousel}>
       {data.map((auctionItem) => (
         <HotAuctionCard
+          key={title}
           title={auctionItem.title}
           author={auctionItem.author}
           authorPic={auctionItem.authorPic}

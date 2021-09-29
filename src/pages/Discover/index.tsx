@@ -117,6 +117,7 @@ const Discover = () => {
               return (
                 <Link to={`${routes.gallery.detailArtwork.link}/${index}`}>
                   <ArtCard
+                    key={name}
                     imageMain={image}
                     name={name}
                     price={price}

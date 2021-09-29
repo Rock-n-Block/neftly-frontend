@@ -57,7 +57,7 @@ const Headers: React.FC = observer(() => {
       <div className={styles.headerNavigation}>
         {nav.map(({ url, title }) => {
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
-          return <Link name={title} link={url} />;
+          return <Link key={url} name={title} link={url} />;
         })}
       </div>
       {isConnected ? (
