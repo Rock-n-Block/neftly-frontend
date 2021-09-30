@@ -1,29 +1,21 @@
-import { useEffect, useState } from 'react';
-import Hero from './Hero';
-// import Selection from './Selection';
-// import Popular from './Popular';
-// import HotBid from '../../components/HotBid';
-// import Collections from './Collections';
-import Discover from './Discover';
 import { observer } from 'mobx-react';
-import { useMst } from '../../store/store';
-// import Description from './Description';
+
+import Banner from './Banner';
+import HotAuction from './HotAuction';
+import HotCollections from './HotCollections';
+import HowItWorks from './HowItWorks';
+import OurArtistsToday from './OurArtistsToday';
+import OurArtworkGallery from './OurArtworkGallery';
 
 const Home: React.FC = observer(() => {
-  const { user } = useMst();
-  const [isShow, setIsShow] = useState(user.is_searching)
-  useEffect(() => {
-    setIsShow(user.is_searching)
-  }, [user.is_searching])
   return (
     <>
-      {!isShow && <Hero />}
-      {/* <Selection />
-    <Popular />
-    <HotBid classSection="section" />
-    <Collections /> */}
-      <Discover />
-      {/* <Description /> */}
+      <Banner />
+      <HotAuction />
+      <OurArtistsToday />
+      <OurArtworkGallery />
+      <HotCollections />
+      <HowItWorks />
     </>
   );
 });

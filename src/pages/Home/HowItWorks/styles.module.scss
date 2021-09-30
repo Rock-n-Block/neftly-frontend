@@ -1,0 +1,50 @@
+@import "../../../styles/helpers";
+
+.ourArtworkGallery {
+  padding: 88px;
+  max-width: 1500px;
+  margin: 0 auto;
+  & > * {
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.title {
+  width: 100%;
+  @include flexbox;
+}
+
+.gradientTitle {
+  @include gradientText;
+}
+
+.cardsWrapper {
+  @include flexbox(center, space-around);
+  flex-wrap: wrap;
+}
+
+.howItWorksCard {
+  @include flexbox(center, flex-start);
+  flex-direction: column;
+  width: 350px;
+  height: 200px;
+}
+
+.viewMoreBtnWrapper {
+  @include flexbox;
+}
+
+.viewMoreBtn {
+  width: 150px;
+}
+
+@include forTablet {
+  .ourArtworkGallery {
+    padding: 20px;
+  }
+  .howItWorksCard {
+    margin-bottom: 70px;
+  }
+}

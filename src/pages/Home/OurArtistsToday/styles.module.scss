@@ -1,0 +1,151 @@
+@import "../../../styles/helpers";
+
+.artistsDesktop {
+  line-height: 48px;
+  @include flexbox;
+  height: 650px;
+  max-width: 1500px;
+  margin: 0 auto;
+  border-width: 0 0 1px 1px;
+  border-style: solid;
+  border-color: $color-neutral-80;
+}
+
+.title {
+  margin-bottom: 36px;
+}
+
+.categorySelector {
+  margin-bottom: 24px;
+}
+
+.categorySection {
+  position: relative;
+  height: 100%;
+  padding: 88px 40px 88px 88px;
+  flex-basis: 33%;
+  background: $color-bg2;
+  border-right: 1px;
+  border-style: solid;
+  border-color: $color-neutral-80;
+  z-index: 10;
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    z-index: -1;
+    width: 300%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    background: $color-bg2;
+    border-bottom: 1px solid $color-neutral-80;
+  }
+}
+
+.gradientTitle {
+  @include gradientText();
+}
+
+.categoryWrapper {
+  @include flexbox(flex-start, center);
+  flex-direction: column;
+}
+
+.category {
+  transition: 300ms;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: $color-secondary;
+    top: 50%;
+    left: -50px;
+  }
+
+  &.selected {
+    color: $color-secondary;
+    margin-left: 50px;
+    color: $color-secondary;
+    position: relative;
+
+    &::before {
+      width: 40px;
+    }
+  }
+}
+
+.moreArtistsBtn {
+  position: absolute;
+  bottom: 88px;
+}
+
+
+.artistsSection {
+  @include flexbox(flex-start, flex-start);
+  flex-direction: column;
+  height: 100%;
+  padding: 88px 40px 88px 40px;
+  flex-basis: 33%;
+  & > button {
+    margin-bottom: 20px;
+  }
+  background: $color-bg;
+  border-right: 1px;
+  border-style: solid;
+  border-color: $color-secondary;
+}
+
+.artistDetails {
+  position: relative;
+  flex-basis: 34%;
+  height: 100%;
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    height: 72px;
+    width: 1px;
+    background: $color-neutral-80;
+    top: -72px;
+    left: -1px;
+  }
+
+  &:after {
+    content: ' ';
+    position: absolute;
+    height: 132.5%;
+    width: 300%;
+    background: $color-bg2;
+    top: -132.5%;
+    left: 0;
+    z-index: -1;
+  }
+}
+
+.artistsMobile {
+  display: none;
+}
+
+@include forDesktopMiddle {
+  .artistsDesktop {
+    display: none;
+  }
+
+  .artistsMobile {
+    display: block;
+  }
+
+  .categorySection {
+    &:before {
+      display: none;
+    }
+  }
+}
+
+// misc
+.arrowPic {
+  margin: 0 10px;
+}

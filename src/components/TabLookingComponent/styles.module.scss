@@ -1,0 +1,40 @@
+@import '../../styles/helpers.scss';
+
+.scrollProvider {
+  overflow-x: auto;
+}
+
+.tabWrapper {
+  margin: 0 auto;
+  width: fit-content;
+  @include flexbox(center, space-around);
+  .tab {
+    position: relative;
+    @include flexbox;
+    height: 100%;
+    
+    &:before {
+      content: ' ';
+      transition: 150ms ease-out;
+      position: absolute;
+      width: 0;
+      bottom: 0;
+      height: 2px;
+      background: $color-secondary;
+    }
+    &.selected {
+      &:before {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.tabIcon {
+  filter: brightness(100);
+  margin-right: 10px;
+}
+
+.scrollProvider::-webkit-scrollbar {
+  display: none;
+}

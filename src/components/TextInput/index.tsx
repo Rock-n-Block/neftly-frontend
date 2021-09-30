@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
+import { arrowLeft } from 'assets/img';
 import cn from 'classnames';
+import { Icon } from 'components';
+import Button from 'components/Button';
+import { IconNames } from 'typings';
 
 import styles from './TextInput.module.scss';
 
-interface ITextInputProps {
+interface Props {
   className?: string;
-  label: string;
+  label?: string;
   name?: string;
   type: string;
   placeholder: string;
@@ -16,20 +20,28 @@ interface ITextInputProps {
   onChange?: (value: any) => void;
   onBlur?: (value: any) => void;
   value?: string;
+  disabled?: boolean;
+  error?: boolean;
+  icon?: IconNames;
+  isButton?: boolean;
 }
 
-const TextInput: React.FC<ITextInputProps> = ({
+const TextInput: React.FC<Props> = ({
   className,
   label,
-  prefix,
   suffix,
   onChange,
   value,
   suffixClassName,
   name,
+  disabled,
+  prefix,
+  error,
+  icon,
+  isButton,
   ...props
 }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [elWidth, setElWidth] = useState(0);
   const prefixElement = (
     <div ref={ref} className={styles.prefix}>
@@ -39,22 +51,30 @@ const TextInput: React.FC<ITextInputProps> = ({
 
   useEffect(() => {
     if (ref.current) {
-      // eslint-disable-next-line
-      // @ts-ignore
       setElWidth(ref.current.offsetWidth);
     }
   }, []);
+
   return (
     <div className={cn(styles.field, className)}>
       {label && <div className={styles.label}>{label}</div>}
       <div className={styles.wrap}>
+        {icon && (
+          <Icon
+            className={cn(styles.icon, { [styles.disabled]: disabled })}
+            name={icon}
+            size="24"
+            fill="#fff"
+          />
+        )}
         {prefixElement}
         <input
           id={name}
           value={value}
-          className={cn(styles.input)}
+          className={cn(styles.input, { [styles.error]: error, [styles.withIcon]: icon })}
           onChange={onChange}
           onWheel={(e) => e.currentTarget.blur()}
+          disabled={disabled}
           {...props}
           style={
             elWidth
@@ -62,6 +82,11 @@ const TextInput: React.FC<ITextInputProps> = ({
               : { paddingRight: suffix ? '74px' : '' }
           }
         />
+        {isButton && (
+          <Button className={styles.inputButton}>
+            <img src={arrowLeft} alt="" />
+          </Button>
+        )}
         <div className={cn(styles.suffix, suffixClassName)}>{suffix}</div>
       </div>
     </div>

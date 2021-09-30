@@ -1,0 +1,45 @@
+@import "../../../../../styles/helpers";
+
+.desktopCard {
+  @include flexbox;
+  margin: 0 auto;
+  height: 580px;
+  max-width: 1500px;
+  border: 1px solid $color-neutral-80;
+
+  .descriptionControls {
+    @include flexbox(flex-start, space-between);
+    flex-direction: column;
+    padding: 30px;
+    height: 100%;
+    flex-basis: 33%;
+  }
+
+  .description {
+    & > * {
+      margin-bottom: 10px;
+    }
+  }
+
+  .imageWrapper {
+    height: 100%;
+    flex-basis: 33%;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .priceAndBidders {
+    position: relative;
+    padding: 30px;
+    height: 100%;
+    flex-basis: 34%;
+    background: $color-bg2;
+
+    :not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}
