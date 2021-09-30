@@ -6,11 +6,10 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 
-import { ReactComponent as Trangle } from '../../../assets/img/icons/triangle-white.svg';
 // import { ratesApi } from '../../../services/api';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { useMst } from '../../../store/store';
-// import Button from '../../Button';
+import { Button } from 'components';
 import Icon from '../../Icon';
 import Loader from '../../Loader';
 import Modal from '../../Modal';
@@ -33,17 +32,27 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
 
   const items: Array<{ title: string; icon: 'user' | 'image' | 'bulb' | 'exit'; url: string }> = [
     {
-      title: 'My profile',
+      title: 'Dashboard',
       icon: 'user',
-      url: '/profile',
+      url: '',
     },
-    // {
-    //   title: 'Dark theme',
-    //   icon: 'bulb',
-    //   url: '',
-    // },
     {
-      title: 'Disconnect',
+      title: 'Public profile',
+      icon: 'user',
+      url: '/profile/1',
+    },
+    {
+      title: 'My collections',
+      icon: 'user',
+      url: '/profile/1',
+    },
+    {
+      title: 'Account Settings',
+      icon: 'user',
+      url: '',
+    },
+    {
+      title: 'Logout',
       icon: 'exit',
       url: '',
     },
@@ -90,9 +99,19 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
         </div>
         {visible && (
           <div className={styles.body}>
-            <Trangle className={styles.triangle} />
-            <div className={styles.name}>{user.display_name || 'User'}</div>
-
+            <div className={styles.triangle} />
+            <div className={styles.user_header}>
+              <div className={styles.user_ava}>
+                {user.avatar ? <img src={user.avatar} alt="Avatar" /> : <Loader />}
+              </div>
+              <div className={styles.user_about}>
+                <div className={styles.name}>{user.display_name || 'User'}</div>
+                <div className={styles.type}>Proffesional Artist</div>
+              </div>
+            </div>
+            <Button className={styles.upload_btn} icon="upload-file">
+              Create item
+            </Button>
             <div className={styles.menu}>
               {items.map((x) => {
                 if (x.url?.startsWith('http')) {
