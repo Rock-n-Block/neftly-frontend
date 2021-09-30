@@ -1,25 +1,13 @@
 @import '../../styles/helpers';
 
 .control {
-  padding: 24px 0;
-  //border-bottom: 1px solid $neutrals3;
-
-  @include d {
-    padding: 16px 0;
-  }
-
-  @include m {
-    padding: 24px 0;
-  }
-
-  // @include dark {
-  // border-color: $neutrals3;
-  // }
+  margin: 40px 0;
 }
 
-.container {
+.control .container {
   display: flex;
   align-items: center;
+  padding: 0;
 }
 
 .button {

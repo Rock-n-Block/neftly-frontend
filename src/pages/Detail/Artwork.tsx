@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import cx from 'classnames';
-import { ArtCard, Button, GiantCard, H3, Select, Text, TradingHistory } from 'components';
+import { ArtCard, Button, GiantCard, H3, Select, Text, TradingHistory, Control } from 'components';
 import {
   TradingHistoryBuyer,
   TradingHistoryEvent,
@@ -12,6 +12,16 @@ import { TableCell } from 'typings';
 import { artworkData, data, tableDataArtwork } from './mockdata';
 
 import styles from './styles.module.scss';
+
+const breadcrumbs = [
+  {
+    title: 'Discover',
+    url: '/discover',
+  },
+  {
+    title: 'Artwork Details',
+  },
+];
 
 const chartOptionsFilter = [
   {
@@ -77,7 +87,7 @@ const columnTest = [
 const DetailArtwork: FC<Props> = ({ className }) => (
   <div className={cx(styles.detailArtwork, className)}>
     <div className={styles.detailArtworkContent}>
-      <div>breadCrumbs</div>
+      <Control item={breadcrumbs} />
       <GiantCard
         name={data.name}
         likes={data.likes}

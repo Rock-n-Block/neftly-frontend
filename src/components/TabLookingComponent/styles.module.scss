@@ -7,7 +7,7 @@
 .tabWrapper {
   margin: 0 auto;
 
-  width: fit-content;
+  width: max-content;
   @include flexbox(center, space-around);
 
   .tab {
