@@ -7,7 +7,7 @@ import styles from './TextArea.module.scss';
 
 interface ITextAreaProps {
   className?: string;
-  label: string;
+  label: any;
   name: string;
   placeholder: string;
   required?: boolean;
@@ -68,7 +68,7 @@ const TextArea: React.FC<ITextAreaProps> = ({
         )}
         {maxLettersCount ? (
           <p className={styles.counter}>
-            {value?.length}/{maxLettersCount}
+            {value?.length||0}/{maxLettersCount}
           </p>
         ) : (
           <></>

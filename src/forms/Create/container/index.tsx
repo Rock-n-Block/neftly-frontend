@@ -19,7 +19,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
       cover: '',
       preview: '',
       coverPreview: '',
-      putOnSale: true,
+      sellMethod: true,
       instantSalePrice: true,
       // unlockOncePurchased: false,
       format: '',
@@ -72,13 +72,13 @@ export default observer(({ isSingle, walletConnector }: any) => {
       formData.append('name', values.tokenName);
       formData.append('total_supply', isSingle ? '1' : values.numberOfCopies.toString());
       formData.append('description', values.tokenDescr);
-      if (values.instantSalePrice && values.putOnSale) {
+      if (values.instantSalePrice && values.sellMethod) {
         formData.append('price', values.instantSalePriceEth.toString());
       }
-      if (!values.instantSalePrice && values.putOnSale) {
+      if (!values.instantSalePrice && values.sellMethod) {
         formData.append('minimal_bid', values.bid.toString());
       }
-      if (values.putOnSale) {
+      if (values.sellMethod) {
         formData.append('available', values.numberOfCopies.toString());
       } else {
         formData.append('available', '0');

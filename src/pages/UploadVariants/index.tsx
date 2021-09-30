@@ -2,7 +2,7 @@ import React from 'react';
 import nextId from 'react-id-generator';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
-import {single, multiple} from 'assets/img/uploadVariants';
+import {single, multiple} from 'assets/img/upload';
 
 import styles from './UploadVariants.module.scss';
 import {Button} from "../../components";

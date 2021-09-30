@@ -1,53 +1,11 @@
 @import '../../../styles/helpers';
 
-.section {
-  @include x {
-    padding-top: 80px;
-  }
-
-  @include m {
-    padding-top: 64px;
-  }
-}
-
-.container {
-  position: relative;
-
-  @include t {
-    display: block;
-  }
-}
-
-.wrapper {
-  padding-right: 128px;
-
-  width: calc(100% - 352px);
-  flex: 0 0 calc(100% - 352px);
-
-  @include x {
-    padding-right: 64px;
-  }
-
-  @include d {
-    padding-right: 32px;
-
-    width: calc(100% - 304px);
-    flex: 0 0 calc(100% - 304px);
-  }
-
-  @include t {
-    padding: 0;
-
-    width: 100%;
-  }
-}
-
-.formWrapper {
-  // display: flex;
-}
-
 .form {
-  position: relative;
+  @include flexbox(flex-start, space-between);
+}
+
+.column {
+  width: 100%;
 }
 
 .preview {
@@ -125,21 +83,6 @@
   margin-right: auto;
 }
 
-.list {
-  margin-bottom: 40px;
-  padding-bottom: 40px;
-
-  border-bottom: 1px solid $neutrals3;
-
-  @include m {
-    margin-bottom: 32px;
-    padding-bottom: 32px;
-  }
-
-  // @include dark {
-  //   border-color: $neutrals3;
-  // }
-}
 
 .item {
   .previewImg {
@@ -164,16 +107,17 @@
 }
 
 .note {
+  @include epilogue;
   margin-top: 4px;
 
-  @include caption-2;
-  color: $purple2;
+  font-size: 14px;
+  line-height: 160%;
+  color: $color-neutral-20;
 }
 
 .file {
   position: relative;
 
-  margin-top: 16px;
 
   display: flex;
   overflow: hidden;
@@ -181,15 +125,18 @@
   justify-content: center;
   align-items: center;
 
-  height: 182px;
+  width: 100%;
+  max-width: 616px;
+  height: 400px;
 
-  background: $purple-dark;
-  border-radius: 16px;
+  background: $color-neutral-80;
+  border: 1px dashed #ffffff;
 
   input[type='file'],
   input[type='file']::-webkit-file-upload-button {
     cursor: pointer;
   }
+
   // @include dark {
   //   background: $neutrals2;
   // }
@@ -213,18 +160,35 @@
 }
 
 .format {
-  @include caption-2;
-  color: $purple2;
+  @include epilogue;
+  margin-top: 10px;
+
+  font-size: 11px;
+  line-height: 120%;
+  letter-spacing: 0.03em;
+  color: $color-neutral-40;
 }
 
 .category {
-  @include body-bold-2;
-  color: $neutrals8;
+  @include epilogue;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  color: $color-neutral-0;
 }
 
 .fieldset {
   margin-top: 32px;
 
+  &Title {
+    @include epilogue;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 160%;
+  }
+  &Row{
+    display: flex;
+  }
   .field {
     input::placeholder {
       color: $purple2;
@@ -239,7 +203,9 @@
     }
   }
 }
-
+.price{
+  display: flex;
+}
 .label {
   margin-bottom: 12px;
 
@@ -277,22 +243,29 @@
 }
 
 .options {
-  margin-bottom: 40px;
+  margin-top: 32px;
+  @include flexbox(flex-start,flex-start);
 
-  @include m {
-    margin-bottom: 32px;
-  }
 }
 
 .option {
-  display: flex;
-  align-items: flex-start;
-
-  &:not(:last-child) {
-    margin-bottom: 32px;
+  padding: 16px 88px;
+  @include flexbox;
+  flex-direction: column;
+  border: 1px solid $color-neutral-80;
+  //border: 1px solid $color-action-default;
+  cursor:pointer;
+  &+&{
+    margin-left: 16px;
   }
 }
 
+.active{
+  border: 1px solid $color-action-default;
+}
+.required{
+  color: rgb(169,49,93);
+}
 .squares {
   margin-bottom: 32px;
 
@@ -339,12 +312,6 @@
   :hover {
     cursor: pointer;
   }
-}
-
-.active {
-  padding: 4px;
-
-  background: $gradient;
 }
 
 .box {

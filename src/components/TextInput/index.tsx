@@ -9,7 +9,7 @@ import styles from './TextInput.module.scss';
 
 interface Props {
   className?: string;
-  label?: string;
+  label?: any;
   name?: string;
   type: string;
   placeholder: string;
