@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import { bell, profileHeader, wallet } from 'assets/img';
+import { bell, wallet } from 'assets/img';
 // import { Link } from 'react-router-dom';
 // import cn from 'classnames';
 import { Link, Logo } from 'components';
@@ -12,7 +12,7 @@ import { observer } from 'mobx-react-lite';
 import { useMst } from '../../store/store';
 import TextInput from '../TextInput/index';
 
-// import User from './User';
+import User from './User';
 import styles from './styles.module.scss';
 
 const nav = [
@@ -69,7 +69,7 @@ const Headers: React.FC = observer(() => {
             <img src={wallet} alt="" />
           </Button>
           <Button color="transparent" className={styles.profileImageWrapper}>
-            <img src={profileHeader} alt="" />
+            <User />
           </Button>
         </div>
       ) : (
