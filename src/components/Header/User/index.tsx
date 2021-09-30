@@ -100,16 +100,16 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
         {visible && (
           <div className={styles.body}>
             <div className={styles.triangle} />
-            <div className={styles.user_header}>
-              <div className={styles.user_ava}>
+            <div className={styles.userHeader}>
+              <div className={styles.userAva}>
                 {user.avatar ? <img src={user.avatar} alt="Avatar" /> : <Loader />}
               </div>
-              <div className={styles.user_about}>
+              <div className={styles.userAbout}>
                 <div className={styles.name}>{user.display_name || 'User'}</div>
                 <div className={styles.type}>Proffesional Artist</div>
               </div>
             </div>
-            <Button className={styles.upload_btn} icon="upload-file">
+            <Button className={styles.uploadBtn} icon="upload-file">
               Create item
             </Button>
             <div className={styles.menu}>
