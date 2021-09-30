@@ -1,0 +1,63 @@
+@import '../../../styles/helpers.scss';
+
+.user {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 52px 15px;
+  background: url('../../../assets/img/ProfilePage/profile_page_bg_example.png') no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.user_avatar {
+  margin-bottom: 15px;
+  img {
+    max-width: 130px;
+    max-height: 130px;
+    border-radius: 50%;
+  }
+}
+
+.user_name {
+  @include monument-extended;
+  margin-bottom: 5px;
+}
+
+.user_buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.user_button {
+  padding: 6px 33px;
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.user_info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  & + & {
+    margin-bottom: 16px;
+  }
+
+  &__icon {
+    width: 28px;
+    height: 28px;
+    background: #ffffff29;
+    margin-right: 8px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__value {
+    font-size: 16px;
+  }
+}
