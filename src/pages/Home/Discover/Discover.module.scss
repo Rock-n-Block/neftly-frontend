@@ -218,7 +218,7 @@
 
 .list {
   @include m {
-    margin: 0px;
+    margin: 0 -8px;
   }
 }
 

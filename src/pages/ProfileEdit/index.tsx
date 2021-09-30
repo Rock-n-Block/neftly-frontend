@@ -160,7 +160,6 @@ const ProfileEdit: React.FC = observer(() => {
                       onChange={(e) => handleChange('display_name', e.target.value)}
                       value={formData.display_name}
                       required
-                      icon="search"
                     />
                     <TextInput
                       className={cn(styles.field, error ? styles.error : '')}

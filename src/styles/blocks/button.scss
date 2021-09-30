@@ -1,157 +1,157 @@
-// [class^='button'] {
-//   display: inline-flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 48px;
-//   padding: 0 24px;
-//   background: $color-action-default;
+[class^='button'] {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  padding: 0 24px;
+  background: $gradient;
+  border-radius: 24px;
 
+  @include button-1;
 
-//   @include button-1;
+  text-align: center;
+  color: $neutrals8;
+  transition: all 0.2s;
 
-//   text-align: center;
-//   color: $neutrals8;
-//   transition: all 0.2s;
+  &:hover {
+    background: $gradient-hover;
+  }
 
-//   &:hover {
-//     background: $color-action-hovered;
-//   }
+  .loader-btn {
+    margin-left: 20px;
+  }
 
-//   .loader-btn {
-//     margin-left: 20px;
-//   }
+  &:disabled {
+    // opacity: 0.2;
+    pointer-events: none;
+    background: linear-gradient(90deg, #c3b2ff 0%, #ff6365 100%);
+  }
 
-//   &:disabled {
-//     // opacity: 0.2;
-//     pointer-events: none;
-//     background: linear-gradient(90deg, #c3b2ff 0%, #ff6365 100%);
-//   }
+  &.done {
+    background: $purple2;
+  }
 
-//   &.done {
-//     background: $purple2;
-//   }
+  &.loading {
+    background: $gradient-hover;
+    font-size: 0;
+  }
 
-//   &.loading {
-//     background: $gradient-hover;
-//     font-size: 0;
-//   }
+  &.error {
+    box-shadow: 0 0 0 2px $pink inset;
+    background: none;
+    color: $pink;
 
-//   &.error {
-//     box-shadow: 0 0 0 2px $pink inset;
-//     background: none;
-//     color: $pink;
+    @include dark-common {
+      box-shadow: 0 0 0 2px $neutrals4 inset;
+    }
+  }
 
-//     @include dark-common {
-//       box-shadow: 0 0 0 2px $neutrals4 inset;
-//     }
-//   }
+  svg {
+    fill: $neutrals8;
+  }
 
-//   svg {
-//     fill: $neutrals8;
-//   }
+  &:not([class^='button-circle']) {
+    svg {
+      &:first-child {
+        margin-right: 15px;
+      }
 
-//   &:not([class^='button-circle']) {
-//     svg {
-//       &:first-child {
-//         margin-right: 15px;
-//       }
+      &:last-child {
+        margin-left: 15px;
+      }
+    }
+  }
+}
 
-//       &:last-child {
-//         margin-left: 15px;
-//       }
-//     }
-//   }
-// }
+.button-stroke {
+  background: none;
+  box-shadow: 0 0 0 2px $neutrals3 inset;
+  color: $neutrals8;
 
-// .button-stroke {
-//   background: none;
-//   box-shadow: 0 0 0 2px $neutrals3 inset;
-//   color: $neutrals8;
+  svg {
+    fill: $neutrals2;
+    transition: fill 0.2s;
+  }
 
-//   svg {
-//     fill: $neutrals2;
-//     transition: fill 0.2s;
-//   }
+  &:hover {
+    background: $gradient-hover;
+    box-shadow: none !important;
+    color: $neutrals8;
 
-//   &:hover {
-//     background: $gradient-hover;
-//     box-shadow: none !important;
-//     color: $neutrals8;
+    svg {
+      fill: $neutrals8;
+    }
+  }
 
-//     svg {
-//       fill: $neutrals8;
-//     }
-//   }
+  @include dark-common {
+    box-shadow: 0 0 0 2px $neutrals3 inset;
+    color: $neutrals8;
 
-//   @include dark-common {
-//     box-shadow: 0 0 0 2px $neutrals3 inset;
-//     color: $neutrals8;
+    svg {
+      fill: $neutrals8;
+    }
 
-//     svg {
-//       fill: $neutrals8;
-//     }
+    &:hover {
+      box-shadow: 0 0 0 2px $blue inset;
+    }
+  }
+}
 
-//     &:hover {
-//       box-shadow: 0 0 0 2px $blue inset;
-//     }
-//   }
-// }
+.button-stroke {
+  &:disabled {
+    background: none;
+  }
+}
+.button-pink {
+  background: $pink;
 
-// .button-stroke {
-//   &:disabled {
-//     background: none;
-//   }
-// }
-// .button-pink {
-//   background: $pink;
+  &:hover {
+    background: darken($pink, 12);
+  }
+}
 
-//   &:hover {
-//     background: darken($pink, 12);
-//   }
-// }
+.button-small {
+  height: 40px;
+  border-radius: 20px;
+  padding: 0 16px;
+  font-size: 14px;
+}
 
-// .button-small {
-//   height: 40px;
-//   border-radius: 20px;
-//   padding: 0 16px;
-//   font-size: 14px;
-// }
+.button-circle-stroke {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px $neutrals3 inset;
+  background: transparent;
+  transition: all 0.2s;
 
-// .button-circle-stroke {
-//   flex: 0 0 48px;
-//   width: 48px;
-//   height: 48px;
-//   padding: 0;
-//   border-radius: 50%;
-//   box-shadow: 0 0 0 2px $neutrals3 inset;
-//   background: transparent;
-//   transition: all 0.2s;
+  svg {
+    fill: $neutrals4;
+    transition: fill 0.2s;
+  }
+  &-active,
+  &:hover {
+    background: $purple2;
+    box-shadow: 0 0 0 2px $purple2 inset;
 
-//   svg {
-//     fill: $neutrals4;
-//     transition: fill 0.2s;
-//   }
-//   &-active,
-//   &:hover {
-//     background: $purple2;
-//     box-shadow: 0 0 0 2px $purple2 inset;
+    svg {
+      fill: $neutrals8;
+    }
+  }
 
-//     svg {
-//       fill: $neutrals8;
-//     }
-//   }
+  @include dark-common {
+    box-shadow: 0 0 0 2px $neutrals3 inset;
 
-//   @include dark-common {
-//     box-shadow: 0 0 0 2px $neutrals3 inset;
+    &:hover {
+      background: $neutrals3;
+    }
+  }
+}
 
-//     &:hover {
-//       background: $neutrals3;
-//     }
-//   }
-// }
-
-// .button-circle-stroke.button-small {
-//   flex: 0 0 40px;
-//   width: 40px;
-//   height: 40px;
-// }
+.button-circle-stroke.button-small {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+}

@@ -1,5 +1,4 @@
 import cn from 'classnames';
-
 import styles from './Checkbox.module.scss';
 
 interface ICheckboxProps {

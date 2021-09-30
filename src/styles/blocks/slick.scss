@@ -69,7 +69,6 @@
   float: left;
   height: 100%;
   min-height: 1px;
-  
 }
 
 [dir='rtl'] .slick-slide {
@@ -113,6 +112,7 @@
   z-index: 2;
   width: 40px;
   height: 40px;
+  border-radius: 50%;
   font-size: 0;
   transition: all 0.2s;
 
@@ -146,7 +146,7 @@
 .creative-slider {
   position: static;
   :hover {
-    // cursor: grab;
+    cursor: grab;
   }
   :active {
     cursor: grabbing;
@@ -159,7 +159,6 @@
     padding: 0 12px;
     opacity: 0;
     transition: opacity 0.4s;
-    
 
     &.slick-active {
       opacity: 1;
@@ -414,7 +413,12 @@
 // discover slider
 .discover-slider {
   .slick-list {
+    overflow: visible;
     padding-bottom: 72px;
+  }
+
+  .slick-slide {
+    padding: 0 8px;
   }
 
   .slick-arrow {
@@ -422,16 +426,10 @@
   }
 
   .slick-prev {
-    right: 5%;
+    left: calc(50% - 44px);
   }
 
   .slick-next {
-    right: 0;
-  }
-}
-
-@include forDesktopSm {
-  .slick-list {
-    overflow: visible;
+    right: calc(50% - 44px);
   }
 }
