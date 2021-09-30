@@ -1,15 +1,20 @@
 // common styles
 body {
+  min-width: 375px;
+  background: $neutrals8;
+
   @include poppins;
-  overflow-x: hidden;
+
   font-size: 14px;
   line-height: (24 / 14);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $neutrals8;
 
-  background: $color-bg;
+  // @include dark-body {
+  background: $neutrals1;
   color: $neutrals8;
+  // }
 }
 
 a {

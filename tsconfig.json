@@ -1,14 +1,14 @@
 {
   "shouldExtractLiteralValuesFromEnum": true,
   "include": [
-    "src"
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ],
   "exclude": [
     "node_modules",
     "**/dist/**/*"
   ],
   "compilerOptions": {
-    "baseUrl": "./src/",
     "strict": true,
     "noImplicitAny": true,
     "jsx": "react-jsx",
@@ -30,6 +30,7 @@
     "stripInternal": true,
     "sourceMap": true,
     "noImplicitThis": false,
+    "baseUrl": "./",
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "target": "es5",
