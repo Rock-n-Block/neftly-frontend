@@ -1,0 +1,12 @@
+@import '../../../styles/helpers';
+
+.headerNavigation {
+  @include flexbox;
+  flex-basis: 50%;
+
+  & > * {
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+}

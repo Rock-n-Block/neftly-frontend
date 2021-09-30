@@ -24,6 +24,14 @@
   }
 }
 
+.burger {
+  width: 30px;
+  height: 30px;
+  display: none;
+  position: absolute;
+  left: 10px;
+}
+
 .flex {
   @include flexbox;
 }
@@ -31,18 +39,7 @@
 .headerSearch {
   margin-left: 40px;
 
-  width: 350px;
-}
-
-.headerNavigation {
-  @include flexbox;
-  flex-basis: 50%;
-
-  & > * {
-    &:not(:last-child) {
-      margin-right: 30px;
-    }
-  }
+  width: 300px;
 }
 
 .headerConnectBtn {
@@ -72,5 +69,36 @@
     &:not(:last-child) {
       margin-right: 30px;
     }
+  }
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: 300ms;
+
+  
+}
+.mobileMenuOpen {
+  transform: translateX(0);
+}
+
+@include forDesktopMiddle {
+  .burger {
+    display: block;
+  }
+
+  .headerLinks, .headerSearch {
+    display: none;
+  }
+
+  .header {
+    padding: 20px 20px 20px 40px;
+  }
+
+  .headerConnectBtn {
+    width: 120px;
   }
 }
