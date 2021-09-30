@@ -47,7 +47,8 @@ const Footers: React.FC = () => {
         <div className={styles.linksAndControls}>
           <div className={styles.footerLogo}>
             <Logo className={styles.logo} />
-            <Text size="xxl">The New Creative Economy.</Text>
+            <Text size="xxl">The New Creative</Text>
+            <Text size="xxl">Economy.</Text>
           </div>
           <div className={styles.footerLinks}>
             {nav.map((block) => {
