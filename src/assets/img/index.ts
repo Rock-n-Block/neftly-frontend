@@ -36,3 +36,6 @@ export { default as growth } from './growth.svg';
 export { default as tradingPurchase } from './tradingPurchase.svg';
 export { default as tradingOffer } from './tradingOffer.svg';
 export { default as tradingEth } from './tradingEth.svg';
+export { default as heart } from './heart.svg';
+export { default as me } from './me.svg';
+export { default as folders } from './folders.svg';

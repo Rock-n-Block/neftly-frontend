@@ -1,0 +1,121 @@
+@import '../../styles/helpers.scss';
+@import '../../styles/mixins/media.scss';
+
+.page {
+  &_user {
+    background-color: #84334d;
+  }
+
+  &_body {
+    margin: 0 auto;
+    padding: 0 15px;
+
+    max-width: 1470px;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    @include b(600) {
+      grid-template-columns: 1fr;
+      padding-right: 0;
+    }
+
+    &__left {
+      border-right: 1px solid #393556;
+      padding-right: 88px;
+      padding-top: 32px;
+      @include b(600) {
+        border-right: none;
+        border-bottom: 1px solid #393556;
+        padding-right: 0;
+      }
+    }
+    &__right {
+      padding: 44px 32px;
+    }
+  }
+}
+
+.page_body__top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  &_sorters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @include b(900) {
+    display: block;
+  }
+}
+
+.page_body__artworks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 32px;
+  @include b(1600) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include b(1300) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include b(900) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.title {
+  margin-bottom: 5px;
+}
+
+.counter {
+  font-size: 16px;
+  color: $color-neutral-20;
+  @include b(900) {
+    margin-bottom: 16px;
+  }
+}
+
+.button_more {
+  padding: 0 32px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.button_wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.tabs {
+  flex-direction: column;
+  align-items: flex-start;
+  @include b(600) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  button {
+    margin-bottom: 25px;
+    @include b(600) {
+      padding: 10px;
+      margin-bottom: 4px;
+    }
+    p {
+      font-size: 16px !important;
+    }
+    &::before {
+      bottom: -6px !important;
+    }
+  }
+}
+
+.subtitle {
+  color: $color-neutral-40;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  @include b(600) {
+    display: none;
+  }
+}
