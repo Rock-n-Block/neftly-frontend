@@ -18,7 +18,7 @@ export const data = {
   tags: ['netfly', 'rare', 'art'],
 };
 
-export const tableData = [
+export const tableDataArtwork = [
   {
     event: {
       type: 'purchase',
@@ -151,6 +151,135 @@ export const tableData = [
     buyer: {
       avatar: profilePic,
       name: 'LUCHO',
+      date: 'a day ago',
+    },
+  },
+];
+
+export const tableDataAuction = [
+  {
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    expiration: {
+      expirationDate: '1 day ago',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    expiration: {
+      expirationDate: '1 day ago',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    expiration: {
+      expirationDate: '1 day ago',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    expiration: {
+      expirationDate: '1 day ago',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    expiration: {
+      expirationDate: '1 day ago',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    expiration: {
+      expirationDate: '1 day ago',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    expiration: {
+      expirationDate: '1 day ago',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    expiration: {
+      expirationDate: '1 day ago',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
+      date: 'a day ago',
+    },
+  },
+  {
+    price: {
+      amount: '0.22',
+      asset: 'eth',
+    },
+    expiration: {
+      expirationDate: '1 day ago',
+    },
+    buyer: {
+      avatar: profilePic,
+      name: 'MR. FR13NDZ',
       date: 'a day ago',
     },
   },

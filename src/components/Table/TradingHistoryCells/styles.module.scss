@@ -1,4 +1,4 @@
-@import "../../../../styles/helpers";
+@import "../../../styles/helpers";
 
 
 .tradingHistoryCells {
@@ -9,7 +9,8 @@
   }
 }
 
-.eventDeclined {
+.tradingHistoryCells .eventDeclined {
   position: absolute;
-  left: 30px;
+  bottom: -15px;
+  left: 20px;
 }

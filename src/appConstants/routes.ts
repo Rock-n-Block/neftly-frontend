@@ -7,8 +7,12 @@ export const routes = {
   },
   gallery: {
     detailArtwork: {
-      root: '/gallery/detailed-artwork/:id',
-      link: '/gallery/detailed-artwork',
+      root: '/gallery/artwork/:id',
+      link: '/gallery/artwork',
+    },
+    detailAuction: {
+      root: '/gallery/auction/:id',
+      link: '/gallery/auction',
     },
   },
   profile: {

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
+import { Button, Control, Text, TextArea, TextInput } from 'components';
 import { observer } from 'mobx-react';
 
-import Button from '../../components/Button';
-import Control from '../../components/Control';
-import TextArea from '../../components/TextArea';
-import TextInput from '../../components/TextInput';
 import { userApi } from '../../services/api';
 import { useMst } from '../../store/store';
 
@@ -19,7 +16,6 @@ const breadcrumbs = [
   },
   {
     title: 'Edit Profile',
-    url: '/edit',
   },
 ];
 
@@ -272,7 +268,7 @@ const ProfileEdit: React.FC = observer(() => {
                   loading={isLoading}
                   color="blue"
                 >
-                  Update Profile
+                  <Text size="m" color="black" weight="bold">Update Profile</Text>
                 </Button>
               </div>
             </div>

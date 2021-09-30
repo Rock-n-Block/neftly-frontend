@@ -5,7 +5,7 @@ import { allCategory, arrowUpRight, art, burn, camera, filter, motion, threeD } 
 import cx from 'classnames';
 import { ArtCard, Button, Carousel, H2, H3, Select, TabLookingComponent, Text } from 'components';
 import { AdvancedFilter } from 'containers';
-import { useWindowSize } from 'hooks';
+import { useGetSlideToShow } from 'hooks';
 
 import { data, dataMediumCards } from './mockData';
 
@@ -54,20 +54,6 @@ const selectOptions = [
   },
 ];
 
-const slidesToShow = (width: number): number => {
-  if (width < 750) {
-    return 1;
-  }
-  if (width < 1100) {
-    return 2;
-  }
-  if (width < 1600) {
-    return 3;
-  }
-
-  return 4;
-};
-
 const Discover = () => {
   const [isFilterOpen, setFilterOpen] = useState(false);
   const handleOpenFilter = useCallback(() => {
@@ -79,7 +65,7 @@ const Discover = () => {
     setFilterOne(value);
   }, []);
 
-  const { width } = useWindowSize();
+  const numberOfSlide = useGetSlideToShow();
 
   return (
     <div className={styles.discover}>
@@ -136,8 +122,8 @@ const Discover = () => {
       </div>
       <div className={styles.liveAuction}>
         <H3>Live Auction Today</H3>
-        <Carousel slidesToShow={slidesToShow(width)}>
-          {data.map((artCard) => {
+        <Carousel slidesToShow={numberOfSlide}>
+          {data.map((artCard, index) => {
             const {
               image,
               name,
@@ -150,17 +136,19 @@ const Discover = () => {
               tags,
             } = artCard;
             return (
-              <ArtCard
-                imageMain={image}
-                name={name}
-                price={price}
-                asset={asset}
-                inStockNumber={inStockNumber}
-                author={author}
-                authorAvatar={authorAvatar}
-                likesNumber={likesNumber}
-                tags={tags}
-              />
+              <Link to={`${routes.gallery.detailAuction.link}/${index}`}>
+                <ArtCard
+                  imageMain={image}
+                  name={name}
+                  price={price}
+                  asset={asset}
+                  inStockNumber={inStockNumber}
+                  author={author}
+                  authorAvatar={authorAvatar}
+                  likesNumber={likesNumber}
+                  tags={tags}
+                />
+              </Link>
             );
           })}
         </Carousel>
@@ -176,7 +164,7 @@ const Discover = () => {
             </Button>
           </div>
           <div className={styles.recommendArtworkCardContainer}>
-            {dataMediumCards.map((card) => {
+            {dataMediumCards.map((card, index) => {
               const {
                 image,
                 imageSecondary1,
@@ -191,20 +179,22 @@ const Discover = () => {
                 likesNumber,
               } = card;
               return (
-                <ArtCard
-                  type="Medium"
-                  imageMain={image}
-                  imageSecondaryOne={imageSecondary1}
-                  imageSecondaryTwo={imageSecondary2}
-                  imageSecondaryThree={imageSecondary3}
-                  name={name}
-                  price={price}
-                  asset={asset}
-                  inStockNumber={inStockNumber}
-                  author={author}
-                  authorAvatar={authorAvatar}
-                  likesNumber={likesNumber}
-                />
+                <Link to={`${routes.gallery.detailAuction.link}/${index}`}>
+                  <ArtCard
+                    type="Medium"
+                    imageMain={image}
+                    imageSecondaryOne={imageSecondary1}
+                    imageSecondaryTwo={imageSecondary2}
+                    imageSecondaryThree={imageSecondary3}
+                    name={name}
+                    price={price}
+                    asset={asset}
+                    inStockNumber={inStockNumber}
+                    author={author}
+                    authorAvatar={authorAvatar}
+                    likesNumber={likesNumber}
+                  />
+                </Link>
               );
             })}
           </div>

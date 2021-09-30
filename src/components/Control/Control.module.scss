@@ -48,22 +48,21 @@
 
     &::after {
       content: '';
-
       margin-left: 33px;
-
       display: inline-block;
-
-      width: 6px;
-      height: 9px;
-
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' fill='none' viewBox='0 0 6 10'%3E%3Cpath fill-rule='evenodd' d='M.793.793a1 1 0 0 0 0 1.414L3.586 5 .793 7.793a1 1 0 0 0 1.414 1.414l3.5-3.5a1 1 0 0 0 0-1.414l-3.5-3.5a1 1 0 0 0-1.414 0z' fill='%23674DF6'/%3E%3C/svg%3E")
-        no-repeat 50% 50% / 100% auto;
+      width: 7px;
+      height: 7px;
+      border-width: 0 2px 2px 0;
+      border-color: $color-neutral-40;
+      border-style: solid;
+      border-radius: 0 0 1.5px 0;
+      transform: rotate(-45deg);
     }
   }
 }
 
 .link {
-  color: $purple2;
+  color: $color-neutral-60;
 
   transition: color 0.2s;
 

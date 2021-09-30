@@ -9,14 +9,15 @@ type Props = {
   name: string;
   avatar: string;
   date: string;
+  type?: 'sell' | 'auction';
 };
 
-const TradingHistoryCells: FC<Props> = ({ className, name, avatar, date }) => (
+const TradingHistoryCells: FC<Props> = ({ className, name, avatar, date, type = 'sell' }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
     <img src={avatar} alt="" />
     <div>
       <Text size="m">{name}</Text>
-      <Text size="m">{date}</Text>
+      {type === 'sell' && <Text size="m">{date}</Text>}
     </div>
   </div>
 );

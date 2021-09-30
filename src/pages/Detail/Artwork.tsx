@@ -1,16 +1,15 @@
 import { FC } from 'react';
 import cx from 'classnames';
-import { ArtCard, Button, H3, Select, Table, Text } from 'components';
-import { Chart } from 'containers';
-import { TableCell } from 'typings';
-
+import { ArtCard, Button, GiantCard, H3, Select, Text, TradingHistory } from 'components';
 import {
   TradingHistoryBuyer,
   TradingHistoryEvent,
   TradingHistoryPrice,
-} from './components/TradingHistoryCells';
-import { GiantCard } from './components';
-import { artworkData, data, tableData } from './mockdata';
+} from 'components/Table/TradingHistoryCells';
+import { Chart } from 'containers';
+import { TableCell } from 'typings';
+
+import { artworkData, data, tableDataArtwork } from './mockdata';
 
 import styles from './styles.module.scss';
 
@@ -26,6 +25,21 @@ const chartOptionsFilter = [
   {
     label: 'Today',
     value: 'today',
+  },
+];
+
+const historyOptionsFilter = [
+  {
+    label: 'Latest',
+    value: 'latest',
+  },
+  {
+    label: 'Highest Price',
+    value: 'highestPrice',
+  },
+  {
+    label: 'Lowest Price',
+    value: 'lowestPrice',
   },
 ];
 
@@ -93,22 +107,14 @@ const DetailArtwork: FC<Props> = ({ className }) => (
           </div>
           <Chart />
         </div>
-        <div className={styles.tradingHistory}>
-          <div className={styles.chartFilter}>
-            <Text size="l">Price History</Text>
-            <div className={styles.chartSelect}>
-              <Text color="lightGray">Filter Period</Text>
-              <Select className={styles.chartSelect} options={chartOptionsFilter} />
-            </div>
-          </div>
-          <Text size="l">10 items sold</Text>
-          <div className={styles.tableWrapper}>
-            <Table columns={columnTest} data={tableData} />
-          </div>
-        </div>
+        <TradingHistory
+          columns={columnTest}
+          filterOptions={historyOptionsFilter}
+          tableData={tableDataArtwork}
+        />
       </div>
       <div className={styles.relatedArtwork}>
-        <H3>Relate Artwork</H3>
+        <H3>Related Artwork</H3>
         <div className={styles.artCardsWrapper}>
           {artworkData.map((art) => {
             const {
