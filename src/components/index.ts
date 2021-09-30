@@ -17,4 +17,5 @@ export { default as GiantCard } from './GiantArtCard';
 export { default as TradingHistory } from './TradingHistory';
 export { default as TextArea } from './TextArea';
 export { default as Control } from './Control';
+export { default as Burger } from './Burger';
 export * from './Typography';

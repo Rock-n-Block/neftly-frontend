@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { bell, wallet } from 'assets/img';
+import cx from 'classnames';
 // import { Link } from 'react-router-dom';
 // import cn from 'classnames';
-import { Link, Logo } from 'components';
+import { Burger, Logo } from 'components';
 import Button from 'components/Button';
 import { observer } from 'mobx-react-lite';
 
@@ -12,25 +13,20 @@ import { observer } from 'mobx-react-lite';
 import { useMst } from '../../store/store';
 import TextInput from '../TextInput/index';
 
+import HeaderLinks from './HeaderLinks';
+import MobileMenu from './MobileMenu';
 import User from './User';
-import styles from './styles.module.scss';
 
-const nav = [
-  {
-    url: '/discover',
-    title: 'Discover',
-  },
-  {
-    url: '/faq',
-    title: 'How it work',
-  },
-];
+import styles from './styles.module.scss';
 
 const Headers: React.FC = observer(() => {
   const { pathname } = useLocation();
   // const walletConnector = useWalletConnectorContext();
   const { user } = useMst();
   const [isConnected, setConnected] = useState(false);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = useCallback(() => setIsMenuOpen(!isMenuOpen), [isMenuOpen]);
 
   useEffect(() => {
     if (pathname !== '/') {
@@ -43,6 +39,7 @@ const Headers: React.FC = observer(() => {
   return (
     <header className={styles.header}>
       <div className={styles.flex}>
+        <Burger className={styles.burger} onClick={toggleMenu} isMenuOpen={isMenuOpen} />
         <Logo className={styles.headerLogo} />
         <TextInput
           type="text"
@@ -54,12 +51,7 @@ const Headers: React.FC = observer(() => {
           className={styles.headerSearch}
         />
       </div>
-      <div className={styles.headerNavigation}>
-        {nav.map(({ url, title }) => {
-          // eslint-disable-next-line jsx-a11y/anchor-is-valid
-          return <Link key={url} name={title} link={url} />;
-        })}
-      </div>
+      <HeaderLinks className={styles.headerLinks} />
       {isConnected ? (
         <div className={styles.profileInfo}>
           <Button color="transparent">
@@ -80,6 +72,9 @@ const Headers: React.FC = observer(() => {
         >
           Connect Wallet
         </Button>
+      )}
+      {isMenuOpen && (
+        <MobileMenu className={cx(styles.mobileMenu, { [styles.mobileMenuOpen]: isMenuOpen })} />
       )}
     </header>
   );
