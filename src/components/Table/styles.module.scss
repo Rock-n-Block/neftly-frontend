@@ -1,0 +1,63 @@
+@import '../../styles/helpers.scss';
+
+.table {
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid transparent;
+}
+
+.th {
+  position: relative;
+  padding: 15px;
+  background-color: none;
+  text-align: left;
+  font-size: 14px;
+  font-weight: normal;
+  color: $color-neutral-40;
+
+  &:first-child {
+    border-top-left-radius: 10px;
+  }
+
+  &:last-child {
+    border-top-right-radius: 10px;
+  }
+
+
+  @include forTablet {
+    padding: 15px 5px;
+    font-size: 12px;
+  }
+}
+
+.row {
+
+  &:last-child {
+    .cell {
+      &:first-child {
+        border-bottom-left-radius: 10px;
+      }
+
+      &:last-child {
+        border-bottom-right-radius: 10px;
+      }
+    }
+  }
+}
+
+.cell {
+  position: relative;
+  padding: 8px;
+  font-size: 14px;
+  color: white;
+
+  @include forTablet {
+    padding: 15px 5px;
+    font-size: 12px;
+  }
+}
+
+.preloader {
+  padding: 15px 0;
+}
+

@@ -53,10 +53,10 @@ const Footers: React.FC = () => {
             {nav.map((block) => {
               const { title, links } = block;
               return (
-                <div className={styles.linkBlock}>
+                <div key={title} className={styles.linkBlock}>
                   <Text size="m">{title}</Text>
                   {links.map((link) => (
-                    <Link color="lightGray" name={link.title} link={link.link} />
+                    <Link key={title} color="lightGray" name={link.title} link={link.link} />
                   ))}
                 </div>
               );

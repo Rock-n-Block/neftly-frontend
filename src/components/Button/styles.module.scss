@@ -4,7 +4,7 @@
 .button {
   // @include flexbox(center, center);
   font-weight: 400;
-
+  @include flexbox();
   cursor: pointer;
 
   &:focus {

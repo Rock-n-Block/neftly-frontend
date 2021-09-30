@@ -1,0 +1,61 @@
+@import "../../styles/helpers";
+
+.history {
+  height: 550px;
+  flex-basis: 50%;
+  padding: 32px;
+  border: 1px solid $color-neutral-80;
+  margin-top: 40px;
+  &:first-child {
+    margin-right: 40px;
+  }
+}
+
+.chartFilter {
+  @include flexbox(baseline, space-between);
+  border-bottom: 1px solid $color-neutral-80;
+  padding-bottom: 20px;
+
+  .chartSelect {
+    @include flexbox;
+    & > * {
+      &:first-child {
+        margin-right: 12px;
+      }
+    }
+  }
+}
+
+.tableWrapper {
+  height: 80%;
+  overflow-y: auto;
+}
+
+@include forDesktopBig {
+  .chartAndBidders {
+    flex-direction: column;
+  }
+
+  .history {
+    width: 100%;
+    flex-basis: unset;
+    margin: 20px 20px 0 20px;
+  }
+
+  .chartWrapper {
+    height: unset;
+  }
+}
+
+
+.tableWrapper::-webkit-scrollbar {
+  width: 2px;
+}
+
+.tableWrapper::-webkit-scrollbar-track {
+  background: rgba(102, 214, 218, 0.4);
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background: $color-action-default;
+}

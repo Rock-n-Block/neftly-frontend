@@ -17,15 +17,15 @@
   }
 
   &.s {
-    margin-top: 10px;
+    // margin-top: 10px;
   }
 
   &.m {
-    margin-top: 13px;
+    // margin-top: 13px;
   }
 
   &.l {
-    margin-top: 20px;
+    // margin-top: 20px;
   }
 }
 
@@ -34,7 +34,7 @@
 }
 
 .selectWrap {
-  @include flexbox(flex-start, flex-start);
+  @include flexbox(center, flex-start);
 }
 
 .selectWithErrorWrap {
@@ -84,7 +84,6 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   }
 
   .valueContainer {
-    margin-right: 10px;
     padding: 0;
 
     height: 100%;
@@ -204,7 +203,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 
 .indicatorsContainer {
   @include flexbox();
-  width: 14px;
+  width: 0;
 }
 
 .dropdownIndicator {

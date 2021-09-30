@@ -14,7 +14,7 @@ const BiddersComponent: FC<Props> = ({ className, bidders }) => (
     <div className={styles.bidderContainer}>
       {bidders.map((bidder) => {
         return (
-          <div className={styles.bidderWrapper}>
+          <div key={bidder.bid} className={styles.bidderWrapper}>
             <img src={bidder.avatar} alt="" />
             <div>
               <Text>{`${bidder.bid} ${bidder.bidAsset}`}</Text>
