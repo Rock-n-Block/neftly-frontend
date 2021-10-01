@@ -5,7 +5,6 @@ import cn from 'classnames';
 import { observer } from 'mobx-react';
 
 import { ReactComponent as Circle } from '../../assets/img/icons/circle-gradient.svg';
-import Control from '../../components/Control';
 import Icon from '../../components/Icon';
 import Loader from '../../components/Loader';
 import { activityApi } from '../../services/api';
@@ -14,16 +13,6 @@ import { useMst } from '../../store/store';
 import Filters from './Filters';
 
 import styles from './Activity.module.scss';
-
-const breadcrumbs = [
-  {
-    title: 'Profile',
-    url: '/',
-  },
-  {
-    title: 'Activity',
-  },
-];
 
 const filters = [
   'Sales',
@@ -136,7 +125,6 @@ const Activity: React.FC = observer(() => {
 
   return (
     <div className={styles.page}>
-      <Control className={styles.control} item={breadcrumbs} />
       <div className={cn('section-pt80', styles.body)}>
         <div className={cn('container', styles.container)}>
           <div className={styles.top}>
