@@ -21,7 +21,7 @@
 
 .filterAndCards {
   position: relative;
-  @include flexbox(flex-start);
+  @include flexbox(flex-start, flex-end);
   padding: 44px 0;
 
   transition: 200ms;
@@ -43,41 +43,15 @@
     transform: translate(-50%, -50%);
   }
 
-  // &::after {
-  //   content: '';
-
-  //   position: absolute;
-  //   top: 0%;
-  //   left: 24%;
-
-  //   width: 1px;
-  //   height: 0;
-
-  //   background: $color-neutral-80;
-
-  //   transition: 200ms;
-  // }
-
-  &.open {
-    // &::after {
-    //   height: 100%;
-    // }
-  }
-
   .filter {
+    position: absolute;
     margin-top: 30px;
-
-    width: 0;
-
+    left: 0;
     transition: 200ms;
     transform: translateX(-100vw);
-    flex-basis: 0%;
 
     &.open {
-      width: 100%;
-
       transform: translateX(0);
-      flex-basis: 27%;
     }
   }
 
@@ -87,7 +61,7 @@
     padding: 0 10px;
 
     .filterResults {
-      @include flexbox(center, flex-end);
+      @include flexbox(center, space-between);
       flex-wrap: wrap;
 
       margin: 0 -16px;
@@ -98,6 +72,7 @@
     }
 
     &.withFilter {
+      flex-basis: calc(100% - 300px);
       .filterResults {
         @include flexbox(center, flex-end);
       }
@@ -105,10 +80,11 @@
   }
 }
 
-.title {
-  width: 100%;
-  @include flexbox;
+.mobileAdvancedFilter {
+  display: none;
+}
 
+.title {
   .gradientTitle {
     @include gradientText;
   }
@@ -128,6 +104,7 @@
 }
 
 .recommendArtworkCardContainer {
+  @include flexbox(center, space-evenly);
   flex-wrap: wrap;
 
   margin: -20px;
@@ -136,7 +113,59 @@
   & > * {
     margin: 20px;
   }
-  @include flexbox(center, space-between);
+}
+
+@include forDesktopSm {
+
+  .discover {
+    padding: 0 20px;
+  }
+
+  .title {
+    text-align: center !important;
+  }
+
+  .advancedFilter {
+    display: none;
+  }
+
+  .mobileAdvancedFilter {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: 300ms;
+    z-index: 10;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  .filterResults, .filterAndCards {
+    justify-content: center !important;
+  }
+
+  .filterResultsContainer {
+    flex-basis: 100%;
+    &.withFilter {
+      flex-basis: 100%;
+      .filterResults {
+        @include flexbox(center, center);
+      }
+    }
+  }
+
+  .advancedFilterBtn {
+    font-size: 0 !important;
+  }
+
+  .recommendArtworkTitle {
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 30px;
+  }
 }
 
 @include forTablet {

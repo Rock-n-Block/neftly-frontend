@@ -1,7 +1,7 @@
 @import "../../styles/helpers";
 
 .detailArtworkContent {
-  max-width: 1600px;
+  max-width: 1450px;
   padding: 0 88px 88px 88px;
   margin: 0 auto;
 }
@@ -52,6 +52,7 @@
   position: relative;
   padding: 40px 0;
   &:after {
+    z-index: -1;
     position: absolute;
     content: ' ';
     height: 100%;

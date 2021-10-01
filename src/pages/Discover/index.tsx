@@ -69,11 +69,9 @@ const Discover = () => {
 
   return (
     <div className={styles.discover}>
-      <div className={styles.title}>
-        <H2>
-          DISCOVER <span className={styles.gradientTitle}>ARTWORK</span>
-        </H2>
-      </div>
+      <H2 className={styles.title}>
+        DISCOVER <span className={styles.gradientTitle}>ARTWORK</span>
+      </H2>
       <div className={styles.filterControls}>
         <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
           Advanced Filter <img src={filter} alt="" />
@@ -82,9 +80,7 @@ const Discover = () => {
         <Select onChange={handleFilterOne} value={filterOne} options={selectOptions} />
       </div>
       <div className={cx(styles.filterAndCards, { [styles.open]: isFilterOpen })}>
-        <div className={cx(styles.filter, { [styles.open]: isFilterOpen })}>
-          <AdvancedFilter />
-        </div>
+        <AdvancedFilter className={cx(styles.filter, { [styles.open]: isFilterOpen })} />
         <div className={cx(styles.filterResultsContainer, { [styles.withFilter]: isFilterOpen })}>
           <H3>3,150,000 results</H3>
           <div className={styles.filterResults}>

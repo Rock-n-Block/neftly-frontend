@@ -98,8 +98,9 @@
 
 .prefix {
   position: absolute;
-  top: calc(50% - 12px);
+  top: calc(50%);
   left: 24px;
+  transform: translateY(-50%);
 }
 
 .suffix {

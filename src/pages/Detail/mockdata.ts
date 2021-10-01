@@ -295,7 +295,17 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured'],
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
   {
     image: smallArtCardImage,
@@ -306,7 +316,17 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured', 'rare'],
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
   {
     image: smallArtCardImage,
@@ -317,7 +337,17 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured'],
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
   {
     image: smallArtCardImage,
@@ -328,7 +358,102 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured', 'rare'],
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
+  },
+  {
+    image: smallArtCardImage,
+    name: 'Waves on chain',
+    price: '2.00',
+    asset: 'eth',
+    inStockNumber: '7',
+    author: 'Gremmy Thoumeaux',
+    authorAvatar: profilePic,
+    likesNumber: 3500,
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
+  },
+  {
+    image: smallArtCardImage,
+    name: 'Waves on chain',
+    price: '2.00',
+    asset: 'eth',
+    inStockNumber: '7',
+    author: 'Gremmy Thoumeaux',
+    authorAvatar: profilePic,
+    likesNumber: 3500,
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
+  },
+  {
+    image: smallArtCardImage,
+    name: 'Waves on chain',
+    price: '2.00',
+    asset: 'eth',
+    inStockNumber: '7',
+    author: 'Gremmy Thoumeaux',
+    authorAvatar: profilePic,
+    likesNumber: 3500,
+    tags: [
+      {
+        type: 'auction',
+        auctionEndTime: '',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
+  },
+  {
+    image: smallArtCardImage,
+    name: 'Waves on chain',
+    price: '2.00',
+    asset: 'eth',
+    inStockNumber: '7',
+    author: 'Gremmy Thoumeaux',
+    authorAvatar: profilePic,
+    likesNumber: 3500,
+    tags: [
+      {
+        type: 'auction',
+        auctionEndTime: '',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
 ];
-
