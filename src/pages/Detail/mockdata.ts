@@ -295,7 +295,17 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured'],
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
   {
     image: smallArtCardImage,
@@ -306,7 +316,17 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured', 'rare'],
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
   {
     image: smallArtCardImage,
@@ -317,7 +337,17 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured'],
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
   {
     image: smallArtCardImage,
@@ -328,7 +358,17 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured', 'rare'],
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
   {
     image: smallArtCardImage,
@@ -339,7 +379,17 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured'],
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
   {
     image: smallArtCardImage,
@@ -350,7 +400,17 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured', 'rare'],
+    tags: [
+      {
+        type: 'auction',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
   {
     image: smallArtCardImage,
@@ -361,7 +421,18 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured'],
+    tags: [
+      {
+        type: 'auction',
+        auctionEndTime: '',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
   {
     image: smallArtCardImage,
@@ -372,7 +443,17 @@ export const artworkData = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured', 'rare'],
+    tags: [
+      {
+        type: 'auction',
+        auctionEndTime: '',
+      },
+      {
+        type: 'featured',
+      },
+      {
+        type: 'featured',
+      },
+    ],
   },
 ];
-

@@ -32,6 +32,12 @@
   }
 }
 
+.auction {
+  @extend .tag;
+  background: $color-bg;
+  border: 1px solid $color-actions-light-pink;
+}
+
 .tagText {
   text-transform: capitalize;
 }

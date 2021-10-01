@@ -45,7 +45,7 @@ const ArtCard: FC<Props> = ({
     <div className={styles[`mainImageWrapper${type}`]}>
       <div className={styles.tagContainer}>
         {tags?.map((tag) => (
-          <Tag className={styles.tag} type={tag} />
+          <Tag className={styles.tag} type={tag.type} auctionEndTime={tag.auctionEndTime} />
         ))}
       </div>
       <img className={styles.mainImage} src={imageMain} alt="" />
