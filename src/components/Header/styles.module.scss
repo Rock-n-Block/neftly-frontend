@@ -1,27 +1,18 @@
 @import '../../styles/helpers';
 
 .header {
+  border-bottom: 1px solid $color-neutral-80;
+}
+
+.headerInner {
   position: relative;
 
   margin: 0 auto;
   padding: 0 88px;
-
   max-width: 1440px;
+
   height: 90px;
   @include flexbox(center, flex-start);
-
-  &::after {
-    content: ' ';
-
-    position: absolute;
-    left: -250%;
-    bottom: 0;
-
-    width: 500%;
-    height: 1px;
-
-    background: $color-neutral-80;
-  }
 }
 
 .burger {
@@ -79,7 +70,6 @@
   transform: translateX(-100%);
   transition: 300ms;
   z-index: 99;
-  
 }
 .mobileMenuOpen {
   transform: translateX(0);
@@ -90,11 +80,12 @@
     display: block;
   }
 
-  .headerLinks, .headerSearch {
+  .headerLinks,
+  .headerSearch {
     display: none;
   }
 
-  .header {
+  .headerInner {
     padding: 20px 20px 20px 40px;
   }
 

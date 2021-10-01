@@ -38,47 +38,49 @@ const Headers: React.FC = observer(() => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.flex}>
-        <Burger className={styles.burger} onClick={toggleMenu} isMenuOpen={isMenuOpen} />
-        <Logo className={styles.headerLogo} />
-        <TextInput
-          type="text"
-          placeholder="Search by tags, themes, artists, etc"
-          icon="search"
-          name="search"
-          value={user.search}
-          onChange={(e) => user.setSearch(e.target.value)}
-          className={styles.headerSearch}
-        />
-      </div>
-      <HeaderLinks className={styles.headerLinks} />
-      {isConnected ? (
-        <div className={styles.profileInfo}>
-          <Button color="transparent">
-            <img src={bell} alt="" />
-          </Button>
-          <Button color="transparent">
-            <img src={wallet} alt="" />
-          </Button>
-          <Button color="transparent" className={styles.profileImageWrapper}>
-            <User />
-          </Button>
+      <div className={styles.headerInner}>
+        <div className={styles.flex}>
+          <Burger className={styles.burger} onClick={toggleMenu} isMenuOpen={isMenuOpen} />
+          <Logo className={styles.headerLogo} />
+          <TextInput
+            type="text"
+            placeholder="Search by tags, themes, artists, etc"
+            icon="search"
+            name="search"
+            value={user.search}
+            onChange={(e) => user.setSearch(e.target.value)}
+            className={styles.headerSearch}
+          />
         </div>
-      ) : (
-        <Button
-          onClick={() => setConnected(!isConnected)}
-          className={styles.headerConnectBtn}
-          color="outline"
-        >
-          Connect Wallet
-        </Button>
-      )}
-      {isMenuOpen && (
-        <MobileMenu
-          toggleMenu={toggleMenu}
-          className={cx(styles.mobileMenu, { [styles.mobileMenuOpen]: isMenuOpen })}
-        />
-      )}
+        <HeaderLinks className={styles.headerLinks} />
+        {isConnected ? (
+          <div className={styles.profileInfo}>
+            <Button color="transparent">
+              <img src={bell} alt="" />
+            </Button>
+            <Button color="transparent">
+              <img src={wallet} alt="" />
+            </Button>
+            <Button color="transparent" className={styles.profileImageWrapper}>
+              <User />
+            </Button>
+          </div>
+        ) : (
+          <Button
+            onClick={() => setConnected(!isConnected)}
+            className={styles.headerConnectBtn}
+            color="outline"
+          >
+            Connect Wallet
+          </Button>
+        )}
+        {isMenuOpen && (
+          <MobileMenu
+            toggleMenu={toggleMenu}
+            className={cx(styles.mobileMenu, { [styles.mobileMenuOpen]: isMenuOpen })}
+          />
+        )}
+      </div>
     </header>
   );
 });

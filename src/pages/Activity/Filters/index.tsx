@@ -2,8 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import nextId from 'react-id-generator';
 import cn from 'classnames';
 
-import Button from '../../../components/Button';
-import Checkbox from '../../../components/Checkbox';
+import { H4, Checkbox, Button } from 'components';
 
 import styles from './Filters.module.scss';
 
@@ -34,7 +33,25 @@ const Filters: React.FC<IFiltersProps> = ({
 
   return (
     <div className={cn(styles.filters, className)}>
-      <div className={styles.info}>Filters</div>
+      <H4 className={styles.info}>Filter</H4>
+      <div className={styles.buttons}>
+        <Button
+          color="transparent"
+          onClick={() => selectAll()}
+          type="button"
+          className={styles.button}
+        >
+          Select all
+        </Button>
+        <Button
+          color="transparent"
+          onClick={() => unselectAll()}
+          type="button"
+          className={styles.button}
+        >
+          Unselect all
+        </Button>
+      </div>
       <div className={styles.group}>
         {filters.map((x) => (
           <Checkbox
@@ -45,20 +62,6 @@ const Filters: React.FC<IFiltersProps> = ({
             key={nextId()}
           />
         ))}
-      </div>
-      <div className={styles.btns}>
-        <Button
-          className={cn('button-stroke button-small', styles.button)}
-          onClick={() => selectAll()}
-        >
-          Select all
-        </Button>
-        <Button
-          className={cn('button-stroke button-small', styles.button)}
-          onClick={() => unselectAll()}
-        >
-          Unselect all
-        </Button>
       </div>
     </div>
   );

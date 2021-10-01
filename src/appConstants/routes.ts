@@ -19,4 +19,7 @@ export const routes = {
     root: '/profile/:userId',
     edit: '/profile/edit',
   },
+  activity: {
+    root: '/activity',
+  },
 };
