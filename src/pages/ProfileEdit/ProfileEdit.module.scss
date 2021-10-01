@@ -41,8 +41,7 @@
 }
 
 .row {
-  display: flex;
-  justify-content: center;
+  @include flexbox(flex-start);
   @include m{
     flex-direction: column;
   }
@@ -73,7 +72,6 @@
 }
 
 .user {
-  //display: flex;
   padding: 44px 0 32px 0;
   @include flexbox(flex-start, flex-start);
   border-bottom: 1px solid $color-neutral-80;
@@ -155,22 +153,6 @@
   font-size: 140px;
 
   opacity: 0;
-}
-
-.list {
-  margin-bottom: 40px;
-
-  @include d {
-    margin: 0 -20px 64px;
-
-    display: flex;
-  }
-
-  @include m {
-    margin: 0 0 32px;
-
-    display: block;
-  }
 }
 
 .item {
