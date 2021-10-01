@@ -1,13 +1,13 @@
 import { useWindowSize } from 'hooks';
 
 const slidesToShow = (width: number): number => {
-  if (width < 750) {
+  if (width < 650) {
     return 1;
   }
-  if (width < 1100) {
+  if (width < 1050) {
     return 2;
   }
-  if (width < 1600) {
+  if (width < 1450) {
     return 3;
   }
 

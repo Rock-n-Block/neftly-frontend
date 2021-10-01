@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { FC, PropsWithChildren, useCallback, useState } from 'react';
+import React, { FC, PropsWithChildren, useCallback, useState } from 'react';
 import Slider from 'react-slick';
 import { arrowLeft } from 'assets/img';
 import cx from 'classnames';
@@ -41,23 +41,50 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
     );
   }
 
+  const [dragging, setDragging] = useState(false);
+
+  const handleBeforeChange = useCallback(
+    (oldI, newI) => {
+      setActiveSlideIndex(newI);
+      setDragging(true);
+    },
+    [setDragging],
+  );
+
+  const handleAfterChange = useCallback(() => {
+    setDragging(false);
+  }, [setDragging]);
+
+  const handleOnItemClick = useCallback(
+    (e) => {
+      if (dragging) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    },
+    [dragging],
+  );
+
   const sliderConfig = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 400,
     slidesToShow,
     slidesToScroll: 1,
     dotsClass: styles.slickDots,
-    beforeChange: useCallback((oldI: number, newI: number) => setActiveSlideIndex(newI), []),
     customPaging: (i: number) => (
       <div className={cx(styles.indicator, { [styles.active]: i === activeSlideIndex })} />
     ),
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
+    beforeChange: handleBeforeChange,
+    afterChange: handleAfterChange,
   };
   return (
     <Slider className={cx(classNameProp, 'discover-slider')} {...sliderConfig}>
-      {children}
+      {React.Children.map(children, (child) => (
+        <div onClickCapture={handleOnItemClick}>{child}</div>
+      ))}
     </Slider>
   );
 };

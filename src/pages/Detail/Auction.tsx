@@ -1,6 +1,17 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { routes } from 'appConstants';
 import cx from 'classnames';
-import { ArtCard, Carousel, GiantCard, H3, Select, Text, TradingHistory, Control } from 'components';
+import {
+  ArtCard,
+  Carousel,
+  Control,
+  GiantCard,
+  H3,
+  Select,
+  Text,
+  TradingHistory,
+} from 'components';
 import {
   TradingHistoryBuyer,
   TradingHistoryExpiration,
@@ -115,7 +126,7 @@ const DetailArtwork: FC<Props> = ({ className }) => {
         <div className={styles.relatedArtwork}>
           <H3>More Auction Today</H3>
           <Carousel slidesToShow={numberOfSlide} classNameProp={styles.auctionSlider}>
-            {artworkData.map((art) => {
+            {artworkData.map((art, index) => {
               const {
                 image,
                 name,
@@ -128,17 +139,19 @@ const DetailArtwork: FC<Props> = ({ className }) => {
                 tags,
               } = art;
               return (
-                <ArtCard
-                  imageMain={image}
-                  name={name}
-                  price={price}
-                  asset={asset}
-                  inStockNumber={inStockNumber}
-                  author={author}
-                  authorAvatar={authorAvatar}
-                  likesNumber={likesNumber}
-                  tags={tags}
-                />
+                <Link to={`${routes.gallery.detailArtwork.link}/${index}`}>
+                  <ArtCard
+                    imageMain={image}
+                    name={name}
+                    price={price}
+                    asset={asset}
+                    inStockNumber={inStockNumber}
+                    author={author}
+                    authorAvatar={authorAvatar}
+                    likesNumber={likesNumber}
+                    tags={tags}
+                  />
+                </Link>
               );
             })}
           </Carousel>
