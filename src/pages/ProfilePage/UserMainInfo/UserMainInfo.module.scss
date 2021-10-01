@@ -24,6 +24,9 @@
 .user_name {
   @include monument-extended;
   margin-bottom: 5px;
+  @include forTablet {
+    font-size: 24px;
+  }
 }
 
 .user_buttons {
@@ -37,6 +40,10 @@
   font-size: 16px;
   display: flex;
   align-items: center;
+  @include forTablet {
+    padding: 6px 12px;
+    font-size: 15px;
+  }
 }
 
 .user_info {

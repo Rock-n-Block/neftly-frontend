@@ -14,8 +14,8 @@
     display: grid;
     grid-template-columns: 1fr 5fr;
     @include b(600) {
-      grid-template-columns: 1fr;
-      padding-right: 0;
+      padding: 0;
+      display: block;
     }
 
     &__left {
@@ -26,10 +26,14 @@
         border-right: none;
         border-bottom: 1px solid #393556;
         padding-right: 0;
+        padding-top: 24px;
       }
     }
     &__right {
       padding: 44px 32px;
+      @include b(600) {
+        padding: 44px 5px;
+      }
     }
   }
 }
@@ -98,15 +102,16 @@
   }
   button {
     margin-bottom: 25px;
+    height: 40px !important;
     @include b(600) {
       padding: 10px;
-      margin-bottom: 4px;
+      margin-bottom: 24px;
     }
     p {
       font-size: 16px !important;
     }
     &::before {
-      bottom: -6px !important;
+      bottom: -24px !important;
     }
   }
 }

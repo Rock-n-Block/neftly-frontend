@@ -77,9 +77,7 @@ const ProfilePage: React.FC = () => {
       <div className={s.page_body}>
         <div className={s.page_body__left}>
           <div className={s.subtitle}>Menu</div>
-          <div className={s.menu}>
-            <TabLookingComponent className={s.tabs} tabs={tabs} action={() => {}} />
-          </div>
+          <TabLookingComponent className={s.tabs} tabs={tabs} action={() => {}} />
         </div>
 
         <div className={s.page_body__right}>
