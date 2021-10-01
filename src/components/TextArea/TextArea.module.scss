@@ -39,8 +39,12 @@
   @include caption-bold-1;
   // }
 
+  &:hover {
+    border-color: $color-actions-light-blue;
+    box-shadow: 0 1px 6px rgba(119, 126, 144, 0.48);
+  }
   @include placeholder {
-    color: $neutrals4;
+    color: $color-neutral-40;
   }
 
   &:focus {
