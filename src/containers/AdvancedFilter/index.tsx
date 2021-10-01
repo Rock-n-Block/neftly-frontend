@@ -1,15 +1,11 @@
 import { FC, useCallback, useState } from 'react';
 import { cross } from 'assets/img';
 import cx from 'classnames';
-import { Button, RangePicker, Select, Text, TextInput } from 'components';
+import { Button, H3, RangePicker, Select, Text, TextInput } from 'components';
 
 import FilterTag from './FilterTag';
 
 import styles from './styles.module.scss';
-
-type Props = {
-  className?: string;
-};
 
 const defaultColorFilterValues = [
   {
@@ -87,6 +83,11 @@ const filterSelectArtistsOptions = [
   },
 ];
 
+type Props = {
+  className?: string;
+  isMobile?: boolean;
+};
+
 type AppliedFilterValueType =
   | {
       label: string;
@@ -94,7 +95,7 @@ type AppliedFilterValueType =
     }
   | string;
 
-const AdvancedFilter: FC<Props> = () => {
+const AdvancedFilter: FC<Props> = ({ isMobile, className }) => {
   const [appliedFilters, setAppliedFilters] = useState<Record<string, AppliedFilterValueType>>({});
 
   const [filterRange, setFilterRange] = useState(0.1);
@@ -157,20 +158,31 @@ const AdvancedFilter: FC<Props> = () => {
   );
 
   return (
-    <div className={styles.advancedFilter}>
-      <>
-        <Text>Applied Filters</Text>
-        <div className={styles.tagContainer}>
-          {Object.values(appliedFilters).map((filter) => {
-            return (
-              <FilterTag
-                className={styles.filterTag}
-                label={typeof filter === 'string' ? filter : filter.label}
-              />
-            );
-          })}
+    <div className={cx(styles.advancedFilter, { [styles.mobile]: isMobile }, className)}>
+      {isMobile && (
+        <div className={styles.advancedFilterFlex}>
+          <H3>Advanced Filter</H3>
+          <Button color="outline" className={styles.advancedFilterCloseBtn}>
+            <img src={cross} alt="" />
+          </Button>
         </div>
-      </>
+      )}
+      <div className={styles.advancedFilterFlex}>
+        <Text>Applied Filters</Text>
+        <Button color="transparent">
+          <Text color="gray">Clear all</Text>
+        </Button>
+      </div>
+      <div className={styles.tagContainer}>
+        {Object.values(appliedFilters).map((filter) => {
+          return (
+            <FilterTag
+              className={styles.filterTag}
+              label={typeof filter === 'string' ? filter : filter.label}
+            />
+          );
+        })}
+      </div>
       <div>
         <Text color="gray">Price Range</Text>
         <RangePicker
@@ -245,6 +257,20 @@ const AdvancedFilter: FC<Props> = () => {
           })}
         </div>
       </div>
+      {isMobile && (
+        <>
+          <Button isFullWidth>
+            <Text color="black" weight="bold" size="m">
+              Apply
+            </Text>
+          </Button>
+          <Button isFullWidth color="outline">
+            <Text color="white" weight="bold" size="m">
+              Cancel
+            </Text>
+          </Button>
+        </>
+      )}
     </div>
   );
 };
