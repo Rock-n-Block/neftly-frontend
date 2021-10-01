@@ -22,10 +22,6 @@
 
 .breadcrumbs {
   display: flex;
-
-  @include m {
-    display: none;
-  }
 }
 
 .item {

@@ -61,7 +61,7 @@
     padding: 0 10px;
 
     .filterResults {
-      @include flexbox();
+      @include flexbox(center, space-between);
       flex-wrap: wrap;
 
       margin: 0 -16px;
@@ -85,9 +85,6 @@
 }
 
 .title {
-  width: 100%;
-  @include flexbox;
-
   .gradientTitle {
     @include gradientText;
   }
@@ -107,6 +104,7 @@
 }
 
 .recommendArtworkCardContainer {
+  @include flexbox(center, space-evenly);
   flex-wrap: wrap;
 
   margin: -20px;
@@ -115,13 +113,16 @@
   & > * {
     margin: 20px;
   }
-  @include flexbox(center, space-between);
 }
 
 @include forDesktopSm {
 
   .discover {
     padding: 0 20px;
+  }
+
+  .title {
+    text-align: center !important;
   }
 
   .advancedFilter {
@@ -145,6 +146,7 @@
   .filterResults, .filterAndCards {
     justify-content: center !important;
   }
+
   .filterResultsContainer {
     flex-basis: 100%;
     &.withFilter {
@@ -153,6 +155,16 @@
         @include flexbox(center, center);
       }
     }
+  }
+
+  .advancedFilterBtn {
+    font-size: 0 !important;
+  }
+
+  .recommendArtworkTitle {
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 30px;
   }
 }
 

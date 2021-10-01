@@ -69,11 +69,9 @@ const Discover = () => {
 
   return (
     <div className={styles.discover}>
-      <div className={styles.title}>
-        <H2>
-          DISCOVER <span className={styles.gradientTitle}>ARTWORK</span>
-        </H2>
-      </div>
+      <H2 className={styles.title}>
+        DISCOVER <span className={styles.gradientTitle}>ARTWORK</span>
+      </H2>
       <div className={styles.filterControls}>
         <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
           Advanced Filter <img src={filter} alt="" />

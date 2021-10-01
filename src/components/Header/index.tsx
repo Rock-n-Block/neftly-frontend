@@ -74,7 +74,10 @@ const Headers: React.FC = observer(() => {
         </Button>
       )}
       {isMenuOpen && (
-        <MobileMenu className={cx(styles.mobileMenu, { [styles.mobileMenuOpen]: isMenuOpen })} />
+        <MobileMenu
+          toggleMenu={toggleMenu}
+          className={cx(styles.mobileMenu, { [styles.mobileMenuOpen]: isMenuOpen })}
+        />
       )}
     </header>
   );
