@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import nextId from 'react-id-generator';
 import cn from 'classnames';
 
-import { H4, Checkbox } from 'components';
+import { H4, Checkbox, Button } from 'components';
 
 import styles from './Filters.module.scss';
 
@@ -35,12 +35,22 @@ const Filters: React.FC<IFiltersProps> = ({
     <div className={cn(styles.filters, className)}>
       <H4 className={styles.info}>Filter</H4>
       <div className={styles.buttons}>
-        <button onClick={() => selectAll()} type="button" className={styles.button}>
+        <Button
+          color="transparent"
+          onClick={() => selectAll()}
+          type="button"
+          className={styles.button}
+        >
           Select all
-        </button>
-        <button onClick={() => unselectAll()} type="button" className={styles.button}>
+        </Button>
+        <Button
+          color="transparent"
+          onClick={() => unselectAll()}
+          type="button"
+          className={styles.button}
+        >
           Unselect all
-        </button>
+        </Button>
       </div>
       <div className={styles.group}>
         {filters.map((x) => (

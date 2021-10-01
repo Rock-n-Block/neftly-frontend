@@ -195,14 +195,16 @@ const Activity: React.FC = observer(() => {
             <div className={styles.wrapper}>
               <div className={styles.list}>
                 {/* OLD ITEMS */}
-                {items?.map((x: any) => (
+                {/* TODO: fix this later */}
+                {items?.map((card: any) => (
                   <div
                     className={styles.item}
                     key={nextId()}
                     onClick={
                       activeIndex === 0
-                        ? () => readNotification(x.id, x.method, x.token_id || x.from_id)
-                        : () => openNotification(x.method, x.token_id || x.from_id)
+                        ? () =>
+                            readNotification(card.id, card.method, card.token_id || card.from_id)
+                        : () => openNotification(card.method, card.token_id || card.from_id)
                     }
                     onKeyDown={() => {}}
                     role="button"
@@ -210,22 +212,22 @@ const Activity: React.FC = observer(() => {
                   >
                     <div
                       className={cn(styles.preview, {
-                        [styles.hidden]: activeIndex === 0 && x.is_viewed,
+                        [styles.hidden]: activeIndex === 0 && card.is_viewed,
                       })}
                     >
-                      <img src={x.from_image || x.to_image} alt="Notification" />
-                      <div className={styles.icon} style={{ backgroundColor: x.color }}>
-                        <img src={x.token_image || x.to_image} alt="Icon notification" />
+                      <img src={card.from_image || card.to_image} alt="Notification" />
+                      <div className={styles.icon} style={{ backgroundColor: card.color }}>
+                        <img src={card.token_image || card.to_image} alt="Icon notification" />
                       </div>
                     </div>
                     <div className={styles.details}>
                       <div className={cn(styles.subtitle, 'text-gradient')}>
-                        {x.to_name?.length > 21
-                          ? `${x.to_name.slice(0, 14)}...${x.to_name.slice(-4)}`
-                          : x.to_name}
+                        {card.to_name?.length > 21
+                          ? `${card.to_name.slice(0, 14)}...${card.to_name.slice(-4)}`
+                          : card.to_name}
                       </div>
-                      <div className={styles.description}>{x.method}</div>
-                      <div className={styles.date}>{x.date}</div>
+                      <div className={styles.description}>{card.method}</div>
+                      <div className={styles.date}>{card.date}</div>
                     </div>
                     <Circle
                       className={cn(styles.circle, {
