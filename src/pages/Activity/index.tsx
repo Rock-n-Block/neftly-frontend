@@ -4,15 +4,61 @@ import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 
-import { ReactComponent as Circle } from '../../assets/img/icons/circle-gradient.svg';
-import Icon from '../../components/Icon';
-import Loader from '../../components/Loader';
-import { activityApi } from '../../services/api';
 import { useMst } from '../../store/store';
-
+import { ActivityItem, Loader, Button, H2, H3, ArtCard } from 'components';
+import { activityApi } from '../../services/api';
 import Filters from './Filters';
+import { data as cardsData } from './mockData';
 
 import styles from './Activity.module.scss';
+
+import { ReactComponent as Circle } from 'assets/img/icons/circle-gradient.svg';
+import { ReactComponent as FilterIcon } from 'assets/img/ActivityPage/filter.svg';
+// EXAMPLE IMGS FOR ACTIVITY ITEMS
+import actionExample from 'assets/img/ActivityPage/action_example.png';
+import actionExample2 from 'assets/img/ActivityPage/action_example2.png';
+import userAvaExample from 'assets/img/ActivityPage/user_ava_example.png';
+import userAvaExample2 from 'assets/img/ActivityPage/user_ava_example2.png';
+
+const actionsMockData = [
+  {
+    activityType: 'likes',
+    id: 1,
+    userImg: userAvaExample,
+    actionImg: actionExample2,
+    userName: 'Balgo Parks',
+    actionDescription: 'Commented on article The biggest drop in Times Square since New Years Eve',
+    timeAgo: '12 minutes ago',
+  },
+  {
+    activityType: 'followers',
+    id: 2,
+    userImg: userAvaExample2,
+    actionImg: actionExample,
+    userName: 'Ninny Spangcole',
+    actionDescription:
+      'Added Nightmare in a strange world of Fire by Wolfgang Slashhaut to Collection',
+    timeAgo: '5 minutes ago',
+  },
+  {
+    activityType: 'comments',
+    id: 3,
+    userImg: userAvaExample,
+    actionImg: actionExample2,
+    userName: 'Balgo Parks',
+    actionDescription: 'Liked Ring of Fire by Bruno Bangnyfe',
+    timeAgo: '45 minutes ago',
+  },
+  {
+    activityType: 'collections',
+    id: 4,
+    userImg: userAvaExample2,
+    actionImg: actionExample,
+    userName: 'Ninny Spangcole',
+    actionDescription: 'Followed Balgo Parks',
+    timeAgo: '2 minutes ago',
+  },
+];
 
 const filters = [
   'Sales',
@@ -25,8 +71,6 @@ const filters = [
   'Transfers',
   'Mints',
 ];
-
-const navLinks = ['My activity', 'Following', 'All activity'];
 
 const Activity: React.FC = observer(() => {
   const { user } = useMst();
@@ -125,47 +169,32 @@ const Activity: React.FC = observer(() => {
 
   return (
     <div className={styles.page}>
-      <div className={cn('section-pt80', styles.body)}>
-        <div className={cn('container', styles.container)}>
+      <div className={cn(styles.section, styles.body)}>
+        <div className={styles.container}>
+          <H2 className={styles.pageTitle}>Social activity</H2>
+          <div className={styles.pageSubtitle}>
+            keep track of all the latest activity on the platform
+          </div>
+          <div className={styles.buttonWrap}>
+            <Button className={styles.switchButton} color="outline">
+              Switch to Multiple
+            </Button>
+          </div>
+
           <div className={styles.top}>
             <h1 className={cn('h2', styles.title)}>Activity</h1>
-            {activeIndex === 0 && (
-              <button
-                type="button"
-                className={cn('button-stroke button-small mobile-hide', styles.button)}
-                onClick={() => readAllNotifications()}
-              >
-                Mark all as read
-              </button>
-            )}
-            <button
-              type="button"
-              className={cn('button-circle-stroke button-small tablet-show', styles.toggle, {
-                [styles.active]: visible,
-              })}
+            <Button
+              color="outline"
+              className={cn('button-circle-stroke button-small tablet-show', styles.toggle)}
               onClick={() => setVisible(!visible)}
             >
-              <Icon name="filter" size="24" />
-              <Icon name="close" size="14" />
-            </button>
+              <FilterIcon />
+            </Button>
           </div>
           <div className={styles.row}>
             <div className={styles.wrapper}>
-              <div className={styles.nav}>
-                {navLinks.map((x, index) => (
-                  <button
-                    type="button"
-                    className={cn(styles.link, {
-                      [styles.active]: index === activeIndex,
-                    })}
-                    onClick={() => handleNavLinks(index)}
-                    key={nextId()}
-                  >
-                    {x}
-                  </button>
-                ))}
-              </div>
               <div className={styles.list}>
+                {/* OLD ITEMS */}
                 {items?.map((x: any) => (
                   <div
                     className={styles.item}
@@ -205,8 +234,16 @@ const Activity: React.FC = observer(() => {
                     />
                   </div>
                 ))}
+                {actionsMockData.map((action) => (
+                  <ActivityItem key={action.id} {...action} />
+                ))}
               </div>
               <Loader className={styles.loader} />
+              <div className={styles.buttonWrap}>
+                <Button className={styles.moreButton} color="outline">
+                  Load More
+                </Button>
+              </div>
             </div>
             {activeIndex === 0 && (
               <button
@@ -225,6 +262,26 @@ const Activity: React.FC = observer(() => {
               selectAll={() => handleFilters(filters)}
               unselectAll={() => handleFilters([])}
             />
+          </div>
+        </div>
+        <div className={styles.hotArtworks}>
+          <div className={styles.container}>
+            <H3 className={styles.artworksTitle}>Hot Artworks</H3>
+            <div className={styles.works}>
+              {cardsData.map((card) => (
+                <ArtCard
+                  className={styles.artwork}
+                  key={`${card.author}-${card.likesNumber}-${card.price}`}
+                  {...card}
+                  imageMain={card.image}
+                />
+              ))}
+            </div>
+            <div className={styles.buttonWrap}>
+              <Button className={styles.moreButton} color="outline">
+                View More
+              </Button>
+            </div>
           </div>
         </div>
       </div>

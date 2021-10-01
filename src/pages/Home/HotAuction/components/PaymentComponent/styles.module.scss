@@ -1,9 +1,51 @@
 @import '../../../../../styles/helpers';
 
+.paymentSell {
+  border: 1px solid $color-neutral-80;
+  padding: 24px;
+}
+
 .priceWrapper {
+  position: relative;
   @include flexbox(center, space-between);
+  text-transform: uppercase;
 
   & > * {
     margin-right: 10px;
+  }
+}
+
+.growth {
+  padding: 5px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(39, 209, 170, 0.24);
+}
+
+.priceAndGrowth {
+  @include flexbox();
+  & > * {
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
+}
+
+.growthWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.sellBtnsWrapper {
+  @include flexbox(center, space-between);
+  & > * {
+    &:first-child {
+      flex-basis: 60%;
+    }
+    &:last-child {
+      flex-basis: 35%;
+    }
   }
 }

@@ -1,0 +1,32 @@
+@import "../../styles/helpers";
+
+.giantCard {
+  display: flex;
+
+  .cardInfo {
+    padding: 32px;
+    border-width: 1px 1px 1px 0;
+    border-style: solid;
+    border-color: $color-neutral-80;
+
+    & > * {
+      &:not(:first-child) {
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+
+.detailedViewsAndControl {
+  border-bottom: 1px solid $color-neutral-80;
+  padding-bottom: 24px;
+}
+
+@include forDesktopBig() {
+  .giantCard {
+    flex-direction: column;
+    .cardInfo {
+      border-width: 0 1px 1px 1px;
+    }
+  }
+}

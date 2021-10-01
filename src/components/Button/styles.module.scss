@@ -1,10 +1,9 @@
-// @import '../../assets/styles/mixins';
 @import '../../styles/helpers.scss';
 
 .button {
   // @include flexbox(center, center);
   font-weight: 400;
-
+  @include flexbox();
   cursor: pointer;
 
   &:focus {

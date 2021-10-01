@@ -43,25 +43,25 @@
     transform: translate(-50%, -50%);
   }
 
-  &::after {
-    content: '';
+  // &::after {
+  //   content: '';
 
-    position: absolute;
-    top: 0%;
-    left: 24%;
+  //   position: absolute;
+  //   top: 0%;
+  //   left: 24%;
 
-    width: 1px;
-    height: 0;
+  //   width: 1px;
+  //   height: 0;
 
-    background: $color-neutral-80;
+  //   background: $color-neutral-80;
 
-    transition: 200ms;
-  }
+  //   transition: 200ms;
+  // }
 
   &.open {
-    &::after {
-      height: 100%;
-    }
+    // &::after {
+    //   height: 100%;
+    // }
   }
 
   .filter {
@@ -84,16 +84,16 @@
   .filterResultsContainer {
     flex-basis: 100%;
 
-    padding: 0 20px;
+    padding: 0 10px;
 
     .filterResults {
-      @include flexbox(center, space-between);
+      @include flexbox(center, flex-end);
       flex-wrap: wrap;
 
-      margin: -16px;
+      margin: 0 -16px;
 
       & > * {
-        margin: 16px;
+        margin: 10px;
       }
     }
 
