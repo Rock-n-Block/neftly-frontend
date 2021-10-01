@@ -18,6 +18,8 @@ import MobileMenu from './MobileMenu';
 import User from './User';
 
 import styles from './styles.module.scss';
+import { Link } from 'react-router-dom';
+import { routes } from 'appConstants';
 
 const Headers: React.FC = observer(() => {
   const { pathname } = useLocation();
@@ -56,7 +58,9 @@ const Headers: React.FC = observer(() => {
         {isConnected ? (
           <div className={styles.profileInfo}>
             <Button color="transparent">
-              <img src={bell} alt="" />
+              <Link to={routes.activity.root}>
+                <img src={bell} alt="" />
+              </Link>
             </Button>
             <Button color="transparent">
               <img src={wallet} alt="" />
