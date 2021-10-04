@@ -3,7 +3,8 @@ import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
-import Icon from '../Icon';
+import {arrowDown} from 'assets/img/icons';
+
 
 import styles from './Dropdown.module.scss';
 
@@ -48,9 +49,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
           ) : (
             <div className={styles.selection}>{value}</div>
           )}
-          <div className={styles.arrow}>
-            <Icon name="arrow-bottom" size="10" />
-          </div>
+          <img alt="open dropdown" src={arrowDown} className={styles.arrow}/>
         </div>
         {!isWithImage ? (
           <div className={styles.body}>
@@ -65,7 +64,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
                       {
                         [styles.selectioned]: x === value,
                       },
-                      x === value ? 'text-gradient' : '',
+                      x === value ? 'selected' : '',
                     )}
                     onClick={() => handleClick(x)}
                     key={nextId()}
