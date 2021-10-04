@@ -16,7 +16,7 @@ export default {
   getMsg: () => axios.get('account/get_metamask_message/'),
   getSingleCollections: (address: string) => axios.get(`account/${address}/collections/`),
   getMe: () => axios.get(`account/self/`),
-  update: (data: any) => axios.patch(`account/self/`, data),
+  update: (data: any) => axios.patch(`account/self/?network=Binance`, data),
   follow: (data: { id: string | number }) => axios.post(`account/self/follow/`, data),
   like: (data: { id: number | undefined }) => axios.post(`account/self/like/`, data),
   verifyMe: (data: any) => axios.post('/account/verification/', data),

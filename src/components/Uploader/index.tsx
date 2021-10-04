@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { useFormikContext } from 'formik';
 
 import styles from './Uploader.module.scss';
+import { Button } from 'components';
 
 const { Dragger } = Upload;
 
@@ -71,6 +72,7 @@ const Uploader: React.FC<IUploader> = ({
     // if (handleUpload) {
     //   handleUpload(file.originFileObj);
     // } else {
+      console.log(type)
     formik.setFieldValue(type, file.originFileObj);
     getBase64(file.originFileObj, () => {});
     // }
@@ -84,9 +86,9 @@ const Uploader: React.FC<IUploader> = ({
           multiple={false}
           showUploadList={false}
         >
-          <button type="button" className={cn('button-stroke button-small', styles.button)}>
+          <Button color="outline" className={styles.button}>
             Upload
-          </button>
+          </Button>
         </Upload>
       ) : (
         <Dragger

@@ -41,9 +41,9 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
     //     .catch(({ response }) => notification.error({ message: response.data.error }));
     // }, [values, user.address]);
 
-    const onSubmit = () => {
-      handleSubmit();
-    };
+    // const onSubmit = () => {
+    // handleSubmit();
+    // };
     return (
       <Form name="form-profile" layout="vertical" className={cn('container', styles.container)}>
         <div className={styles.row}>
@@ -65,14 +65,14 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                       🙌
                     </span>
                   </div>
-                  <div className={styles.fileUpload}>
+                  <div>
                     <Form.Item
                       name="img"
                       validateStatus={validateField('img', touched, errors)}
                       help={!touched.img ? false : errors.img}
-                      required
+                      // required
                     >
-                      <Uploader type="img" isButton />
+                      <Uploader type="img" isButton className={styles.fileUpload} />
                     </Form.Item>
                   </div>
                 </div>
@@ -91,7 +91,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                       label="display name"
                       name="displayName"
                       type="text"
-                      required
+                      // required
                       value={values.displayName}
                       placeholder="Enter your display name"
                       onChange={handleChange}
@@ -120,7 +120,8 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                     />
                   </div>
                 </Form.Item>
-                <Form.Item name="email" className={styles.field} initialValue={values.email}>
+                <Form.Item name="email" className={styles.field} initialValue={values.email}
+                  help={!touched.email ? false : errors.email}>
                   <div>
                     <TextInput
                       name="email"
@@ -133,7 +134,8 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                     />
                   </div>
                 </Form.Item>
-                <Form.Item name="bio" className={styles.field} initialValue={values.bio}>
+                <Form.Item name="bio" className={styles.field} initialValue={values.bio}
+                  help={!touched.bio ? false : errors.bio}>
                   <div>
                     <TextArea
                       label="Bio"
@@ -141,7 +143,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                       value={values.bio}
                       placeholder="About yourselt in a few words"
                       onChange={handleChange}
-                      required
+                      // required
                       editable
                       maxLettersCount={100}
                     />
@@ -200,12 +202,12 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                     />
                   </div>
                 </Form.Item>
-                <Form.Item name="website" className={styles.field} initialValue={values.site}>
+                <Form.Item name="site" className={styles.field} initialValue={values.site}>
                   <div>
                     <TextInput
                       label="website"
                       placeholder="Enter URL"
-                      name="website"
+                      name="site"
                       type="text"
                       value={values.site}
                       onChange={handleChange}
@@ -215,7 +217,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                 </Form.Item>
               </div>
               <Button
-                onClick={onSubmit}
+                onClick={() => handleSubmit()}
                 className={cn('button', styles.submitButton)}
                 loading={values.isLoading}
                 color="blue"

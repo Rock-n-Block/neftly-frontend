@@ -41,7 +41,7 @@ const ProfileForm: React.FC = () => {
           'facebook',
         ],
       });
-
+      console.log('errors', errors)
       return errors;
     },
 
@@ -60,6 +60,7 @@ const ProfileForm: React.FC = () => {
       userApi
         .update(formData)
         .then(({ data }) => {
+          console.log(data)
           user.update(data);
           notification.success({ message: 'Verification request sent' });
         })
