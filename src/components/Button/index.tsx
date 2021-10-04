@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { CSSProperties, FC, PropsWithChildren } from 'react';
+import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import { IconNames } from 'typings';
 
@@ -17,8 +17,8 @@ type Props = {
   disabled?: boolean;
   icon?: IconNames;
   loading?: boolean;
-  styledType?: string;
-  onMouseLeave?: any;
+  // styledType?: string;
+  onMouseLeave?: (event: any) => void;
   style?: CSSProperties;
   href?: string;
 };
@@ -35,6 +35,8 @@ const Button: FC<PropsWithChildren<Props>> = ({
   icon,
   style,
   href,
+  loading,
+  onMouseLeave,
 }) => {
   if (href)
     return (
@@ -59,8 +61,9 @@ const Button: FC<PropsWithChildren<Props>> = ({
         [styles.disabled]: disabled,
       })}
       onClick={onClick}
-      disabled={disabled as boolean}
+      disabled={disabled || loading}
       style={style}
+      onMouseLeave={onMouseLeave}
     >
       {icon && <Icon className={styles.icon} name={icon} />}
       {children}

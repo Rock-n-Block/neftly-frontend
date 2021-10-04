@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 
 import iconSwap from '../../../../assets/img/icons/arrows-swap.svg';
 import { useWalletConnectorContext } from '../../../../services/walletConnect';
-import MetamaskService from '../../../../services/web3';
+import { WalletConnect } from '../../../../services/walletService';
 import { useMst } from '../../../../store/store';
 import Button from '../../../Button';
 import TextInput from '../../../TextInput';
@@ -34,10 +34,10 @@ const Swap: React.FC<ISwapProps> = observer(({ className, close }) => {
     setPayInput('');
   };
   const handleSubmitConvert = (): void => {
-    const weiValue = MetamaskService.calcTransactionAmount(payInput, 18);
+    const weiValue = WalletConnect.calcTransactionAmount(payInput, 18);
     setLoading(true);
     if (swappingCurrency[0] === 'ETH') {
-      walletConnector.metamaskService
+      walletConnector.walletService
         .createTransaction('deposit', [], 'WETH', '', '', '', weiValue)
         .then(() => {
           setLoading(false);
@@ -57,7 +57,7 @@ const Swap: React.FC<ISwapProps> = observer(({ className, close }) => {
           console.log('error', err);
         });
     } else {
-      walletConnector.metamaskService
+      walletConnector.walletService
         .createTransaction('withdraw', [weiValue], 'WETH')
         .then(() => {
           setLoading(false);

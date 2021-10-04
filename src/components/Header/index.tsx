@@ -1,15 +1,12 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { bell, wallet } from 'assets/img';
 import cx from 'classnames';
-// import { Link } from 'react-router-dom';
-// import cn from 'classnames';
 import { Burger, Logo } from 'components';
 import Button from 'components/Button';
 import { observer } from 'mobx-react-lite';
 
-// import { useWalletConnectorContext } from '../../services/walletConnect';
+import { useWalletConnectorContext } from '../../services/walletConnect';
 import { useMst } from '../../store/store';
 import TextInput from '../TextInput/index';
 
@@ -23,9 +20,8 @@ import { routes } from 'appConstants';
 
 const Headers: React.FC = observer(() => {
   const { pathname } = useLocation();
-  // const walletConnector = useWalletConnectorContext();
+  const walletConnector = useWalletConnectorContext();
   const { user } = useMst();
-  const [isConnected, setConnected] = useState(false);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = useCallback(() => setIsMenuOpen(!isMenuOpen), [isMenuOpen]);
@@ -55,7 +51,7 @@ const Headers: React.FC = observer(() => {
           />
         </div>
         <HeaderLinks className={styles.headerLinks} />
-        {isConnected ? (
+        {user.address ? (
           <div className={styles.profileInfo}>
             <Button color="transparent">
               <Link to={routes.activity.root}>
@@ -71,7 +67,7 @@ const Headers: React.FC = observer(() => {
           </div>
         ) : (
           <Button
-            onClick={() => setConnected(!isConnected)}
+            onClick={() => walletConnector.connect('Binance', 'MetaMask')}
             className={styles.headerConnectBtn}
             color="outline"
           >

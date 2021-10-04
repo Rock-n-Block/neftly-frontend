@@ -1,14 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
-
-import Button from '../../../../components/Button';
-import Icon from '../../../../components/Icon';
-import Switch from '../../../../components/Switch';
-import { storeApi } from '../../../../services/api';
-import { useWalletConnectorContext } from '../../../../services/walletConnect';
-import MetamaskService from '../../../../services/web3';
-import { useMst } from '../../../../store/store';
+import { Button, Icon, Switch } from 'components';
+import { storeApi, useWalletConnectorContext, WalletConnect } from 'services';
+import { useMst } from 'store/store';
 
 import styles from './PutSale.module.scss';
 
@@ -36,10 +31,12 @@ const PutSale: React.FC<IPutSaleProps> = ({
   const [priceValue, setPriceValue] = useState('');
   const [fee, setFee] = useState(0);
   const getUserBalance = useCallback(() => {
-    walletConnector.metamaskService.getEthBalance().then((data: string) => {
-      setBalance(MetamaskService.weiToEth(data));
-    });
-  }, [walletConnector.metamaskService]);
+    walletConnector.walletService.connectWallet
+      .getBalance(user.address)
+      .then((data: string | number) => {
+        setBalance(WalletConnect.weiToEth(data));
+      });
+  }, [user.address, walletConnector.walletService.connectWallet]);
   const fetchStore = useCallback(() => {
     storeApi
       .putOnSale(tokenId ? +tokenId : 0, priceValue ? +priceValue : 0, price)

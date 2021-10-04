@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 
 import { storeApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
-import MetamaskService from '../../services/web3';
+import { WalletConnect } from '../../services/walletService';
 import { useMst } from '../../store/store';
 import TextInput from '../TextInput';
 
@@ -33,16 +33,18 @@ const Bid: React.FC<IBidProps> = observer(
     const [fee, setFee] = useState(0);
 
     const getUserBalance = useCallback(() => {
-      walletConnector.metamaskService.getEthBalance().then((data: string) => {
-        setBalance(MetamaskService.weiToEth(data));
-      });
-    }, [walletConnector.metamaskService]);
+      walletConnector.walletService.connectWallet
+        .getBalance(user.address)
+        .then((data: string | number) => {
+          setBalance(WalletConnect.weiToEth(data));
+        });
+    }, [walletConnector.walletService]);
     const handlePlaceABid = () => {
       setIsLoading(true);
       storeApi
         .createBid(id, +bidValue, +quantity, currency)
         .then(() => {
-          // walletConnector.metamaskService
+          // walletConnector.walletService
           //   .sendTransaction(data.initial_tx)
           //   .catch((e: any) => console.error('Bid modal sendTranscation', e));
         })

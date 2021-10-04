@@ -1,13 +1,19 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://lessnft.rocknblock.io/api/v1/';
+import { is_production } from '../config';
+
+axios.defaults.baseURL = is_production
+  ? 'https://app.kephi.io/api/v1/'
+  : 'https://app-sandbox.kephi.io/api/v1/';
 
 axios.interceptors.request.use(
   (config) => {
     config.headers.common = {
       ...config.headers.common,
       Authorization: `${
-        localStorage.getItem('nft_token') ? `Token ${localStorage.getItem('nft_token')}` : ''
+        localStorage.getItem('netfly_nft_token')
+          ? `Token ${localStorage.getItem('netfly_nft_token')}`
+          : ''
       }`,
     };
     return config;

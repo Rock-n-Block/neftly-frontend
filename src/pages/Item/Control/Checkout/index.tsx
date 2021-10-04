@@ -1,12 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
-
-import Icon from '../../../../components/Icon';
-import LoaderCircle from '../../../../components/LoaderCircle';
-import { storeApi } from '../../../../services/api';
-import { useWalletConnectorContext } from '../../../../services/walletConnect';
-import MetamaskService from '../../../../services/web3';
-import { useMst } from '../../../../store/store';
+import { Icon, LoaderCircle } from 'components';
+import { storeApi, useWalletConnectorContext, WalletConnect } from 'services';
+import { useMst } from 'store/store';
 
 import styles from './Checkout.module.scss';
 
@@ -42,10 +38,12 @@ const Checkout: React.FC<ICheckoutProps> = ({
   const [amount, setAmount] = useState('1');
 
   const getUserBalance = useCallback(() => {
-    walletConnector.metamaskService.getEthBalance().then((data: string) => {
-      setBalance(MetamaskService.weiToEth(data));
-    });
-  }, [walletConnector.metamaskService]);
+    walletConnector.walletService.connectWallet
+      .getBalance(user.address)
+      .then((data: string | number) => {
+        setBalance(WalletConnect.weiToEth(data));
+      });
+  }, [user.address, walletConnector.walletService.connectWallet]);
 
   useEffect(() => {
     if (!user.address) return;
@@ -62,7 +60,7 @@ const Checkout: React.FC<ICheckoutProps> = ({
           standart === 'ERC721' ? '' : sellerId,
         )
         .then(({ data }) => {
-          walletConnector.metamaskService
+          walletConnector.walletService
             .createTransaction(
               data.initial_tx.method,
               [
@@ -100,7 +98,7 @@ const Checkout: React.FC<ICheckoutProps> = ({
   }, [
     tokenId,
     standart,
-    walletConnector.metamaskService,
+    walletConnector.walletService,
     sellerId,
     setIsSuccess,
     amount,
