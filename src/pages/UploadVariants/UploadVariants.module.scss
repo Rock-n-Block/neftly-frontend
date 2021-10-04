@@ -17,13 +17,7 @@
 
 .top {
   margin: 0 auto 45px;
-  @include d {
-    margin-bottom: 64px;
-  }
-
-  @include m {
-    margin-bottom: 32px;
-  }
+  padding: 0 32px;
 }
 
 .title {
@@ -40,19 +34,28 @@
 }
 
 .list {
-  padding: 91px 0 32px;
+  padding: 91px 32px 32px;
   border-top: 1px solid $color-neutral-80;
 
   @include flexbox(center);
   gap: 32px;
-
+  @include forTablet {
+    flex-direction: column;
+  }
 }
 
 .item {
-  padding: 61px 222px;
+  width: 100%;
+  max-width: 616px;
+  padding:61px 0;
+  @include flexbox();
+  flex-direction: column;
   background: $color-neutral-80;
   border-radius: 2px;
   cursor: pointer;
+  @include forTablet {
+    flex-direction: column;
+  }
 }
 
 .preview {
@@ -60,18 +63,25 @@
 
   img {
     width: 100%;
+    max-width: 108px;
 
     border-radius: 8px;
   }
 }
-.button{
+
+.button {
   width: 173px;
 }
+
 .note {
+  padding: 0 32px;
   @include epilogue;
 
   font-weight: 500;
   font-size: 16px;
   line-height: 160%;
   color: $color-neutral-20;
+  @include forTablet {
+    flex-direction: column;
+  }
 }
