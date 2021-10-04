@@ -34,6 +34,7 @@ const HotCollections: FC<Props> = ({ className }) => (
         } = art;
         return (
           <ArtCard
+            key={name}
             type="Medium"
             imageMain={image}
             imageSecondaryOne={imageSecondary1}

@@ -1,24 +1,16 @@
 @import '../../../styles/helpers';
 
 .info {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 
-  color: $purple2;
+  color: $color-neutral-0;
   @include body-bold-1;
 }
 
 .group {
-  margin-bottom: 32px;
-  padding-bottom: 32px;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  // @include dark {
-  border-color: $neutrals3;
-  border-bottom: 1px solid $neutrals6;
-  // }
 }
 
 .checkbox {
@@ -27,25 +19,20 @@
   }
 }
 
-.btns {
-  margin: 0 -6px;
+.buttons {
+  @include flexbox(center, flex-start);
+  margin-bottom: 26px;
+}
 
-  display: flex;
-
-  .button {
-    margin: 0 6px;
-    padding: 0 8px;
-
-    width: calc(50% - 12px);
-    height: 32px;
-    flex: 0 0 calc(50% - 12px);
-
-    @include dark {
-      box-shadow: inset 0 0 0 2px $neutrals4;
-
-      &:hover {
-        box-shadow: inset 0 0 0 2px $blue;
-      }
-    }
+.button {
+  font-weight: 500;
+  font-size: 16px;
+  color: $color-neutral-0;
+  &:first-child {
+    padding-right: 8px;
+    border-right: 1px solid $color-neutral-60;
+  }
+  &:last-child {
+    padding-left: 8px;
   }
 }

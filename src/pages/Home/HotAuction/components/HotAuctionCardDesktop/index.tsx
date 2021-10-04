@@ -61,9 +61,10 @@ const HotAuctionCardDesktop: FC<Props> = ({
     </div>
     <div className={styles.priceAndBidders}>
       <PaymentComponent
+        type="auction"
         bidAction={() => alert('bid')}
-        currentPrice={currentPrice}
-        priceAsset={priceAsset}
+        price={currentPrice}
+        asset={priceAsset}
       />
       <BiddersComponent bidders={bidders} />
     </div>

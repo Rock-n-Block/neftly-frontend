@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
+import { Button, Control, Text, TextArea, TextInput } from 'components';
 import { observer } from 'mobx-react';
 
-import Button from '../../components/Button';
-import Control from '../../components/Control';
-import TextArea from '../../components/TextArea';
-import TextInput from '../../components/TextInput';
 import { userApi } from '../../services/api';
 import { useMst } from '../../store/store';
 
@@ -19,7 +16,6 @@ const breadcrumbs = [
   },
   {
     title: 'Edit Profile',
-    url: '/edit',
   },
 ];
 
@@ -125,156 +121,154 @@ const ProfileEdit: React.FC = observer(() => {
   return (
     <div className={styles.profileEdit}>
       <Control className={styles.control} item={breadcrumbs} />
-      <div className={cn(styles.section)}>
-        <div className={cn('container', styles.container)}>
-          <div className={styles.top}>
-            <h1 className={cn('h2', styles.title)}>Edit profile</h1>
-            <div className={styles.info}>
-              You can set preferred display name, create your profile URL and manage other personal
-              settings.
-            </div>
-          </div>
-          <div className={styles.row}>
-            <div className={cn(styles.col, styles.left)}>
-              <div className={styles.user}>
-                <div className={styles.avatar}>
-                  <img
-                    src={avatarURL || user.avatar || '/images/content/avatar-user.jpg'}
-                    alt="Avatar"
-                  />
-                </div>
-                <div className={styles.details}>
-                  <div className={styles.stage}>Profile photo</div>
-                  <div className={styles.text}>
-                    We recommend an image of at least 400x400. Gifs work too{' '}
-                    <span role="img" aria-label="hooray">
+      <div className={styles.top}>
+        <h1 className={cn('h2', styles.title)}>Edit profile</h1>
+        <div className={styles.info}>
+          You can set preferred display name, create your profile URL and manage other personal
+          settings.
+        </div>
+      </div>
+      <div className={cn('container', styles.container)}>
+        <div className={styles.row}>
+          <div className={cn(styles.col, styles.left)}>
+            <div className={styles.user}>
+              <div className={styles.avatar}>
+                <img
+                  src={avatarURL || user.avatar || '/images/content/avatar-user.jpg'}
+                  alt="Avatar"
+                />
+              </div>
+              <div className={styles.details}>
+                <div className={styles.stage}>Profile photo</div>
+                <div className={styles.text}>
+                  We recommend an image of at least 400x400. Gifs work too{' '}
+                  <span role="img" aria-label="hooray">
                       🙌
                     </span>
-                  </div>
-                  <div className={styles.file}>
-                    {/* <button
+                </div>
+                <div className={styles.file}>
+                  {/* <button
                       type="button"
                       className={cn('button-stroke button-small', styles.button)}
                     >
 
                     </button> */}
-                    <Button color="outline" className={styles.button}>
-                      Upload
-                    </Button>
-                    {/* <input
+                  <Button color="outline" className={styles.button}>
+                    Upload
+                  </Button>
+                  {/* <input
                       className={styles.load}
                       type="file"
                       // eslint-disable-next-line
                       // @ts-ignore
                       onChange={(e) => handleChange('avatar', e.target.files[0])}
                     /> */}
-                  </div>
-                </div>
-              </div>
-              <div className={styles.item}>
-                <div className={styles.category}>Account info</div>
-                <div className={styles.fieldset}>
-                  <TextInput
-                    className={styles.field}
-                    label="display name"
-                    name="Name"
-                    type="text"
-                    placeholder="Enter your display name"
-                    onChange={(e) => handleChange('display_name', e.target.value)}
-                    value={formData.display_name}
-                    required
-                    icon="search"
-                  />
-                  <TextInput
-                    className={cn(styles.field, error ? styles.error : '')}
-                    label={error ? 'URL cannot consist only of numbers ' : 'Custom url'}
-                    name="Url"
-                    type="text"
-                    placeholder="Your custom URL"
-                    required
-                    onChange={(e) => handleChange('custom_url', e.target.value)}
-                    value={formData.custom_url}
-                    prefix="ui8.net/"
-                  />
-                  <TextInput
-                    className={cn(styles.field, error ? styles.error : '')}
-                    label={error ? '' : 'Email'}
-                    name="email"
-                    type="text"
-                    placeholder="Add your email here"
-                    required
-                    onChange={(e) => handleChange('email', e.target.value)}
-                    value={formData.email}
-                  />
-                  <TextArea
-                    className={styles.field}
-                    label="Bio"
-                    name="Bio"
-                    placeholder="About yourselt in a few words"
-                    onChange={(e) => handleChange('bio', e.target.value)}
-                    value={formData.bio}
-                    required
-                    editable
-                    maxLettersCount={100}
-                  />
                 </div>
               </div>
             </div>
-            <div className={cn(styles.col, styles.right)}>
-              <div className={styles.item}>
-                <div className={styles.category}>Social Account</div>
-                <div className={styles.fieldset}>
-                  <TextInput
-                    className={styles.field}
-                    label="instagram"
-                    name="Instagram"
-                    type="text"
-                    placeholder="Enter URL"
-                    onChange={(e) => handleChange('instagram', e.target.value)}
-                    value={formData.instagram}
-                    required
-                  />
-                  <TextInput
-                    className={styles.field}
-                    label="twitter"
-                    name="Twitter"
-                    type="text"
-                    placeholder="Enter URL"
-                    onChange={(e) => handleChange('twitter', e.target.value)}
-                    value={formData.twitter}
-                    required
-                  />
-                  <TextInput
-                    className={styles.field}
-                    label="facebook"
-                    name="Facebook"
-                    type="text"
-                    placeholder="Enter URL"
-                    onChange={(e) => handleChange('facebook', e.target.value)}
-                    value={formData.facebook}
-                    required
-                  />
-                  <TextInput
-                    className={styles.field}
-                    label="Website"
-                    name="Website"
-                    type="text"
-                    placeholder="Enter URL"
-                    onChange={(e) => handleChange('site', e.target.value)}
-                    value={formData.site}
-                    required
-                  />
-                </div>
-                <Button
-                  onClick={handleSubmit}
-                  className={cn('button', styles.submitButton)}
-                  disabled={error}
-                  loading={isLoading}
-                  color="blue"
-                >
-                  Update Profile
-                </Button>
+            <div className={styles.item}>
+              <div className={styles.category}>Account info</div>
+              <div className={styles.fieldset}>
+                <TextInput
+                  className={styles.field}
+                  label="display name"
+                  name="Name"
+                  type="text"
+                  placeholder="Enter your display name"
+                  onChange={(e) => handleChange('display_name', e.target.value)}
+                  value={formData.display_name}
+                  required
+                  icon="search"
+                />
+                <TextInput
+                  className={cn(styles.field, error ? styles.error : '')}
+                  label={error ? 'URL cannot consist only of numbers ' : 'Custom url'}
+                  name="Url"
+                  type="text"
+                  placeholder="Your custom URL"
+                  required
+                  onChange={(e) => handleChange('custom_url', e.target.value)}
+                  value={formData.custom_url}
+                  prefix="site.net/"
+                />
+                <TextInput
+                  className={cn(styles.field, error ? styles.error : '')}
+                  label={error ? '' : 'Email'}
+                  name="email"
+                  type="text"
+                  placeholder="Add your email here"
+                  required
+                  onChange={(e) => handleChange('email', e.target.value)}
+                  value={formData.email}
+                />
+                <TextArea
+                  className={styles.field}
+                  label="Bio"
+                  name="Bio"
+                  placeholder="About yourselt in a few words"
+                  onChange={(e) => handleChange('bio', e.target.value)}
+                  value={formData.bio}
+                  required
+                  editable
+                  maxLettersCount={100}
+                />
               </div>
+            </div>
+          </div>
+          <div className={cn(styles.col, styles.right)}>
+            <div className={styles.item}>
+              <div className={styles.category}>Social Account</div>
+              <div className={styles.fieldset}>
+                <TextInput
+                  className={styles.field}
+                  label="instagram"
+                  name="Instagram"
+                  type="text"
+                  placeholder="Enter URL"
+                  onChange={(e) => handleChange('instagram', e.target.value)}
+                  value={formData.instagram}
+                  required
+                />
+                <TextInput
+                  className={styles.field}
+                  label="twitter"
+                  name="Twitter"
+                  type="text"
+                  placeholder="Enter URL"
+                  onChange={(e) => handleChange('twitter', e.target.value)}
+                  value={formData.twitter}
+                  required
+                />
+                <TextInput
+                  className={styles.field}
+                  label="facebook"
+                  name="Facebook"
+                  type="text"
+                  placeholder="Enter URL"
+                  onChange={(e) => handleChange('facebook', e.target.value)}
+                  value={formData.facebook}
+                  required
+                />
+                <TextInput
+                  className={styles.field}
+                  label="Website"
+                  name="Website"
+                  type="text"
+                  placeholder="Enter URL"
+                  onChange={(e) => handleChange('site', e.target.value)}
+                  value={formData.site}
+                  required
+                />
+              </div>
+              <Button
+                onClick={handleSubmit}
+                className={cn('button', styles.submitButton)}
+                disabled={error}
+                loading={isLoading}
+                color="blue"
+              >
+                <Text size="m" color="black" weight="bold">Update Profile</Text>
+              </Button>
             </div>
           </div>
         </div>

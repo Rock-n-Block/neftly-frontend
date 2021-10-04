@@ -1,0 +1,105 @@
+@import '../../styles/helpers.scss';
+
+.item {
+  padding: 24px;
+  border: 1px solid $color-neutral-80;
+  margin-bottom: 32px;
+
+  display: flex;
+  align-items: center;
+  @include a {
+    align-items: flex-start;
+    padding: 16px;
+  }
+}
+
+.avatar {
+  margin-right: 31px;
+  position: relative;
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+  @include a {
+    margin-right: 17px;
+    img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
+  }
+
+  &:hover {
+    .actionType {
+      animation: shake 2s ease-in-out;
+    }
+  }
+}
+.actionType {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  img {
+    width: 26px;
+    height: 26px;
+  }
+  @include a {
+    top: -2px;
+    img {
+      width: 22px;
+      height: 22px;
+    }
+  }
+}
+
+.info {
+  flex-grow: 1;
+  padding-right: 10px;
+  line-height: 1.5;
+  @include a {
+    padding-right: 0;
+  }
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 500;
+  color: $color-neutral-0;
+  margin-bottom: 5px;
+}
+
+.event {
+  color: $color-neutral-10;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.time {
+  color: $color-neutral-40;
+  font-size: 14px;
+}
+
+.image {
+  max-width: 100px;
+  max-height: 100px;
+  @include a {
+    display: none;
+  }
+}
+
+@keyframes shake {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  10%,
+  30% {
+    transform: rotate(-50deg);
+  }
+  20%,
+  40% {
+    transform: rotate(10deg);
+  }
+}

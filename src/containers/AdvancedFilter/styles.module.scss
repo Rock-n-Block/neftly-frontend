@@ -2,8 +2,11 @@
 
 .advancedFilter {
   padding: 32px;
-
-  height: 100%;
+  width: 300px;
+  height: fit-content;
+  background: $color-bg;
+  border: 3px solid $color-neutral-80;
+  z-index: 10;
 
   & > * {
     margin-bottom: 30px;
@@ -64,4 +67,15 @@
   border: 1px solid $color-neutral-20;
   border-radius: 50%;
   @include flexbox;
+}
+
+.advancedFilterFlex {
+  @include flexbox(center, space-between);
+}
+
+.advancedFilterFlex .advancedFilterCloseBtn {
+  border: 1px solid $color-actions-light-pink;
+  width: 42px;
+  height: 42px;
+  // background-color: $color-neutral-80;
 }

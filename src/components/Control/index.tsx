@@ -1,9 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import nextId from 'react-id-generator';
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
-
-import Icon from '../Icon';
+import { Link, Text } from 'components';
 
 import styles from './Control.module.scss';
 
@@ -17,19 +16,15 @@ const Control: React.FC<IControlProps> = ({ className, item }) => {
   return (
     <div className={cn(styles.control, className)}>
       <div className={cn('container', styles.container)}>
-        <Link className={cn('button-stroke button-small', styles.button)} to="/">
-          <Icon name="arrow-prev" size="10" />
-          <span>Back to home</span>
-        </Link>
         <div className={styles.breadcrumbs}>
           {item.map((x) => (
             <div className={styles.item} key={nextId()}>
               {x.url ? (
-                <Link className={styles.link} to={x.url}>
-                  {x.title}
-                </Link>
+                <Link color="lightGray" name={x.title} className={styles.link} link={x.url} />
               ) : (
-                x.title
+                <Text size="m" color="white">
+                  {x.title}
+                </Text>
               )}
             </div>
           ))}

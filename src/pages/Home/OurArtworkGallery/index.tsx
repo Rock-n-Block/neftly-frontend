@@ -32,6 +32,7 @@ const OurArtworkGallery: FC<Props> = ({ className }) => (
         } = art;
         return (
           <ArtCard
+            key={name}
             imageMain={image}
             name={name}
             price={price}

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { CSSProperties, FC, PropsWithChildren } from 'react';
 import cx from 'classnames';
 import { IconNames } from 'typings';
@@ -19,6 +20,7 @@ type Props = {
   styledType?: string;
   onMouseLeave?: any;
   style?: CSSProperties;
+  href?: string;
 };
 
 const Button: FC<PropsWithChildren<Props>> = ({
@@ -32,21 +34,38 @@ const Button: FC<PropsWithChildren<Props>> = ({
   disabled,
   icon,
   style,
-}) => (
-  <button
-    // eslint-disable-next-line react/button-has-type
-    type={type}
-    className={cx(styles.button, styles[size], styles[color], className, {
-      [styles.isFullWidth]: isFullWidth,
-      [styles.disabled]: disabled,
-    })}
-    onClick={onClick}
-    disabled={disabled as boolean}
-    style={style}
-  >
-    {icon && <Icon className={styles.icon} name={icon} />}
-    {children}
-  </button>
-);
+  href,
+}) => {
+  if (href)
+    return (
+      <Link
+        to={href}
+        className={cx(styles.button, styles[size], styles[color], className, {
+          [styles.isFullWidth]: isFullWidth,
+          [styles.disabled]: disabled,
+        })}
+        style={style}
+      >
+        {icon && <Icon className={styles.icon} name={icon} />}
+        {children}
+      </Link>
+    );
+  return (
+    <button
+      // eslint-disable-next-line react/button-has-type
+      type={type}
+      className={cx(styles.button, styles[size], styles[color], className, {
+        [styles.isFullWidth]: isFullWidth,
+        [styles.disabled]: disabled,
+      })}
+      onClick={onClick}
+      disabled={disabled as boolean}
+      style={style}
+    >
+      {icon && <Icon className={styles.icon} name={icon} />}
+      {children}
+    </button>
+  );
+};
 
 export default Button;
