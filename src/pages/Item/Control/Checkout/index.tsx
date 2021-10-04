@@ -1,12 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
-
-import Icon from '../../../../components/Icon';
-import LoaderCircle from '../../../../components/LoaderCircle';
-import { storeApi } from '../../../../services/api';
-import { useWalletConnectorContext } from '../../../../services/walletConnect';
-import { WalletConnect } from '../../../../services/walletService';
-import { useMst } from '../../../../store/store';
+import { Icon, LoaderCircle } from 'components';
+import { storeApi, useWalletConnectorContext, WalletConnect } from 'services';
+import { useMst } from 'store/store';
 
 import styles from './Checkout.module.scss';
 
@@ -47,7 +43,7 @@ const Checkout: React.FC<ICheckoutProps> = ({
       .then((data: string | number) => {
         setBalance(WalletConnect.weiToEth(data));
       });
-  }, [walletConnector.walletService]);
+  }, [user.address, walletConnector.walletService.connectWallet]);
 
   useEffect(() => {
     if (!user.address) return;

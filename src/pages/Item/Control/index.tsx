@@ -1,16 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
+import { Bid, Button, Modal } from 'components';
+import { contracts } from 'config';
 import { observer } from 'mobx-react';
+import { storeApi, useWalletConnectorContext } from 'services';
+import { useMst } from 'store/store';
+import { IOwner } from 'typings/UserInfo';
 
-import Bid from '../../../components/Bid';
-import Button from '../../../components/Button';
-import Modal from '../../../components/Modal';
-import { storeApi } from '../../../services/api';
-import { useWalletConnectorContext } from '../../../services/walletConnect';
-import { contracts } from '../../../config';
-import { useMst } from '../../../store/store';
-import { IOwner } from '../../../typings/UserInfo';
 import { IItem } from '../index';
 
 import Checkout from './Checkout';

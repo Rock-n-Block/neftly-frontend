@@ -1,3 +1,3 @@
-export { default as wethAbi } from './weth';
+export { default as erc20Abi } from './erc20';
 export { default as bep20Abi } from './bep20';
 export { default as nftAbi } from './nft';
