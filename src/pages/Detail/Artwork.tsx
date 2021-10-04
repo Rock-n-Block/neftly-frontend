@@ -204,6 +204,22 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
 
   console.log('isUserCanPutOnSale', isUserCanPutOnSale);
 
+  const nftSellingType = React.useMemo(() => {
+    if (nft) {
+      if (nft.is_selling) return 'sell';
+      if (nft.is_auc_selling) return 'auction';
+    }
+    return '';
+  }, [nft]);
+
+  const currentPrice = React.useMemo(() => {
+    if (nft) {
+      if (nft.is_selling) return nft.price;
+      if (nft.is_auc_selling && nft.highest_bid) return nft.highest_bid.amount;
+    }
+    return 0;
+  }, [nft]);
+
   const getItem = React.useCallback(() => {
     storeApi
       .getToken(id)
@@ -221,22 +237,26 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
       <div className={styles.detailArtworkContent}>
         <Control item={breadcrumbs} />
         <GiantCard
-          name={mockData.name}
-          likes={mockData.likes}
+          name={nft?.name || ''}
+          likes={nft?.like_count || 0}
           views={mockData.views}
-          inStock={mockData.inStock}
+          inStock={nft?.available || 0}
           link={mockData.link}
           likeAction={() => alert('like')}
           dotsAction={() => alert('dots')}
-          price={mockData.price}
-          asset={mockData.asset}
+          price={currentPrice}
+          asset={nft?.currency.symbol || ''}
           growth={mockData.growth}
           growthUsd={mockData.growthUsd}
-          author={mockData.author}
-          authorAvatar={mockData.authorAvatar}
-          tags={mockData.tags}
-          description={mockData.description}
-          image={mockData.image}
+          author={nft?.creator.name || ''}
+          authorAvatar={nft?.creator.avatar || ''}
+          tags={nft?.tags || []}
+          description={nft?.description || ''}
+          image={nft?.media || ''}
+          isUserCanBuyNft={isUserCanBuyNft}
+          isUserCanEnterInAuction={isUserCanEnterInAuction}
+          isUserCanPutOnSale={isUserCanPutOnSale}
+          type={nftSellingType}
         />
         <div className={styles.chartAndBidders}>
           <div className={styles.chartWrapper}>

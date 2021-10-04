@@ -38,7 +38,7 @@ const Bid: React.FC<IBidProps> = observer(
         .then((data: string | number) => {
           setBalance(WalletConnect.weiToEth(data));
         });
-    }, [walletConnector.walletService]);
+    }, [walletConnector.walletService, user.address]);
     const handlePlaceABid = () => {
       setIsLoading(true);
       storeApi

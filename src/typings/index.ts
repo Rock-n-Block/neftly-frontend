@@ -36,22 +36,32 @@ export interface IBaseInfo {
   name: string;
 }
 
+interface IBidder {
+  amount: string | number;
+  bidder: string;
+  bidder_avatar: string;
+  bidder_id: number | string;
+  currency: ICurrency;
+  id: number | string;
+}
+
 export interface IOwner extends Omit<IBaseInfo, 'address'> {
   price: number;
   quantity: number;
+  currency: ICurrency;
 }
 
 export interface INft {
   USD_price: number;
   available: number;
-  bids: any[];
+  bids: IBidder[];
   collection: IBaseInfo;
   creator: IBaseInfo;
   currency: ICurrency;
   description: string;
   details: null | any;
-  highest_bid: null | any;
-  highest_bid_USD: null | any;
+  highest_bid: null | IBidder;
+  highest_bid_USD: null | number | string;
   history: IHistoryItem[];
   id: number;
   internal_id: number;
@@ -66,7 +76,7 @@ export interface INft {
   owners: IOwner | IOwner[];
   price: number;
   royalty: number;
-  sellers: any[];
+  sellers: IOwner[];
   selling: boolean;
   service_fee: any;
   standart: 'ERC721' | 'ERC1155';

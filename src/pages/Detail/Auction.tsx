@@ -104,6 +104,10 @@ const DetailArtwork: FC<Props> = ({ className }) => {
           tags={data.tags}
           description={data.description}
           image={data.image}
+          isUserCanBuyNft
+          isUserCanEnterInAuction={false}
+          type="auction"
+          isUserCanPutOnSale
         />
         <div className={styles.chartAndBidders}>
           <div className={styles.chartWrapper}>

@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import cx from 'classnames';
 import { H2 } from 'components';
+
 import AuthorComponent from 'pages/Home/HotAuction/components/AuthorComponent';
 import DescriptionAndTagsComponent from 'pages/Home/HotAuction/components/DescriptionAndTagsComponent';
 import PaymentComponent from 'pages/Home/HotAuction/components/PaymentComponent';
 import ViewsAndControlsComponent from 'pages/Home/HotAuction/components/ViewsAndControlsComponent';
-import { getTokenAmountDisplay } from 'utils';
 
 import styles from './styles.module.scss';
 
@@ -18,7 +18,7 @@ type Props = {
   link: string;
   likeAction: () => void;
   dotsAction: () => void;
-  price: number;
+  price: number | string;
   asset: string;
   growth: number;
   growthUsd: number;
@@ -27,6 +27,10 @@ type Props = {
   tags: string[];
   description: string;
   image: string;
+  isUserCanBuyNft: boolean;
+  isUserCanEnterInAuction: boolean;
+  isUserCanPutOnSale: boolean;
+  type: 'auction' | 'sell' | '';
 };
 
 const GiantCard: FC<Props> = ({
@@ -47,6 +51,10 @@ const GiantCard: FC<Props> = ({
   tags,
   description,
   image,
+  isUserCanBuyNft,
+  isUserCanEnterInAuction,
+  isUserCanPutOnSale,
+  type,
 }) => (
   <div className={cx(styles.giantCard, className)}>
     <img src={image} alt="" />
@@ -61,13 +69,20 @@ const GiantCard: FC<Props> = ({
         likeAction={likeAction}
         dotsAction={dotsAction}
       />
-      <PaymentComponent
-        price={+getTokenAmountDisplay(price.toString())}
-        asset={asset}
-        type="sell"
-        growthUsd={growthUsd}
-        growth={growth}
-      />
+      {type ? (
+        <PaymentComponent
+          price={price.toString(10)}
+          asset={asset}
+          type={type}
+          growthUsd={growthUsd}
+          growth={growth}
+          isUserCanBuyNft={isUserCanBuyNft}
+          isUserCanEnterInAuction={isUserCanEnterInAuction}
+          isUserCanPutOnSale={isUserCanPutOnSale}
+        />
+      ) : (
+        ''
+      )}
       <AuthorComponent author={author} authorPic={authorAvatar} />
       <DescriptionAndTagsComponent tags={tags} body={description} />
     </div>

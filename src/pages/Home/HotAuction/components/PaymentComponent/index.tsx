@@ -11,8 +11,11 @@ type Props = {
   bidAction?: () => void;
   growthUsd?: number;
   growth?: number;
-  price: number;
+  price: number | string;
   asset: string;
+  isUserCanBuyNft?: boolean;
+  isUserCanEnterInAuction?: boolean;
+  isUserCanPutOnSale?: boolean;
 };
 
 const PaymentComponent: FC<Props> = ({
@@ -23,15 +26,19 @@ const PaymentComponent: FC<Props> = ({
   type,
   growthUsd,
   growth,
+  isUserCanBuyNft,
+  isUserCanEnterInAuction,
+  isUserCanPutOnSale,
 }) => {
   const isGrowPositive = growth ? growth > 0 : false;
+
   return (
     <div className={cx(className, { [styles.paymentSell]: type === 'sell' })}>
       <div className={styles.priceWrapper}>
         <div>
-          <Text color="lightGray">Current Price</Text>
+          <Text color="lightGray">{type === 'sell' ? 'Current Price' : 'Highest Bid'}</Text>
           <div className={styles.priceAndGrowth}>
-            <H4>{`${price} ${asset}`}</H4>
+            {price ? <H4>{`${price} ${asset}`}</H4> : ''}
             {type === 'sell' && <Text size="m">{`($${growthUsd})`}</Text>}
           </div>
           {type === 'sell' && (
@@ -45,27 +52,40 @@ const PaymentComponent: FC<Props> = ({
             </Text>
           )}
         </div>
-        {type === 'auction' && (
+        {/* {type === 'auction' && (
           <div>
             <Text color="lightGray">Auction Ending in</Text>
             <Text size="xl">14.45</Text>
           </div>
-        )}
+        )} */}
       </div>
-      {type === 'auction' ? (
-        <Button onClick={bidAction} isFullWidth>
-          Place a Bid
-        </Button>
-      ) : (
-        <div className={styles.sellBtnsWrapper}>
+
+      <div className={styles.sellBtnsWrapper}>
+        {isUserCanBuyNft ? (
           <Button onClick={bidAction} isFullWidth>
-            PurchaseNow
+            Purchase Now
           </Button>
-          <Button color="outline" onClick={bidAction} isFullWidth>
-            Save
+        ) : (
+          ''
+        )}
+        {isUserCanEnterInAuction ? (
+          <Button onClick={bidAction} isFullWidth>
+            Place a Bid
           </Button>
-        </div>
-      )}
+        ) : (
+          ''
+        )}
+        {isUserCanPutOnSale ? (
+          <Button onClick={bidAction} isFullWidth>
+            Put on Sale
+          </Button>
+        ) : (
+          ''
+        )}
+        <Button color="outline" onClick={bidAction} isFullWidth>
+          Save
+        </Button>
+      </div>
     </div>
   );
 };
