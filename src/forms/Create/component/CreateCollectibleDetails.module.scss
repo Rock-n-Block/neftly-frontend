@@ -68,15 +68,6 @@
   @include m {
     margin-bottom: 32px;
   }
-
-  .button {
-    margin-left: 24px;
-    flex-shrink: 0;
-
-    @include d {
-      margin: 0 0 16px;
-    }
-  }
 }
 
 .title {
@@ -94,14 +85,6 @@
     img,
     video {
       width: 100%;
-    }
-  }
-
-  &:not(:last-child) {
-    margin-bottom: 40px;
-
-    @include m {
-      margin-bottom: 32px;
     }
   }
 }
@@ -181,32 +164,63 @@
   margin-top: 32px;
 
   &Title {
+    @include flexbox(center, space-between);
     @include epilogue;
     font-weight: 500;
     font-size: 16px;
     line-height: 160%;
   }
-  &Row{
-    display: flex;
+
+  &Row {
+    margin-top: 32px;
+    @include flexbox(flex-start);
   }
+
   .field {
-    input::placeholder {
-      color: $purple2;
-    }
+    margin-top: 32px;
 
-    &:not(:last-child) {
-      margin-bottom: 32px;
-
-      @include m {
-        margin-bottom: 20px;
-      }
-    }
   }
 }
-.price{
-  @include flexbox(flex-end);
-  .dropdown{
+
+.addCollection {
+  padding: 32px 0;
+  border-top: 1px solid $color-neutral-80;
+  border-bottom: 1px solid $color-neutral-80;
+}
+
+.fieldsetRowColumn {
+  & + & {
+    margin-left: 12px;
+    max-width: 100px;
+  }
+}
+
+.price {
+  @include flexbox(flex-start);
+  width: 100%;
+  flex-direction: column;
+
+  .dropdown {
     margin-right: -2px;
+  }
+
+  .inputs {
+    @include flexbox(flex-start, flex-start);
+    width: 100%;
+
+    .priceInput {
+      width: 100%;
+    }
+  }
+
+  .postfix {
+    margin-top: 4px;
+    width: 100%;
+    @include flexbox(center, space-between);
+    @include epilogue;
+    font-size: 14px;
+    line-height: 160%;
+    color: $color-neutral-40;
   }
 }
 
@@ -222,6 +236,7 @@
   color: $color-neutral-10;
   opacity: 0.7;
 }
+
 .row {
   margin: 0 -10px;
 
@@ -253,7 +268,7 @@
 
 .options {
   margin-top: 32px;
-  @include flexbox(flex-start,flex-start);
+  @include flexbox(flex-start, flex-start);
 
 }
 
@@ -263,23 +278,19 @@
   flex-direction: column;
   border: 1px solid $color-neutral-80;
   //border: 1px solid $color-action-default;
-  cursor:pointer;
-  &+&{
+  cursor: pointer;
+
+  & + & {
     margin-left: 16px;
   }
 }
 
-.active{
+.active {
   border: 1px solid $color-action-default;
 }
-.required{
-  color: rgb(169,49,93);
-}
-.squares {
-  margin-bottom: 32px;
 
-  display: flex;
-  gap: 18px;
+.required {
+  color: rgb(169, 49, 93);
 }
 
 .circle {
@@ -299,27 +310,6 @@
 
   svg {
     visibility: visible;
-  }
-}
-
-.square {
-  padding: 2px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 142px;
-  height: 142px;
-
-  font-weight: 700;
-  text-transform: uppercase;
-
-  background: $purple2;
-  border-radius: 24px;
-
-  :hover {
-    cursor: pointer;
   }
 }
 
@@ -415,9 +405,7 @@
 .priceBid {
   margin-bottom: 24px;
 
-  input::placeholder {
-    color: $purple2;
-  }
+
 }
 
 .foot {
@@ -430,19 +418,6 @@
     text-align: center;
   }
 
-  .button {
-    @include m {
-      width: 100%;
-    }
-
-    &:not(:last-child) {
-      margin-right: 24px;
-
-      @include m {
-        margin: 0 0 12px;
-      }
-    }
-  }
 }
 
 .saving {
@@ -561,14 +536,54 @@
 }
 
 .fee {
+  margin-top: 4px;
   display: flex;
   flex-direction: column;
 
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 24px;
+  @include epilogue;
+  font-size: 14px;
+  line-height: 160%;
+  color: $color-secondary;
 
-  .purple {
-    color: $purple2;
+}
+
+.tokenProperties {
+  margin-top: 32px;
+  @include flexbox;
+  flex-direction: column;
+}
+
+.tokenProperty {
+  @include flexbox(flex-start);
+  width: 100%;
+
+  &Name {
+    width: 100%;
+    margin-right: 12px;
   }
+
+  &Value {
+    width: 100%;
+  }
+}
+
+.btns {
+  margin-top: 32px;
+  @include flexbox(center, space-between);
+}
+
+.button {
+  @include epilogue;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 160%;
+}
+
+.submitBtn {
+  max-width: 410px;
+  width: 100%;
+}
+
+.cancelBtn {
+  color: $color-state-error;
 }

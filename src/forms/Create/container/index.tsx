@@ -2,15 +2,15 @@
 // @ts-ignore
 // eslint-disable-next-line no-param-reassign
 import React from 'react';
-import { withFormik } from 'formik';
-import { observer } from 'mobx-react-lite';
+import {withFormik} from 'formik';
+import {observer} from 'mobx-react-lite';
 
-import { storeApi } from '../../../services/api';
+import {storeApi} from '../../../services/api';
 // import { useMst } from '../../../store/store';
-import { validateForm } from '../../../utils/validate';
-import CreateForm, { ICreateForm } from '../component';
+import {validateForm} from '../../../utils/validate';
+import CreateForm, {ICreateForm} from '../component';
 
-export default observer(({ isSingle, walletConnector }: any) => {
+export default observer(({isSingle, walletConnector}: any) => {
   // const { modals } = useMst();
   const FormWithFormik = withFormik<any, ICreateForm>({
     enableReinitialize: true,
@@ -32,12 +32,12 @@ export default observer(({ isSingle, walletConnector }: any) => {
       numberOfCopies: '',
       tokenProperties: [
         {
-          size: '',
+          name: '',
           amount: '',
         },
       ],
       isLoading: false,
-      collectionId: '16',
+      collectionId: -1,
       currency: 'WETH',
       bid: '',
       showModal: false,
@@ -59,12 +59,12 @@ export default observer(({ isSingle, walletConnector }: any) => {
       if (!values.putOnSale || values.instantSalePrice) {
         notRequired.push('bid');
       }
-      const errors = validateForm({ values, notRequired });
+      const errors = validateForm({values, notRequired});
 
       return errors;
     },
 
-    handleSubmit: (values, { setFieldValue, setFieldError }) => {
+    handleSubmit: (values, {setFieldValue, setFieldError}) => {
       setFieldValue('isLoading', true);
 
       const formData = new FormData();
@@ -86,16 +86,16 @@ export default observer(({ isSingle, walletConnector }: any) => {
       }
       formData.append('creator_royalty', values.tokenRoyalties.toString().slice(0, -1));
       formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
-      formData.append('collection', values.collectionId);
+      formData.append('collection', values.collectionId.toString());
       formData.append('currency', values.currency);
       formData.append('format', values.format);
       // formData.append('creator', localStorage.dds_token);
 
-      if (values.tokenProperties[0].size) {
+      if (values.tokenProperties[0].name) {
         const details: any = {};
         values.tokenProperties.forEach((item) => {
-          if (item.size) {
-            details[item.size] = item.amount;
+          if (item.name) {
+            details[item.name] = item.amount;
           }
         });
 
@@ -103,7 +103,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
       }
       storeApi
         .createToken(formData)
-        .then(({ data }) => {
+        .then(({data}) => {
           walletConnector.metamaskService
             .sendTransaction(data.initial_tx)
             .then(() => {
@@ -115,7 +115,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
               console.log(err, 'err');
             });
         })
-        .catch(({ response }) => {
+        .catch(({response}) => {
           setFieldValue('isLoading', false);
           if (response.data && response.data.name) {
             setFieldError('tokenName', response.data.name);
@@ -128,5 +128,5 @@ export default observer(({ isSingle, walletConnector }: any) => {
 
     displayName: 'ChangePasswordForm',
   })(CreateForm);
-  return <FormWithFormik isSingle={isSingle} />;
+  return <FormWithFormik isSingle={isSingle}/>;
 });

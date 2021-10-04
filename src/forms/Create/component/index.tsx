@@ -1,41 +1,42 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Form} from 'antd';
+// import Cards from './Cards';
+// import Preview from './Preview';
+import {upload} from 'assets/img/upload';
 // import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
 import {FieldArray, FormikProps} from 'formik';
 import {observer} from 'mobx-react-lite';
 
-import {ReactComponent as FixedPrice} from '../../../assets/img/icons/fixed-price.svg';
-import {ReactComponent as Infinity} from '../../../assets/img/icons/infinity.svg';
-import {ReactComponent as Lock} from '../../../assets/img/icons/lock.svg';
-import {ReactComponent as Timer} from '../../../assets/img/icons/timer.svg';
+// import {ReactComponent as FixedPrice} from '../../../assets/img/icons/fixed-price.svg';
+// import {ReactComponent as Infinity} from '../../../assets/img/icons/infinity.svg';
+// import {ReactComponent as Lock} from '../../../assets/img/icons/lock.svg';
+// import {ReactComponent as Timer} from '../../../assets/img/icons/timer.svg';
 import Button from '../../../components/Button';
 import Dropdown from '../../../components/Dropdown';
-import DropdownWithImage from '../../../components/DropdownWithImage';
-import Icon from '../../../components/Icon';
+// import DropdownWithImage from '../../../components/DropdownWithImage';
 // import Loader from '../../../components/Loader/Circular1';
 import Modal from '../../../components/Modal';
+import TextArea from '../../../components/TextArea';
 import TextInput from '../../../components/TextInput';
 // import { NFTCard } from '../../../components/molecules';
 // import { ChooseCollection, Uploader } from '../../../components';
 import Uploader from '../../../components/Uploader';
 import {ratesApi} from '../../../services/api';
-import {useMst} from '../../../store/store';
+// import {useMst} from '../../../store/store';
 import {validateField} from '../../../utils/validate';
 
 import ChooseCollection from './ChooseCollection';
-// import Cards from './Cards';
-// import Preview from './Preview';
-import {upload} from 'assets/img/upload'
 import SuccessCreated from './SuccessCreated';
 
 import styles from './CreateCollectibleDetails.module.scss';
-import TextArea from "../../../components/TextArea";
+import Switch from "../../../components/Switch";
+import {useHistory} from "react-router";
 
 const royaltiesOptions = ['10%', '20%', '30%'];
 
 interface IProperti {
-  size: string | number;
+  name: string | number;
   amount: string | number;
 }
 
@@ -55,7 +56,7 @@ export interface ICreateForm {
   tokenProperties: IProperti[];
   isSingle?: boolean;
   isLoading: boolean;
-  collectionId: string;
+  collectionId: number;
   currency: string;
   bid: string;
   price: string;
@@ -76,30 +77,35 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
      handleSubmit,
      isSingle,
    }) => {
-    const {user} = useMst();
+    // const {user} = useMst();
     // const [active, setActive] = useState('price');
+    const history = useHistory();
     const [rates, setRates] = useState([]);
+    const [addToCollection, setAddToCollection] = useState(true);
     // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
     // const cryptocurrencies = ['ETH', 'BTC'];
     const onSubmit = () => {
       handleSubmit();
     };
+    const onCancel = () => {
+      history.goBack();
+    };
     const handleChangeProperty = (e: any, index: any, type: any) => {
       const localProperties = [...values.tokenProperties];
 
-      if (type === 'size') {
-        localProperties[index].size = e.target.value;
+      if (type === 'name') {
+        localProperties[index].name = e.target.value;
       }
       if (type === 'amount') {
         localProperties[index].amount = e.target.value;
       }
       if (
-        localProperties[localProperties.length - 1].size &&
+        localProperties[localProperties.length - 1].name &&
         localProperties[localProperties.length - 1].amount
       ) {
         localProperties.push({
-          size: '',
+          name: '',
           amount: '',
         });
       }
@@ -146,8 +152,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       </div>
                       <div className={styles.category}>Upload preview</div>
                       <div className={styles.note}>Drag or choose your file to upload</div>
-                      <div className={styles.format}>(PNG, GIF, WEBP, MP4 or MP3. Max 5 Mb.)
-                      </div>
+                      <div className={styles.format}>(PNG, GIF, WEBP, MP4 or MP3. Max 5 Mb.)</div>
                     </div>
                   </>
                 )}
@@ -197,9 +202,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     </div>
                     <div className={styles.category}>Upload file</div>
                     <div className={styles.note}>Drag or choose your file to upload</div>
-                    <div className={styles.format}>
-                      (PNG, GIF, WEBP, MP4 or MP3. Max 5 Mb.)
-                    </div>
+                    <div className={styles.format}>(PNG, GIF, WEBP, MP4 or MP3. Max 5 Mb.)</div>
                   </div>
                 </>
               )}
@@ -208,13 +211,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
           <div className={styles.column}>
             <div className={styles.item}>
               <div className={styles.fieldset}>
-                <h3 className={styles.fieldsetTitle}>
-                  Sell method
-                </h3>
-                <Form.Item
-                  name="sellMethod"
-                  className={styles.field}>
-
+                <h3 className={styles.fieldsetTitle}>Sell method</h3>
+                <Form.Item name="sellMethod" className={styles.field}>
                   <div className={styles.options}>
                     <div className={cn(styles.option, styles.active)}>
                       {/* <div className={styles.box}>
@@ -225,9 +223,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         value={values.sellMethod}
                         setValue={(value) => setFieldValue('sellMethod', value)}
                       /> */}
-                      <h4>
-                        Fixed price
-                      </h4>
+                      <h4>Fixed price</h4>
                       <p>Sell at fixed price</p>
                     </div>
                     <div className={styles.option}>
@@ -239,18 +235,14 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         value={values.sellMethod}
                         setValue={(value) => setFieldValue('sellMethod', value)}
                       /> */}
-                      <h4>
-                        Open for bids
-                      </h4>
+                      <h4>Open for bids</h4>
                       <p>Sell through Auction</p>
                     </div>
                   </div>
                 </Form.Item>
               </div>
               <div className={styles.fieldset}>
-                <h3 className={styles.fieldsetTitle}>
-                  Artwork Details
-                </h3>
+                <h3 className={styles.fieldsetTitle}>Artwork Details</h3>
                 <Form.Item
                   name="tokenName"
                   className={styles.field}
@@ -284,9 +276,38 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   />
                 </Form.Item>
                 <div className={styles.fieldsetRow}>
-                  <div className={styles.price}>
+                  <div className={cn(styles.price, styles.fieldsetRowColumn)}>
+                    <p className={styles.label}>Price</p>
+                    <div className={styles.inputs}>
+                      <Form.Item>
+                        <Dropdown
+                          name="Royalties"
+                          setValue={(value) => setFieldValue('currency', value)}
+                          options={rates}
+                          className={styles.dropdown}
+                          value={values.currency}
+                        />
+                      </Form.Item>
+                      <Form.Item className={styles.priceInput}>
+                        <TextInput
+                          name="price"
+                          type="number"
+                          placeholder="e.g. 0.007"
+                          value={values.price.toString()}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          required
+                        />
+                      </Form.Item>
+                    </div>
+                    <div className={styles.postfix}>
+                      <p>Minimum price 0.004 ETH</p>
+                      <p>USD 234.24 PER/ETH</p>
+                    </div>
+                  </div>
+                  <div className={styles.fieldsetRowColumn}>
+                    <p className={styles.label}>In Stock {requiredMark}</p>
                     <Form.Item>
-                      <p className={styles.label}>Price</p>
                       <Dropdown
                         name="Royalties"
                         setValue={(value) => setFieldValue('tokenRoyalties', value)}
@@ -295,19 +316,26 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         value={values.tokenRoyalties}
                       />
                     </Form.Item>
+                  </div>
+                  <div className={styles.fieldsetRowColumn}>
+                    <p className={styles.label}>Royalties {requiredMark}</p>
                     <Form.Item>
-                      <TextInput
-                        className={styles.field}
-                        name="price"
-                        type="number"
-                        placeholder="e.g. 0.007"
-                        value={values.price.toString()}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        required
+                      <Dropdown
+                        name="Royalties"
+                        setValue={(value) => setFieldValue('tokenRoyalties', value)}
+                        options={royaltiesOptions}
+                        className={styles.dropdown}
+                        value={values.tokenRoyalties}
                       />
                     </Form.Item>
                   </div>
+                </div>
+                <div className={styles.fee}>
+                  <p>Service fee {serviceFee}%</p>
+                  <p>
+                    You will receive {(parseFloat(values.bid) * (100 - serviceFee)) / 100 || 0}{' '}
+                    {values.currency.toUpperCase()}
+                  </p>
                 </div>
                 {!isSingle && (
                   <Form.Item
@@ -331,55 +359,36 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     </div>
                   </Form.Item>
                 )}
-                <div className={styles.row}>
-                  <div className={styles.col}>
-                    <div className={styles.label}>Royalties</div>
-                    {/* <Form.Item
-                      className={styles.field}
-                      name="Royalties"
-                      validateStatus={validateField('tokenRoyalties', touched, errors)}
-                      help={!touched.tokenRoyalties ? false : errors.tokenRoyalties}
-                      // initialValue={values.tokenRoyalties}
-                      // va
-                    > */}
-                    {/* console.log(values.tokenRoyalties) */}
-                    <Dropdown
-                      name="Royalties"
-                      setValue={(value) => setFieldValue('tokenRoyalties', value)}
-                      options={royaltiesOptions}
-                      className={styles.dropdown}
-                      value={values.tokenRoyalties}
-                    />
-                    {/* </Form.Item> */}
-                  </div>
+                <div className={styles.tokenProperties}>
                   <FieldArray
                     name="tokenProperties"
                     render={() => {
                       return values.tokenProperties?.map((item: any, index: any) => (
-                        <>
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div className={styles.tokenProperty} key={`tokenProperty${index}`}>
                           <Form.Item
-                            name={`tokenProperties[${index}].size`}
+                            name={`tokenProperties[${index}].name`}
                             validateStatus={validateField(`tokenProperties`, touched, errors)}
-                            className={styles.col}
+                            className={styles.tokenPropertyName}
                             help={(() => {
                               return errors.tokenProperties &&
                               errors.tokenProperties[index] &&
                               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                               // @ts-ignore
                               // eslint-disable-next-line no-param-reassign
-                              errors.tokenProperties[index].size
+                              errors.tokenProperties[index].name
                                 ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                   // @ts-ignore
                                   // eslint-disable-next-line no-param-reassign
-                                errors.tokenProperties[index].size
+                                errors.tokenProperties[index].name
                                 : false;
                             })()}
                           >
                             <div>
                               <TextInput
-                                label="Size"
+                                label="Property"
                                 type="text"
-                                name={`tokenProperties[${index}].size`}
+                                name={`tokenProperties[${index}].name`}
                                 placeholder="e. g. Size"
                                 onChange={(e) => handleChangeProperty(e, index, 'size')}
                                 onBlur={handleBlur}
@@ -389,7 +398,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
 
                           <Form.Item
                             name={`tokenProperties[${index}].amount`}
-                            className={styles.col}
+                            className={styles.tokenPropertyValue}
                             validateStatus={validateField(`tokenProperties`, touched, errors)}
                             help={(() => {
                               return errors.tokenProperties &&
@@ -416,14 +425,14 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                               />
                             </div>
                           </Form.Item>
-                        </>
+                        </div>
                       ));
                     }}
                   />
                 </div>
               </div>
             </div>
-            <div className={styles.squares}>
+            {/* <div className={styles.squares}>
               <div
                 className={cn({[styles.active]: values.instantSalePrice}, styles.square)}
                 onClick={() => setFieldValue('instantSalePrice', true)}
@@ -464,8 +473,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   <span>Timed auction</span>
                 </div>
               </div>
-            </div>
-            {values.sellMethod && (
+            </div> */}
+            {/* {values.sellMethod && (
               <>
                 <Form.Item
                   name={values.instantSalePrice ? 'instantSalePriceEth' : 'bid'}
@@ -528,16 +537,33 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 </span>
                 </div>
               </>
-            )}
-            {user.address ? <ChooseCollection isSingle={isSingle}/> : ''}
-            <Button
-              className={cn('button', styles.button)}
-              onClick={onSubmit}
-              loading={values.isLoading}
-            >
-              <span>Create item</span>
-              <Icon name="arrow-next" size="10"/>
-            </Button>
+            )} */}
+            <div className={cn(styles.fieldset, styles.addCollection)}>
+              <h3 className={styles.fieldsetTitle}>
+                Add to collection
+                <Switch
+                  value={addToCollection}
+                  setValue={() => setAddToCollection(!addToCollection)}
+                />
+              </h3>
+              {addToCollection && (<ChooseCollection isSingle={isSingle}/>)}
+            </div>
+            <div className={styles.btns}>
+              <Button
+                className={cn('button', styles.button, styles.submitBtn)}
+                onClick={onSubmit}
+                loading={values.isLoading}
+              >
+                Create item
+              </Button>
+              <Button
+                className={cn('button', styles.button, styles.cancelBtn)}
+                onClick={onCancel}
+                color="transparent"
+              >
+                Cancel
+              </Button>
+            </div>
           </div>
         </Form>
         {/*
