@@ -19,7 +19,7 @@ export default observer(({isSingle, walletConnector}: any) => {
       cover: '',
       preview: '',
       coverPreview: '',
-      sellMethod: true,
+      sellMethod: 'fixedPrice',
       instantSalePrice: true,
       // unlockOncePurchased: false,
       format: '',

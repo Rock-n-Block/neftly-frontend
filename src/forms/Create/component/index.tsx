@@ -32,6 +32,8 @@ import SuccessCreated from './SuccessCreated';
 import styles from './CreateCollectibleDetails.module.scss';
 import Switch from "../../../components/Switch";
 import {useHistory} from "react-router";
+import {Radio} from "../../../components";
+import {IRadioButton} from "../../../components/Radio";
 
 const royaltiesOptions = ['10%', '20%', '30%'];
 
@@ -44,7 +46,7 @@ export interface ICreateForm {
   img: any;
   preview: string;
   coverPreview: string;
-  sellMethod: boolean;
+  sellMethod: string;
   instantSalePrice: boolean;
   // unlockOncePurchased: boolean;
   instantSalePriceEth: number | string;
@@ -66,6 +68,16 @@ export interface ICreateForm {
 
 const requiredMark = <span className={styles.required}>*</span>;
 
+/* <div className={styles.options}>
+  <div className={cn(styles.option, styles.active)}>
+    <h4 className={styles.optionTitle}>Fixed price</h4>
+    <p className={styles.optionInfo}>Sell at fixed price</p>
+  </div>
+  <div className={styles.option}>
+    <h4 className={styles.optionTitle}>Open for bids</h4>
+    <p className={styles.optionInfo}>Sell through Auction</p>
+  </div>
+</div> */
 const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
   ({
      setFieldValue,
@@ -82,6 +94,18 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     const history = useHistory();
     const [rates, setRates] = useState([]);
     const [addToCollection, setAddToCollection] = useState(true);
+    const sellMethods: IRadioButton[] = [
+      {
+        value: 'fixedPrice',
+        optionTitle: 'Fixed price',
+        optionInfo: 'Sell at fixed price'
+      },
+      {
+        value: 'openForBids',
+        optionTitle: 'Open for bids',
+        optionInfo: 'Sell through Auction'
+      },
+    ]
     // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
     // const cryptocurrencies = ['ETH', 'BTC'];
@@ -122,6 +146,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     useEffect(() => {
       fetchRates();
     }, [fetchRates]);
+    useEffect(() => {
+      console.log(values);
+    }, [values]);
     return (
       <>
         <Form name="form-create" className={styles.form}>
@@ -213,32 +240,10 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               <div className={styles.fieldset}>
                 <h3 className={styles.fieldsetTitle}>Sell method</h3>
                 <Form.Item name="sellMethod" className={styles.field}>
-                  <div className={styles.options}>
-                    <div className={cn(styles.option, styles.active)}>
-                      {/* <div className={styles.box}>
-                        <div className={styles.category}>Put on sale</div>
-                        <div className={styles.text}>You’ll receive bids on this item</div>
-                      </div>
-                      <Switch
-                        value={values.sellMethod}
-                        setValue={(value) => setFieldValue('sellMethod', value)}
-                      /> */}
-                      <h4 className={styles.optionTitle}>Fixed price</h4>
-                      <p className={styles.optionInfo}>Sell at fixed price</p>
-                    </div>
-                    <div className={styles.option}>
-                      {/* <div className={styles.box}>
-                        <div className={styles.category}>Put on sale</div>
-                        <div className={styles.text}>You’ll receive bids on this item</div>
-                      </div>
-                      <Switch
-                        value={values.sellMethod}
-                        setValue={(value) => setFieldValue('sellMethod', value)}
-                      /> */}
-                      <h4 className={styles.optionTitle}>Open for bids</h4>
-                      <p className={styles.optionInfo}>Sell through Auction</p>
-                    </div>
-                  </div>
+                  <Radio className={styles.options} name='sellMethod' options={sellMethods}
+                         controlledValue={values.sellMethod} onChange={newValue => {
+                    setFieldValue('sellMethod', newValue)
+                  }}/>
                 </Form.Item>
               </div>
               <div className={styles.fieldset}>

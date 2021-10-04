@@ -20,4 +20,5 @@ export { default as Control } from './Control';
 export { default as Burger } from './Burger';
 export { default as ActivityItem } from './ActivityItem';
 export { default as Loader } from './Loader';
+export { default as Radio } from './Radio';
 export * from './Typography';

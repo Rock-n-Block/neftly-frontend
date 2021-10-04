@@ -241,45 +241,8 @@
 
 .options {
   margin-top: 32px;
-  @include flexbox(flex-start, flex-start);
-
 }
 
-.option {
-  padding: 16px;
-  max-width: 296px;
-  @include flexbox;
-  flex-direction: column;
-  border: 1px solid $color-neutral-80;
-  //border: 1px solid $color-action-default;
-  cursor: pointer;
-  text-align: center;
-
-  &Title {
-
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 160%;
-  }
-
-  &Info {
-    font-size: 14px;
-    line-height: 160%;
-    color: $color-neutral-40;
-    @include forDesktopSm {
-
-      font-size: 13px;
-    }
-  }
-
-  & + & {
-    margin-left: 16px;
-  }
-}
-
-.active {
-  border: 1px solid $color-action-default;
-}
 
 .required {
   color: rgb(169, 49, 93);
