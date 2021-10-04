@@ -123,7 +123,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       fetchRates();
     }, [fetchRates]);
     return (
-      <div className={styles.formWrapper}>
+      <>
         <Form name="form-create" className={styles.form}>
           <div className={styles.column}>
             {(values.format === 'video' || values.format === 'audio') && (
@@ -223,8 +223,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         value={values.sellMethod}
                         setValue={(value) => setFieldValue('sellMethod', value)}
                       /> */}
-                      <h4>Fixed price</h4>
-                      <p>Sell at fixed price</p>
+                      <h4 className={styles.optionTitle}>Fixed price</h4>
+                      <p className={styles.optionInfo}>Sell at fixed price</p>
                     </div>
                     <div className={styles.option}>
                       {/* <div className={styles.box}>
@@ -235,8 +235,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         value={values.sellMethod}
                         setValue={(value) => setFieldValue('sellMethod', value)}
                       /> */}
-                      <h4>Open for bids</h4>
-                      <p>Sell through Auction</p>
+                      <h4 className={styles.optionTitle}>Open for bids</h4>
+                      <p className={styles.optionInfo}>Sell through Auction</p>
                     </div>
                   </div>
                 </Form.Item>
@@ -580,7 +580,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
         <Modal visible={values.showModal} onClose={() => setFieldValue('showModal', false)}>
           <SuccessCreated close={() => setFieldValue('showModal', false)} title="token"/>
         </Modal>
-      </div>
+      </>
     );
   },
 );

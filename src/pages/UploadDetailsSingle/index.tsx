@@ -28,9 +28,7 @@ const UploadSingle: React.FC = observer(() => {
           </Button>
         </div>
         <div className={cn( styles.container)}>
-          <div className={styles.wrapper}>
-            <CreateForm isSingle={isSingle} walletConnector={walletConnector} />
-          </div>
+          <CreateForm isSingle={isSingle} walletConnector={walletConnector} />
         </div>
       </div>
     </>
