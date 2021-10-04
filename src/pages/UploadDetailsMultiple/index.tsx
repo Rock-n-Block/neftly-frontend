@@ -182,7 +182,7 @@ const UploadMultiple: React.FC = observer(() => {
         // }
       )
       .then(({ data }) => {
-        walletConnector.metamaskService
+        walletConnector.walletService
           .sendTransaction(data.initial_tx)
           .then(() => {
             setVisibleSuccess(true);
@@ -197,7 +197,7 @@ const UploadMultiple: React.FC = observer(() => {
         setLoading(false);
       })
       .finally(() => {});
-  }, [sale, formData, walletConnector.metamaskService, active, activeCollection, format]);
+  }, [sale, formData, walletConnector.walletService, active, activeCollection, format]);
 
   const fetchCollections = useCallback(() => {
     userApi.getSingleCollections(user.address).then(({ data }: any) => {

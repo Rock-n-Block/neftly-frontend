@@ -1,4 +1,4 @@
-import { applySnapshot, flow, types } from 'mobx-state-tree';
+import { flow, types } from 'mobx-state-tree';
 
 import { userApi } from '../services/api';
 
@@ -73,7 +73,23 @@ export const User = types
       self.is_searching = isSrch;
     };
     const update = (userData: any) => {
-      applySnapshot(self, userData);
+      self.address = userData.address;
+      self.avatar = userData.avatar && userData.avatar;
+      self.bio = userData.bio;
+      self.cover = userData.cover;
+      self.custom_url = userData.custom_url;
+      self.display_name = userData.display_name;
+      self.followers = userData.followers;
+      self.followers_count = userData.followers_count;
+      self.follows = userData.follows;
+      self.follows_count = userData.follows_count;
+      self.id = userData.id;
+      self.instagram = userData.instagram;
+      self.facebook = userData.facebook;
+      self.is_verificated = userData.is_verificated;
+      self.likes = userData.likes;
+      self.site = userData.site;
+      self.twitter = userData.twitter;
     };
     const disconnect = () => {
       self.address = '';

@@ -7,7 +7,7 @@ import Icon from '../../../../components/Icon';
 import Switch from '../../../../components/Switch';
 import { storeApi } from '../../../../services/api';
 import { useWalletConnectorContext } from '../../../../services/walletConnect';
-import MetamaskService from '../../../../services/web3';
+import { WalletConnect } from '../../../../services/walletService';
 import { useMst } from '../../../../store/store';
 
 import styles from './PutSale.module.scss';
@@ -36,10 +36,12 @@ const PutSale: React.FC<IPutSaleProps> = ({
   const [priceValue, setPriceValue] = useState('');
   const [fee, setFee] = useState(0);
   const getUserBalance = useCallback(() => {
-    walletConnector.metamaskService.getEthBalance().then((data: string) => {
-      setBalance(MetamaskService.weiToEth(data));
-    });
-  }, [walletConnector.metamaskService]);
+    walletConnector.walletService.connectWallet
+      .getBalance(user.address)
+      .then((data: string | number) => {
+        setBalance(WalletConnect.weiToEth(data));
+      });
+  }, [walletConnector.walletService]);
   const fetchStore = useCallback(() => {
     storeApi
       .putOnSale(tokenId ? +tokenId : 0, priceValue ? +priceValue : 0, price)

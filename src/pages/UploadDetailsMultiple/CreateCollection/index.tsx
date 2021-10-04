@@ -59,7 +59,7 @@ const CreateCollection: React.FC<ICreateCollectionProps> = ({
     storeApi
       .createCollection(newFormData)
       .then(({ data }: any) => {
-        walletConnector.metamaskService
+        walletConnector.walletService
           .sendTransaction(data)
           .then(({ transactionHash }: any) => {
             newFormData.append('tx_hash', transactionHash);
@@ -75,7 +75,7 @@ const CreateCollection: React.FC<ICreateCollectionProps> = ({
       .finally(() => {
         setIsLoading(false);
       });
-  }, [formData, walletConnector.metamaskService, close, setCollection]);
+  }, [formData, walletConnector.walletService, close, setCollection]);
 
   useEffect(() => {
     if (isLoading) {

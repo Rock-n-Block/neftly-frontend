@@ -24,7 +24,7 @@ const Transfer: React.FC<ITransferProps> = ({ className, itemId, standart, onClo
     storeApi
       .transferToken(itemId || '', inputValue, amount)
       .then(({ data }: any) => {
-        walletConnector.metamaskService.sendTransaction(data.initial_tx).then(() => {
+        walletConnector.walletService.sendTransaction(data.initial_tx).then(() => {
           setIsLoading(false);
           onClose();
         });

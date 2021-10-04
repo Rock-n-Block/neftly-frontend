@@ -103,7 +103,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
       storeApi
         .createToken(formData)
         .then(({ data }) => {
-          walletConnector.metamaskService
+          walletConnector.walletService
             .sendTransaction(data.initial_tx)
             .then(() => {
               setFieldValue('showModal', true);

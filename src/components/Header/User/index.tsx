@@ -64,7 +64,7 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
   // };
 
   // const fetchBalance = useCallback(() => {
-  //   walletConnector.metamaskService
+  //   walletConnector.walletService
   //     .getEthBalance()
   //     .then((data: any) =>
   //       user.setBalance(
@@ -72,14 +72,14 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
   //         'eth',
   //       ),
   //     );
-  //   walletConnector.metamaskService.getWethBalance().then((data: any) => {
+  //   walletConnector.walletService.getWethBalance().then((data: any) => {
   //     ratesApi.getRates();
   //     user.setBalance(
   //       new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
   //       'weth',
   //     );
   //   });
-  // }, [walletConnector.metamaskService, user]);
+  // }, [walletConnector.walletService, user]);
 
   // useEffect(() => {
   //   if (user.address) fetchBalance();

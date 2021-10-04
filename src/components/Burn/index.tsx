@@ -20,11 +20,11 @@ const Burn: React.FC<IBurnProps> = ({ className, itemId, standart }) => {
     storeApi
       .burnToken(itemId || '', amount)
       .then(({ data }: any) => {
-        return walletConnector.metamaskService.sendTransaction(data.initial_tx);
+        return walletConnector.walletService.sendTransaction(data.initial_tx);
       })
       .catch((e: any) => console.error('Bid modal sendTranscation', e))
       .finally(() => setIsLoading(false));
-  }, [itemId, amount, walletConnector.metamaskService]);
+  }, [itemId, amount, walletConnector.walletService]);
 
   useEffect(() => {
     if (isLoading) burnToken();

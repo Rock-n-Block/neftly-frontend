@@ -1,26 +1,45 @@
 import React, { createContext, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import { notification } from 'antd';
 
 import { rootStore } from '../../store/store';
 import { userApi } from '../api';
-import MetamaskService from '../web3';
+import { WalletConnect } from '../walletService';
+import { is_production } from '../../config';
 
-const walletConnectorContext = createContext<any>({
-  MetamaskService: {},
+declare global {
+  interface Window {
+    ethereum: any;
+    kardiachain: any;
+  }
+}
+
+const walletConnectorContext = createContext<{
+  connect: (
+    chainName: 'Binance' | 'KardiaChain',
+    providerName: 'MetaMask' | 'WalletConnect' | 'WalletLink' | 'KardiaChain',
+  ) => void;
+  disconnect: () => void;
+  walletService: WalletConnect;
+}>({
   connect: (): void => {},
+  disconnect: (): void => {},
+  walletService: new WalletConnect(),
 });
 
 @observer
-class Connector extends React.Component<any, any> {
+class Connector extends React.Component<
+  any,
+  {
+    provider: WalletConnect;
+  }
+> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      provider: new MetamaskService({
-        testnet: 'rinkeby',
-        isProduction: false,
-      }),
+      provider: new WalletConnect(),
     };
 
     this.connect = this.connect.bind(this);
@@ -28,81 +47,99 @@ class Connector extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const self = this;
-    if (window.ethereum) {
-      if (localStorage.nft_metamask) {
-        this.connect();
+    if (window.ethereum || window.kardiachain) {
+      if (localStorage.netfly_nft_chainName && localStorage.netfly_nft_providerName) {
+        this.connect(localStorage.netfly_nft_chainName, localStorage.netfly_nft_providerName);
       }
-
-      this.state.provider.chainChangedObs.subscribe({
-        next(err: string) {
-          // rootStore.modals.metamask.setErr(err);
-          console.log(err);
-        },
-      });
-
-      this.state.provider.accountChangedObs.subscribe({
-        next() {
-          self.disconnect();
-        },
-      });
     }
   }
 
-  connect = async () => {
-    if (window.ethereum) {
+  connect = async (
+    chainName: 'Binance' | 'KardiaChain',
+    providerName: 'MetaMask' | 'WalletConnect' | 'WalletLink' | 'KardiaChain',
+  ) => {
+    if (window.ethereum || window.kardiachain) {
       try {
-        const { address } = await this.state.provider.connect();
+        const isConnected = await this.state.provider.initWalletConnect(chainName, providerName);
+        if (isConnected) {
+          const subscriber = this.state.provider.getAccount().subscribe(
+            async (userAccount: any) => {
+              if (rootStore.user.address && userAccount.address !== rootStore.user.address) {
+                subscriber.unsubscribe();
+                this.disconnect();
+              } else {
+                this.state.provider.setAccountAddress(userAccount.address);
+                if (!localStorage.netfly_nft_token) {
+                  const metMsg: any = await userApi.getMsg();
+                  const signedMsg = await this.state.provider.connectWallet.signMsg(
+                    userAccount.address,
+                    metMsg.data,
+                  );
 
-        if (!localStorage.nft_token) {
-          const metMsg: any = await userApi.getMsg();
+                  const login: any = await userApi.login({
+                    address: userAccount.address,
+                    msg: metMsg.data,
+                    signedMsg,
+                  });
 
-          const signedMsg = await this.state.provider.signMsg(metMsg.data);
-
-          const login: any = await userApi.login({
-            address,
-            msg: metMsg.data,
-            signedMsg,
-          });
-
-          localStorage.nft_token = login.data.key;
-          localStorage.address = address;
-          rootStore.user.setAddress(address);
-          localStorage.nft_metamask = true;
-        } else {
-          rootStore.user.setAddress(address);
-          localStorage.nft_metamask = true;
+                  localStorage.netfly_nft_token = login.data.key;
+                  rootStore.user.setAddress(userAccount.address);
+                  if (this.props.location.pathname === '/connect-wallet') {
+                    this.props.history.goBack();
+                  }
+                }
+                localStorage.netfly_nft_chainName = chainName;
+                localStorage.netfly_nft_providerName = providerName;
+                rootStore.user.getMe();
+              }
+            },
+            (err: any) => {
+              console.log('getAccount wallet connect - get user account err: ', err);
+              if (err.code && err.code === 6) {
+                console.log('');
+              } else {
+                this.disconnect();
+              }
+              notification.error({
+                message: err.message.title,
+                description: `Wrong Network, please select ${
+                  is_production ? 'mainnet' : 'testnet'
+                } network in your wallet and try again`,
+              });
+            },
+          );
         }
-        rootStore.user.getMe();
       } catch (err) {
-        // rootStore.modals.metamask.setErr(err.message);
+        console.log(err);
         this.disconnect();
       }
-    } else {
-      // rootStore.modals.metamask.setErr('No Metamask (or other Web3 Provider) installed');
     }
   };
 
   disconnect() {
     rootStore.user.disconnect();
+    delete localStorage.netfly_nft_chainName;
+    delete localStorage.netfly_nft_providerName;
+    delete localStorage.walletconnect;
 
-    if (
-      [
-        '/upload-variants',
-        '/upload-details-single',
-        '/profile',
-        '/upload-details-multiple',
-      ].includes(this.props.location.pathname)
-    ) {
-      this.props.history.push('/');
-    }
+    this.props.history.push('/');
+    // if (
+    //   [
+    //     '/upload-variants',
+    //     '/upload-details-single',
+    //     '/profile',
+    //     '/upload-details-multiple',
+    //   ].includes(this.props.location.pathname)
+    // ) {
+    //   this.props.history.push('/');
+    // }
   }
 
   render() {
     return (
       <walletConnectorContext.Provider
         value={{
-          metamaskService: this.state.provider,
+          walletService: this.state.provider,
           connect: this.connect,
           disconnect: this.disconnect,
         }}

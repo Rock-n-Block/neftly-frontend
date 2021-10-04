@@ -8,7 +8,7 @@ import Button from '../../../components/Button';
 import Modal from '../../../components/Modal';
 import { storeApi } from '../../../services/api';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
-import web3Config from '../../../services/web3/config';
+import { contracts } from '../../../config';
 import { useMst } from '../../../store/store';
 import { IOwner } from '../../../typings/UserInfo';
 import { IItem } from '../index';
@@ -73,7 +73,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
   //   let result;
   //   if (token.collection) {
   //     try {
-  //       result = await walletConnector.metamaskService.checkNftTokenAllowance(
+  //       result = await walletConnector.walletService.checkNftTokenAllowance(
   //         token.collection.address,
   //       );
 
@@ -84,14 +84,14 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
   //     }
   //   }
   //   return result;
-  // }, [token.collection, walletConnector.metamaskService]);
+  // }, [token.collection, walletConnector.walletService]);
 
   // const handleApproveNft = useCallback(async () => {
   //   if (token.collection) {
   //     try {
   //       const isAppr = await handleCheckApproveNft();
   //       if (!isAppr) {
-  //         await walletConnector.metamaskService.createTransaction(
+  //         await walletConnector.walletService.createTransaction(
   //           'setApprovalForAll',
   //           ['0xdDd7A645E998884879162f964F54e6ee1a5CBAAd', true],
   //           'NFT',
@@ -103,10 +103,10 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
   //       throw Error;
   //     }
   //   }
-  // }, [walletConnector.metamaskService, token.collection, handleCheckApproveNft]);
+  // }, [walletConnector.walletService, token.collection, handleCheckApproveNft]);
   const checkAllowance = useCallback(() => {
-    walletConnector.metamaskService
-      .checkTokenAllowance(currency.name, 18, web3Config.EXCHANGE.ADDRESS)
+    walletConnector.walletService
+      .checkTokenAllowance(currency.name, 18, contracts.params.EXCHANGE.testnet.address)
       .then((res: boolean) => {
         setIsAllowed(res);
       })
@@ -114,17 +114,17 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
         // setApproved(false);
         console.log(err, 'check');
       });
-  }, [currency.name, walletConnector.metamaskService]);
+  }, [currency.name, walletConnector.walletService]);
   const handleApproveToken = useCallback(() => {
-    walletConnector.metamaskService
-      .approveToken(currency.name, 18, web3Config.EXCHANGE.ADDRESS)
+    walletConnector.walletService
+      .approveToken(currency.name, 18, contracts.params.EXCHANGE.testnet.address)
       .then(() => {
         setIsAllowed(true);
       })
       .catch((err: any) => {
         console.log(err, 'err approve');
       });
-  }, [currency.name, walletConnector.metamaskService]);
+  }, [currency.name, walletConnector.walletService]);
 
   const fetchFee = useCallback(() => {
     storeApi.getFee().then(({ data }: any) => setFee(data));
@@ -132,7 +132,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
 
   const handleEndAuc = useCallback(() => {
     storeApi.endAuction(id).then(({ data }: any) =>
-      walletConnector.metamaskService.createTransaction(
+      walletConnector.walletService.createTransaction(
         data.initial_tx.method,
         [
           data.initial_tx.data.idOrder,
@@ -156,7 +156,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
         },
       ),
     );
-  }, [id, walletConnector.metamaskService]);
+  }, [id, walletConnector.walletService]);
 
   useEffect(() => {
     // handleApproveNft();
