@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { observer } from 'mobx-react';
 
 import { userApi } from '../../services/api';
-import { useMst } from '../../store/store';
+import { useMst } from '../../store';
 import { IOwner } from '../../typings/UserInfo';
 import Bid from '../Bid';
 import Icon from '../Icon';

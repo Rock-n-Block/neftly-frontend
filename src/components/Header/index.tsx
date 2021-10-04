@@ -7,7 +7,7 @@ import Button from 'components/Button';
 import { observer } from 'mobx-react-lite';
 
 import { useWalletConnectorContext } from '../../services/walletConnect';
-import { useMst } from '../../store/store';
+import { useMst } from '../../store';
 import TextInput from '../TextInput/index';
 
 import HeaderLinks from './HeaderLinks';

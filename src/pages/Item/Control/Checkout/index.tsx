@@ -6,7 +6,7 @@ import LoaderCircle from '../../../../components/LoaderCircle';
 import { storeApi } from '../../../../services/api';
 import { useWalletConnectorContext } from '../../../../services/walletConnect';
 import { WalletConnect } from '../../../../services/walletService';
-import { useMst } from '../../../../store/store';
+import { useMst } from '../../../../store';
 
 import styles from './Checkout.module.scss';
 

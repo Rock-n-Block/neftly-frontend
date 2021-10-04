@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { routes } from 'appConstants';
 import cx from 'classnames';
 import {
   ArtCard,
@@ -126,7 +125,7 @@ const DetailArtwork: FC<Props> = ({ className }) => {
         <div className={styles.relatedArtwork}>
           <H3>More Auction Today</H3>
           <Carousel slidesToShow={numberOfSlide} classNameProp={styles.auctionSlider}>
-            {artworkData.map((art, index) => {
+            {artworkData.map((art) => {
               const {
                 image,
                 name,
@@ -139,7 +138,7 @@ const DetailArtwork: FC<Props> = ({ className }) => {
                 tags,
               } = art;
               return (
-                <Link to={`${routes.gallery.detailArtwork.link}/${index}`}>
+                <Link to="/">
                   <ArtCard
                     imageMain={image}
                     name={name}

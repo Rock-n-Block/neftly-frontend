@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 
 // import { ratesApi } from '../../../services/api';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
-import { useMst } from '../../../store/store';
+import { useMst } from '../../../store';
 import { Button } from 'components';
 import Icon from '../../Icon';
 import Loader from '../../Loader';

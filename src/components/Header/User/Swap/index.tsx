@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import iconSwap from '../../../../assets/img/icons/arrows-swap.svg';
 import { useWalletConnectorContext } from '../../../../services/walletConnect';
 import { WalletConnect } from '../../../../services/walletService';
-import { useMst } from '../../../../store/store';
+import { useMst } from '../../../../store';
 import Button from '../../../Button';
 import TextInput from '../../../TextInput';
 

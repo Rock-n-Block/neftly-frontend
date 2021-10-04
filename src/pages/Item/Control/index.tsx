@@ -9,7 +9,7 @@ import Modal from '../../../components/Modal';
 import { storeApi } from '../../../services/api';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { contracts } from '../../../config';
-import { useMst } from '../../../store/store';
+import { useMst } from '../../../store';
 import { IOwner } from '../../../typings/UserInfo';
 import { IItem } from '../index';
 
@@ -127,7 +127,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
   }, [currency.name, walletConnector.walletService]);
 
   const fetchFee = useCallback(() => {
-    storeApi.getFee().then(({ data }: any) => setFee(data));
+    storeApi.getFee('BNB').then(({ data }: any) => setFee(data));
   }, []);
 
   const handleEndAuc = useCallback(() => {

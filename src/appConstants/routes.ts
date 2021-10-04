@@ -5,15 +5,9 @@ export const routes = {
   discover: {
     root: '/discover',
   },
-  gallery: {
-    detailArtwork: {
-      root: '/gallery/artwork/:id',
-      link: '/gallery/artwork',
-    },
-    detailAuction: {
-      root: '/gallery/auction/:id',
-      link: '/gallery/auction',
-    },
+  nft: {
+    root: '/nft/:id',
+    link: '/nft',
   },
   profile: {
     root: '/profile/:userId',

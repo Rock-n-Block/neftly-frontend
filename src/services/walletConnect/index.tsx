@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { notification } from 'antd';
 
-import { rootStore } from '../../store/store';
+import { rootStore } from '../../store';
 import { userApi } from '../api';
 import { WalletConnect } from '../walletService';
 import { is_production } from '../../config';
@@ -84,9 +84,6 @@ class Connector extends React.Component<
 
                   localStorage.netfly_nft_token = login.data.key;
                   rootStore.user.setAddress(userAccount.address);
-                  if (this.props.location.pathname === '/connect-wallet') {
-                    this.props.history.goBack();
-                  }
                 }
                 localStorage.netfly_nft_chainName = chainName;
                 localStorage.netfly_nft_providerName = providerName;
@@ -121,6 +118,7 @@ class Connector extends React.Component<
     delete localStorage.netfly_nft_chainName;
     delete localStorage.netfly_nft_providerName;
     delete localStorage.walletconnect;
+    delete localStorage.netfly_nft_token;
 
     this.props.history.push('/');
     // if (

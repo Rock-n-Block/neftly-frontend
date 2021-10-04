@@ -4,7 +4,7 @@ import { Routes } from 'containers';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Connector from './services/walletConnect';
-import { Provider, rootStore } from './store/store';
+import { Provider, rootStore } from './store';
 
 import './styles/app.scss';
 

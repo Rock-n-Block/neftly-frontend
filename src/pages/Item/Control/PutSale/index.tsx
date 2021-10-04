@@ -8,7 +8,7 @@ import Switch from '../../../../components/Switch';
 import { storeApi } from '../../../../services/api';
 import { useWalletConnectorContext } from '../../../../services/walletConnect';
 import { WalletConnect } from '../../../../services/walletService';
-import { useMst } from '../../../../store/store';
+import { useMst } from '../../../../store';
 
 import styles from './PutSale.module.scss';
 
@@ -53,7 +53,7 @@ const PutSale: React.FC<IPutSaleProps> = ({
   }, [tokenId, priceValue, price, updateTokenData, onClose]);
 
   const fetchFee = useCallback(() => {
-    storeApi.getFee().then(({ data }: any) => setFee(data));
+    storeApi.getFee('BNB').then(({ data }: any) => setFee(data));
   }, []);
 
   useEffect(() => {

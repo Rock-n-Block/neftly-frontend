@@ -6,7 +6,7 @@ import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 
 import { storeApi } from '../../../services/api';
-// import { useMst } from '../../../store/store';
+// import { useMst } from '../../../store';
 import { validateForm } from '../../../utils/validate';
 import CreateForm, { ICreateForm } from '../component';
 

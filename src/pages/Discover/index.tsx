@@ -97,7 +97,7 @@ const Discover = () => {
                 tags,
               } = artCard;
               return (
-                <Link to={`${routes.gallery.detailArtwork.link}/${index}`}>
+                <Link to={`${routes.nft.link}/${index}`}>
                   <ArtCard
                     key={name}
                     imageMain={image}
@@ -132,7 +132,7 @@ const Discover = () => {
               tags,
             } = artCard;
             return (
-              <Link to={`${routes.gallery.detailAuction.link}/${index}`}>
+              <Link to={`${routes.nft.link}/${index}`}>
                 <ArtCard
                   imageMain={image}
                   name={name}
@@ -175,7 +175,7 @@ const Discover = () => {
                 likesNumber,
               } = card;
               return (
-                <Link to={`${routes.gallery.detailAuction.link}/${index}`}>
+                <Link to={`${routes.nft.link}/${index}`}>
                   <ArtCard
                     type="Medium"
                     imageMain={image}

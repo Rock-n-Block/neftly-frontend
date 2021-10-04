@@ -9,7 +9,7 @@ import SwiperCore, { Navigation } from 'swiper';
 import Icon from '../../../../components/Icon';
 import Modal from '../../../../components/Modal';
 import { userApi } from '../../../../services/api';
-import { rootStore } from '../../../../store/store';
+import { rootStore } from '../../../../store';
 import { CreateCollection } from '../../../index';
 
 // import PlusImg from './plus.svg';

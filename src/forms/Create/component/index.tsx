@@ -21,7 +21,7 @@ import TextInput from '../../../components/TextInput';
 // import { ChooseCollection, Uploader } from '../../../components';
 import Uploader from '../../../components/Uploader';
 import { ratesApi } from '../../../services/api';
-import { useMst } from '../../../store/store';
+import { useMst } from '../../../store';
 import { validateField } from '../../../utils/validate';
 
 import ChooseCollection from './ChooseCollection';
