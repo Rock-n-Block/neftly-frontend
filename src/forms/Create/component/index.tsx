@@ -58,6 +58,7 @@ export interface ICreateForm {
   collectionId: string;
   currency: string;
   bid: string;
+  price: string;
   format: string;
   showModal: boolean;
 }
@@ -285,9 +286,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 <div className={styles.fieldsetRow}>
                   <div className={styles.price}>
                     <Form.Item>
+                      <p className={styles.label}>Price</p>
                       <Dropdown
                         name="Royalties"
-                        label="Price"
                         setValue={(value) => setFieldValue('tokenRoyalties', value)}
                         options={royaltiesOptions}
                         className={styles.dropdown}

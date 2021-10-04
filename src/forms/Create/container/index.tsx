@@ -25,6 +25,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
       format: '',
       instantSalePriceEth: '',
       // digitalKey: '',
+      price: '',
       tokenName: '',
       tokenDescr: '',
       tokenRoyalties: '10%',

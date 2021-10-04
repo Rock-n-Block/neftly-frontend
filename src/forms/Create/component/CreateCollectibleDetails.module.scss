@@ -204,15 +204,24 @@
   }
 }
 .price{
-  display: flex;
+  @include flexbox(flex-end);
+  .dropdown{
+    margin-right: -2px;
+  }
 }
+
 .label {
-  margin-bottom: 12px;
+  @include epilogue;
+  margin-bottom: 8px;
 
-  @include hairline-2;
-  color: $neutrals5;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 160%;
+  text-transform: capitalize;
+
+  color: $color-neutral-10;
+  opacity: 0.7;
 }
-
 .row {
   margin: 0 -10px;
 
