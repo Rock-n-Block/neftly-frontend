@@ -20,4 +20,8 @@ export { default as Control } from './Control';
 export { default as Burger } from './Burger';
 export { default as ActivityItem } from './ActivityItem';
 export { default as Loader } from './Loader';
+export { default as LoaderCircle } from './LoaderCircle';
+export { default as Switch } from './Switch';
+export { default as Bid } from './Bid';
+export { default as Modal } from './Modal';
 export * from './Typography';
