@@ -5,6 +5,8 @@ import { observer } from 'mobx-react-lite';
 import { Button, H4, Text } from 'components';
 import { INft, IOwner } from '../../../../../typings';
 import { useMst } from '../../../../../store';
+import { useWalletConnectorContext } from '../../../../../services/walletConnect';
+import { contracts } from '../../../../../config';
 
 import styles from './styles.module.scss';
 
@@ -19,8 +21,12 @@ type Props = {
 };
 
 const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd, growth, nft }) => {
+  const { walletService } = useWalletConnectorContext();
   const { user } = useMst();
   const isGrowPositive = growth ? growth > 0 : false;
+
+  const [isApproved, setApproved] = React.useState<boolean>(false);
+  const [isApproving, setApproving] = React.useState<boolean>(false);
 
   const currentPrice = React.useMemo(() => {
     if (nft) {
@@ -42,8 +48,6 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
     return false;
   }, [nft, user.id]);
 
-  console.log('isOwner', isOwner);
-
   const isWrongChain = React.useMemo(() => {
     if (!nft || !user.address) return true;
     if (
@@ -60,8 +64,6 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
     }
     return true;
   }, [nft, user.address]);
-
-  console.log('isWrongChain', isWrongChain);
 
   const isUserCanRemoveFromSale = React.useMemo(() => {
     if (user.id && nft && !isWrongChain) {
@@ -91,8 +93,6 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
     return false;
   }, [nft, user.id, isOwner, isWrongChain]);
 
-  console.log('isUserCanBuyNft', isUserCanBuyNft);
-
   const isUserCanEnterInAuction = React.useMemo(() => {
     if (user.id && nft && !isWrongChain && nft.is_auc_selling && nft.available !== 0) {
       if (nft.standart === 'ERC721' && !isOwner) return true;
@@ -105,8 +105,6 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
     }
     return false;
   }, [nft, isOwner, user.id, isWrongChain]);
-
-  console.log('isUserCanEnterInAuction', isUserCanEnterInAuction);
 
   const isUserCanEndAuction = React.useMemo(() => {
     if (user.id && nft && !isWrongChain && nft.is_auc_selling && nft.bids.length && isOwner) {
@@ -132,8 +130,6 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
     return false;
   }, [nft, isOwner, user.id, isWrongChain]);
 
-  console.log('isUserCanPutOnSale', isUserCanPutOnSale);
-
   const nftSellingType = React.useMemo(() => {
     if (nft) {
       if (nft.is_selling) return 'sell';
@@ -141,6 +137,53 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
     }
     return '';
   }, [nft]);
+
+  const handleCheckAllowance = React.useCallback(() => {
+    if (nft) {
+      if (nft.currency.symbol.toUpperCase() === nft.network.native_symbol.toUpperCase()) {
+        setApproved(true);
+        return;
+      }
+      walletService
+        .checkTokenAllowance(
+          nft.currency.symbol.toUpperCase(),
+          18,
+          contracts.params.EXCHANGE.testnet.address,
+        )
+        .then((res: boolean) => {
+          setApproved(res);
+        })
+        .catch((err: any) => {
+          setApproved(false);
+          console.log(err, 'check');
+        });
+    }
+  }, [walletService, nft]);
+
+  const handleApproveToken = React.useCallback(() => {
+    if (nft) {
+      setApproving(true);
+      walletService
+        .approveToken(
+          nft.currency.symbol.toUpperCase(),
+          18,
+          contracts.params.EXCHANGE.testnet.address,
+        )
+        .then(() => {
+          setApproved(true);
+        })
+        .catch((err: any) => {
+          console.log(err, 'err approve');
+        })
+        .finally(() => setApproving(false));
+    }
+  }, [walletService, nft]);
+
+  React.useEffect(() => {
+    if (user.address && nft) {
+      handleCheckAllowance();
+    }
+  }, [user.address, nft, handleCheckAllowance]);
 
   return (
     <div className={cx(className, { [styles.paymentSell]: nftSellingType === 'sell' })}>
@@ -174,14 +217,14 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
 
       {user.address ? (
         <div className={styles.sellBtnsWrapper}>
-          {isUserCanBuyNft ? (
+          {isUserCanBuyNft && isApproved ? (
             <Button onClick={bidAction} isFullWidth>
               Purchase Now
             </Button>
           ) : (
             ''
           )}
-          {isUserCanEnterInAuction ? (
+          {isUserCanEnterInAuction && isApproved ? (
             <Button onClick={bidAction} isFullWidth>
               Place a Bid
             </Button>
@@ -191,6 +234,13 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
           {isUserCanPutOnSale ? (
             <Button onClick={bidAction} isFullWidth>
               Put on Sale
+            </Button>
+          ) : (
+            ''
+          )}
+          {!isApproved ? (
+            <Button isFullWidth loading={isApproving} onClick={handleApproveToken}>
+              Approve Token
             </Button>
           ) : (
             ''
