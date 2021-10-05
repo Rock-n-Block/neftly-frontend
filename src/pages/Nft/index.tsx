@@ -10,6 +10,7 @@ import {
   GiantCard,
   H3,
   Select,
+  H4,
   Text,
   TradingHistory,
   Control,
@@ -113,7 +114,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
   const [allPages, setAllPages] = React.useState<number>(1);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [artWorks, setArtWorks] = React.useState<INft[]>([]);
-  const [isLoadingMore, setLoadingMore] = React.useState<boolean>(false);
+  const [isLoadingArtWorks, setLoadingArtWorks] = React.useState<boolean>(false);
 
   console.log('nft data', nft);
 
@@ -154,7 +155,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
   };
 
   const getRelatedArtworks = React.useCallback((page: number) => {
-    setLoadingMore(true);
+    setLoadingArtWorks(true);
     storeApi
       .getSearchResults(
         { text: '', page },
@@ -174,7 +175,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
         console.log('get artworks', err);
       })
       .finally(() => {
-        setLoadingMore(false);
+        setLoadingArtWorks(false);
       });
   }, []);
 
@@ -265,8 +266,9 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
               );
             })}
           </div>
-          {isLoadingMore ? <Loader className={styles.loader} /> : ''}
-          {currentPage < allPages && !isLoadingMore ? (
+          {!artWorks.length && !isLoadingArtWorks ? <H4>No matches</H4> : ''}
+          {isLoadingArtWorks ? <Loader className={styles.loader} /> : ''}
+          {currentPage < allPages && !isLoadingArtWorks && artWorks.length ? (
             <div className={styles.viewMoreBtnWrapper}>
               <Button
                 color="outline"
