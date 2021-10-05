@@ -3,7 +3,7 @@ import { flow, types } from 'mobx-state-tree';
 import { userApi } from '../services/api';
 
 const Follower = types.model({
-  avatar: types.optional(types.string, ''),
+  avatar: types.maybeNull(types.optional(types.string, '')),
   name: types.optional(types.string, ''),
   his_followers: types.optional(types.number, 0),
   id: types.optional(types.union(types.number, types.string, types.null), null),
@@ -74,9 +74,10 @@ export const User = types
     };
     const update = (userData: any) => {
       self.address = userData.address;
-      self.avatar = userData.avatar && userData.avatar;
+      self.avatar = userData.avatar;
       self.bio = userData.bio;
       self.cover = userData.cover;
+      self.email = userData.email;
       self.custom_url = userData.custom_url;
       self.display_name = userData.display_name;
       self.followers = userData.followers;
