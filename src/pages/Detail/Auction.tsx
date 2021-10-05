@@ -1,17 +1,17 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
-import { ArtCard, Carousel, Control, H3, Select, Text, TradingHistory } from 'components';
-import {
-  TradingHistoryBuyer,
-  TradingHistoryExpiration,
-  TradingHistoryPrice,
-} from 'components/Table/TradingHistoryCells';
+import { ArtCard, Carousel, Control, H3, Select, Text } from 'components';
+// import {
+//   TradingHistoryBuyer,
+//   TradingHistoryExpiration,
+//   TradingHistoryPrice,
+// } from 'components/Table/TradingHistoryCells';
 import { Chart } from 'containers';
 import { useGetSlideToShow } from 'hooks';
-import { TableCell } from 'typings';
+// import { TableCell } from 'typings';
 
-import { artworkData, tableDataAuction } from './mockdata';
+import { artworkData } from './mockdata';
 
 import styles from './styles.module.scss';
 
@@ -44,32 +44,32 @@ type Props = {
   className?: string;
 };
 
-const columnTest = [
-  {
-    Header: 'Price',
-    accessor: 'price',
-    Cell: ({ row }: TableCell<any>) => {
-      const { amount, asset } = row.original.price;
-      return <TradingHistoryPrice amount={amount} asset={asset} />;
-    },
-  },
-  {
-    Header: 'Expiration',
-    accessor: 'expiration',
-    Cell: ({ row }: TableCell<any>) => {
-      const { expirationDate } = row.original.expiration;
-      return <TradingHistoryExpiration expirationDate={expirationDate} />;
-    },
-  },
-  {
-    Header: 'Buyer',
-    accessor: 'buyer',
-    Cell: ({ row }: TableCell<any>) => {
-      const { name, avatar, date } = row.original.buyer;
-      return <TradingHistoryBuyer type="auction" name={name} avatar={avatar} date={date} />;
-    },
-  },
-];
+// const columnTest = [
+//   {
+//     Header: 'Price',
+//     accessor: 'price',
+//     Cell: ({ row }: TableCell<any>) => {
+//       const { amount, asset } = row.original.price;
+//       return <TradingHistoryPrice amount={amount} asset={asset} />;
+//     },
+//   },
+//   {
+//     Header: 'Expiration',
+//     accessor: 'expiration',
+//     Cell: ({ row }: TableCell<any>) => {
+//       const { expirationDate } = row.original.expiration;
+//       return <TradingHistoryExpiration expirationDate={expirationDate} />;
+//     },
+//   },
+//   {
+//     Header: 'Buyer',
+//     accessor: 'buyer',
+//     Cell: ({ row }: TableCell<any>) => {
+//       const { name, avatar, date } = row.original.buyer;
+//       return <TradingHistoryBuyer type="auction" name={name} avatar={avatar} date={date} />;
+//     },
+//   },
+// ];
 
 const DetailArtwork: FC<Props> = ({ className }) => {
   const numberOfSlide = useGetSlideToShow();
@@ -111,11 +111,11 @@ const DetailArtwork: FC<Props> = ({ className }) => {
             </div>
             <Chart />
           </div>
-          <TradingHistory
+          {/* <TradingHistory
             columns={columnTest}
             filterOptions={chartOptionsFilter}
             tableData={tableDataAuction}
-          />
+          /> */}
         </div>
         <div className={styles.relatedArtwork}>
           <H3>More Auction Today</H3>

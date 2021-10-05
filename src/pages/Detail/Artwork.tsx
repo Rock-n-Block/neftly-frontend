@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import cx from 'classnames';
 import { useParams, useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import moment from 'moment';
 
 import { ArtCard, Button, GiantCard, H3, Select, Text, TradingHistory, Control } from 'components';
 import {
@@ -10,11 +11,11 @@ import {
   TradingHistoryPrice,
 } from 'components/Table/TradingHistoryCells';
 import { Chart } from 'containers';
-import { TableCell, INft } from 'typings';
+import { TableCell, INft, OptionType } from 'typings';
 import { useMst } from '../../store';
 import { userApi, storeApi } from '../../services/api';
 
-import { artworkData, data as mockData, tableDataArtwork } from './mockdata';
+import { artworkData, data as mockData } from './mockdata';
 
 import styles from './styles.module.scss';
 
@@ -95,15 +96,48 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
 
   const { id } = useParams<{ id: string }>();
 
+  const [selectedHistorySort, setSelectedHistorySort] = React.useState<OptionType>(
+    historyOptionsFilter[0],
+  );
   const [nft, setNft] = React.useState<INft | null>(null);
 
   console.log('nft data', nft);
+
+  const nftHistory = React.useMemo(() => {
+    if (nft) {
+      const data = nft.history.map((event) => ({
+        event: {
+          type: event.method,
+          isDeclined: false,
+        },
+        price: {
+          amount: event.price ? +event.price : 0,
+          asset: nft.currency.symbol,
+        },
+        buyer: {
+          avatar: event.avatar,
+          name: event.name.length > 20 ? `${event.name.slice(0, 15)}...` : event.name,
+          date: moment(event.date).fromNow(),
+        },
+      }));
+
+      if (selectedHistorySort.value === 'latest') return data;
+      if (selectedHistorySort.value === 'highestPrice')
+        return data.sort((a, b) => b.price.amount - a.price.amount);
+      return data.sort((a, b) => a.price.amount - b.price.amount);
+    }
+    return [];
+  }, [nft, selectedHistorySort]);
 
   const handleLike = React.useCallback(() => {
     if (user.address) {
       userApi.like({ id: nft?.id });
     }
   }, [nft?.id, user.address]);
+
+  const handleChangeSortTable = (value: any) => {
+    setSelectedHistorySort(value);
+  };
 
   const getItem = React.useCallback(() => {
     storeApi
@@ -143,7 +177,9 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
           <TradingHistory
             columns={columnTest}
             filterOptions={historyOptionsFilter}
-            tableData={tableDataArtwork}
+            tableData={nftHistory}
+            onChangeSort={handleChangeSortTable}
+            selectedOption={selectedHistorySort}
           />
         </div>
         <div className={styles.relatedArtwork}>
