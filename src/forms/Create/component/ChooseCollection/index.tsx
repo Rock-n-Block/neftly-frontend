@@ -1,163 +1,139 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import cn from 'classnames';
-import {connect} from 'formik';
+// import {connect} from 'formik';
 import {observer} from 'mobx-react';
-import SwiperCore, {Navigation} from 'swiper';
+import {useMst} from 'store/store';
+import {Swiper, SwiperSlide} from 'swiper/react';
 
-// import { Swiper, SwiperSlide } from 'swiper/react';
-import {Icon, Modal} from 'components';
 import {userApi} from 'services/api';
-import {rootStore} from 'store/store';
 import {CreateCollection} from '../../../index';
-
-// import PlusImg from './plus.svg';
-// import RefreshImg from './refresh.svg';
-// import ArrowImg from './swiper-arrow.svg';
 import {createCollection} from 'assets/img/ChooseCollection';
+
 import styles from './ChooseCollection.module.scss';
+import {Modal} from "../../../../components";
 
-SwiperCore.use([Navigation]);
+import 'swiper/swiper.scss';
 
-// interface IChooseCollection {
-//   // collections: [
-//   //   {
-//   //     avatar: string;
-//   //     name: string;
-//   //     id: string;
-//   //   },
-//   // ];
-//   isSingle?: boolean;
-// }
+interface IProps {
+  isSingle: boolean;
+  activeCollectionId: number;
+  onChange: (value: number) => void;
+}
+
 interface ICollection {
   avatar?: string;
   title: string;
   id: number;
 }
 
-const defaultCollection: ICollection = {
-  avatar: createCollection,
-  title: 'Create collection',
-  id: -1,
-};
+// TODO: remove after added collections
+const mockCollections: ICollection[] = [
+  {
+    id: 1,
+    title: 'New collection'
+  },
+  {
+    id: 2,
+    title: 'New collection2'
+  },
+  {
+    id: 3,
+    title: 'New collection2'
+  },
+  {
+    id: 4,
+    title: 'New collection2'
+  },
+  {
+    id: 5,
+    title: 'New collection2'
+  },
+]
 
+const ChooseCollection: React.FC<IProps> = observer(({isSingle, activeCollectionId, onChange}) => {
+  const {user} = useMst();
 
-@observer
-class ChooseCollection extends React.Component<any, any, any> {
-  // private prevRef = React.createRef<HTMLDivElement>();
+  const [collections, setCollections] = useState([...mockCollections]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  // private nextRef = React.createRef<HTMLDivElement>();
+  // const prevRef = React.createRef<HTMLDivElement>();
+  // const nextRef = React.createRef<HTMLDivElement>();
 
-  constructor(props: any) {
-    super(props);
+  const changeCollection = useCallback((id: number) => {
+    if (activeCollectionId !== id) onChange(id);
+  }, [activeCollectionId, onChange]);
 
-    this.state = {
-      activeCollectionId: this.props.formik.values.collectionId,
-      collections: [defaultCollection, {
-        avatar: createCollection,
-        title: 'My collection',
-        id: 0,
-      }],
-      visibleModal: false,
-    };
-
-    this.changeCollection = this.changeCollection.bind(this);
-    this.getCollections = this.getCollections.bind(this);
-  }
-
-  componentDidMount() {
-    if (!this.state.collections.length) {
-      this.getCollections();
-    }
-  }
-
-  getCollections() {
+  const getCollections = useCallback(() => {
     userApi
-      .getSingleCollections(rootStore.user.address)
+      .getSingleCollections(user.address)
       .then(({data}) => {
-        const collections = data.collections.filter((coll: any) => {
-          if (this.props.isSingle) {
+        const newCollections = data.collections.filter((coll: any) => {
+          if (isSingle) {
             return coll.standart === 'ERC721';
           }
           return coll.standart === 'ERC1155';
         });
-
-        this.setState({
-          collections: [
-            defaultCollection,
-            ...collections,
-          ],
-        });
-        this.changeCollection(collections[0].id);
+        setCollections(newCollections)
+        changeCollection(newCollections[0].id);
       })
       .catch((err) => console.log(err, 'get single'));
-  }
+  }, [changeCollection, isSingle, user.address]);
 
-  changeCollection(id: number) {
-    if (this.props.formik.values.collectionId !== id) {
-      this.setState({
-        activeCollectionId: id,
-      });
+  const handleOpenModal = () => {
+    setIsModalVisible(true);
+  };
 
-      this.props.formik.setFieldValue('collectionId', id);
+  useEffect(() => {
+    if (user.address) {
+      getCollections();
     }
-  }
+  }, [getCollections, user.address]);
 
-  render() {
-    return (
-      <div className={styles.cards}>
-        {this.state.collections?.length
-          ? this.state.collections.map((collection: ICollection) => (
-            <div
-              className={cn(styles.card, {
-                [styles.active]: this.state.activeCollectionId === collection.id,
-              })}
-              key={`collection_${collection.id}`}
-              tabIndex={0}
-              onKeyDown={() => {
-              }}
-              role="button"
-              onClick={
-                collection.id === -1
-                  ? () =>
-                    this.setState({
-                      visibleModal: true,
-                    })
-                  : () => this.changeCollection(collection.id)
-              }
-            >
-              {collection.id === -1 ? (
-                <>
-                  <img src={createCollection} alt='create' className={styles.plus}/>
-                  <div className={styles.subtitle}>{collection.title}</div>
-                </>
-              ) : (
-                <>
-                  <div
-                    className={styles.plus}
-                    style={{
-                      backgroundImage: `url(${collection.avatar})`,
-                      backgroundPosition: 'center',
-                      backgroundSize: 'cover',
-                      backgroundRepeat: 'no-repeat',
-                    }}
-                  >
-                    <Icon name="plus" size="24"/>
-                  </div>
-                  <div className={styles.subtitle}>{collection.title}</div>
-                </>
-              )}
-            </div>
-          ))
-          : ''}
-        <Modal
-          visible={this.state.visibleModal}
-          onClose={() => this.setState({visibleModal: false})}
+  return (
+    <div className={styles.cards}>
+      <Swiper
+        spaceBetween={8}
+        slidesPerView='auto'
+        wrapperTag="ul"
         >
-          <CreateCollection isSingle={this.props.isSingle}/>
-        </Modal>
-      </div>
-    );
-  }
-}
+        <SwiperSlide tag="li" key='collection_0'
+                     className={cn(styles.card, !activeCollectionId && styles.active)}>
+          <div
+            onClick={handleOpenModal}
+            onKeyDown={handleOpenModal}
+            role="button"
+            tabIndex={0}
+          >
+            <img src={createCollection} alt='create' className={styles.plus}/>
+            <div className={styles.subtitle}>Create collection</div>
+          </div>
+        </SwiperSlide>
+        {!!collections.length && collections.map((collection) => (
+          <SwiperSlide tag="li" key={`collection_${collection.id}`}
+                       className={cn(styles.card, {
+                         [styles.active]: activeCollectionId === collection.id,
+                       })}>
+            <div
+              onClick={() => changeCollection(collection.id)}
+              onKeyDown={() => changeCollection(collection.id)}
+              role="button"
+              tabIndex={0}
+              className={styles.cardContent}
+            >
+              {!!collection.avatar && (<img src={collection.avatar} alt='create' className={styles.avatar}/>)}
+              <div className={styles.subtitle}>{collection.title}</div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <Modal
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+      >
+        <CreateCollection isSingle={isSingle}/>
+      </Modal>
+    </div>
+  );
+});
 
-export default connect(ChooseCollection);
+export default ChooseCollection;
