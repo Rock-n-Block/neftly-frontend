@@ -1,11 +1,11 @@
 import React from 'react';
-import { notification } from 'antd';
+import { toast } from 'react-toastify';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react';
+import * as Yup from 'yup';
 
 import { userApi } from '../../../services/api';
 import { useMst } from '../../../store/store';
-import { validateForm } from '../../../utils/validate';
 import Profile, { IProfile } from '../component';
 
 const ProfileForm: React.FC = () => {
@@ -27,23 +27,16 @@ const ProfileForm: React.FC = () => {
   const FormWithFormik = withFormik<any, IProfile>({
     enableReinitialize: true,
     mapPropsToValues: () => props,
-    validate: (values) => {
-      const errors = validateForm({
-        values,
-        notRequired: [
-          'displayName',
-          'customUrl',
-          'bio',
-          'twitter',
-          'instagram',
-          'img',
-          'preview',
-          'facebook',
-        ],
-      });
-      console.log('errors', errors)
-      return errors;
-    },
+    validationSchema: Yup.object().shape({
+      displayName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+      customUrl: Yup.string().max(50, 'Too Long!'),
+      bio: Yup.string().max(100),
+      site: Yup.string().url(),
+      twitter: Yup.string().max(50),
+      instagram: Yup.string().max(50),
+      facebook: Yup.string().max(50),
+      email: Yup.string().email('Invalid email'),
+    }),
 
     handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
@@ -56,13 +49,19 @@ const ProfileForm: React.FC = () => {
       formData.append('twitter', values.twitter ? values.twitter : '');
       formData.append('instagram', values.instagram ? values.instagram : '');
       formData.append('facebook', values.facebook ? values.facebook : '');
-      console.log(formData)
       userApi
         .update(formData)
         .then(({ data }) => {
-          console.log(data)
+          toast.success('Verification request sent', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
           user.update(data);
-          notification.success({ message: 'Verification request sent' });
         })
         .catch(({ response }) => {
           if (response.data.custom_url) {

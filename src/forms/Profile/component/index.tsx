@@ -1,19 +1,13 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Form } from 'antd';
 import cn from 'classnames';
-import { FormikProps } from 'formik';
+import { Button, Text, TextArea, TextInput, Uploader, WhitelistError } from 'components';
+import { FormikProps, Field, FieldProps } from 'formik';
 import { observer } from 'mobx-react-lite';
-
-import Button from '../../../components/Button';
-import TextArea from '../../../components/TextArea';
-import TextInput from '../../../components/TextInput';
-import Uploader from '../../../components/Uploader';
-// import { userApi } from '../../../services/api';
-import { useMst } from '../../../store/store';
-import { validateField } from '../../../utils/validate';
+import { useMst } from 'store/store';
+import { validateField } from 'utils/validate';
 
 import styles from './ProfileEdit.module.scss';
-import { Text } from 'components';
 
 export interface IProfile {
   displayName?: string;
@@ -30,20 +24,8 @@ export interface IProfile {
 }
 
 const Profile: React.FC<FormikProps<IProfile>> = observer(
-  ({ touched, errors, handleChange, handleBlur, values, handleSubmit }) => {
-    // const { t } = useTranslation();
+  ({ touched, errors, handleChange, handleBlur, values, handleSubmit }: any) => {
     const { user } = useMst();
-
-    // const verifyUser = useCallback(() => {
-    //   userApi
-    //     .verifyMe(values, user.address)
-    //     .then()
-    //     .catch(({ response }) => notification.error({ message: response.data.error }));
-    // }, [values, user.address]);
-
-    // const onSubmit = () => {
-    // handleSubmit();
-    // };
     return (
       <Form name="form-profile" layout="vertical" className={cn('container', styles.container)}>
         <div className={styles.row}>
@@ -81,74 +63,80 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
             <div className={styles.item}>
               <div className={styles.category}>Account info</div>
               <div className={styles.fieldset}>
-                <Form.Item
+                <Field
+                  id="displayName"
                   name="displayName"
-                  className={styles.field}
-                  initialValue={values.displayName}
-                >
-                  <div>
+                  render={({ form: { isSubmitting } }: FieldProps) => (
                     <TextInput
-                      label="display name"
                       name="displayName"
-                      type="text"
-                      // required
+                      className={styles.field}
+                      disabled={isSubmitting}
+                      label="display name"
                       value={values.displayName}
-                      placeholder="Enter your display name"
                       onChange={handleChange}
-                      onBlur={handleBlur}
-                      icon="search"
+                      onBlur={(e: SyntheticEvent) => handleBlur(e)}
+                      type="text"
+                      placeholder="Enter your display name"
                     />
-                  </div>
-                </Form.Item>
-                <Form.Item
+                  )}
+                />
+                {errors.displayName && touched.displayName && (
+                  <WhitelistError body="Display name should be more than 2 and less than 50 symbols" />
+                )}
+
+                <Field
+                  id="customUrl"
                   name="customUrl"
-                  className={styles.field}
-                  initialValue={values.customUrl}
-                  validateStatus={validateField('customUrl', touched, errors)}
-                  help={!touched.customUrl ? false : errors.customUrl}
-                >
-                  <div>
+                  render={({ form: { isSubmitting } }: FieldProps) => (
                     <TextInput
                       name="customUrl"
+                      className={styles.field}
+                      disabled={isSubmitting}
                       label="Custom url"
                       value={values.customUrl}
+                      onChange={handleChange}
+                      onBlur={(e: SyntheticEvent) => handleBlur(e)}
                       type="text"
                       placeholder="Your custom URL"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
                       prefix="site.net/"
                     />
-                  </div>
-                </Form.Item>
-                <Form.Item name="email" className={styles.field} initialValue={values.email}
-                  help={!touched.email ? false : errors.email}>
-                  <div>
+                  )}
+                />
+                <Field
+                  id="email"
+                  name="email"
+                  render={({ form: { isSubmitting } }: FieldProps) => (
                     <TextInput
                       name="email"
+                      className={styles.field}
+                      disabled={isSubmitting}
                       label="email"
-                      type="text"
                       value={values.email}
+                      onChange={handleChange}
+                      onBlur={(e: SyntheticEvent) => handleBlur(e)}
+                      type="text"
                       placeholder="Add your email here"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
                     />
-                  </div>
-                </Form.Item>
-                <Form.Item name="bio" className={styles.field} initialValue={values.bio}
-                  help={!touched.bio ? false : errors.bio}>
-                  <div>
+                  )}
+                />
+                {errors.email && touched.email && <WhitelistError body="Invalid email" />}
+
+                <Field
+                  id="bio"
+                  name="bio"
+                  render={() => (
                     <TextArea
-                      label="Bio"
                       name="bio"
+                      className={styles.field}
+                      label="Bio"
                       value={values.bio}
-                      placeholder="About yourselt in a few words"
                       onChange={handleChange}
-                      // required
+                      placeholder="About yourselt in a few words"
                       editable
                       maxLettersCount={100}
                     />
-                  </div>
-                </Form.Item>
+                  )}
+                />
               </div>
             </div>
           </div>
@@ -156,65 +144,78 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
             <div className={styles.item}>
               <div className={styles.category}>Social Account</div>
               <div className={styles.fieldset}>
-                <Form.Item
+                <Field
+                  id="instagram"
                   name="instagram"
-                  className={styles.field}
-                  initialValue={values.instagram}
-                >
-                  <div>
+                  render={({ form: { isSubmitting } }: FieldProps) => (
                     <TextInput
                       name="instagram"
+                      className={styles.field}
+                      disabled={isSubmitting}
                       label="instagram"
-                      type="text"
                       value={values.instagram}
-                      placeholder="Enter URL"
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={(e: SyntheticEvent) => handleBlur(e)}
+                      type="text"
+                      placeholder="Enter URL"
                       prefix="@"
                     />
-                  </div>
-                </Form.Item>
-                <Form.Item name="twitter" className={styles.field} initialValue={values.twitter}>
-                  <div>
+                  )}
+                />
+                <Field
+                  id="twitter"
+                  name="twitter"
+                  render={({ form: { isSubmitting } }: FieldProps) => (
                     <TextInput
                       name="twitter"
+                      className={styles.field}
+                      disabled={isSubmitting}
                       label="twitter"
-                      type="text"
                       value={values.twitter}
-                      placeholder="Enter URL"
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={(e: SyntheticEvent) => handleBlur(e)}
+                      type="text"
+                      placeholder="Enter URL"
                       prefix="@"
                     />
-                  </div>
-                </Form.Item>
-                <Form.Item name="facebook" className={styles.field} initialValue={values.facebook}>
-                  <div>
+                  )}
+                />
+                <Field
+                  id="facebook"
+                  name="facebook"
+                  render={({ form: { isSubmitting } }: FieldProps) => (
                     <TextInput
                       name="facebook"
+                      className={styles.field}
+                      disabled={isSubmitting}
                       label="facebook"
-                      type="text"
                       value={values.facebook}
-                      placeholder="Enter URL"
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={(e: SyntheticEvent) => handleBlur(e)}
+                      type="text"
+                      placeholder="Enter URL"
                       prefix="@"
                     />
-                  </div>
-                </Form.Item>
-                <Form.Item name="site" className={styles.field} initialValue={values.site}>
-                  <div>
+                  )}
+                />
+                <Field
+                  id="site"
+                  name="site"
+                  render={({ form: { isSubmitting } }: FieldProps) => (
                     <TextInput
-                      label="website"
-                      placeholder="Enter URL"
                       name="site"
-                      type="text"
+                      className={styles.field}
+                      disabled={isSubmitting}
+                      label="website"
                       value={values.site}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={(e: SyntheticEvent) => handleBlur(e)}
+                      type="text"
+                      placeholder="Enter URL"
                     />
-                  </div>
-                </Form.Item>
+                  )}
+                />
+                {errors.site && touched.site && <WhitelistError body="Invalid URL" />}
               </div>
               <Button
                 onClick={() => handleSubmit()}
