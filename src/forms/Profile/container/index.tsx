@@ -42,13 +42,13 @@ const ProfileForm: React.FC = () => {
       setFieldValue('isLoading', true);
       const formData = new FormData();
       formData.append('avatar', values.img);
-      formData.append('display_name', values.displayName ? values.displayName : '');
-      formData.append('bio', values.bio ? values.bio : '');
-      formData.append('custom_url', values.customUrl ? values.customUrl : '');
-      formData.append('site', values.site ? values.site : '');
-      formData.append('twitter', values.twitter ? values.twitter : '');
-      formData.append('instagram', values.instagram ? values.instagram : '');
-      formData.append('facebook', values.facebook ? values.facebook : '');
+      formData.append('display_name', values.displayName || '');
+      formData.append('bio', values.bio || '');
+      formData.append('custom_url', values.customUrl || '');
+      formData.append('site', values.site || '');
+      formData.append('twitter', values.twitter || '');
+      formData.append('instagram', values.instagram || '');
+      formData.append('facebook', values.facebook || '');
       userApi
         .update(formData)
         .then(({ data }) => {

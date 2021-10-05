@@ -25,5 +25,4 @@ export { default as Switch } from './Switch';
 export { default as Bid } from './Bid';
 export { default as Modal } from './Modal';
 export { default as Uploader } from './Uploader';
-export { default as WhitelistError } from './WhitelistError';
 export * from './Typography';

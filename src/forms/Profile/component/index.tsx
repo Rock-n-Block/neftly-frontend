@@ -1,11 +1,9 @@
 import React, { SyntheticEvent } from 'react';
-import { Form } from 'antd';
 import cn from 'classnames';
-import { Button, Text, TextArea, TextInput, Uploader, WhitelistError } from 'components';
-import { FormikProps, Field, FieldProps } from 'formik';
+import { Button, Text, TextArea, TextInput, Uploader } from 'components';
+import { Form, FormikProps, Field, FieldProps } from 'formik';
 import { observer } from 'mobx-react-lite';
 import { useMst } from 'store/store';
-import { validateField } from 'utils/validate';
 
 import styles from './ProfileEdit.module.scss';
 
@@ -27,7 +25,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
   ({ touched, errors, handleChange, handleBlur, values, handleSubmit }: any) => {
     const { user } = useMst();
     return (
-      <Form name="form-profile" layout="vertical" className={cn('container', styles.container)}>
+      <Form name="form-profile" className={cn('container', styles.container)}>
         <div className={styles.row}>
           <div className={cn(styles.col, styles.left)}>
             <div className={styles.col}>
@@ -41,27 +39,26 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                 </div>
                 <div className={styles.details}>
                   <div className={styles.stage}>Profile photo</div>
-                  <div className={styles.text}>
+                  <Text color="lightGray">
                     We recommend an image of at least 400x400. Gifs work too{' '}
                     <span role="img" aria-label="hooray">
                       🙌
                     </span>
-                  </div>
+                  </Text>
                   <div>
-                    <Form.Item
+                    <Field
+                      id="img"
                       name="img"
-                      validateStatus={validateField('img', touched, errors)}
-                      help={!touched.img ? false : errors.img}
-                      // required
-                    >
-                      <Uploader type="img" isButton className={styles.fileUpload} />
-                    </Form.Item>
+                      render={() => <Uploader type="img" isButton className={styles.fileUpload} />}
+                    />
                   </div>
                 </div>
               </div>
             </div>
             <div className={styles.item}>
-              <div className={styles.category}>Account info</div>
+              <Text size="xl" className={styles.category} color="lightGray">
+                Account info
+              </Text>
               <div className={styles.fieldset}>
                 <Field
                   id="displayName"
@@ -81,7 +78,9 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                   )}
                 />
                 {errors.displayName && touched.displayName && (
-                  <WhitelistError body="Display name should be more than 2 and less than 50 symbols" />
+                  <Text color="red">
+                    Display name should be more than 2 and less than 50 symbols
+                  </Text>
                 )}
 
                 <Field
@@ -119,7 +118,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                     />
                   )}
                 />
-                {errors.email && touched.email && <WhitelistError body="Invalid email" />}
+                {errors.email && touched.email && <Text color="red">Invalid email</Text>}
 
                 <Field
                   id="bio"
@@ -142,7 +141,9 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
           </div>
           <div className={cn(styles.col, styles.right)}>
             <div className={styles.item}>
-              <div className={styles.category}>Social Account</div>
+              <Text size="xl" className={styles.category} color="lightGray">
+                Social Account
+              </Text>
               <div className={styles.fieldset}>
                 <Field
                   id="instagram"
@@ -215,7 +216,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                     />
                   )}
                 />
-                {errors.site && touched.site && <WhitelistError body="Invalid URL" />}
+                {errors.site && touched.site && <Text color="red">Invalid URL</Text>}
               </div>
               <Button
                 onClick={() => handleSubmit()}
