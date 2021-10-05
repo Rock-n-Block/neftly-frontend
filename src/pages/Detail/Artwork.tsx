@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import cx from 'classnames';
 import { useParams, useHistory } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 
 import { ArtCard, Button, GiantCard, H3, Select, Text, TradingHistory, Control } from 'components';
 import {
@@ -10,7 +11,8 @@ import {
 } from 'components/Table/TradingHistoryCells';
 import { Chart } from 'containers';
 import { TableCell, INft } from 'typings';
-import { storeApi } from '../../services/api';
+import { useMst } from '../../store';
+import { userApi, storeApi } from '../../services/api';
 
 import { artworkData, data as mockData, tableDataArtwork } from './mockdata';
 
@@ -87,7 +89,8 @@ const columnTest = [
   },
 ];
 
-const DetailArtwork: FC<Props> = ({ className }) => {
+const DetailArtwork: FC<Props> = observer(({ className }) => {
+  const { user } = useMst();
   const history = useHistory();
 
   const { id } = useParams<{ id: string }>();
@@ -95,6 +98,12 @@ const DetailArtwork: FC<Props> = ({ className }) => {
   const [nft, setNft] = React.useState<INft | null>(null);
 
   console.log('nft data', nft);
+
+  const handleLike = React.useCallback(() => {
+    if (user.address) {
+      userApi.like({ id: nft?.id });
+    }
+  }, [nft?.id, user.address]);
 
   const getItem = React.useCallback(() => {
     storeApi
@@ -114,14 +123,10 @@ const DetailArtwork: FC<Props> = ({ className }) => {
         <Control item={breadcrumbs} />
         <GiantCard
           name={nft?.name || ''}
-          likes={nft?.like_count || 0}
           views={mockData.views}
-          inStock={nft?.available || 0}
-          link={mockData.link}
-          likeAction={() => alert('like')}
+          likeAction={handleLike}
           dotsAction={() => alert('dots')}
           growth={mockData.growth}
-          growthUsd={mockData.growthUsd}
           nft={nft}
         />
         <div className={styles.chartAndBidders}>
@@ -180,6 +185,6 @@ const DetailArtwork: FC<Props> = ({ className }) => {
       </div>
     </div>
   );
-};
+});
 
 export default DetailArtwork;

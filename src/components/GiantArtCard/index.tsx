@@ -13,27 +13,14 @@ import styles from './styles.module.scss';
 type Props = {
   className?: string;
   name: string;
-  likes: number;
   views: number;
-  inStock: number;
-  link: string;
   likeAction: () => void;
   dotsAction: () => void;
   growth: number;
-  growthUsd: number;
   nft: INft | null;
 };
 
-const GiantCard: FC<Props> = ({
-  className,
-  views,
-  link,
-  likeAction,
-  dotsAction,
-  growth,
-  growthUsd,
-  nft,
-}) => (
+const GiantCard: FC<Props> = ({ className, views, likeAction, dotsAction, growth, nft }) => (
   <div className={cx(styles.giantCard, className)}>
     <img src={nft?.media || ''} alt="" />
     <div className={styles.cardInfo}>
@@ -43,15 +30,12 @@ const GiantCard: FC<Props> = ({
         likes={nft?.like_count || 0}
         views={views}
         inStock={nft?.available || 0}
-        link={link}
         likeAction={likeAction}
+        link="google"
         dotsAction={dotsAction}
+        isLicked={nft?.is_liked}
       />
-      {nft?.is_auc_selling || nft?.is_selling ? (
-        <PaymentComponent growthUsd={growthUsd} growth={growth} nft={nft} />
-      ) : (
-        ''
-      )}
+      {nft?.is_auc_selling || nft?.is_selling ? <PaymentComponent growth={growth} nft={nft} /> : ''}
       <AuthorComponent author={nft?.creator.name || ''} authorPic={nft?.creator.avatar || ''} />
       <DescriptionAndTagsComponent tags={nft?.tags || []} body={nft?.description || ''} />
     </div>

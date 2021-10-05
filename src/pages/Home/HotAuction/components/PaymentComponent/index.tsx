@@ -15,12 +15,11 @@ import { growth as growthImg } from 'assets/img';
 type Props = {
   className?: string;
   bidAction?: () => void;
-  growthUsd?: number;
   growth?: number;
   nft: INft | null;
 };
 
-const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd, growth, nft }) => {
+const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nft }) => {
   const { walletService } = useWalletConnectorContext();
   const { user } = useMst();
   const isGrowPositive = growth ? growth > 0 : false;
@@ -194,7 +193,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
           </Text>
           <div className={styles.priceAndGrowth}>
             {currentPrice ? <H4>{`${currentPrice} ${nft?.currency.symbol}`}</H4> : ''}
-            {nftSellingType === 'sell' && <Text size="m">{`($${growthUsd})`}</Text>}
+            {nftSellingType === 'sell' && <Text size="m">{`($${nft?.USD_price})`}</Text>}
           </div>
           {nftSellingType === 'sell' && (
             <Text size="m" className={styles.growthWrapper}>

@@ -49,9 +49,9 @@ const HotAuctionCardDesktop: FC<Props> = ({
       <ViewsAndControlsComponent
         likes={likes}
         views={views}
-        link="https://google.com"
         likeAction={() => alert('likeAction')}
         dotsAction={() => alert('dotsAction')}
+        link="google"
       />
     </div>
     <div className={styles.imageWrapper}>
