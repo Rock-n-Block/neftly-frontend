@@ -1,5 +1,4 @@
 import React from 'react';
-import nextId from 'react-id-generator';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
 import {single, multiple} from 'assets/img/upload';
@@ -9,11 +8,13 @@ import {Button} from "../../components";
 
 const items = [
   {
+    key:'single',
     url: '/create/single',
     buttonText: 'Create Single',
     image: single,
   },
   {
+    key:'multiple',
     url: '/create/multiple',
     buttonText: 'Create Multiple',
     image: multiple,
@@ -33,13 +34,13 @@ const Upload: React.FC = () => {
             </div>
           </div>
           <div className={styles.list}>
-            {items.map((x) => (
-              <Link className={styles.item} key={nextId()} to={x.url}>
+            {items.map((option) => (
+              <Link className={styles.item} key={`upload_option_${option.key}`} to={option.url}>
                 <div className={styles.preview}>
-                  <img src={x.image} alt="Upload"/>
+                  <img src={option.image} alt="Upload"/>
                 </div>
                 <Button color="blue" className={styles.button}>
-                  {x.buttonText}
+                  {option.buttonText}
                 </Button>
               </Link>
             ))}

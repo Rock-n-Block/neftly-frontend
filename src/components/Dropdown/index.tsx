@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
@@ -54,7 +53,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
         {!isWithImage ? (
           <div className={styles.body}>
             {typeof options[0] === 'string'
-              ? options.map((x) => (
+              ? options.map((option:string) => (
                   <div
                     onKeyDown={() => {}}
                     tabIndex={0}
@@ -62,17 +61,17 @@ const Dropdown: React.FC<IDropdownProps> = ({
                     className={cn(
                       styles.option,
                       {
-                        [styles.selectioned]: x === value,
+                        [styles.selectioned]: option === value,
                       },
-                      x === value ? 'selected' : '',
+                      option === value ? 'selected' : '',
                     )}
-                    onClick={() => handleClick(x)}
-                    key={nextId()}
+                    onClick={() => handleClick(option)}
+                    key={`dropdown_option_${option}`}
                   >
-                    {x}
+                    {option}
                   </div>
                 ))
-              : options.map((x) => (
+              : options.map((option) => (
                   <div
                     onKeyDown={() => {}}
                     tabIndex={0}
@@ -80,21 +79,21 @@ const Dropdown: React.FC<IDropdownProps> = ({
                     className={cn(
                       styles.option,
                       {
-                        [styles.selectioned]: x.text === value,
+                        [styles.selectioned]: option.text === value,
                       },
-                      x.text === value ? 'text-gradient' : '',
+                      option.text === value ? 'text-gradient' : '',
                     )}
-                    onClick={() => handleClick(x.text)}
-                    key={nextId()}
+                    onClick={() => handleClick(option.text)}
+                    key={`dropdown_option_${option.text}`}
                   >
-                    {x.icon}
-                    <span className={styles.text}>{x.text}</span>
+                    {option.icon}
+                    <span className={styles.text}>{option.text}</span>
                   </div>
                 ))}
           </div>
         ) : (
           <div className={styles.body}>
-            {options.map((x: any) => (
+            {options.map((option: any) => (
               <div
                 onKeyDown={() => {}}
                 tabIndex={0}
@@ -102,15 +101,15 @@ const Dropdown: React.FC<IDropdownProps> = ({
                 className={cn(
                   styles.option,
                   {
-                    [styles.selectioned]: x.symbol === value,
+                    [styles.selectioned]: option.symbol === value,
                   },
-                  x.symbol === value ? 'text-gradient' : '',
+                  option.symbol === value ? 'text-gradient' : '',
                 )}
-                onClick={() => handleClick(x.symbol)}
-                key={nextId()}
+                onClick={() => handleClick(option.symbol)}
+                key={`dropdown_option_${option.symbol}`}
               >
-                <img alt="" className={styles.image} src={x.image} />
-                <span className={styles.text}>{x.symbol}</span>
+                <img alt="" className={styles.image} src={option.image} />
+                <span className={styles.text}>{option.symbol}</span>
               </div>
             ))}
           </div>

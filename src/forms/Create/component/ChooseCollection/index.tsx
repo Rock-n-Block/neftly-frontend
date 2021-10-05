@@ -1,5 +1,4 @@
 import React from 'react';
-import nextId from 'react-id-generator';
 import cn from 'classnames';
 import {connect} from 'formik';
 import {observer} from 'mobx-react';
@@ -113,7 +112,7 @@ class ChooseCollection extends React.Component<any, any, any> {
               className={cn(styles.card, {
                 [styles.active]: this.state.activeCollectionId === collection.id,
               })}
-              key={nextId()}
+              key={`collection_${collection.id}`}
               tabIndex={0}
               onKeyDown={() => {
               }}

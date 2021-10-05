@@ -345,7 +345,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     render={() => {
                       return values.tokenProperties?.map((item: any, index: any) => (
                         // eslint-disable-next-line react/no-array-index-key
-                        <div className={styles.tokenProperty} key={`tokenProperty${index}`}>
+                        <div className={styles.tokenProperty} key={`tokenProperty_${index}`}>
                           <Field
                             name={`tokenProperties[${index}].name`}
                             validateStatus={validateField(`tokenProperties`, touched, errors)}
