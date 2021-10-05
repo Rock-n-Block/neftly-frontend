@@ -18,6 +18,7 @@ interface IProps {
   isSingle: boolean;
   activeCollectionId: number;
   onChange: (value: number) => void;
+  className?: string;
 }
 
 interface ICollection {
@@ -50,7 +51,7 @@ const mockCollections: ICollection[] = [
   },
 ]
 
-const ChooseCollection: React.FC<IProps> = observer(({isSingle, activeCollectionId, onChange}) => {
+const ChooseCollection: React.FC<IProps> = observer(({isSingle, activeCollectionId, onChange, className}) => {
   const {user} = useMst();
 
   const [collections, setCollections] = useState([...mockCollections]);
@@ -90,12 +91,12 @@ const ChooseCollection: React.FC<IProps> = observer(({isSingle, activeCollection
   }, [getCollections, user.address]);
 
   return (
-    <div className={styles.cards}>
+    <div className={cn(styles.cards,className)}>
       <Swiper
         spaceBetween={8}
         slidesPerView='auto'
         wrapperTag="ul"
-        >
+      >
         <SwiperSlide tag="li" key='collection_0'
                      className={cn(styles.card, !activeCollectionId && styles.active)}>
           <div

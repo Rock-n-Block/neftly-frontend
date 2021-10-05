@@ -13,6 +13,7 @@ import Uploader from '../../../components/Uploader';
 // import {ratesApi} from '../../../services/api';
 import {validateField} from '../../../utils/validate';
 
+// import ChooseCollection from './ChooseCollection';
 import ChooseCollection from './ChooseCollection';
 import SuccessCreated from './SuccessCreated';
 
@@ -80,7 +81,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
      handleBlur,
      handleChange,
      handleSubmit,
-     isSingle,
+     isSingle = true,
    }) => {
     const history = useHistory();
     // const [rates, setRates] = useState([]);
@@ -414,7 +415,12 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   setValue={() => setAddToCollection(!addToCollection)}
                 />
               </h3>
-              {addToCollection && (<ChooseCollection isSingle={isSingle}/>)}
+              {addToCollection && (<ChooseCollection
+                className={styles.collections}
+                activeCollectionId={values.collectionId}
+                onChange={(value) => setFieldValue('collectionId', value)}
+                isSingle={isSingle}/>)}
+
             </div>
             <div className={styles.btns}>
               <Button

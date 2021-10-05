@@ -37,7 +37,7 @@ export default observer(({isSingle, walletConnector}: any) => {
         },
       ],
       isLoading: false,
-      collectionId: -1,
+      collectionId: 0,
       currency: 'WETH',
       bid: '',
       showModal: false,
