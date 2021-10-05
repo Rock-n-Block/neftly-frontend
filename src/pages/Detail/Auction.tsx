@@ -1,16 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
-import {
-  ArtCard,
-  Carousel,
-  Control,
-  GiantCard,
-  H3,
-  Select,
-  Text,
-  TradingHistory,
-} from 'components';
+import { ArtCard, Carousel, Control, H3, Select, Text, TradingHistory } from 'components';
 import {
   TradingHistoryBuyer,
   TradingHistoryExpiration,
@@ -20,7 +11,7 @@ import { Chart } from 'containers';
 import { useGetSlideToShow } from 'hooks';
 import { TableCell } from 'typings';
 
-import { artworkData, data, tableDataAuction } from './mockdata';
+import { artworkData, tableDataAuction } from './mockdata';
 
 import styles from './styles.module.scss';
 
@@ -87,7 +78,7 @@ const DetailArtwork: FC<Props> = ({ className }) => {
     <div className={cx(styles.detailArtwork, className)}>
       <div className={styles.detailArtworkContent}>
         <Control item={breadcrumbs} />
-        <GiantCard
+        {/* <GiantCard
           name={data.name}
           likes={data.likes}
           views={data.views}
@@ -108,7 +99,7 @@ const DetailArtwork: FC<Props> = ({ className }) => {
           isUserCanEnterInAuction={false}
           type="auction"
           isUserCanPutOnSale
-        />
+        /> */}
         <div className={styles.chartAndBidders}>
           <div className={styles.chartWrapper}>
             <div className={styles.chartFilter}>

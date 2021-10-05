@@ -37,8 +37,6 @@ const HotAuctionCardDesktop: FC<Props> = ({
   views,
   likes,
   artPic,
-  currentPrice,
-  priceAsset,
   bidders,
 }) => (
   <div className={cx(styles.desktopCard, className)}>
@@ -60,12 +58,7 @@ const HotAuctionCardDesktop: FC<Props> = ({
       <img src={artPic} alt="art pic" />
     </div>
     <div className={styles.priceAndBidders}>
-      <PaymentComponent
-        type="auction"
-        bidAction={() => alert('bid')}
-        price={currentPrice}
-        asset={priceAsset}
-      />
+      <PaymentComponent bidAction={() => alert('bid')} nft={null} />
       <BiddersComponent bidders={bidders} />
     </div>
   </div>

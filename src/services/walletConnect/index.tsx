@@ -83,10 +83,10 @@ class Connector extends React.Component<
                   });
 
                   localStorage.netfly_nft_token = login.data.key;
-                  rootStore.user.setAddress(userAccount.address);
                 }
                 localStorage.netfly_nft_chainName = chainName;
                 localStorage.netfly_nft_providerName = providerName;
+                rootStore.user.setAddress(userAccount.address);
                 rootStore.user.getMe();
               }
             },

@@ -20,8 +20,6 @@ type Props = {
   tags: string[];
   views: number;
   likes: number;
-  currentPrice: number;
-  priceAsset: string;
   // eslint-disable-next-line react/no-unused-prop-types
   auctionEndingTime: any;
   bidders: any[];
@@ -37,8 +35,6 @@ const HotAuctionCardMobile: FC<Props> = ({
   views,
   likes,
   artPic,
-  currentPrice,
-  priceAsset,
   bidders,
 }) => (
   <div className={cx(styles.mobileCard, className)}>
@@ -47,13 +43,7 @@ const HotAuctionCardMobile: FC<Props> = ({
     </div>
     <H3>{title}</H3>
     <AuthorComponent authorPic={authorPic} author={author} />
-    <PaymentComponent
-      type="auction"
-      className={styles.paymentMobile}
-      bidAction={() => alert('bid')}
-      price={currentPrice}
-      asset={priceAsset}
-    />
+    <PaymentComponent className={styles.paymentMobile} bidAction={() => alert('bid')} nft={null} />
     <Tab
       className={styles.tabs}
       tabs={[
