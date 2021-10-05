@@ -29,8 +29,9 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
     }
     return 0;
   }, [nft]);
+
   const isOwner = React.useMemo(() => {
-    if (nft && nft.owners) {
+    if (user.id && nft && nft.owners) {
       if (Array.isArray(nft.owners)) {
         return !!nft.owners.find((owner: IOwner) => {
           return owner.id === user.id;
@@ -63,7 +64,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
   console.log('isWrongChain', isWrongChain);
 
   const isUserCanRemoveFromSale = React.useMemo(() => {
-    if (nft && !isWrongChain) {
+    if (user.id && nft && !isWrongChain) {
       if (nft.standart === 'ERC721' && nft.is_selling && isOwner) return true;
       if (
         nft.standart === 'ERC1155' &&
@@ -79,7 +80,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
   console.log('isUserCanRemoveFromSale', isUserCanRemoveFromSale);
 
   const isUserCanBuyNft = React.useMemo(() => {
-    if (nft && !isWrongChain && nft.price && nft.is_selling && nft.available !== 0) {
+    if (user.id && nft && !isWrongChain && nft.price && nft.is_selling && nft.available !== 0) {
       if (nft.standart === 'ERC721' && !isOwner) return true;
       if (
         nft.standart === 'ERC1155' &&
@@ -93,7 +94,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
   console.log('isUserCanBuyNft', isUserCanBuyNft);
 
   const isUserCanEnterInAuction = React.useMemo(() => {
-    if (nft && !isWrongChain && nft.is_auc_selling && nft.available !== 0) {
+    if (user.id && nft && !isWrongChain && nft.is_auc_selling && nft.available !== 0) {
       if (nft.standart === 'ERC721' && !isOwner) return true;
       if (
         nft.standart === 'ERC1155' &&
@@ -108,7 +109,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
   console.log('isUserCanEnterInAuction', isUserCanEnterInAuction);
 
   const isUserCanEndAuction = React.useMemo(() => {
-    if (nft && !isWrongChain && nft.is_auc_selling && nft.bids.length && isOwner) {
+    if (user.id && nft && !isWrongChain && nft.is_auc_selling && nft.bids.length && isOwner) {
       if (nft.standart === 'ERC721') return true;
       if (nft.standart === 'ERC1155' && nft.owner_auction.find((seller) => seller.id === user.id))
         return true;
@@ -119,7 +120,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
   console.log('isUserCanEndAuction', isUserCanEndAuction);
 
   const isUserCanPutOnSale = React.useMemo(() => {
-    if (nft && !isWrongChain && isOwner && !nft.is_selling && !nft.is_auc_selling) {
+    if (user.id && nft && !isWrongChain && isOwner && !nft.is_selling && !nft.is_auc_selling) {
       if (nft.standart === 'ERC721') return true;
       if (
         nft.standart === 'ERC1155' &&
@@ -171,32 +172,36 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growthUsd,
         )} */}
       </div>
 
-      <div className={styles.sellBtnsWrapper}>
-        {isUserCanBuyNft ? (
-          <Button onClick={bidAction} isFullWidth>
-            Purchase Now
+      {user.address ? (
+        <div className={styles.sellBtnsWrapper}>
+          {isUserCanBuyNft ? (
+            <Button onClick={bidAction} isFullWidth>
+              Purchase Now
+            </Button>
+          ) : (
+            ''
+          )}
+          {isUserCanEnterInAuction ? (
+            <Button onClick={bidAction} isFullWidth>
+              Place a Bid
+            </Button>
+          ) : (
+            ''
+          )}
+          {isUserCanPutOnSale ? (
+            <Button onClick={bidAction} isFullWidth>
+              Put on Sale
+            </Button>
+          ) : (
+            ''
+          )}
+          <Button color="outline" onClick={bidAction} isFullWidth>
+            Save
           </Button>
-        ) : (
-          ''
-        )}
-        {isUserCanEnterInAuction ? (
-          <Button onClick={bidAction} isFullWidth>
-            Place a Bid
-          </Button>
-        ) : (
-          ''
-        )}
-        {isUserCanPutOnSale ? (
-          <Button onClick={bidAction} isFullWidth>
-            Put on Sale
-          </Button>
-        ) : (
-          ''
-        )}
-        <Button color="outline" onClick={bidAction} isFullWidth>
-          Save
-        </Button>
-      </div>
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   );
 });
