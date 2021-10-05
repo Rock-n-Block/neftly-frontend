@@ -20,9 +20,7 @@ export default {
   follow: (data: { id: string | number }) => axios.post(`account/self/follow/`, data),
   like: (data: { id: number | undefined }) => axios.post(`account/self/like/`, data),
   verifyMe: (data: any) => axios.post('/account/verification/', data),
-  setUserCover: (file: any) => {
-    const data = new FormData();
-    data.append('cover', file);
+  setUserCover: (data: any) => {
     return axios.post('/account/set_user_cover/', data);
   },
   getRandomCover: () => axios.get('/account/get_random_cover/'),
