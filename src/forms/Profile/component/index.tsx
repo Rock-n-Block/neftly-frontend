@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react';
 import cn from 'classnames';
 import { Button, Text, TextArea, TextInput, Uploader } from 'components';
-import { Form, FormikProps, Field, FieldProps } from 'formik';
+import { Field, FieldProps, Form, FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
 import { useMst } from 'store/store';
 
@@ -24,6 +24,7 @@ export interface IProfile {
 const Profile: React.FC<FormikProps<IProfile>> = observer(
   ({ touched, errors, handleChange, handleBlur, values, handleSubmit }: any) => {
     const { user } = useMst();
+
     return (
       <Form name="form-profile" className={cn('container', styles.container)}>
         <div className={styles.row}>
@@ -47,8 +48,8 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                   </Text>
                   <div>
                     <Field
-                      id="img"
-                      name="img"
+                      id="avatar"
+                      name="avatar"
                       render={() => <Uploader type="img" isButton className={styles.fileUpload} />}
                     />
                   </div>

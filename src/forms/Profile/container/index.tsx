@@ -1,11 +1,12 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import { withFormik } from 'formik';
+import { mapKeys, snakeCase } from 'lodash';
 import { observer } from 'mobx-react';
+import { userApi } from 'services/api';
+import { useMst } from 'store/store';
 import * as Yup from 'yup';
 
-import { userApi } from '../../../services/api';
-import { useMst } from '../../../store/store';
 import Profile, { IProfile } from '../component';
 
 const ProfileForm: React.FC = () => {
@@ -40,30 +41,15 @@ const ProfileForm: React.FC = () => {
 
     handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
-      const formData = new FormData();
-      formData.append('avatar', values.img);
-      formData.append('display_name', values.displayName || '');
-      formData.append('bio', values.bio || '');
-      formData.append('custom_url', values.customUrl || '');
-      formData.append('site', values.site || '');
-      formData.append('twitter', values.twitter || '');
-      formData.append('instagram', values.instagram || '');
-      formData.append('facebook', values.facebook || '');
+      const formDataSnakeCase = mapKeys(values, (_, k) => snakeCase(k));
       userApi
-        .update(formData)
+        .update(formDataSnakeCase)
         .then(({ data }) => {
-          toast.success('Verification request sent', {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          toast.success('Verification request sent');
           user.update(data);
         })
         .catch(({ response }) => {
+          toast.error('Verification request failed');
           if (response.data.custom_url) {
             setTimeout(() => {
               setFieldError('customUrl', response.data.custom_url);
