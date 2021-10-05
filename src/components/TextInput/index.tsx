@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {arrowLeft} from 'assets/img';
 import cn from 'classnames';
-import {Icon} from 'components';
+import {Icon, Text} from 'components';
 import Button from 'components/Button';
 import {IconNames} from 'typings';
 
@@ -57,7 +57,7 @@ const TextInput: React.FC<Props> = ({
 
   return (
     <div className={cn(styles.field, className)}>
-      {label && <div className={styles.label}>{label}</div>}
+      {label && <Text className={styles.label} size="m" weight="medium">{label}</Text>}
       <div className={styles.wrap}>
         {icon && (
           <Icon

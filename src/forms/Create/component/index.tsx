@@ -1,27 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {upload} from 'assets/img/upload';
 import cn from 'classnames';
 import {Form, Field, FieldArray, FormikProps} from 'formik';
 import {observer} from 'mobx-react-lite';
 
-import Button from '../../../components/Button';
-import Dropdown from '../../../components/Dropdown';
-import Modal from '../../../components/Modal';
-import TextArea from '../../../components/TextArea';
-import TextInput from '../../../components/TextInput';
-import Uploader from '../../../components/Uploader';
-// import {ratesApi} from '../../../services/api';
-import {validateField} from '../../../utils/validate';
+import {Button, Dropdown, Modal, TextArea, TextInput, Uploader, Switch, Radio, Text, H6} from 'components';
+import {IRadioButton} from "components/Radio";
 
-// import ChooseCollection from './ChooseCollection';
 import ChooseCollection from './ChooseCollection';
 import SuccessCreated from './SuccessCreated';
 
 import styles from './CreateCollectibleDetails.module.scss';
-import Switch from "../../../components/Switch";
 import {useHistory} from "react-router";
-import {Radio, Text} from "../../../components";
-import {IRadioButton} from "../../../components/Radio";
 
 const royaltiesOptions = ['10%', '20%', '30%'];
 
@@ -126,9 +116,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     /* useEffect(() => {
        fetchRates();
      }, [fetchRates]); */
-    useEffect(() => {
-      console.log(values);
-    }, [values]);
+
     return (
       <>
         <Form name="form-create" className={styles.form}>
@@ -145,7 +133,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       <Field
                         name="cover"
                         className={styles.load}
-                        validateStatus={validateField('cover', touched, errors)}
                         render={() => (
                           <Uploader
                             type="cover"
@@ -156,9 +143,10 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         <div className={styles.icon}>
                           <img alt="" src={upload}/>
                         </div>
-                        <div className={styles.category}>Upload preview</div>
-                        <div className={styles.note}>Drag or choose your file to upload</div>
-                        <div className={styles.format}>(PNG, GIF, WEBP, MP4 or MP3. Max 5 Mb.)</div>
+                        <Text className={styles.category} size="m" weight="medium" color="white">Upload preview</Text>
+                        <Text className={styles.note} color="lightGray">Drag or choose your file to upload</Text>
+                        <Text className={styles.format} size="xxs" color="gray">(PNG, GIF, WEBP, MP4 or MP3. Max 5
+                          Mb.)</Text>
                       </div>
                     </div>
                   </>
@@ -195,7 +183,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     <Field
                       name="img"
                       className={styles.load}
-                      validateStatus={validateField('img', touched, errors)}
                       render={() => (
                         <Uploader
                           type="img"
@@ -206,9 +193,10 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       <div className={styles.icon}>
                         <img alt="" src={upload}/>
                       </div>
-                      <div className={styles.category}>Upload preview</div>
-                      <div className={styles.note}>Drag or choose your file to upload</div>
-                      <div className={styles.format}>(PNG, GIF, WEBP, MP4 or MP3. Max 5 Mb.)</div>
+                      <Text className={styles.category} size="m" weight="medium" color="white">Upload preview</Text>
+                      <Text className={styles.note} color="lightGray">Drag or choose your file to upload</Text>
+                      <Text className={styles.format} size="xxs" color="gray">(PNG, GIF, WEBP, MP4 or MP3. Max 5
+                        Mb.)</Text>
                     </div>
                   </div>
                 </>
@@ -218,18 +206,17 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
           <div className={styles.column}>
             <div className={styles.item}>
               <div className={styles.fieldset}>
-                <h3 className={styles.fieldsetTitle}>Sell method</h3>
+                <H6>Sell method</H6>
                 <Field name="sellMethod"
-                       className={styles.field}
                        render={() => (
-                         <Radio className={styles.options} name='sellMethod' options={sellMethods}
+                         <Radio className={cn(styles.field, styles.options)} name='sellMethod' options={sellMethods}
                                 controlledValue={values.sellMethod} onChange={newValue => {
                            setFieldValue('sellMethod', newValue)
                          }}/>
                        )}/>
               </div>
               <div className={styles.fieldset}>
-                <h3 className={styles.fieldsetTitle}>Artwork Details</h3>
+                <H6>Artwork Details</H6>
                 <Field
                   render={() => (
                     <TextInput
@@ -243,9 +230,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       className={styles.field}
                       required
                     />)}/>
-                <Text>
-                  {touched.tokenName && errors.tokenName && <div>{errors.tokenName}</div>}
-                </Text>
+                {touched.tokenName && errors.tokenName && <Text color="red">{errors.tokenName}</Text>}
                 <Field
                   name="tokenDescr"
                   render={() => (
@@ -258,11 +243,10 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       maxLettersCount={500}
                       className={styles.field}
                     />)}/>
-                <Text>
-                  {touched.tokenName && errors.tokenName && <div>{errors.tokenName}</div>}</Text>
+                {touched.tokenDescr && errors.tokenDescr && <Text color="red">{errors.tokenDescr}</Text>}
                 <div className={styles.fieldsetRow}>
                   <div className={cn(styles.price, styles.fieldsetRowColumn)}>
-                    <p className={styles.label}>Price</p>
+                    <Text className={styles.label} size="m" weight="medium">Price</Text>
                     <div className={styles.inputs}>
                       <Field render={() => (
                         <Dropdown
@@ -283,16 +267,20 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           required
                           className={styles.priceInput}
                         />)}/>
-                      {touched.price && errors.price && <div>{errors.price}</div>}
+                      {touched.price && errors.price && <Text color="red">{errors.price}</Text>}
                     </div>
                     <div className={styles.postfix}>
                       {/* change dynamically */}
-                      <p>Minimum price 0.004 ETH</p>
-                      <p>USD 234.24 PER/ETH</p>
+                      <Text color="gray">
+                        Minimum price 0.004 ETH
+                      </Text>
+                      <Text color="gray">
+                        USD 234.24 PER/ETH
+                      </Text>
                     </div>
                   </div>
                   <div className={styles.fieldsetRowColumn}>
-                    <p className={styles.label}>In Stock {requiredMark}</p>
+                    <Text className={styles.label} size="m" weight="medium">In Stock {requiredMark}</Text>
                     <Field render={() => (
                       <Dropdown
                         name="numberOfCopies"
@@ -303,7 +291,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       />)}/>
                   </div>
                   <div className={styles.fieldsetRowColumn}>
-                    <p className={styles.label}>Royalties {requiredMark}</p>
+                    <Text className={styles.label} size="m" weight="medium">Royalties {requiredMark}</Text>
                     <Field render={() => (
                       <Dropdown
                         name="Royalties"
@@ -315,18 +303,17 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   </div>
                 </div>
                 <div className={styles.fee}>
-                  <p>Service fee {serviceFee}%</p>
-                  <p>
-                    {/* change dynamically */}
+                  <Text color="secondary">
+                    Service fee {serviceFee}%
+                    <br/>
                     You will receive {(parseFloat(values.bid) * (100 - serviceFee)) / 100 || 0}{' '}
                     {values.currency.toUpperCase()}
-                  </p>
+                  </Text>
                 </div>
                 {!isSingle && (
                   <Field
                     className={styles.field}
                     name="numberOfCopies"
-                    validateStatus={validateField('numberOfCopies', touched, errors)}
                     render={() => (
                       <TextInput
                         className={styles.field}
@@ -340,6 +327,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         required
                       />)}/>
                 )}
+                {!isSingle && touched.numberOfCopies && errors.numberOfCopies &&
+                <Text color="red">{errors.numberOfCopies}</Text>}
                 <div className={styles.tokenProperties}>
                   <FieldArray
                     name="tokenProperties"
@@ -349,7 +338,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         <div className={styles.tokenProperty} key={`tokenProperty_${index}`}>
                           <Field
                             name={`tokenProperties[${index}].name`}
-                            validateStatus={validateField(`tokenProperties`, touched, errors)}
                             /* help={(() => {
                                return errors.tokenProperties &&
                                errors.tokenProperties[index] &&
@@ -376,20 +364,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
 
                           <Field
                             name={`tokenProperties[${index}].amount`}
-                            validateStatus={validateField(`tokenProperties`, touched, errors)}
-                            /* help={(() => {
-                               return errors.tokenProperties &&
-                               errors.tokenProperties[index] &&
-                               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                               // @ts-ignore
-                               // eslint-disable-next-line no-param-reassign
-                               errors.tokenProperties[index].amount
-                                 ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                   // @ts-ignore
-                                   // eslint-disable-next-line no-param-reassign
-                                 errors.tokenProperties[index].amount
-                                 : false;
-                             })()} */
                             render={() => (
                               <TextInput
                                 name="amount"
@@ -408,13 +382,13 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               </div>
             </div>
             <div className={cn(styles.fieldset, styles.addCollection)}>
-              <h3 className={styles.fieldsetTitle}>
+              <H6 className={styles.fieldsetTitle}>
                 Add to collection
                 <Switch
                   value={addToCollection}
                   setValue={() => setAddToCollection(!addToCollection)}
                 />
-              </h3>
+              </H6>
               {addToCollection && (<ChooseCollection
                 className={styles.collections}
                 activeCollectionId={values.collectionId}

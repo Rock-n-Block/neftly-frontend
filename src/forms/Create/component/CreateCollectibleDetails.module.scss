@@ -9,6 +9,9 @@
 
 .column {
   width: 100%;
+  &+&{
+    margin-left: 32px;
+  }
 }
 
 .preview {
@@ -56,9 +59,7 @@
   @include epilogue;
   margin-top: 4px;
 
-  font-size: 14px;
   line-height: 160%;
-  color: $color-neutral-20;
 }
 
 .file {
@@ -118,18 +119,13 @@
   @include epilogue;
   margin-top: 10px;
 
-  font-size: 11px;
   line-height: 120%;
   letter-spacing: 0.03em;
-  color: $color-neutral-40;
 }
 
 .category {
   @include epilogue;
-  font-weight: 500;
-  font-size: 16px;
   line-height: 160%;
-  color: $color-neutral-0;
 }
 
 .fieldset {
@@ -137,10 +133,6 @@
 
   &Title {
     @include flexbox(center, space-between);
-    @include epilogue;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 160%;
   }
 
   &Row {
@@ -202,9 +194,7 @@
     width: 100%;
     @include flexbox(center, space-between);
     @include epilogue;
-    font-size: 14px;
     line-height: 160%;
-    color: $color-neutral-40;
   }
 }
 
@@ -212,8 +202,6 @@
   @include epilogue;
   margin-bottom: 8px;
 
-  font-size: 16px;
-  font-weight: 500;
   line-height: 160%;
   text-transform: capitalize;
 
@@ -503,9 +491,7 @@
   flex-direction: column;
 
   @include epilogue;
-  font-size: 14px;
   line-height: 160%;
-  color: $color-secondary;
 
 }
 

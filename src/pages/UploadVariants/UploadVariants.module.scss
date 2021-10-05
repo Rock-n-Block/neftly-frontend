@@ -21,16 +21,12 @@
 }
 
 .title {
-  margin-bottom: 16px;
-  @include monument-extended;
-  font-size: 40px;
   line-height: 120%;
-  color: $color-neutral-0;
+  margin-bottom: 16px;
 }
 
 .info {
-  color: $color-neutral-20;
-
+  line-height: 160%;
 }
 
 .list {
@@ -77,10 +73,7 @@
   padding: 0 32px;
   @include epilogue;
 
-  font-weight: 500;
-  font-size: 16px;
   line-height: 160%;
-  color: $color-neutral-20;
   @include forTablet {
     flex-direction: column;
   }

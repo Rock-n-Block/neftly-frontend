@@ -6,6 +6,7 @@ import {arrowDown} from 'assets/img/icons';
 
 
 import styles from './Dropdown.module.scss';
+import {Text} from "../Typography";
 
 interface IDropdownProps {
   className?: string;
@@ -87,7 +88,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
                     key={`dropdown_option_${option.text}`}
                   >
                     {option.icon}
-                    <span className={styles.text}>{option.text}</span>
+                    <Text className={styles.text} tag="span">{option.text}</Text>
                   </div>
                 ))}
           </div>
@@ -109,7 +110,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
                 key={`dropdown_option_${option.symbol}`}
               >
                 <img alt="" className={styles.image} src={option.image} />
-                <span className={styles.text}>{option.symbol}</span>
+                <Text className={styles.text} tag="span">{option.symbol}</Text>
               </div>
             ))}
           </div>

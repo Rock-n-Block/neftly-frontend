@@ -4,17 +4,17 @@ import cn from 'classnames';
 import {single, multiple} from 'assets/img/upload';
 
 import styles from './UploadVariants.module.scss';
-import {Button} from "../../components";
+import {Button, H2, Text} from "components";
 
 const items = [
   {
-    key:'single',
+    key: 'single',
     url: '/create/single',
     buttonText: 'Create Single',
     image: single,
   },
   {
-    key:'multiple',
+    key: 'multiple',
     url: '/create/multiple',
     buttonText: 'Create Multiple',
     image: multiple,
@@ -27,11 +27,11 @@ const Upload: React.FC = () => {
       <div className={styles.section}>
         <div className={cn(styles.container)}>
           <div className={styles.top}>
-            <h1 className={cn('h2', styles.title)}>Upload item</h1>
-            <div className={styles.info}>
+            <H2 className={styles.title} align="center">Upload item</H2>
+            <Text className={styles.info} size="m" color="lightGray" weight="medium" align="center">
               Choose “Single” if you want your collectible to be one of a kind or “Multiple” if you want to sell one
               collectible multiple times
-            </div>
+            </Text>
           </div>
           <div className={styles.list}>
             {items.map((option) => (
@@ -45,9 +45,9 @@ const Upload: React.FC = () => {
               </Link>
             ))}
           </div>
-          <div className={styles.note}>
+          <Text className={styles.note} size="m" color="lightGray" weight="medium" align="center">
             We do not own your private keys and cannot access your funds without your confirmation.
-          </div>
+          </Text>
         </div>
       </div>
     </div>

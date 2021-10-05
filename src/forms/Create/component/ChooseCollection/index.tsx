@@ -4,13 +4,12 @@ import cn from 'classnames';
 import {observer} from 'mobx-react';
 import {useMst} from 'store/store';
 import {Swiper, SwiperSlide} from 'swiper/react';
-
+import {Text, Modal} from 'components';
 import {userApi} from 'services/api';
 import {CreateCollection} from '../../../index';
 import {createCollection} from 'assets/img/ChooseCollection';
 
 import styles from './ChooseCollection.module.scss';
-import {Modal} from "../../../../components";
 
 import 'swiper/swiper.scss';
 
@@ -57,9 +56,6 @@ const ChooseCollection: React.FC<IProps> = observer(({isSingle, activeCollection
   const [collections, setCollections] = useState([...mockCollections]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  // const prevRef = React.createRef<HTMLDivElement>();
-  // const nextRef = React.createRef<HTMLDivElement>();
-
   const changeCollection = useCallback((id: number) => {
     if (activeCollectionId !== id) onChange(id);
   }, [activeCollectionId, onChange]);
@@ -91,7 +87,7 @@ const ChooseCollection: React.FC<IProps> = observer(({isSingle, activeCollection
   }, [getCollections, user.address]);
 
   return (
-    <div className={cn(styles.cards,className)}>
+    <div className={cn(styles.cards, className)}>
       <Swiper
         spaceBetween={8}
         slidesPerView='auto'
@@ -106,7 +102,7 @@ const ChooseCollection: React.FC<IProps> = observer(({isSingle, activeCollection
             tabIndex={0}
           >
             <img src={createCollection} alt='create' className={styles.plus}/>
-            <div className={styles.subtitle}>Create collection</div>
+            <Text className={styles.subtitle}>Create collection</Text>
           </div>
         </SwiperSlide>
         {!!collections.length && collections.map((collection) => (
@@ -122,7 +118,7 @@ const ChooseCollection: React.FC<IProps> = observer(({isSingle, activeCollection
               className={styles.cardContent}
             >
               {!!collection.avatar && (<img src={collection.avatar} alt='create' className={styles.avatar}/>)}
-              <div className={styles.subtitle}>{collection.title}</div>
+              <Text className={styles.subtitle}>{collection.title}</Text>
             </div>
           </SwiperSlide>
         ))}
