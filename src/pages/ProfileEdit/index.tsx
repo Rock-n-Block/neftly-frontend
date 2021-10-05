@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+// import React, { useEffect, useState } from 'react';
+// import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
-import { Button, Control, Text, TextArea, TextInput } from 'components';
+// import { Button, Control, Text, TextArea, TextInput } from 'components';
+import { Control } from 'components';
 import { observer } from 'mobx-react';
 
-import { userApi } from '../../services/api';
-import { useMst } from '../../store/store';
+// import { userApi } from '../../services/api';
+// import { useMst } from '../../store/store';
 
 import styles from './ProfileEdit.module.scss';
+import { ProfileForm } from 'forms';
 
 const breadcrumbs = [
   {
@@ -20,63 +22,63 @@ const breadcrumbs = [
 ];
 
 const ProfileEdit: React.FC = observer(() => {
-  const history = useHistory();
-  const { user } = useMst();
-  const [avatarURL, setAvatarURL] = useState('');
-  const [error, setError] = useState(false);
-  const [isLoading, setLoading] = useState<boolean>(false);
+  // const history = useHistory();
+  // const { user } = useMst();
+  // const [avatarURL, setAvatarURL] = useState('');
+  // const [error, setError] = useState(false);
+  // const [isLoading, setLoading] = useState<boolean>(false);
 
-  const [formData, setFormData] = useState({
-    avatar: '',
-    display_name: '',
-    email: '',
-    custom_url: '',
-    bio: '',
-    instagram: '',
-    twitter: '',
-    facebook: '',
-    site: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   avatar: '',
+  //   display_name: '',
+  //   email: '',
+  //   custom_url: '',
+  //   bio: '',
+  //   instagram: '',
+  //   twitter: '',
+  //   facebook: '',
+  //   site: '',
+  // });
 
-  const handleChange = (key: string, value: any) => {
-    if (key === 'avatar') {
-      const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        setAvatarURL(typeof reader.result === 'string' ? reader.result : '');
-      });
-      reader.readAsDataURL(value);
-    }
-    if (key === 'custom_url') {
-      setError(!Number.isNaN(+value) && value);
-    }
-    setFormData((prevState) => ({
-      ...prevState,
-      [key]: value,
-    }));
-  };
+  // const handleChange = (key: string, value: any) => {
+  //   if (key === 'avatar') {
+  //     const reader = new FileReader();
+  //     reader.addEventListener('load', () => {
+  //       setAvatarURL(typeof reader.result === 'string' ? reader.result : '');
+  //     });
+  //     reader.readAsDataURL(value);
+  //   }
+  //   if (key === 'custom_url') {
+  //     setError(!Number.isNaN(+value) && value);
+  //   }
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     [key]: value,
+  //   }));
+  // };
 
-  const handleSubmit = async () => {
-    setLoading(true);
-    const newFormData = new FormData();
-    if (typeof formData.avatar !== 'string')
-      newFormData.append('avatar', formData.avatar, 'avatar');
-    newFormData.append('display_name', formData.display_name);
-    newFormData.append('custom_url', formData.custom_url);
-    newFormData.append('email', formData.email);
-    newFormData.append('bio', formData.bio);
-    newFormData.append('instagram', formData.instagram);
-    newFormData.append('twitter', formData.twitter);
-    newFormData.append('facebook', formData.facebook);
-    newFormData.append('site', formData.site);
-    userApi
-      .update(newFormData)
-      .then(({ data }) => {
-        user.update(data);
-        history.push(`/profile/${user.id}`);
-      })
-      .catch((e) => console.log('Error', e))
-      .finally(() => setLoading(false));
-  };
+  // const handleSubmit = async () => {
+  //   setLoading(true);
+  //   const newFormData = new FormData();
+  //   if (typeof formData.avatar !== 'string')
+  //     newFormData.append('avatar', formData.avatar, 'avatar');
+  //   newFormData.append('display_name', formData.display_name);
+  //   newFormData.append('custom_url', formData.custom_url);
+  //   newFormData.append('email', formData.email);
+  //   newFormData.append('bio', formData.bio);
+  //   newFormData.append('instagram', formData.instagram);
+  //   newFormData.append('twitter', formData.twitter);
+  //   newFormData.append('facebook', formData.facebook);
+  //   newFormData.append('site', formData.site);
+  //   userApi
+  //     .update(newFormData)
+  //     .then(({ data }) => {
+  //       user.update(data);
+  //       history.push(`/profile/${user.id}`);
+  //     })
+  //     .catch((e) => console.log('Error', e))
+  //     .finally(() => setLoading(false));
+  // };
 
   /* const handleClear = () => {
     setFormData((prevState) => ({
@@ -93,30 +95,30 @@ const ProfileEdit: React.FC = observer(() => {
     }));
   }; */
 
-  useEffect(() => {
-    setFormData((prevState) => ({
-      ...prevState,
-      avatar: user.avatar || '',
-      display_name: user.display_name || '',
-      custom_url: user.custom_url || '',
-      email: user.email || '',
-      bio: user.bio || '',
-      instagram: user.instagram || '',
-      twitter: user.twitter || '',
-      facebook: user.facebook || '',
-      site: user.site || '',
-    }));
-  }, [
-    user.avatar,
-    user.display_name,
-    user.custom_url,
-    user.bio,
-    user.site,
-    user.twitter,
-    user.email,
-    user.instagram,
-    user.facebook,
-  ]);
+  // useEffect(() => {
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     avatar: user.avatar || '',
+  //     display_name: user.display_name || '',
+  //     custom_url: user.custom_url || '',
+  //     email: user.email || '',
+  //     bio: user.bio || '',
+  //     instagram: user.instagram || '',
+  //     twitter: user.twitter || '',
+  //     facebook: user.facebook || '',
+  //     site: user.site || '',
+  //   }));
+  // }, [
+  //   user.avatar,
+  //   user.display_name,
+  //   user.custom_url,
+  //   user.bio,
+  //   user.site,
+  //   user.twitter,
+  //   user.email,
+  //   user.instagram,
+  //   user.facebook,
+  // ]);
 
   return (
     <div className={styles.profileEdit}>
@@ -128,7 +130,8 @@ const ProfileEdit: React.FC = observer(() => {
           settings.
         </div>
       </div>
-      <div className={cn('container', styles.container)}>
+      <ProfileForm />
+      {/* <div className={cn('container', styles.container)}>
         <div className={styles.row}>
           <div className={cn(styles.col, styles.left)}>
             <div className={styles.user}>
@@ -147,22 +150,6 @@ const ProfileEdit: React.FC = observer(() => {
                     </span>
                 </div>
                 <div className={styles.file}>
-                  {/* <button
-                      type="button"
-                      className={cn('button-stroke button-small', styles.button)}
-                    >
-
-                    </button> */}
-                  <Button color="outline" className={styles.button}>
-                    Upload
-                  </Button>
-                  {/* <input
-                      className={styles.load}
-                      type="file"
-                      // eslint-disable-next-line
-                      // @ts-ignore
-                      onChange={(e) => handleChange('avatar', e.target.files[0])}
-                    /> */}
                 </div>
               </div>
             </div>
@@ -272,7 +259,7 @@ const ProfileEdit: React.FC = observer(() => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 });

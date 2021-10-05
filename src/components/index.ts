@@ -24,4 +24,5 @@ export { default as LoaderCircle } from './LoaderCircle';
 export { default as Switch } from './Switch';
 export { default as Bid } from './Bid';
 export { default as Modal } from './Modal';
+export { default as Uploader } from './Uploader';
 export * from './Typography';
