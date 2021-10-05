@@ -5,10 +5,9 @@ import {observer} from 'mobx-react';
 import SwiperCore, {Navigation} from 'swiper';
 
 // import { Swiper, SwiperSlide } from 'swiper/react';
-import Icon from '../../../../components/Icon';
-import Modal from '../../../../components/Modal';
-import {userApi} from '../../../../services/api';
-import {rootStore} from '../../../../store/store';
+import {Icon, Modal} from 'components';
+import {userApi} from 'services/api';
+import {rootStore} from 'store/store';
 import {CreateCollection} from '../../../index';
 
 // import PlusImg from './plus.svg';
