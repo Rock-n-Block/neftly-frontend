@@ -41,3 +41,4 @@ export const H2 = createHeading('h2');
 export const H3 = createHeading('h3');
 export const H4 = createHeading('h4');
 export const H5 = createHeading('h5');
+export const H6 = createHeading('h6');
