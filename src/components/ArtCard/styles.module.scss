@@ -3,7 +3,7 @@
 .artCard {
   position: relative;
 
-  width: fit-content;
+  width: 100%;
 
   border: 1px solid $color-neutral-80;
 }
@@ -91,6 +91,9 @@
   border-width: 1px 0 0 0;
   border-style: solid;
   border-color: $color-neutral-80;
+  img {
+    max-width: 20px;
+  }
 }
 
 .artCardPrice {
@@ -105,6 +108,11 @@
 
 .artCardAuthor {
   margin-left: 8px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
 }
 
 .artCardHeart {

@@ -8,11 +8,8 @@ import { observer } from 'mobx-react';
 
 // import { ratesApi } from '../../../services/api';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
-import { useMst } from '../../../store/store';
-import { Button } from 'components';
-import Icon from '../../Icon';
-import Loader from '../../Loader';
-import Modal from '../../Modal';
+import { useMst } from '../../../store';
+import { Button, Icon, Loader, Modal } from 'components';
 
 import Swap from './Swap';
 

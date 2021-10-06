@@ -11,7 +11,7 @@ import Loader from '../../../components/Loader';
 import Modal from '../../../components/Modal';
 import Report from '../../../components/Report';
 import { userApi } from '../../../services/api';
-import { useMst } from '../../../store/store';
+import { useMst } from '../../../store';
 
 import styles from './User.module.scss';
 

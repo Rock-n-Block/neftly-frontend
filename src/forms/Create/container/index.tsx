@@ -2,16 +2,16 @@
 // @ts-ignore
 // eslint-disable-next-line no-param-reassign
 import React from 'react';
-import {withFormik} from 'formik';
-import {observer} from 'mobx-react-lite';
+import { withFormik } from 'formik';
+import { observer } from 'mobx-react-lite';
 
-import {storeApi} from '../../../services/api';
-// import { useMst } from '../../../store/store';
+import { storeApi } from '../../../services/api';
+// import { useMst } from '../../../store';
 // import {validateForm} from '../../../utils/validate';
 import * as Yup from 'yup';
-import CreateForm, {ICreateForm} from '../component';
+import CreateForm, { ICreateForm } from '../component';
 
-export default observer(({isSingle, walletConnector}: any) => {
+export default observer(({ isSingle, walletConnector }: any) => {
   // const { modals } = useMst();
   const FormWithFormik = withFormik<any, ICreateForm>({
     enableReinitialize: true,
@@ -66,17 +66,19 @@ export default observer(({isSingle, walletConnector}: any) => {
       tokenDescr: Yup.string().max(500, 'Too Long!'),
       tokenRoyalties: Yup.string(),
       numberOfCopies: Yup.string(),
-      tokenProperties: Yup.array().of(Yup.object().shape({
-        name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
-        amount: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!')
-      })),
+      tokenProperties: Yup.array().of(
+        Yup.object().shape({
+          name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+          amount: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+        }),
+      ),
       isLoading: Yup.bool(),
       collectionId: Yup.number(),
       currency: Yup.string().matches(/(ETH|WETH|USDT)/),
       bid: Yup.string(),
       showModal: Yup.bool(),
     }),
-    handleSubmit: (values, {setFieldValue, setFieldError}) => {
+    handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
 
       const formData = new FormData();
@@ -115,7 +117,7 @@ export default observer(({isSingle, walletConnector}: any) => {
       }
       storeApi
         .createToken(formData)
-        .then(({data}) => {
+        .then(({ data }) => {
           walletConnector.walletService
             .sendTransaction(data.initial_tx)
             .then(() => {
@@ -127,7 +129,7 @@ export default observer(({isSingle, walletConnector}: any) => {
               console.log(err, 'err');
             });
         })
-        .catch(({response}) => {
+        .catch(({ response }) => {
           setFieldValue('isLoading', false);
           if (response.data && response.data.name) {
             setFieldError('tokenName', response.data.name);
@@ -140,5 +142,5 @@ export default observer(({isSingle, walletConnector}: any) => {
 
     displayName: 'ChangePasswordForm',
   })(CreateForm);
-  return <FormWithFormik isSingle={isSingle}/>;
+  return <FormWithFormik isSingle={isSingle} />;
 });

@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite';
 
 // import { storeApi } from '../../../services/api';
 // import { useWalletConnectorContext } from '../../../services/walletConnect';
-// import { useMst } from '../../../store/store';
+// import { useMst } from '../../../store';
 import CreateCollection, { ICreateCollection } from '../component';
 import * as Yup from 'yup';
 

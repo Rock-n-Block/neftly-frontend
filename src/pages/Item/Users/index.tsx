@@ -2,7 +2,7 @@ import nextId from 'react-id-generator';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import { IBaseInfo, IOwner } from '../../../typings/UserInfo';
+import { IBaseInfo, IOwner } from 'typings';
 
 import styles from './Users.module.scss';
 

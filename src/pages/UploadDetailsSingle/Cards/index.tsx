@@ -62,7 +62,7 @@ const Cards: React.FC<ICardsProps> = ({
               )}
             </div>
           ))
-        : ''}
+        : null}
     </div>
   );
 };

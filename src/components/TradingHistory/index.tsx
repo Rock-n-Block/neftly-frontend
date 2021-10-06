@@ -7,18 +7,32 @@ import styles from './styles.module.scss';
 
 type Props = {
   filterOptions: OptionType[];
+  selectedOption: OptionType;
   columns: any[];
   tableData: any[];
-	className?: string;
+  className?: string;
+  onChangeSort: (value: any) => void;
 };
 
-const TradingHistory: FC<Props> = ({ filterOptions, columns, tableData, className }) => (
+const TradingHistory: FC<Props> = ({
+  filterOptions,
+  columns,
+  tableData,
+  className,
+  onChangeSort,
+  selectedOption,
+}) => (
   <div className={cx(styles.history, className)}>
     <div className={styles.chartFilter}>
       <Text size="l">Price History</Text>
       <div className={styles.chartSelect}>
         <Text color="lightGray">Sort by</Text>
-        <Select className={styles.chartSelect} options={filterOptions} />
+        <Select
+          value={selectedOption}
+          className={styles.chartSelect}
+          options={filterOptions}
+          onChange={onChangeSort}
+        />
       </div>
     </div>
     <Text size="l">10 items sold</Text>
