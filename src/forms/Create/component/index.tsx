@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { upload } from 'assets/img/upload';
 import cn from 'classnames';
 import { Form, Field, FieldArray, FormikProps } from 'formik';
@@ -94,27 +94,30 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     const onCancel = () => {
       history.goBack();
     };
-    const handleChangeProperty = (e: any, index: any, type: 'name' | 'amount') => {
-      const localProperties = [...values.details];
+    const handleChangeProperty = useCallback(
+      (e: any, index: any, type: 'name' | 'amount') => {
+        const localProperties = [...values.details];
 
-      if (type === 'name') {
-        localProperties[index].name = e.target.value;
-      }
-      if (type === 'amount') {
-        localProperties[index].amount = e.target.value;
-      }
-      if (
-        localProperties[localProperties.length - 1].name &&
-        localProperties[localProperties.length - 1].amount
-      ) {
-        localProperties.push({
-          name: '',
-          amount: '',
-        });
-      }
-      setFieldValue('details', localProperties);
-      handleChange(e);
-    };
+        if (type === 'name') {
+          localProperties[index].name = e.target.value;
+        }
+        if (type === 'amount') {
+          localProperties[index].amount = e.target.value;
+        }
+        if (
+          localProperties[localProperties.length - 1].name &&
+          localProperties[localProperties.length - 1].amount
+        ) {
+          localProperties.push({
+            name: '',
+            amount: '',
+          });
+        }
+        setFieldValue('details', localProperties);
+        handleChange(e);
+      },
+      [handleChange, setFieldValue, values.details],
+    );
 
     /* const fetchRates = useCallback(() => {
        ratesApi.getRates().then(({data}: any) => {
