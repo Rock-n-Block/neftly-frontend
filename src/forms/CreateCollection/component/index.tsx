@@ -1,27 +1,22 @@
-import React from 'react';
-import { Form } from 'antd';
+import React, { useEffect } from 'react';
 import cn from 'classnames';
-import { FormikProps } from 'formik';
+import { Form, Field, FormikProps } from 'formik';
 
-import Modal from '../../../components/Modal';
-import TextInput from '../../../components/TextInput';
-// import { Button } from '../../../components/atoms';
+import { H3, TextInput, Text, Button, TextArea, RequiredMark } from 'components';
 import Uploader from '../../../components/Uploader';
-import { validateField } from '../../../utils/validate';
 
-import SuccessCreated from './SuccessCreated';
+// import SuccessCreated from './SuccessCreated';
 
 import styles from './CreateCollection.module.scss';
 
 export interface ICreateCollection {
-  img: any;
-  tokenName: string;
+  name: string;
   symbol: string;
   descr?: string;
   shortUrl: string;
   preview?: string;
+  img?: any;
   isLoading: boolean;
-  showModal: boolean;
 }
 
 const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
@@ -31,88 +26,90 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
   handleBlur,
   values,
   handleSubmit,
-  setFieldValue,
+  // setFieldValue,
 }) => {
-  const onSubmit = () => {
-    handleSubmit();
-  };
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
   return (
-    <Form name="form-create-coll" className={styles.form} layout="vertical">
+    <Form name="form-create-coll" className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.createCollection}>
-        <div className={cn('h4', styles.title)}>Create collection</div>
+        <H3 className={styles.title}>Create collection</H3>
         <div className={styles.upload}>
           {values.img ? <img alt="" src={values.preview} /> : <div className={styles.empty} />}
           <div className={styles.wrapper}>
-            <span className={styles.text}>
-              We recommend an image of at least 400 x 400. Gift work too.
-            </span>
+            <Text className={styles.text} color="lightGray" align="center">
+              We recommend an image of at least 400 x 400. Gifs work too.
+              <RequiredMark />
+            </Text>
             <div className={styles.file}>
-              <Form.Item
-                name="img"
-                className="form-create__item input__field"
-                validateStatus={validateField('img', touched, errors)}
-                help={!touched.img ? false : errors.img}
-              >
-                <Uploader type="img" isButton />
-              </Form.Item>
+              <Field id="avatar" name="avatar" render={() => <Uploader type="img" isButton />} />
+              {errors.img && touched.img && (
+                <Text color="red">Display name should be more than 2 and less than 50 symbols</Text>
+              )}
             </div>
           </div>
         </div>
         <div className={styles.fieldset}>
-          <Form.Item
-            name="tokenName"
-            validateStatus={validateField('tokenName', touched, errors)}
-            help={!touched.tokenName ? 'Token name cannot be changed in future' : errors.tokenName}
-          >
-            <div className={styles.field}>
+          <Field
+            name="name"
+            render={() => (
               <TextInput
-                label="Display name"
-                name="tokenName"
+                label={
+                  <>
+                    Display name <RequiredMark />
+                  </>
+                }
+                name="name"
                 type="text"
                 placeholder="Collection Name"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className={styles.field}
               />
-            </div>
-          </Form.Item>
-          <Form.Item
+            )}
+          />
+          {errors.name && touched.name && (
+            <Text color="red">Display name should be more than 2 and less than 50 symbols</Text>
+          )}
+          <Field
             name="symbol"
-            validateStatus={validateField('symbol', touched, errors)}
-            help={!touched.symbol ? false : errors.symbol}
-          >
-            <div className={styles.field}>
+            render={() => (
               <TextInput
-                label="Symbol"
+                label={
+                  <>
+                    Symbol <RequiredMark />
+                  </>
+                }
                 name="symbol"
                 type="text"
-                placeholder="Enter Token name"
+                placeholder="Enter Token symbol"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className={styles.field}
               />
-            </div>
-          </Form.Item>
-          <Form.Item
+            )}
+          />
+          {errors.symbol && touched.symbol && (
+            <Text color="red">Symbol should be more than 2 and less than 6 symbols</Text>
+          )}
+          <Field
             name="descr"
-            validateStatus={validateField('descr', touched, errors)}
-            help={!touched.descr ? false : errors.descr}
-          >
-            <div className={styles.field}>
-              <TextInput
+            render={() => (
+              <TextArea
                 label="Description"
                 name="descr"
-                type="text"
-                placeholder="Spreads some words about your token collection"
+                placeholder="Spread some words about your token collection"
                 onChange={handleChange}
-                onBlur={handleBlur}
+                className={styles.field}
+                maxLettersCount={500}
+                editable
               />
-            </div>
-          </Form.Item>
-          <Form.Item
+            )}
+          />
+          <Field
             name="shortUrl"
-            validateStatus={validateField('shortUrl', touched, errors)}
-            help={!touched.shortUrl ? false : errors.shortUrl}
-          >
-            <div className={styles.field}>
+            render={() => (
               <TextInput
                 label="Short url"
                 name="shortUrl"
@@ -120,17 +117,18 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
                 placeholder="Enter your url"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className={styles.field}
               />
-            </div>
-          </Form.Item>
+            )}
+          />
         </div>
 
-        <button className={cn('button', styles.button)} type="button" onClick={onSubmit}>
+        <Button type="submit" className={cn('button', styles.button)}>
           Create Collection
-        </button>
-        <Modal visible={values.showModal} onClose={() => setFieldValue('showModal', false)}>
+        </Button>
+        {/* <Modal visible={values.showModal} onClose={() => setFieldValue('showModal', false)}>
           <SuccessCreated close={() => setFieldValue('showModal', false)} title="collection" />
-        </Modal>
+        </Modal> */}
       </div>
     </Form>
   );
