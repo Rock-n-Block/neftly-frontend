@@ -3,14 +3,21 @@ import { Link } from 'react-router-dom';
 import { routes } from 'appConstants';
 import { allCategory, arrowUpRight, art, burn, camera, filter, motion, threeD } from 'assets/img';
 import cx from 'classnames';
-import { ArtCard, Button, Carousel, H2, H3, Select, TabLookingComponent, Text } from 'components';
+import {
+  ArtCard,
+  Button,
+  LiveAuction,
+  H2,
+  H3,
+  Select,
+  TabLookingComponent,
+  Text,
+} from 'components';
 import { AdvancedFilter } from 'containers';
-import { useGetSlideToShow } from 'hooks';
 
 import { data, dataMediumCards } from './mockData';
 
 import styles from './styles.module.scss';
-
 // type DiscoverProps = {};
 const tabs = [
   {
@@ -65,8 +72,6 @@ const Discover = () => {
     setFilterOne(value);
   }, []);
 
-  const numberOfSlide = useGetSlideToShow();
-
   return (
     <div className={styles.discover}>
       <H2 className={styles.title}>
@@ -116,39 +121,7 @@ const Discover = () => {
           </div>
         </div>
       </div>
-      <div className={styles.liveAuction}>
-        <H3>Live Auction Today</H3>
-        <Carousel slidesToShow={numberOfSlide}>
-          {data.map((artCard, index) => {
-            const {
-              image,
-              name,
-              price,
-              asset,
-              inStockNumber,
-              author,
-              authorAvatar,
-              likesNumber,
-              tags,
-            } = artCard;
-            return (
-              <Link to={`${routes.nft.link}/${index}`}>
-                <ArtCard
-                  imageMain={image}
-                  name={name}
-                  price={price}
-                  asset={asset}
-                  inStockNumber={inStockNumber}
-                  author={author}
-                  authorAvatar={authorAvatar}
-                  likesNumber={likesNumber}
-                  tags={tags}
-                />
-              </Link>
-            );
-          })}
-        </Carousel>
-      </div>
+      <LiveAuction className={styles.liveAuction} />
       <div>
         <div>
           <div className={styles.recommendArtworkTitle}>
