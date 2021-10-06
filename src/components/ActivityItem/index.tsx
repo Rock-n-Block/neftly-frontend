@@ -41,12 +41,16 @@ const ActivityItem: React.FC<Props> = ({
         <img src={userImg} alt="userAva" />
       </div>
       <div className={s.info}>
-        <div className={s.name}>{userName}</div>
+        <div className={s.name}>
+          {userName?.length > 21 ? `${userName.slice(0, 14)}...${userName.slice(-4)}` : userName}
+        </div>
         <div className={s.event}>{actionDescription}</div>
         <div className={s.time}>{timeAgo}</div>
       </div>
       <div className={s.image}>
+      <div className={s.image_wrapper}>
         <img src={actionImg} alt="actionImg" />
+      </div>
       </div>
     </section>
   );
