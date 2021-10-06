@@ -16,13 +16,6 @@ interface IUserMainInfo {
 }
 
 const UserMainInfo: React.FC<IUserMainInfo> = ({ handleUpload, isLoading, cover, avatar }) => {
-  const uploadButton = () => (
-    <Uploader type="img" isButton handleUpload={handleUpload} isLoading={isLoading}>
-      <Button className={s.user_button} color="outline" icon="pencil" loading={isLoading}>
-        Edit Banner
-      </Button>
-    </Uploader>
-  );
   return (
     <section
       className={s.user}
@@ -47,7 +40,11 @@ const UserMainInfo: React.FC<IUserMainInfo> = ({ handleUpload, isLoading, cover,
         <div className={s.user_info__value}>Buenos Aires, Argentine</div>
       </div>
       <div className={s.user_buttons}>
-        {uploadButton()}
+        <Uploader type="img" isButton handleUpload={handleUpload} isLoading={isLoading}>
+          <Button className={s.user_button} color="outline" icon="pencil" loading={isLoading}>
+            Edit Banner
+          </Button>
+        </Uploader>
         <Button className={s.user_button} color="outline" icon="edit" href="/profile/edit">
           Edit Profile
         </Button>
