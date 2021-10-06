@@ -5,6 +5,11 @@ export const routes = {
   discover: {
     root: '/discover',
   },
+  create:{
+    root:'/create',
+    single:'/create/single',
+    multiple:'/create/multiple',
+  },
   gallery: {
     detailArtwork: {
       root: '/gallery/artwork/:id',
