@@ -11,6 +11,9 @@
   width: 100%;
   &+&{
     margin-left: 32px;
+    @include forDesktopBig{
+      margin-left: 0;
+    }
   }
 }
 
