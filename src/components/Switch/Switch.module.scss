@@ -1,9 +1,8 @@
 @import '../../styles/helpers';
 
 .switch {
+  @include flexbox;
   position: relative;
-
-  display: inline-block;
 
   font-size: 0;
 
@@ -20,10 +19,10 @@
   opacity: 0;
 
   &:checked + .inner .box {
-    background: $gradient;
+    background: $color-primary;
 
     &::before {
-      background: $neutrals8;
+      background: $color-neutral-0;
 
       transform: translate(24px, -50%);
     }
@@ -47,9 +46,9 @@
   height: 24px;
 
   // @include dark {
-  background: $neutrals3;
+  background: $color-neutral-80;
   // background: $neutrals6;
-  border-radius: 12px;
+  border-radius: 32px;
 
   transition: all 0.2s;
   // }
@@ -63,7 +62,7 @@
     width: 16px;
     height: 16px;
 
-    background: $gradient;
+    background: $color-primary;
     border-radius: 50%;
 
     transition: all 0.2s;

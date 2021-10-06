@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { CSSProperties, FC, PropsWithChildren } from 'react';
+import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import { IconNames } from 'typings';
 
@@ -61,7 +61,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
         [styles.disabled]: disabled,
       })}
       onClick={onClick}
-      disabled={(disabled as boolean) || loading}
+      disabled={disabled || loading}
       style={style}
       onMouseLeave={onMouseLeave}
     >

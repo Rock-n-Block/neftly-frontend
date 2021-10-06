@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
-import { arrowLeft } from 'assets/img';
+import {useEffect, useRef, useState} from 'react';
+import {arrowLeft} from 'assets/img';
 import cn from 'classnames';
-import { Icon } from 'components';
+import {Icon, Text} from 'components';
 import Button from 'components/Button';
-import { IconNames } from 'typings';
+import {IconNames} from 'typings';
 
 import styles from './TextInput.module.scss';
 
 interface Props {
   className?: string;
-  label?: string;
+  label?: string | JSX.Element;
   name?: string;
   type: string;
   placeholder: string;
@@ -27,20 +27,20 @@ interface Props {
 }
 
 const TextInput: React.FC<Props> = ({
-  className,
-  label,
-  suffix,
-  onChange,
-  value,
-  suffixClassName,
-  name,
-  disabled,
-  prefix,
-  error,
-  icon,
-  isButton,
-  ...props
-}) => {
+                                      className,
+                                      label,
+                                      suffix,
+                                      onChange,
+                                      value,
+                                      suffixClassName,
+                                      name,
+                                      disabled,
+                                      prefix,
+                                      error,
+                                      icon,
+                                      isButton,
+                                      ...props
+                                    }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [elWidth, setElWidth] = useState(0);
   const prefixElement = (
@@ -57,11 +57,11 @@ const TextInput: React.FC<Props> = ({
 
   return (
     <div className={cn(styles.field, className)}>
-      {label && <div className={styles.label}>{label}</div>}
+      {label && <Text className={styles.label} size="m" weight="medium">{label}</Text>}
       <div className={styles.wrap}>
         {icon && (
           <Icon
-            className={cn(styles.icon, { [styles.disabled]: disabled })}
+            className={cn(styles.icon, {[styles.disabled]: disabled})}
             name={icon}
             size="24"
             fill="#fff"
@@ -71,20 +71,20 @@ const TextInput: React.FC<Props> = ({
         <input
           id={name}
           value={value}
-          className={cn(styles.input, { [styles.error]: error, [styles.withIcon]: icon })}
+          className={cn(styles.input, {[styles.error]: error, [styles.withIcon]: icon})}
           onChange={onChange}
           onWheel={(e) => e.currentTarget.blur()}
           disabled={disabled}
           {...props}
           style={
             elWidth
-              ? { paddingLeft: `${elWidth + 24}px`, paddingRight: suffix ? '74px' : '' }
-              : { paddingRight: suffix ? '74px' : '' }
+              ? {paddingLeft: `${elWidth + 24}px`, paddingRight: suffix ? '74px' : ''}
+              : {paddingRight: suffix ? '74px' : ''}
           }
         />
         {isButton && (
           <Button className={styles.inputButton}>
-            <img src={arrowLeft} alt="" />
+            <img src={arrowLeft} alt=""/>
           </Button>
         )}
         <div className={cn(styles.suffix, suffixClassName)}>{suffix}</div>

@@ -1,48 +1,44 @@
 @import '../../../styles/helpers';
 
 .title {
+  @include monument-extended;
+  line-height: 120%;
   margin-bottom: 32px;
 }
 
 .upload {
-  display: flex;
+  @include flexbox;
 
   img {
     width: 128px;
     height: 128px;
 
-    border-radius: 160px;
+    border-radius: 100%;
+    flex-shrink: 0;
+    object-fit: contain;
   }
 
   .empty {
-    min-width: 128px;
+    width: 128px;
     height: 128px;
+    flex-shrink: 0;
 
-    background: $gradient;
+    background: $color-secondary;
     border-radius: 100%;
   }
 }
 
 .wrapper {
   margin-top: 20px;
-  margin-right: 24px;
-  margin-left: 32px;
+  margin-left: 20px;
 
-  display: flex;
+  @include flexbox(center, space-between);
   flex-direction: column;
-  gap: 16px;
-
-  .text {
-    color: $neutrals4;
+  .file{
+    width: 100%;
   }
 }
 
-.file {
-  position: relative;
-
-  display: inline-block;
-  overflow: hidden;
-}
 
 .load {
   position: absolute;
@@ -56,8 +52,12 @@
 
 .fieldset {
   margin-top: 32px;
-
-  .field {
+  .field{
+    &:not(:first-child){
+      margin-top: 16px;
+    }
+  }
+  /*.field {
     input::placeholder {
       color: $purple2;
     }
@@ -69,7 +69,7 @@
         margin-bottom: 20px;
       }
     }
-  }
+  }*/
 }
 
 .button {

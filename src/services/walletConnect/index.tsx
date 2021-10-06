@@ -1,12 +1,10 @@
 import React, { createContext, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
-import { observer } from 'mobx-react';
 import { notification } from 'antd';
-
-import { rootStore } from '../../store';
-import { userApi } from '../api';
-import { WalletConnect } from '../walletService';
-import { is_production } from '../../config';
+import { is_production } from 'config';
+import { observer } from 'mobx-react';
+import { userApi, WalletConnect } from 'services';
+import { rootStore } from 'store';
 
 declare global {
   interface Window {

@@ -7,7 +7,8 @@ import { observer } from 'mobx-react-lite';
 
 import { storeApi } from '../../../services/api';
 // import { useMst } from '../../../store';
-import { validateForm } from '../../../utils/validate';
+// import {validateForm} from '../../../utils/validate';
+import * as Yup from 'yup';
 import CreateForm, { ICreateForm } from '../component';
 
 export default observer(({ isSingle, walletConnector }: any) => {
@@ -19,50 +20,64 @@ export default observer(({ isSingle, walletConnector }: any) => {
       cover: '',
       preview: '',
       coverPreview: '',
-      putOnSale: true,
-      instantSalePrice: true,
+      sellMethod: 'fixedPrice',
       // unlockOncePurchased: false,
       format: '',
       instantSalePriceEth: '',
       // digitalKey: '',
+      price: '',
       tokenName: '',
       tokenDescr: '',
       tokenRoyalties: '10%',
-      numberOfCopies: '',
+      numberOfCopies: '1',
       tokenProperties: [
         {
-          size: '',
+          name: '',
           amount: '',
         },
       ],
       isLoading: false,
-      collectionId: '16',
+      collectionId: 0,
       currency: 'WETH',
       bid: '',
       showModal: false,
     }),
-    validate: (values: any) => {
-      const notRequired: string[] = ['tokenDescr', 'preview'];
-      if (
-        !values.putOnSale ||
-        (!values.instantSalePrice && !notRequired.includes('instantSalePriceEth'))
-      ) {
-        notRequired.push('instantSalePriceEth');
-      } /*
-      if (!values.unlockOncePurchased && !notRequired.includes('digitalKey')) {
-        notRequired.push('digitalKey');
-      } */
-      if (isSingle) {
-        notRequired.push('numberOfCopies');
-      }
-      if (!values.putOnSale || values.instantSalePrice) {
-        notRequired.push('bid');
-      }
-      const errors = validateForm({ values, notRequired });
 
-      return errors;
-    },
-
+    validationSchema: Yup.object().shape({
+      displayName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+      customUrl: Yup.string().max(50, 'Too Long!'),
+      bio: Yup.string().max(100),
+      site: Yup.string().url(),
+      twitter: Yup.string().max(50),
+      instagram: Yup.string().max(50),
+      facebook: Yup.string().max(50),
+      email: Yup.string().email('Invalid email'),
+      img: Yup.string(),
+      cover: Yup.string(),
+      preview: Yup.string(),
+      coverPreview: Yup.string(),
+      sellMethod: Yup.string(),
+      // unlockOncePurchased: false,
+      format: Yup.string(),
+      instantSalePriceEth: Yup.string(),
+      // digitalKey: '',
+      price: Yup.string(),
+      tokenName: Yup.string(),
+      tokenDescr: Yup.string().max(500, 'Too Long!'),
+      tokenRoyalties: Yup.string(),
+      numberOfCopies: Yup.string(),
+      tokenProperties: Yup.array().of(
+        Yup.object().shape({
+          name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+          amount: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+        }),
+      ),
+      isLoading: Yup.bool(),
+      collectionId: Yup.number(),
+      currency: Yup.string().matches(/(ETH|WETH|USDT)/),
+      bid: Yup.string(),
+      showModal: Yup.bool(),
+    }),
     handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
 
@@ -72,29 +87,29 @@ export default observer(({ isSingle, walletConnector }: any) => {
       formData.append('name', values.tokenName);
       formData.append('total_supply', isSingle ? '1' : values.numberOfCopies.toString());
       formData.append('description', values.tokenDescr);
-      if (values.instantSalePrice && values.putOnSale) {
-        formData.append('price', values.instantSalePriceEth.toString());
+      if (values.sellMethod === 'fixedPrice') {
+        formData.append('price', values.price.toString());
       }
-      if (!values.instantSalePrice && values.putOnSale) {
+      if (values.sellMethod === 'openForBids') {
         formData.append('minimal_bid', values.bid.toString());
       }
-      if (values.putOnSale) {
+      if (values.sellMethod) {
         formData.append('available', values.numberOfCopies.toString());
       } else {
         formData.append('available', '0');
       }
       formData.append('creator_royalty', values.tokenRoyalties.toString().slice(0, -1));
       formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
-      formData.append('collection', values.collectionId);
+      formData.append('collection', values.collectionId.toString());
       formData.append('currency', values.currency);
       formData.append('format', values.format);
       // formData.append('creator', localStorage.dds_token);
 
-      if (values.tokenProperties[0].size) {
+      if (values.tokenProperties[0].name) {
         const details: any = {};
         values.tokenProperties.forEach((item) => {
-          if (item.size) {
-            details[item.size] = item.amount;
+          if (item.name) {
+            details[item.name] = item.amount;
           }
         });
 

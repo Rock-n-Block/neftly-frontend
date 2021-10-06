@@ -9,6 +9,11 @@ export const routes = {
     root: '/nft/:id',
     link: '/nft',
   },
+  create: {
+    root: '/create',
+    single: '/create/single',
+    multiple: '/create/multiple',
+  },
   profile: {
     root: '/profile/:userId',
     edit: '/profile/edit',

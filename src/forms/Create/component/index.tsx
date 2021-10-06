@@ -1,40 +1,39 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Form } from 'antd';
-// import BigNumber from 'bignumber.js/bignumber';
+import React, { useState } from 'react';
+import { upload } from 'assets/img/upload';
 import cn from 'classnames';
-import { FieldArray, FormikProps } from 'formik';
+import { Form, Field, FieldArray, FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
 
-import { ReactComponent as FixedPrice } from '../../../assets/img/icons/fixed-price.svg';
-import { ReactComponent as Infinity } from '../../../assets/img/icons/infinity.svg';
-import { ReactComponent as Lock } from '../../../assets/img/icons/lock.svg';
-import { ReactComponent as Timer } from '../../../assets/img/icons/timer.svg';
-import Button from '../../../components/Button';
-import Dropdown from '../../../components/Dropdown';
-import DropdownWithImage from '../../../components/DropdownWithImage';
-import Icon from '../../../components/Icon';
-// import Loader from '../../../components/Loader/Circular1';
-import Modal from '../../../components/Modal';
-import Switch from '../../../components/Switch';
-import TextInput from '../../../components/TextInput';
-// import { NFTCard } from '../../../components/molecules';
-// import { ChooseCollection, Uploader } from '../../../components';
-import Uploader from '../../../components/Uploader';
-import { ratesApi } from '../../../services/api';
-import { useMst } from '../../../store';
-import { validateField } from '../../../utils/validate';
+import {
+  Button,
+  Dropdown,
+  Modal,
+  TextArea,
+  TextInput,
+  Uploader,
+  Switch,
+  Radio,
+  Text,
+  H6,
+  RequiredMark,
+} from 'components';
+import { IRadioButton } from 'components/Radio';
 
 import ChooseCollection from './ChooseCollection';
-// import Cards from './Cards';
-import Preview from './Preview';
 import SuccessCreated from './SuccessCreated';
 
 import styles from './CreateCollectibleDetails.module.scss';
+import { useHistory } from 'react-router';
 
 const royaltiesOptions = ['10%', '20%', '30%'];
 
+// TODO:remove after getting rates
+const mockCurrenciesOptions = ['ETH', 'WETH', 'USDT'];
+
+const numberOfCopiesOptions = ['1', '3', '5'];
+
 interface IProperti {
-  size: string | number;
+  name: string | number;
   amount: string | number;
 }
 
@@ -42,24 +41,35 @@ export interface ICreateForm {
   img: any;
   preview: string;
   coverPreview: string;
-  putOnSale: boolean;
-  instantSalePrice: boolean;
-  // unlockOncePurchased: boolean;
-  instantSalePriceEth: number | string;
+  sellMethod: string;
   cover: any;
   tokenName: string;
   tokenDescr: string;
   tokenRoyalties: string;
-  numberOfCopies: number | string;
+  numberOfCopies: string;
   tokenProperties: IProperti[];
   isSingle?: boolean;
   isLoading: boolean;
-  collectionId: string;
-  currency: string;
+  collectionId: number;
+  currency: 'ETH' | 'WETH' | 'USDT';
   bid: string;
+  price: string;
   format: string;
   showModal: boolean;
 }
+
+const sellMethods: IRadioButton[] = [
+  {
+    value: 'fixedPrice',
+    optionTitle: 'Fixed price',
+    optionInfo: 'Sell at fixed price',
+  },
+  {
+    value: 'openForBids',
+    optionTitle: 'Open for bids',
+    optionInfo: 'Sell through Auction',
+  },
+];
 
 const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
   ({
@@ -70,32 +80,35 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     handleBlur,
     handleChange,
     handleSubmit,
-    isSingle,
+    isSingle = true,
   }) => {
-    const { user } = useMst();
-    // const [active, setActive] = useState('price');
-    const [rates, setRates] = useState([]);
-    const [visiblePreview, setVisiblePreview] = useState(false);
+    const history = useHistory();
+    // const [rates, setRates] = useState([]);
+    const [addToCollection, setAddToCollection] = useState(true);
+    // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
     // const cryptocurrencies = ['ETH', 'BTC'];
     const onSubmit = () => {
       handleSubmit();
     };
+    const onCancel = () => {
+      history.goBack();
+    };
     const handleChangeProperty = (e: any, index: any, type: any) => {
       const localProperties = [...values.tokenProperties];
 
-      if (type === 'size') {
-        localProperties[index].size = e.target.value;
+      if (type === 'name') {
+        localProperties[index].name = e.target.value;
       }
       if (type === 'amount') {
         localProperties[index].amount = e.target.value;
       }
       if (
-        localProperties[localProperties.length - 1].size &&
+        localProperties[localProperties.length - 1].name &&
         localProperties[localProperties.length - 1].amount
       ) {
         localProperties.push({
-          size: '',
+          name: '',
           amount: '',
         });
       }
@@ -103,19 +116,20 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       handleChange(e);
     };
 
-    const fetchRates = useCallback(() => {
-      ratesApi.getRates().then(({ data }: any) => {
-        setRates(data);
-      });
-    }, []);
+    /* const fetchRates = useCallback(() => {
+       ratesApi.getRates().then(({data}: any) => {
+         setRates(data);
+       });
+     }, []); */
 
-    useEffect(() => {
-      fetchRates();
-    }, [fetchRates]);
+    /* useEffect(() => {
+       fetchRates();
+     }, [fetchRates]); */
+
     return (
-      <div className={styles.formWrapper}>
-        <Form name="form-create" className={styles.form} layout="vertical">
-          <div className={styles.list}>
+      <>
+        <Form name="form-create" className={styles.form}>
+          <div className={styles.column}>
             {(values.format === 'video' || values.format === 'audio') && (
               <div className={styles.item}>
                 {values.cover ? (
@@ -124,25 +138,32 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   </div>
                 ) : (
                   <>
-                    <div className={styles.category}>Upload preview</div>
-                    <div className={styles.note}>Drag or choose your file to upload</div>
                     <div className={styles.file}>
-                      <Form.Item
+                      <Field
                         name="cover"
                         className={styles.load}
-                        validateStatus={validateField('cover', touched, errors)}
-                        help={!touched.cover ? false : errors.cover}
-                      >
-                        <Uploader
-                          type="cover"
-                          name="cover"
-                          setFormat={(value: string) => setFieldValue('format', value)}
-                        />
-                      </Form.Item>
-                      <div className={styles.icon}>
-                        <img alt="" src="/images/content/icon-upload-gradient.svg" />
+                        render={() => (
+                          <Uploader
+                            type="cover"
+                            name="cover"
+                            setFormat={(value: string) => setFieldValue('format', value)}
+                          />
+                        )}
+                      />
+                      <div className={styles.capture}>
+                        <div className={styles.icon}>
+                          <img alt="" src={upload} />
+                        </div>
+                        <Text className={styles.category} size="m" weight="medium" color="white">
+                          Upload preview
+                        </Text>
+                        <Text className={styles.note} color="lightGray">
+                          Drag or choose your file to upload
+                        </Text>
+                        <Text className={styles.format} size="xxs" color="gray">
+                          (PNG, GIF, WEBP, MP4 or MP3. Max 5 Mb.)
+                        </Text>
                       </div>
-                      <div className={styles.format}>JPG, JPEG, PNG, GIF or WEBP. Max 1Gb.</div>
                     </div>
                   </>
                 )}
@@ -174,80 +195,186 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 </div>
               ) : (
                 <>
-                  <div className={styles.category}>Upload file</div>
-                  <div className={styles.note}>Drag or choose your file to upload</div>
                   <div className={styles.file}>
-                    <Form.Item
+                    <Field
                       name="img"
                       className={styles.load}
-                      validateStatus={validateField('img', touched, errors)}
-                      help={!touched.img ? false : errors.img}
-                    >
-                      <Uploader
-                        type="img"
-                        name="img"
-                        setFormat={(value: string) => setFieldValue('format', value)}
-                      />
-                    </Form.Item>
-                    <div className={styles.icon}>
-                      <img alt="" src="/images/content/icon-upload-gradient.svg" />
-                    </div>
-                    <div className={styles.format}>
-                      JPG, JPEG, PNG, GIF, WEBP, MP3 or MP4. Max 1Gb.
+                      render={() => (
+                        <Uploader
+                          type="img"
+                          name="img"
+                          setFormat={(value: string) => setFieldValue('format', value)}
+                        />
+                      )}
+                    />
+                    <div className={styles.capture}>
+                      <div className={styles.icon}>
+                        <img alt="" src={upload} />
+                      </div>
+                      <Text className={styles.category} size="m" weight="medium" color="white">
+                        Upload preview
+                      </Text>
+                      <Text className={styles.note} color="lightGray">
+                        Drag or choose your file to upload
+                      </Text>
+                      <Text className={styles.format} size="xxs" color="gray">
+                        (PNG, GIF, WEBP, MP4 or MP3. Max 5 Mb.)
+                      </Text>
                     </div>
                   </div>
                 </>
               )}
             </div>
+          </div>
+          <div className={styles.column}>
             <div className={styles.item}>
-              <div className={styles.category}>Item Details</div>
               <div className={styles.fieldset}>
-                <Form.Item
-                  name="tokenName"
-                  className={styles.field}
-                  validateStatus={validateField('tokenName', touched, errors)}
-                  help={!touched.tokenName ? false : errors.tokenName}
-                >
-                  <div>
+                <H6>Sell method</H6>
+                <Field
+                  name="sellMethod"
+                  render={() => (
+                    <Radio
+                      className={cn(styles.field, styles.options)}
+                      name="sellMethod"
+                      options={sellMethods}
+                      controlledValue={values.sellMethod}
+                      onChange={(newValue) => {
+                        setFieldValue('sellMethod', newValue);
+                      }}
+                    />
+                  )}
+                />
+              </div>
+              <div className={styles.fieldset}>
+                <H6>Artwork Details</H6>
+                <Field
+                  render={() => (
                     <TextInput
-                      label="Item name"
+                      label={
+                        <>
+                          Item name <RequiredMark />
+                        </>
+                      }
                       name="tokenName"
                       type="text"
-                      placeholder='e. g. Redeemable Bitcoin Card with logo"'
+                      placeholder='e. g. "Redeemable Bitcoin Card with logo"'
                       value={values.tokenName}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      className={styles.field}
                       required
                     />
-                  </div>
-                </Form.Item>
-                <Form.Item
-                  className={styles.field}
+                  )}
+                />
+                {touched.tokenName && errors.tokenName && (
+                  <Text color="red">{errors.tokenName}</Text>
+                )}
+                <Field
                   name="tokenDescr"
-                  validateStatus={validateField('tokenDescr', touched, errors)}
-                  help={!touched.tokenDescr ? false : errors.tokenDescr}
-                >
-                  <div>
-                    <TextInput
-                      label="Description"
+                  render={() => (
+                    <TextArea
+                      label={
+                        <>
+                          Description <RequiredMark />
+                        </>
+                      }
                       name="tokenDescr"
-                      type="text"
-                      placeholder="e. g. “After purchasing you will able to recived the logo...”"
                       value={values.tokenDescr}
+                      placeholder="e. g. “After purchasing you will able to recived the logo...”"
                       onChange={handleChange}
-                      onBlur={handleBlur}
-                      // required
+                      maxLettersCount={500}
+                      className={styles.field}
+                    />
+                  )}
+                />
+                {touched.tokenDescr && errors.tokenDescr && (
+                  <Text color="red">{errors.tokenDescr}</Text>
+                )}
+                <div className={styles.fieldsetRow}>
+                  <div className={cn(styles.price, styles.fieldsetRowColumn)}>
+                    <Text className={styles.label} size="m" weight="medium">
+                      Price
+                    </Text>
+                    <div className={styles.inputs}>
+                      <Field
+                        render={() => (
+                          <Dropdown
+                            name="currency"
+                            setValue={(value) => setFieldValue('currency', value)}
+                            options={mockCurrenciesOptions}
+                            className={styles.dropdown}
+                            value={values.currency}
+                          />
+                        )}
+                      />
+                      <Field
+                        render={() => (
+                          <TextInput
+                            name="price"
+                            type="number"
+                            placeholder="e.g. 0.007"
+                            value={values.price.toString()}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            required
+                            className={styles.priceInput}
+                          />
+                        )}
+                      />
+                      {touched.price && errors.price && <Text color="red">{errors.price}</Text>}
+                    </div>
+                    <div className={styles.postfix}>
+                      {/* change dynamically */}
+                      <Text color="gray">Minimum price 0.004 ETH</Text>
+                      <Text color="gray">USD 234.24 PER/ETH</Text>
+                    </div>
+                  </div>
+                  <div className={styles.fieldsetRowColumn}>
+                    <Text className={styles.label} size="m" weight="medium">
+                      In Stock <RequiredMark />
+                    </Text>
+                    <Field
+                      render={() => (
+                        <Dropdown
+                          name="numberOfCopies"
+                          setValue={(value) => setFieldValue('numberOfCopies', value)}
+                          options={numberOfCopiesOptions}
+                          className={styles.dropdown}
+                          value={values.numberOfCopies}
+                        />
+                      )}
                     />
                   </div>
-                </Form.Item>
+                  <div className={styles.fieldsetRowColumn}>
+                    <Text className={styles.label} size="m" weight="medium">
+                      Royalties <RequiredMark />
+                    </Text>
+                    <Field
+                      render={() => (
+                        <Dropdown
+                          name="Royalties"
+                          setValue={(value) => setFieldValue('tokenRoyalties', value)}
+                          options={royaltiesOptions}
+                          className={styles.dropdown}
+                          value={values.tokenRoyalties}
+                        />
+                      )}
+                    />
+                  </div>
+                </div>
+                <div className={styles.fee}>
+                  <Text color="secondary">
+                    Service fee {serviceFee}%
+                    <br />
+                    You will receive {(parseFloat(values.bid) * (100 - serviceFee)) / 100 || 0}{' '}
+                    {values.currency.toUpperCase()}
+                  </Text>
+                </div>
                 {!isSingle && (
-                  <Form.Item
+                  <Field
                     className={styles.field}
                     name="numberOfCopies"
-                    validateStatus={validateField('numberOfCopies', touched, errors)}
-                    help={!touched.numberOfCopies ? false : errors.numberOfCopies}
-                  >
-                    <div>
+                    render={() => (
                       <TextInput
                         className={styles.field}
                         label="Tokens amount"
@@ -259,242 +386,108 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         onBlur={handleBlur}
                         required
                       />
-                    </div>
-                  </Form.Item>
+                    )}
+                  />
                 )}
-                <div className={styles.row}>
-                  <div className={styles.col}>
-                    <div className={styles.label}>Royalties</div>
-                    {/* <Form.Item
-                      className={styles.field}
-                      name="Royalties"
-                      validateStatus={validateField('tokenRoyalties', touched, errors)}
-                      help={!touched.tokenRoyalties ? false : errors.tokenRoyalties}
-                      // initialValue={values.tokenRoyalties}
-                      // va
-                    > */}
-                    {/* console.log(values.tokenRoyalties) */}
-                    <Dropdown
-                      name="Royalties"
-                      setValue={(value) => setFieldValue('tokenRoyalties', value)}
-                      options={royaltiesOptions}
-                      className={styles.dropdown}
-                      value={values.tokenRoyalties}
-                    />
-                    {/* </Form.Item> */}
-                  </div>
+                {!isSingle && touched.numberOfCopies && errors.numberOfCopies && (
+                  <Text color="red">{errors.numberOfCopies}</Text>
+                )}
+                <div className={styles.tokenProperties}>
                   <FieldArray
                     name="tokenProperties"
                     render={() => {
                       return values.tokenProperties?.map((item: any, index: any) => (
-                        <>
-                          <Form.Item
-                            name={`tokenProperties[${index}].size`}
-                            validateStatus={validateField(`tokenProperties`, touched, errors)}
-                            className={styles.col}
-                            help={(() => {
-                              return errors.tokenProperties &&
-                                errors.tokenProperties[index] &&
-                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                // @ts-ignore
-                                // eslint-disable-next-line no-param-reassign
-                                errors.tokenProperties[index].size
-                                ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                  // @ts-ignore
-                                  // eslint-disable-next-line no-param-reassign
-                                  errors.tokenProperties[index].size
-                                : false;
-                            })()}
-                          >
-                            <div>
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div className={styles.tokenProperty} key={`tokenProperty_${index}`}>
+                          <Field
+                            name={`tokenProperties[${index}].name`}
+                            /* help={(() => {
+                               return errors.tokenProperties &&
+                               errors.tokenProperties[index] &&
+                               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                               // @ts-ignore
+                               // eslint-disable-next-line no-param-reassign
+                               errors.tokenProperties[index].name
+                                 ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                   // @ts-ignore
+                                   // eslint-disable-next-line no-param-reassign
+                                 errors.tokenProperties[index].name
+                                 : false;
+                             })()} */
+                            render={() => (
                               <TextInput
-                                label="Size"
+                                label="Property"
                                 type="text"
-                                name={`tokenProperties[${index}].size`}
+                                name={`tokenProperties[${index}].name`}
                                 placeholder="e. g. Size"
                                 onChange={(e) => handleChangeProperty(e, index, 'size')}
                                 onBlur={handleBlur}
+                                className={styles.tokenPropertyName}
                               />
-                            </div>
-                          </Form.Item>
+                            )}
+                          />
 
-                          <Form.Item
+                          <Field
                             name={`tokenProperties[${index}].amount`}
-                            className={styles.col}
-                            validateStatus={validateField(`tokenProperties`, touched, errors)}
-                            help={(() => {
-                              return errors.tokenProperties &&
-                                errors.tokenProperties[index] &&
-                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                // @ts-ignore
-                                // eslint-disable-next-line no-param-reassign
-                                errors.tokenProperties[index].amount
-                                ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                  // @ts-ignore
-                                  // eslint-disable-next-line no-param-reassign
-                                  errors.tokenProperties[index].amount
-                                : false;
-                            })()}
-                          >
-                            <div>
+                            render={() => (
                               <TextInput
-                                name="Amount"
-                                label="Amount"
+                                name="amount"
+                                label="amount"
                                 type="text"
                                 placeholder="e. g. M"
                                 onChange={(e) => handleChangeProperty(e, index, 'amount')}
                                 onBlur={handleBlur}
+                                className={styles.tokenPropertyValue}
                               />
-                            </div>
-                          </Form.Item>
-                        </>
+                            )}
+                          />
+                        </div>
                       ));
                     }}
                   />
                 </div>
               </div>
             </div>
-          </div>
-          <div className={styles.options}>
-            <div className={styles.option}>
-              <div className={styles.box}>
-                <div className={styles.category}>Put on sale</div>
-                <div className={styles.text}>You’ll receive bids on this item</div>
-              </div>
-              <Switch
-                value={values.putOnSale}
-                setValue={(value) => setFieldValue('putOnSale', value)}
-              />
+            <div className={cn(styles.fieldset, styles.addCollection)}>
+              <H6 className={styles.fieldsetTitle}>
+                Add to collection
+                <Switch
+                  value={addToCollection}
+                  setValue={() => setAddToCollection(!addToCollection)}
+                />
+              </H6>
+              {addToCollection && (
+                <ChooseCollection
+                  className={styles.collections}
+                  activeCollectionId={values.collectionId}
+                  onChange={(value) => setFieldValue('collectionId', value)}
+                  isSingle={isSingle}
+                />
+              )}
             </div>
-          </div>
-          <div className={styles.squares}>
-            <div
-              className={cn({ [styles.active]: values.instantSalePrice }, styles.square)}
-              onClick={() => setFieldValue('instantSalePrice', true)}
-              onKeyDown={() => {}}
-              role="button"
-              tabIndex={0}
-            >
-              <div className={styles.inner}>
-                <div className={cn({ [styles.hidden]: !values.instantSalePrice }, styles.circle)}>
-                  <FixedPrice />
-                </div>
-                <span>Fixed Price</span>
-              </div>
-            </div>
-            <div
-              className={cn({ [styles.active]: !values.instantSalePrice }, styles.square)}
-              onClick={() => setFieldValue('instantSalePrice', false)}
-              onKeyDown={() => {}}
-              role="button"
-              tabIndex={0}
-            >
-              <div className={styles.inner}>
-                <div className={cn({ [styles.hidden]: values.instantSalePrice }, styles.circle)}>
-                  <Infinity />
-                </div>
-                <span>Open for bids</span>
-              </div>
-            </div>
-            <div className={cn(styles.disabled, styles.square)}>
-              <div className={styles.header}>
-                <Lock />
-                <span>Coming soon</span>
-              </div>
-              <div className={styles.body}>
-                <Timer />
-                <span>Timed auction</span>
-              </div>
-            </div>
-          </div>
-          {values.putOnSale && (
-            <>
-              <Form.Item
-                name={values.instantSalePrice ? 'instantSalePriceEth' : 'bid'}
-                validateStatus={
-                  values.instantSalePrice
-                    ? validateField('instantSalePriceEth', touched, errors)
-                    : validateField('bid', touched, errors)
-                }
-                help={
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  // eslint-disable-next-line
-                  values.instantSalePrice
-                    ? !touched.instantSalePriceEth
-                      ? false
-                      : errors.instantSalePriceEth
-                    : !touched.bid
-                    ? false
-                    : errors.bid
-                }
+            <div className={styles.btns}>
+              <Button
+                className={cn('button', styles.button, styles.submitBtn)}
+                onClick={onSubmit}
+                loading={values.isLoading}
               >
-                <div style={{ position: 'relative' }} className={styles.fieldset}>
-                  <TextInput
-                    name={values.instantSalePrice ? 'instantSalePriceEth' : 'bid'}
-                    className={cn(styles.field, styles.priceBid)}
-                    label={values.instantSalePrice ? 'Enter price' : 'Minimum bid'}
-                    value={
-                      values.instantSalePrice ? values.instantSalePriceEth.toString() : values.bid
-                    }
-                    placeholder={
-                      values.instantSalePrice ? 'Enter price for one piece' : 'Enter minimum bid'
-                    }
-                    type="number"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <DropdownWithImage
-                    className={styles.cryptocurrenciesDropdown}
-                    value={values.currency.toUpperCase()}
-                    options={rates}
-                    setValue={(value: string) => setFieldValue('currency', value)}
-                    customClasses={{
-                      head: styles.cryptocurrenciesDropdownHead,
-                      selection: styles.cryptocurrenciesDropdownSelection,
-                      arrow: styles.cryptocurrenciesDropdownArrow,
-                    }}
-                  />
-                </div>
-              </Form.Item>
-              <div className={styles.fee}>
-                <span>
-                  Service fee <span className={styles.purple}>{serviceFee}%</span>{' '}
-                </span>
-                <span>
-                  You will receive{' '}
-                  <span className={styles.purple}>
-                    {(parseFloat(values.bid) * (100 - serviceFee)) / 100}{' '}
-                    {values.currency.toUpperCase()}
-                  </span>{' '}
-                </span>
-              </div>
-            </>
-          )}
-          {user.address ? <ChooseCollection isSingle={isSingle} /> : null}
-          <Button
-            className={cn('button', styles.button)}
-            onClick={onSubmit}
-            loading={values.isLoading}
-          >
-            <span>Create item</span>
-            <Icon name="arrow-next" size="10" />
-          </Button>
+                Create item
+              </Button>
+              <Button
+                className={cn('button', styles.button, styles.cancelBtn)}
+                onClick={onCancel}
+                color="transparent"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
         </Form>
-        <Preview
-          className={cn(styles.preview, { [styles.active]: visiblePreview })}
-          onClose={() => setVisiblePreview(false)}
-          mediaURL={values.format === 'image' ? values.preview : values.coverPreview}
-          name={values.tokenName}
-          price={values.instantSalePriceEth.toString()}
-          format={values.format}
-          // onClear={handleClear}
-        />
 
         <Modal visible={values.showModal} onClose={() => setFieldValue('showModal', false)}>
           <SuccessCreated close={() => setFieldValue('showModal', false)} title="token" />
         </Modal>
-      </div>
+      </>
     );
   },
 );
