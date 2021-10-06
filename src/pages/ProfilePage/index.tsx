@@ -1,9 +1,12 @@
-import { useState, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router';
 
 import UserMainInfo from './UserMainInfo/index';
+import { userApi } from 'services/api';
+import { useMst } from 'store/store';
 
 import { H3, ArtCard, Button, Select, TabLookingComponent } from 'components';
-import { data } from './CardsMock';
+import { data as dataMock } from './CardsMock';
 
 import s from './ProfilePage.module.scss';
 
@@ -59,6 +62,69 @@ const tabs = [
 
 const ProfilePage: React.FC = () => {
   const [filterOne, setFilterOne] = useState(selectOptions[0]);
+  const { userId } = useParams<{ userId: string }>();
+  const { user } = useMst();
+  const history = useHistory();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [shownUser, setShownUser] = useState<{
+    id: number | string;
+    avatar: string;
+    display_name?: string;
+    address: string;
+    cover: string;
+    followers: Array<any>;
+    followers_count: number;
+    follows_count: number;
+    twitter: string | null;
+    instagram: string | null;
+    facebook: string | null;
+    site: string | null;
+    bio: string | null;
+    created_at: any;
+  }>({
+    address: '',
+    cover: '',
+    id: '',
+    avatar: '',
+    display_name: '',
+    followers: [],
+    followers_count: 0,
+    follows_count: 0,
+    twitter: null,
+    instagram: null,
+    facebook: null,
+    site: null,
+    bio: null,
+    created_at: '',
+  });
+
+  const getUser = useCallback(() => {
+    userApi.getUser({ id: userId }).then(({ data }: any) => setShownUser(data));
+  }, [userId]);
+
+  const handleUpload = (file: any) => {
+    setIsLoading(true);
+    const fileData = new FormData();
+    fileData.append('cover', file);
+    userApi
+      .setUserCover(fileData)
+      .then(({ data }) => {
+        setIsLoading(false);
+        user.setCover(data);
+        getUser();
+      })
+      .catch((err) => {
+        console.log(err, 'set cover');
+      });
+  };
+
+  useEffect(() => {
+    if (userId) {
+      getUser();
+    } else {
+      history.push('/');
+    }
+  }, [getUser, userId, history]);
   const handleFilterOne = useCallback((value) => {
     setFilterOne(value);
   }, []);
@@ -71,7 +137,12 @@ const ProfilePage: React.FC = () => {
   return (
     <section className={s.page}>
       <div className={s.page_user}>
-        <UserMainInfo />
+        <UserMainInfo
+          handleUpload={handleUpload}
+          isLoading={isLoading}
+          cover={shownUser.cover}
+          avatar={shownUser.avatar}
+        />
       </div>
 
       <div className={s.page_body}>
@@ -93,7 +164,7 @@ const ProfilePage: React.FC = () => {
           </div>
 
           <div className={s.page_body__artworks}>
-            {data.map((el) => (
+            {dataMock.map((el) => (
               <ArtCard
                 key={`${el.inStockNumber}-${el.author}-${el.price}`}
                 {...el}

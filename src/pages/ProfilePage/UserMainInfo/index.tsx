@@ -1,18 +1,30 @@
 import React from 'react';
+import { Button, H2, Uploader } from 'components';
 
-import { H2, Button } from 'components';
+import { ReactComponent as GeoIcon } from '../../../assets/img/ProfilePage/geo_icon.svg';
+import { ReactComponent as LinkIcon } from '../../../assets/img/ProfilePage/link_icon.svg';
+import profile_avatar_example from '../../../assets/img/ProfilePage/profile_avatar_example.png';
+import profile_page_bg_example from '../../../assets/img/ProfilePage/profile_page_bg_example.png';
 
 import s from './UserMainInfo.module.scss';
 
-import profile_avatar_example from '../../../assets/img/ProfilePage/profile_avatar_example.png';
-import { ReactComponent as LinkIcon } from '../../../assets/img/ProfilePage/link_icon.svg';
-import { ReactComponent as GeoIcon } from '../../../assets/img/ProfilePage/geo_icon.svg';
+interface IUserMainInfo {
+  handleUpload: (file: any) => void;
+  isLoading: boolean;
+  cover?: string;
+  avatar?: string;
+}
 
-const UserMainInfo: React.FC = () => {
+const UserMainInfo: React.FC<IUserMainInfo> = ({ handleUpload, isLoading, cover, avatar }) => {
   return (
-    <section className={s.user}>
+    <section
+      className={s.user}
+      style={{
+        background: `url(${cover || profile_page_bg_example}) center center no-repeat`,
+      }}
+    >
       <div className={s.user_avatar}>
-        <img src={profile_avatar_example} alt="profile_avatar_example" />
+        <img src={avatar || profile_avatar_example} alt="profile_avatar_example" />
       </div>
       <H2 className={s.user_name}>Bruno Bangnyfe</H2>
       <div className={s.user_info}>
@@ -28,9 +40,11 @@ const UserMainInfo: React.FC = () => {
         <div className={s.user_info__value}>Buenos Aires, Argentine</div>
       </div>
       <div className={s.user_buttons}>
-        <Button className={s.user_button} color="outline" icon="pencil">
-          Edit Banner
-        </Button>
+        <Uploader type="img" isButton handleUpload={handleUpload} isLoading={isLoading}>
+          <Button className={s.user_button} color="outline" icon="pencil" loading={isLoading}>
+            Edit Banner
+          </Button>
+        </Uploader>
         <Button className={s.user_button} color="outline" icon="edit" href="/profile/edit">
           Edit Profile
         </Button>
