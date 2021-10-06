@@ -23,7 +23,6 @@
     border-top-right-radius: 10px;
   }
 
-
   @include forTablet {
     padding: 15px 5px;
     font-size: 12px;
@@ -31,7 +30,6 @@
 }
 
 .row {
-
   &:last-child {
     .cell {
       &:first-child {
@@ -60,4 +58,3 @@
 .preloader {
   padding: 15px 0;
 }
-

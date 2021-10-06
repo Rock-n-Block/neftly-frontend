@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 
 import Icon from '../../components/Icon';
 import { storeApi, userApi } from '../../services/api';
-import { useMst } from '../../store/store';
+import { useMst } from '../../store';
 
 import Followers from './Followers';
 import Items from './Items';

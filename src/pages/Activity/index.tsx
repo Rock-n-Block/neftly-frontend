@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 
-import { useMst } from '../../store/store';
+import { useMst } from '../../store';
 import { ActivityItem, Loader, Button, H2, H3, ArtCard } from 'components';
 import { activityApi } from '../../services/api';
 import Filters from './Filters';

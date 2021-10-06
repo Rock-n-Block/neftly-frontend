@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import cx from 'classnames';
 import { Logo, TextInput } from 'components';
 import { Text } from 'components/Typography';
-import { useMst } from 'store/store';
+import { useMst } from 'store';
 
 import HeaderLinks from '../HeaderLinks';
 

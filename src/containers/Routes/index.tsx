@@ -2,7 +2,6 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { routes } from 'appConstants';
 import {
   DetailArtwork,
-  DetailAuction,
   Discover,
   Home,
   ProfileEdit,
@@ -14,8 +13,7 @@ import {
 
 const Routes = () => (
   <Switch>
-    <Route path={routes.gallery.detailArtwork.root} component={DetailArtwork} />
-    <Route path={routes.gallery.detailAuction.root} component={DetailAuction} />
+    <Route path={routes.nft.root} component={DetailArtwork} />
     <Route exact path={routes.discover.root} component={Discover} />
     <Route exact path={routes.profile.edit} component={ProfileEdit} />
     <Route path={routes.profile.root} component={ProfilePage} />

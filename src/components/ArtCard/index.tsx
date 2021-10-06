@@ -15,7 +15,7 @@ type Props = {
   imageSecondaryThree?: string;
   allArtNumber?: string | number;
   name: string;
-  price: string;
+  price: string | number;
   asset: string;
   inStockNumber: number | string;
   author: string;

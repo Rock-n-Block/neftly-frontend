@@ -7,9 +7,8 @@ import { observer } from 'mobx-react';
 
 import { ReactComponent as Trangle } from '../../../assets/img/icons/triangle-white.svg';
 import { activityApi } from '../../../services/api';
-import { useMst } from '../../../store/store';
-import Button from '../../Button';
-import Icon from '../../Icon';
+import { useMst } from '../../../store';
+import { Button, Icon } from 'components';
 
 import styles from './Notification.module.scss';
 

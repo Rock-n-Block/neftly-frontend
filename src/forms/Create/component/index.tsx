@@ -15,6 +15,7 @@ import {
   Radio,
   Text,
   H6,
+  RequiredMark,
 } from 'components';
 import { IRadioButton } from 'components/Radio';
 
@@ -56,8 +57,6 @@ export interface ICreateForm {
   sellMethod: string;
   isLoading: boolean;
 }
-
-const requiredMark = <span className={styles.required}>*</span>;
 
 const sellMethods: IRadioButton[] = [
   {
@@ -251,8 +250,12 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 <Field
                   render={() => (
                     <TextInput
-                      label={<>Item name {requiredMark}</>}
-                      name="name"
+                      label={
+                        <>
+                          Item name <RequiredMark />
+                        </>
+                      }
+                      name="tokenName"
                       type="text"
                       placeholder='e. g. "Redeemable Bitcoin Card with logo"'
                       value={values.name}
@@ -268,7 +271,11 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   name="description"
                   render={() => (
                     <TextArea
-                      label={<>Description {requiredMark}</>}
+                      label={
+                        <>
+                          Description <RequiredMark />
+                        </>
+                      }
                       name="description"
                       value={values.description}
                       placeholder="e. g. “After purchasing you will able to recived the logo...”"
@@ -338,7 +345,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   {!isSingle && (
                     <div className={styles.fieldsetRowColumn}>
                       <Text className={styles.label} size="m" weight="medium">
-                        In Stock {requiredMark}
+                        In Stock <RequiredMark />
                       </Text>
                       <Field
                         render={() => (
@@ -364,7 +371,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   )}
                   <div className={styles.fieldsetRowColumn}>
                     <Text className={styles.label} size="m" weight="medium">
-                      Royalties {requiredMark}
+                      Royalties <RequiredMark />
                     </Text>
                     <Field
                       render={() => (

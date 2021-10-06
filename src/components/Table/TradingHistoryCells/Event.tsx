@@ -7,13 +7,13 @@ import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
-  type: 'offer' | 'purchase';
+  type: 'Mint' | 'Buy';
   isDeclined?: boolean;
 };
 
 const helperObject = {
-  purchase: tradingPurchase,
-  offer: tradingOffer,
+  Buy: tradingPurchase,
+  Mint: tradingOffer,
 };
 
 const TradingHistoryCells: FC<Props> = ({ className, type, isDeclined }) => (

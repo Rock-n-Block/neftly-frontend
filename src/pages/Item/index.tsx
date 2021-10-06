@@ -5,8 +5,8 @@ import cn from 'classnames';
 import { observer } from 'mobx-react';
 
 import { storeApi } from '../../services/api';
-import { useMst } from '../../store/store';
-import { IBaseInfo, IOwner } from '../../typings/UserInfo';
+import { useMst } from '../../store';
+import { IBaseInfo, IOwner } from 'typings';
 
 import Control from './Control';
 import Options from './Options';

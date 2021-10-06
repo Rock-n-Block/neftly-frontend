@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { Button, Text, TextArea, TextInput, Uploader } from 'components';
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { useMst } from 'store/store';
+import { useMst } from 'store';
 
 import styles from './ProfileEdit.module.scss';
 
