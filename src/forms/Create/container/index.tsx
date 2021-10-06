@@ -6,77 +6,48 @@ import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 
 import { storeApi } from '../../../services/api';
-// import { useMst } from '../../../store';
+// import { useMst } from '../../../store/store';
 // import {validateForm} from '../../../utils/validate';
 import * as Yup from 'yup';
 import CreateForm, { ICreateForm } from '../component';
 
 export default observer(({ isSingle, walletConnector }: any) => {
   // const { modals } = useMst();
+
+  const props: ICreateForm = {
+    name: '',
+    isSingle: true,
+    totalSupply: 1,
+    currency: 'ETH',
+    description: '',
+    price: '',
+    minimalBid: 0,
+    creatorRoyalty: '10%',
+    collection: 0,
+    details: [
+      { name: '', amount: '' },
+    ],
+    selling: true,
+    // startAuction: new Date(),
+    // endAuction: new Date(),
+    media: '',
+    cover: '',
+    coverPreview: '',
+    format: '',
+    img: '',
+    preview: '',
+    sellMethod: 'fixedPrice',
+    isLoading: false,
+  };
   const FormWithFormik = withFormik<any, ICreateForm>({
     enableReinitialize: true,
-    mapPropsToValues: () => ({
-      img: '',
-      cover: '',
-      preview: '',
-      coverPreview: '',
-      sellMethod: 'fixedPrice',
-      // unlockOncePurchased: false,
-      format: '',
-      instantSalePriceEth: '',
-      // digitalKey: '',
-      price: '',
-      tokenName: '',
-      tokenDescr: '',
-      tokenRoyalties: '10%',
-      numberOfCopies: '1',
-      tokenProperties: [
-        {
-          name: '',
-          amount: '',
-        },
-      ],
-      isLoading: false,
-      collectionId: 0,
-      currency: 'WETH',
-      bid: '',
-      showModal: false,
-    }),
+    mapPropsToValues: () => props,
 
     validationSchema: Yup.object().shape({
-      displayName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
-      customUrl: Yup.string().max(50, 'Too Long!'),
-      bio: Yup.string().max(100),
-      site: Yup.string().url(),
-      twitter: Yup.string().max(50),
-      instagram: Yup.string().max(50),
-      facebook: Yup.string().max(50),
-      email: Yup.string().email('Invalid email'),
-      img: Yup.string(),
-      cover: Yup.string(),
-      preview: Yup.string(),
-      coverPreview: Yup.string(),
-      sellMethod: Yup.string(),
-      // unlockOncePurchased: false,
-      format: Yup.string(),
-      instantSalePriceEth: Yup.string(),
-      // digitalKey: '',
-      price: Yup.string(),
-      tokenName: Yup.string(),
-      tokenDescr: Yup.string().max(500, 'Too Long!'),
-      tokenRoyalties: Yup.string(),
-      numberOfCopies: Yup.string(),
-      tokenProperties: Yup.array().of(
-        Yup.object().shape({
-          name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
-          amount: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
-        }),
-      ),
-      isLoading: Yup.bool(),
-      collectionId: Yup.number(),
-      currency: Yup.string().matches(/(ETH|WETH|USDT)/),
-      bid: Yup.string(),
-      showModal: Yup.bool(),
+      name: Yup.string().min(2, 'Too short!').max(50, 'Too long!'),
+      totalSupply: Yup.number().min(1, 'Minimal amount equal to 1!').max(100, 'Too much!'),
+      description: Yup.string().max(500, 'Too long!'),
+      minimalBid: Yup.number().min(0),
     }),
     handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
@@ -84,30 +55,25 @@ export default observer(({ isSingle, walletConnector }: any) => {
       const formData = new FormData();
       formData.append('media', values.img);
       if (values.cover) formData.append('cover', values.cover);
-      formData.append('name', values.tokenName);
-      formData.append('total_supply', isSingle ? '1' : values.numberOfCopies.toString());
-      formData.append('description', values.tokenDescr);
+      formData.append('name', values.name);
+      formData.append('total_supply', isSingle ? '1' : values.totalSupply.toString());
+      formData.append('description', values.description);
       if (values.sellMethod === 'fixedPrice') {
         formData.append('price', values.price.toString());
       }
       if (values.sellMethod === 'openForBids') {
-        formData.append('minimal_bid', values.bid.toString());
+        formData.append('minimal_bid', values.minimalBid.toString());
       }
-      if (values.sellMethod) {
-        formData.append('available', values.numberOfCopies.toString());
-      } else {
-        formData.append('available', '0');
-      }
-      formData.append('creator_royalty', values.tokenRoyalties.toString().slice(0, -1));
+      formData.append('creator_royalty', values.creatorRoyalty.toString().slice(0, -1));
       formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
-      formData.append('collection', values.collectionId.toString());
+      formData.append('collection', values.collection.toString());
       formData.append('currency', values.currency);
       formData.append('format', values.format);
       // formData.append('creator', localStorage.dds_token);
 
-      if (values.tokenProperties[0].name) {
+      if (values.details[0].name) {
         const details: any = {};
-        values.tokenProperties.forEach((item) => {
+        values.details.forEach((item) => {
           if (item.name) {
             details[item.name] = item.amount;
           }

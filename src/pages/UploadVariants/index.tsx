@@ -1,10 +1,10 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
-import {single, multiple} from 'assets/img/upload';
+import { single, multiple } from 'assets/img/upload';
 
 import styles from './UploadVariants.module.scss';
-import {Button, H2, Text} from "components";
+import { Button, H2, Text } from 'components';
 
 const items = [
   {
@@ -27,17 +27,19 @@ const Upload: React.FC = () => {
       <div className={styles.section}>
         <div className={cn(styles.container)}>
           <div className={styles.top}>
-            <H2 className={styles.title} align="center">Upload item</H2>
+            <H2 className={styles.title} align="center">
+              Upload item
+            </H2>
             <Text className={styles.info} size="m" color="lightGray" weight="medium" align="center">
-              Choose “Single” if you want your collectible to be one of a kind or “Multiple” if you want to sell one
-              collectible multiple times
+              Choose “Single” if you want your collectible to be one of a kind or “Multiple” if you
+              want to sell one collectible multiple times
             </Text>
           </div>
           <div className={styles.list}>
             {items.map((option) => (
               <Link className={styles.item} key={`upload_option_${option.key}`} to={option.url}>
                 <div className={styles.preview}>
-                  <img src={option.image} alt="Upload"/>
+                  <img src={option.image} alt="Upload" />
                 </div>
                 <Button color="blue" className={styles.button}>
                   {option.buttonText}

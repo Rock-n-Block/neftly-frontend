@@ -8,8 +8,7 @@ import {
   ProfilePage,
   Activity,
   UploadVariants,
-  UploadDetailsSingle,
-  UploadDetailsMultiple,
+  CreateToken,
 } from 'pages';
 
 const Routes = () => (
@@ -18,8 +17,12 @@ const Routes = () => (
     <Route exact path={routes.discover.root} component={Discover} />
     <Route exact path={routes.profile.edit} component={ProfileEdit} />
     <Route path={routes.profile.root} component={ProfilePage} />
-    <Route path={routes.create.single} component={UploadDetailsSingle} />
-    <Route path={routes.create.multiple} component={UploadDetailsMultiple} />
+    <Route path={routes.create.single}>
+      <CreateToken />
+    </Route>
+    <Route path={routes.create.multiple}>
+      <CreateToken isMultiple />
+    </Route>
     <Route path={routes.create.root} component={UploadVariants} />
     <Route exact path={routes.home.root} component={Home} />
     <Route exact path={routes.activity.root} component={Activity} />
