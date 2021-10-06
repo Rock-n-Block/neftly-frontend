@@ -5,16 +5,11 @@ import { connect } from 'formik';
 import { observer } from 'mobx-react';
 import SwiperCore, { Navigation } from 'swiper';
 
-// import { Swiper, SwiperSlide } from 'swiper/react';
-import Icon from '../../../../components/Icon';
-import Modal from '../../../../components/Modal';
+import { Icon, Modal } from 'components';
 import { userApi } from '../../../../services/api';
 import { rootStore } from '../../../../store';
 import { CreateCollection } from '../../../index';
 
-// import PlusImg from './plus.svg';
-// import RefreshImg from './refresh.svg';
-// import ArrowImg from './swiper-arrow.svg';
 import styles from './ChooseCollection.module.scss';
 
 SwiperCore.use([Navigation]);

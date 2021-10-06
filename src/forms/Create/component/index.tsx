@@ -471,7 +471,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               </div>
             </>
           )}
-          {user.address ? <ChooseCollection isSingle={isSingle} /> : ''}
+          {user.address ? <ChooseCollection isSingle={isSingle} /> : null}
           <Button
             className={cn('button', styles.button)}
             onClick={onSubmit}

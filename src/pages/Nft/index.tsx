@@ -278,9 +278,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
                 View More
               </Button>
             </div>
-          ) : (
-            ''
-          )}
+          ) : null}
         </div>
       </div>
     </div>

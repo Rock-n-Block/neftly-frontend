@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { observer } from 'mobx-react-lite';
 
 import { Button, H4, Text } from 'components';
-import { INft, IOwner } from '../../../../../typings';
+import { INft, IOwner } from 'typings';
 import { useMst } from '../../../../../store';
 import { useWalletConnectorContext } from '../../../../../services/walletConnect';
 import { contracts } from '../../../../../config';
@@ -22,15 +22,19 @@ type Props = {
 const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nft }) => {
   const { walletService } = useWalletConnectorContext();
   const { user } = useMst();
-  const isGrowPositive = growth ? growth > 0 : false;
+  const isGrowPositive = (growth && growth > 0) || false;
 
   const [isApproved, setApproved] = React.useState<boolean>(false);
   const [isApproving, setApproving] = React.useState<boolean>(false);
 
   const currentPrice = React.useMemo(() => {
     if (nft) {
-      if (nft.is_selling) return nft.price;
-      if (nft.is_auc_selling && nft.highest_bid) return nft.highest_bid.amount;
+      if (nft.is_selling) {
+        return nft.price;
+      }
+      if (nft.is_auc_selling && nft.highest_bid) {
+        return nft.highest_bid.amount;
+      }
     }
     return 0;
   }, [nft]);
@@ -66,14 +70,17 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
 
   const isUserCanRemoveFromSale = React.useMemo(() => {
     if (user.id && nft && !isWrongChain) {
-      if (nft.standart === 'ERC721' && nft.is_selling && isOwner) return true;
+      if (nft.standart === 'ERC721' && nft.is_selling && isOwner) {
+        return true;
+      }
       if (
         nft.standart === 'ERC1155' &&
         (nft.sellers.find((seller) => seller.id === user.id) ||
           nft.owner_auction.find((seller) => seller.id === user.id)) &&
         isOwner
-      )
+      ) {
         return true;
+      }
     }
     return false;
   }, [nft, isOwner, user.id, isWrongChain]);
@@ -82,34 +89,43 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
 
   const isUserCanBuyNft = React.useMemo(() => {
     if (user.id && nft && !isWrongChain && nft.price && nft.is_selling && nft.available !== 0) {
-      if (nft.standart === 'ERC721' && !isOwner) return true;
+      if (nft.standart === 'ERC721' && !isOwner) {
+        return true;
+      }
       if (
         nft.standart === 'ERC1155' &&
         ((nft.sellers.length === 1 && nft.sellers[0].id !== user.id) || nft.sellers.length > 1)
-      )
+      ) {
         return true;
+      }
     }
     return false;
   }, [nft, user.id, isOwner, isWrongChain]);
 
   const isUserCanEnterInAuction = React.useMemo(() => {
     if (user.id && nft && !isWrongChain && nft.is_auc_selling && nft.available !== 0) {
-      if (nft.standart === 'ERC721' && !isOwner) return true;
+      if (nft.standart === 'ERC721' && !isOwner) {
+        return true;
+      }
       if (
         nft.standart === 'ERC1155' &&
         (nft.owner_auction.length > 1 ||
           (nft.owner_auction.length === 1 && nft.owner_auction[0].id !== user.id))
-      )
+      ) {
         return true;
+      }
     }
     return false;
   }, [nft, isOwner, user.id, isWrongChain]);
 
   const isUserCanEndAuction = React.useMemo(() => {
     if (user.id && nft && !isWrongChain && nft.is_auc_selling && nft.bids.length && isOwner) {
-      if (nft.standart === 'ERC721') return true;
-      if (nft.standart === 'ERC1155' && nft.owner_auction.find((seller) => seller.id === user.id))
+      if (nft.standart === 'ERC721') {
         return true;
+      }
+      if (nft.standart === 'ERC1155' && nft.owner_auction.find((seller) => seller.id === user.id)) {
+        return true;
+      }
     }
     return false;
   }, [nft, isOwner, user.id, isWrongChain]);
@@ -118,21 +134,28 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
 
   const isUserCanPutOnSale = React.useMemo(() => {
     if (user.id && nft && !isWrongChain && isOwner && !nft.is_selling && !nft.is_auc_selling) {
-      if (nft.standart === 'ERC721') return true;
+      if (nft.standart === 'ERC721') {
+        return true;
+      }
       if (
         nft.standart === 'ERC1155' &&
         !nft.sellers.find((seller) => seller.id === user.id) &&
         !nft.owner_auction.find((seller) => seller.id === user.id)
-      )
+      ) {
         return true;
+      }
     }
     return false;
   }, [nft, isOwner, user.id, isWrongChain]);
 
   const nftSellingType = React.useMemo(() => {
     if (nft) {
-      if (nft.is_selling) return 'sell';
-      if (nft.is_auc_selling) return 'auction';
+      if (nft.is_selling) {
+        return 'sell';
+      }
+      if (nft.is_auc_selling) {
+        return 'auction';
+      }
     }
     return '';
   }, [nft]);
@@ -220,37 +243,27 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
             <Button onClick={bidAction} isFullWidth>
               Purchase Now
             </Button>
-          ) : (
-            ''
-          )}
+          ) : null}
           {isUserCanEnterInAuction && isApproved ? (
             <Button onClick={bidAction} isFullWidth>
               Place a Bid
             </Button>
-          ) : (
-            ''
-          )}
+          ) : null}
           {isUserCanPutOnSale ? (
             <Button onClick={bidAction} isFullWidth>
               Put on Sale
             </Button>
-          ) : (
-            ''
-          )}
+          ) : null}
           {!isApproved ? (
             <Button isFullWidth loading={isApproving} onClick={handleApproveToken}>
               Approve Token
             </Button>
-          ) : (
-            ''
-          )}
+          ) : null}
           <Button color="outline" onClick={bidAction} isFullWidth>
             Save
           </Button>
         </div>
-      ) : (
-        ''
-      )}
+      ) : null}
     </div>
   );
 });

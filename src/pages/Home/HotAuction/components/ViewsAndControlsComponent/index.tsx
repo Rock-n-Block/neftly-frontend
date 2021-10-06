@@ -15,7 +15,7 @@ type Props = {
   inStock?: number;
   dotsAction: () => void;
   likeAction: () => void;
-  isLicked?: boolean;
+  isLiked?: boolean;
 };
 
 const ViewsAndControlsComponent: FC<Props> = ({
@@ -24,15 +24,15 @@ const ViewsAndControlsComponent: FC<Props> = ({
   views,
   inStock,
   dotsAction,
-  isLicked,
+  isLiked = false,
   link,
   likeAction,
 }) => {
-  const [isLike, setIsLike] = React.useState<boolean | undefined>(isLicked);
+  const [isLike, setIsLike] = React.useState<boolean>(isLiked);
   const [likeCount, setLikeCount] = React.useState(likes);
 
-  const handleLike = () => {
-    setIsLike((prev) => !prev);
+  const handleLike = React.useCallback(() => {
+    setIsLike(!isLike);
     if (isLike) {
       setLikeCount((prev) => {
         if (prev > 0) {
@@ -44,11 +44,11 @@ const ViewsAndControlsComponent: FC<Props> = ({
       setLikeCount((prev) => prev + 1);
     }
     likeAction();
-  };
+  }, [isLike, likeAction]);
 
   React.useEffect(() => {
-    setIsLike(isLicked);
-  }, [isLicked]);
+    setIsLike(isLiked);
+  }, [isLiked]);
 
   React.useEffect(() => {
     setLikeCount(likes);

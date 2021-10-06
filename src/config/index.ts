@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { IConnectWallet, IContracts } from '../typings';
+import { IConnectWallet, IContracts } from 'typings';
 import { nftAbi, wethAbi, bep20Abi } from './abi';
 
 export const is_production = false;

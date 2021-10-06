@@ -3,14 +3,12 @@ import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 
-import Bid from '../../../components/Bid';
-import Button from '../../../components/Button';
-import Modal from '../../../components/Modal';
+import { Bid, Button, Modal } from 'components';
 import { storeApi } from '../../../services/api';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { contracts } from '../../../config';
 import { useMst } from '../../../store';
-import { IOwner } from '../../../typings/UserInfo';
+import { IOwner } from 'typings';
 import { IItem } from '../index';
 
 import Checkout from './Checkout';
@@ -218,9 +216,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
                   </div>
                   {token.highest_bid.USD_price ? (
                     <div className={styles.price}>${token.highest_bid.USD_price}</div>
-                  ) : (
-                    ''
-                  )}
+                  ) : null}
                 </div>
               </div>
             </>
@@ -263,9 +259,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
                       >
                         Purchase now
                       </Button>
-                    ) : (
-                      ''
-                    )}
+                    ) : null}
                     {(standart === 'ERC721' && is_auc_selling) ||
                     (standart === 'ERC1155' &&
                       (token.owner_auction.length > 1 ||
@@ -277,9 +271,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
                       >
                         Place a bid
                       </Button>
-                    ) : (
-                      ''
-                    )}
+                    ) : null}
                   </>
                 ) : (
                   <Button
@@ -290,9 +282,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
                   </Button>
                 )}
               </div>
-            ) : (
-              ''
-            )}
+            ) : null}
             {(standart === 'ERC721' && is_auc_selling && isOwner && bids.length) ||
             (standart === 'ERC1155' &&
               is_auc_selling &&
@@ -305,9 +295,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
               >
                 End auction
               </Button>
-            ) : (
-              ''
-            )}
+            ) : null}
           </div>
         )}
         <div className={styles.text}>
@@ -330,9 +318,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
               Put on sale
             </Button>
           </div>
-        ) : (
-          ''
-        )}
+        ) : null}
         <div className={styles.note}>You can sell this token on Crypter Marketplace</div>
       </div>
       <Modal visible={visibleModalPurchase} onClose={() => setVisibleModalPurchase(false)}>

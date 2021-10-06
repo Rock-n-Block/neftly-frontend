@@ -25,9 +25,7 @@ const DescriptionAndTagsComponent: FC<Props> = ({ className, tags, body }) => (
           ))}
         </div>
       </>
-    ) : (
-      ''
-    )}
+    ) : null}
   </div>
 );
 

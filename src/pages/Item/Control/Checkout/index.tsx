@@ -185,9 +185,7 @@ const Checkout: React.FC<ICheckoutProps> = ({
             Cancel
           </button>
         </div>
-      ) : (
-        ''
-      )}
+      ) : null}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import AuthorComponent from 'pages/Home/HotAuction/components/AuthorComponent';
 import DescriptionAndTagsComponent from 'pages/Home/HotAuction/components/DescriptionAndTagsComponent';
 import PaymentComponent from 'pages/Home/HotAuction/components/PaymentComponent';
 import ViewsAndControlsComponent from 'pages/Home/HotAuction/components/ViewsAndControlsComponent';
-import { INft } from '../../typings';
+import { INft } from 'typings';
 
 import styles from './styles.module.scss';
 
@@ -33,7 +33,7 @@ const GiantCard: FC<Props> = ({ className, views, likeAction, dotsAction, growth
         likeAction={likeAction}
         link="google"
         dotsAction={dotsAction}
-        isLicked={nft?.is_liked}
+        isLiked={nft?.is_liked}
       />
       {nft?.is_auc_selling || nft?.is_selling ? <PaymentComponent growth={growth} nft={nft} /> : ''}
       <AuthorComponent author={nft?.creator.name || ''} authorPic={nft?.creator.avatar || ''} />

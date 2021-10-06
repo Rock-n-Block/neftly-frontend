@@ -106,9 +106,7 @@ const PutSale: React.FC<IPutSaleProps> = ({
               ).toString(10)}{' '}
               {currency}
             </div>
-          ) : (
-            ''
-          )}
+          ) : null}
         </div>
       </div>
       <div className={styles.btns}>
