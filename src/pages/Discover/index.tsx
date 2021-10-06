@@ -1,11 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from 'appConstants';
 import { allCategory, arrowUpRight, art, burn, camera, filter, motion, threeD } from 'assets/img';
 import cx from 'classnames';
 import { ArtCard, Button, Carousel, H2, H3, Select, TabLookingComponent, Text } from 'components';
 import { AdvancedFilter } from 'containers';
-import { useGetSlideToShow } from 'hooks';
+import { useFilters, useGetSlideToShow } from 'hooks';
 
 import { data, dataMediumCards } from './mockData';
 
@@ -45,27 +45,58 @@ const selectOptions = [
     value: 'latest',
   },
   {
-    label: 'Featured',
-    value: 'featured',
+    label: 'Newest',
+    value: 'newest',
   },
   {
-    label: 'Rare',
-    value: 'rare',
+    label: 'Highest price',
+    value: 'highest_price',
+  },
+  {
+    label: 'Lowest price',
+    value: 'lowest_price',
+  },
+  {
+    label: 'Most liked',
+    value: 'most_liked',
+  },
+  {
+    label: 'Least liked',
+    value: 'least_liked',
   },
 ];
 
 const Discover = () => {
   const [isFilterOpen, setFilterOpen] = useState(false);
+  const [queries, setQueries] = useState({
+    type: 'items',
+    order_by: selectOptions[0].value,
+    tags: 'All items',
+    max_price: [0],
+    currency: 'ETH',
+    page: 1,
+    is_verificated: null,
+  });
+
+  const handleChangeFilters = useFilters(setQueries);
   const handleOpenFilter = useCallback(() => {
     setFilterOpen(!isFilterOpen);
   }, [isFilterOpen]);
 
   const [filterOne, setFilterOne] = useState(selectOptions[0]);
-  const handleFilterOne = useCallback((value) => {
-    setFilterOne(value);
-  }, []);
+  const handleFilterOne = useCallback(
+    (value) => {
+      setFilterOne(value);
+      handleChangeFilters('order_by', value.value);
+    },
+    [handleChangeFilters],
+  );
 
   const numberOfSlide = useGetSlideToShow();
+
+  useEffect(() => {
+    console.log(queries);
+  }, [queries]);
 
   return (
     <div className={styles.discover}>
@@ -76,11 +107,19 @@ const Discover = () => {
         <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
           Advanced Filter <img src={filter} alt="" />
         </Button>
-        <TabLookingComponent tabClassName={styles.filterTab} tabs={tabs} action={() => {}} />
+        <TabLookingComponent
+          tabClassName={styles.filterTab}
+          tabs={tabs}
+          action={() => {}}
+          changeFilters={handleChangeFilters}
+        />
         <Select onChange={handleFilterOne} value={filterOne} options={selectOptions} />
       </div>
       <div className={cx(styles.filterAndCards, { [styles.open]: isFilterOpen })}>
-        <AdvancedFilter className={cx(styles.filter, { [styles.open]: isFilterOpen })} />
+        <AdvancedFilter
+          className={cx(styles.filter, { [styles.open]: isFilterOpen })}
+          changeFilters={handleChangeFilters}
+        />
         <div className={cx(styles.filterResultsContainer, { [styles.withFilter]: isFilterOpen })}>
           <H3>3,150,000 results</H3>
           <div className={styles.filterResults}>

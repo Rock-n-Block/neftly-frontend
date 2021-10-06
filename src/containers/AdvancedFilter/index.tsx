@@ -1,42 +1,11 @@
 import { FC, useCallback, useState } from 'react';
 import { cross } from 'assets/img';
 import cx from 'classnames';
-import { Button, H3, RangePicker, Select, Text, TextInput } from 'components';
+import { Button, H3, RangePicker, Select, Text } from 'components';
 
 import FilterTag from './FilterTag';
 
 import styles from './styles.module.scss';
-
-const defaultColorFilterValues = [
-  {
-    value: '#018DF0',
-    label: 'Blue Color',
-  },
-  {
-    value: '#EF466F',
-    label: 'Red Color',
-  },
-  {
-    value: '#FFD166',
-    label: 'Yellow Color',
-  },
-  {
-    value: '#FF72D2',
-    label: 'Pink Color',
-  },
-  {
-    value: '#C379F6',
-    label: 'Purple Color',
-  },
-  {
-    value: '#01C5BA',
-    label: 'Green Color',
-  },
-  {
-    value: '#FFFFFF',
-    label: 'White Color',
-  },
-];
 
 const filterSelectCurrencyOptions = [
   {
@@ -62,10 +31,6 @@ const filterSelectLikesOptions = [
     value: 'mostLikes',
     label: 'Most Likes',
   },
-  {
-    value: 'mostLikes',
-    label: 'Most Likes',
-  },
 ];
 
 const filterSelectArtistsOptions = [
@@ -77,15 +42,12 @@ const filterSelectArtistsOptions = [
     value: 'unverified',
     label: 'Beginners',
   },
-  {
-    value: 'unverified',
-    label: 'Beginners',
-  },
 ];
 
 type Props = {
   className?: string;
   isMobile?: boolean;
+  changeFilters?: (key: string, value: string) => void;
 };
 
 type AppliedFilterValueType =
@@ -95,21 +57,26 @@ type AppliedFilterValueType =
     }
   | string;
 
-const AdvancedFilter: FC<Props> = ({ isMobile, className }) => {
+const AdvancedFilter: FC<Props> = ({ isMobile, className, changeFilters }) => {
   const [appliedFilters, setAppliedFilters] = useState<Record<string, AppliedFilterValueType>>({});
 
   const [filterRange, setFilterRange] = useState(0.1);
-  const handleFilterRange = useCallback((value) => {
-    setFilterRange(value);
-  }, []);
+  const handleFilterRange = useCallback(
+    (value) => {
+      setFilterRange(value);
+      if (changeFilters) changeFilters('max_price', value);
+    },
+    [changeFilters],
+  );
 
   const [filterCurrency, setFilterCurrency] = useState();
   const handleFilterCurrency = useCallback(
     (value) => {
       setFilterCurrency(value);
       setAppliedFilters({ ...appliedFilters, currency: value });
+      if (changeFilters) changeFilters('currency', value.value);
     },
-    [appliedFilters],
+    [appliedFilters, changeFilters],
   );
 
   const [filterLikes, setFilterLikes] = useState();
@@ -126,37 +93,10 @@ const AdvancedFilter: FC<Props> = ({ isMobile, className }) => {
     (value) => {
       setFilterArtists(value);
       setAppliedFilters({ ...appliedFilters, artists: value });
+      if (changeFilters) changeFilters('is_verificated', value.value);
     },
-    [appliedFilters],
+    [appliedFilters, changeFilters],
   );
-
-  const [filterColorScheme, setFilterColorScheme] = useState('');
-  const handleFilterColorScheme = useCallback(
-    (value) => {
-      setAppliedFilters({ ...appliedFilters, colors: value });
-      setFilterColorScheme(value.value);
-    },
-    [appliedFilters],
-  );
-
-  const handleInputChange = (value: string) => {
-    setFilterColorScheme(value);
-    setAppliedFilters({
-      ...appliedFilters,
-      colors: {
-        label: 'Custom color',
-        value,
-      },
-    });
-  };
-
-  const selectedColorBtn = useCallback(
-    (value: string) => {
-      return value === filterColorScheme;
-    },
-    [filterColorScheme],
-  );
-
   return (
     <div className={cx(styles.advancedFilter, { [styles.mobile]: isMobile }, className)}>
       {isMobile && (
@@ -174,7 +114,7 @@ const AdvancedFilter: FC<Props> = ({ isMobile, className }) => {
         </Button>
       </div>
       <div className={styles.tagContainer}>
-        {Object.values(appliedFilters).map((filter) => {
+        {Object.values(appliedFilters).map((filter: any) => {
           return (
             <FilterTag
               className={styles.filterTag}
@@ -223,39 +163,6 @@ const AdvancedFilter: FC<Props> = ({ isMobile, className }) => {
           value={filterArtists}
           options={filterSelectArtistsOptions}
         />
-      </div>
-      <div>
-        <Text color="gray" size="m">
-          Color Scheme
-        </Text>
-        <TextInput
-          value={filterColorScheme}
-          onChange={(e) => handleInputChange(e.target.value)}
-          type="text"
-          placeholder="# Input hex or select"
-        />
-      </div>
-      <div>
-        <Text color="lightGray">Or</Text>
-        <div className={styles.colorButtonContainer}>
-          <Button
-            className={styles.clearColorBtn}
-            color="transparent"
-            onClick={() => alert('clear all')}
-          >
-            <img src={cross} alt="" />
-          </Button>
-          {defaultColorFilterValues.map((colorFilter) => {
-            const { value } = colorFilter;
-            return (
-              <Button
-                className={cx(styles.colorBtn, { [styles.selected]: selectedColorBtn(value) })}
-                onClick={() => handleFilterColorScheme(colorFilter)}
-                style={{ background: value }}
-              />
-            );
-          })}
-        </div>
       </div>
       {isMobile && (
         <>
