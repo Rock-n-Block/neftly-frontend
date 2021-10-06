@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import cn from 'classnames';
 
-import Icon from '../Icon';
+import { Icon } from 'components';
 
 import styles from './Modal.module.scss';
 
@@ -32,20 +31,22 @@ const Modal: React.FC<any> = ({
     };
   }, [escFunction]);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-
+  const disableBodyScroll = () => {
+    document.body.style.overflow = 'hidden';
+  };
+  const enableBodyScroll = () => {
+    document.body.style.overflow = 'unset';
+  };
   useEffect(() => {
     if (visible) {
-      disableBodyScroll(scrollRef.current!);
-    } else {
-      enableBodyScroll(scrollRef.current!);
+      disableBodyScroll();
     }
-    return () => clearAllBodyScrollLocks();
+    return () => enableBodyScroll();
   }, [visible]);
 
   return createPortal(
     visible && (
-      <div className={styles.modal} ref={scrollRef}>
+      <div className={styles.modal}>
         <div className={cn(styles.outer, outerClassName)}>
           <OutsideClickHandler onOutsideClick={onClose}>
             <div className={cn(styles.container, containerClassName)}>
