@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { upload } from 'assets/img/upload';
 import cn from 'classnames';
 import { Form, Field, FieldArray, FormikProps } from 'formik';
@@ -94,7 +94,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     const onCancel = () => {
       history.goBack();
     };
-    const handleChangeProperty = (e: any, index: any, type: any) => {
+    const handleChangeProperty = (e: any, index: any, type: 'name' | 'amount') => {
       const localProperties = [...values.details];
 
       if (type === 'name') {
@@ -121,10 +121,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
          setRates(data);
        });
      }, []); */
-
-    useEffect(() => {
-      console.log(values);
-    }, [values]);
 
     return (
       <>
@@ -421,7 +417,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   <FieldArray
                     name="details"
                     render={() => {
-                      return values.details?.map((item: any, index: any) => (
+                      return values.details?.map((item: IProperti, index: number) => (
                         // eslint-disable-next-line react/no-array-index-key
                         <div className={styles.tokenProperty} key={`details_${index}`}>
                           <Field
@@ -445,7 +441,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                                 type="text"
                                 name={`details[${index}].name`}
                                 placeholder="e. g. Size"
-                                onChange={(e) => handleChangeProperty(e, index, 'size')}
+                                onChange={(e) => handleChangeProperty(e, index, 'name')}
                                 onBlur={handleBlur}
                                 className={styles.tokenPropertyName}
                               />

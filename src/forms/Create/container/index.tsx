@@ -24,7 +24,9 @@ export default observer(({ isSingle, walletConnector }: any) => {
     minimalBid: 0,
     creatorRoyalty: '10%',
     collection: 0,
-    details: [],
+    details: [
+      { name: '', amount: '' },
+    ],
     selling: true,
     // startAuction: new Date(),
     // endAuction: new Date(),
