@@ -1,26 +1,21 @@
 @import '../../../../styles/helpers';
-//
-//.cards {
-//  overflow: hidden;
-//  max-height: 108px;
-//}
 
+.cards {
+}
 .card {
   padding: 8px 16px 30px;
 
-  max-width: 160px;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   //height: 100%;
 
   cursor: pointer;
 
   border: 2px solid $color-neutral-80;
 
-  &Content {
-    height: 66px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
 }
 
 .plus {

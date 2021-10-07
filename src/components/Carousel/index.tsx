@@ -12,6 +12,7 @@ type Props = {
   classNameArrowRight?: string;
   classNameProp?: string;
   slidesToShow?: number;
+  hideArrows?: boolean;
 };
 
 const SimpleSlider: FC<PropsWithChildren<Props>> = ({
@@ -19,6 +20,7 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
   children,
   // classNameArrowRight,
   slidesToShow = 1,
+  hideArrows = false,
 }) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
@@ -31,6 +33,7 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
       </Button>
     );
   }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function NextArrow(props: any) {
     const { className, onClick } = props;
@@ -75,8 +78,8 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
     customPaging: (i: number) => (
       <div className={cx(styles.indicator, { [styles.active]: i === activeSlideIndex })} />
     ),
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
+    prevArrow: !hideArrows ? <PrevArrow /> : <></>,
+    nextArrow: !hideArrows ? <NextArrow /> : <></>,
     beforeChange: handleBeforeChange,
     afterChange: handleAfterChange,
   };

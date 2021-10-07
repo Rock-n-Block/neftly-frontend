@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { createCollection } from 'assets/img/ChooseCollection';
 import cn from 'classnames';
-import { Modal, Text } from 'components';
+import { Carousel, Modal, Text } from 'components';
 // import {connect} from 'formik';
 import { observer } from 'mobx-react';
 import { userApi } from 'services/api';
 import { useMst } from 'store';
-import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { CreateCollection } from '../../../index';
 
@@ -22,39 +22,15 @@ interface IProps {
 
 interface ICollection {
   avatar?: string;
-  title: string;
+  name: string;
   id: number;
 }
-
-// TODO: remove after added collections
-const mockCollections: ICollection[] = [
-  {
-    id: 1,
-    title: 'New collection',
-  },
-  {
-    id: 2,
-    title: 'New collection2',
-  },
-  {
-    id: 3,
-    title: 'New collection2',
-  },
-  {
-    id: 4,
-    title: 'New collection2',
-  },
-  {
-    id: 5,
-    title: 'New collection2',
-  },
-];
 
 const ChooseCollection: React.FC<IProps> = observer(
   ({ isSingle, activeCollectionId, onChange, className }) => {
     const { user } = useMst();
 
-    const [collections, setCollections] = useState([...mockCollections]);
+    const [collections, setCollections] = useState<ICollection[]>([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const changeCollection = useCallback(
@@ -62,7 +38,6 @@ const ChooseCollection: React.FC<IProps> = observer(
         if (activeCollectionId !== id) {
           onChange(id);
         }
-
       },
       [activeCollectionId, onChange],
     );
@@ -98,41 +73,40 @@ const ChooseCollection: React.FC<IProps> = observer(
 
     return (
       <div className={cn(styles.cards, className)}>
-        <Swiper spaceBetween={8} slidesPerView="auto" wrapperTag="ul">
-          <SwiperSlide
-            tag="li"
-            key="collection_0"
+        {/* TODO: убрать выезды за layout */}
+        <Carousel hideArrows slidesToShow={3}>
+          <div
+            onClick={handleOpenModal}
+            onKeyDown={handleOpenModal}
+            role="button"
+            tabIndex={0}
             className={cn(styles.card, !activeCollectionId && styles.active)}
           >
-            <div onClick={handleOpenModal} onKeyDown={handleOpenModal} role="button" tabIndex={0}>
-              <img src={createCollection} alt="create" className={styles.plus} />
-              <Text className={styles.subtitle}>Create collection</Text>
-            </div>
-          </SwiperSlide>
+            <img src={createCollection} alt="create" className={styles.plus} />
+            <Text className={styles.subtitle}>Create collection</Text>
+          </div>
           {!!collections.length &&
             collections.map((collection) => (
-              <SwiperSlide
-                tag="li"
+              <div
+                onClick={() => changeCollection(collection.id)}
+                onKeyDown={() => changeCollection(collection.id)}
+                role="button"
+                tabIndex={0}
                 key={`collection_${collection.id}`}
                 className={cn(styles.card, {
                   [styles.active]: activeCollectionId === collection.id,
                 })}
+                // className={styles.cardContent}
               >
-                <div
-                  onClick={() => changeCollection(collection.id)}
-                  onKeyDown={() => changeCollection(collection.id)}
-                  role="button"
-                  tabIndex={0}
-                  className={styles.cardContent}
-                >
-                  {!!collection.avatar && (
-                    <img src={collection.avatar} alt="create" className={styles.avatar} />
-                  )}
-                  <Text className={styles.subtitle}>{collection.title}</Text>
-                </div>
-              </SwiperSlide>
+                {!!collection.avatar && (
+                  <img src={collection.avatar} alt="create" className={styles.avatar} />
+                )}
+                <Text className={styles.subtitle} align="center">
+                  {collection.name}
+                </Text>
+              </div>
             ))}
-        </Swiper>
+        </Carousel>
         <Modal visible={isModalVisible} onClose={() => setIsModalVisible(false)}>
           <CreateCollection isSingle={isSingle} />
         </Modal>
