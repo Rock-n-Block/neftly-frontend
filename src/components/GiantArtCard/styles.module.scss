@@ -1,7 +1,12 @@
-@import "../../styles/helpers";
+@import '../../styles/helpers';
 
 .giantCard {
   display: flex;
+
+  & > img {
+    width: 100%;
+    height: auto;
+  }
 
   .cardInfo {
     padding: 32px;

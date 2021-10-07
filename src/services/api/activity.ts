@@ -38,6 +38,8 @@ export default {
       `activity/?page=${page}${query.length ? `${queryStr}` : ''}`,
     );
   },
-  getNotification: () => axios.get('activity/notification/'),
-  readNotification: (data: any) => axios.post('/activity/notification/', data),
+  getNotification: () =>
+    axios.get(`activity/notification/?network=${localStorage.netfly_nft_chainName}`),
+  readNotification: (data: any) =>
+    axios.post(`/activity/notification/?network=${localStorage.netfly_nft_chainName}`, data),
 };

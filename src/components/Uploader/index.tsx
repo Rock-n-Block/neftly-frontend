@@ -11,7 +11,8 @@ const { Dragger } = Upload;
 interface IUploader {
   type: string;
   className?: string;
-  // isLoading: boolean;
+  isLoading?: boolean;
+  handleUpload?: (value: string) => void;
   setFormat?: (value: string) => void;
   name?: string;
   isButton?: boolean;
@@ -20,10 +21,12 @@ interface IUploader {
 const Uploader: React.FC<IUploader> = ({
   type,
   className,
-  // children,
+  children,
+  handleUpload,
   setFormat,
   name,
   isButton,
+  isLoading,
 }) => {
   const formik = useFormikContext();
   // const [imageUrl, setImageUrl] = React.useState('');
@@ -54,6 +57,9 @@ const Uploader: React.FC<IUploader> = ({
     return isValidType && isLt2M;
   };
   const handleChange = ({ file }: any) => {
+    if (isLoading) {
+      return;
+    }
     const isValidType =
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
@@ -69,13 +75,12 @@ const Uploader: React.FC<IUploader> = ({
       return;
     }
     if (type === 'img' && setFormat) setFormat(file.type.slice(0, file.type.indexOf('/')));
-    // if (handleUpload) {
-    //   handleUpload(file.originFileObj);
-    // } else {
-      console.log(type)
-    formik.setFieldValue(type, file.originFileObj);
-    getBase64(file.originFileObj, () => {});
-    // }
+    if (handleUpload) {
+      handleUpload(file.originFileObj);
+    } else {
+      formik.setFieldValue(type, file.originFileObj);
+      getBase64(file.originFileObj, () => {});
+    }
   };
   return (
     <div className={cn(className, !isButton ? styles.uploader : '')}>
@@ -86,9 +91,11 @@ const Uploader: React.FC<IUploader> = ({
           multiple={false}
           showUploadList={false}
         >
-          <Button color="outline" className={styles.button}>
-            Upload
-          </Button>
+          {children || (
+            <Button color="outline" className={styles.button}>
+              Upload
+            </Button>
+          )}
         </Upload>
       ) : (
         <Dragger

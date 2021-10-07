@@ -6,7 +6,7 @@ import { Control } from 'components';
 import { observer } from 'mobx-react';
 
 // import { userApi } from '../../services/api';
-// import { useMst } from '../../store/store';
+// import { useMst } from '../../store';
 
 import styles from './ProfileEdit.module.scss';
 import { ProfileForm } from 'forms';
@@ -146,8 +146,8 @@ const ProfileEdit: React.FC = observer(() => {
                 <div className={styles.text}>
                   We recommend an image of at least 400x400. Gifs work too{' '}
                   <span role="img" aria-label="hooray">
-                      🙌
-                    </span>
+                    🙌
+                  </span>
                 </div>
                 <div className={styles.file}>
                 </div>
@@ -254,7 +254,9 @@ const ProfileEdit: React.FC = observer(() => {
                 loading={isLoading}
                 color="blue"
               >
-                <Text size="m" color="black" weight="bold">Update Profile</Text>
+                <Text size="m" color="black" weight="bold">
+                  Update Profile
+                </Text>
               </Button>
             </div>
           </div>

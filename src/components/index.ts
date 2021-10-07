@@ -25,4 +25,7 @@ export { default as Switch } from './Switch';
 export { default as Bid } from './Bid';
 export { default as Modal } from './Modal';
 export { default as Uploader } from './Uploader';
+export { default as Radio } from './Radio';
+export { default as Dropdown } from './Dropdown';
+export { default as RequiredMark } from './RequiredMark';
 export * from './Typography';

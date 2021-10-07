@@ -5,42 +5,42 @@ import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 
-import { storeApi } from '../../../services/api';
-import { useWalletConnectorContext } from '../../../services/walletConnect';
-// import { useMst } from '../../../store/store';
-import { validateForm } from '../../../utils/validate';
+// import { storeApi } from '../../../services/api';
+// import { useWalletConnectorContext } from '../../../services/walletConnect';
+// import { useMst } from '../../../store';
 import CreateCollection, { ICreateCollection } from '../component';
+import * as Yup from 'yup';
 
 export default observer(({ isSingle }: any) => {
   // const { modals } = useMst();
-  const walletConnector = useWalletConnectorContext();
+  // const walletConnector = useWalletConnectorContext();
+  const props: ICreateCollection = {
+    name: '',
+    img: '',
+    symbol: '',
+    descr: '',
+    shortUrl: '',
+    preview: '',
+    isLoading: false,
+  };
   const FormWithFormik = withFormik<any, ICreateCollection>({
     enableReinitialize: true,
-    mapPropsToValues: () => ({
-      img: '',
-      tokenName: '',
-      symbol: '',
-      descr: '',
-      shortUrl: '',
-      preview: '',
-      isLoading: false,
-      showModal: false,
+    mapPropsToValues: () => props,
+    validationSchema: Yup.object().shape({
+      name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
+      symbol: Yup.string().min(2, 'Too Short!').max(6, 'Too Long!'),
+      descr: Yup.string().max(500, 'Too Long!'),
+      shortUrl: Yup.string().max(50, 'Too Long!'),
     }),
-    validate: (values) => {
-      const errors = validateForm({ values, notRequired: ['description', 'shortUrl', 'img'] });
-
-      return errors;
-    },
-
-    handleSubmit: (values, { setFieldValue, setFieldError }) => {
+    handleSubmit: (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
 
       const formData = new FormData();
 
-      formData.append('name', values.tokenName);
+      formData.append('name', values.name);
       formData.append('avatar', values.img);
       formData.append('symbol', values.symbol);
-      formData.append('creator', localStorage.dds_token);
+      // formData.append('creator', localStorage.dds_token);
       formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
 
       if (values.descr) {
@@ -50,7 +50,7 @@ export default observer(({ isSingle }: any) => {
         formData.append('short_url', values.shortUrl);
       }
 
-      storeApi
+      /* storeApi
         .createCollection(formData)
         .then(({ data }) => {
           walletConnector.walletService
@@ -93,7 +93,7 @@ export default observer(({ isSingle }: any) => {
             }, 100);
           }
           setFieldValue('isLoading', false);
-        });
+        }); */
     },
 
     displayName: 'CreateCollectionForm',

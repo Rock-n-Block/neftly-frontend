@@ -1,53 +1,20 @@
 @import '../../../styles/helpers';
 
-.section {
-  @include x {
-    padding-top: 80px;
-  }
-
-  @include m {
-    padding-top: 64px;
-  }
-}
-
-.container {
-  position: relative;
-
-  @include t {
-    display: block;
-  }
-}
-
-.wrapper {
-  padding-right: 128px;
-
-  width: calc(100% - 352px);
-  flex: 0 0 calc(100% - 352px);
-
-  @include x {
-    padding-right: 64px;
-  }
-
-  @include d {
-    padding-right: 32px;
-
-    width: calc(100% - 304px);
-    flex: 0 0 calc(100% - 304px);
-  }
-
-  @include t {
-    padding: 0;
-
-    width: 100%;
-  }
-}
-
-.formWrapper {
-  // display: flex;
-}
-
 .form {
-  position: relative;
+  @include flexbox(flex-start, space-between);
+  @include forDesktopBig {
+    flex-direction: column;
+  }
+}
+
+.column {
+  width: 100%;
+  &+&{
+    margin-left: 32px;
+    @include forDesktopBig{
+      margin-left: 0;
+    }
+  }
 }
 
 .preview {
@@ -55,125 +22,52 @@
   top: 0;
   right: 80px;
   flex-shrink: 0;
-
   width: 352px;
 
-  @include d {
-    width: 304px;
-  }
-
-  @include t {
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    left: 0;
-
-    padding: 48px;
-
-    display: flex;
-    visibility: hidden;
-    overflow: auto;
-
-    width: 100%;
-    height: 100%;
-
-    background: rgba($neutrals1, 0.9);
-    opacity: 0;
-
-    transition: all 0.4s;
-
-    // @include dark {
-    //   background: rgba($neutrals2, 0.9);
-    // }
-    &.active {
-      visibility: visible;
-
-      opacity: 1;
-    }
-  }
-
-  @include m {
-    padding: 32px 16px;
-  }
 }
 
 .head {
   margin-bottom: 40px;
 
   display: flex;
-
-  @include d {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-  }
-
-  @include m {
-    margin-bottom: 32px;
-  }
-
-  .button {
-    margin-left: 24px;
-    flex-shrink: 0;
-
-    @include d {
-      margin: 0 0 16px;
-    }
-  }
 }
 
 .title {
   margin-right: auto;
 }
 
-.list {
-  margin-bottom: 40px;
-  padding-bottom: 40px;
-
-  border-bottom: 1px solid $neutrals3;
-
-  @include m {
-    margin-bottom: 32px;
-    padding-bottom: 32px;
-  }
-
-  // @include dark {
-  //   border-color: $neutrals3;
-  // }
-}
 
 .item {
   .previewImg {
-    margin: 0 auto;
+    width: 100%;
+    max-width: 616px;
+    height: 400px;
 
     display: flex;
     justify-content: center;
 
     img,
     video {
-      width: 100%;
+      max-width: 102%;
+      max-height: 102%;
     }
-  }
 
-  &:not(:last-child) {
-    margin-bottom: 40px;
-
-    @include m {
-      margin-bottom: 32px;
+    @include forDesktopSm {
+      height: 232px;
     }
   }
 }
 
 .note {
+  @include epilogue;
   margin-top: 4px;
 
-  @include caption-2;
-  color: $purple2;
+  line-height: 160%;
 }
 
 .file {
   position: relative;
 
-  margin-top: 16px;
 
   display: flex;
   overflow: hidden;
@@ -181,18 +75,30 @@
   justify-content: center;
   align-items: center;
 
-  height: 182px;
+  width: 100%;
+  max-width: 616px;
+  height: 400px;
 
-  background: $purple-dark;
-  border-radius: 16px;
+  background: $color-neutral-80;
+  border: 1px dashed #ffffff;
 
   input[type='file'],
   input[type='file']::-webkit-file-upload-button {
     cursor: pointer;
   }
-  // @include dark {
-  //   background: $neutrals2;
-  // }
+
+  @include forDesktopSm {
+    height: 232px;
+  }
+  .capture{
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    @include flexbox;
+    flex-direction: column;
+  }
 }
 
 .load {
@@ -213,38 +119,97 @@
 }
 
 .format {
-  @include caption-2;
-  color: $purple2;
+  @include epilogue;
+  margin-top: 10px;
+
+  line-height: 120%;
+  letter-spacing: 0.03em;
 }
 
 .category {
-  @include body-bold-2;
-  color: $neutrals8;
+  @include epilogue;
+  line-height: 160%;
 }
 
 .fieldset {
   margin-top: 32px;
 
-  .field {
-    input::placeholder {
-      color: $purple2;
+  &Title {
+    @include flexbox(center, space-between);
+  }
+
+  &Row {
+    margin-top: 32px;
+    @include flexbox(flex-start);
+    @include forDesktopMiddle {
+      @include flexbox(flex-start, space-between);
+      flex-wrap: wrap;
     }
+  }
 
-    &:not(:last-child) {
-      margin-bottom: 32px;
+  .field {
+    margin-top: 32px;
+  }
+}
 
-      @include m {
-        margin-bottom: 20px;
-      }
+.addCollection {
+  padding: 32px 0;
+  border-top: 1px solid $color-neutral-80;
+  border-bottom: 1px solid $color-neutral-80;
+}
+.collections{
+  margin-top: 32px;
+}
+
+.fieldsetRowColumn {
+  & + & {
+    margin-left: 12px;
+    max-width: 102px;
+    @include forDesktopMiddle {
+      margin: 32px 0 0;
+      max-width: unset;
+      width: 100%;
     }
   }
 }
 
-.label {
-  margin-bottom: 12px;
+.price {
+  @include flexbox(flex-start);
+  width: 100%;
+  flex-direction: column;
 
-  @include hairline-2;
-  color: $neutrals5;
+  .dropdown {
+    margin-right: -2px;
+  }
+
+  .inputs {
+    @include flexbox(flex-start, flex-start);
+    width: 100%;
+
+    .priceInput {
+      width: 100%;
+      min-width: 219px;
+    }
+  }
+
+  .postfix {
+    margin-top: 4px;
+    width: 100%;
+    @include flexbox(center, space-between);
+    @include epilogue;
+    line-height: 160%;
+  }
+}
+
+.label {
+  @include epilogue;
+  margin-bottom: 8px;
+
+  line-height: 160%;
+  text-transform: capitalize;
+
+  color: $color-neutral-10;
+  opacity: 0.7;
 }
 
 .row {
@@ -276,30 +241,6 @@
   }
 }
 
-.options {
-  margin-bottom: 40px;
-
-  @include m {
-    margin-bottom: 32px;
-  }
-}
-
-.option {
-  display: flex;
-  align-items: flex-start;
-
-  &:not(:last-child) {
-    margin-bottom: 32px;
-  }
-}
-
-.squares {
-  margin-bottom: 32px;
-
-  display: flex;
-  gap: 18px;
-}
-
 .circle {
   display: flex;
   justify-content: center;
@@ -318,33 +259,6 @@
   svg {
     visibility: visible;
   }
-}
-
-.square {
-  padding: 2px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 142px;
-  height: 142px;
-
-  font-weight: 700;
-  text-transform: uppercase;
-
-  background: $purple2;
-  border-radius: 24px;
-
-  :hover {
-    cursor: pointer;
-  }
-}
-
-.active {
-  padding: 4px;
-
-  background: $gradient;
 }
 
 .box {
@@ -439,9 +353,7 @@
 .priceBid {
   margin-bottom: 24px;
 
-  input::placeholder {
-    color: $purple2;
-  }
+
 }
 
 .foot {
@@ -454,19 +366,6 @@
     text-align: center;
   }
 
-  .button {
-    @include m {
-      width: 100%;
-    }
-
-    &:not(:last-child) {
-      margin-right: 24px;
-
-      @include m {
-        margin: 0 0 12px;
-      }
-    }
-  }
 }
 
 .saving {
@@ -585,14 +484,61 @@
 }
 
 .fee {
+  margin-top: 4px;
   display: flex;
   flex-direction: column;
 
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 24px;
+  @include epilogue;
+  line-height: 160%;
 
-  .purple {
-    color: $purple2;
+}
+
+.tokenProperties {
+  margin-top: 16px;
+  @include flexbox;
+  flex-direction: column;
+}
+
+.tokenProperty {
+  @include flexbox(flex-start);
+  width: 100%;
+
+  &Name {
+    width: 100%;
+    margin-right: 12px;
+  }
+
+  &Value {
+    width: 100%;
+  }
+  &+&{
+    margin-top: 32px;
+  }
+}
+
+.btns {
+  margin-top: 32px;
+  @include flexbox(center, space-between);
+  @include forDesktopSm{
+    flex-direction: column;
+  }
+}
+
+.button {
+  @include epilogue;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 160%;
+}
+
+.submitBtn {
+  max-width: 410px;
+  width: 100%;
+}
+
+.cancelBtn {
+  color: $color-state-error;
+  @include forDesktopSm{
+    margin-top: 16px;
   }
 }

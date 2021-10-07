@@ -9,8 +9,6 @@
   @include epilogue;
   margin-bottom: 8px;
 
-  font-size: 16px;
-  font-weight: 500;
   line-height: 160%;
   text-transform: capitalize;
 
@@ -40,6 +38,10 @@
   &:hover {
     border-color: $color-actions-light-blue;
     box-shadow: 0 1px 6px rgba(119, 126, 144, 0.48);
+  }
+
+  &:focus {
+    border-color: $color-neutral-60;
   }
 
   &:disabled {

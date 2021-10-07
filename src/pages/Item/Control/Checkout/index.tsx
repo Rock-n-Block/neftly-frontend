@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
 import { Icon, LoaderCircle } from 'components';
 import { storeApi, useWalletConnectorContext, WalletConnect } from 'services';
-import { useMst } from 'store/store';
+import { useMst } from 'store';
 
 import styles from './Checkout.module.scss';
 

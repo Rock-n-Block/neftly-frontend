@@ -4,7 +4,7 @@ import { withFormik } from 'formik';
 import { mapKeys, snakeCase } from 'lodash';
 import { observer } from 'mobx-react';
 import { userApi } from 'services/api';
-import { useMst } from 'store/store';
+import { useMst } from 'store';
 import * as Yup from 'yup';
 
 import Profile, { IProfile } from '../component';

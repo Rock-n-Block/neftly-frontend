@@ -7,94 +7,75 @@ import { observer } from 'mobx-react-lite';
 
 import { storeApi } from '../../../services/api';
 // import { useMst } from '../../../store/store';
-import { validateForm } from '../../../utils/validate';
+// import {validateForm} from '../../../utils/validate';
+import * as Yup from 'yup';
 import CreateForm, { ICreateForm } from '../component';
 
 export default observer(({ isSingle, walletConnector }: any) => {
   // const { modals } = useMst();
+
+  const props: ICreateForm = {
+    name: '',
+    isSingle: true,
+    totalSupply: 1,
+    currency: 'ETH',
+    description: '',
+    price: '',
+    minimalBid: 0,
+    creatorRoyalty: '10%',
+    collection: 0,
+    details: [
+      { name: '', amount: '' },
+    ],
+    selling: true,
+    // startAuction: new Date(),
+    // endAuction: new Date(),
+    media: '',
+    cover: '',
+    coverPreview: '',
+    format: '',
+    img: '',
+    preview: '',
+    sellMethod: 'fixedPrice',
+    isLoading: false,
+  };
   const FormWithFormik = withFormik<any, ICreateForm>({
     enableReinitialize: true,
-    mapPropsToValues: () => ({
-      img: '',
-      cover: '',
-      preview: '',
-      coverPreview: '',
-      putOnSale: true,
-      instantSalePrice: true,
-      // unlockOncePurchased: false,
-      format: '',
-      instantSalePriceEth: '',
-      // digitalKey: '',
-      tokenName: '',
-      tokenDescr: '',
-      tokenRoyalties: '10%',
-      numberOfCopies: '',
-      tokenProperties: [
-        {
-          size: '',
-          amount: '',
-        },
-      ],
-      isLoading: false,
-      collectionId: '16',
-      currency: 'WETH',
-      bid: '',
-      showModal: false,
+    mapPropsToValues: () => props,
+
+    validationSchema: Yup.object().shape({
+      name: Yup.string().min(2, 'Too short!').max(50, 'Too long!'),
+      totalSupply: Yup.number().min(1, 'Minimal amount equal to 1!').max(100, 'Too much!'),
+      description: Yup.string().max(500, 'Too long!'),
+      minimalBid: Yup.number().min(0),
     }),
-    validate: (values: any) => {
-      const notRequired: string[] = ['tokenDescr', 'preview'];
-      if (
-        !values.putOnSale ||
-        (!values.instantSalePrice && !notRequired.includes('instantSalePriceEth'))
-      ) {
-        notRequired.push('instantSalePriceEth');
-      } /*
-      if (!values.unlockOncePurchased && !notRequired.includes('digitalKey')) {
-        notRequired.push('digitalKey');
-      } */
-      if (isSingle) {
-        notRequired.push('numberOfCopies');
-      }
-      if (!values.putOnSale || values.instantSalePrice) {
-        notRequired.push('bid');
-      }
-      const errors = validateForm({ values, notRequired });
-
-      return errors;
-    },
-
     handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
 
       const formData = new FormData();
       formData.append('media', values.img);
       if (values.cover) formData.append('cover', values.cover);
-      formData.append('name', values.tokenName);
-      formData.append('total_supply', isSingle ? '1' : values.numberOfCopies.toString());
-      formData.append('description', values.tokenDescr);
-      if (values.instantSalePrice && values.putOnSale) {
-        formData.append('price', values.instantSalePriceEth.toString());
+      formData.append('name', values.name);
+      formData.append('total_supply', isSingle ? '1' : values.totalSupply.toString());
+      formData.append('description', values.description);
+      if (values.sellMethod === 'fixedPrice') {
+        formData.append('price', values.price.toString());
       }
-      if (!values.instantSalePrice && values.putOnSale) {
-        formData.append('minimal_bid', values.bid.toString());
+      if (values.sellMethod === 'openForBids') {
+        formData.append('minimal_bid', values.minimalBid.toString());
       }
-      if (values.putOnSale) {
-        formData.append('available', values.numberOfCopies.toString());
-      } else {
-        formData.append('available', '0');
-      }
-      formData.append('creator_royalty', values.tokenRoyalties.toString().slice(0, -1));
+      formData.append('creator_royalty', values.creatorRoyalty.toString().slice(0, -1));
       formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
-      formData.append('collection', values.collectionId);
+      formData.append('collection', values.collection.toString());
       formData.append('currency', values.currency);
       formData.append('format', values.format);
       // formData.append('creator', localStorage.dds_token);
 
-      if (values.tokenProperties[0].size) {
+      if (values.details[0].name) {
         const details: any = {};
-        values.tokenProperties.forEach((item) => {
-          if (item.size) {
-            details[item.size] = item.amount;
+        values.details.forEach((item) => {
+          if (item.name) {
+            details[item.name] = item.amount;
           }
         });
 

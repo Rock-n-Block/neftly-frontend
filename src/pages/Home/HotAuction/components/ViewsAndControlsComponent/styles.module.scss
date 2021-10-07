@@ -2,6 +2,7 @@
 
 .viewsAndControls {
   width: 100%;
+  margin-top: 10px;
   @include flexbox(center, space-between);
 }
 
@@ -18,8 +19,15 @@
 .likeButton {
   @include flexbox;
   padding: 0 10px;
-  img {
+  svg {
     margin-right: 5px;
+  }
+  &Active {
+    svg {
+      path {
+        fill: red;
+      }
+    }
   }
 }
 

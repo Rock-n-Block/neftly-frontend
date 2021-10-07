@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
 import { Button, Icon, Switch } from 'components';
 import { storeApi, useWalletConnectorContext, WalletConnect } from 'services';
-import { useMst } from 'store/store';
+import { useMst } from 'store';
 
 import styles from './PutSale.module.scss';
 
@@ -48,7 +48,7 @@ const PutSale: React.FC<IPutSaleProps> = ({
   }, [tokenId, priceValue, price, updateTokenData, onClose]);
 
   const fetchFee = useCallback(() => {
-    storeApi.getFee().then(({ data }: any) => setFee(data));
+    storeApi.getFee('BNB').then(({ data }: any) => setFee(data));
   }, []);
 
   useEffect(() => {
@@ -101,9 +101,7 @@ const PutSale: React.FC<IPutSaleProps> = ({
               ).toString(10)}{' '}
               {currency}
             </div>
-          ) : (
-            ''
-          )}
+          ) : null}
         </div>
       </div>
       <div className={styles.btns}>
