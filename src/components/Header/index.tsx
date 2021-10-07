@@ -64,7 +64,7 @@ const Headers: React.FC = observer(() => {
           </div>
         ) : (
           <Button
-            onClick={() => walletConnector.connect('Binance', 'MetaMask')}
+            onClick={() => walletConnector.connect('Polygon', 'MetaMask')}
             className={styles.headerConnectBtn}
             color="outline"
           >

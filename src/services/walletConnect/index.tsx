@@ -15,8 +15,8 @@ declare global {
 
 const walletConnectorContext = createContext<{
   connect: (
-    chainName: 'Binance' | 'KardiaChain',
-    providerName: 'MetaMask' | 'WalletConnect' | 'WalletLink' | 'KardiaChain',
+    chainName: 'Ethereum' | 'Binance-Smart-Chain' | 'Polygon',
+    providerName: 'MetaMask' | 'WalletConnect',
   ) => void;
   disconnect: () => void;
   walletService: WalletConnect;
@@ -53,8 +53,8 @@ class Connector extends React.Component<
   }
 
   connect = async (
-    chainName: 'Binance' | 'KardiaChain',
-    providerName: 'MetaMask' | 'WalletConnect' | 'WalletLink' | 'KardiaChain',
+    chainName: 'Ethereum' | 'Binance-Smart-Chain' | 'Polygon',
+    providerName: 'MetaMask' | 'WalletConnect',
   ) => {
     if (window.ethereum || window.kardiachain) {
       try {

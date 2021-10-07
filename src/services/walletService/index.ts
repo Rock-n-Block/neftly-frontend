@@ -16,8 +16,8 @@ export class WalletConnect {
   }
 
   public async initWalletConnect(
-    chainName: 'Binance' | 'KardiaChain',
-    providerName: 'MetaMask' | 'WalletConnect' | 'WalletLink' | 'KardiaChain',
+    chainName: 'Ethereum' | 'Binance-Smart-Chain' | 'Polygon',
+    providerName: 'MetaMask' | 'WalletConnect',
   ): Promise<boolean> {
     return new Promise((resolve) => {
       const { provider, network, settings } = connectWalletConfig(chainName);

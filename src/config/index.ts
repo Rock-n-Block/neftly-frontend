@@ -5,20 +5,11 @@ import { bep20Abi, erc20Abi, nftAbi } from './abi';
 export const is_production = false;
 
 export const chains = {
-  Binance: {
-    name: 'binance-testnet',
+  'Binance-Smart-Chain': {
+    name: 'binance-smart-chain',
     chainId: is_production ? 56 : 97,
     provider: {
       MetaMask: { name: 'MetaMask' },
-      WalletLink: {
-        name: 'WalletLink',
-        useProvider: 'infura',
-        provider: {
-          infura: {
-            infuraId: 'b939155f8c9941ab8fd0c47fe6ddb601',
-          },
-        },
-      },
       WalletConnect: {
         name: 'WalletConnect',
         useProvider: 'rpc',
@@ -27,7 +18,7 @@ export const chains = {
             rpc: {
               [is_production ? 56 : 97]: is_production
                 ? 'https://bsc-dataseed.binance.org/'
-                : 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+                : 'https://data-seed-prebsc-2-s1.binance.org:8545/',
             },
             chainId: is_production ? 56 : 97,
           },
@@ -35,20 +26,60 @@ export const chains = {
       },
     },
   },
-  KardiaChain: {
-    name: 'KardiaChain',
-    chainId: is_production ? 0 : 69,
+  'Ethereum': {
+    name: 'ethereum',
+    chainId: is_production ? 1 : 4,
     provider: {
-      KardiaChain: { name: 'KardiaChain' },
+      MetaMask: { name: 'MetaMask' },
+      WalletConnect: {
+        name: 'WalletConnect',
+        useProvider: 'rpc',
+        provider: {
+          rpc: {
+            rpc: {
+              [is_production ? 1 : 4]: is_production
+                ? 'https://bsc-dataseed.binance.org/'
+                : 'https://data-seed-prebsc-2-s1.binance.org:8545/',
+            },
+            chainId: is_production ? 1 : 4,
+          },
+        },
+      },
+    },
+  },
+  'Polygon': {
+    name: 'polygon',
+    chainId: is_production ? 137 : 80001,
+    provider: {
+      MetaMask: { name: 'MetaMask' },
+      WalletConnect: {
+        name: 'WalletConnect',
+        useProvider: 'rpc',
+        provider: {
+          rpc: {
+            rpc: {
+              [is_production ? 137 : 80001]: is_production
+                ? 'https://bsc-dataseed.binance.org/'
+                : 'https://data-seed-prebsc-2-s1.binance.org:8545/',
+            },
+            chainId: is_production ? 137 : 80001,
+          },
+        },
+      },
     },
   },
 };
 
-export const connectWallet = (chainName: 'Binance' | 'KardiaChain'): IConnectWallet => {
+export const connectWallet = (
+  chainName: 'Ethereum' | 'Binance-Smart-Chain' | 'Polygon' | 'Polygon',
+): IConnectWallet & {
+  blockchains: Array<string>;
+} => {
   const chain = chains[chainName];
 
   return {
-    wallets: ['MetaMask', 'WalletConnect', 'WalletLink', 'KardiaChain'],
+    wallets: ['MetaMask', 'WalletConnect'],
+    blockchains: ['Ethereum', 'Binance Smart Chain', 'Polygon'],
     network: {
       name: chain.name,
       chainID: chain.chainId,

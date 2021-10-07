@@ -32,7 +32,7 @@ const Connect: React.FC = () => {
     {
       title: 'Wallet Connect',
       color: 'linear-gradient(90deg, #6F45FF 0%, #FF6365 100%)',
-      onClick: () => walletConnector.connect('Binance', 'MetaMask'),
+      onClick: () => walletConnector.connect('Binance-Smart-Chain', 'MetaMask'),
     },
   ];
   return (
