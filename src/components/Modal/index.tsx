@@ -3,17 +3,19 @@ import { createPortal } from 'react-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
-import { Icon } from 'components';
+import { Icon, H3 } from 'components';
+import { IModal } from 'typings';
 
 import styles from './Modal.module.scss';
 
 // TODO: убрать any
-const Modal: React.FC<any> = ({
+const Modal: React.FC<IModal> = ({
   outerClassName,
   containerClassName,
   visible,
   onClose,
   children,
+  title,
 }) => {
   const escFunction = useCallback(
     (e) => {
@@ -50,6 +52,7 @@ const Modal: React.FC<any> = ({
         <div className={cn(styles.outer, outerClassName)}>
           <OutsideClickHandler onOutsideClick={onClose}>
             <div className={cn(styles.container, containerClassName)}>
+              {title ? <H3 className={styles.title}>{title}</H3> : null}
               {children}
               <button type="button" className={styles.close} onClick={onClose}>
                 <Icon name="close" size="14" />
