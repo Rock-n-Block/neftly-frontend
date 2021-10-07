@@ -1,6 +1,4 @@
 import { useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { routes } from 'appConstants';
 import { allCategory, arrowUpRight, art, burn, camera, filter, motion, threeD } from 'assets/img';
 import cx from 'classnames';
 import {
@@ -89,8 +87,9 @@ const Discover = () => {
         <div className={cx(styles.filterResultsContainer, { [styles.withFilter]: isFilterOpen })}>
           <H3>3,150,000 results</H3>
           <div className={styles.filterResults}>
-            {data.map((artCard, index) => {
+            {data.map((artCard) => {
               const {
+                id,
                 image,
                 name,
                 price,
@@ -102,20 +101,19 @@ const Discover = () => {
                 tags,
               } = artCard;
               return (
-                <Link to={`${routes.nft.link}/${index}`}>
-                  <ArtCard
-                    key={name}
-                    imageMain={image}
-                    name={name}
-                    price={price}
-                    asset={asset}
-                    inStockNumber={inStockNumber}
-                    author={author}
-                    authorAvatar={authorAvatar}
-                    likesNumber={likesNumber}
-                    tags={tags}
-                  />
-                </Link>
+                <ArtCard
+                  artId={id}
+                  key={name}
+                  imageMain={image}
+                  name={name}
+                  price={price}
+                  asset={asset}
+                  inStockNumber={inStockNumber}
+                  author={author}
+                  authorAvatar={authorAvatar}
+                  likesNumber={likesNumber}
+                  tags={tags}
+                />
               );
             })}
           </div>
@@ -133,8 +131,9 @@ const Discover = () => {
             </Button>
           </div>
           <div className={styles.recommendArtworkCardContainer}>
-            {dataMediumCards.map((card, index) => {
+            {dataMediumCards.map((card) => {
               const {
+                id,
                 image,
                 imageSecondary1,
                 imageSecondary2,
@@ -148,22 +147,21 @@ const Discover = () => {
                 likesNumber,
               } = card;
               return (
-                <Link to={`${routes.nft.link}/${index}`}>
-                  <ArtCard
-                    type="Medium"
-                    imageMain={image}
-                    imageSecondaryOne={imageSecondary1}
-                    imageSecondaryTwo={imageSecondary2}
-                    imageSecondaryThree={imageSecondary3}
-                    name={name}
-                    price={price}
-                    asset={asset}
-                    inStockNumber={inStockNumber}
-                    author={author}
-                    authorAvatar={authorAvatar}
-                    likesNumber={likesNumber}
-                  />
-                </Link>
+                <ArtCard
+                  artId={id}
+                  type="Medium"
+                  imageMain={image}
+                  imageSecondaryOne={imageSecondary1}
+                  imageSecondaryTwo={imageSecondary2}
+                  imageSecondaryThree={imageSecondary3}
+                  name={name}
+                  price={price}
+                  asset={asset}
+                  inStockNumber={inStockNumber}
+                  author={author}
+                  authorAvatar={authorAvatar}
+                  likesNumber={likesNumber}
+                />
               );
             })}
           </div>

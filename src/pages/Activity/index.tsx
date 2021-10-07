@@ -152,14 +152,36 @@ const Activity: React.FC = observer(() => {
           <div className={styles.container}>
             <H3 className={styles.artworksTitle}>Hot Artworks</H3>
             <div className={styles.works}>
-              {cardsData.map((card) => (
-                <ArtCard
-                  className={styles.artwork}
-                  key={`${card.author}-${card.likesNumber}-${card.price}`}
-                  {...card}
-                  imageMain={card.image}
-                />
-              ))}
+              {cardsData.map((card) => {
+                const {
+                  id,
+                  image,
+                  name,
+                  price,
+                  asset,
+                  inStockNumber,
+                  author,
+                  authorAvatar,
+                  likesNumber,
+                  tags,
+                } = card;
+                return (
+                  <ArtCard
+                    className={styles.artwork}
+                    key={`${card.author}-${card.likesNumber}-${card.price}`}
+                    artId={id}
+                    imageMain={image}
+                    name={name}
+                    price={price}
+                    asset={asset}
+                    inStockNumber={inStockNumber}
+                    author={author}
+                    authorAvatar={authorAvatar}
+                    likesNumber={likesNumber}
+                    tags={tags}
+                  />
+                );
+              })}
             </div>
             <div className={styles.buttonWrap}>
               <Button className={styles.moreButton} color="outline">

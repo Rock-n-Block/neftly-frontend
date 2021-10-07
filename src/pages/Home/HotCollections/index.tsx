@@ -20,6 +20,7 @@ const HotCollections: FC<Props> = ({ className }) => (
     <div className={styles.artCardsWrapper}>
       {data.map((art) => {
         const {
+          id,
           image,
           imageSecondary1,
           imageSecondary2,
@@ -34,6 +35,7 @@ const HotCollections: FC<Props> = ({ className }) => (
         } = art;
         return (
           <ArtCard
+            artId={id}
             key={name}
             type="Medium"
             imageMain={image}
