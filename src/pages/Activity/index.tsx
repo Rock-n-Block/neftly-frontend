@@ -1,64 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import { useHistory } from 'react-router-dom';
+import { ReactComponent as FilterIcon } from 'assets/img/ActivityPage/filter.svg';
 import cn from 'classnames';
+import { ActivityItem, ArtCard, Button, H2, H3, Loader } from 'components';
 import { observer } from 'mobx-react';
+import moment from 'moment';
+import profile_avatar_example from '../../assets/img/ProfilePage/profile_avatar_example.png';
 
-import { useMst } from '../../store';
-import { ActivityItem, Loader, Button, H2, H3, ArtCard } from 'components';
 import { activityApi } from '../../services/api';
+
 import Filters from './Filters';
 import { data as cardsData } from './mockData';
 
 import styles from './Activity.module.scss';
-
-import { ReactComponent as Circle } from 'assets/img/icons/circle-gradient.svg';
-import { ReactComponent as FilterIcon } from 'assets/img/ActivityPage/filter.svg';
-// EXAMPLE IMGS FOR ACTIVITY ITEMS
-import actionExample from 'assets/img/ActivityPage/action_example.png';
-import actionExample2 from 'assets/img/ActivityPage/action_example2.png';
-import userAvaExample from 'assets/img/ActivityPage/user_ava_example.png';
-import userAvaExample2 from 'assets/img/ActivityPage/user_ava_example2.png';
-
-const actionsMockData = [
-  {
-    activityType: 'likes',
-    id: 1,
-    userImg: userAvaExample,
-    actionImg: actionExample2,
-    userName: 'Balgo Parks',
-    actionDescription: 'Commented on article The biggest drop in Times Square since New Years Eve',
-    timeAgo: '12 minutes ago',
-  },
-  {
-    activityType: 'followers',
-    id: 2,
-    userImg: userAvaExample2,
-    actionImg: actionExample,
-    userName: 'Ninny Spangcole',
-    actionDescription:
-      'Added Nightmare in a strange world of Fire by Wolfgang Slashhaut to Collection',
-    timeAgo: '5 minutes ago',
-  },
-  {
-    activityType: 'comments',
-    id: 3,
-    userImg: userAvaExample,
-    actionImg: actionExample2,
-    userName: 'Balgo Parks',
-    actionDescription: 'Liked Ring of Fire by Bruno Bangnyfe',
-    timeAgo: '45 minutes ago',
-  },
-  {
-    activityType: 'collections',
-    id: 4,
-    userImg: userAvaExample2,
-    actionImg: actionExample,
-    userName: 'Ninny Spangcole',
-    actionDescription: 'Followed Balgo Parks',
-    timeAgo: '2 minutes ago',
-  },
-];
 
 const filters = [
   'Sales',
@@ -73,80 +28,37 @@ const filters = [
 ];
 
 const Activity: React.FC = observer(() => {
-  const { user } = useMst();
   const history = useHistory();
   const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
-  const [activeIndex, setActiveIndex] = useState<any>(null);
   const [visible, setVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState([]);
+  const [page, setPage] = useState<number>(1);
 
-  const [formData, setFormData] = useState<any>({
-    address: '',
-    page: 1,
-  });
-
-  const handleChange = (key: string, value: any) => {
-    setFormData((prevState: any) => ({
-      ...prevState,
-      [key]: value,
-    }));
-  };
-
-  const fetchActivity = useCallback(
-    (address: string) => {
-      activityApi.getActivity(address, formData.page, selectedFilters).then(({ data }: any) => {
+  const fetchActivity = useCallback((searchPage: number, searchFilters) => {
+    setIsLoading(true);
+    activityApi
+      .getActivity(searchPage, searchFilters)
+      .then(({ data }: any) => {
         setItems(data);
-      });
-    },
-    [formData.page, selectedFilters],
-  );
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
 
   const handleFilters = useCallback(
     (values: any) => {
       setSelectedFilters(values);
-      fetchActivity(formData.address);
+      fetchActivity(1, values);
     },
-    [fetchActivity, formData.address],
+    [fetchActivity],
   );
 
-  const handleNavLinks = useCallback(
-    (value: any) => {
-      switch (value) {
-        case 0:
-          if (!user.address) return;
-          handleChange('address', user.address);
-          fetchActivity(user.address);
-          break;
-        case 1:
-          handleChange('address', `${user.address}/following`);
-          fetchActivity(`${user.address}/following`);
-          break;
-        case 2:
-          handleChange('address', '');
-          fetchActivity('');
-          break;
-        default:
-          break;
-      }
-      setActiveIndex(value);
-      // setIsLoading(true);
+  const handlePage = useCallback(
+    (newPage) => {
+      setPage(newPage);
+      fetchActivity(newPage, selectedFilters);
     },
-    [fetchActivity, user.address],
-  );
-
-  const readNotification = useCallback(
-    (activity_id: number, method: string, link_id: number | string) => {
-      activityApi.readNotification({ activity_id, method }).then((data: any) => {
-        if (data.statusText === 'OK') {
-          if (method === 'follow') {
-            history.push(`/profile/${link_id}`);
-          } else {
-            history.push(`/item/${link_id}`);
-          }
-        }
-      });
-    },
-    [history],
+    [fetchActivity, selectedFilters],
   );
 
   const openNotification = (method: string, link_id: number | string) => {
@@ -157,15 +69,9 @@ const Activity: React.FC = observer(() => {
     }
   };
 
-  const readAllNotifications = useCallback(() => {
-    activityApi.readNotification({ activity_id: 0, method: 'all' }).then((data: any) => {
-      if (data.statusText === 'OK') history.push('/activity');
-    });
-  }, [history]);
-
   useEffect(() => {
-    handleNavLinks(0);
-  }, [handleNavLinks]);
+    fetchActivity(1, []);
+  }, [fetchActivity]);
 
   return (
     <div className={styles.page}>
@@ -196,66 +102,42 @@ const Activity: React.FC = observer(() => {
               <div className={styles.list}>
                 {/* OLD ITEMS */}
                 {/* TODO: fix this later */}
-                {items?.map((card: any) => (
-                  <div
-                    className={styles.item}
-                    key={nextId()}
-                    onClick={
-                      activeIndex === 0
-                        ? () =>
-                            readNotification(card.id, card.method, card.token_id || card.from_id)
-                        : () => openNotification(card.method, card.token_id || card.from_id)
-                    }
-                    onKeyDown={() => {}}
-                    role="button"
-                    tabIndex={0}
-                  >
+                {!isLoading ? (
+                  items?.map((card: any) => (
                     <div
-                      className={cn(styles.preview, {
-                        [styles.hidden]: activeIndex === 0 && card.is_viewed,
-                      })}
+                      key={nextId()}
+                      onClick={() => openNotification(card.method, card.token_id || card.from_id)}
+                      onKeyDown={() => {}}
+                      role="button"
+                      tabIndex={0}
                     >
-                      <img src={card.from_image || card.to_image} alt="Notification" />
-                      <div className={styles.icon} style={{ backgroundColor: card.color }}>
-                        <img src={card.token_image || card.to_image} alt="Icon notification" />
-                      </div>
+                      <ActivityItem
+                        activityType={card.method}
+                        userImg={card.from_image || card.to_image || profile_avatar_example}
+                        actionImg={card.token_image || card.to_image}
+                        userName={card.from_name || card.to_name}
+                        actionDescription={`${card.method} ${card.token_name || card.to_name}`}
+                        timeAgo={moment().from(card.date)}
+                      />
                     </div>
-                    <div className={styles.details}>
-                      <div className={cn(styles.subtitle, 'text-gradient')}>
-                        {card.to_name?.length > 21
-                          ? `${card.to_name.slice(0, 14)}...${card.to_name.slice(-4)}`
-                          : card.to_name}
-                      </div>
-                      <div className={styles.description}>{card.method}</div>
-                      <div className={styles.date}>{card.date}</div>
-                    </div>
-                    <Circle
-                      className={cn(styles.circle, {
-                        [styles.hidden]: activeIndex !== 0,
-                      })}
-                    />
-                  </div>
-                ))}
-                {actionsMockData.map((action) => (
-                  <ActivityItem key={action.id} {...action} />
-                ))}
+                  ))
+                ) : (
+                  <Loader className={styles.loader} />
+                )}
               </div>
-              <Loader className={styles.loader} />
-              <div className={styles.buttonWrap}>
-                <Button className={styles.moreButton} color="outline">
-                  Load More
-                </Button>
-              </div>
+
+              {!isLoading && (
+                <div className={styles.buttonWrap}>
+                  <Button
+                    className={styles.moreButton}
+                    color="outline"
+                    onClick={() => handlePage(page + 1)}
+                  >
+                    Load More
+                  </Button>
+                </div>
+              )}
             </div>
-            {activeIndex === 0 && (
-              <button
-                type="button"
-                className={cn('button-stroke button-small mobile-show', styles.button)}
-                onClick={() => readAllNotifications()}
-              >
-                Mark all as read
-              </button>
-            )}
             <Filters
               className={cn(styles.filters, { [styles.active]: visible })}
               filters={filters}
