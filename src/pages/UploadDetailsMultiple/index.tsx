@@ -18,7 +18,7 @@ import Switch from '../../components/Switch';
 import TextInput from '../../components/TextInput';
 import { ratesApi, storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
-import { useMst } from '../../store/store';
+import { useMst } from '../../store';
 
 import Cards from './Cards';
 import CreateCollection from './CreateCollection';
@@ -53,7 +53,7 @@ const UploadMultiple: React.FC = observer(() => {
   const [isLoading, setLoading] = useState(false);
 
   const fetchFee = useCallback(() => {
-    storeApi.getFee().then(({ data }: any) => setFee(data));
+    storeApi.getFee('BNB').then(({ data }: any) => setFee(data));
   }, []);
 
   const [formData, setFormData] = useState({

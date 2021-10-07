@@ -1,22 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
-import { bell, wallet } from 'assets/img';
+import { Link, useLocation } from 'react-router-dom';
 import cx from 'classnames';
-import { Burger, Logo } from 'components';
-import Button from 'components/Button';
 import { observer } from 'mobx-react-lite';
 
 import { useWalletConnectorContext } from '../../services/walletConnect';
-import { useMst } from '../../store/store';
-import TextInput from '../TextInput/index';
-
+import { useMst } from '../../store';
+import { TextInput, Button, Burger, Logo } from 'components';
 import HeaderLinks from './HeaderLinks';
 import MobileMenu from './MobileMenu';
 import User from './User';
+import { routes } from 'appConstants';
 
 import styles from './styles.module.scss';
-import { Link } from 'react-router-dom';
-import { routes } from 'appConstants';
+
+import { bell, wallet } from 'assets/img';
 
 const Headers: React.FC = observer(() => {
   const { pathname } = useLocation();

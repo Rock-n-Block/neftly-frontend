@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router';
 
 import UserMainInfo from './UserMainInfo/index';
 import { userApi } from 'services/api';
-import { useMst } from 'store/store';
+import { useMst } from 'store';
 
 import { H3, ArtCard, Button, Select, TabLookingComponent } from 'components';
 import { data as dataMock } from './CardsMock';

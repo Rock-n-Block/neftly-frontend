@@ -4,9 +4,18 @@ import { routes } from 'appConstants';
 // import { allCategory, arrowUpRight, art, burn, camera, filter, motion, threeD } from 'assets/img';
 import { allCategory, arrowUpRight, art, filter } from 'assets/img';
 import cx from 'classnames';
-import { ArtCard, Button, Carousel, H2, H3, Select, TabLookingComponent, Text } from 'components';
+import {
+  ArtCard,
+  Button,
+  LiveAuction,
+  H2,
+  H3,
+  Select,
+  TabLookingComponent,
+  Text,
+} from 'components';
 import { AdvancedFilter } from 'containers';
-import { useFilters, useGetSlideToShow } from 'hooks';
+import { useFilters } from 'hooks';
 
 import { data as mockData, dataMediumCards } from './mockData';
 
@@ -146,8 +155,6 @@ const Discover = () => {
     [handleChangeFilters],
   );
 
-  const numberOfSlide = useGetSlideToShow();
-
   useEffect(() => {
     fetchSearch(queries);
   }, [queries, fetchSearch]);
@@ -209,7 +216,7 @@ const Discover = () => {
                 tags,
               } = artCard;
               return (
-                <Link to={`${routes.gallery.detailArtwork.link}/${index}`}>
+                <Link to={`${routes.nft.link}/${index}`}>
                   <ArtCard
                     key={name}
                     imageMain={image}
@@ -228,39 +235,7 @@ const Discover = () => {
           </div>
         </div>
       </div>
-      <div className={styles.liveAuction}>
-        <H3>Live Auction Today</H3>
-        <Carousel slidesToShow={numberOfSlide}>
-          {mockData.map((artCard, index) => {
-            const {
-              image,
-              name,
-              price,
-              asset,
-              inStockNumber,
-              author,
-              authorAvatar,
-              likesNumber,
-              tags,
-            } = artCard;
-            return (
-              <Link to={`${routes.gallery.detailAuction.link}/${index}`}>
-                <ArtCard
-                  imageMain={image}
-                  name={name}
-                  price={price}
-                  asset={asset}
-                  inStockNumber={inStockNumber}
-                  author={author}
-                  authorAvatar={authorAvatar}
-                  likesNumber={likesNumber}
-                  tags={tags}
-                />
-              </Link>
-            );
-          })}
-        </Carousel>
-      </div>
+      <LiveAuction className={styles.liveAuction} />
       <div>
         <div>
           <div className={styles.recommendArtworkTitle}>
@@ -287,7 +262,7 @@ const Discover = () => {
                 likesNumber,
               } = card;
               return (
-                <Link to={`${routes.gallery.detailAuction.link}/${index}`}>
+                <Link to={`${routes.nft.link}/${index}`}>
                   <ArtCard
                     type="Medium"
                     imageMain={image}

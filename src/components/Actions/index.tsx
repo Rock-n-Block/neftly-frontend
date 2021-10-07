@@ -110,9 +110,7 @@ const Actions: React.FC<IActionsProps> = ({
                   <Icon name={x.icon} size="20" />
                   <span>{x.title}</span>
                 </div>
-              ) : (
-                ''
-              );
+              ) : null;
             })}
           </div>
         </div>

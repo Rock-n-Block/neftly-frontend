@@ -63,8 +63,6 @@ const HotAuctionCard: FC<Props> = ({
       views={views}
       likes={likes}
       artPic={artPic}
-      currentPrice={currentPrice}
-      priceAsset={priceAsset}
       auctionEndingTime={auctionEndingTime}
       bidders={bidders}
     />

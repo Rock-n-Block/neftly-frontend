@@ -34,6 +34,7 @@ export const chains = {
         },
       },
     },
+    explorer: is_production ? 'https://bscscan.com' : 'https://testnet.bscscan.com',
   },
   KardiaChain: {
     name: 'KardiaChain',
@@ -41,6 +42,7 @@ export const chains = {
     provider: {
       KardiaChain: { name: 'KardiaChain' },
     },
+    explorer: is_production ? '' : '',
   },
 };
 

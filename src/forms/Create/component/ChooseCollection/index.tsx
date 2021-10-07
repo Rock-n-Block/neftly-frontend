@@ -1,17 +1,17 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { createCollection } from 'assets/img/ChooseCollection';
 import cn from 'classnames';
+import { Modal, Text } from 'components';
 // import {connect} from 'formik';
-import {observer} from 'mobx-react';
-import {useMst} from 'store/store';
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {Text, Modal} from 'components';
-import {userApi} from 'services/api';
-import {CreateCollection} from '../../../index';
-import {createCollection} from 'assets/img/ChooseCollection';
+import { observer } from 'mobx-react';
+import { userApi } from 'services/api';
+import { useMst } from 'store';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import styles from './ChooseCollection.module.scss';
+import { CreateCollection } from '../../../index';
 
 import 'swiper/swiper.scss';
+import styles from './ChooseCollection.module.scss';
 
 interface IProps {
   isSingle: boolean;
@@ -30,107 +30,115 @@ interface ICollection {
 const mockCollections: ICollection[] = [
   {
     id: 1,
-    title: 'New collection'
+    title: 'New collection',
   },
   {
     id: 2,
-    title: 'New collection2'
+    title: 'New collection2',
   },
   {
     id: 3,
-    title: 'New collection2'
+    title: 'New collection2',
   },
   {
     id: 4,
-    title: 'New collection2'
+    title: 'New collection2',
   },
   {
     id: 5,
-    title: 'New collection2'
+    title: 'New collection2',
   },
-]
+];
 
-const ChooseCollection: React.FC<IProps> = observer(({isSingle, activeCollectionId, onChange, className}) => {
-  const {user} = useMst();
+const ChooseCollection: React.FC<IProps> = observer(
+  ({ isSingle, activeCollectionId, onChange, className }) => {
+    const { user } = useMst();
 
-  const [collections, setCollections] = useState([...mockCollections]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+    const [collections, setCollections] = useState([...mockCollections]);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const changeCollection = useCallback((id: number) => {
-    if (activeCollectionId !== id) onChange(id);
-  }, [activeCollectionId, onChange]);
+    const changeCollection = useCallback(
+      (id: number) => {
+        if (activeCollectionId !== id) {
+          onChange(id);
+        }
 
-  const getCollections = useCallback(() => {
-    userApi
-      .getSingleCollections(user.address)
-      .then(({data}) => {
-        const newCollections = data.collections.filter((coll: any) => {
-          if (isSingle) {
-            return coll.standart === 'ERC721';
-          }
-          return coll.standart === 'ERC1155';
-        });
-        setCollections(newCollections)
-        changeCollection(newCollections[0].id);
-      })
-      .catch((err) => console.log(err, 'get single'));
-  }, [changeCollection, isSingle, user.address]);
+      },
+      [activeCollectionId, onChange],
+    );
 
-  const handleOpenModal = () => {
-    setIsModalVisible(true);
-  };
+    const getCollections = useCallback(() => {
+      userApi
+        .getSingleCollections(user.address)
+        .then(({ data }) => {
+          const newCollections = data.collections.filter((coll: any) => {
+            if (isSingle) {
+              return coll.standart === 'ERC721';
+            }
+            return coll.standart === 'ERC1155';
+          });
+          setCollections(newCollections);
+          changeCollection(newCollections[0].id);
+        })
+        .catch((err) => console.log(err, 'get single'));
+    }, [changeCollection, isSingle, user.address]);
 
-  useEffect(() => {
-    if (user.address) {
-      getCollections();
-    }
-  }, [getCollections, user.address]);
+    const handleOpenModal = () => {
+      setIsModalVisible(true);
+    };
 
-  return (
-    <div className={cn(styles.cards, className)}>
-      <Swiper
-        spaceBetween={8}
-        slidesPerView='auto'
-        wrapperTag="ul"
-      >
-        <SwiperSlide tag="li" key='collection_0'
-                     className={cn(styles.card, !activeCollectionId && styles.active)}>
-          <div
-            onClick={handleOpenModal}
-            onKeyDown={handleOpenModal}
-            role="button"
-            tabIndex={0}
+    useEffect(() => {
+      if (user.address) {
+        getCollections();
+      }
+      // getCollections forces api requests on each keystroke in form
+      // TODO: rework this component
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user.address]);
+
+    return (
+      <div className={cn(styles.cards, className)}>
+        <Swiper spaceBetween={8} slidesPerView="auto" wrapperTag="ul">
+          <SwiperSlide
+            tag="li"
+            key="collection_0"
+            className={cn(styles.card, !activeCollectionId && styles.active)}
           >
-            <img src={createCollection} alt='create' className={styles.plus}/>
-            <Text className={styles.subtitle}>Create collection</Text>
-          </div>
-        </SwiperSlide>
-        {!!collections.length && collections.map((collection) => (
-          <SwiperSlide tag="li" key={`collection_${collection.id}`}
-                       className={cn(styles.card, {
-                         [styles.active]: activeCollectionId === collection.id,
-                       })}>
-            <div
-              onClick={() => changeCollection(collection.id)}
-              onKeyDown={() => changeCollection(collection.id)}
-              role="button"
-              tabIndex={0}
-              className={styles.cardContent}
-            >
-              {!!collection.avatar && (<img src={collection.avatar} alt='create' className={styles.avatar}/>)}
-              <Text className={styles.subtitle}>{collection.title}</Text>
+            <div onClick={handleOpenModal} onKeyDown={handleOpenModal} role="button" tabIndex={0}>
+              <img src={createCollection} alt="create" className={styles.plus} />
+              <Text className={styles.subtitle}>Create collection</Text>
             </div>
           </SwiperSlide>
-        ))}
-      </Swiper>
-      <Modal
-        visible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-      >
-        <CreateCollection isSingle={isSingle}/>
-      </Modal>
-    </div>
-  );
-});
+          {!!collections.length &&
+            collections.map((collection) => (
+              <SwiperSlide
+                tag="li"
+                key={`collection_${collection.id}`}
+                className={cn(styles.card, {
+                  [styles.active]: activeCollectionId === collection.id,
+                })}
+              >
+                <div
+                  onClick={() => changeCollection(collection.id)}
+                  onKeyDown={() => changeCollection(collection.id)}
+                  role="button"
+                  tabIndex={0}
+                  className={styles.cardContent}
+                >
+                  {!!collection.avatar && (
+                    <img src={collection.avatar} alt="create" className={styles.avatar} />
+                  )}
+                  <Text className={styles.subtitle}>{collection.title}</Text>
+                </div>
+              </SwiperSlide>
+            ))}
+        </Swiper>
+        <Modal visible={isModalVisible} onClose={() => setIsModalVisible(false)}>
+          <CreateCollection isSingle={isSingle} />
+        </Modal>
+      </div>
+    );
+  },
+);
 
 export default ChooseCollection;

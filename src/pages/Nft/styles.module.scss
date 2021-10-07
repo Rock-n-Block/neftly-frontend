@@ -1,4 +1,4 @@
-@import "../../styles/helpers";
+@import '../../styles/helpers';
 
 .detailArtworkContent {
   max-width: 1450px;
@@ -46,6 +46,10 @@
   height: 80%;
   overflow-y: auto;
 }
+.loader {
+  transform: scale(1.5);
+  margin: 20px auto;
+}
 
 .relatedArtwork {
   margin-top: 40px;
@@ -62,6 +66,9 @@
     transform: translate(-50%, -50%);
     border-top: 1px solid $color-neutral-80;
   }
+  h3 {
+    margin-bottom: 20px;
+  }
 }
 
 .auctionSlider {
@@ -69,14 +76,10 @@
 }
 
 .artCardsWrapper {
-  @include flexbox();
-  flex-wrap: wrap;
-
-  margin: -16px;
-
-  & > * {
-    margin: 16px;
-  }
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 16px;
+  width: 100%;
 }
 
 .viewMoreBtn {

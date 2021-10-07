@@ -1,41 +1,55 @@
 import axios from '../../core/axios';
 
 export default {
-  burnToken: (id: string, amount?: string) => axios.post(`store/${id}/burn/`, { amount }),
-  createToken: (data: any) => axios.post('store/create_token/', data),
+  burnToken: (id: string, amount?: string) =>
+    axios.post(`store/${id}/burn/?network=${localStorage.netfly_nft_chainName}`, { amount }),
+  createToken: (data: any) =>
+    axios.post(`store/create_token/?network=${localStorage.netfly_nft_chainName}`, data),
   // createToken: (data: any, details: any) => {
   //   data.details = details;
   //   return axios.post('store/create_token/', data);
   // },
-  createCollection: (data: any) => axios.post('store/create_collection/', data),
-  saveToken: (data: any) => axios.post('store/save_token/', data),
-  saveCollection: (data: any) => axios.post('store/save_collection/', data),
+  createCollection: (data: any) =>
+    axios.post(`store/create_collection/?network=${localStorage.netfly_nft_chainName}`, data),
+  saveToken: (data: any) =>
+    axios.post(`store/save_token/?network=${localStorage.netfly_nft_chainName}`, data),
+  saveCollection: (data: any) =>
+    axios.post(`store/save_collection/?network=${localStorage.netfly_nft_chainName}`, data),
   transferToken: (id: string, address: string, amount?: string) => {
     const data = { address, amount };
     if (!amount) delete data.amount;
-    return axios.post(`store/transfer/${id}/`, data);
+    return axios.post(`store/transfer/${id}/?network=${localStorage.netfly_nft_chainName}`, data);
   },
   // saveCollection: (data: any, tx_hash: string) => axios.post(`store/save_collection/${tx_hash}`, data),
   getExplore: (page: number, filter: string, sort: string) =>
-    axios.get(`store/hot/${page}/?sort=${sort}${filter !== 'all' ? `&tag=${filter}` : ''}`),
-  getTags: () => axios.get(`store/tags/?nerwork=${localStorage.netfly_nft_chainName}`),
-  getFavorites: () => axios.get(`store/favorites/`),
-  getCollections: () => axios.get('store/hot_collections/'),
-  getHotBids: () => axios.get('store/hot_bids/'),
+    axios.get(
+      `store/hot/${page}/?network=${localStorage.netfly_nft_chainName}&sort=${sort}${
+        filter !== 'all' ? `&tag=${filter}` : ''
+      }`,
+    ),
+  getTags: () => axios.get(`store/tags/?network=${localStorage.netfly_nft_chainName}`),
+  getFavorites: () => axios.get(`store/favorites/?network=${localStorage.netfly_nft_chainName}`),
+  getCollections: () =>
+    axios.get(`store/hot_collections/?network=${localStorage.netfly_nft_chainName}`),
+  getHotBids: () => axios.get(`store/hot_bids/?network=${localStorage.netfly_nft_chainName}`),
   getCollectionById: (id: number | string, page: number) =>
-    axios.get(`store/collection/${id}/${page}/`),
-  getToken: (id: number | string) => axios.get(`store/${id}/`),
+    axios.get(`store/collection/${id}/${page}/?network=${localStorage.netfly_nft_chainName}`),
+  getToken: (id: number | string) =>
+    axios.get(`store/${id}/?network=${localStorage.netfly_nft_chainName}`),
   buyToken: (id: number | string, amount: number, sellerId?: string | number) => {
     const data: any = {
       id,
       tokenAmount: amount,
     };
     if (sellerId) data.sellerId = sellerId;
-    return axios.post(`/store/buy/`, data);
+    return axios.post(`/store/buy/?network=${localStorage.netfly_nft_chainName}`, data);
   },
-  getLiked: (address: string, page: number) => axios.get(`store/liked/${address}/${page}/`),
-  getCreated: (address: string, page: number) => axios.get(`store/created/${address}/${page}/`),
-  getCollectibles: (address: string, page: string) => axios.get(`store/owned/${address}/${page}/`),
+  getLiked: (address: string, page: number) =>
+    axios.get(`store/liked/${address}/${page}/?network=${localStorage.netfly_nft_chainName}`),
+  getCreated: (address: string, page: number) =>
+    axios.get(`store/created/${address}/${page}/?network=${localStorage.netfly_nft_chainName}`),
+  getCollectibles: (address: string, page: string) =>
+    axios.get(`store/owned/${address}/${page}/?network=${localStorage.netfly_nft_chainName}`),
   getUserCollections: (address: string, page: number) =>
     axios.get(`store/collections/${address}/${page}/`),
   getSearchResults: (queries: any) => {
@@ -53,12 +67,10 @@ export default {
       default:
         break;
     }
-    if (!queriesCopy.on_sale) {
-      delete queriesCopy.on_sale;
-    }
     if (queriesCopy.tags === 'All items') delete queriesCopy.tags;
     let query = `?network=${localStorage.netfly_nft_chainName}&on_sale=true&`;
     Object.keys(queriesCopy).forEach((key, index) => {
+      // if (!localStorage.netfly_nft_chainName) return;
       if (queriesCopy[key] || queriesCopy[key] === false || queriesCopy[key] === 0) {
         query = query.concat(
           `${key}=${queriesCopy[key]}${index === Object.keys(queriesCopy).length - 1 ? '' : '&'}`,
@@ -76,25 +88,31 @@ export default {
       },
     );
   },
-  getFee: () => axios.get('/store/fee/'),
+  getFee: (currency: string | null) =>
+    axios.get(
+      `/store/fee/?network=${localStorage.netfly_nft_chainName}${
+        currency ? `&currency=${currency}` : ''
+      }`,
+    ),
   setCollectionCover: (file: any, id: string) => {
     const data = new FormData();
     data.append('id', id);
     data.append('auth_token', localStorage.dds_token);
     data.append('cover', file);
-    return axios.post('/store/set_cover/', data);
+    return axios.post(`/store/set_cover/?network=${localStorage.netfly_nft_chainName}`, data);
   },
   createBid: (id: string | number, amount: number, quantity: number, currency: string) =>
-    axios.post('/store/bids/make_bid/', {
+    axios.post(`/store/bids/make_bid/?network=${localStorage.netfly_nft_chainName}`, {
       // auth_token: localStorage.dds_token,
       token_id: id,
       amount,
       quantity,
       currency,
     }),
-  verificateBet: (id: number) => axios.get(`/store/verificate_bet/${id}/`),
+  verificateBet: (id: number) =>
+    axios.get(`/store/verificate_bet/${id}/?network=${localStorage.netfly_nft_chainName}`),
   endAuction: (id: number) =>
-    axios.post(`/store/end_auction/${id}/`, {
+    axios.post(`/store/end_auction/${id}/?network=${localStorage.netfly_nft_chainName}`, {
       token: localStorage.dds_token,
     }),
   putOnSale: (tokenId: number, price?: number | null, selling?: boolean) => {
@@ -107,12 +125,20 @@ export default {
       delete data.price;
     }
 
-    return axios.patch(`/store/${tokenId}/`, data);
+    return axios.patch(`/store/${tokenId}/?network=${localStorage.netfly_nft_chainName}`, data);
   },
   reportPage: (page: string, reportMessage: string, token: string) =>
-    axios.post('/store/report/', { page, reportMessage, token }),
+    axios.post(`/store/report/?network=${localStorage.netfly_nft_chainName}`, {
+      page,
+      reportMessage,
+      token,
+    }),
   support: (email: string, message: string, token: string) =>
-    axios.post('/store/support/', { email, message, token }),
+    axios.post(`/store/support/?network=${localStorage.netfly_nft_chainName}`, {
+      email,
+      message,
+      token,
+    }),
   trackTransaction: (tx_hash: string, token: string | number, seller_id: string | number) => {
     const data: any = {
       tx_hash,
@@ -120,7 +146,10 @@ export default {
       ownership: seller_id,
     };
     if (!seller_id) delete data.ownership;
-    return axios.post('/store/track_transaction/', data);
+    return axios.post(
+      `/store/track_transaction/?network=${localStorage.netfly_nft_chainName}`,
+      data,
+    );
   },
   removeFromSale: (id: string | number, price?: null, minimal_bid?: null) => {
     const data: {
@@ -136,7 +165,7 @@ export default {
     if (minimal_bid === null) {
       data.minimal_bid = minimal_bid;
     }
-    return axios.patch(`/store/${id}/`, data);
+    return axios.patch(`/store/${id}/?network=${localStorage.netfly_nft_chainName}`, data);
   },
   getMaxPrice: (currency: string) => axios.get(`/store/max_price/?currency=${currency}`),
 };

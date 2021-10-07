@@ -13,7 +13,7 @@ import Switch from '../../../components/Switch';
 // data
 // import { bids } from '../../../mocks/bids';
 import { ratesApi, storeApi } from '../../../services/api';
-import { useMst } from '../../../store/store';
+import { useMst } from '../../../store';
 
 import styles from './Discover.module.scss';
 
