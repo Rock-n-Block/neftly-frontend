@@ -11,6 +11,7 @@ import CreateCollection, { ICreateCollection } from '../component';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { ToastContentWithTxHash } from 'components';
+import { mapKeys, omit, snakeCase } from 'lodash';
 // import { mapKeys, snakeCase } from 'lodash';
 
 export default observer(({ isSingle }: any) => {
@@ -24,6 +25,7 @@ export default observer(({ isSingle }: any) => {
     shortUrl: '',
     preview: '',
     isLoading: false,
+    standart: 'ERC721',
   };
   const FormWithFormik = withFormik<any, ICreateCollection>({
     enableReinitialize: true,
@@ -36,34 +38,21 @@ export default observer(({ isSingle }: any) => {
     }),
     handleSubmit: (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
-
-      const formData = new FormData();
-
-      formData.append('name', values.name);
-      formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
-      formData.append('avatar', values.img);
-      formData.append('symbol', values.symbol);
-      // formData.append('creator', localStorage.dds_token);
-
-      if (values.description) {
-        formData.append('description', values.description);
-      }
-      if (values.shortUrl) {
-        formData.append('short_url', values.shortUrl);
-      }
-
-      // const formDataSnakeCase = mapKeys(values, (_, k) => snakeCase(k));
+      setFieldValue('standart', isSingle ? 'ERC721' : 'ERC1155');
+      const formDataBackendFields = omit({ ...values, avatar: values.img }, [
+        'isLoading',
+        'img',
+        'preview',
+      ]);
+      const formDataSnakeCase = mapKeys(formDataBackendFields, (_, k) => snakeCase(k));
 
       storeApi
-        .createCollection(formData)
+        .createCollection(formDataSnakeCase)
         .then(({ data }) => {
           walletConnector.walletService
             .sendTransaction(data)
             .on('transactionHash', (txHash) => {
-              /* TODO: remove autoclose Option */
-              toast.info(<ToastContentWithTxHash txHash={txHash} />, {
-                autoClose: false,
-              });
+              toast.info(<ToastContentWithTxHash txHash={txHash} />);
             })
             .then(() => {
               toast.success('Collection Created');

@@ -17,6 +17,7 @@ export interface ICreateCollection {
   img: any;
   preview?: string;
   isLoading: boolean;
+  standart: 'ERC721' | 'ERC1155';
 }
 
 const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
