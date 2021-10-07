@@ -28,4 +28,5 @@ export { default as Uploader } from './Uploader';
 export { default as Radio } from './Radio';
 export { default as Dropdown } from './Dropdown';
 export { default as RequiredMark } from './RequiredMark';
+export { default as LiveAuction } from './LiveAuction';
 export * from './Typography';
