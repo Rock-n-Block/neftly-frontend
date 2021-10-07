@@ -45,7 +45,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
     }),
     handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
-
+      const formData = new FormData();
       const apiReadyFormData = {
         name: values.name,
         standart: values.isSingle ? 'ERC721' : 'ERC1155',
@@ -59,10 +59,15 @@ export default observer(({ isSingle, walletConnector }: any) => {
         details: values.details.filter((detail) => detail.name !== ''),
         selling: values.selling,
       };
-      console.log(apiReadyFormData, values);
+
+      Object.entries(apiReadyFormData).forEach(([key, value]) =>
+        formData.append(key, value as string),
+      );
+
+      formData.append('avatar', values.img);
 
       storeApi
-        .createToken(apiReadyFormData)
+        .createToken(formData)
         .then(({ data }) => {
           walletConnector.walletService
             .sendTransaction(data.initial_tx)
