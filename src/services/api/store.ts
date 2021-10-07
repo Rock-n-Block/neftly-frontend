@@ -18,7 +18,7 @@ export default {
   // saveCollection: (data: any, tx_hash: string) => axios.post(`store/save_collection/${tx_hash}`, data),
   getExplore: (page: number, filter: string, sort: string) =>
     axios.get(`store/hot/${page}/?sort=${sort}${filter !== 'all' ? `&tag=${filter}` : ''}`),
-  getTags: () => axios.get(`store/tags/`),
+  getTags: () => axios.get(`store/tags/?nerwork=${localStorage.netfly_nft_chainName}`),
   getFavorites: () => axios.get(`store/favorites/`),
   getCollections: () => axios.get('store/hot_collections/'),
   getHotBids: () => axios.get('store/hot_bids/'),
@@ -38,39 +38,17 @@ export default {
   getCollectibles: (address: string, page: string) => axios.get(`store/owned/${address}/${page}/`),
   getUserCollections: (address: string, page: number) =>
     axios.get(`store/collections/${address}/${page}/`),
-  getSearchResults: (data: { text: string; page: number }, queries: any) => {
+  getSearchResults: (queries: any) => {
     const queriesCopy = { ...queries, max_price: queries.max_price[0] };
-    switch (queriesCopy.is_verified) {
+    switch (queriesCopy.is_verificated) {
       case 'All':
-        delete queriesCopy.is_verified;
+        delete queriesCopy.is_verificated;
         break;
-      case 'Verified only':
-        queriesCopy.is_verified = 'true';
+      case 'verified':
+        queriesCopy.is_verificated = 'true';
         break;
-      case 'Unverified only':
-        queriesCopy.is_verified = 'false';
-        break;
-      default:
-        break;
-    }
-    switch (queriesCopy.order_by) {
-      case 'Recently added':
-        queriesCopy.order_by = '-date';
-        break;
-      case 'Long added':
-        queriesCopy.order_by = 'date';
-        break;
-      case 'Most liked':
-        queriesCopy.order_by = '-likes';
-        break;
-      case 'Less liked':
-        queriesCopy.order_by = 'likes';
-        break;
-      case 'Most expensive':
-        queriesCopy.order_by = '-price';
-        break;
-      case 'Cheapest':
-        queriesCopy.order_by = 'price';
+      case 'unverified':
+        queriesCopy.is_verificated = 'false';
         break;
       default:
         break;
@@ -79,7 +57,7 @@ export default {
       delete queriesCopy.on_sale;
     }
     if (queriesCopy.tags === 'All items') delete queriesCopy.tags;
-    let query = '?';
+    let query = `?network=${localStorage.netfly_nft_chainName}&on_sale=true&`;
     Object.keys(queriesCopy).forEach((key, index) => {
       if (queriesCopy[key] || queriesCopy[key] === false || queriesCopy[key] === 0) {
         query = query.concat(
@@ -87,10 +65,16 @@ export default {
         );
       }
     });
-    return axios.post(`/store/search/${query === '?' ? '' : query}`, {
-      text: data.text,
-      page: data.page,
-    });
+    return axios.post(
+      `/store/search/${
+        query === `?network=${localStorage.netfly_nft_chainName}&on_sale=true&`
+          ? `?network=${localStorage.netfly_nft_chainName}&on_sale=true`
+          : query
+      }`,
+      {
+        text: '',
+      },
+    );
   },
   getFee: () => axios.get('/store/fee/'),
   setCollectionCover: (file: any, id: string) => {
@@ -154,4 +138,5 @@ export default {
     }
     return axios.patch(`/store/${id}/`, data);
   },
+  getMaxPrice: (currency: string) => axios.get(`/store/max_price/?currency=${currency}`),
 };

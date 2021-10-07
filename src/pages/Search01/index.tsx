@@ -70,9 +70,10 @@ const Search: React.FC = () => {
   }, []);
 
   const fetchSearch = useCallback((queriesObject: any, searchStr: string) => {
-    storeApi.getSearchResults({ text: searchStr, page: 1 }, queriesObject).then(({ data }) => {
-      setBids(data);
-    });
+    if (searchStr)
+      storeApi.getSearchResults(queriesObject).then(({ data }) => {
+        setBids(data);
+      });
   }, []);
 
   const handleSubmit = (e: any) => {
@@ -125,7 +126,7 @@ const Search: React.FC = () => {
   };
 
   const fetchSearchPage = useCallback(() => {
-    storeApi.getSearchResults({ text: search, page }, queries).then(({ data }) => {
+    storeApi.getSearchResults(queries).then(({ data }) => {
       setBids(bids.concat(data));
     });
     // eslint-disable-next-line

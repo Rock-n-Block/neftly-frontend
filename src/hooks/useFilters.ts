@@ -1,10 +1,19 @@
 import { useState } from 'react';
 
-const useFilters = (setQueries: (value: any) => void) => {
+const useFilters = () => {
   const [time, setTime] = useState<any>(null);
+  const [queries, setQueries] = useState({
+    type: 'items',
+    order_by: '-date',
+    tags: 'All items',
+    max_price: [0],
+    currency: '',
+    page: 1,
+    is_verificated: 'All',
+  });
 
   const handleChangeFilters = (key: string, value: any) => {
-    console.log(key, value)
+    console.log(key, value);
     if (key === 'max_price') {
       if (time) {
         clearTimeout(time);
@@ -34,7 +43,7 @@ const useFilters = (setQueries: (value: any) => void) => {
     }
   };
 
-  return handleChangeFilters;
+  return { handleChangeFilters, queries };
 };
 
 export default useFilters;
