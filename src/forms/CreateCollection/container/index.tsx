@@ -5,23 +5,27 @@ import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 
-// import { storeApi } from '../../../services/api';
-// import { useWalletConnectorContext } from '../../../services/walletConnect';
+import { useWalletConnectorContext, storeApi } from 'services';
 // import { useMst } from '../../../store';
 import CreateCollection, { ICreateCollection } from '../component';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+import { ToastContentWithTxHash } from 'components';
+import { mapKeys, omit, snakeCase } from 'lodash';
+// import { mapKeys, snakeCase } from 'lodash';
 
 export default observer(({ isSingle }: any) => {
   // const { modals } = useMst();
-  // const walletConnector = useWalletConnectorContext();
+  const walletConnector = useWalletConnectorContext();
   const props: ICreateCollection = {
     name: '',
     img: '',
     symbol: '',
-    descr: '',
+    description: '',
     shortUrl: '',
     preview: '',
     isLoading: false,
+    standart: 'ERC721',
   };
   const FormWithFormik = withFormik<any, ICreateCollection>({
     enableReinitialize: true,
@@ -34,66 +38,37 @@ export default observer(({ isSingle }: any) => {
     }),
     handleSubmit: (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
+      setFieldValue('standart', isSingle ? 'ERC721' : 'ERC1155');
+      const formDataBackendFields = omit({ ...values, avatar: values.img }, [
+        'isLoading',
+        'img',
+        'preview',
+      ]);
+      const formDataSnakeCase = mapKeys(formDataBackendFields, (_, k) => snakeCase(k));
 
-      const formData = new FormData();
-
-      formData.append('name', values.name);
-      formData.append('avatar', values.img);
-      formData.append('symbol', values.symbol);
-      // formData.append('creator', localStorage.dds_token);
-      formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
-
-      if (values.descr) {
-        formData.append('description', values.descr);
-      }
-      if (values.shortUrl) {
-        formData.append('short_url', values.shortUrl);
-      }
-
-      /* storeApi
-        .createCollection(formData)
+      storeApi
+        .createCollection(formDataSnakeCase)
         .then(({ data }) => {
           walletConnector.walletService
             .sendTransaction(data)
-            .then((res: any) => {
-              formData.append('tx_hash', res.transactionHash);
-
-              storeApi
-                .saveCollection(formData)
-                .then(() => {
-                  setFieldValue('showModal', true);
-                })
-                .catch((err: any) => {
-                  // modals.info.setMsg('An error occurred while creating the collection', 'error');
-                  console.log(err, 'err');
-                })
-                .finally(() => {
-                  setFieldValue('isLoading', false);
-                });
+            .on('transactionHash', (txHash) => {
+              toast.info(<ToastContentWithTxHash txHash={txHash} />);
             })
-            .catch((err: any) => {
-              console.log(err, 'err');
+            .then(() => {
+              toast.success('Collection Created');
+            })
+            .catch((error) => {
+              toast.error('Create Collection failed');
+              console.error('Wallet Create collection failure', error);
+            })
+            .finally(() => {
               setFieldValue('isLoading', false);
             });
         })
-        .catch(({ response }) => {
-          if (response.data.name) {
-            setTimeout(() => {
-              setFieldError('tokenName', response.data.name);
-            }, 100);
-          }
-          if (response.data.symbol) {
-            setTimeout(() => {
-              setFieldError('symbol', response.data.symbol);
-            }, 100);
-          }
-          if (response.data.short_url) {
-            setTimeout(() => {
-              setFieldError('shortUrl', response.data.short_url);
-            }, 100);
-          }
-          setFieldValue('isLoading', false);
-        }); */
+        .catch((error) => {
+          toast.error('Create Collection failed');
+          console.error('Backend Create collection failure', error);
+        });
     },
 
     displayName: 'CreateCollectionForm',
