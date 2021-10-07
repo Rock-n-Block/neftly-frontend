@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
-import { observer } from 'mobx-react';
-
+import { Button, H2, Text } from 'components';
 import { CreateForm } from 'forms';
+import { observer } from 'mobx-react';
 import { useWalletConnectorContext } from 'services/walletConnect';
 
 import styles from './CreateToken.module.scss';
-import { Button, H2, Text } from 'components';
 
 interface IProps {
   isMultiple?: boolean;

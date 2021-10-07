@@ -1,14 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// eslint-disable-next-line no-param-reassign
-import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
-
-import { storeApi } from '../../../services/api';
 // import { useMst } from '../../../store/store';
 // import {validateForm} from '../../../utils/validate';
 import * as Yup from 'yup';
+
+import { storeApi } from '../../../services/api';
 import CreateForm, { ICreateForm } from '../component';
 
 export default observer(({ isSingle, walletConnector }: any) => {
@@ -22,11 +18,9 @@ export default observer(({ isSingle, walletConnector }: any) => {
     description: '',
     price: '',
     minimalBid: 0,
-    creatorRoyalty: '10%',
+    creatorRoyalty: '10',
     collection: 0,
-    details: [
-      { name: '', amount: '' },
-    ],
+    details: [{ name: '', amount: '' }],
     selling: true,
     // startAuction: new Date(),
     // endAuction: new Date(),
@@ -52,37 +46,23 @@ export default observer(({ isSingle, walletConnector }: any) => {
     handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
 
-      const formData = new FormData();
-      formData.append('media', values.img);
-      if (values.cover) formData.append('cover', values.cover);
-      formData.append('name', values.name);
-      formData.append('total_supply', isSingle ? '1' : values.totalSupply.toString());
-      formData.append('description', values.description);
-      if (values.sellMethod === 'fixedPrice') {
-        formData.append('price', values.price.toString());
-      }
-      if (values.sellMethod === 'openForBids') {
-        formData.append('minimal_bid', values.minimalBid.toString());
-      }
-      formData.append('creator_royalty', values.creatorRoyalty.toString().slice(0, -1));
-      formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
-      formData.append('collection', values.collection.toString());
-      formData.append('currency', values.currency);
-      formData.append('format', values.format);
-      // formData.append('creator', localStorage.dds_token);
+      const apiReadyFormData = {
+        name: values.name,
+        standart: values.isSingle ? 'ERC721' : 'ERC1155',
+        total_supply: values.totalSupply,
+        currency: values.currency,
+        description: values.description,
+        price: values.price,
+        minimal_bid: values.minimalBid,
+        creator_royalty: values.creatorRoyalty,
+        collection: values.collection,
+        details: values.details.filter((detail) => detail.name !== ''),
+        selling: values.selling,
+      };
+      console.log(apiReadyFormData, values);
 
-      if (values.details[0].name) {
-        const details: any = {};
-        values.details.forEach((item) => {
-          if (item.name) {
-            details[item.name] = item.amount;
-          }
-        });
-
-        formData.append('details', details);
-      }
       storeApi
-        .createToken(formData)
+        .createToken(apiReadyFormData)
         .then(({ data }) => {
           walletConnector.walletService
             .sendTransaction(data.initial_tx)

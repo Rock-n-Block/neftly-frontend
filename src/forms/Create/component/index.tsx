@@ -1,29 +1,28 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { upload } from 'assets/img/upload';
 import cn from 'classnames';
-import { Form, Field, FieldArray, FormikProps } from 'formik';
-import { observer } from 'mobx-react-lite';
-
 import {
   Button,
   Dropdown,
+  H6,
+  Radio,
+  RequiredMark,
+  Switch,
+  Text,
   // Modal,
   TextArea,
   TextInput,
   Uploader,
-  Switch,
-  Radio,
-  Text,
-  H6,
-  RequiredMark,
 } from 'components';
 import { IRadioButton } from 'components/Radio';
+import { Field, FieldArray, Form, FormikProps } from 'formik';
+import { observer } from 'mobx-react-lite';
 
 import ChooseCollection from './ChooseCollection';
-// import SuccessCreated from './SuccessCreated';
 
+// import SuccessCreated from './SuccessCreated';
 import styles from './CreateCollectibleDetails.module.scss';
-import { useHistory } from 'react-router';
 
 const royaltiesOptions = ['10%', '20%', '30%'];
 
@@ -43,7 +42,7 @@ export interface ICreateForm {
   description: string;
   price: string;
   minimalBid: number;
-  creatorRoyalty: '10%' | '20%' | '30%';
+  creatorRoyalty: '10' | '20' | '30';
   collection: number;
   details: IProperti[];
   selling: boolean;
@@ -82,12 +81,15 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     handleSubmit,
     isSingle = true,
   }) => {
+
+    console.log(errors);
     const history = useHistory();
     // const [rates, setRates] = useState([]);
     const [addToCollection, setAddToCollection] = useState(true);
     // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
     // const cryptocurrencies = ['ETH', 'BTC'];
+
     const onSubmit = () => {
       handleSubmit();
     };
@@ -124,6 +126,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
          setRates(data);
        });
      }, []); */
+    useEffect(() => {
+      setFieldValue('isSingle', isSingle);
+    }, [isSingle, setFieldValue]);
 
     return (
       <>
@@ -254,7 +259,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           Item name <RequiredMark />
                         </>
                       }
-                      name="tokenName"
+                      name="name"
                       type="text"
                       placeholder='e. g. "Redeemable Bitcoin Card with logo"'
                       value={values.name}
@@ -348,13 +353,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       </Text>
                       <Field
                         render={() => (
-                          /* <Dropdown
-                            name="total_supply"
-                            setValue={(value) => setFieldValue('totalSupply', +value)}
-                            options={numberOfCopiesOptions}
-                            className={styles.dropdown}
-                            value={`${values.totalSupply}`}
-                          /> */
                           <TextInput
                             name="totalSupply"
                             type="number"
@@ -366,6 +364,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           />
                         )}
                       />
+                      {touched.totalSupply && errors.totalSupply && <Text color="red">{errors.totalSupply}</Text>}
                     </div>
                   )}
                   <div className={styles.fieldsetRowColumn}>
@@ -379,7 +378,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           setValue={(value) => setFieldValue('creatorRoyalty', value)}
                           options={royaltiesOptions}
                           className={styles.dropdown}
-                          value={`${values.creatorRoyalty}`}
+                          value={`${values.creatorRoyalty}%`}
                         />
                       )}
                     />
@@ -394,28 +393,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     {values.currency.toUpperCase()}
                   </Text>
                 </div>
-                {/* {!isSingle && (
-                  <Field
-                    className={styles.field}
-                    name="numberOfCopies"
-                    render={() => (
-                      <TextInput
-                        className={styles.field}
-                        label="Tokens amount"
-                        name="numberOfCopies"
-                        type="number"
-                        placeholder="Enter the amount of tokens"
-                        value={values.numberOfCopies.toString()}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        required
-                      />
-                    )}
-                  />
-                )} */}
-                {/* {!isSingle && touched.numberOfCopies && errors.numberOfCopies && (
-                  <Text color='red'>{errors.numberOfCopies}</Text>
-                )} */}
                 <div className={styles.tokenProperties}>
                   <FieldArray
                     name="details"
@@ -425,19 +402,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         <div className={styles.tokenProperty} key={`details_${index}`}>
                           <Field
                             name={`details[${index}].name`}
-                            /* help={(() => {
-                               return errors.tokenProperties &&
-                               errors.tokenProperties[index] &&
-                               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                               // @ts-ignore
-                               // eslint-disable-next-line no-param-reassign
-                               errors.tokenProperties[index].name
-                                 ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                   // @ts-ignore
-                                   // eslint-disable-next-line no-param-reassign
-                                 errors.tokenProperties[index].name
-                                 : false;
-                             })()} */
                             render={() => (
                               <TextInput
                                 label="Property"
