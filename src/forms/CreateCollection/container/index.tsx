@@ -60,14 +60,14 @@ export default observer(({ isSingle }: any) => {
             .catch((error) => {
               toast.error('Create Collection failed');
               console.error('Wallet Create collection failure', error);
+            })
+            .finally(() => {
+              setFieldValue('isLoading', false);
             });
         })
         .catch((error) => {
           toast.error('Create Collection failed');
           console.error('Backend Create collection failure', error);
-        })
-        .finally(() => {
-          setFieldValue('isLoading', false);
         });
     },
 

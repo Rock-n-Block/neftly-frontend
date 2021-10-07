@@ -123,7 +123,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
           />
         </div>
 
-        <Button type="submit" className={cn('button', styles.button)}>
+        <Button type="submit" className={cn('button', styles.button)} disabled={values.isLoading}>
           Create Collection
         </Button>
         {/* <Modal visible={values.showModal} onClose={() => setFieldValue('showModal', false)}>
