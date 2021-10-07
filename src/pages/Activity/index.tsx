@@ -126,7 +126,7 @@ const Activity: React.FC = observer(() => {
                 )}
               </div>
 
-              {!isLoading ? (
+              {!isLoading && (
                 <div className={styles.buttonWrap}>
                   <Button
                     className={styles.moreButton}
@@ -136,8 +136,6 @@ const Activity: React.FC = observer(() => {
                     Load More
                   </Button>
                 </div>
-              ) : (
-                ''
               )}
             </div>
             <Filters
