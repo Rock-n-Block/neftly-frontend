@@ -16,7 +16,7 @@ export interface IProfile {
   instagram?: string;
   facebook?: string;
   email?: string;
-  img?: any;
+  avatar?: any;
   preview?: string;
   isLoading: boolean;
 }
