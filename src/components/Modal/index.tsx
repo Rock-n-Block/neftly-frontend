@@ -3,7 +3,8 @@ import { createPortal } from 'react-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
-import { Icon } from 'components';
+// import { Icon } from 'components';
+import { iconClose } from 'assets/img/icons';
 
 import styles from './Modal.module.scss';
 
@@ -52,7 +53,8 @@ const Modal: React.FC<any> = ({
             <div className={cn(styles.container, containerClassName)}>
               {children}
               <button type="button" className={styles.close} onClick={onClose}>
-                <Icon name="close" size="14" />
+                {/* <Icon name="close" size="14" /> */}
+                <img src={iconClose} width={20} height={20} alt="close" />
               </button>
             </div>
           </OutsideClickHandler>

@@ -14,10 +14,7 @@
   width: 100%;
   height: 100%;
 
-  background: rgba($neutrals1, 0.9);
-
-  // @include dark {
-  background: rgba($neutrals2, 0.9);
+  background: rgba($color-bg2, 0.9);
   opacity: 0;
 
   animation: showModal 0.4s forwards;
@@ -48,47 +45,35 @@
   width: 100%;
   max-width: 448px;
 
-  background: $gradient3;
-  border-radius: 16px;
+  background: $color-neutral-80;
 
-  // @include dark {
-  //   background: $neutrals1;
-  //   box-shadow: inset 0 0 0 1px $neutrals3;
-  // }
+  input, textarea {
+    border-color: $color-neutral-40;
+  }
 }
 
-.container {
-}
 
 .close {
   position: absolute;
   top: 32px;
   right: 32px;
+  @include flexbox;
 
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
 
-  font-size: 0;
 
-  background: $neutrals8;
-  background: $neutrals1;
-  border: 2px solid $neutrals6;
+  background: $color-neutral-100;
+  border: 1px solid $color-actions-light-pink;
 
-  // @include dark {
-  border-color: $neutrals3;
-  border-radius: 50%;
-
-  svg {
+  img {
     transition: transform 0.2s;
-    fill: $neutrals2;
   }
 
-  svg {
-    fill: $neutrals8;
-  }
+
   // }
   &:hover {
-    svg {
+    img {
       transform: rotate(90deg);
     }
   }
