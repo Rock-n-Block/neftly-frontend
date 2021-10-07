@@ -101,6 +101,11 @@ class Connector extends React.Component<
                   is_production ? 'mainnet' : 'testnet'
                 } network in your wallet and try again`,
               });
+              alert(
+                `Wrong Network, please select ${
+                  is_production ? 'mainnet' : 'testnet'
+                } network in your wallet and try again`,
+              );
             },
           );
         }
