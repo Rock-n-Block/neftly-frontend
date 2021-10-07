@@ -23,11 +23,16 @@ import ChooseCollection from './ChooseCollection';
 
 // import SuccessCreated from './SuccessCreated';
 import styles from './CreateCollectibleDetails.module.scss';
+import { ratesApi } from '../../../services';
+import { iconClose } from '../../../assets/img/icons';
 
 const royaltiesOptions = ['10%', '20%', '30%'];
 
-// TODO:remove after getting rates
-const mockCurrenciesOptions = ['ETH', 'WETH', 'USDT'];
+interface IRate {
+  rate: string;
+  symbol: string;
+  image: string;
+}
 
 interface IProperti {
   name: string | number;
@@ -38,7 +43,7 @@ export interface ICreateForm {
   name: string;
   isSingle?: boolean; // standart
   totalSupply: number;
-  currency: 'ETH' | 'WETH' | 'USDT';
+  currency: string;
   description: string;
   price: string;
   minimalBid: number;
@@ -49,7 +54,7 @@ export interface ICreateForm {
   media: string;
   cover: string;
   coverPreview: string;
-  format: string;
+  format: 'image' | 'video' | 'audio';
 
   img: any;
   preview: string;
@@ -81,10 +86,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     handleSubmit,
     isSingle = true,
   }) => {
-
-    console.log(errors);
     const history = useHistory();
-    // const [rates, setRates] = useState([]);
+    // const [rates, setRates] = useState<IRate[]>([]);
+    const [currencies, setCurrencies] = useState<string[]>([]);
     const [addToCollection, setAddToCollection] = useState(true);
     // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
@@ -121,11 +125,17 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       [handleChange, setFieldValue, values.details],
     );
 
-    /* const fetchRates = useCallback(() => {
-       ratesApi.getRates().then(({data}: any) => {
-         setRates(data);
-       });
-     }, []); */
+    const fetchRates = useCallback(() => {
+      ratesApi.getRates().then(({ data }: any) => {
+        // setRates(data);
+        setCurrencies(data.map((item: IRate) => item.symbol));
+        setFieldValue('currency', data[0].symbol);
+      });
+    }, [setFieldValue]);
+    useEffect(() => {
+      fetchRates();
+    }, [fetchRates]);
+
     useEffect(() => {
       setFieldValue('isSingle', isSingle);
     }, [isSingle, setFieldValue]);
@@ -139,6 +149,16 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 {values.cover ? (
                   <div className={styles.previewImg}>
                     <img src={values.coverPreview} alt="Preview" />
+                    <Button
+                      color="transparent"
+                      className={styles.clearPreview}
+                      onClick={() => {
+                        setFieldValue('coverPreview', '');
+                        setFieldValue('cover', '');
+                      }}
+                    >
+                      <img src={iconClose} alt="clear img" />
+                    </Button>
                   </div>
                 ) : (
                   <>
@@ -176,8 +196,22 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
             <div className={styles.item}>
               {values.img ? (
                 <div className={styles.previewImg}>
-                  {console.log('format', values.format, values.preview)}
-                  {values.format === 'image' && <img src={values.preview} alt="Media" />}
+                  {values.format === 'image' && (
+                    <>
+                      <img src={values.preview} alt="Media" />
+                      {/* TODO: add same btn to video/audio  */}
+                      <Button
+                        color="transparent"
+                        className={styles.clearPreview}
+                        onClick={() => {
+                          setFieldValue('preview', '');
+                          setFieldValue('img', '');
+                        }}
+                      >
+                        <img src={iconClose} alt="clear img" />
+                      </Button>
+                    </>
+                  )}
                   {values.format === 'video' && (
                     <video controls>
                       <source
@@ -303,7 +337,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           <Dropdown
                             name="currency"
                             setValue={(value) => setFieldValue('currency', value)}
-                            options={mockCurrenciesOptions}
+                            options={currencies}
                             className={styles.dropdown}
                             value={values.currency}
                           />
@@ -364,7 +398,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           />
                         )}
                       />
-                      {touched.totalSupply && errors.totalSupply && <Text color="red">{errors.totalSupply}</Text>}
+                      {touched.totalSupply && errors.totalSupply && (
+                        <Text color="red">{errors.totalSupply}</Text>
+                      )}
                     </div>
                   )}
                   <div className={styles.fieldsetRowColumn}>
@@ -390,7 +426,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     <br />
                     You will receive{' '}
                     {(parseFloat(`${values.minimalBid}`) * (100 - serviceFee)) / 100 || 0}{' '}
-                    {values.currency.toUpperCase()}
+                    {values.currency?.toUpperCase()}
                   </Text>
                 </div>
                 <div className={styles.tokenProperties}>

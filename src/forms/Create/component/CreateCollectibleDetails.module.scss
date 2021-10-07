@@ -9,9 +9,10 @@
 
 .column {
   width: 100%;
-  &+&{
+
+  & + & {
     margin-left: 32px;
-    @include forDesktopBig{
+    @include forDesktopBig {
       margin-left: 0;
     }
   }
@@ -39,21 +40,41 @@
 
 .item {
   .previewImg {
+    position: relative;
     width: 100%;
     max-width: 616px;
     height: 400px;
+    overflow: hidden;
 
     display: flex;
     justify-content: center;
 
-    img,
-    video {
-      max-width: 102%;
-      max-height: 102%;
-    }
-
     @include forDesktopSm {
       height: 232px;
+    }
+
+    .clearPreview {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      @include flexbox;
+
+      width: 30px;
+      height: 30px;
+
+
+      background: $color-neutral-100;
+      border: 1px solid $color-actions-light-pink;
+
+      img {
+        transition: transform 0.2s;
+      }
+
+      &:hover {
+        img {
+          transform: rotate(90deg);
+        }
+      }
     }
   }
 }
@@ -67,7 +88,7 @@
 
 .file {
   position: relative;
-
+  cursor: pointer;
 
   display: flex;
   overflow: hidden;
@@ -90,12 +111,13 @@
   @include forDesktopSm {
     height: 232px;
   }
-  .capture{
+
+  .capture {
     pointer-events: none;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     @include flexbox;
     flex-direction: column;
   }
@@ -157,7 +179,8 @@
   border-top: 1px solid $color-neutral-80;
   border-bottom: 1px solid $color-neutral-80;
 }
-.collections{
+
+.collections {
   margin-top: 32px;
 }
 
@@ -511,7 +534,8 @@
   &Value {
     width: 100%;
   }
-  &+&{
+
+  & + & {
     margin-top: 32px;
   }
 }
@@ -519,7 +543,7 @@
 .btns {
   margin-top: 32px;
   @include flexbox(center, space-between);
-  @include forDesktopSm{
+  @include forDesktopSm {
     flex-direction: column;
   }
 }
@@ -538,7 +562,7 @@
 
 .cancelBtn {
   color: $color-state-error;
-  @include forDesktopSm{
+  @include forDesktopSm {
     margin-top: 16px;
   }
 }
