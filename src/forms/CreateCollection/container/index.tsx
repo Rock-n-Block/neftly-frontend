@@ -11,8 +11,6 @@ import CreateCollection, { ICreateCollection } from '../component';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { ToastContentWithTxHash } from 'components';
-import { mapKeys, omit, snakeCase } from 'lodash';
-// import { mapKeys, snakeCase } from 'lodash';
 
 export default observer(({ isSingle }: any) => {
   // const { modals } = useMst();
@@ -38,16 +36,22 @@ export default observer(({ isSingle }: any) => {
     }),
     handleSubmit: (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
-      setFieldValue('standart', isSingle ? 'ERC721' : 'ERC1155');
-      const formDataBackendFields = omit({ ...values, avatar: values.img }, [
-        'isLoading',
-        'img',
-        'preview',
-      ]);
-      const formDataSnakeCase = mapKeys(formDataBackendFields, (_, k) => snakeCase(k));
 
+      const formData = new FormData();
+
+      formData.append('name', values.name);
+      formData.append('avatar', values.img);
+      formData.append('symbol', values.symbol);
+      formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
+
+      if (values.description) {
+        formData.append('description', values.description);
+      }
+      if (values.shortUrl) {
+        formData.append('short_url', values.shortUrl);
+      }
       storeApi
-        .createCollection(formDataSnakeCase)
+        .createCollection(formData)
         .then(({ data }) => {
           walletConnector.walletService
             .sendTransaction(data)
