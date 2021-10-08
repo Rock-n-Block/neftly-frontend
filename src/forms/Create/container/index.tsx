@@ -1,17 +1,13 @@
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
-// import { useMst } from '../../../store/store';
-// import {validateForm} from '../../../utils/validate';
 import * as Yup from 'yup';
 
 import { storeApi } from '../../../services/api';
 import CreateForm, { ICreateForm } from '../component';
 import { toast } from 'react-toastify';
-import { ToastContentWithTxHash } from '../../../components';
+import { ToastContentWithTxHash } from 'components';
 
 export default observer(({ isSingle, walletConnector }: any) => {
-  // const { modals } = useMst();
-
   const props: ICreateForm = {
     name: '',
     isSingle: true,
@@ -24,8 +20,6 @@ export default observer(({ isSingle, walletConnector }: any) => {
     collection: 0,
     details: [{ name: '', amount: '' }],
     selling: true,
-    // startAuction: new Date(),
-    // endAuction: new Date(),
     media: '',
     cover: '',
     coverPreview: '',
@@ -47,42 +41,6 @@ export default observer(({ isSingle, walletConnector }: any) => {
     }),
     handleSubmit: (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
-
-      /* const apiReadyFormData = {
-        name: values.name,
-        standart: values.isSingle ? 'ERC721' : 'ERC1155',
-        total_supply: values.totalSupply,
-        currency: values.currency,
-        description: values.description,
-        price: values.price,
-        minimal_bid: values.minimalBid,
-        creator_royalty: values.creatorRoyalty,
-        collection: values.collection,
-        details: values.details.filter((detail) => detail.name !== ''),
-        selling: values.selling,
-      };
-      console.log(apiReadyFormData, values); */
-
-      /* const formData = new FormData();
-
-      formData.append('name', values.name);
-      formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
-      formData.append('total_supply', values.totalSupply.toString());
-      formData.append('currency', values.currency);
-
-      if (values.description) {
-        formData.append('description', values.description);
-      }
-
-      if (values.description) {
-        formData.append('description', values.description);
-      }
-      if (values.format !== 'img') {
-        formData.append('cover', values.cover);
-      }
-      if (values.shortUrl) {
-        formData.append('short_url', values.shortUrl);
-      } */
 
       const formData = new FormData();
       formData.append('name', values.name);
