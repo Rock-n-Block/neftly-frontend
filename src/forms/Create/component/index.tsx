@@ -93,7 +93,12 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
     // const cryptocurrencies = ['ETH', 'BTC'];
-
+    const handleClearImg = () => {
+      setFieldValue('img', '');
+      setFieldValue('preview', '');
+      setFieldValue('cover', '');
+      setFieldValue('coverPreview', '');
+    };
     const onSubmit = () => {
       handleSubmit();
     };
@@ -139,9 +144,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     useEffect(() => {
       setFieldValue('isSingle', isSingle);
     }, [isSingle, setFieldValue]);
-    useEffect(() => {
-      console.log(values);
-    }, [values]);
 
     return (
       <>
@@ -155,10 +157,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     <Button
                       color="transparent"
                       className={styles.clearPreview}
-                      onClick={() => {
-                        setFieldValue('coverPreview', '');
-                        setFieldValue('cover', '');
-                      }}
+                      onClick={handleClearImg}
                     >
                       <img src={iconClose} alt="clear img" />
                     </Button>
@@ -206,10 +205,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       <Button
                         color="transparent"
                         className={styles.clearPreview}
-                        onClick={() => {
-                          setFieldValue('preview', '');
-                          setFieldValue('img', '');
-                        }}
+                        onClick={handleClearImg}
                       >
                         <img src={iconClose} alt="clear img" />
                       </Button>
