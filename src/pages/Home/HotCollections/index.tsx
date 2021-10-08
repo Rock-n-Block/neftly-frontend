@@ -28,7 +28,7 @@ const HotCollections: FC<Props> = ({ className }) => {
       <div className={styles.artCardsWrapper}>
         {collections
           ? collections.map((art: any) => {
-              const { avatar, tokens, name, price, asset, creator, likesNumber } = art;
+              const { avatar, tokens, name, price, asset, creator, likes_count } = art;
               return (
                 <ArtCard
                   key={name}
@@ -43,7 +43,7 @@ const HotCollections: FC<Props> = ({ className }) => {
                   allArtNumber={tokens.length}
                   author={creator.name}
                   authorAvatar={creator.avatar}
-                  likesNumber={likesNumber}
+                  likesNumber={likes_count}
                   isCollection
                 />
               );
