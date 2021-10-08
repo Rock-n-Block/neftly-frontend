@@ -2,22 +2,31 @@ import { FormikContextType } from 'formik/dist/types';
 
 export type FileType = 'img' | 'cover';
 
-export const checkValidFileType = (file: any, type: FileType) => {
-  if (!file) {
+export const checkValidFileType = (fileType: string, type: FileType) => {
+  if (!fileType) {
     return false;
   }
   const isValidType =
-    file.type === 'image/jpeg' ||
-    file.type === 'image/jpg' ||
-    file.type === 'image/svg' ||
-    file.type === 'image/svg+xml' ||
-    file.type === 'image/png' ||
-    file.type === 'image/webp' ||
-    file.type === 'image/gif' ||
-    (type === 'img' && file.type === 'video/mp4') ||
-    (type === 'img' && file.type === 'audio/mpeg');
+    fileType === 'image/jpeg' ||
+    fileType === 'image/jpg' ||
+    fileType === 'image/svg' ||
+    fileType === 'image/svg+xml' ||
+    fileType === 'image/png' ||
+    fileType === 'image/webp' ||
+    fileType === 'image/gif' ||
+    (type === 'img' && fileType === 'video/mp4') ||
+    (type === 'img' && fileType === 'audio/mpeg');
   return isValidType;
 };
+export const checkValidFileSize = (fileSize: number, maxSize: number) => {
+  if (!fileSize) {
+    return false;
+  }
+  const isValidSize = fileSize / 1024 / 1024 <= maxSize;
+
+  return isValidSize;
+};
+
 export const getBase64 = (
   img: any,
   type: FileType,
@@ -35,4 +44,17 @@ export const getBase64 = (
     callback(reader.result);
   });
   reader.readAsDataURL(img);
+};
+
+export const beforeUpload = (file: any, type: FileType, maxSize: number, message: any) => {
+  const isValidType = checkValidFileType(file.type, type);
+  const isValidSize = checkValidFileSize(file.size, maxSize);
+
+  if (!isValidType) {
+    message.error('You can only upload JPG/PNG/WEBP/GIF file!');
+  }
+  if (!isValidSize) {
+    message.error(`Image must be smaller than ${maxSize}MB!`);
+  }
+  return isValidType && isValidSize;
 };
