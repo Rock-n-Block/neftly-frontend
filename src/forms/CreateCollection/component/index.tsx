@@ -12,11 +12,12 @@ import styles from './CreateCollection.module.scss';
 export interface ICreateCollection {
   name: string;
   symbol: string;
-  descr?: string;
   shortUrl: string;
+  description?: string;
+  img: any;
   preview?: string;
-  img?: any;
   isLoading: boolean;
+  standart: 'ERC721' | 'ERC1155';
 }
 
 const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
@@ -43,7 +44,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
               <RequiredMark />
             </Text>
             <div className={styles.file}>
-              <Field id="avatar" name="avatar" render={() => <Uploader type="img" isButton />} />
+              <Field id="img" name="img" render={() => <Uploader type="img" isButton />} />
               {errors.img && touched.img && (
                 <Text color="red">Display name should be more than 2 and less than 50 symbols</Text>
               )}
@@ -94,16 +95,15 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
             <Text color="red">Symbol should be more than 2 and less than 6 symbols</Text>
           )}
           <Field
-            name="descr"
+            name="description"
             render={() => (
               <TextArea
                 label="Description"
-                name="descr"
+                name="description"
                 placeholder="Spread some words about your token collection"
                 onChange={handleChange}
                 className={styles.field}
                 maxLettersCount={500}
-                editable
               />
             )}
           />
@@ -123,7 +123,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
           />
         </div>
 
-        <Button type="submit" className={cn('button', styles.button)}>
+        <Button type="submit" className={cn('button', styles.button)} disabled={values.isLoading}>
           Create Collection
         </Button>
         {/* <Modal visible={values.showModal} onClose={() => setFieldValue('showModal', false)}>

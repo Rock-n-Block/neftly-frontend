@@ -3,12 +3,12 @@ import { createPortal } from 'react-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
-import { Icon, H3 } from 'components';
+import { H3 } from 'components';
 import { IModal } from 'typings';
+import { iconClose } from 'assets/img/icons';
 
 import styles from './Modal.module.scss';
 
-// TODO: убрать any
 const Modal: React.FC<IModal> = ({
   outerClassName,
   containerClassName,
@@ -55,7 +55,7 @@ const Modal: React.FC<IModal> = ({
               {title ? <H3 className={styles.title}>{title}</H3> : null}
               {children}
               <button type="button" className={styles.close} onClick={onClose}>
-                <Icon name="close" size="14" />
+                <img src={iconClose} width={20} height={20} alt="close" />
               </button>
             </div>
           </OutsideClickHandler>

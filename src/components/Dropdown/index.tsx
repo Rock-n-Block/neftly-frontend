@@ -2,11 +2,10 @@ import { useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
-import {arrowDown} from 'assets/img/icons';
-
+import { iconArrowDown } from 'assets/img/icons';
 
 import styles from './Dropdown.module.scss';
-import {Text} from "../Typography";
+import { Text } from '../Typography';
 
 interface IDropdownProps {
   className?: string;
@@ -49,12 +48,12 @@ const Dropdown: React.FC<IDropdownProps> = ({
           ) : (
             <div className={styles.selection}>{value}</div>
           )}
-          <img alt="open dropdown" src={arrowDown} className={styles.arrow}/>
+          <img alt="open dropdown" src={iconArrowDown} className={styles.arrow} />
         </div>
         {!isWithImage ? (
           <div className={styles.body}>
             {typeof options[0] === 'string'
-              ? options.map((option:string) => (
+              ? options.map((option: string) => (
                   <div
                     onKeyDown={() => {}}
                     tabIndex={0}
@@ -88,7 +87,9 @@ const Dropdown: React.FC<IDropdownProps> = ({
                     key={`dropdown_option_${option.text}`}
                   >
                     {option.icon}
-                    <Text className={styles.text} tag="span">{option.text}</Text>
+                    <Text className={styles.text} tag="span">
+                      {option.text}
+                    </Text>
                   </div>
                 ))}
           </div>
@@ -110,7 +111,9 @@ const Dropdown: React.FC<IDropdownProps> = ({
                 key={`dropdown_option_${option.symbol}`}
               >
                 <img alt="" className={styles.image} src={option.image} />
-                <Text className={styles.text} tag="span">{option.symbol}</Text>
+                <Text className={styles.text} tag="span">
+                  {option.symbol}
+                </Text>
               </div>
             ))}
           </div>

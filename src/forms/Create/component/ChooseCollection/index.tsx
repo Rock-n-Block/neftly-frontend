@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { createCollection } from 'assets/img/ChooseCollection';
 import cn from 'classnames';
+import { Modal, Text } from 'components';
 // import {connect} from 'formik';
 import { observer } from 'mobx-react';
+import { userApi } from 'services/api';
 import { useMst } from 'store';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Text, Modal } from 'components';
-import { userApi } from 'services/api';
-import { CreateCollection } from '../../../index';
-import { createCollection } from 'assets/img/ChooseCollection';
 
-import styles from './ChooseCollection.module.scss';
+import { CreateCollection } from '../../../index';
 
 import 'swiper/swiper.scss';
+import styles from './ChooseCollection.module.scss';
 
 interface IProps {
   isSingle: boolean;
@@ -59,7 +59,10 @@ const ChooseCollection: React.FC<IProps> = observer(
 
     const changeCollection = useCallback(
       (id: number) => {
-        if (activeCollectionId !== id) onChange(id);
+        if (activeCollectionId !== id) {
+          onChange(id);
+        }
+
       },
       [activeCollectionId, onChange],
     );
@@ -88,7 +91,10 @@ const ChooseCollection: React.FC<IProps> = observer(
       if (user.address) {
         getCollections();
       }
-    }, [getCollections, user.address]);
+      // getCollections forces api requests on each keystroke in form
+      // TODO: rework this component
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user.address]);
 
     return (
       <div className={cn(styles.cards, className)}>

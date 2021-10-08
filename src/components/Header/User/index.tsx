@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
+import { routes } from 'appConstants';
 // import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
+import { Button, Icon, Loader, Modal } from 'components';
 import { observer } from 'mobx-react';
 
 // import { ratesApi } from '../../../services/api';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { useMst } from '../../../store';
-import { Button, Icon, Loader, Modal } from 'components';
 
 import Swap from './Swap';
 
@@ -82,6 +83,9 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
   //   if (user.address) fetchBalance();
   // }, [fetchBalance, user.address]);
 
+  const handleClose = useCallback(() => {
+    setVisible(false);
+  }, []);
   return (
     <OutsideClickHandler onOutsideClick={() => setVisible(false)}>
       <div className={cn(styles.user, className)}>
@@ -106,9 +110,11 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
                 <div className={styles.type}>Proffesional Artist</div>
               </div>
             </div>
-            <Button className={styles.uploadBtn} icon="upload-file">
-              Create item
-            </Button>
+            <Link to={routes.create.root} onClick={handleClose}>
+              <Button className={styles.uploadBtn} icon="upload-file">
+                Create item
+              </Button>
+            </Link>
             <div className={styles.menu}>
               {items.map((x) => {
                 if (x.url?.startsWith('http')) {

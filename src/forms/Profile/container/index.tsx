@@ -21,7 +21,7 @@ const ProfileForm: React.FC = () => {
     instagram: user.instagram || '',
     facebook: user.facebook || '',
     email: user.email || '',
-    img: '',
+    avatar: '',
     preview: `https://${user.avatar}` || '',
     isLoading: false,
   };

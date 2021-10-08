@@ -30,4 +30,5 @@ export { default as Dropdown } from './Dropdown';
 export { default as RequiredMark } from './RequiredMark';
 export { default as LiveAuction } from './LiveAuction';
 export { default as ChooseWallet } from './ChooseWallet';
+export { default as ToastContentWithTxHash } from './ToastContentWithTxHash';
 export * from './Typography';

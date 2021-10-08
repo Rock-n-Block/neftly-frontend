@@ -61,6 +61,7 @@ export const chains: {
         },
       },
     },
+    explorer: is_production ? 'https://bscscan.com' : 'https://testnet.bscscan.com',
   },
   'Polygon': {
     name: 'Polygon',
@@ -83,6 +84,7 @@ export const chains: {
         },
       },
     },
+    explorer: is_production ? '' : '',
   },
 };
 
