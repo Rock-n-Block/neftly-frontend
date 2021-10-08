@@ -168,6 +168,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       <Field
                         name="cover"
                         className={styles.load}
+                        required
                         render={() => (
                           <Uploader
                             type="cover"
@@ -236,6 +237,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     <Field
                       name="img"
                       className={styles.load}
+                      required
                       render={() => (
                         <Uploader
                           type="img"
@@ -308,11 +310,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   name="description"
                   render={() => (
                     <TextArea
-                      label={
-                        <>
-                          Description <RequiredMark />
-                        </>
-                      }
+                      label="Description"
                       name="description"
                       value={values.description}
                       placeholder="e. g. “After purchasing you will able to recived the logo...”"
@@ -336,7 +334,11 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           <Dropdown
                             name="currency"
                             setValue={(value) => setFieldValue('currency', value)}
-                            options={currencies}
+                            options={
+                              values.sellMethod === "openForBids"
+                                ? [...currencies.filter((rate: any) => rate !== 'bnb')]
+                                : currencies
+                            }
                             className={styles.dropdown}
                             value={values.currency}
                           />
