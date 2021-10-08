@@ -16,20 +16,42 @@ import { useMst } from 'store';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { toast } from 'react-toastify';
+import { useHistory, useParams } from 'react-router';
 
-interface IUserMainInfo {
-  handleUpload: (file: any) => void;
-  isLoading: boolean;
-  shownUser: IExtendedInfo;
-}
-
-const UserMainInfo: React.FC<IUserMainInfo> = observer(({ handleUpload, isLoading, shownUser }) => {
+const UserMainInfo: React.FC = observer(() => {
+  const history = useHistory();
   const { user } = useMst();
-  const isSelf = shownUser.id.toString() === user.id.toString();
+  const { userId } = useParams<{ userId: string }>();
+  const [shownUser, setShownUser] = useState<IExtendedInfo>({
+    address: '',
+    cover: '',
+    id: 0,
+    avatar: '',
+    display_name: '',
+    followers: [],
+    followers_count: 0,
+    follows_count: 0,
+    twitter: null,
+    instagram: null,
+    facebook: null,
+    site: null,
+    bio: null,
+    is_verificated: false,
+    custom_url: '',
+    follows: [],
+  });
   const [isFollowed, setIsFollowed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const isSelf = shownUser.id.toString() === user.id.toString();
+
+  const getUser = useCallback(() => {
+    userApi.getUser({ id: userId }).then(({ data }: any) => setShownUser(data));
+  }, [userId]);
+
   const findIsFollowed = useCallback(() => {
     return !!shownUser.followers.find((follower) => follower.id.toString() === user.id.toString());
   }, [shownUser.followers, user.id]);
+
   const handleFollowClick = useCallback(() => {
     if (isFollowed) {
       userApi
@@ -56,6 +78,32 @@ const UserMainInfo: React.FC<IUserMainInfo> = observer(({ handleUpload, isLoadin
     }
   }, [isFollowed, shownUser.id]);
 
+  const handleFileUpload = (file: any) => {
+    setIsLoading(true);
+    const fileData = new FormData();
+    fileData.append('cover', file);
+    userApi
+      .setUserCover(fileData)
+      .then(({ data }) => {
+        toast.success('Cover uploaded');
+        user.setCover(data);
+      })
+      .catch((err) => {
+        toast.error('Success unfollow');
+        console.log(err, 'set cover');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    if (userId) {
+      getUser();
+    } else {
+      history.push('/');
+    }
+  }, [getUser, userId, history]);
   useEffect(() => {
     if (!user.id) {
       return;
@@ -88,7 +136,7 @@ const UserMainInfo: React.FC<IUserMainInfo> = observer(({ handleUpload, isLoadin
       <div className={s.user_buttons}>
         {isSelf && (
           <>
-            <Uploader type="img" isButton handleUpload={handleUpload} isLoading={isLoading}>
+            <Uploader type="img" isButton handleUpload={handleFileUpload} isLoading={isLoading}>
               <Button className={s.user_button} color="outline" loading={isLoading}>
                 <img src={iconEdit} alt="" />
                 <Text tag="span">Edit Banner</Text>
@@ -96,7 +144,7 @@ const UserMainInfo: React.FC<IUserMainInfo> = observer(({ handleUpload, isLoadin
             </Uploader>
             <Button className={s.user_button} color="outline" href="/profile/edit">
               <img src={iconSettings} alt="" />
-              Edit Profile
+              <Text tag="span">Edit Profile</Text>
             </Button>
           </>
         )}

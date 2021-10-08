@@ -1,9 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
-
-import { IExtendedInfo } from 'typings';
-import { userApi } from 'services/api';
-import { useMst } from 'store';
+import { useCallback, useState } from 'react';
 
 import { H3, ArtCard, Button, Select, TabLookingComponent } from 'components';
 import { data as dataMock } from './CardsMock';
@@ -63,56 +58,7 @@ const tabs = [
 
 const ProfilePage: React.FC = () => {
   const [filterOne, setFilterOne] = useState(selectOptions[0]);
-  const { userId } = useParams<{ userId: string }>();
-  const { user } = useMst();
-  const history = useHistory();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [shownUser, setShownUser] = useState<IExtendedInfo>({
-    address: '',
-    cover: '',
-    id: 0,
-    avatar: '',
-    display_name: '',
-    followers: [],
-    followers_count: 0,
-    follows_count: 0,
-    twitter: null,
-    instagram: null,
-    facebook: null,
-    site: null,
-    bio: null,
-    is_verificated: false,
-    custom_url: '',
-    follows: [],
-  });
 
-  const getUser = useCallback(() => {
-    userApi.getUser({ id: userId }).then(({ data }: any) => setShownUser(data));
-  }, [userId]);
-
-  const handleUpload = (file: any) => {
-    setIsLoading(true);
-    const fileData = new FormData();
-    fileData.append('cover', file);
-    userApi
-      .setUserCover(fileData)
-      .then(({ data }) => {
-        setIsLoading(false);
-        user.setCover(data);
-        getUser();
-      })
-      .catch((err) => {
-        console.log(err, 'set cover');
-      });
-  };
-
-  useEffect(() => {
-    if (userId) {
-      getUser();
-    } else {
-      history.push('/');
-    }
-  }, [getUser, userId, history]);
   const handleFilterOne = useCallback((value) => {
     setFilterOne(value);
   }, []);
@@ -124,7 +70,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <section className={s.page}>
-      <UserMainInfo handleUpload={handleUpload} isLoading={isLoading} shownUser={shownUser} />
+      <UserMainInfo />
 
       <div className={s.page_body}>
         <div className={s.page_body__left}>
