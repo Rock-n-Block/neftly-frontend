@@ -1,17 +1,29 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
-export const useInfiniteScroll = (isNeedLoad: boolean, isLoading: boolean, isLessThanMinimum: boolean) => {
+export const useInfiniteScroll = (
+  isNeedLoad: boolean,
+  isLoading: boolean,
+  loadMore: any,
+  handleChangePage: any,
+) => {
   const anchor = useRef<Element>(null);
-
-  const loadMore = () => alert('1');
+  console.log(isLoading, isNeedLoad, 'infinite prarms');
+  const callback = useCallback(
+    () => {
+      if (isNeedLoad && !isLoading) {
+        console.log('in hook');
+        loadMore();
+        handleChangePage();
+      }
+    },
+    [isNeedLoad, isLoading, loadMore, handleChangePage],
+  );
+  // debugger;
 
   useEffect(() => {
     const options = {
       rootMargin: '0px',
       threshold: 1.0,
-    };
-    const callback = () => {
-      if (isNeedLoad && !isLoading && !isLessThanMinimum) loadMore();
     };
 
     const intObserver = new IntersectionObserver(callback, options);
@@ -22,7 +34,7 @@ export const useInfiniteScroll = (isNeedLoad: boolean, isLoading: boolean, isLes
     const currentAnchor = anchor.current;
 
     return () => intObserver.unobserve(currentAnchor as any);
-  }, [isNeedLoad, isLoading, isLessThanMinimum]);
+  }, [callback]);
 
   return anchor;
 };

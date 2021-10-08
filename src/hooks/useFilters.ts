@@ -8,7 +8,7 @@ const useFilters = () => {
     tags: 'All items',
     max_price: 0,
     currency: '',
-    page: 1,
+    // page: 1,
     is_verificated: 'All',
   });
 
@@ -37,11 +37,6 @@ const useFilters = () => {
           }, 1000),
         );
       }
-    } else if (key === 'page') {
-      setQueries((prevState: any) => ({
-        ...prevState,
-        [key]: value,
-      }));
     } else {
       setQueries((prevState: any) => ({
         ...prevState,

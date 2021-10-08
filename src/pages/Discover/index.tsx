@@ -83,10 +83,15 @@ const Discover = () => {
   const [allPages, setAllPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
+  const [page, setPage] = useState(1);
   const [bids, setBids] = useState<any>([]);
   const [tabs, setTabs] = useState<any>([]);
   const [filterSelectCurrencyOptions, setFilterSelectCurrencyOptions] = useState<any>([]);
   const [filterCurrency, setFilterCurrency] = useState<any>();
+
+  const increasePage = () => {
+    setPage(page + 1);
+  };
 
   const { handleChangeFilters, queries } = useFilters();
   const handleOpenFilter = useCallback(() => {
@@ -116,23 +121,32 @@ const Discover = () => {
   }, []);
 
   const fetchSearch = useCallback(() => {
-    const refresh = queries.page === 1;
+    const refresh = page === 1;
     setLoading(true);
     storeApi
-      .getSearchResults(queries)
+      .getSearchResults({ ...queries, page })
       .then(({ data }: any) => {
         setTotalItems(data.total_tokens);
         if (refresh) {
           setBids(data.items);
         } else {
-          setBids((prev: any) => [...prev, ...data.items]);
+          setBids((prev: any) => {
+            console.log('prev', prev, 'data.items', data.items, 'combined', [
+              ...prev,
+              ...data.items,
+            ]);
+            return [...prev, ...data.items];
+          });
+          console.log(bids, 'bids in promise');
         }
         setAllPages(Math.ceil(data.total_tokens / 6));
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [queries]);
+  }, [bids, queries, page]);
+
+  console.log(bids, 'bids in promise');
 
   const fetchRates = useCallback(() => {
     setLoading(true);
@@ -160,8 +174,8 @@ const Discover = () => {
       storeApi
         .getMaxPrice(currency)
         .then(({ data }: any) => {
-          handleChangeFilters('max_price', data.max_price );
-          setMaxPrice(data.max_price)
+          handleChangeFilters('max_price', data.max_price);
+          setMaxPrice(data.max_price);
         })
         .finally(() => {
           setLoading(false);
@@ -169,10 +183,11 @@ const Discover = () => {
     },
     [handleChangeFilters],
   );
-
+    console.log(queries);
   useEffect(() => {
     fetchSearch();
-  }, [queries, fetchSearch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queries, page]);
 
   useEffect(() => {
     fetchTags();
@@ -191,7 +206,9 @@ const Discover = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const anchorRef = useInfiniteScroll(queries.page <= allPages, isLoading, bids.length <= 6);
+  const anchorRef = useInfiniteScroll(page < allPages, isLoading, fetchSearch, () =>
+    increasePage(),
+  );
 
   return (
     <div className={styles.discover}>
