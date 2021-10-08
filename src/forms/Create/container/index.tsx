@@ -12,7 +12,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
 
   const props: ICreateForm = {
     name: '',
-    isSingle: true,
+    isSingle,
     totalSupply: 1,
     currency: 'ETH',
     description: '',
@@ -88,5 +88,5 @@ export default observer(({ isSingle, walletConnector }: any) => {
 
     displayName: 'ChangePasswordForm',
   })(CreateForm);
-  return <FormWithFormik isSingle={isSingle} />;
+  return <FormWithFormik />;
 });

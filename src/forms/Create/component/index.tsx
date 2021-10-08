@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { upload } from 'assets/img/upload';
+import { observer } from 'mobx-react-lite';
 import cn from 'classnames';
+
 import {
   Button,
   Dropdown,
@@ -10,24 +11,24 @@ import {
   RequiredMark,
   Switch,
   Text,
-  // Modal,
   TextArea,
   TextInput,
   Uploader,
 } from 'components';
 import { IRadioButton } from 'components/Radio';
+import { ratesApi } from '../../../services/api';
 import { Field, FieldArray, Form, FormikProps } from 'formik';
-import { observer } from 'mobx-react-lite';
 
 import ChooseCollection from './ChooseCollection';
 
 // import SuccessCreated from './SuccessCreated';
 import styles from './CreateCollectibleDetails.module.scss';
+import { upload } from 'assets/img/upload';
 
 const royaltiesOptions = ['10%', '20%', '30%'];
 
 // TODO:remove after getting rates
-const mockCurrenciesOptions = ['ETH', 'WETH', 'USDT'];
+// const mockCurrenciesOptions = ['ETH', 'WETH', 'USDT'];
 
 interface IProperti {
   name: string | number;
@@ -71,20 +72,15 @@ const sellMethods: IRadioButton[] = [
 ];
 
 const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
-  ({
-    setFieldValue,
-    values,
-    touched,
-    errors,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    isSingle = true,
-  }) => {
-
+  ({ setFieldValue, values, touched, errors, handleBlur, handleChange, handleSubmit }) => {
     console.log(errors);
     const history = useHistory();
-    // const [rates, setRates] = useState([]);
+    const [rates, setRates] = useState<
+      Array<{
+        rate: string;
+        symbol: string;
+      }>
+    >([]);
     const [addToCollection, setAddToCollection] = useState(true);
     // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
@@ -121,14 +117,15 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       [handleChange, setFieldValue, values.details],
     );
 
-    /* const fetchRates = useCallback(() => {
-       ratesApi.getRates().then(({data}: any) => {
-         setRates(data);
-       });
-     }, []); */
+    const fetchRates = useCallback(() => {
+      ratesApi.getRates().then(({ data }: any) => {
+        setRates(data);
+      });
+    }, []);
+
     useEffect(() => {
-      setFieldValue('isSingle', isSingle);
-    }, [isSingle, setFieldValue]);
+      fetchRates();
+    }, [fetchRates]);
 
     return (
       <>
@@ -303,9 +300,10 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           <Dropdown
                             name="currency"
                             setValue={(value) => setFieldValue('currency', value)}
-                            options={mockCurrenciesOptions}
+                            options={rates}
                             className={styles.dropdown}
                             value={values.currency}
+                            isWithImage
                           />
                         )}
                       />
@@ -346,7 +344,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       <Text color="gray">USD 234.24 PER/ETH</Text>
                     </div>
                   </div>
-                  {!isSingle && (
+                  {!values.isSingle && (
                     <div className={styles.fieldsetRowColumn}>
                       <Text className={styles.label} size="m" weight="medium">
                         In Stock <RequiredMark />
@@ -364,7 +362,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           />
                         )}
                       />
-                      {touched.totalSupply && errors.totalSupply && <Text color="red">{errors.totalSupply}</Text>}
+                      {touched.totalSupply && errors.totalSupply && (
+                        <Text color="red">{errors.totalSupply}</Text>
+                      )}
                     </div>
                   )}
                   <div className={styles.fieldsetRowColumn}>
@@ -449,7 +449,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   className={styles.collections}
                   activeCollectionId={values.collection}
                   onChange={(value) => setFieldValue('collection', value)}
-                  isSingle={isSingle}
+                  isSingle={!!values.isSingle}
                 />
               )}
             </div>
