@@ -5,12 +5,12 @@ import { useFormikContext } from 'formik';
 
 import styles from './Uploader.module.scss';
 import { Button } from 'components';
-import { checkValidFileType } from '../../utils/checkValidFileType';
+import { checkValidFileType, getBase64, FileType } from 'utils';
 
 const { Dragger } = Upload;
 
 interface IUploader {
-  type: 'img' | 'cover';
+  type: FileType;
   className?: string;
   isLoading?: boolean;
   handleUpload?: (value: string) => void;
@@ -32,22 +32,22 @@ const Uploader: React.FC<IUploader> = ({
   const formik = useFormikContext();
   const MAX_FILE_SIZE = 30;
   // const [imageUrl, setImageUrl] = React.useState('');
-  const getBase64 = useCallback(
-    (img: any, callback: any) => {
-      const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        if (type === 'img') {
-          formik.setFieldValue('preview', reader.result);
-        }
-        if (type === 'cover') {
-          formik.setFieldValue('coverPreview', reader.result);
-        }
-        callback(reader.result);
-      });
-      reader.readAsDataURL(img);
-    },
-    [formik, type],
-  );
+  /* const getBase64 = useCallback(
+     (img: any, callback: any) => {
+       const reader = new FileReader();
+       reader.addEventListener('load', () => {
+         if (type === 'img') {
+           formik.setFieldValue('preview', reader.result);
+         }
+         if (type === 'cover') {
+           formik.setFieldValue('coverPreview', reader.result);
+         }
+         callback(reader.result);
+       });
+       reader.readAsDataURL(img);
+     },
+     [formik, type],
+   ); */
   const beforeUpload = useCallback(
     (file: any) => {
       const isValidType = checkValidFileType(file, type);
@@ -82,10 +82,10 @@ const Uploader: React.FC<IUploader> = ({
         handleUpload(file.originFileObj);
       } else {
         formik.setFieldValue(type, file.originFileObj);
-        getBase64(file.originFileObj, () => {});
+        getBase64(file.originFileObj, type, () => {}, formik);
       }
     },
-    [formik, getBase64, handleUpload, isLoading, setFormat, type],
+    [formik, handleUpload, isLoading, setFormat, type],
   );
   return (
     <div className={cn(className, !isButton ? styles.uploader : '')}>
