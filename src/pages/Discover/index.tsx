@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { RefObject, useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from 'appConstants';
 // import { allCategory, arrowUpRight, art, burn, camera, filter, motion, threeD } from 'assets/img';
@@ -15,9 +15,9 @@ import {
   Text,
 } from 'components';
 import { AdvancedFilter } from 'containers';
-import { useFilters } from 'hooks';
+import { useFilters, useInfiniteScroll } from 'hooks';
 
-import { data as mockData, dataMediumCards } from './mockData';
+import { dataMediumCards } from './mockData';
 
 import styles from './styles.module.scss';
 import { ratesApi, storeApi } from 'services';
@@ -82,6 +82,7 @@ const Discover = () => {
   const [isLoading, setLoading] = useState(false);
   const [allPages, setAllPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
   const [bids, setBids] = useState<any>([]);
   const [tabs, setTabs] = useState<any>([]);
   const [filterSelectCurrencyOptions, setFilterSelectCurrencyOptions] = useState<any>([]);
@@ -102,6 +103,7 @@ const Discover = () => {
   );
 
   const fetchTags = useCallback(async () => {
+    setLoading(true);
     const links = await storeApi.getTags();
     if (links.data.tags.length) {
       setTabs(
@@ -110,27 +112,30 @@ const Discover = () => {
         ),
       );
     }
+    setLoading(false);
   }, []);
 
-  const fetchSearch = useCallback((queriesObject: any, refresh?: boolean) => {
+  const fetchSearch = useCallback(() => {
+    const refresh = queries.page === 1;
     setLoading(true);
     storeApi
-      .getSearchResults(queriesObject)
+      .getSearchResults(queries)
       .then(({ data }: any) => {
-        setTotalItems(data.total_tokens)
+        setTotalItems(data.total_tokens);
         if (refresh) {
           setBids(data.items);
         } else {
           setBids((prev: any) => [...prev, ...data.items]);
         }
-        setAllPages(Math.ceil(data.total_tokens / 8));
+        setAllPages(Math.ceil(data.total_tokens / 6));
       })
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [queries]);
 
   const fetchRates = useCallback(() => {
+    setLoading(true);
     ratesApi
       .getRates()
       .then(({ data }: any) => {
@@ -143,37 +148,51 @@ const Discover = () => {
         handleChangeFilters('currency', data[0].symbol);
         setFilterCurrency({ value: data[0].symbol, label: data[0].symbol.toUpperCase() });
       })
-      .catch((err: any) => console.log(err));
+      .catch((err: any) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+      });
   }, [handleChangeFilters]);
 
   const fetchMaxPrice = useCallback(
     (currency: string) => {
-      storeApi.getMaxPrice(currency).then(({ data }: any) => {
-        handleChangeFilters('max_price', data.max_price);
-      });
+      setLoading(true);
+      storeApi
+        .getMaxPrice(currency)
+        .then(({ data }: any) => {
+          handleChangeFilters('max_price', data.max_price );
+          setMaxPrice(data.max_price)
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
     [handleChangeFilters],
   );
 
   useEffect(() => {
-    fetchSearch(queries);
+    fetchSearch();
   }, [queries, fetchSearch]);
 
   useEffect(() => {
     fetchTags();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(isLoading, bids, allPages);
 
   useEffect(() => {
-    if (queries.currency && queries.currency !== filterCurrency?.value) {
-      fetchMaxPrice(queries.currency);
+    if (filterCurrency?.value) {
+      fetchMaxPrice(filterCurrency?.value);
     }
-  }, [fetchMaxPrice, queries.currency, filterCurrency]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterCurrency]);
+
   useEffect(() => {
     fetchRates();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const anchorRef = useInfiniteScroll(queries.page <= allPages, isLoading, bids.length <= 6);
+
   return (
     <div className={styles.discover}>
       <H2 className={styles.title}>
@@ -195,43 +214,41 @@ const Discover = () => {
         <AdvancedFilter
           className={cx(styles.filter, { [styles.open]: isFilterOpen })}
           changeFilters={handleChangeFilters}
-          queries={queries}
           filterSelectCurrencyOptions={filterSelectCurrencyOptions}
           filterCurrency={filterCurrency}
           setFilterCurrency={setFilterCurrency}
+          maxPrice={maxPrice}
         />
         <div className={cx(styles.filterResultsContainer, { [styles.withFilter]: isFilterOpen })}>
           <H3>{totalItems} results</H3>
           <div className={styles.filterResults}>
-            {mockData.map((artCard, index) => {
-              const {
-                image,
-                name,
-                price,
-                asset,
-                inStockNumber,
-                author,
-                authorAvatar,
-                likesNumber,
-                tags,
-              } = artCard;
-              return (
-                <Link to={`${routes.nft.link}/${index}`}>
-                  <ArtCard
-                    key={name}
-                    imageMain={image}
-                    name={name}
-                    price={price}
-                    asset={asset}
-                    inStockNumber={inStockNumber}
-                    author={author}
-                    authorAvatar={authorAvatar}
-                    likesNumber={likesNumber}
-                    tags={tags}
-                  />
-                </Link>
-              );
-            })}
+            {bids.length
+              ? bids.map((artCard: any) => {
+                  const { media, name, price, currency, available, creator, like_count, tags, id } =
+                    artCard;
+                  return (
+                    <Link to={`${routes.nft.link}/${id}`}>
+                      <ArtCard
+                        key={name}
+                        imageMain={media}
+                        name={name}
+                        price={price}
+                        asset={currency.symbol.toUpperCase()}
+                        inStockNumber={available}
+                        author={creator.name}
+                        authorAvatar={creator.avatar}
+                        likesNumber={like_count}
+                        tags={tags}
+                      />
+                    </Link>
+                  );
+                })
+              : null}
+
+            <div
+              style={{ height: '1px', width: '100%' }}
+              ref={anchorRef as RefObject<HTMLDivElement>}
+            />
           </div>
         </div>
       </div>

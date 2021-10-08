@@ -34,27 +34,27 @@ type Props = {
   className?: string;
   isMobile?: boolean;
   changeFilters: (key: string, value: string) => void;
-  queries?: any;
   filterSelectCurrencyOptions: any;
   filterCurrency: any;
   setFilterCurrency: (value: any) => void;
+  maxPrice: number
 };
 
 const AdvancedFilter: FC<Props> = ({
   isMobile,
   className,
   changeFilters,
-  queries,
   filterSelectCurrencyOptions,
   filterCurrency,
   setFilterCurrency,
+  maxPrice
 }) => {
   const [appliedFilters, setAppliedFilters] = useState<AdvancedFilterType>({});
+  const [filterRange, setFilterRange] = useState(maxPrice);
 
-  const [filterRange, setFilterRange] = useState(0.1);
   const handleFilterRange = useCallback(
     (value) => {
-      setFilterRange(value);
+      setFilterRange(value)
       changeFilters('max_price', value);
     },
     [changeFilters],
@@ -87,6 +87,7 @@ const AdvancedFilter: FC<Props> = ({
     },
     [appliedFilters, changeFilters],
   );
+
   return (
     <div className={cx(styles.advancedFilter, { [styles.mobile]: isMobile }, className)}>
       {isMobile && (
@@ -120,7 +121,7 @@ const AdvancedFilter: FC<Props> = ({
           onChange={handleFilterRange}
           value={filterRange}
           min={0.01}
-          max={queries.max_price}
+          max={maxPrice}
           step={0.01}
         />
       </div>

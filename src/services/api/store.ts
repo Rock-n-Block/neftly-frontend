@@ -53,7 +53,7 @@ export default {
   getUserCollections: (address: string, page: number) =>
     axios.get(`store/collections/${address}/${page}/`),
   getSearchResults: (queries: any) => {
-    const queriesCopy = { ...queries, max_price: queries.max_price[0] };
+    const queriesCopy = { ...queries };
     switch (queriesCopy.is_verificated) {
       case 'All':
         delete queriesCopy.is_verificated;
@@ -70,7 +70,6 @@ export default {
     if (queriesCopy.tags === 'All items') delete queriesCopy.tags;
     let query = `?network=${localStorage.netfly_nft_chainName}&on_sale=true&`;
     Object.keys(queriesCopy).forEach((key, index) => {
-      // if (!localStorage.netfly_nft_chainName) return;
       if (queriesCopy[key] || queriesCopy[key] === false || queriesCopy[key] === 0) {
         query = query.concat(
           `${key}=${queriesCopy[key]}${index === Object.keys(queriesCopy).length - 1 ? '' : '&'}`,

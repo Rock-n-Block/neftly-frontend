@@ -6,7 +6,7 @@ const useFilters = () => {
     type: 'items',
     order_by: '-date',
     tags: 'All items',
-    max_price: [0],
+    max_price: 0,
     currency: '',
     page: 1,
     is_verificated: 'All',
@@ -22,6 +22,7 @@ const useFilters = () => {
             setQueries((prevState: any) => ({
               ...prevState,
               [key]: value,
+              page: 1,
             }));
           }, 1000),
         );
@@ -31,14 +32,21 @@ const useFilters = () => {
             setQueries((prevState: any) => ({
               ...prevState,
               [key]: value,
+              page: 1,
             }));
           }, 1000),
         );
       }
+    } else if (key === 'page') {
+      setQueries((prevState: any) => ({
+        ...prevState,
+        [key]: value,
+      }));
     } else {
       setQueries((prevState: any) => ({
         ...prevState,
         [key]: value,
+        page: 1,
       }));
     }
   };
