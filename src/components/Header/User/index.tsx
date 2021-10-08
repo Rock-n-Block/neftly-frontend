@@ -105,7 +105,7 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
         {visible && (
           <div className={styles.body}>
             <div className={styles.triangle} />
-            <div className={styles.userHeader}>
+            <Link to={`/profile/${user.id}`} className={styles.userHeader}>
               <div className={styles.userAva}>
                 {user.avatar ? <img src={user.avatar} alt="Avatar" /> : <Loader />}
               </div>
@@ -113,7 +113,7 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
                 <div className={styles.name}>{user.display_name || 'User'}</div>
                 <div className={styles.type}>Proffesional Artist</div>
               </div>
-            </div>
+            </Link>
             <Link to={routes.create.root} onClick={handleClose}>
               <Button className={styles.uploadBtn} icon="upload-file">
                 Create item
