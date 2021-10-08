@@ -56,7 +56,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
         minimal_bid: values.minimalBid,
         creator_royalty: values.creatorRoyalty,
         collection: values.collection,
-        details: values.details.filter((detail) => detail.name !== ''),
+        details: JSON.stringify(values.details.filter((detail) => detail.name !== '')),
         selling: values.selling,
       };
 
@@ -64,8 +64,8 @@ export default observer(({ isSingle, walletConnector }: any) => {
         formData.append(key, value as string),
       );
 
-      formData.append('avatar', values.img);
-
+      formData.append('img', values.preview);
+      console.log(values, formData.get("avatar"));
       storeApi
         .createToken(formData)
         .then(({ data }) => {
