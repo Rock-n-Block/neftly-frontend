@@ -348,7 +348,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       />
                       <Field
                         render={() => {
-                          if (values.sellMethod === 'fixedPrice')
+                          if (values.sellMethod === 'fixedPrice') {
                             return (
                               <TextInput
                                 name="price"
@@ -361,6 +361,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                                 className={styles.priceInput}
                               />
                             );
+                          }
                           return (
                             <TextInput
                               name="minimalBid"
