@@ -1,56 +1,74 @@
 import React from 'react';
-import { Button, H2, Uploader } from 'components';
+import { Button, H2, Uploader, Text } from 'components';
 
-import { ReactComponent as GeoIcon } from '../../../assets/img/ProfilePage/geo_icon.svg';
-import { ReactComponent as LinkIcon } from '../../../assets/img/ProfilePage/link_icon.svg';
-import profile_avatar_example from '../../../assets/img/ProfilePage/profile_avatar_example.png';
-import profile_page_bg_example from '../../../assets/img/ProfilePage/profile_page_bg_example.png';
+import {
+  iconAddBlack,
+  iconEdit,
+  iconSettings,
+  LinkIcon,
+  profile_avatar_example,
+  profile_page_bg_example,
+} from 'assets/img';
 
 import s from './UserMainInfo.module.scss';
+import { IExtendedInfo } from 'typings';
+import { useMst } from 'store';
+import { observer } from 'mobx-react-lite';
 
 interface IUserMainInfo {
   handleUpload: (file: any) => void;
   isLoading: boolean;
-  cover?: string;
-  avatar?: string;
+  shownUser: IExtendedInfo;
 }
 
-const UserMainInfo: React.FC<IUserMainInfo> = ({ handleUpload, isLoading, cover, avatar }) => {
+const UserMainInfo: React.FC<IUserMainInfo> = observer(({ handleUpload, isLoading, shownUser }) => {
+  const { user } = useMst();
+  const isSelf = shownUser.id.toString() === user.id.toString();
   return (
     <section
       className={s.user}
       style={{
-        background: `url(${cover || profile_page_bg_example}) center center no-repeat`,
+        backgroundImage: `url(${shownUser.cover || profile_page_bg_example})`,
       }}
     >
       <div className={s.user_avatar}>
-        <img src={avatar || profile_avatar_example} alt="profile_avatar_example" />
+        <img
+          src={shownUser.avatar || profile_avatar_example}
+          alt="profile_avatar_example"
+          width={130}
+          height={130}
+        />
       </div>
-      <H2 className={s.user_name}>Bruno Bangnyfe</H2>
+      <H2 className={s.user_name}>{shownUser.display_name || 'User Name'}</H2>
       <div className={s.user_info}>
         <div className={s.user_info__icon}>
-          <LinkIcon />
+          <img src={LinkIcon} alt="link" />
         </div>
-        <div className={s.user_info__value}>0xc4c16a645i84fbuqb21a</div>
-      </div>
-      <div className={s.user_info}>
-        <div className={s.user_info__icon}>
-          <GeoIcon />
-        </div>
-        <div className={s.user_info__value}>Buenos Aires, Argentine</div>
+        <Text size="m">{shownUser.address || '0x0000000000000000000000000000000000000000'}</Text>
       </div>
       <div className={s.user_buttons}>
-        <Uploader type="img" isButton handleUpload={handleUpload} isLoading={isLoading}>
-          <Button className={s.user_button} color="outline" icon="pencil" loading={isLoading}>
-            Edit Banner
+        {isSelf ? (
+          <>
+            <Uploader type="img" isButton handleUpload={handleUpload} isLoading={isLoading}>
+              <Button className={s.user_button} color="outline" loading={isLoading}>
+                <img src={iconEdit} alt="" />
+                <Text tag="span">Edit Banner</Text>
+              </Button>
+            </Uploader>
+            <Button className={s.user_button} color="outline" href="/profile/edit">
+              <img src={iconSettings} alt="" />
+              Edit Profile
+            </Button>
+          </>
+        ) : (
+          <Button className={s.user_button} color="blue" href="/profile/edit">
+            <img src={iconAddBlack} alt="" />
+            Follow
           </Button>
-        </Uploader>
-        <Button className={s.user_button} color="outline" icon="edit" href="/profile/edit">
-          Edit Profile
-        </Button>
+        )}
       </div>
     </section>
   );
-};
+});
 
 export default UserMainInfo;

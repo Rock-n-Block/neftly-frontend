@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import UserMainInfo from './UserMainInfo/index';
+import { IExtendedInfo } from 'typings';
 import { userApi } from 'services/api';
 import { useMst } from 'store';
 
@@ -11,6 +11,7 @@ import { data as dataMock } from './CardsMock';
 import s from './ProfilePage.module.scss';
 
 import { folders, art, me, heart } from 'assets/img';
+import UserMainInfo from './UserMainInfo';
 
 const selectOptions = [
   {
@@ -66,25 +67,10 @@ const ProfilePage: React.FC = () => {
   const { user } = useMst();
   const history = useHistory();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [shownUser, setShownUser] = useState<{
-    id: number | string;
-    avatar: string;
-    display_name?: string;
-    address: string;
-    cover: string;
-    followers: Array<any>;
-    followers_count: number;
-    follows_count: number;
-    twitter: string | null;
-    instagram: string | null;
-    facebook: string | null;
-    site: string | null;
-    bio: string | null;
-    created_at: any;
-  }>({
+  const [shownUser, setShownUser] = useState<IExtendedInfo>({
     address: '',
     cover: '',
-    id: '',
+    id: 0,
     avatar: '',
     display_name: '',
     followers: [],
@@ -95,7 +81,9 @@ const ProfilePage: React.FC = () => {
     facebook: null,
     site: null,
     bio: null,
-    created_at: '',
+    is_verificated: false,
+    custom_url: '',
+    follows: [],
   });
 
   const getUser = useCallback(() => {
@@ -136,14 +124,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <section className={s.page}>
-      <div className={s.page_user}>
-        <UserMainInfo
-          handleUpload={handleUpload}
-          isLoading={isLoading}
-          cover={shownUser.cover}
-          avatar={shownUser.avatar}
-        />
-      </div>
+      <UserMainInfo handleUpload={handleUpload} isLoading={isLoading} shownUser={shownUser} />
 
       <div className={s.page_body}>
         <div className={s.page_body__left}>
