@@ -16,12 +16,14 @@ export const chains: {
       [key: string]: any;
     };
     img?: any;
+    explorer: string;
   };
 } = {
   'Ethereum': {
     name: 'Ethereum',
     chainId: is_production ? 1 : 4,
     img: ethImg,
+    explorer: is_production ? '' : '',
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
