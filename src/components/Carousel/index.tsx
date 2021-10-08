@@ -80,8 +80,8 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
     customPaging: (i: number) => (
       <div className={cx(styles.indicator, { [styles.active]: i === activeSlideIndex })} />
     ),
-    prevArrow: !hideArrows ? <PrevArrow /> : <></>,
-    nextArrow: !hideArrows ? <NextArrow /> : <></>,
+    prevArrow: !hideArrows ? <PrevArrow /> : undefined,
+    nextArrow: !hideArrows ? <NextArrow /> : undefined,
     beforeChange: handleBeforeChange,
     afterChange: handleAfterChange,
     responsive,
