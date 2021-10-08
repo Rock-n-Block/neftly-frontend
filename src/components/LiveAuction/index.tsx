@@ -31,17 +31,18 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
     storeApi.getHotBids().then(({ data }) => {
       // TODO: remove mockData and create interface IHotBid
       const formatedData = [...mockData, ...data].map((hotBid: any) => {
+        const { id, media, name, price, currency, available, creator, like_count, tags } = hotBid;
         return {
-          id: hotBid.id,
-          image: hotBid.media,
-          name: hotBid.name,
-          price: hotBid.price || 0,
-          asset: hotBid.currency.symbol,
-          inStockNumber: hotBid.available,
-          author: hotBid.creator.name,
-          authorAvatar: hotBid.creator.avatar,
-          likesNumber: hotBid.like_count,
-          tags: hotBid.tags,
+          id,
+          image: media,
+          name,
+          price: price || 0,
+          asset: currency.symbol,
+          inStockNumber: available,
+          author: creator.name,
+          authorAvatar: creator.avatar,
+          likesNumber: like_count,
+          tags,
         } as IHotBidShorted;
       });
 
