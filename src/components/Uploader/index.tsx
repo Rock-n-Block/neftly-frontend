@@ -5,11 +5,12 @@ import { useFormikContext } from 'formik';
 
 import styles from './Uploader.module.scss';
 import { Button } from 'components';
+import { checkValidFileType } from '../../utils/checkValidFileType';
 
 const { Dragger } = Upload;
 
 interface IUploader {
-  type: string;
+  type: 'img' | 'cover';
   className?: string;
   isLoading?: boolean;
   handleUpload?: (value: string) => void;
@@ -43,28 +44,9 @@ const Uploader: React.FC<IUploader> = ({
     },
     [formik, type],
   );
-  const checkIsValidType = useCallback(
-    (file: any) => {
-      if (!file) {
-        return false;
-      }
-      const isValidType =
-        file.type === 'image/jpeg' ||
-        file.type === 'image/jpg' ||
-        file.type === 'image/svg' ||
-        file.type === 'image/svg+xml' ||
-        file.type === 'image/png' ||
-        file.type === 'image/webp' ||
-        file.type === 'image/gif' ||
-        (type === 'img' && file.type === 'video/mp4') ||
-        (type === 'img' && file.type === 'audio/mpeg');
-      return isValidType;
-    },
-    [type],
-  );
   const beforeUpload = useCallback(
     (file: any) => {
-      const isValidType = checkIsValidType(file);
+      const isValidType = checkValidFileType(file, type);
       if (!isValidType) {
         message.error('You can only upload JPG/PNG/WEBP/GIF file!');
       }
@@ -74,14 +56,14 @@ const Uploader: React.FC<IUploader> = ({
       }
       return isValidType && isLt2M;
     },
-    [checkIsValidType],
+    [type],
   );
   const handleChange = useCallback(
     ({ file }: any) => {
       if (isLoading) {
         return;
       }
-      const isValidType = checkIsValidType(file);
+      const isValidType = checkValidFileType(file, type);
       if (!isValidType) {
         return;
       }
@@ -97,7 +79,7 @@ const Uploader: React.FC<IUploader> = ({
         getBase64(file.originFileObj, () => {});
       }
     },
-    [checkIsValidType, formik, getBase64, handleUpload, isLoading, setFormat, type],
+    [formik, getBase64, handleUpload, isLoading, setFormat, type],
   );
   return (
     <div className={cn(className, !isButton ? styles.uploader : '')}>
