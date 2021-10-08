@@ -8,13 +8,16 @@
 }
 
 .column {
-  width: 100%;
+  width: 50%;
 
   & + & {
     margin-left: 32px;
     @include forDesktopBig {
       margin-left: 0;
     }
+  }
+  @include forDesktopBig {
+    width: 100%;
   }
 }
 

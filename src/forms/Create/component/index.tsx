@@ -26,7 +26,7 @@ import styles from './CreateCollectibleDetails.module.scss';
 import { ratesApi } from '../../../services';
 import { iconClose } from '../../../assets/img/icons';
 
-const royaltiesOptions = ['10%', '20%', '30%'];
+const royaltiesOptions = ['10', '20', '30'];
 
 interface IRate {
   rate: string;
@@ -139,6 +139,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     useEffect(() => {
       setFieldValue('isSingle', isSingle);
     }, [isSingle, setFieldValue]);
+    useEffect(() => {
+      console.log(values);
+    }, [values]);
 
     return (
       <>
@@ -179,7 +182,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           <img alt="" src={upload} />
                         </div>
                         <Text className={styles.category} size="m" weight="medium" color="white">
-                          Upload preview
+                          Upload preview cover
                         </Text>
                         <Text className={styles.note} color="lightGray">
                           Drag or choose your file to upload
