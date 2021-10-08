@@ -32,10 +32,10 @@ const ChooseCollection: React.FC<IProps> = observer(
     const [collections, setCollections] = useState<ICollection[]>([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const changeCollection = useCallback(
-      (id: number) => {
-        if (activeCollectionId !== id) {
-          onChange(id);
+    const handleCollectionChange = useCallback(
+      (collectionId: number) => {
+        if (activeCollectionId !== collectionId) {
+          onChange(collectionId);
         }
       },
       [activeCollectionId, onChange],
@@ -52,10 +52,10 @@ const ChooseCollection: React.FC<IProps> = observer(
             return coll.standart === 'ERC1155';
           });
           setCollections(newCollections);
-          changeCollection(newCollections[0].id);
+          handleCollectionChange(newCollections[0].id);
         })
         .catch((err) => console.log(err, 'get single'));
-    }, [changeCollection, isSingle, user.address]);
+    }, [handleCollectionChange, isSingle, user.address]);
 
     const handleOpenModal = () => {
       setIsModalVisible(true);
@@ -87,8 +87,8 @@ const ChooseCollection: React.FC<IProps> = observer(
           {!!collections.length &&
             collections.map((collection) => (
               <div
-                onClick={() => changeCollection(collection.id)}
-                onKeyDown={() => changeCollection(collection.id)}
+                onClick={() => handleCollectionChange(collection.id)}
+                onKeyDown={() => handleCollectionChange(collection.id)}
                 role="button"
                 tabIndex={0}
                 key={`collection_${collection.id}`}
