@@ -1,21 +1,21 @@
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 // import { useMst } from '../../../store/store';
-// import {validateForm} from '../../../utils/validate';
 import * as Yup from 'yup';
 
 import { storeApi } from '../../../services/api';
 import CreateForm, { ICreateForm } from '../component';
+import { chainsEnum } from 'typings';
 
 export default observer(({ isSingle, walletConnector }: any) => {
   // const { modals } = useMst();
 
   let initialCurrency = 'ETH';
 
-  if (['Binance-Smart-Chain', 'Binance'].includes(localStorage.netfly_nft_chainName)) {
+  if (localStorage.netfly_nft_chainName === chainsEnum['Binance-Smart-Chain']) {
     initialCurrency = 'BNB';
   }
-  if (localStorage.kephi_nft_chainName === 'Polygon') {
+  if (localStorage.kephi_nft_chainName === chainsEnum.Polygon) {
     initialCurrency = 'MATIC';
   }
   const props: ICreateForm = {
