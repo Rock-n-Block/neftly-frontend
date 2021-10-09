@@ -10,11 +10,19 @@ import CreateForm, { ICreateForm } from '../component';
 export default observer(({ isSingle, walletConnector }: any) => {
   // const { modals } = useMst();
 
+  let initialCurrency = 'ETH';
+
+  if (['Binance-Smart-Chain', 'Binance'].includes(localStorage.netfly_nft_chainName)) {
+    initialCurrency = 'BNB';
+  }
+  if (localStorage.kephi_nft_chainName === 'Polygon') {
+    initialCurrency = 'MATIC';
+  }
   const props: ICreateForm = {
     name: '',
     isSingle,
     totalSupply: 1,
-    currency: 'ETH',
+    currency: initialCurrency,
     description: '',
     price: '',
     minimalBid: 0,

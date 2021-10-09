@@ -38,7 +38,6 @@
 
   cursor: pointer;
 
-
   // @include dark {
   border: 2px solid $color-neutral-80;
 
@@ -69,7 +68,6 @@
   align-items: center;
 
   transform: translateY(-50%);
-
 }
 
 .body {
@@ -92,6 +90,7 @@
 }
 
 .option {
+  @include flexbox(center, flex-start);
   padding: 8px 16px;
 
   font-size: 14px;

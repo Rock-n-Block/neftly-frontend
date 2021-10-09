@@ -39,7 +39,7 @@ export interface ICreateForm {
   name: string;
   isSingle?: boolean; // standart
   totalSupply: number;
-  currency: 'ETH' | 'WETH' | 'USDT';
+  currency: string;
   description: string;
   price: string;
   minimalBid: number;
@@ -73,7 +73,6 @@ const sellMethods: IRadioButton[] = [
 
 const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
   ({ setFieldValue, values, touched, errors, handleBlur, handleChange, handleSubmit }) => {
-    console.log(errors);
     const history = useHistory();
     const [rates, setRates] = useState<
       Array<{
@@ -127,6 +126,10 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       fetchRates();
     }, [fetchRates]);
 
+    // const availableCurrencies = React.useMemo(() => {
+
+    // }, [rates, values.sellMethod])
+
     return (
       <>
         <Form name="form-create" className={styles.form}>
@@ -173,7 +176,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
             <div className={styles.item}>
               {values.img ? (
                 <div className={styles.previewImg}>
-                  {console.log('format', values.format, values.preview)}
                   {values.format === 'image' && <img src={values.preview} alt="Media" />}
                   {values.format === 'video' && (
                     <video controls>
