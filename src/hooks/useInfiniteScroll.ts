@@ -1,24 +1,20 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 export const useInfiniteScroll = (
-  isNeedLoad: boolean,
-  isLoading: boolean,
-  loadMore: any,
-  handleChangePage: any,
+  pointer1: number,
+  pointer2: number,
+  updatePointer: (value: number) => void,
+  isFetching: boolean,
 ) => {
   const anchor = useRef<Element>(null);
-  console.log(isLoading, isNeedLoad, 'infinite prarms');
-  const callback = useCallback(
-    () => {
-      if (isNeedLoad && !isLoading) {
-        console.log('in hook');
-        loadMore();
-        handleChangePage();
-      }
-    },
-    [isNeedLoad, isLoading, loadMore, handleChangePage],
-  );
-  // debugger;
+
+  const callback = useCallback((entries) => {
+    const { isIntersecting } = entries[0];
+    if (pointer1 < pointer2 && isIntersecting && !isFetching) {
+      console.log(pointer1);
+      updatePointer(pointer1 + 1);
+    }
+  }, [pointer1, pointer2, isFetching, updatePointer]);
 
   useEffect(() => {
     const options = {
@@ -27,7 +23,7 @@ export const useInfiniteScroll = (
     };
 
     const intObserver = new IntersectionObserver(callback, options);
-    if (anchor && anchor.current) {
+    if (anchor.current) {
       intObserver.observe(anchor.current);
     }
 

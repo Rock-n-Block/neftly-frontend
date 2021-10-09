@@ -1,12 +1,11 @@
-import { FC, useCallback, useState } from 'react';
+import { FC } from 'react';
 import { cross } from 'assets/img';
 import cx from 'classnames';
 import { Button, H3, RangePicker, Select, Text } from 'components';
+import { OptionType } from 'typings';
 
-import FilterTag from './FilterTag';
-
+// import FilterTag from './FilterTag';
 import styles from './styles.module.scss';
-import { IAppliedFilter, AdvancedFilterType } from 'typings';
 
 const filterSelectLikesOptions = [
   {
@@ -33,61 +32,32 @@ const filterSelectArtistsOptions = [
 type Props = {
   className?: string;
   isMobile?: boolean;
-  changeFilters: (key: string, value: string) => void;
   filterSelectCurrencyOptions: any;
-  filterCurrency: any;
-  setFilterCurrency: (value: any) => void;
-  maxPrice: number
+  maxPrice: number;
+  maxPriceFilter: number;
+  handleMaxPriceFilter: (maxPrice: number) => void;
+  currencyFilter: OptionType;
+  handleCurrencyFilter: (value: any) => void;
+  likesFilter: OptionType;
+  handleLikesFilter: (value: any) => void;
+  verifiedFilter: OptionType;
+  handleVerifiedFilter: (value: any) => void;
 };
 
 const AdvancedFilter: FC<Props> = ({
   isMobile,
   className,
-  changeFilters,
   filterSelectCurrencyOptions,
-  filterCurrency,
-  setFilterCurrency,
-  maxPrice
+  maxPrice,
+  maxPriceFilter,
+  handleMaxPriceFilter,
+  currencyFilter,
+  handleCurrencyFilter,
+  likesFilter,
+  handleLikesFilter,
+  verifiedFilter,
+  handleVerifiedFilter,
 }) => {
-  const [appliedFilters, setAppliedFilters] = useState<AdvancedFilterType>({});
-  const [filterRange, setFilterRange] = useState(maxPrice);
-
-  const handleFilterRange = useCallback(
-    (value) => {
-      setFilterRange(value)
-      changeFilters('max_price', value);
-    },
-    [changeFilters],
-  );
-
-  const handleFilterCurrency = useCallback(
-    (value) => {
-      setFilterCurrency(value);
-      setAppliedFilters({ ...appliedFilters, currency: value });
-      changeFilters('currency', value.value);
-    },
-    [appliedFilters, changeFilters, setFilterCurrency],
-  );
-
-  const [filterLikes, setFilterLikes] = useState();
-  const handleFilterLikes = useCallback(
-    (value) => {
-      setFilterLikes(value);
-      setAppliedFilters({ ...appliedFilters, likes: value });
-    },
-    [appliedFilters],
-  );
-
-  const [filterArtists, setFilterArtists] = useState();
-  const handleFilterArtists = useCallback(
-    (value) => {
-      setFilterArtists(value);
-      setAppliedFilters({ ...appliedFilters, artists: value });
-      changeFilters('is_verificated', value.value);
-    },
-    [appliedFilters, changeFilters],
-  );
-
   return (
     <div className={cx(styles.advancedFilter, { [styles.mobile]: isMobile }, className)}>
       {isMobile && (
@@ -105,21 +75,21 @@ const AdvancedFilter: FC<Props> = ({
         </Button>
       </div>
       <div className={styles.tagContainer}>
-        {Object.values(appliedFilters).map((filter: IAppliedFilter) => {
+        {/* {Object.values(appliedFilters).map((filter: IAppliedFilter) => {
           return (
             <FilterTag
               className={styles.filterTag}
               label={typeof filter === 'string' ? filter : filter.label}
             />
           );
-        })}
+        })} */}
       </div>
       <div>
         <Text color="gray">Price Range</Text>
         <RangePicker
           className={styles.rangeFilter}
-          onChange={handleFilterRange}
-          value={filterRange}
+          onChange={handleMaxPriceFilter}
+          value={maxPriceFilter}
           min={0.01}
           max={maxPrice}
           step={0.01}
@@ -130,8 +100,8 @@ const AdvancedFilter: FC<Props> = ({
           Currency
         </Text>
         <Select
-          onChange={handleFilterCurrency}
-          value={filterCurrency}
+          onChange={handleCurrencyFilter}
+          value={currencyFilter}
           options={filterSelectCurrencyOptions}
         />
       </div>
@@ -140,8 +110,8 @@ const AdvancedFilter: FC<Props> = ({
           Likes
         </Text>
         <Select
-          onChange={handleFilterLikes}
-          value={filterLikes}
+          onChange={handleLikesFilter}
+          value={likesFilter}
           options={filterSelectLikesOptions}
         />
       </div>
@@ -150,8 +120,8 @@ const AdvancedFilter: FC<Props> = ({
           Artists
         </Text>
         <Select
-          onChange={handleFilterArtists}
-          value={filterArtists}
+          onChange={handleVerifiedFilter}
+          value={verifiedFilter}
           options={filterSelectArtistsOptions}
         />
       </div>
