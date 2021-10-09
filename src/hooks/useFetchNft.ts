@@ -30,20 +30,17 @@ export const useFetchNft = (
         page,
         is_verificated,
       })
-      .then(({ data }: any) => {
-        setTotalItems(data.total_tokens);
+      .then(({ data: { items, total_tokens } }: any) => {
+        setTotalItems(total_tokens);
         if (refresh) {
-          setBids(data.items);
+          setBids(items);
         } else {
-          setBids((prev: any) => {
-            console.log('prev', prev, 'data.items', data.items, 'combined', [
-              ...prev,
-              ...data.items,
-            ]);
-            return [...prev, ...data.items];
-          });
+          setBids([...bids, ...items]);
         }
-        setAllPages(Math.ceil(data.total_tokens / NUMBER_NFTS_PER_PAGE));
+        if (!items.length) {
+          setBids([]);
+        }
+        setAllPages(Math.ceil(total_tokens / NUMBER_NFTS_PER_PAGE));
       })
       .finally(() => {
         setLoading(false);
@@ -52,7 +49,7 @@ export const useFetchNft = (
 
   useEffect(() => {
     fetchSearch();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, type, order_by, tags, max_price, currency, is_verificated]);
 
   return {

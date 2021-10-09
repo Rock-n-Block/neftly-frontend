@@ -8,19 +8,14 @@ type Props = {
   className?: string;
   tabClassName?: string;
   tabs: any[];
-  action: (id: string) => void;
-  changeFilters?: (key: string, value: string) => void
+  action: (value: string) => void;
 };
 
-const TabLookingComponent: FC<Props> = ({ className, tabs, action, tabClassName, changeFilters }) => {
+const TabLookingComponent: FC<Props> = ({ className, tabs, action, tabClassName, }) => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const handleClick = (index: number, id: string, title: string) => {
+  const handleClick = (index: number, title: string) => {
     setSelectedTab(index);
-    if (id) {
-      alert(id);
-      action(id);
-    }
-    if (changeFilters) changeFilters('tags', title);
+    action(title);
   };
 
   const scrollProviderRef = useRef<HTMLDivElement>(null);
@@ -39,9 +34,9 @@ const TabLookingComponent: FC<Props> = ({ className, tabs, action, tabClassName,
     <div className={cx(styles.tabContainer, { [styles.scrollTips]: getIsScrollTips() })}>
       <div ref={scrollProviderRef} className={styles.scrollProvider}>
         <div ref={tabWrapperRef} className={cx(styles.tabWrapper, className)}>
-          {tabs.map(({ title, id, icon }, index) => (
+          {tabs.map(({ title, icon }, index) => (
             <Button
-              onClick={() => handleClick(index, id, title)}
+              onClick={() => handleClick(index, title)}
               color="transparent"
               className={cx(styles.tab, { [styles.selected]: index === selectedTab }, tabClassName)}
             >

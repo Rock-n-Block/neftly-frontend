@@ -16,64 +16,10 @@ import {
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
 
+import { selectOptions } from './helperData';
 import { dataMediumCards } from './mockData';
 
 import styles from './styles.module.scss';
-
-// type DiscoverProps = {};
-// const tabs = [
-//   {
-//     title: 'Featured',
-//     icon: burn,
-//   },
-//   {
-//     title: 'All Items',
-//     icon: allCategory,
-//   },
-//   {
-//     title: 'Art',
-//     icon: art,
-//   },
-//   {
-//     title: 'Photography',
-//     icon: camera,
-//   },
-//   {
-//     title: '3D',
-//     icon: threeD,
-//   },
-//   {
-//     title: 'Motion',
-//     icon: motion,
-//   },
-// ];
-
-const selectOptions = [
-  {
-    label: 'Newest',
-    value: '-date',
-  },
-  {
-    label: 'Latest',
-    value: 'date',
-  },
-  {
-    label: 'Highest price',
-    value: '-price',
-  },
-  {
-    label: 'Lowest price',
-    value: 'price',
-  },
-  {
-    label: 'Most liked',
-    value: '-likes',
-  },
-  {
-    label: 'Least liked',
-    value: 'likes',
-  },
-];
 
 const Discover = () => {
   const [isFilterOpen, setFilterOpen] = useState(false);
@@ -128,8 +74,7 @@ const Discover = () => {
         <TabLookingComponent
           tabClassName={styles.filterTab}
           tabs={filterTags}
-          action={() => {}}
-          changeFilters={handleTagsFilter}
+          action={handleTagsFilter}
         />
         <Select
           onChange={handleOrderByFilter as any}
@@ -179,10 +124,7 @@ const Discover = () => {
           </div>
         </div>
       </div>
-      <div
-        style={{ height: '20px', background: 'red' }}
-        ref={anchorRef as RefObject<HTMLDivElement>}
-      />
+      <div ref={anchorRef as RefObject<HTMLDivElement>} />
       <LiveAuction className={styles.liveAuction} />
       <div>
         <div>

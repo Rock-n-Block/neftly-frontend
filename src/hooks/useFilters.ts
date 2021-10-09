@@ -37,29 +37,29 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
   const [page, setPage] = useState(DEFAULT_FILTER_STATE.page);
   const [maxPrice, setMaxPrice] = useState(DEFAULT_FILTER_STATE.max_price);
 
-  // const handleMaxPriceFilter = useCallback((value: number) => {
-  //   setMaxPriceFilter(value);
-  // }, []);
+  const handleMaxPriceFilter = useCallback((value: number) => {
+    setMaxPriceFilter(value);
+  }, []);
 
   const handleCurrencyFilter = useCallback((value: OptionType) => {
     setCurrencyFilter(value);
   }, []);
 
-  // const handleLikesFilter = useCallback((value: OptionType) => {
-  //   setLikesFilter(value);
-  // }, []);
+  const handleLikesFilter = useCallback((value: OptionType) => {
+    setLikesFilter(value);
+  }, []);
 
-  // const handleVerifiedFilter = useCallback((value: OptionType) => {
-  //   setVerifiedFilter(value);
-  // }, []);
+  const handleVerifiedFilter = useCallback((value: OptionType) => {
+    setVerifiedFilter(value);
+  }, []);
 
-  // const handleTagsFilter = useCallback((value: string) => {
-  //   setTagsFilter(value);
-  // }, []);
+  const handleTagsFilter = useCallback((value: string) => {
+    setTagsFilter(value);
+  }, []);
 
-  // const handleOrderByFilter = useCallback((value: OptionType) => {
-  //   setOrderByFilter(value);
-  // }, []);
+  const handleOrderByFilter = useCallback((value: OptionType) => {
+    setOrderByFilter(value);
+  }, []);
 
   const handlePage = useCallback((value: number) => {
     setPage(value);
@@ -130,22 +130,26 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
     fetchRates();
   }, [fetchRates]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [orderByFilter, tagsFilter]);
+
   return {
     filterTags,
     maxPrice,
     maxPriceFilter,
-    handleMaxPriceFilter: setMaxPriceFilter,
+    handleMaxPriceFilter,
     currencyFilter,
-    handleCurrencyFilter: setCurrencyFilter,
+    handleCurrencyFilter,
     likesFilter,
-    handleLikesFilter: setLikesFilter,
+    handleLikesFilter,
     verifiedFilter,
-    handleVerifiedFilter: setVerifiedFilter,
+    handleVerifiedFilter,
     orderByFilter,
-    handleOrderByFilter: setOrderByFilter,
+    handleOrderByFilter,
     filterSelectCurrencyOptions,
     tagsFilter,
-    handleTagsFilter: setTagsFilter,
+    handleTagsFilter,
     page,
     handlePage,
   };
