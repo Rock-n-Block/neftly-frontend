@@ -20,7 +20,7 @@ const TabLookingComponent: FC<Props> = ({ className, tabs, action, tabClassName,
       alert(id);
       action(id);
     }
-    if (changeFilters) changeFilters('tags', title)
+    if (changeFilters) changeFilters('tags', title);
   };
 
   const scrollProviderRef = useRef<HTMLDivElement>(null);
