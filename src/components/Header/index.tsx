@@ -30,9 +30,20 @@ const Headers: React.FC = observer(() => {
     }
   }, [user, pathname]);
 
-  const handleOpenConnect = (): void => {
+  const handleOpenConnect = React.useCallback(() => {
     setConnectOpen(true);
-  };
+  }, []);
+
+  const handleCloseConnect = React.useCallback(() => {
+    setConnectOpen(false);
+  }, []);
+
+  const handleChangeUserSearch = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      user.setSearch(e.target.value);
+    },
+    [user],
+  );
 
   return (
     <>
@@ -47,7 +58,7 @@ const Headers: React.FC = observer(() => {
               icon="search"
               name="search"
               value={user.search}
-              onChange={(e) => user.setSearch(e.target.value)}
+              onChange={handleChangeUserSearch}
               className={styles.headerSearch}
             />
           </div>
@@ -81,7 +92,7 @@ const Headers: React.FC = observer(() => {
       </header>
       <Modal
         visible={isConnectOpen && !user.address}
-        onClose={() => setConnectOpen(false)}
+        onClose={handleCloseConnect}
         title="Pick a wallet"
       >
         <ChooseWallet />

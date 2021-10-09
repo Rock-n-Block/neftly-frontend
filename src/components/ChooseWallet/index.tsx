@@ -3,6 +3,7 @@ import cn from 'classnames';
 
 import { chains } from '../../config';
 import { useWalletConnectorContext } from '../../services/walletConnect';
+import { chainsEnum } from 'typings';
 
 import styles from './ChooseWallet.module.scss';
 
@@ -10,9 +11,13 @@ import arrowImg from '../../assets/img/arrowRight.svg';
 
 const ChooseWallet: React.FC = () => {
   const { connect } = useWalletConnectorContext();
-  const [activeChain, setActiveChain] = React.useState<
-    'Ethereum' | 'Binance-Smart-Chain' | 'Polygon'
-  >(chains.Ethereum.name);
+  const [activeChain, setActiveChain] = React.useState<chainsEnum>(
+    chains[chainsEnum.Ethereum].name,
+  );
+
+  const hancleChangeActiveChain = React.useCallback((name: chainsEnum) => {
+    setActiveChain(name);
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -23,7 +28,7 @@ const ChooseWallet: React.FC = () => {
             className={cn(styles.item, {
               [styles.item_active]: blockchain.name === activeChain,
             })}
-            onClick={() => setActiveChain(blockchain.name)}
+            onClick={() => hancleChangeActiveChain(blockchain.name)}
             onKeyDown={() => {}}
             role="button"
             tabIndex={0}

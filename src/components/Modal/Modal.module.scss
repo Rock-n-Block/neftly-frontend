@@ -51,7 +51,7 @@
 .title {
   padding-bottom: 27px;
   margin-bottom: 30px;
-  border-bottom: 1px solid #6b6785;
+  border-bottom: 1px solid $color-neutral-60;
   font-weight: bold;
   @include monument-extended;
 
@@ -70,12 +70,12 @@
   width: 42px;
   height: 42px;
 
-  background: #080134;
-  border: 1px solid #ff72d2;
+  background: $color-neutral-100;
+  border: 1px solid $color-actions-light-pink;
 
   svg {
     transition: transform 0.2s;
-    fill: $neutrals8;
+    fill: $color-neutral-5;
     transform-origin: center;
   }
   // }

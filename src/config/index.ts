@@ -1,4 +1,4 @@
-import { IConnectWallet, IContracts } from '../typings';
+import { IConnectWallet, IContracts, chainsEnum } from '../typings';
 import ethImg from '../assets/img/icons/chains/eth.svg';
 import bnbImg from '../assets/img/icons/chains/bnb.svg';
 import polygonImg from '../assets/img/icons/chains/polygon.svg';
@@ -10,7 +10,7 @@ export const is_production = false;
 
 export const chains: {
   [key: string]: {
-    name: 'Ethereum' | 'Binance-Smart-Chain' | 'Polygon';
+    name: chainsEnum;
     chainId: number;
     provider: {
       [key: string]: any;
@@ -19,8 +19,8 @@ export const chains: {
     explorer: string;
   };
 } = {
-  'Ethereum': {
-    name: 'Ethereum',
+  [chainsEnum.Ethereum]: {
+    name: chainsEnum.Ethereum,
     chainId: is_production ? 1 : 4,
     img: ethImg,
     explorer: is_production ? '' : '',
@@ -42,8 +42,8 @@ export const chains: {
       },
     },
   },
-  'Binance-Smart-Chain': {
-    name: 'Binance-Smart-Chain',
+  [chainsEnum['Binance-Smart-Chain']]: {
+    name: chainsEnum['Binance-Smart-Chain'],
     chainId: is_production ? 56 : 97,
     img: bnbImg,
     provider: {
@@ -65,8 +65,8 @@ export const chains: {
     },
     explorer: is_production ? 'https://bscscan.com' : 'https://testnet.bscscan.com',
   },
-  'Polygon': {
-    name: 'Polygon',
+  [chainsEnum.Polygon]: {
+    name: chainsEnum.Polygon,
     chainId: is_production ? 137 : 80001,
     img: polygonImg,
     provider: {
@@ -91,7 +91,7 @@ export const chains: {
 };
 
 export const connectWallet = (
-  chainName: 'Ethereum' | 'Binance-Smart-Chain' | 'Polygon',
+  chainName: chainsEnum,
 ): IConnectWallet & {
   blockchains: Array<string>;
 } => {
@@ -101,7 +101,7 @@ export const connectWallet = (
     wallets: ['MetaMask', 'WalletConnect'],
     blockchains: ['Ethereum', 'Binance Smart Chain', 'Polygon'],
     network: {
-      name: chain.name,
+      name: chain.name.toString(),
       chainID: chain.chainId,
     },
     provider: chain.provider,
