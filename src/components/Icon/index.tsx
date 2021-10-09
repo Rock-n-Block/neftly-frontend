@@ -122,7 +122,7 @@ const Icon: React.FC<Props> = ({ name, size = 16, fill = 'inherit', className })
       className={cn(className)}
       width={size}
       height={size}
-      viewBox="0 0 20 20"
+      viewBox="0 0 16 16"
       fill={String(fill)}
     >
       <path d={icons[name]} />
