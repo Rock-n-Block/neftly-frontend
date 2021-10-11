@@ -1,78 +1,109 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// eslint-disable-next-line no-param-reassign
+import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
-// import { useMst } from '../../../store/store';
-import * as Yup from 'yup';
 
 import { storeApi } from '../../../services/api';
+// import { useMst } from '../../../store/store';
+import { validateForm } from '../../../utils/validate';
 import CreateForm, { ICreateForm } from '../component';
-import { chainsEnum } from 'typings';
 
 export default observer(({ isSingle, walletConnector }: any) => {
   // const { modals } = useMst();
-
-  let initialCurrency = 'ETH';
-
-  if (localStorage.netfly_nft_chainName === chainsEnum['Binance-Smart-Chain']) {
-    initialCurrency = 'BNB';
-  }
-  if (localStorage.kephi_nft_chainName === chainsEnum.Polygon) {
-    initialCurrency = 'MATIC';
-  }
-  const props: ICreateForm = {
-    name: '',
-    isSingle,
-    totalSupply: 1,
-    currency: initialCurrency,
-    description: '',
-    price: '',
-    minimalBid: 0,
-    creatorRoyalty: '10',
-    collection: 0,
-    details: [{ name: '', amount: '' }],
-    selling: true,
-    // startAuction: new Date(),
-    // endAuction: new Date(),
-    media: '',
-    cover: '',
-    coverPreview: '',
-    format: '',
-    img: '',
-    preview: '',
-    sellMethod: 'fixedPrice',
-    isLoading: false,
-  };
   const FormWithFormik = withFormik<any, ICreateForm>({
     enableReinitialize: true,
-    mapPropsToValues: () => props,
-
-    validationSchema: Yup.object().shape({
-      name: Yup.string().min(2, 'Too short!').max(50, 'Too long!'),
-      totalSupply: Yup.number().min(1, 'Minimal amount equal to 1!').max(100, 'Too much!'),
-      description: Yup.string().max(500, 'Too long!'),
-      minimalBid: Yup.number().min(0),
+    mapPropsToValues: () => ({
+      img: '',
+      cover: '',
+      preview: '',
+      coverPreview: '',
+      putOnSale: true,
+      instantSalePrice: true,
+      // unlockOncePurchased: false,
+      format: '',
+      instantSalePriceEth: '',
+      // digitalKey: '',
+      tokenName: '',
+      tokenDescr: '',
+      tokenRoyalties: '10%',
+      numberOfCopies: '',
+      tokenProperties: [
+        {
+          size: '',
+          amount: '',
+        },
+      ],
+      isLoading: false,
+      collectionId: '16',
+      currency: 'WETH',
+      bid: '',
+      showModal: false,
     }),
+    validate: (values: any) => {
+      const notRequired: string[] = ['tokenDescr', 'preview'];
+      if (
+        !values.putOnSale ||
+        (!values.instantSalePrice && !notRequired.includes('instantSalePriceEth'))
+      ) {
+        notRequired.push('instantSalePriceEth');
+      } /*
+      if (!values.unlockOncePurchased && !notRequired.includes('digitalKey')) {
+        notRequired.push('digitalKey');
+      } */
+      if (isSingle) {
+        notRequired.push('numberOfCopies');
+      }
+      if (!values.putOnSale || values.instantSalePrice) {
+        notRequired.push('bid');
+      }
+      const errors = validateForm({ values, notRequired });
+
+      return errors;
+    },
+
     handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
 
-      const apiReadyFormData = {
-        name: values.name,
-        standart: values.isSingle ? 'ERC721' : 'ERC1155',
-        total_supply: values.totalSupply,
-        currency: values.currency,
-        description: values.description,
-        price: values.price,
-        minimal_bid: values.minimalBid,
-        creator_royalty: values.creatorRoyalty,
-        collection: values.collection,
-        details: values.details.filter((detail) => detail.name !== ''),
-        selling: values.selling,
-      };
-      console.log(apiReadyFormData, values);
+      const formData = new FormData();
+      formData.append('media', values.img);
+      if (values.cover) formData.append('cover', values.cover);
+      formData.append('name', values.tokenName);
+      formData.append('total_supply', isSingle ? '1' : values.numberOfCopies.toString());
+      formData.append('description', values.tokenDescr);
+      if (values.instantSalePrice && values.putOnSale) {
+        formData.append('price', values.instantSalePriceEth.toString());
+      }
+      if (!values.instantSalePrice && values.putOnSale) {
+        formData.append('minimal_bid', values.bid.toString());
+      }
+      if (values.putOnSale) {
+        formData.append('available', values.numberOfCopies.toString());
+      } else {
+        formData.append('available', '0');
+      }
+      formData.append('creator_royalty', values.tokenRoyalties.toString().slice(0, -1));
+      formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
+      formData.append('collection', values.collectionId);
+      formData.append('currency', values.currency);
+      formData.append('format', values.format);
+      // formData.append('creator', localStorage.dds_token);
 
+      if (values.tokenProperties[0].size) {
+        const details: any = {};
+        values.tokenProperties.forEach((item) => {
+          if (item.size) {
+            details[item.size] = item.amount;
+          }
+        });
+
+        formData.append('details', details);
+      }
       storeApi
-        .createToken(apiReadyFormData)
+        .createToken(formData)
         .then(({ data }) => {
-          walletConnector.walletService
+          walletConnector.metamaskService
             .sendTransaction(data.initial_tx)
             .then(() => {
               setFieldValue('showModal', true);
@@ -96,5 +127,5 @@ export default observer(({ isSingle, walletConnector }: any) => {
 
     displayName: 'ChangePasswordForm',
   })(CreateForm);
-  return <FormWithFormik />;
+  return <FormWithFormik isSingle={isSingle} />;
 });
