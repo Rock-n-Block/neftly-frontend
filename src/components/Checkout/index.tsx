@@ -118,7 +118,7 @@ const Checkout: React.FC = observer(() => {
             </div>
             <div className={styles.infoItem}>
               <div className={styles.infoItemName}>You will pay</div>
-              <div className={styles.infoItemValue}>{`${new BigNumber(sell.nft.price)
+              <div className={styles.infoItemValue}>{`${new BigNumber(sell.nft.price || 0)
                 .multipliedBy(
                   +quantity > sell.nft.tokenAvailable ? sell.nft.tokenAvailable : quantity || 1,
                 )

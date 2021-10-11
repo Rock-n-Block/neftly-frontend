@@ -7,8 +7,9 @@ const NftForSale = types.model({
   tokenName: types.optional(types.string, ''),
   fee: types.optional(types.number, 0),
   feeCurrency: types.optional(types.number, 0),
-  price: types.optional(types.number, 0),
+  price: types.maybeNull(types.optional(types.number, 0)),
   usdPrice: types.optional(types.number, 0),
+  minimalBid: types.optional(types.number, 0),
   currency: types.optional(types.string, ''),
   tokenAvailable: types.optional(types.number, 0),
   media: types.optional(types.string, ''),
@@ -21,6 +22,43 @@ const Seller = types.model({
   price: types.number,
   quantity: types.number,
 });
+
+const PlaceBid = types
+  .model({
+    isSuccess: types.optional(types.boolean, false),
+    isOpen: types.optional(types.boolean, false),
+  })
+  .views((self) => ({
+    get getIsOpen() {
+      const parent: any = getParent(self);
+      if (
+        parent.nft.tokenId &&
+        parent.nft.standart &&
+        parent.nft.tokenName &&
+        parent.nft.fee &&
+        parent.nft.currency &&
+        parent.nft.tokenAvailable &&
+        parent.nft.media &&
+        parent.nft.minimalBid &&
+        self.isOpen
+      ) {
+        return true;
+      }
+      return false;
+    },
+  }))
+  .actions((self) => ({
+    close: () => {
+      self.isOpen = false;
+    },
+    open: () => {
+      self.isSuccess = false;
+      self.isOpen = true;
+    },
+    success: () => {
+      self.isSuccess = true;
+    },
+  }));
 
 const ChooseSeller = types
   .model({
@@ -77,7 +115,8 @@ const Checkout = types
         parent.nft.price &&
         parent.nft.currency &&
         parent.nft.tokenAvailable &&
-        parent.nft.media
+        parent.nft.media &&
+        self.isOpen
       ) {
         return true;
       }
@@ -104,6 +143,7 @@ const SellModals = types
     nft: types.optional(NftForSale, {}),
     checkout: Checkout,
     chooseSeller: ChooseSeller,
+    placeBid: PlaceBid,
   })
   .actions((self) => ({
     setNft: (data: any) => {

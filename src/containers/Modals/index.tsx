@@ -1,27 +1,33 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Modal, Checkout, ChooseSeller } from 'components';
+import { Modal, Checkout, ChooseSeller, PlaceBid } from 'components';
 import { useMst } from '../../store';
 
 const Modals: React.FC = () => {
-  const { modals } = useMst();
+  const {
+    modals: { sell },
+  } = useMst();
   return (
     <>
-      <Modal
-        visible={modals.sell.checkout.isOpen}
-        onClose={modals.sell.checkout.close}
-        title="Checkout"
-      >
+      <Modal visible={sell.checkout.getIsOpen} onClose={sell.checkout.close} title="Checkout">
         <Checkout />
       </Modal>
       <Modal
         maxWidth="565px"
-        visible={modals.sell.chooseSeller.getIsOpen}
-        onClose={modals.sell.chooseSeller.close}
-        title={`Sellers (${modals.sell.chooseSeller.sellers.length})`}
+        visible={sell.chooseSeller.getIsOpen}
+        onClose={sell.chooseSeller.close}
+        title={`Sellers (${sell.chooseSeller.sellers.length})`}
       >
         <ChooseSeller />
+      </Modal>
+      <Modal
+        maxWidth="510px"
+        visible={sell.placeBid.getIsOpen}
+        onClose={sell.placeBid.close}
+        title="Place a Bid"
+      >
+        <PlaceBid />
       </Modal>
     </>
   );

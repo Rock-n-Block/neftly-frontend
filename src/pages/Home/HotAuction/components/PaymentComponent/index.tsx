@@ -201,7 +201,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
     }
   }, [walletService, nft]);
 
-  const handleBuyNft = React.useCallback(() => {
+  const handleSetNft = React.useCallback(() => {
     modals.sell.setNft({
       tokenId: nft?.id,
       standart: nft?.standart,
@@ -211,15 +211,25 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
       currency: nft?.currency.symbol,
       tokenAvailable: nft?.available,
       media: nft?.media,
+      minimalBid: nft?.minimal_bid,
       usdPrice: nft?.USD_price,
       feeCurrency: nft?.currency_service_fee,
     });
+  }, [nft, modals.sell]);
+
+  const handleBuyNft = React.useCallback(() => {
+    handleSetNft();
     if (nft?.standart === 'ERC721') {
       modals.sell.checkout.open(nft.sellers[0].id);
     } else {
       modals.sell.chooseSeller.open(nft?.sellers);
     }
-  }, [nft, modals.sell]);
+  }, [nft, modals.sell, handleSetNft]);
+
+  const handlePlaceBid = React.useCallback(() => {
+    handleSetNft();
+    modals.sell.placeBid.open();
+  }, [modals.sell, handleSetNft]);
 
   React.useEffect(() => {
     if (user.address && nft) {
@@ -231,9 +241,10 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
     <div className={cx(className, { [styles.paymentSell]: nftSellingType === 'sell' })}>
       <div className={styles.priceWrapper}>
         <div>
-          <Text color="lightGray">
-            {nftSellingType === 'sell' ? 'Current Price' : 'Highest Bid'}
-          </Text>
+          {nftSellingType === 'sell' ? <Text color="lightGray">Current Price</Text> : null}
+          {nftSellingType === 'auction' && nft?.highest_bid ? (
+            <Text color="lightGray">Highest Bid</Text>
+          ) : null}
           <div className={styles.priceAndGrowth}>
             {currentPrice ? <H4>{`${currentPrice} ${nft?.currency.symbol}`}</H4> : ''}
             {nftSellingType === 'sell' && <Text size="m">{`($${nft?.USD_price})`}</Text>}
@@ -265,7 +276,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
             </Button>
           ) : null}
           {isUserCanEnterInAuction && isApproved ? (
-            <Button onClick={bidAction} isFullWidth>
+            <Button onClick={handlePlaceBid} isFullWidth>
               Place a Bid
             </Button>
           ) : null}
