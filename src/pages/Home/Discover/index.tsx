@@ -67,7 +67,8 @@ const Discover: React.FC = observer(() => {
   }, []);
 
   const fetchSearch = useCallback((queriesObject: any, searchStr: string) => {
-    storeApi.getSearchResults({ text: searchStr, page: 1 }, queriesObject).then(({ data }) => {
+    if (searchStr) console.log('')
+    storeApi.getSearchResults(queriesObject).then(({ data }) => {
       setBids(data);
     });
   }, []);
@@ -104,7 +105,7 @@ const Discover: React.FC = observer(() => {
   // };
 
   const fetchSearchPage = useCallback(() => {
-    storeApi.getSearchResults({ text: user.search || '', page }, queries).then(({ data }) => {
+    storeApi.getSearchResults(queries).then(({ data }) => {
       setBids(bids.concat(data));
     });
     // eslint-disable-next-line

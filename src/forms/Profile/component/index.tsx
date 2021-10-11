@@ -16,7 +16,7 @@ export interface IProfile {
   instagram?: string;
   facebook?: string;
   email?: string;
-  avatar?: any;
+  img?: any;
   preview?: string;
   isLoading: boolean;
 }
@@ -48,8 +48,8 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                   </Text>
                   <div>
                     <Field
-                      id="avatar"
-                      name="avatar"
+                      id="img"
+                      name="img"
                       render={() => <Uploader type="img" isButton className={styles.fileUpload} />}
                     />
                   </div>
