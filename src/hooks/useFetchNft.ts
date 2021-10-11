@@ -28,6 +28,7 @@ export const useFetchNft = (props: IProps) => {
     currency,
     is_verified,
     creator,
+    owner,
     setLoading,
     on_sale,
     text = '',
@@ -51,6 +52,7 @@ export const useFetchNft = (props: IProps) => {
           is_verified,
           creator,
           on_sale,
+          owner,
         },
         text,
       )

@@ -7,6 +7,7 @@ import UserMainInfo from './UserMainInfo';
 import { useParams } from 'react-router';
 import { useState } from 'react';
 import { Artworks } from './Tabs';
+import Collectibles from './Tabs/Collectibles';
 
 const tabs = [
   {
@@ -14,7 +15,7 @@ const tabs = [
     icon: art,
   },
   {
-    title: 'Collection',
+    title: 'Collectibles',
     icon: folders,
   },
   {
@@ -47,6 +48,7 @@ const ProfilePage: React.FC = () => {
 
         <div className={s.page_body__right}>
           {activeTab === 'My Artworks' && <Artworks userId={userId} />}
+          {activeTab === 'Collectibles' && <Collectibles userId={userId} />}
         </div>
       </div>
     </section>

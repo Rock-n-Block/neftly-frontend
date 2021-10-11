@@ -1,5 +1,5 @@
 import { FC, memo, RefObject, useState } from 'react';
-import s from './Artworks.module.scss';
+import s from './Collectibles.module.scss';
 import { ArtCard } from 'components';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
 import TabHeader from '../TabHeader';
@@ -8,7 +8,7 @@ interface IProps {
   userId: string;
 }
 
-const Artworks: FC<IProps> = memo(({ userId }) => {
+const Collectibles: FC<IProps> = memo(({ userId }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { orderByFilter, handleOrderByFilter, page, handlePage } = useFilters(setIsLoading);
@@ -17,7 +17,7 @@ const Artworks: FC<IProps> = memo(({ userId }) => {
     setLoading: setIsLoading,
     page,
     sort: 'items',
-    creator: userId,
+    owner: userId,
     order_by: orderByFilter.value,
   });
   const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading);
@@ -25,7 +25,7 @@ const Artworks: FC<IProps> = memo(({ userId }) => {
   return (
     <>
       <TabHeader
-        title={`${totalItems} artwork created`}
+        title={`${totalItems} artworks owned`}
         orderByFilter={orderByFilter}
         handleOrderByFilter={handleOrderByFilter}
       />
@@ -50,12 +50,7 @@ const Artworks: FC<IProps> = memo(({ userId }) => {
         })}
       </div>
       <div ref={anchorRef as RefObject<HTMLDivElement>} />
-      {/* <div className={s.button_wrapper}>
-        <Button className={s.button_more} color="outline">
-          Load More
-        </Button>
-      </div> */}
     </>
   );
 });
-export default Artworks;
+export default Collectibles;
