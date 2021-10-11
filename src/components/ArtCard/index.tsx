@@ -48,7 +48,10 @@ const ArtCard: FC<Props> = ({
   isCollection,
 }) => (
   <div className={cx(styles.artCard, className)}>
-    <Link to={`${routes.nft.link}/${artId}`} className={styles[`mainImageWrapper${type}`]}>
+    <Link
+      to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
+      className={styles[`mainImageWrapper${type}`]}
+    >
       <div className={styles.tagContainer}>
         {tags?.map((tag) => (
           <Tag className={styles.tag} type={tag.type} auctionEndTime={tag.auctionEndTime} />

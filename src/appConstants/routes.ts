@@ -9,6 +9,10 @@ export const routes = {
     root: '/nft/:id',
     link: '/nft',
   },
+  collection: {
+    root: '/collection/:id',
+    link: '/collection',
+  },
   create: {
     root: '/create',
     single: '/create/single',
