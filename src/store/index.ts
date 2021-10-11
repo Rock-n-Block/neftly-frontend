@@ -21,7 +21,15 @@ export const Store = RootModel.create({
     is_searching: false,
   },
   modals: {
-    checkout: {},
+    sell: {
+      checkout: {
+        isOpen: false,
+        isSuccess: false,
+      },
+      chooseSeller: {
+        sellers: [],
+      },
+    },
   },
 });
 

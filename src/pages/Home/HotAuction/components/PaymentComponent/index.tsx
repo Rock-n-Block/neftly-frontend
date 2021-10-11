@@ -202,10 +202,9 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
   }, [walletService, nft]);
 
   const handleBuyNft = React.useCallback(() => {
-    modals.checkout.open({
+    modals.sell.setNft({
       tokenId: nft?.id,
       standart: nft?.standart,
-      sellerId: nft?.sellers[0].id,
       tokenName: nft?.name,
       fee: nft?.service_fee,
       price: nft?.price,
@@ -215,7 +214,12 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
       usdPrice: nft?.USD_price,
       feeCurrency: nft?.currency_service_fee,
     });
-  }, [nft, modals.checkout]);
+    if (nft?.standart === 'ERC721') {
+      modals.sell.checkout.open(nft.sellers[0].id);
+    } else {
+      modals.sell.chooseSeller.open(nft?.sellers);
+    }
+  }, [nft, modals.sell]);
 
   React.useEffect(() => {
     if (user.address && nft) {

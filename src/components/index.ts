@@ -32,4 +32,5 @@ export { default as LiveAuction } from './LiveAuction';
 export { default as ChooseWallet } from './ChooseWallet';
 export { default as ToastContentWithTxHash } from './ToastContentWithTxHash';
 export { default as Checkout } from './Checkout';
+export { default as ChooseSeller } from './ChooseSeller';
 export * from './Typography';

@@ -104,7 +104,7 @@ const columnTest = [
 const DetailArtwork: FC<Props> = observer(({ className }) => {
   const {
     user,
-    modals: { checkout },
+    modals: { sell },
   } = useMst();
   const history = useHistory();
 
@@ -199,10 +199,10 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
   React.useEffect(() => getItem(), [getItem]);
 
   React.useEffect(() => {
-    if (checkout.isSuccess) {
+    if (sell.checkout.isSuccess) {
       getItem();
     }
-  }, [checkout.isSuccess, getItem]);
+  }, [sell.checkout.isSuccess, getItem]);
 
   React.useEffect(() => getRelatedArtworks(1), [getRelatedArtworks]);
 

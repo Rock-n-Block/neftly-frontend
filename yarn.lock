@@ -4734,6 +4734,11 @@ clsx@^1.1.0, clsx@^1.1.1:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
 
+cnbuilder@^2.5.0:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/cnbuilder/-/cnbuilder-2.7.1.tgz#610fbff072ce03dc59a078cd068206016dd034f2"
+  integrity sha512-kJ/X8vJOSeY0usRPuTlm+rtsB8iwpTs4JFOvDQxkFX6M/0D5IbOKZBJf822T3UIVNWOIXiewXh7l/ux1Feh1Yg==
+
 co@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/co/-/co-3.1.0.tgz#4ea54ea5a08938153185e15210c68d9092bc1b78"
@@ -13433,6 +13438,14 @@ react-dom@^17.0.1:
     object-assign "^4.1.1"
     scheduler "^0.20.2"
 
+react-draggable@^4.4.2:
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-4.4.4.tgz#5b26d9996be63d32d285a426f41055de87e59b2f"
+  integrity sha512-6e0WdcNLwpBx/YIDpoyd2Xb04PB0elrDrulKUgdrIlwuYvxh5Ok9M+F8cljm8kPXXs43PmMzek9RrB1b7mLMqA==
+  dependencies:
+    clsx "^1.1.1"
+    prop-types "^15.6.0"
+
 react-error-overlay@^6.0.9:
   version "6.0.9"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.9.tgz#3c743010c9359608c375ecd6bc76f35d93995b0a"
@@ -13592,6 +13605,15 @@ react-scripts@4.0.3:
     workbox-webpack-plugin "5.1.4"
   optionalDependencies:
     fsevents "^2.1.3"
+
+react-scrollbars-custom@^4.0.27:
+  version "4.0.27"
+  resolved "https://registry.yarnpkg.com/react-scrollbars-custom/-/react-scrollbars-custom-4.0.27.tgz#3d2b27f5b8cc847cc040199d5c7eeb9dde9361e1"
+  integrity sha512-vEIvb+AbxWHtU6yqNfIEtnm06vguFFxDK8UTC6hPMlgEPvrQX7ayoLp9MT+vyszouQ9NgcEtipLmNGEw31pQpQ==
+  dependencies:
+    cnbuilder "^2.5.0"
+    react-draggable "^4.4.2"
+    zoom-level "^2.5.0"
 
 react-select@^4.3.1:
   version "4.3.1"
@@ -17630,6 +17652,11 @@ yup@^0.32.9:
     nanoclone "^0.2.1"
     property-expr "^2.0.4"
     toposort "^2.0.2"
+
+zoom-level@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/zoom-level/-/zoom-level-2.5.0.tgz#286ec16f247b8bb7a900df6612567688eeef498a"
+  integrity sha512-7UlRWU4Q3uCMCeDVMOm7eBrIu145OqsIJ3p6zq58l8UsSYwKWxc6zEapC5YA9tIeh0oheb4cT9Kk2Wq353loFg==
 
 zwitch@^1.0.0:
   version "1.0.5"

@@ -13,14 +13,14 @@ import styles from './Checkout.module.scss';
 
 const Checkout: React.FC = observer(() => {
   const {
-    modals: { checkout },
+    modals: { sell },
     user,
   } = useMst();
   const { walletService } = useWalletConnectorContext();
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [quantity, setQuantity] = React.useState('1');
-  const balance = useUserBalance(user.address, checkout.currency);
+  const balance = useUserBalance(user.address, sell.nft.currency);
 
   const handleChangeAmount = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(e.target.value);
@@ -32,9 +32,9 @@ const Checkout: React.FC = observer(() => {
       const amount = quantity ? +quantity : 1;
       storeApi
         .buyToken(
-          checkout.tokenId || 0,
-          checkout.standart === 'ERC721' ? 0 : +amount,
-          checkout.standart === 'ERC721' ? '' : checkout.sellerId,
+          sell.nft.tokenId || 0,
+          sell.nft.standart === 'ERC721' ? 0 : +amount,
+          sell.nft.standart === 'ERC721' ? '' : sell.nft.sellerId,
         )
         .then(({ data }) => {
           walletService
@@ -42,10 +42,11 @@ const Checkout: React.FC = observer(() => {
             .then((res: any) => {
               toast.success('success');
               storeApi
-                .trackTransaction(res.transactionHash, checkout.tokenId, checkout.sellerId)
+                .trackTransaction(res.transactionHash, sell.nft.tokenId, sell.nft.sellerId)
                 .then(() => {
                   setTimeout(() => {
-                    checkout.success();
+                    sell.checkout.success();
+                    sell.checkout.close();
                   }, 1000);
                 });
             })
@@ -66,26 +67,26 @@ const Checkout: React.FC = observer(() => {
           console.error(error);
         });
     }
-  }, [walletService, quantity, user.id, checkout]);
+  }, [walletService, quantity, user.id, sell]);
 
   return (
     <div className={styles.container}>
       <div className={styles.box}>
         <div className={styles.media}>
-          <img src={checkout.media} alt="" />
+          <img src={sell.nft.media} alt="" />
         </div>
         <div className={styles.content}>
-          <div className={styles.title}>{checkout.tokenName}</div>
+          <div className={styles.title}>{sell.nft.tokenName}</div>
           <div className={styles.item}>
             <div className={styles.itemTitle}>Price</div>
             <div className={styles.itemInfo}>
               <div className={styles.itemPrice}>{`${
-                checkout.price
-              } ${checkout.currency.toUpperCase()}`}</div>
-              <div className={styles.itemPriceUsd}>{`($${checkout.usdPrice})`}</div>
+                sell.nft.price
+              } ${sell.nft.currency.toUpperCase()}`}</div>
+              <div className={styles.itemPriceUsd}>{`($${sell.nft.usdPrice})`}</div>
             </div>
           </div>
-          {checkout.standart === 'ERC1155' ? (
+          {sell.nft.standart === 'ERC1155' ? (
             <div className={styles.item}>
               <div className={styles.itemTitle}>Quantity</div>
               <TextInput
@@ -107,28 +108,28 @@ const Checkout: React.FC = observer(() => {
               <div className={styles.infoItemName}>Your balance</div>
               <div className={styles.infoItemValue}>{`${new BigNumber(balance).toFixed(
                 5,
-              )} ${checkout.currency.toUpperCase()}`}</div>
+              )} ${sell.nft.currency.toUpperCase()}`}</div>
             </div>
             <div className={styles.infoItem}>
               <div className={styles.infoItemName}>Service fee</div>
               <div className={styles.infoItemValue}>{`${
-                checkout.feeCurrency
-              } ${checkout.currency.toUpperCase()}`}</div>
+                sell.nft.feeCurrency
+              } ${sell.nft.currency.toUpperCase()}`}</div>
             </div>
             <div className={styles.infoItem}>
               <div className={styles.infoItemName}>You will pay</div>
-              <div className={styles.infoItemValue}>{`${new BigNumber(checkout.price)
+              <div className={styles.infoItemValue}>{`${new BigNumber(sell.nft.price)
                 .multipliedBy(
-                  +quantity > checkout.tokenAvailable ? checkout.tokenAvailable : quantity || 1,
+                  +quantity > sell.nft.tokenAvailable ? sell.nft.tokenAvailable : quantity || 1,
                 )
-                .plus(checkout.feeCurrency)} ${checkout.currency.toUpperCase()}`}</div>
+                .plus(sell.nft.feeCurrency)} ${sell.nft.currency.toUpperCase()}`}</div>
             </div>
           </div>
           <Button
             loading={isLoading}
             isFullWidth
             onClick={handleBuyToken}
-            disabled={+quantity > +checkout.tokenAvailable}
+            disabled={+quantity > +sell.nft.tokenAvailable}
           >
             Pay Now
           </Button>
