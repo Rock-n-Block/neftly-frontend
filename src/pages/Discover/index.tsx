@@ -16,7 +16,7 @@ import {
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
 
-import { selectOptions } from './helperData';
+import { selectOptions } from 'typings';
 import { dataMediumCards } from './mockData';
 
 import styles from './styles.module.scss';
@@ -49,16 +49,17 @@ const Discover = () => {
     handlePage,
   } = useFilters(setIsLoading);
 
-  const { allPages, totalItems, bids } = useFetchNft(
-    setIsLoading,
+  const { allPages, totalItems, nftCards } = useFetchNft({
+    setLoading: setIsLoading,
     page,
-    'items',
-    orderByFilter.value,
-    tagsFilter,
-    maxPriceFilter,
-    currencyFilter.value,
-    verifiedFilter.value,
-  );
+    sort: 'items',
+    order_by: orderByFilter.value,
+    tags: tagsFilter,
+    max_price: maxPriceFilter,
+    currency: currencyFilter.value,
+    is_verified: verifiedFilter.value,
+    on_sale: true,
+  });
 
   const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading);
 
@@ -99,8 +100,8 @@ const Discover = () => {
         <div className={cx(styles.filterResultsContainer, { [styles.withFilter]: isFilterOpen })}>
           <H3>{totalItems} results</H3>
           <div className={styles.filterResults}>
-            {bids.length
-              ? bids.map((artCard: any) => {
+            {nftCards.length
+              ? nftCards.map((artCard: any) => {
                   const { media, name, price, currency, available, creator, like_count, tags, id } =
                     artCard;
                   return (

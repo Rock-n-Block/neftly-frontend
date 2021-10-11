@@ -8,12 +8,15 @@ export const useInfiniteScroll = (
 ) => {
   const anchor = useRef<Element>(null);
 
-  const callback = useCallback((entries) => {
-    const { isIntersecting } = entries[0];
-    if (pointer1 < pointer2 && isIntersecting && !isFetching) {
-      updatePointer(pointer1 + 1);
-    }
-  }, [pointer1, pointer2, isFetching, updatePointer]);
+  const callback = useCallback(
+    (entries) => {
+      const { isIntersecting } = entries[0];
+      if (pointer1 + 1 < pointer2 && isIntersecting && !isFetching) {
+        updatePointer(pointer1 + 1);
+      }
+    },
+    [pointer1, pointer2, isFetching, updatePointer],
+  );
 
   useEffect(() => {
     const options = {
