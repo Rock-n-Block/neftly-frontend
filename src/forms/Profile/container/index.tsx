@@ -1,7 +1,6 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import { withFormik } from 'formik';
-import { mapKeys, snakeCase } from 'lodash';
 import { observer } from 'mobx-react';
 import { userApi } from 'services/api';
 import { useMst } from 'store';
@@ -21,7 +20,7 @@ const ProfileForm: React.FC = () => {
     instagram: user.instagram || '',
     facebook: user.facebook || '',
     email: user.email || '',
-    avatar: '',
+    img: '',
     preview: `https://${user.avatar}` || '',
     isLoading: false,
   };
@@ -41,15 +40,24 @@ const ProfileForm: React.FC = () => {
 
     handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
-      const formDataSnakeCase = mapKeys(values, (_, k) => snakeCase(k));
+      const formData = new FormData();
+      formData.append('avatar', values.img);
+      formData.append('display_name', values.displayName || '');
+      formData.append('bio', values.bio || '');
+      formData.append('custom_url', values.customUrl || '');
+      formData.append('site', values.site || '');
+      formData.append('twitter', values.twitter || '');
+      formData.append('instagram', values.instagram || '');
+      formData.append('facebook', values.facebook || '');
+      formData.append('email', values.email || '');
       userApi
-        .update(formDataSnakeCase)
+        .update(formData)
         .then(({ data }) => {
-          toast.success('Verification request sent');
+          toast.success('Profile updated');
           user.update(data);
         })
         .catch(({ response }) => {
-          toast.error('Verification request failed');
+          toast.error('Profile update failed');
           if (response.data.custom_url) {
             setTimeout(() => {
               setFieldError('customUrl', response.data.custom_url);

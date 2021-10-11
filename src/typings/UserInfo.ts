@@ -25,3 +25,12 @@ export interface IOwner extends Omit<IBaseInfo, 'address'> {
   price: number;
   quantity: number;
 }
+
+export type IAppliedFilter =
+  | {
+      label: string;
+      value: string;
+    }
+  | string;
+
+export type AdvancedFilterType = Record<string, IAppliedFilter>;

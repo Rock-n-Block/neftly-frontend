@@ -17,8 +17,10 @@ export default {
   getSingleCollections: (address: string) =>
     axios.get(`account/${address}/collections/?network=${localStorage.netfly_nft_chainName}`),
   getMe: () => axios.get(`account/self/?network=${localStorage.netfly_nft_chainName}`),
-  update: (data: any) =>
-    axios.patch(`account/self/?network=${localStorage.netfly_nft_chainName}`, data),
+  update: (data: any) => {
+    console.log(data);
+    return axios.patch(`account/self/?network=${localStorage.netfly_nft_chainName}`, data);
+  },
   follow: (data: { id: string | number }) =>
     axios.post(`account/self/follow/?network=${localStorage.netfly_nft_chainName}`, data),
   like: (data: { id: number | undefined }) =>
