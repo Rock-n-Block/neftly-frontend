@@ -7,7 +7,7 @@ import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } fro
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
 
-import { selectOptions } from './helperData';
+import { selectOptions } from 'typings';
 
 import styles from './styles.module.scss';
 
