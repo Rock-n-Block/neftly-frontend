@@ -102,7 +102,10 @@ const columnTest = [
 ];
 
 const DetailArtwork: FC<Props> = observer(({ className }) => {
-  const { user } = useMst();
+  const {
+    user,
+    modals: { checkout },
+  } = useMst();
   const history = useHistory();
 
   const { id } = useParams<{ id: string }>();
@@ -157,16 +160,14 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
   const getRelatedArtworks = React.useCallback((page: number) => {
     setLoadingArtWorks(true);
     storeApi
-      .getSearchResults(
-        {
-          type: 'items',
-          order_by: 'Recently added',
-          tags: 'All items',
-          max_price: [2000],
-          currency: 'bnb',
-          page
-        },
-      )
+      .getSearchResults({
+        type: 'items',
+        order_by: 'Recently added',
+        tags: 'All items',
+        max_price: [2000],
+        currency: 'bnb',
+        page,
+      })
       .then(({ data }: any) => {
         setArtWorks((prev: any) => [...prev, ...data.items]);
         setAllPages(Math.ceil(data.total_tokens / 8));
@@ -196,6 +197,12 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
   }, [id, history]);
 
   React.useEffect(() => getItem(), [getItem]);
+
+  React.useEffect(() => {
+    if (checkout.isSuccess) {
+      getItem();
+    }
+  }, [checkout.isSuccess, getItem]);
 
   React.useEffect(() => getRelatedArtworks(1), [getRelatedArtworks]);
 

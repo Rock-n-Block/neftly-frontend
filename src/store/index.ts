@@ -2,9 +2,11 @@ import { createContext, useContext } from 'react';
 import { Instance, onSnapshot, types } from 'mobx-state-tree';
 
 import { User } from './User';
+import { Modals } from './Modals';
 
 const RootModel = types.model({
   user: User,
+  modals: Modals,
 });
 export const Store = RootModel.create({
   user: {
@@ -17,6 +19,9 @@ export const Store = RootModel.create({
     followers_count: 0,
     search: '',
     is_searching: false,
+  },
+  modals: {
+    checkout: {},
   },
 });
 

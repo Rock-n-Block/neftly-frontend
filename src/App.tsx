@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { Routes } from 'containers';
+import { Routes, Modals } from 'containers';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -20,6 +20,7 @@ function App() {
             <Header />
             <Routes />
             <Footer />
+            <Modals />
           </Connector>
         </Router>
       </Provider>

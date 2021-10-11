@@ -21,7 +21,7 @@ type Props = {
 
 const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nft }) => {
   const { walletService } = useWalletConnectorContext();
-  const { user } = useMst();
+  const { user, modals } = useMst();
   const isGrowPositive = (growth && growth > 0) || false;
 
   const [isApproved, setApproved] = React.useState<boolean>(false);
@@ -55,7 +55,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
     if (!nft || !user.address) return true;
     if (
       nft?.network.name === 'Binance-Smart-Chain' &&
-      localStorage.netfly_nft_chainName === 'Binance'
+      localStorage.netfly_nft_chainName === 'Binance-Smart-Chain'
     ) {
       return false;
     }
@@ -201,6 +201,22 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
     }
   }, [walletService, nft]);
 
+  const handleBuyNft = React.useCallback(() => {
+    modals.checkout.open({
+      tokenId: nft?.id,
+      standart: nft?.standart,
+      sellerId: nft?.sellers[0].id,
+      tokenName: nft?.name,
+      fee: nft?.service_fee,
+      price: nft?.price,
+      currency: nft?.currency.symbol,
+      tokenAvailable: nft?.available,
+      media: nft?.media,
+      usdPrice: nft?.USD_price,
+      feeCurrency: nft?.currency_service_fee,
+    });
+  }, [nft, modals.checkout]);
+
   React.useEffect(() => {
     if (user.address && nft) {
       handleCheckAllowance();
@@ -240,7 +256,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
       {user.address ? (
         <div className={styles.sellBtnsWrapper}>
           {isUserCanBuyNft && isApproved ? (
-            <Button onClick={bidAction} isFullWidth>
+            <Button onClick={handleBuyNft} isFullWidth>
               Purchase Now
             </Button>
           ) : null}
@@ -254,14 +270,11 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
               Put on Sale
             </Button>
           ) : null}
-          {!isApproved ? (
+          {!isApproved && !isOwner ? (
             <Button isFullWidth loading={isApproving} onClick={handleApproveToken}>
               Approve Token
             </Button>
           ) : null}
-          <Button color="outline" onClick={bidAction} isFullWidth>
-            Save
-          </Button>
         </div>
       ) : null}
     </div>
