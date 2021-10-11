@@ -84,10 +84,6 @@
   transform: rotate(180deg);
 }
 
-.noArrow {
-  display: none !important;
-}
-
 @include forDesktopSm {
   .container {
     padding-top: 30px;

@@ -1,20 +1,18 @@
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
-// import { useMst } from '../../../store/store';
-// import {validateForm} from '../../../utils/validate';
 import * as Yup from 'yup';
 
 import { storeApi } from '../../../services/api';
 import CreateForm, { ICreateForm } from '../component';
+import { toast } from 'react-toastify';
+import { ToastContentWithTxHash } from 'components';
 
 export default observer(({ isSingle, walletConnector }: any) => {
-  // const { modals } = useMst();
-
   const props: ICreateForm = {
     name: '',
     isSingle: true,
     totalSupply: 1,
-    currency: 'ETH',
+    currency: '',
     description: '',
     price: '',
     minimalBid: 0,
@@ -22,12 +20,10 @@ export default observer(({ isSingle, walletConnector }: any) => {
     collection: 0,
     details: [{ name: '', amount: '' }],
     selling: true,
-    // startAuction: new Date(),
-    // endAuction: new Date(),
     media: '',
     cover: '',
     coverPreview: '',
-    format: '',
+    format: 'image',
     img: '',
     preview: '',
     sellMethod: 'fixedPrice',
@@ -43,46 +39,67 @@ export default observer(({ isSingle, walletConnector }: any) => {
       description: Yup.string().max(500, 'Too long!'),
       minimalBid: Yup.number().min(0),
     }),
-    handleSubmit: (values, { setFieldValue, setFieldError }) => {
+    handleSubmit: (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
 
-      const apiReadyFormData = {
-        name: values.name,
-        standart: values.isSingle ? 'ERC721' : 'ERC1155',
-        total_supply: values.totalSupply,
-        currency: values.currency,
-        description: values.description,
-        price: values.price,
-        minimal_bid: values.minimalBid,
-        creator_royalty: values.creatorRoyalty,
-        collection: values.collection,
-        details: values.details.filter((detail) => detail.name !== ''),
-        selling: values.selling,
-      };
-      console.log(apiReadyFormData, values);
+      const formData = new FormData();
+      formData.append('name', values.name);
+      formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
+      if (!isSingle) {
+        formData.append('total_supply', values.totalSupply.toString());
+      }
+      formData.append('currency', values.currency);
+      if (values.description) {
+        formData.append('description', values.description);
+      }
+      if (values.sellMethod === 'fixedPrice') {
+        formData.append('price', values.price.toString());
+      } else {
+        formData.append('minimal_bid', values.minimalBid.toString());
+      }
+      formData.append('creator_royalty', values.creatorRoyalty);
+      formData.append('collection', values.collection.toString());
+
+      if (values.details[0].name) {
+        const details: any = {};
+        values.details.forEach((item) => {
+          if (item.name) {
+            details[item.name] = item.amount;
+          }
+        });
+        formData.append('details', JSON.stringify(details));
+      }
+      // TODO: change selling from always true
+      formData.append('selling', values.selling.toString());
+
+      formData.append('media', values.img);
+      if (values.format !== 'image') {
+        formData.append('cover', values.cover);
+      }
+      formData.append('format', values.format);
 
       storeApi
-        .createToken(apiReadyFormData)
+        .createToken(formData)
         .then(({ data }) => {
           walletConnector.walletService
             .sendTransaction(data.initial_tx)
-            .then(() => {
-              setFieldValue('showModal', true);
+            .on('transactionHash', (txHash: string) => {
+              toast.info(<ToastContentWithTxHash txHash={txHash} />);
             })
-            .catch((err: any) => {
-              // modals.info.setMsg('Something went wrong', 'error');
+            .then(() => {
+              toast.success('Token Created');
+            })
+            .catch((error: any) => {
+              toast.error('Create Token failed');
+              console.error('Wallet Create token failure', error);
+            })
+            .finally(() => {
               setFieldValue('isLoading', false);
-              console.log(err, 'err');
             });
         })
-        .catch(({ response }) => {
-          setFieldValue('isLoading', false);
-          if (response.data && response.data.name) {
-            setFieldError('tokenName', response.data.name);
-          }
-          if (response.data) {
-            // modals.info.setMsg(Object.values(response.data).join(', '), 'error');
-          }
+        .catch((error) => {
+          toast.error('Create Token failed');
+          console.error('Backend Create token failure', error);
         });
     },
 
