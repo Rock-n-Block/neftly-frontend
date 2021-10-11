@@ -1,4 +1,4 @@
-import s from '../Artworks/Artworks.module.scss';
+import s from './TabHeader.module.scss';
 import { H3, Select, Text } from 'components';
 import { OptionType, selectOptions } from '../../../../typings';
 

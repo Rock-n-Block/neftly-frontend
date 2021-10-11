@@ -1,5 +1,5 @@
 import { FC, memo, RefObject, useState } from 'react';
-import s from './Artworks.module.scss';
+import s from '../Tabs.module.scss';
 import { ArtCard } from 'components';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
 import TabHeader from '../TabHeader';
@@ -30,7 +30,7 @@ const Artworks: FC<IProps> = memo(({ userId }) => {
         handleOrderByFilter={handleOrderByFilter}
       />
 
-      <div className={s.artworks}>
+      <div className={s.tab}>
         {nftCards.map((artCard: any) => {
           const { media, name, price, currency, available, creator, like_count, tags } = artCard;
           return (
