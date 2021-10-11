@@ -135,7 +135,7 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
 
   useEffect(() => {
     setPage(1);
-  }, [orderByFilter, tagsFilter]);
+  }, [orderByFilter, tagsFilter, currencyFilter, verifiedFilter, maxPriceFilter]);
 
   return {
     filterTags,
