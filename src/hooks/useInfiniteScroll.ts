@@ -11,6 +11,7 @@ export const useInfiniteScroll = (
   const callback = useCallback((entries) => {
     const { isIntersecting } = entries[0];
     if (pointer1 < pointer2 && isIntersecting && !isFetching) {
+      console.log(pointer1, pointer2, 'pointers')
       updatePointer(pointer1 + 1);
     }
   }, [pointer1, pointer2, isFetching, updatePointer]);
