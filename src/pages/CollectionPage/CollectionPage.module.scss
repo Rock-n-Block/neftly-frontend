@@ -39,8 +39,7 @@
 }
 
 .page_body__top {
-  display: flex;
-  justify-content: space-between;
+  @include flexbox('center', 'space-between');
   margin-bottom: 32px;
   &_sorters {
     display: grid;
@@ -88,8 +87,7 @@
 }
 
 .button_wrapper {
-  display: flex;
-  justify-content: center;
+  @include flexbox
 }
 
 .tabs {
@@ -124,4 +122,8 @@
   @include b(600) {
     display: none;
   }
+}
+
+.loader{
+  margin: 20px;
 }

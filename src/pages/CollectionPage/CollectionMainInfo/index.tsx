@@ -1,9 +1,9 @@
 import React from 'react';
 import { H2 } from 'components';
 
-import { ReactComponent as LinkIcon } from '../../../assets/img/ProfilePage/link_icon.svg';
-import profile_avatar_example from '../../../assets/img/ProfilePage/profile_avatar_example.png';
-import profile_page_bg_example from '../../../assets/img/ProfilePage/profile_page_bg_example.png';
+import { ReactComponent as LinkIcon } from 'assets/img/ProfilePage/link_icon.svg';
+import profile_avatar_example from 'assets/img/ProfilePage/profile_avatar_example.png';
+import profile_page_bg_example from 'assets/img/ProfilePage/profile_page_bg_example.png';
 
 import s from './CollectionMainInfo.module.scss';
 
@@ -12,7 +12,7 @@ interface ICollectionMainInfo {
   avatar?: string;
   name?: string;
   address?: string;
-  description: string | null
+  description: string | null;
 }
 
 const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({
@@ -20,7 +20,7 @@ const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({
   avatar,
   name,
   address,
-  description
+  description,
 }) => {
   return (
     <section
@@ -34,9 +34,7 @@ const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({
       </div>
       <H2 className={s.user_name}>{name}</H2>
       <div className={s.user_info}>
-        <div className={s.user_info__icon}>
-          <LinkIcon />
-        </div>
+        <LinkIcon className={s.user_info__icon} />
         <div className={s.user_info__value}>{address}</div>
       </div>
       <div className={s.user_info}>

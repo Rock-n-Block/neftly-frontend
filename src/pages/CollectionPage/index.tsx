@@ -1,14 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useState } from 'react';
+import { useParams } from 'react-router';
 
 import CollectionMainInfo from './CollectionMainInfo/index';
-import { storeApi } from 'services/api';
 
-import { H3, ArtCard, Button, TabLookingComponent } from 'components';
+import { H3, ArtCard, Button, TabLookingComponent, Loader } from 'components';
 
 import s from './CollectionPage.module.scss';
 
 import { folders, art } from 'assets/img';
+import { sliceString } from 'utils';
+import { useFetchCollection } from 'hooks';
 
 const tabs = [
   {
@@ -24,58 +25,15 @@ const tabs = [
 const CollectionPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState(tabs[0].title);
   const [page, setPage] = useState(1);
-  const [totalTokens, setTotalTokens] = useState(0);
-  const [tokens, setTokens] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { collectionId } = useParams<{ collectionId: string }>();
-  const history = useHistory();
-  const [collection, setCollection] = useState<{
-    id: number | string;
-    avatar: string;
-    name?: string;
-    address: string;
-    cover: string;
-    creator: any;
-    tokens: Array<any>;
-    description: string | null;
-  }>({
-    address: '',
-    cover: '',
-    id: '',
-    avatar: '',
-    name: '',
-    tokens: [],
-    creator: {},
-    description: null,
-  });
+
+  const { totalTokens, collection, tokens } = useFetchCollection(setIsLoading, page, collectionId);
 
   const handleTabChange = (title: string) => {
     setActiveTab(title);
     setPage(1);
   };
-
-  const getCollection = useCallback(() => {
-    const refresh = page === 1;
-    storeApi.getCollection(collectionId, page).then(({ data }: any) => {
-      setCollection(data);
-      setTotalTokens(data.tokens_count);
-      if (refresh) {
-        setTokens(data.tokens);
-      } else {
-        setTokens((prev: any) => [...prev, ...data.tokens]);
-      }
-      if (!data.tokens.length) {
-        setTokens([]);
-      }
-    });
-  }, [collectionId, page]);
-
-  useEffect(() => {
-    if (collectionId) {
-      getCollection();
-    } else {
-      history.push('/');
-    }
-  }, [getCollection, collectionId, history]);
 
   return (
     <section className={s.page}>
@@ -84,7 +42,7 @@ const CollectionPage: React.FC = () => {
           cover={collection.cover}
           avatar={collection.avatar}
           name={collection.name}
-          address={`${collection.address.slice(0, 14)}...${collection.address.slice(-4)}`}
+          address={sliceString(collection.address)}
           description={collection.description}
         />
       </div>
@@ -92,11 +50,7 @@ const CollectionPage: React.FC = () => {
       <div className={s.page_body}>
         <div className={s.page_body__left}>
           <div className={s.subtitle}>Menu</div>
-          <TabLookingComponent
-            className={s.tabs}
-            tabs={tabs}
-            action={(value: string) => handleTabChange(value)}
-          />
+          <TabLookingComponent className={s.tabs} tabs={tabs} action={handleTabChange} />
         </div>
 
         <div className={s.page_body__right}>
@@ -108,36 +62,12 @@ const CollectionPage: React.FC = () => {
           </div>
 
           <div className={s.page_body__artworks}>
-            {activeTab === 'On sale'
-              ? tokens
-                  .filter((token: any) => token.selling)
-                  .map((el: any) => {
-                    const {
-                      media,
-                      name,
-                      price,
-                      highest_bid,
-                      minimal_bid,
-                      currency,
-                      creator,
-                      like_count,
-                      available,
-                    } = el;
-                    return (
-                      <ArtCard
-                        key={name}
-                        imageMain={media}
-                        name={name}
-                        price={price || highest_bid || minimal_bid}
-                        asset={currency.symbol.toUpperCase()}
-                        inStockNumber={available}
-                        author={creator.name}
-                        authorAvatar={creator.avatar}
-                        likesNumber={like_count}
-                      />
-                    );
-                  })
-              : tokens.map((el: any) => {
+            {tokens.length
+              ? [
+                  ...(activeTab === 'On sale'
+                    ? tokens.filter((token: any) => token.selling)
+                    : tokens),
+                ].map((el: any) => {
                   const {
                     media,
                     name,
@@ -162,13 +92,18 @@ const CollectionPage: React.FC = () => {
                       likesNumber={like_count}
                     />
                   );
-                })}
+                })
+              : null}
           </div>
           {tokens.length < totalTokens && (
             <div className={s.button_wrapper}>
-              <Button className={s.button_more} color="outline" onClick={() => setPage(page + 1)}>
-                Load More
-              </Button>
+              {isLoading ? (
+                <Loader className={s.loader} />
+              ) : (
+                <Button className={s.button_more} color="outline" onClick={() => setPage(page + 1)}>
+                  Load More
+                </Button>
+              )}
             </div>
           )}
         </div>
