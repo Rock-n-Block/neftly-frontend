@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
 
-  padding: 48px;
+  padding: 32px;
 
   display: flex;
   overflow: auto;
@@ -14,7 +14,7 @@
   width: 100%;
   height: 100%;
 
-  background: rgba($color-bg2, 0.9);
+  background: rgba($color-bg, 0.9);
   opacity: 0;
 
   animation: showModal 0.4s forwards;
@@ -43,15 +43,23 @@
   padding: 32px;
 
   width: 100%;
-  max-width: 448px;
+  max-width: 755px;
 
   background: $color-neutral-80;
+}
 
-  input, textarea {
+.title {
+  padding-bottom: 27px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid $color-neutral-60;
+  font-weight: bold;
+  @include monument-extended;
+
+  input,
+  textarea {
     border-color: $color-neutral-40;
   }
 }
-
 
 .close {
   position: absolute;
@@ -62,15 +70,14 @@
   width: 42px;
   height: 42px;
 
-
   background: $color-neutral-100;
   border: 1px solid $color-actions-light-pink;
 
-  img {
+  svg {
     transition: transform 0.2s;
+    fill: $color-neutral-5;
+    transform-origin: center;
   }
-
-
   // }
   &:hover {
     img {

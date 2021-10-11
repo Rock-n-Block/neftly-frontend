@@ -158,13 +158,13 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     setLoadingArtWorks(true);
     storeApi
       .getSearchResults(
-        { text: '', page },
         {
           type: 'items',
           order_by: 'Recently added',
           tags: 'All items',
           max_price: [2000],
           currency: 'bnb',
+          page
         },
       )
       .then(({ data }: any) => {

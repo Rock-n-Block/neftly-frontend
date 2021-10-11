@@ -57,6 +57,7 @@
 
   white-space: nowrap;
   text-overflow: ellipsis;
+  text-transform: uppercase;
 }
 
 .arrow {
@@ -98,7 +99,7 @@
   font-weight: 500;
 
   cursor: pointer;
-
+  text-transform: uppercase;
   transition: color 0.2s;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 

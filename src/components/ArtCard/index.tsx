@@ -20,11 +20,12 @@ type Props = {
   name: string;
   price: string | number;
   asset: string;
-  inStockNumber: number | string;
+  inStockNumber?: number | string;
   author: string;
   authorAvatar: string;
   likesNumber: number | string;
   tags?: any[];
+  isCollection?: boolean;
 };
 
 const ArtCard: FC<Props> = ({
@@ -44,6 +45,7 @@ const ArtCard: FC<Props> = ({
   authorAvatar,
   likesNumber,
   tags,
+  isCollection,
 }) => (
   <div className={cx(styles.artCard, className)}>
     <Link to={`${routes.nft.link}/${artId}`} className={styles[`mainImageWrapper${type}`]}>
@@ -59,19 +61,24 @@ const ArtCard: FC<Props> = ({
         <div className={styles.secondaryImageWrapper}>
           <img src={imageSecondaryOne} alt="" />
         </div>
+
         <div className={styles.secondaryImageWrapper}>
-          <img src={imageSecondaryTwo} alt="" />
+          {imageSecondaryTwo && <img src={imageSecondaryTwo} alt="" />}
         </div>
         <div className={cx(styles.secondaryImageWrapper, styles.lastSecondaryImageWrapper)}>
-          <Text className={styles.allArtNumber} size="m">{`${allArtNumber} +`}</Text>
-          <img src={imageSecondaryThree} alt="" />
+          {allArtNumber > 3 && (
+            <Text className={styles.allArtNumber} size="m">{`${allArtNumber} +`}</Text>
+          )}
+          {imageSecondaryThree && <img src={imageSecondaryThree} alt="" />}
         </div>
       </div>
     )}
     <div className={styles.artCardInfo}>
       <Text size="xl">{name}</Text>
       <div className={styles.flexContainer}>
-        <Text className={styles.artCardPrice} size="m">{`${price} ${asset}`}</Text>
+        {!isCollection && (
+          <Text className={styles.artCardPrice} size="m">{`${price} ${asset}`}</Text>
+        )}
         {type === 'Small' && <Text size="m">{`in stock: ${inStockNumber}`}</Text>}
       </div>
       <div className={cx(styles.flexContainer, styles.artCardAuthorContainer)}>

@@ -51,35 +51,25 @@ export default {
   getCollectibles: (address: string, page: string) =>
     axios.get(`store/owned/${address}/${page}/?network=${localStorage.netfly_nft_chainName}`),
   getUserCollections: (address: string, page: number) =>
-    axios.get(`store/collections/${address}/${page}/?network=${localStorage.netfly_nft_chainName}`),
-  getSearchResults: (data: { text: string; page: number }, queries: any) => {
-    const queriesCopy = { ...queries, max_price: queries.max_price[0] };
-    switch (queriesCopy.order_by) {
-      case 'Recently added':
-        queriesCopy.order_by = '-date';
+    axios.get(`store/collections/${address}/${page}/`),
+  getSearchResults: (queries: any) => {
+    const queriesCopy = { ...queries };
+    switch (queriesCopy.is_verificated) {
+      case 'All':
+        delete queriesCopy.is_verificated;
         break;
-      case 'Long added':
-        queriesCopy.order_by = 'date';
+      case 'verified':
+        queriesCopy.is_verificated = 'true';
         break;
-      case 'Most liked':
-        queriesCopy.order_by = '-likes';
-        break;
-      case 'Least liked':
-        queriesCopy.order_by = 'likes';
-        break;
-      case 'Highest price':
-        queriesCopy.order_by = '-price&on_sale=true';
-        break;
-      case 'The lowest price':
-        queriesCopy.order_by = 'price&on_sale=true';
+      case 'unverified':
+        queriesCopy.is_verificated = 'false';
         break;
       default:
         break;
     }
     if (queriesCopy.tags === 'All items') delete queriesCopy.tags;
-    let query = `?network=${localStorage.netfly_nft_chainName}&`;
+    let query = `?network=${localStorage.netfly_nft_chainName}&on_sale=true&`;
     Object.keys(queriesCopy).forEach((key, index) => {
-      // if (!localStorage.netfly_nft_chainName) return;
       if (queriesCopy[key] || queriesCopy[key] === false || queriesCopy[key] === 0) {
         query = query.concat(
           `${key}=${queriesCopy[key]}${index === Object.keys(queriesCopy).length - 1 ? '' : '&'}`,
@@ -88,13 +78,12 @@ export default {
     });
     return axios.post(
       `/store/search/${
-        query === `?network=${localStorage.netfly_nft_chainName}&`
-          ? `?network=${localStorage.netfly_nft_chainName}`
+        query === `?network=${localStorage.netfly_nft_chainName}&on_sale=true&`
+          ? `?network=${localStorage.netfly_nft_chainName}&on_sale=true`
           : query
       }`,
       {
-        text: data.text,
-        page: data.page,
+        text: '',
       },
     );
   },
