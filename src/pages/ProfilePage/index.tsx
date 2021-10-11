@@ -1,42 +1,13 @@
-import { useCallback, useState } from 'react';
-
-import { H3, ArtCard, Button, Select, TabLookingComponent } from 'components';
-import { data as dataMock } from './CardsMock';
+import { TabLookingComponent } from 'components';
 
 import s from './ProfilePage.module.scss';
 
 import { folders, art, me, heart } from 'assets/img';
 import UserMainInfo from './UserMainInfo';
+import { useParams } from 'react-router';
+import { useState } from 'react';
+import { Artworks } from './Tabs';
 
-const selectOptions = [
-  {
-    label: 'Latest',
-    value: 'latest',
-  },
-  {
-    label: 'Featured',
-    value: 'featured',
-  },
-  {
-    label: 'Rare',
-    value: 'rare',
-  },
-];
-
-const selectOptionsTwo = [
-  {
-    label: 'Hot',
-    value: 'hot',
-  },
-  {
-    label: 'Featured',
-    value: 'featured',
-  },
-  {
-    label: 'Rare',
-    value: 'rare',
-  },
-];
 const tabs = [
   {
     title: 'My Artworks',
@@ -57,53 +28,25 @@ const tabs = [
 ];
 
 const ProfilePage: React.FC = () => {
-  const [filterOne, setFilterOne] = useState(selectOptions[0]);
-
-  const handleFilterOne = useCallback((value) => {
-    setFilterOne(value);
-  }, []);
-
-  const [filterTwo, setFilterTwo] = useState(selectOptionsTwo[0]);
-  const handleFilterTwo = useCallback((value) => {
-    setFilterTwo(value);
-  }, []);
+  const { userId } = useParams<{ userId: string }>();
+  const [activeTab, setActiveTab] = useState(tabs[0].title);
 
   return (
     <section className={s.page}>
-      <UserMainInfo />
+      <UserMainInfo userId={userId} />
 
       <div className={s.page_body}>
         <div className={s.page_body__left}>
           <div className={s.subtitle}>Menu</div>
-          <TabLookingComponent className={s.tabs} tabs={tabs} action={() => {}} />
+          <TabLookingComponent
+            className={s.tabs}
+            tabs={tabs}
+            action={(value) => setActiveTab(value)}
+          />
         </div>
 
         <div className={s.page_body__right}>
-          <div className={s.page_body__top}>
-            <div className={s.page_body__top_col}>
-              <H3 className={s.title}>My Artworks</H3>
-              <div className={s.counter}>3.456 artwork created</div>
-            </div>
-            <div className={s.page_body__top_sorters}>
-              <Select onChange={handleFilterOne} value={filterOne} options={selectOptions} />
-              <Select onChange={handleFilterTwo} value={filterTwo} options={selectOptionsTwo} />
-            </div>
-          </div>
-
-          <div className={s.page_body__artworks}>
-            {dataMock.map((el) => (
-              <ArtCard
-                key={`${el.inStockNumber}-${el.author}-${el.price}`}
-                {...el}
-                imageMain={el.image}
-              />
-            ))}
-          </div>
-          <div className={s.button_wrapper}>
-            <Button className={s.button_more} color="outline">
-              Load More
-            </Button>
-          </div>
+          {activeTab === 'My Artworks' && <Artworks userId={userId} />}
         </div>
       </div>
     </section>

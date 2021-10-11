@@ -16,12 +16,15 @@ import { useMst } from 'store';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { toast } from 'react-toastify';
-import { useHistory, useParams } from 'react-router';
+import { useHistory } from 'react-router';
 
-const UserMainInfo: React.FC = observer(() => {
+interface IProps {
+  userId: string;
+}
+
+const UserMainInfo: React.FC<IProps> = observer(({ userId }) => {
   const history = useHistory();
   const { user } = useMst();
-  const { userId } = useParams<{ userId: string }>();
   const [shownUser, setShownUser] = useState<IExtendedInfo>({
     address: '',
     cover: '',
