@@ -8,6 +8,7 @@ import {
 
 export const data = [
   {
+    id: 1,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -19,6 +20,7 @@ export const data = [
     tags: ['featured'],
   },
   {
+    id: 2,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -30,6 +32,7 @@ export const data = [
     tags: ['featured', 'rare'],
   },
   {
+    id: 3,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -41,6 +44,7 @@ export const data = [
     tags: ['featured'],
   },
   {
+    id: 4,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -52,6 +56,7 @@ export const data = [
     tags: ['featured', 'rare'],
   },
   {
+    id: 5,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -63,6 +68,7 @@ export const data = [
     tags: ['featured'],
   },
   {
+    id: 6,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -74,6 +80,7 @@ export const data = [
     tags: ['featured', 'rare'],
   },
   {
+    id: 7,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -85,6 +92,7 @@ export const data = [
     tags: ['featured', 'rare'],
   },
   {
+    id: 8,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -99,6 +107,7 @@ export const data = [
 
 export const dataMediumCards = [
   {
+    id: 1,
     image: smallArtCardImage,
     imageSecondary1: mediumArtCardSecondary1,
     imageSecondary2: mediumArtCardSecondary2,
@@ -112,6 +121,7 @@ export const dataMediumCards = [
     likesNumber: 3500,
   },
   {
+    id: 2,
     image: smallArtCardImage,
     imageSecondary1: mediumArtCardSecondary1,
     imageSecondary2: mediumArtCardSecondary2,
@@ -125,6 +135,7 @@ export const dataMediumCards = [
     likesNumber: 3500,
   },
   {
+    id: 3,
     image: smallArtCardImage,
     imageSecondary1: mediumArtCardSecondary1,
     imageSecondary2: mediumArtCardSecondary2,

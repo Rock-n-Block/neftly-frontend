@@ -2,6 +2,7 @@ import { profilePic, smallArtCardImage } from 'assets/img';
 
 export const data = [
   {
+    id: 1,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -12,6 +13,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 2,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -22,6 +24,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 3,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -32,6 +35,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 4,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -42,6 +46,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 5,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -52,6 +57,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 6,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -62,6 +68,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 7,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',
@@ -72,6 +79,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 8,
     image: smallArtCardImage,
     name: 'Waves on chain',
     price: '2.00',

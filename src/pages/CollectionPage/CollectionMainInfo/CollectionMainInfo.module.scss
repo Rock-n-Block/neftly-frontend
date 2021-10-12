@@ -1,0 +1,64 @@
+@import '../../../styles/helpers.scss';
+
+.user {
+  @include flexbox;
+  flex-direction: column;
+
+  padding: 52px 15px;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.user_avatar {
+  margin-bottom: 15px;
+  img {
+    max-width: 130px;
+    max-height: 130px;
+    border-radius: 50%;
+  }
+}
+
+.user_name {
+  @include monument-extended;
+  margin-bottom: 5px;
+  @include forTablet {
+    font-size: 24px;
+  }
+}
+
+.user_buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.user_button {
+  padding: 6px 33px;
+  font-weight: 600;
+  font-size: 16px;
+  @include flexbox;
+  @include forTablet {
+    padding: 6px 12px;
+    font-size: 15px;
+  }
+}
+
+.user_info {
+  @include flexbox;
+  margin-bottom: 8px;
+  & + & {
+    margin-bottom: 16px;
+  }
+
+  &__icon {
+    width: 28px;
+    height: 28px;
+    background: $color-neutral-1;
+    margin-right: 8px;
+    border-radius: 50%;
+
+    @include flexbox;
+  }
+  &__value {
+    font-size: 16px;
+  }
+}

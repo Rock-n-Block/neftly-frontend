@@ -3,11 +3,14 @@ import { pinkHeart } from 'assets/img';
 import cx from 'classnames';
 import { Tag, Text } from 'components';
 import { numberFormatter } from 'utils';
+import { Link } from 'react-router-dom';
 
 import styles from './styles.module.scss';
+import { routes } from '../../appConstants';
 
 type Props = {
   type?: 'Small' | 'Medium';
+  artId: string | number;
   className?: string;
   imageMain: string;
   imageSecondaryOne?: string;
@@ -28,6 +31,7 @@ type Props = {
 
 const ArtCard: FC<Props> = ({
   type = 'Small',
+  artId,
   className,
   imageMain,
   imageSecondaryOne,
@@ -46,14 +50,17 @@ const ArtCard: FC<Props> = ({
   bids,
 }) => (
   <div className={cx(styles.artCard, className)}>
-    <div className={styles[`mainImageWrapper${type}`]}>
+    <Link
+      to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
+      className={styles[`mainImageWrapper${type}`]}
+    >
       <div className={styles.tagContainer}>
         {tags?.map((tag) => (
           <Tag className={styles.tag} type={tag.type} auctionEndTime={tag.auctionEndTime} />
         ))}
       </div>
       <img className={styles.mainImage} src={imageMain} alt="" />
-    </div>
+    </Link>
     {type === 'Medium' && (
       <div className={cx(styles.secondaryImagesContainer)}>
         <div className={styles.secondaryImageWrapper}>

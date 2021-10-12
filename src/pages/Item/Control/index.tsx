@@ -16,6 +16,7 @@ import Sellers from './Sellers';
 import SuccessfullyPurchased from './SuccessfullyPurchased';
 
 import styles from './Control.module.scss';
+import { sliceString } from 'utils';
 
 interface IControlProps {
   className?: string;
@@ -201,11 +202,8 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
                 <div className={styles.info}>
                   Highest bid by{' '}
                   <span>
-                    {token.highest_bid.bidder?.length > 21
-                      ? `${token.highest_bid.bidder.slice(
-                          0,
-                          14,
-                        )}...${token.highest_bid.bidder.slice(-4)}`
+                    {token.highest_bid.bidder?.length > 15
+                      ? sliceString(token.highest_bid.bidder)
                       : token.highest_bid.bidder}
                   </span>
                 </div>
