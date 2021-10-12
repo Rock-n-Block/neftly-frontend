@@ -15,7 +15,7 @@ type Props = {
 };
 
 const HotAuction: FC<Props> = ({ className }) => {
-  useFetchHotAuction();
+  const { hotAuction } = useFetchHotAuction();
   return (
     <div className={cx(styles.hotAuction, className)}>
       <H2 className={styles.hotAuctionTitle}>
