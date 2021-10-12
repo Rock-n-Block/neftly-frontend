@@ -9,31 +9,37 @@ import s from './CollectionPage.module.scss';
 
 import { folders, art } from 'assets/img';
 import { sliceString } from 'utils';
-import { useFetchCollection } from 'hooks';
+import { useFetchCollection, useTabs } from 'hooks';
+import { useLocation } from 'react-router-dom';
 
 const tabs = [
   {
     title: 'On sale',
+    key: 'sale',
     icon: art,
   },
   {
     title: 'Collectibles',
+    key: 'collectibles',
     icon: folders,
   },
 ];
 
 const CollectionPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState(tabs[0].title);
+  const initialTab = useLocation().search?.replace('?tab=', '') || '';
+  const { activeTab, setActiveTab } = useTabs(tabs, initialTab);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const { collectionId } = useParams<{ collectionId: string }>();
 
   const { totalTokens, collection, tokens } = useFetchCollection(setIsLoading, page, collectionId);
 
-  const handleTabChange = (title: string) => {
-    setActiveTab(title);
-    setPage(1);
-  };
+  /*
+    const handleTabChange = (title: string) => {
+      setActiveTab(title);
+      setPage(1);
+    };
+  */
 
   return (
     <section className={s.page}>
@@ -50,7 +56,12 @@ const CollectionPage: React.FC = () => {
       <div className={s.page_body}>
         <div className={s.page_body__left}>
           <div className={s.subtitle}>Menu</div>
-          <TabLookingComponent className={s.tabs} tabs={tabs} action={handleTabChange} />
+          <TabLookingComponent
+            className={s.tabs}
+            tabs={tabs}
+            activeTab={activeTab}
+            action={setActiveTab}
+          />
         </div>
 
         <div className={s.page_body__right}>

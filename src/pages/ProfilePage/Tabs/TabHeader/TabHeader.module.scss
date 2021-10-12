@@ -1,0 +1,21 @@
+@import '../../../../styles/helpers.scss';
+
+.tab_header {
+  @include flexbox(center, space-between);
+  margin-bottom: 32px;
+
+  &_sorters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+}
+
+.title {
+  margin-bottom: 5px;
+}
+
+.counter {
+  font-size: 16px;
+  color: $color-neutral-20;
+}

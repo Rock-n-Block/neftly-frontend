@@ -1,0 +1,7 @@
+.tab{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 32px;
+  justify-items: center;
+}

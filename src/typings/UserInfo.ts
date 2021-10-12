@@ -16,9 +16,11 @@ export interface IExtendedInfo extends Omit<IBaseInfo, 'name'> {
   follows: any[];
   follows_count: number;
   instagram: string | null;
+  twitter: string | null;
+  facebook: string | null;
   is_verificated: false;
   site: string | null;
-  twitter: string | null;
+  created_at: string | Date;
 }
 
 export interface IOwner extends Omit<IBaseInfo, 'address'> {
