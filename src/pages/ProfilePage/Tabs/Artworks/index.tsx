@@ -32,9 +32,11 @@ const Artworks: FC<IProps> = memo(({ userId }) => {
 
       <div className={s.tab}>
         {nftCards.map((artCard: any) => {
-          const { media, name, price, currency, available, creator, like_count, tags } = artCard;
+          const { media, name, price, currency, available, creator, like_count, tags, id } =
+            artCard;
           return (
             <ArtCard
+              artId={id}
               key={name}
               imageMain={media}
               name={name}
