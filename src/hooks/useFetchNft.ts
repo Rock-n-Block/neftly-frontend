@@ -48,8 +48,10 @@ export const useFetchNft = (
   };
 
   useEffect(() => {
-    fetchSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (currency !== '') {
+      fetchSearch();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, type, order_by, tags, max_price, currency, is_verificated]);
 
   return {
