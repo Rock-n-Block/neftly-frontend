@@ -15,13 +15,15 @@ const TabHeader: React.FC<IProps> = ({ title, handleOrderByFilter, orderByFilter
         <H3 className={s.title}>My Artworks</H3>
         <Text className={s.counter}>{title}</Text>
       </div>
-      <div className={s.tab_header_sorters}>
-        <Select
-          onChange={handleOrderByFilter as any}
-          value={orderByFilter}
-          options={selectOptions}
-        />
-      </div>
+      {orderByFilter && (
+        <div className={s.tab_header_sorters}>
+          <Select
+            onChange={handleOrderByFilter as any}
+            value={orderByFilter}
+            options={selectOptions}
+          />
+        </div>
+      )}
     </div>
   );
 };
