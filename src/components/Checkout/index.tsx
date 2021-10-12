@@ -69,6 +69,12 @@ const Checkout: React.FC = observer(() => {
     }
   }, [walletService, quantity, user.id, sell]);
 
+  const userWillPay = React.useMemo(() => {
+    return new BigNumber(sell.nft.price || 0)
+      .multipliedBy(+quantity > sell.nft.tokenAvailable ? sell.nft.tokenAvailable : quantity || 1)
+      .plus(sell.nft.feeCurrency);
+  }, [sell.nft.price, quantity, sell.nft.tokenAvailable, sell.nft.feeCurrency]);
+
   return (
     <div className={styles.container}>
       <div className={styles.box}>
@@ -118,18 +124,16 @@ const Checkout: React.FC = observer(() => {
             </div>
             <div className={styles.infoItem}>
               <div className={styles.infoItemName}>You will pay</div>
-              <div className={styles.infoItemValue}>{`${new BigNumber(sell.nft.price || 0)
-                .multipliedBy(
-                  +quantity > sell.nft.tokenAvailable ? sell.nft.tokenAvailable : quantity || 1,
-                )
-                .plus(sell.nft.feeCurrency)} ${sell.nft.currency.toUpperCase()}`}</div>
+              <div
+                className={styles.infoItemValue}
+              >{`${userWillPay} ${sell.nft.currency.toUpperCase()}`}</div>
             </div>
           </div>
           <Button
             loading={isLoading}
             isFullWidth
             onClick={handleBuyToken}
-            disabled={+quantity > +sell.nft.tokenAvailable}
+            disabled={+quantity > +sell.nft.tokenAvailable || +userWillPay > +balance}
           >
             Pay Now
           </Button>

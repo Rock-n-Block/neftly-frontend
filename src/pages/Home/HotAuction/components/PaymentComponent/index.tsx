@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import cx from 'classnames';
 import { observer } from 'mobx-react-lite';
+import BigNumber from 'bignumber.js/bignumber';
 
 import { Button, H4, Text } from 'components';
 import { INft, IOwner } from 'typings';
@@ -33,7 +34,7 @@ const PaymentComponent: FC<Props> = observer(({ className, bidAction, growth, nf
         return nft.price;
       }
       if (nft.is_auc_selling && nft.highest_bid) {
-        return nft.highest_bid.amount;
+        return new BigNumber(nft.highest_bid.amount).toFixed();
       }
     }
     return 0;

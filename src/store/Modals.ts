@@ -8,7 +8,7 @@ const NftForSale = types.model({
   fee: types.optional(types.number, 0),
   feeCurrency: types.optional(types.number, 0),
   price: types.maybeNull(types.optional(types.number, 0)),
-  usdPrice: types.optional(types.number, 0),
+  usdPrice: types.maybeNull(types.optional(types.number, 0)),
   minimalBid: types.optional(types.number, 0),
   currency: types.optional(types.string, ''),
   tokenAvailable: types.optional(types.number, 0),
