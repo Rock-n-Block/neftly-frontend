@@ -20,6 +20,7 @@ const OurArtworkGallery: FC<Props> = ({ className }) => (
     <div className={styles.artCardsWrapper}>
       {data.map((art) => {
         const {
+          id,
           image,
           name,
           price,
@@ -32,6 +33,7 @@ const OurArtworkGallery: FC<Props> = ({ className }) => (
         } = art;
         return (
           <ArtCard
+            artId={id}
             key={name}
             imageMain={image}
             name={name}

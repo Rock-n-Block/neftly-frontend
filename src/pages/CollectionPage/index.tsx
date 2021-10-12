@@ -69,6 +69,7 @@ const CollectionPage: React.FC = () => {
                     : tokens),
                 ].map((el: any) => {
                   const {
+                    id,
                     media,
                     name,
                     price,
@@ -81,6 +82,7 @@ const CollectionPage: React.FC = () => {
                   } = el;
                   return (
                     <ArtCard
+                      artId={id}
                       key={name}
                       imageMain={media}
                       name={name}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
 import UserMainInfo from './UserMainInfo/index';
@@ -164,13 +164,40 @@ const ProfilePage: React.FC = () => {
           </div>
 
           <div className={s.page_body__artworks}>
-            {dataMock.map((el) => (
+            {dataMock.map((card) => {
+              const {
+                id,
+                image,
+                name,
+                price,
+                asset,
+                inStockNumber,
+                author,
+                authorAvatar,
+                likesNumber,
+              } = card;
+              /* (
               <ArtCard
                 key={`${el.inStockNumber}-${el.author}-${el.price}`}
                 {...el}
                 imageMain={el.image}
               />
-            ))}
+            ) */
+              return (
+                <ArtCard
+                  artId={id}
+                  key={name}
+                  imageMain={image}
+                  name={name}
+                  price={price}
+                  asset={asset}
+                  inStockNumber={inStockNumber}
+                  author={author}
+                  authorAvatar={authorAvatar}
+                  likesNumber={likesNumber}
+                />
+              );
+            })}
           </div>
           <div className={s.button_wrapper}>
             <Button className={s.button_more} color="outline">
