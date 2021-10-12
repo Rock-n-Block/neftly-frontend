@@ -50,8 +50,8 @@ const HotAuctionCardDesktop: FC<Props> = ({
         likes={likes}
         views={views}
         likeAction={() => alert('likeAction')}
-        dotsAction={() => alert('dotsAction')}
         link="google"
+        nft={null}
       />
     </div>
     <div className={styles.imageWrapper}>

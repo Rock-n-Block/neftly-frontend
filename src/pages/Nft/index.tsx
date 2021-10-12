@@ -220,9 +220,9 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
           name={nft?.name || ''}
           views={mockData.views}
           likeAction={handleLike}
-          dotsAction={() => alert('dots')}
           growth={mockData.growth}
           nft={nft}
+          onUpdateNft={getItem}
         />
         <div className={styles.chartAndBidders}>
           <div className={styles.chartWrapper}>

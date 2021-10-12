@@ -21,6 +21,7 @@ export const Store = RootModel.create({
     is_searching: false,
   },
   modals: {
+    burn: {},
     sell: {
       checkout: {
         isOpen: false,

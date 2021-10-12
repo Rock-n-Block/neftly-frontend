@@ -34,4 +34,5 @@ export { default as ToastContentWithTxHash } from './ToastContentWithTxHash';
 export { default as Checkout } from './Checkout';
 export { default as ChooseSeller } from './ChooseSeller';
 export { default as PlaceBid } from './PlaceBid';
+export { default as Burn } from './Burn';
 export * from './Typography';

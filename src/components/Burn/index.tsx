@@ -3,6 +3,7 @@ import cn from 'classnames';
 
 import { storeApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
+import { Button } from '..';
 
 import styles from './Burn.module.scss';
 
@@ -31,7 +32,6 @@ const Burn: React.FC<IBurnProps> = ({ className, itemId, standart }) => {
   }, [isLoading, burnToken]);
   return (
     <div className={cn(className, styles.transfer)}>
-      <div className={cn('h4', styles.title)}>Burn token</div>
       <div className={styles.text}>
         Are you sure to burn this token? This action cannot be undone. Token will be transfered to
         zero address
@@ -49,16 +49,23 @@ const Burn: React.FC<IBurnProps> = ({ className, itemId, standart }) => {
         </div>
       )}
       <div className={styles.btns}>
-        <button
+        <Button
           type="button"
           className={cn('button-pink', styles.button)}
           onClick={() => setIsLoading(true)}
+          isFullWidth
+          color="pink"
         >
           Continue
-        </button>
-        <button type="button" className={cn('button-stroke', styles.button)}>
+        </Button>
+        <Button
+          type="button"
+          className={cn('button-stroke', styles.button)}
+          isFullWidth
+          color="outline"
+        >
           Cancel
-        </button>
+        </Button>
       </div>
     </div>
   );

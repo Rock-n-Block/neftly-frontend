@@ -154,6 +154,33 @@ const SellModals = types
     },
   }));
 
+const Burn = types
+  .model({
+    tokenId: types.optional(types.number, 0),
+    standart: types.optional(types.string, ''),
+  })
+  .views((self) => ({
+    get getIsOpen() {
+      return !!(self.tokenId && self.standart);
+    },
+  }))
+  .actions((self) => {
+    let initialState = {};
+    return {
+      afterCreate: () => {
+        initialState = getSnapshot(self);
+      },
+      close: () => {
+        applySnapshot(self, initialState);
+      },
+      open: (tokenId: number, standart: string) => {
+        self.tokenId = tokenId;
+        self.standart = standart;
+      },
+    };
+  });
+
 export const Modals = types.model({
   sell: SellModals,
+  burn: Burn,
 });
