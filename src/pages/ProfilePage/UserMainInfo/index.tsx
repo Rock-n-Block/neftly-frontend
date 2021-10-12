@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, H2, Uploader, Text } from 'components';
 
 import {
@@ -11,13 +11,13 @@ import {
 } from 'assets/img';
 
 import s from './UserMainInfo.module.scss';
-import { IExtendedInfo } from 'typings';
 import { useMst } from 'store';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 import { zeroAddress } from 'appConstants';
+import { useFetchUser } from '../../../hooks/useFetchUser';
 
 interface IProps {
   userId: string;
@@ -25,40 +25,20 @@ interface IProps {
 }
 
 const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => {
-  const history = useHistory();
   const { user } = useMst();
-  const [shownUser, setShownUser] = useState<IExtendedInfo>({
-    address: '',
-    cover: '',
-    id: 0,
-    avatar: '',
-    display_name: '',
-    followers: [],
-    followers_count: 0,
-    follows_count: 0,
-    twitter: null,
-    instagram: null,
-    facebook: null,
-    site: null,
-    bio: null,
-    is_verificated: false,
-    custom_url: '',
-    follows: [],
+  // TODO: handle user load
+  const [, setIsUserLoading] = useState(false);
+  const {
+    user: shownUser,
+    isSelf,
+    isFollowed,
+    setIsFollowed,
+  } = useFetchUser({
+    id: userId,
+    setLoading: setIsUserLoading,
+    successCallback: setCurrentUser,
   });
-  const [isFollowed, setIsFollowed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const isSelf = shownUser.id.toString() === user.id.toString();
-
-  const getUser = useCallback(() => {
-    userApi.getUser({ id: userId }).then(({ data }: any) => {
-      setShownUser(data);
-      setCurrentUser(data);
-    });
-  }, [setCurrentUser, userId]);
-
-  const findIsFollowed = useCallback(() => {
-    return !!shownUser.followers.find((follower) => follower.id.toString() === user.id.toString());
-  }, [shownUser.followers, user.id]);
 
   const handleFollowClick = useCallback(() => {
     if (isFollowed) {
@@ -84,7 +64,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
           console.log(error);
         });
     }
-  }, [isFollowed, shownUser.id]);
+  }, [isFollowed, setIsFollowed, shownUser.id]);
 
   const handleFileUpload = (file: any) => {
     setIsLoading(true);
@@ -104,21 +84,6 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
         setIsLoading(false);
       });
   };
-
-  useEffect(() => {
-    if (userId) {
-      getUser();
-    } else {
-      history.push('/');
-    }
-  }, [getUser, userId, history]);
-
-  useEffect(() => {
-    if (!user.id) {
-      return;
-    }
-    setIsFollowed(findIsFollowed());
-  }, [findIsFollowed, user.id]);
 
   return (
     <section
