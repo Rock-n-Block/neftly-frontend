@@ -4,10 +4,10 @@
   @include flexbox(center, space-between);
   margin-bottom: 32px;
 
-  &_sorters {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  @include forTablet {
+    @include flexbox(flex-start, space-between);
+    flex-direction: column;
+    gap: 16px;
   }
 }
 

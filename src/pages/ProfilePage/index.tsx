@@ -49,6 +49,7 @@ const ProfilePage: React.FC = () => {
       <div className={s.page_body}>
         <div className={s.page_body__left}>
           <div className={s.subtitle}>Menu</div>
+          {/* TODO: change mobile view */}
           <TabLookingComponent
             className={s.tabs}
             tabs={tabs}

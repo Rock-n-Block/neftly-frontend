@@ -16,9 +16,9 @@ import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { toast } from 'react-toastify';
 // import { useHistory } from 'react-router';
+import { useFetchUser, useFollow } from 'hooks';
 import { zeroAddress } from 'appConstants';
-import { useFetchUser } from '../../../hooks/useFetchUser';
-import { useFollow } from '../../../hooks';
+import { sliceString } from 'utils';
 
 interface IProps {
   userId: string;
@@ -47,31 +47,6 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
     initialState: isFollowed,
     successCallback: setIsFollowed,
   });
-  /* const handleFollowClick = useCallback(() => {
-    if (isFollowed) {
-      userApi
-        .unfollow({ id: shownUser.id })
-        .then(() => {
-          toast.success('Success unfollow');
-          setIsFollowed(false);
-        })
-        .catch((error) => {
-          toast.error('Error when unfollow');
-          console.log(error);
-        });
-    } else {
-      userApi
-        .follow({ id: shownUser.id })
-        .then(() => {
-          toast.success('Success follow');
-          setIsFollowed(true);
-        })
-        .catch((error) => {
-          toast.error('Error when follow');
-          console.log(error);
-        });
-    }
-  }, [isFollowed, setIsFollowed, shownUser.id]); */
 
   const handleFileUpload = (file: any) => {
     setIsFileLoading(true);
@@ -112,7 +87,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
         <div className={s.user_info__icon}>
           <img src={LinkIcon} alt="link" />
         </div>
-        <Text size="m">{shownUser.address || zeroAddress}</Text>
+        <Text size="m">{sliceString(shownUser.address || zeroAddress)}</Text>
       </div>
       <div className={s.user_buttons}>
         {isSelf ? (

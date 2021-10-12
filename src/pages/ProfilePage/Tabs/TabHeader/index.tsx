@@ -16,13 +16,11 @@ const TabHeader: React.FC<IProps> = ({ title, handleOrderByFilter, orderByFilter
         <Text className={s.counter}>{title}</Text>
       </div>
       {orderByFilter && (
-        <div className={s.tab_header_sorters}>
-          <Select
-            onChange={handleOrderByFilter as any}
-            value={orderByFilter}
-            options={selectOptions}
-          />
-        </div>
+        <Select
+          onChange={handleOrderByFilter as any}
+          value={orderByFilter}
+          options={selectOptions}
+        />
       )}
     </div>
   );
