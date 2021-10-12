@@ -1,7 +1,5 @@
 import { ArtCard, Carousel, H3 } from 'components/index';
 import mockData from './mockData';
-import { Link } from 'react-router-dom';
-import { routes } from 'appConstants';
 import { useGetSlideToShow } from 'hooks';
 import React, { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
@@ -13,6 +11,7 @@ interface IProps {
 }
 
 interface IHotBidShorted {
+  id: string | number;
   image: string;
   name: string;
   price: string;
@@ -32,16 +31,18 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
     storeApi.getHotBids().then(({ data }) => {
       // TODO: remove mockData and create interface IHotBid
       const formatedData = [...mockData, ...data].map((hotBid: any) => {
+        const { id, media, name, price, currency, available, creator, like_count, tags } = hotBid;
         return {
-          image: hotBid.media,
-          name: hotBid.name,
-          price: hotBid.price || 0,
-          asset: hotBid.currency.symbol,
-          inStockNumber: hotBid.available,
-          author: hotBid.creator.name,
-          authorAvatar: hotBid.creator.avatar,
-          likesNumber: hotBid.like_count,
-          tags: hotBid.tags,
+          id,
+          image: media,
+          name,
+          price: price || 0,
+          asset: currency.symbol,
+          inStockNumber: available,
+          author: creator.name,
+          authorAvatar: creator.avatar,
+          likesNumber: like_count,
+          tags,
         } as IHotBidShorted;
       });
 
@@ -58,8 +59,9 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
       <H3 className={styles.title}>Live Auction Today</H3>
       {!!tokens.length && (
         <Carousel slidesToShow={numberOfSlide}>
-          {tokens.map((artCard, index) => {
+          {tokens.map((artCard) => {
             const {
+              id,
               image,
               name,
               price,
@@ -71,19 +73,18 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
               tags,
             } = artCard;
             return (
-              <Link to={`${routes.nft.link}/${index}`}>
-                <ArtCard
-                  imageMain={image}
-                  name={name}
-                  price={price}
-                  asset={asset}
-                  inStockNumber={inStockNumber}
-                  author={author}
-                  authorAvatar={authorAvatar}
-                  likesNumber={likesNumber}
-                  tags={tags}
-                />
-              </Link>
+              <ArtCard
+                artId={id}
+                imageMain={image}
+                name={name}
+                price={price}
+                asset={asset}
+                inStockNumber={inStockNumber}
+                author={author}
+                authorAvatar={authorAvatar}
+                likesNumber={likesNumber}
+                tags={tags}
+              />
             );
           })}
         </Carousel>

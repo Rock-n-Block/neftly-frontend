@@ -1,6 +1,4 @@
 import { RefObject, useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { routes } from 'appConstants';
 import { filter } from 'assets/img';
 import cx from 'classnames';
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
@@ -10,6 +8,7 @@ import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
 import { selectOptions } from './helperData';
 
 import styles from './styles.module.scss';
+import BigNumber from 'bignumber.js';
 
 const Discover = () => {
   const [isFilterOpen, setFilterOpen] = useState(false);
@@ -39,7 +38,7 @@ const Discover = () => {
     handlePage,
   } = useFilters(setIsLoading);
 
-  const { allPages, totalItems, bids } = useFetchNft(
+  const { allPages, totalItems, tokens } = useFetchNft(
     setIsLoading,
     page,
     'items',
@@ -88,25 +87,41 @@ const Discover = () => {
         <div className={cx(styles.filterResultsContainer, { [styles.withFilter]: isFilterOpen })}>
           <H3>{totalItems} results</H3>
           <div className={styles.filterResults}>
-            {bids.length
-              ? bids.map((artCard: any) => {
-                  const { media, name, price, currency, available, creator, like_count, tags, id } =
-                    artCard;
+            {tokens.length
+              ? tokens.map((artCard: any) => {
+                  const {
+                    media,
+                    name,
+                    price,
+                    currency,
+                    available,
+                    creator,
+                    like_count,
+                    tags,
+                    id,
+                    highest_bid,
+                    minimal_bid,
+                    bids,
+                  } = artCard;
                   return (
-                    <Link to={`${routes.nft.link}/${id}`}>
-                      <ArtCard
-                        key={name}
-                        imageMain={media}
-                        name={name}
-                        price={price}
-                        asset={currency.symbol.toUpperCase()}
-                        inStockNumber={available}
-                        author={creator.name}
-                        authorAvatar={creator.avatar}
-                        likesNumber={like_count}
-                        tags={tags}
-                      />
-                    </Link>
+                    <ArtCard
+                      artId={id}
+                      key={name}
+                      imageMain={media}
+                      name={name}
+                      price={
+                        price ||
+                        (highest_bid && new BigNumber(highest_bid.amount).toFixed()) ||
+                        minimal_bid
+                      }
+                      asset={currency.symbol.toUpperCase()}
+                      inStockNumber={available}
+                      author={creator.name}
+                      authorAvatar={creator.avatar}
+                      likesNumber={like_count}
+                      tags={tags}
+                      bids={bids}
+                    />
                   );
                 })
               : null}

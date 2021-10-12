@@ -15,7 +15,7 @@ export const useFetchNft = (
 ) => {
   const [allPages, setAllPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [bids, setBids] = useState<any>([]);
+  const [tokens, setTokens] = useState<any>([]);
 
   const fetchSearch = () => {
     const refresh = page === 1;
@@ -33,12 +33,12 @@ export const useFetchNft = (
       .then(({ data: { items, total_tokens } }: any) => {
         setTotalItems(total_tokens);
         if (refresh) {
-          setBids(items);
+          setTokens(items);
         } else {
-          setBids([...bids, ...items]);
+          setTokens([...tokens, ...items]);
         }
         if (!items.length && refresh) {
-          setBids([]);
+          setTokens([]);
         }
         setAllPages(Math.ceil(total_tokens / NUMBER_NFTS_PER_PAGE));
       })
@@ -48,13 +48,15 @@ export const useFetchNft = (
   };
 
   useEffect(() => {
-    fetchSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (currency !== '') {
+      fetchSearch();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, type, order_by, tags, max_price, currency, is_verificated]);
 
   return {
     allPages,
     totalItems,
-    bids,
+    tokens,
   }
 };

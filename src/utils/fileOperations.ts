@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { FormikContextType } from 'formik/dist/types';
 
 export type FileType = 'img' | 'cover';

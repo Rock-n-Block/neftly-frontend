@@ -3,11 +3,14 @@ import { pinkHeart } from 'assets/img';
 import cx from 'classnames';
 import { Tag, Text } from 'components';
 import { numberFormatter } from 'utils';
+import { Link } from 'react-router-dom';
 
 import styles from './styles.module.scss';
+import { routes } from '../../appConstants';
 
 type Props = {
   type?: 'Small' | 'Medium';
+  artId: string | number;
   className?: string;
   imageMain: string;
   imageSecondaryOne?: string;
@@ -23,10 +26,12 @@ type Props = {
   likesNumber: number | string;
   tags?: any[];
   isCollection?: boolean;
+  bids?: any[];
 };
 
 const ArtCard: FC<Props> = ({
   type = 'Small',
+  artId,
   className,
   imageMain,
   imageSecondaryOne,
@@ -42,16 +47,20 @@ const ArtCard: FC<Props> = ({
   likesNumber,
   tags,
   isCollection,
+  bids,
 }) => (
   <div className={cx(styles.artCard, className)}>
-    <div className={styles[`mainImageWrapper${type}`]}>
+    <Link
+      to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
+      className={styles[`mainImageWrapper${type}`]}
+    >
       <div className={styles.tagContainer}>
         {tags?.map((tag) => (
           <Tag className={styles.tag} type={tag.type} auctionEndTime={tag.auctionEndTime} />
         ))}
       </div>
       <img className={styles.mainImage} src={imageMain} alt="" />
-    </div>
+    </Link>
     {type === 'Medium' && (
       <div className={cx(styles.secondaryImagesContainer)}>
         <div className={styles.secondaryImageWrapper}>
@@ -73,14 +82,32 @@ const ArtCard: FC<Props> = ({
       <Text size="xl">{name}</Text>
       <div className={styles.flexContainer}>
         {!isCollection && (
-          <Text className={styles.artCardPrice} size="m">{`${price} ${asset}`}</Text>
+          <Text className={styles.artCardPrice} size="m">
+            {`${price} ${asset}`}{' '}
+            {bids?.length ? <span className={styles.bidText}>(Highest Bid)</span> : null}
+          </Text>
         )}
-        {type === 'Small' && <Text size="m">{`in stock: ${inStockNumber}`}</Text>}
+        {type === 'Small' && !bids?.length && <Text size="m">{`in stock: ${inStockNumber}`}</Text>}
       </div>
       <div className={cx(styles.flexContainer, styles.artCardAuthorContainer)}>
         <div className={styles.flexContainer}>
-          <img src={authorAvatar} alt="" />
-          <Text className={styles.artCardAuthor}>{author}</Text>
+          {bids?.length ? (
+            <>
+              <div className={styles.bidder_avatars}>
+                {bids.map((bidder: any, index: number) => {
+                  return index < 2 ? (
+                    <img className={styles.bidder_avatar} src={bidder.bidder_avatar} alt="" />
+                  ) : null;
+                })}
+              </div>
+              <Text className={styles.artCardAuthor}>{bids.length} people have bidded</Text>
+            </>
+          ) : (
+            <>
+              <img src={authorAvatar} className={styles.author_avatar} alt="" />
+              <Text className={styles.artCardAuthor}>{author}</Text>
+            </>
+          )}
         </div>
         <div className={cx(styles.flexContainer, styles.artCardSmallLikes)}>
           <img className={styles.artCardHeart} src={pinkHeart} alt="" />
