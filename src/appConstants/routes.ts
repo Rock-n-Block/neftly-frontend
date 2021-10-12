@@ -25,4 +25,7 @@ export const routes = {
   activity: {
     root: '/activity',
   },
+  collection: {
+    root: '/collection/:collectionId'
+  }
 };

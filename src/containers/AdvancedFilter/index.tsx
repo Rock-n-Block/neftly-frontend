@@ -68,12 +68,12 @@ const AdvancedFilter: FC<Props> = ({
           </Button>
         </div>
       )}
-      <div className={styles.advancedFilterFlex}>
+      {/* <div className={styles.advancedFilterFlex}>
         <Text>Applied Filters</Text>
         <Button color="transparent">
           <Text color="gray">Clear all</Text>
         </Button>
-      </div>
+      </div> */}
       <div className={styles.tagContainer}>
         {/* {Object.values(appliedFilters).map((filter: IAppliedFilter) => {
           return (

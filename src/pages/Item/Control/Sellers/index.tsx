@@ -2,6 +2,7 @@ import nextId from 'react-id-generator';
 import cn from 'classnames';
 
 import styles from './Sellers.module.scss';
+import { sliceString } from 'utils';
 
 interface ISellersProps {
   className?: string;
@@ -27,9 +28,7 @@ const Sellers: React.FC<ISellersProps> = ({ className, owners, openCheckout, use
                     </div>
                     <div className={styles.details}>
                       <div className={styles.name}>
-                        {x.name.length > 21
-                          ? `${x.name.slice(0, 14)}...${x.name.slice(-4)}`
-                          : x.name}
+                        {x.name.length > 15 ? sliceString(x.name) : x.name}
                       </div>
                       <div className={styles.amount}>{x.quantity} token</div>
                     </div>

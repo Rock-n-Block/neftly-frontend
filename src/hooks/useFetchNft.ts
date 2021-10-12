@@ -37,7 +37,7 @@ export const useFetchNft = (
         } else {
           setBids([...bids, ...items]);
         }
-        if (!items.length) {
+        if (!items.length && refresh) {
           setBids([]);
         }
         setAllPages(Math.ceil(total_tokens / NUMBER_NFTS_PER_PAGE));
