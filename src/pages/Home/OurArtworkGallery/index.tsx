@@ -1,7 +1,6 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import cx from 'classnames';
 import { ArtCard, Button, H2, Loader } from 'components';
-import { storeApi } from 'services';
 
 // import { data as mockData } from './mockData';
 
