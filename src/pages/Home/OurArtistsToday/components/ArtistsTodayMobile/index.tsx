@@ -1,54 +1,22 @@
 import { FC } from 'react';
 import cx from 'classnames';
-import { Button, H2, TabLookingComponent } from 'components';
+import { H2, H3, Loader, TabLookingComponent } from 'components';
+import { OptionType, TTopUserRes } from 'typings';
 
-import { artists } from '../../mockData';
 import { ArtistLabel } from '..';
 
 import styles from './styles.module.scss';
-import { useTabs } from '../../../../../hooks';
 
 type Props = {
   className?: string;
+  artistData: TTopUserRes;
+  isLoading: boolean;
+  categories: OptionType[];
+  categoriesHandler: (value: OptionType) => void;
 };
 
-const artistsLabels = [...artists, ...artists]
-  .map((artist) => {
-    const { avatar, name, artsNumber, amount, asset } = artist;
-    return (
-      <ArtistLabel
-        avatar={avatar}
-        name={name}
-        artsNumber={artsNumber}
-        amount={amount}
-        asset={asset}
-      />
-    );
-  })
-  .slice(0, 6);
-
-const tabs = [
-  {
-    title: 'Most Selling',
-    key: 'selling',
-  },
-  {
-    title: 'Most Earning',
-    key: 'earning',
-  },
-  {
-    title: 'Most Followed',
-    key: 'followed',
-  },
-  {
-    title: 'Most Favorited',
-    key: 'favorited',
-  },
-];
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ArtistsTodayMobile: FC<Props> = ({ className }) => {
-  const { activeTab, setActiveTab } = useTabs(tabs);
+const ArtistsTodayMobile: FC<Props> = ({ className, artistData, isLoading, categories, categoriesHandler }) => {
   return (
     <div className={cx(styles.mobileOurArtist, className)}>
       <H2 align="center">Our Artists</H2>
@@ -56,16 +24,29 @@ const ArtistsTodayMobile: FC<Props> = ({ className }) => {
       <TabLookingComponent
         tabClassName={styles.tab}
         className={styles.tabs}
-        tabs={tabs}
-        activeTab={activeTab}
-        action={setActiveTab}
+        tabs={categories}
+        action={categoriesHandler}
       />
       <div className={styles.artistsWrapper}>
-        {artistsLabels}
-
-        <Button onClick={() => alert('load more')} isFullWidth color="outline">
-          Load More
-        </Button>
+        {!isLoading ? (
+          artistData.map((artist) => {
+            const {
+              price,
+              user: { is_verificated, avatar, display_name },
+            } = artist;
+            return (
+              <ArtistLabel
+                avatar={avatar}
+                name={display_name}
+                amount={price}
+                isVerified={is_verificated}
+              />
+            );
+          })
+        ) : (
+          <Loader />
+        )}
+        {!artistData.length && <H3>No data available</H3>}
       </div>
     </div>
   );

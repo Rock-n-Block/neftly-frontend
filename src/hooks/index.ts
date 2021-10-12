@@ -6,4 +6,6 @@ export * from './useInfiniteScroll';
 export * from './useFetchNft';
 export * from './useFetchLiked';
 export * from './useFollow';
+export * from './useLike';
 export * from './useFetchCollection';
+export * from './useFetchTopUser';

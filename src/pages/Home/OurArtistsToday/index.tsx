@@ -1,10 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { arrowUpRight } from 'assets/img';
 import cx from 'classnames';
-import { Button, H2, Text } from 'components';
+import { Button, H2, Loader, Text } from 'components';
+import { useFetchTopUsers } from 'hooks';
+import { OptionType, TTopUser } from 'typings';
 
 import { ArtistDetail, ArtistLabel, ArtistsTodayMobile } from './components';
-import { artists } from './mockData';
 
 import styles from './styles.module.scss';
 
@@ -20,25 +21,36 @@ type CategoryType = {
 const categories: CategoryType[] = [
   {
     label: 'Most Selling',
-    value: 'mostSelling',
+    value: 'seller',
   },
   {
     label: 'Most Earing',
-    value: 'mostEarning',
+    value: 'buyer',
   },
   {
     label: 'Most Followed',
-    value: 'mostFollowed',
-  },
-  {
-    label: 'Most Favorited',
-    value: 'mostFavorited',
+    value: 'follows',
   },
 ];
 
 const OurArtistsToday: FC<Props> = ({ className }) => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>(categories[0]);
-  const [selectedArtist, setSelectedArtist] = useState<any>(artists[0]);
+
+  const { topUser, isLoading } = useFetchTopUsers(selectedCategory.value);
+
+  const [selectedArtist, setSelectedArtist] = useState<TTopUser>(topUser[0]);
+
+  const handleSelectArtis = useCallback((artist: TTopUser) => {
+    setSelectedArtist(artist);
+  }, []);
+
+  const handleSelelectCategory = useCallback((value: OptionType) => {
+    setSelectedCategory(value);
+  }, []);
+
+  useEffect(() => {
+    handleSelectArtis(topUser[0]);
+  }, [handleSelectArtis, topUser]);
   return (
     <div>
       <div className={cx(styles.artistsDesktop, className)}>
@@ -52,7 +64,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
               <Button
                 className={styles.categorySelector}
                 color="transparent"
-                onClick={() => setSelectedCategory({ label, value })}
+                onClick={() => handleSelelectCategory({ label, value })}
               >
                 <Text
                   size="m"
@@ -72,36 +84,53 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
           </Button>
         </div>
         <div className={styles.artistsSection}>
-          {artists.map((artist) => {
-            const { avatar, name, artsNumber, amount, asset, id } = artist;
-            return (
-              <Button isFullWidth color="transparent" onClick={() => setSelectedArtist(artist)}>
-                <ArtistLabel
-                  avatar={avatar}
-                  name={name}
-                  artsNumber={artsNumber}
-                  amount={amount}
-                  asset={asset}
-                  isSelected={id === selectedArtist.id}
-                />
-              </Button>
-            );
-          })}
+          {!isLoading ? (
+            topUser.map((artist) => {
+              const {
+                price,
+                id,
+                user: { is_verificated, avatar, display_name },
+              } = artist;
+              return (
+                <Button isFullWidth color="transparent" onClick={() => handleSelectArtis(artist)}>
+                  <ArtistLabel
+                    avatar={avatar}
+                    name={display_name}
+                    amount={price}
+                    isSelected={id === selectedArtist?.user?.id}
+                    isVerified={is_verificated}
+                  />
+                </Button>
+              );
+            })
+          ) : (
+            <Loader />
+          )}
         </div>
         <div className={styles.artistDetails}>
-          <ArtistDetail
-            id={1}
-            avatar={selectedArtist.avatar}
-            name={selectedArtist.name}
-            publicKey="0xfshitTokend...dsad"
-            description="Digital Artist based in the UK. Known mainly for cover artworks created for some of Hip-Hops biggest names. "
-            instagramLink="https://google.com"
-            facebookLink="https://google.com"
-            twitterLink="https://google.com"
-          />
+          {!isLoading ? (
+            <ArtistDetail
+              id={1}
+              avatar={selectedArtist?.user.avatar}
+              name={selectedArtist?.user.display_name}
+              publicKey={selectedArtist?.user.address}
+              description={selectedArtist?.user.bio}
+              instagramLink={selectedArtist?.user.instagram}
+              facebookLink={selectedArtist?.user.facebook}
+              twitterLink={selectedArtist?.user.twitter}
+            />
+          ) : (
+            <Loader />
+          )}
         </div>
       </div>
-      <ArtistsTodayMobile className={styles.artistsMobile} />
+      <ArtistsTodayMobile
+        categories={categories}
+        categoriesHandler={handleSelelectCategory}
+        artistData={topUser}
+        className={styles.artistsMobile}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

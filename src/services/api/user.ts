@@ -26,7 +26,7 @@ export default {
   unfollow: (
     data: { id: string | number }, // TODO: remove if follow and unfollow united
   ) => axios.post(`account/self/unfollow/?network=${localStorage.netfly_nft_chainName}`, data),
-  like: (data: { id: number | undefined }) =>
+  like: (data: { id: string | number | undefined }) =>
     axios.post(`account/self/like/?network=${localStorage.netfly_nft_chainName}`, data),
   verifyMe: (data: any, address: string) =>
     axios.post(`/account/verification/?network=${localStorage.netfly_nft_chainName}`, {

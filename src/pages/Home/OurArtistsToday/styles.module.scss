@@ -97,16 +97,16 @@
 }
 
 .artistsSection {
-  padding: 88px 40px 88px 40px;
+  position: relative;
+  padding: 88px 20px 88px 20px;
+  overflow: auto;
+  border-right: 1px solid $color-secondary;
 
   flex-direction: column;
 
   height: 100%;
 
   background: $color-bg;
-  border-style: solid;
-  border-color: $color-secondary;
-  border-right: 1px;
   flex-basis: 33%;
 
   & > button {

@@ -8,6 +8,7 @@ import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
 import { selectOptions } from 'typings';
 
 import styles from './styles.module.scss';
+import BigNumber from 'bignumber.js';
 
 const Discover = () => {
   const [isFilterOpen, setFilterOpen] = useState(false);
@@ -89,21 +90,38 @@ const Discover = () => {
           <div className={styles.filterResults}>
             {nftCards.length
               ? nftCards.map((artCard: any) => {
-                  const { media, name, price, currency, available, creator, like_count, tags, id } =
-                    artCard;
+                  const {
+                    media,
+                    name,
+                    price,
+                    currency,
+                    available,
+                    creator,
+                    like_count,
+                    tags,
+                    id,
+                    highest_bid,
+                    minimal_bid,
+                    bids,
+                  } = artCard;
                   return (
                     <ArtCard
                       artId={id}
                       key={name}
                       imageMain={media}
                       name={name}
-                      price={price}
+                      price={
+                        price ||
+                        (highest_bid && new BigNumber(highest_bid.amount).toFixed()) ||
+                        minimal_bid
+                      }
                       asset={currency.symbol.toUpperCase()}
                       inStockNumber={available}
                       author={creator.name}
                       authorAvatar={creator.avatar}
                       likesNumber={like_count}
                       tags={tags}
+                      bids={bids}
                     />
                   );
                 })
