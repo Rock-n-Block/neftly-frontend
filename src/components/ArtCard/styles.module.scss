@@ -146,7 +146,7 @@
 
 .bidder_avatars {
   @include flexbox(center, center);
-  .bidder_avatar + .bidder_avatar {
+  &::not(:first-child) {
     margin-left: -10px;
   }
 }
