@@ -10,7 +10,7 @@ export const routes = {
     link: '/nft',
   },
   collection: {
-    root: '/collection/:id',
+    root: '/collection/:collectionId',
     link: '/collection',
   },
   create: {
@@ -25,7 +25,4 @@ export const routes = {
   activity: {
     root: '/activity',
   },
-  collection: {
-    root: '/collection/:collectionId'
-  }
 };
