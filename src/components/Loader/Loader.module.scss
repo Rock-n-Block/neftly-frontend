@@ -2,7 +2,7 @@
 
 .loader,
 .loaderWhite {
-  position: relative;
+  position: absolute;
 
   width: 1em;
   height: 1em;
@@ -12,7 +12,12 @@
 
   border-radius: 50%;
 
-  transform: translateZ(0);
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%,-50%);
+
+  // transform: translateZ(0);
   animation: loader 1.1s infinite ease;
 }
 

@@ -1,48 +1,22 @@
 import { FC } from 'react';
 import cx from 'classnames';
-import { Button, H2, TabLookingComponent } from 'components';
+import { H2, Loader, TabLookingComponent } from 'components';
+import { OptionType, TTopUserRes } from 'typings';
 
-import { artists } from '../../mockData';
 import { ArtistLabel } from '..';
 
 import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
+  artistData: TTopUserRes;
+  isLoading: boolean;
+  categories: OptionType[];
+  categoriesHandler: (value: OptionType) => void;
 };
 
-const artistsLabels = [...artists, ...artists]
-  .map((artist) => {
-    const { avatar, name, artsNumber, amount, asset } = artist;
-    return (
-      <ArtistLabel
-        avatar={avatar}
-        name={name}
-        artsNumber={artsNumber}
-        amount={amount}
-        asset={asset}
-      />
-    );
-  })
-  .slice(0, 6);
-
-const tabHelper = [
-  {
-    title: 'Most Selling',
-  },
-  {
-    title: 'Most Earning',
-  },
-  {
-    title: 'Most Followed',
-  },
-  {
-    title: 'Most Favorited',
-  },
-];
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ArtistsTodayMobile: FC<Props> = ({ className }) => {
+const ArtistsTodayMobile: FC<Props> = ({ className, artistData, isLoading, categories, categoriesHandler }) => {
   return (
     <div className={cx(styles.mobileOurArtist, className)}>
       <H2 align="center">Our Artists</H2>
@@ -50,15 +24,28 @@ const ArtistsTodayMobile: FC<Props> = ({ className }) => {
       <TabLookingComponent
         tabClassName={styles.tab}
         className={styles.tabs}
-        tabs={tabHelper}
-        action={() => {}}
+        tabs={categories}
+        action={categoriesHandler}
       />
       <div className={styles.artistsWrapper}>
-        {artistsLabels}
-
-        <Button onClick={() => alert('load more')} isFullWidth color="outline">
-          Load More
-        </Button>
+        {!isLoading ? (
+          artistData.map((artist) => {
+            const {
+              price,
+              user: { is_verificated, avatar, display_name },
+            } = artist;
+            return (
+              <ArtistLabel
+                avatar={avatar}
+                name={display_name}
+                amount={price}
+                isVerified={is_verificated}
+              />
+            );
+          })
+        ) : (
+          <Loader />
+        )}
       </div>
     </div>
   );
