@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
-import Icon from '../Icon';
+import { iconArrowDown } from 'assets/img/icons';
 
 import styles from './Dropdown.module.scss';
+import { Text } from '../Typography';
 
 interface IDropdownProps {
   className?: string;
@@ -48,14 +48,12 @@ const Dropdown: React.FC<IDropdownProps> = ({
           ) : (
             <div className={styles.selection}>{value}</div>
           )}
-          <div className={styles.arrow}>
-            <Icon name="arrow-bottom" size="10" />
-          </div>
+          <img alt="open dropdown" src={iconArrowDown} className={styles.arrow} />
         </div>
         {!isWithImage ? (
           <div className={styles.body}>
             {typeof options[0] === 'string'
-              ? options.map((x) => (
+              ? options.map((option: string) => (
                   <div
                     onKeyDown={() => {}}
                     tabIndex={0}
@@ -63,17 +61,17 @@ const Dropdown: React.FC<IDropdownProps> = ({
                     className={cn(
                       styles.option,
                       {
-                        [styles.selectioned]: x === value,
+                        [styles.selectioned]: option === value,
                       },
-                      x === value ? 'text-gradient' : '',
+                      option === value ? 'selected' : '',
                     )}
-                    onClick={() => handleClick(x)}
-                    key={nextId()}
+                    onClick={() => handleClick(option)}
+                    key={`dropdown_option_${option}`}
                   >
-                    {x}
+                    {option}
                   </div>
                 ))
-              : options.map((x) => (
+              : options.map((option) => (
                   <div
                     onKeyDown={() => {}}
                     tabIndex={0}
@@ -81,21 +79,23 @@ const Dropdown: React.FC<IDropdownProps> = ({
                     className={cn(
                       styles.option,
                       {
-                        [styles.selectioned]: x.text === value,
+                        [styles.selectioned]: option.text === value,
                       },
-                      x.text === value ? 'text-gradient' : '',
+                      option.text === value ? 'text-gradient' : '',
                     )}
-                    onClick={() => handleClick(x.text)}
-                    key={nextId()}
+                    onClick={() => handleClick(option.text)}
+                    key={`dropdown_option_${option.text}`}
                   >
-                    {x.icon}
-                    <span className={styles.text}>{x.text}</span>
+                    {option.icon}
+                    <Text className={styles.text} tag="span">
+                      {option.text}
+                    </Text>
                   </div>
                 ))}
           </div>
         ) : (
           <div className={styles.body}>
-            {options.map((x: any) => (
+            {options.map((option: any) => (
               <div
                 onKeyDown={() => {}}
                 tabIndex={0}
@@ -103,15 +103,17 @@ const Dropdown: React.FC<IDropdownProps> = ({
                 className={cn(
                   styles.option,
                   {
-                    [styles.selectioned]: x.symbol === value,
+                    [styles.selectioned]: option.symbol === value,
                   },
-                  x.symbol === value ? 'text-gradient' : '',
+                  option.symbol === value ? 'text-gradient' : '',
                 )}
-                onClick={() => handleClick(x.symbol)}
-                key={nextId()}
+                onClick={() => handleClick(option.symbol)}
+                key={`dropdown_option_${option.symbol}`}
               >
-                <img alt="" className={styles.image} src={x.image} />
-                <span className={styles.text}>{x.symbol}</span>
+                <img alt="" className={styles.image} src={option.image} />
+                <Text className={styles.text} tag="span">
+                  {option.symbol}
+                </Text>
               </div>
             ))}
           </div>

@@ -1,24 +1,53 @@
-import { IConnectWallet, IContracts } from '../typings';
+import { IConnectWallet, IContracts, chainsEnum } from '../typings';
+import ethImg from '../assets/img/icons/chains/eth.svg';
+import bnbImg from '../assets/img/icons/chains/bnb.svg';
+import polygonImg from '../assets/img/icons/chains/polygon.svg';
+import metamaskImg from '../assets/img/icons/wallets/metamask.svg';
 
 import { bep20Abi, erc20Abi, nftAbi } from './abi';
 
 export const is_production = false;
 
-export const chains = {
-  Binance: {
-    name: 'binance-testnet',
-    chainId: is_production ? 56 : 97,
+export const chains: {
+  [key: string]: {
+    name: chainsEnum;
+    chainId: number;
     provider: {
-      MetaMask: { name: 'MetaMask' },
-      WalletLink: {
-        name: 'WalletLink',
-        useProvider: 'infura',
+      [key: string]: any;
+    };
+    img?: any;
+    explorer: string;
+  };
+} = {
+  [chainsEnum.Ethereum]: {
+    name: chainsEnum.Ethereum,
+    chainId: is_production ? 1 : 4,
+    img: ethImg,
+    explorer: is_production ? '' : '',
+    provider: {
+      MetaMask: { name: 'MetaMask', img: metamaskImg },
+      WalletConnect: {
+        name: 'WalletConnect',
+        useProvider: 'rpc',
         provider: {
-          infura: {
-            infuraId: 'b939155f8c9941ab8fd0c47fe6ddb601',
+          rpc: {
+            rpc: {
+              [is_production ? 1 : 4]: is_production
+                ? 'https://bsc-dataseed.binance.org/'
+                : 'https://data-seed-prebsc-2-s1.binance.org:8545/',
+            },
+            chainId: is_production ? 1 : 4,
           },
         },
       },
+    },
+  },
+  [chainsEnum['Binance-Smart-Chain']]: {
+    name: chainsEnum['Binance-Smart-Chain'],
+    chainId: is_production ? 56 : 97,
+    img: bnbImg,
+    provider: {
+      MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
         name: 'WalletConnect',
         useProvider: 'rpc',
@@ -27,30 +56,52 @@ export const chains = {
             rpc: {
               [is_production ? 56 : 97]: is_production
                 ? 'https://bsc-dataseed.binance.org/'
-                : 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+                : 'https://data-seed-prebsc-2-s1.binance.org:8545/',
             },
             chainId: is_production ? 56 : 97,
           },
         },
       },
     },
+    explorer: is_production ? 'https://bscscan.com' : 'https://testnet.bscscan.com',
   },
-  KardiaChain: {
-    name: 'KardiaChain',
-    chainId: is_production ? 0 : 69,
+  [chainsEnum.Polygon]: {
+    name: chainsEnum.Polygon,
+    chainId: is_production ? 137 : 80001,
+    img: polygonImg,
     provider: {
-      KardiaChain: { name: 'KardiaChain' },
+      MetaMask: { name: 'MetaMask', img: metamaskImg },
+      WalletConnect: {
+        name: 'WalletConnect',
+        useProvider: 'rpc',
+        provider: {
+          rpc: {
+            rpc: {
+              [is_production ? 137 : 80001]: is_production
+                ? 'https://bsc-dataseed.binance.org/'
+                : 'https://data-seed-prebsc-2-s1.binance.org:8545/',
+            },
+            chainId: is_production ? 137 : 80001,
+          },
+        },
+      },
     },
+    explorer: is_production ? '' : '',
   },
 };
 
-export const connectWallet = (chainName: 'Binance' | 'KardiaChain'): IConnectWallet => {
+export const connectWallet = (
+  chainName: chainsEnum,
+): IConnectWallet & {
+  blockchains: Array<string>;
+} => {
   const chain = chains[chainName];
 
   return {
-    wallets: ['MetaMask', 'WalletConnect', 'WalletLink', 'KardiaChain'],
+    wallets: ['MetaMask', 'WalletConnect'],
+    blockchains: ['Ethereum', 'Binance Smart Chain', 'Polygon'],
     network: {
-      name: chain.name,
+      name: chain.name.toString(),
       chainID: chain.chainId,
     },
     provider: chain.provider,

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
 import { Icon, LoaderCircle } from 'components';
 import { storeApi, useWalletConnectorContext, WalletConnect } from 'services';
-import { useMst } from 'store/store';
+import { useMst } from 'store';
 
 import styles from './Checkout.module.scss';
 
@@ -59,7 +59,7 @@ const Checkout: React.FC<ICheckoutProps> = ({
           standart === 'ERC721' ? 0 : +amount,
           standart === 'ERC721' ? '' : sellerId,
         )
-        .then(({ data }) => {
+        .then(({ data }: any) => {
           walletConnector.walletService
             .createTransaction(
               data.initial_tx.method,
@@ -172,7 +172,7 @@ const Checkout: React.FC<ICheckoutProps> = ({
           </div>
         </div>
       )}
-      {!isLoading ? (
+      {!isLoading && (
         <div className={styles.btns}>
           <button type="button" className={cn('button', styles.button)} onClick={buyToken}>
             I understand, continue
@@ -181,8 +181,6 @@ const Checkout: React.FC<ICheckoutProps> = ({
             Cancel
           </button>
         </div>
-      ) : (
-        ''
       )}
     </div>
   );

@@ -12,52 +12,7 @@ type Props = {
 };
 
 const OurArtworkGallery: FC<Props> = ({ className }) => {
-  const [isLoading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [allPages, setAllPages] = useState(1);
-  const [art, setArt] = useState<any>([]);
-
-  const fetchSearch = useCallback((page: number, refresh?: boolean) => {
-    setLoading(true);
-    storeApi
-      .getSearchResults(
-        { text: '', page },
-        {
-          type: 'items',
-          order_by: 'home.discover.filter.recently_added',
-          tags: 'All items',
-          max_price: [0],
-          currency: ['bnb', 'busd', 'wbnb'],
-        },
-      )
-      .then(({ data }: any) => {
-        if (refresh) {
-          setArt(data.items);
-        } else {
-          setArt((prev: any) => [...prev, ...data.items]);
-        }
-        setAllPages(Math.ceil(data.total_tokens / 8));
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  const handleLoadMore = useCallback(() => {
-    if (currentPage <= allPages) {
-      fetchSearch(currentPage, false);
-    }
-  }, [currentPage, allPages, fetchSearch]);
-
-  useEffect(() => {
-    fetchSearch(1, true);
-  }, [fetchSearch]);
-
-  useEffect(() => {
-    if (currentPage !== 1) {
-      handleLoadMore();
-    }
-  }, [handleLoadMore, currentPage]);
+  const [currentPage, setCurrentPage] = useState(1)
 
   return (
     <div className={cx(styles.ourArtworkGallery, className)}>

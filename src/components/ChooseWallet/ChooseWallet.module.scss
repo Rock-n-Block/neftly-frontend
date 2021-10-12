@@ -1,0 +1,57 @@
+@import '../../styles/helpers';
+
+.container {
+  @include flexbox(flex-start, space-between);
+}
+
+.box {
+  width: 50%;
+  padding-right: 30px;
+  & + & {
+    padding-right: 0;
+    padding-left: 30px;
+  }
+  &:first-of-type {
+    border-right: 1px solid $color-neutral-60;
+  }
+  &_title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 29px;
+  }
+}
+
+.item {
+  @include flexbox(center, space-between);
+  border: 1px solid $color-neutral-60;
+  padding: 16px 25px 16px 16px;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: 0.3s;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 29px;
+
+  &_wrapper {
+    @include flexbox(center);
+    img {
+      margin-right: 10px;
+    }
+  }
+
+  & > img {
+    transition: 0.3s;
+    opacity: 0;
+  }
+  &_active {
+    background: $color-neutral-60;
+    & > img {
+      opacity: 1;
+    }
+  }
+  &_wallet {
+    &:hover {
+      background: $color-neutral-60;
+    }
+  }
+}

@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@amfi/connect-wallet@^1.1.6":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/@amfi/connect-wallet/-/connect-wallet-1.1.6.tgz#96adda151a7c4eac25d9885c042b91882a7927b5"
-  integrity sha512-VOTe1r/JFDtvtoMstUqGwWge6/L2a7uzgF2tb3xHQ/o1gBKxlOsvBsHOItPfoKTVsJSsY0JCAeB5kW/XKQM6Mw==
+"@amfi/connect-wallet@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@amfi/connect-wallet/-/connect-wallet-1.1.7.tgz#fbe19aad81304c59dd0424d84ae89c73ff848a85"
+  integrity sha512-DTReIkBftCOFMau7pua32xP5vK9Z0HTveZ8ZN3XbeSyKaQvPKBN7X4n81qvSafTphXhKjO5oVWh9tGn8d88omw==
   dependencies:
     "@walletconnect/web3-provider" "^1.3.6"
     rxjs "~6.6.0"

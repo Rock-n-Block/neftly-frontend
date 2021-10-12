@@ -8,6 +8,7 @@ import {
 
 export const data = [
   {
+    id: 1,
     image: smallArtCardImage,
     imageSecondary1: mediumArtCardSecondary1,
     imageSecondary2: mediumArtCardSecondary2,
@@ -21,6 +22,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 2,
     image: smallArtCardImage,
     imageSecondary1: mediumArtCardSecondary1,
     imageSecondary2: mediumArtCardSecondary2,
@@ -34,6 +36,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 3,
     image: smallArtCardImage,
     imageSecondary1: mediumArtCardSecondary1,
     imageSecondary2: mediumArtCardSecondary2,
@@ -47,6 +50,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 4,
     image: smallArtCardImage,
     imageSecondary1: mediumArtCardSecondary1,
     imageSecondary2: mediumArtCardSecondary2,
@@ -60,6 +64,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 5,
     image: smallArtCardImage,
     imageSecondary1: mediumArtCardSecondary1,
     imageSecondary2: mediumArtCardSecondary2,
@@ -73,6 +78,7 @@ export const data = [
     likesNumber: 3500,
   },
   {
+    id: 6,
     image: smallArtCardImage,
     imageSecondary1: mediumArtCardSecondary1,
     imageSecondary2: mediumArtCardSecondary2,

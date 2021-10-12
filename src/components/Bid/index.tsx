@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import { storeApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import { WalletConnect } from '../../services/walletService';
-import { useMst } from '../../store/store';
+import { useMst } from '../../store';
 import TextInput from '../TextInput';
 
 import styles from './Bid.module.scss';
@@ -53,7 +53,7 @@ const Bid: React.FC<IBidProps> = observer(
     };
 
     const fetchFee = useCallback(() => {
-      storeApi.getFee().then(({ data }: any) => setFee(data));
+      storeApi.getFee('BNB').then(({ data }: any) => setFee(data));
     }, []);
     // useEffect(() => {
     //   setYouPay(

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import Web3 from 'web3';
 
 import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
+import { chainsEnum } from 'typings';
 
 export class WalletConnect {
   public connectWallet: ConnectWallet;
@@ -16,8 +17,8 @@ export class WalletConnect {
   }
 
   public async initWalletConnect(
-    chainName: 'Binance' | 'KardiaChain',
-    providerName: 'MetaMask' | 'WalletConnect' | 'WalletLink' | 'KardiaChain',
+    chainName: chainsEnum,
+    providerName: 'MetaMask' | 'WalletConnect',
   ): Promise<boolean> {
     return new Promise((resolve) => {
       const { provider, network, settings } = connectWalletConfig(chainName);

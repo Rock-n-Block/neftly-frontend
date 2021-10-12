@@ -1,127 +1,105 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// eslint-disable-next-line no-param-reassign
-import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
+import * as Yup from 'yup';
 
 import { storeApi } from '../../../services/api';
-// import { useMst } from '../../../store/store';
-import { validateForm } from '../../../utils/validate';
 import CreateForm, { ICreateForm } from '../component';
+import { toast } from 'react-toastify';
+import { ToastContentWithTxHash } from 'components';
 
 export default observer(({ isSingle, walletConnector }: any) => {
-  // const { modals } = useMst();
+  const props: ICreateForm = {
+    name: '',
+    isSingle: true,
+    totalSupply: 1,
+    currency: '',
+    description: '',
+    price: '',
+    minimalBid: 0,
+    creatorRoyalty: '10',
+    collection: 0,
+    details: [{ name: '', amount: '' }],
+    selling: true,
+    media: '',
+    cover: '',
+    coverPreview: '',
+    format: 'image',
+    img: '',
+    preview: '',
+    sellMethod: 'fixedPrice',
+    isLoading: false,
+  };
   const FormWithFormik = withFormik<any, ICreateForm>({
     enableReinitialize: true,
-    mapPropsToValues: () => ({
-      img: '',
-      cover: '',
-      preview: '',
-      coverPreview: '',
-      putOnSale: true,
-      instantSalePrice: true,
-      // unlockOncePurchased: false,
-      format: '',
-      instantSalePriceEth: '',
-      // digitalKey: '',
-      tokenName: '',
-      tokenDescr: '',
-      tokenRoyalties: '10%',
-      numberOfCopies: '',
-      tokenProperties: [
-        {
-          size: '',
-          amount: '',
-        },
-      ],
-      isLoading: false,
-      collectionId: '16',
-      currency: 'WETH',
-      bid: '',
-      showModal: false,
+    mapPropsToValues: () => props,
+
+    validationSchema: Yup.object().shape({
+      name: Yup.string().min(2, 'Too short!').max(50, 'Too long!'),
+      totalSupply: Yup.number().min(1, 'Minimal amount equal to 1!').max(100, 'Too much!'),
+      description: Yup.string().max(500, 'Too long!'),
+      minimalBid: Yup.number().min(0),
     }),
-    validate: (values: any) => {
-      const notRequired: string[] = ['tokenDescr', 'preview'];
-      if (
-        !values.putOnSale ||
-        (!values.instantSalePrice && !notRequired.includes('instantSalePriceEth'))
-      ) {
-        notRequired.push('instantSalePriceEth');
-      } /*
-      if (!values.unlockOncePurchased && !notRequired.includes('digitalKey')) {
-        notRequired.push('digitalKey');
-      } */
-      if (isSingle) {
-        notRequired.push('numberOfCopies');
-      }
-      if (!values.putOnSale || values.instantSalePrice) {
-        notRequired.push('bid');
-      }
-      const errors = validateForm({ values, notRequired });
-
-      return errors;
-    },
-
-    handleSubmit: (values, { setFieldValue, setFieldError }) => {
+    handleSubmit: (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
 
       const formData = new FormData();
-      formData.append('media', values.img);
-      if (values.cover) formData.append('cover', values.cover);
-      formData.append('name', values.tokenName);
-      formData.append('total_supply', isSingle ? '1' : values.numberOfCopies.toString());
-      formData.append('description', values.tokenDescr);
-      if (values.instantSalePrice && values.putOnSale) {
-        formData.append('price', values.instantSalePriceEth.toString());
-      }
-      if (!values.instantSalePrice && values.putOnSale) {
-        formData.append('minimal_bid', values.bid.toString());
-      }
-      if (values.putOnSale) {
-        formData.append('available', values.numberOfCopies.toString());
-      } else {
-        formData.append('available', '0');
-      }
-      formData.append('creator_royalty', values.tokenRoyalties.toString().slice(0, -1));
+      formData.append('name', values.name);
       formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
-      formData.append('collection', values.collectionId);
+      if (!isSingle) {
+        formData.append('total_supply', values.totalSupply.toString());
+      }
       formData.append('currency', values.currency);
-      formData.append('format', values.format);
-      // formData.append('creator', localStorage.dds_token);
+      if (values.description) {
+        formData.append('description', values.description);
+      }
+      if (values.sellMethod === 'fixedPrice') {
+        formData.append('price', values.price.toString());
+      } else {
+        formData.append('minimal_bid', values.minimalBid.toString());
+      }
+      formData.append('creator_royalty', values.creatorRoyalty);
+      formData.append('collection', values.collection.toString());
 
-      if (values.tokenProperties[0].size) {
+      if (values.details[0].name) {
         const details: any = {};
-        values.tokenProperties.forEach((item) => {
-          if (item.size) {
-            details[item.size] = item.amount;
+        values.details.forEach((item) => {
+          if (item.name) {
+            details[item.name] = item.amount;
           }
         });
-
-        formData.append('details', details);
+        formData.append('details', JSON.stringify(details));
       }
+      // TODO: change selling from always true
+      formData.append('selling', values.selling.toString());
+
+      formData.append('media', values.img);
+      if (values.format !== 'image') {
+        formData.append('cover', values.cover);
+      }
+      formData.append('format', values.format);
+
       storeApi
         .createToken(formData)
         .then(({ data }) => {
           walletConnector.walletService
             .sendTransaction(data.initial_tx)
-            .then(() => {
-              setFieldValue('showModal', true);
+            .on('transactionHash', (txHash: string) => {
+              toast.info(<ToastContentWithTxHash txHash={txHash} />);
             })
-            .catch((err: any) => {
-              // modals.info.setMsg('Something went wrong', 'error');
+            .then(() => {
+              toast.success('Token Created');
+            })
+            .catch((error: any) => {
+              toast.error('Create Token failed');
+              console.error('Wallet Create token failure', error);
+            })
+            .finally(() => {
               setFieldValue('isLoading', false);
-              console.log(err, 'err');
             });
         })
-        .catch(({ response }) => {
-          setFieldValue('isLoading', false);
-          if (response.data && response.data.name) {
-            setFieldError('tokenName', response.data.name);
-          }
-          if (response.data) {
-            // modals.info.setMsg(Object.values(response.data).join(', '), 'error');
-          }
+        .catch((error) => {
+          toast.error('Create Token failed');
+          console.error('Backend Create token failure', error);
         });
     },
 

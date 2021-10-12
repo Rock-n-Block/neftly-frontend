@@ -1,10 +1,12 @@
 import React, { createContext, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { notification } from 'antd';
-import { is_production } from 'config';
 import { observer } from 'mobx-react';
+
+import { is_production } from 'config';
 import { userApi, WalletConnect } from 'services';
-import { rootStore } from 'store/store';
+import { chainsEnum } from 'typings';
+import { rootStore } from 'store';
 
 declare global {
   interface Window {
@@ -14,10 +16,7 @@ declare global {
 }
 
 const walletConnectorContext = createContext<{
-  connect: (
-    chainName: 'Binance' | 'KardiaChain',
-    providerName: 'MetaMask' | 'WalletConnect' | 'WalletLink' | 'KardiaChain',
-  ) => void;
+  connect: (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => void;
   disconnect: () => void;
   walletService: WalletConnect;
 }>({
@@ -52,10 +51,7 @@ class Connector extends React.Component<
     }
   }
 
-  connect = async (
-    chainName: 'Binance' | 'KardiaChain',
-    providerName: 'MetaMask' | 'WalletConnect' | 'WalletLink' | 'KardiaChain',
-  ) => {
+  connect = async (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => {
     if (window.ethereum || window.kardiachain) {
       try {
         const isConnected = await this.state.provider.initWalletConnect(chainName, providerName);
@@ -81,13 +77,10 @@ class Connector extends React.Component<
                   });
 
                   localStorage.netfly_nft_token = login.data.key;
-                  rootStore.user.setAddress(userAccount.address);
-                  if (this.props.location.pathname === '/connect-wallet') {
-                    this.props.history.goBack();
-                  }
                 }
                 localStorage.netfly_nft_chainName = chainName;
                 localStorage.netfly_nft_providerName = providerName;
+                rootStore.user.setAddress(userAccount.address);
                 rootStore.user.getMe();
               }
             },
@@ -104,6 +97,11 @@ class Connector extends React.Component<
                   is_production ? 'mainnet' : 'testnet'
                 } network in your wallet and try again`,
               });
+              alert(
+                `Wrong Network, please select ${
+                  is_production ? 'mainnet' : 'testnet'
+                } network in your wallet and try again`,
+              );
             },
           );
         }
@@ -119,6 +117,7 @@ class Connector extends React.Component<
     delete localStorage.netfly_nft_chainName;
     delete localStorage.netfly_nft_providerName;
     delete localStorage.walletconnect;
+    delete localStorage.netfly_nft_token;
 
     this.props.history.push('/');
     // if (

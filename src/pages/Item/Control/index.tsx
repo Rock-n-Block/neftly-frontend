@@ -5,7 +5,7 @@ import { Bid, Button, Modal } from 'components';
 import { contracts } from 'config';
 import { observer } from 'mobx-react';
 import { storeApi, useWalletConnectorContext } from 'services';
-import { useMst } from 'store/store';
+import { useMst } from 'store';
 import { IOwner } from 'typings/UserInfo';
 
 import { IItem } from '../index';
@@ -16,6 +16,7 @@ import Sellers from './Sellers';
 import SuccessfullyPurchased from './SuccessfullyPurchased';
 
 import styles from './Control.module.scss';
+import { sliceString } from 'utils';
 
 interface IControlProps {
   className?: string;
@@ -124,7 +125,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
   }, [currency.name, walletConnector.walletService]);
 
   const fetchFee = useCallback(() => {
-    storeApi.getFee().then(({ data }: any) => setFee(data));
+    storeApi.getFee('BNB').then(({ data }: any) => setFee(data));
   }, []);
 
   const handleEndAuc = useCallback(() => {
@@ -201,11 +202,8 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
                 <div className={styles.info}>
                   Highest bid by{' '}
                   <span>
-                    {token.highest_bid.bidder?.length > 21
-                      ? `${token.highest_bid.bidder.slice(
-                          0,
-                          14,
-                        )}...${token.highest_bid.bidder.slice(-4)}`
+                    {token.highest_bid.bidder?.length > 15
+                      ? sliceString(token.highest_bid.bidder)
                       : token.highest_bid.bidder}
                   </span>
                 </div>
@@ -215,9 +213,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
                   </div>
                   {token.highest_bid.USD_price ? (
                     <div className={styles.price}>${token.highest_bid.USD_price}</div>
-                  ) : (
-                    ''
-                  )}
+                  ) : null}
                 </div>
               </div>
             </>
@@ -260,9 +256,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
                       >
                         Purchase now
                       </Button>
-                    ) : (
-                      ''
-                    )}
+                    ) : null}
                     {(standart === 'ERC721' && is_auc_selling) ||
                     (standart === 'ERC1155' &&
                       (token.owner_auction.length > 1 ||
@@ -274,9 +268,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
                       >
                         Place a bid
                       </Button>
-                    ) : (
-                      ''
-                    )}
+                    ) : null}
                   </>
                 ) : (
                   <Button
@@ -287,9 +279,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
                   </Button>
                 )}
               </div>
-            ) : (
-              ''
-            )}
+            ) : null}
             {(standart === 'ERC721' && is_auc_selling && isOwner && bids.length) ||
             (standart === 'ERC1155' &&
               is_auc_selling &&
@@ -302,9 +292,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
               >
                 End auction
               </Button>
-            ) : (
-              ''
-            )}
+            ) : null}
           </div>
         )}
         <div className={styles.text}>
@@ -327,9 +315,7 @@ const Control: React.FC<IControlProps> = observer(({ className, token, updateTok
               Put on sale
             </Button>
           </div>
-        ) : (
-          ''
-        )}
+        ) : null}
         <div className={styles.note}>You can sell this token on Crypter Marketplace</div>
       </div>
       <Modal visible={visibleModalPurchase} onClose={() => setVisibleModalPurchase(false)}>

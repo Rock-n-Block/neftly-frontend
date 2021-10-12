@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { Button, Text, TextArea, TextInput, Uploader } from 'components';
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { useMst } from 'store/store';
+import { useMst } from 'store';
 
 import styles from './ProfileEdit.module.scss';
 
@@ -48,8 +48,8 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                   </Text>
                   <div>
                     <Field
-                      id="avatar"
-                      name="avatar"
+                      id="img"
+                      name="img"
                       render={() => <Uploader type="img" isButton className={styles.fileUpload} />}
                     />
                   </div>

@@ -1,7 +1,7 @@
 import axios from '../../core/axios';
 
 export default {
-  getActivity: (address: string, page: string | number, query: any) => {
+  getActivity: (page: string | number, query: any) => {
     let queryStr = '&type=';
     if (query.length)
       query.forEach((key: any, index: any) => {
@@ -35,9 +35,11 @@ export default {
         queryStr = queryStr.concat(formattedKey);
       });
     return axios.get(
-      `activity${address ? `/${address}` : ''}/?page=${page}${query.length ? `${queryStr}` : ''}`,
+      `activity/?page=${page}${query.length ? `${queryStr}` : ''}`,
     );
   },
-  getNotification: () => axios.get('activity/notification/'),
-  readNotification: (data: any) => axios.post('/activity/notification/', data),
+  getNotification: () =>
+    axios.get(`activity/notification/?network=${localStorage.netfly_nft_chainName}`),
+  readNotification: (data: any) =>
+    axios.post(`/activity/notification/?network=${localStorage.netfly_nft_chainName}`, data),
 };
