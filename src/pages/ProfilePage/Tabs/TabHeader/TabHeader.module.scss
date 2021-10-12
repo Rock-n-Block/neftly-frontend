@@ -1,9 +1,9 @@
 @import '../../../../styles/helpers.scss';
 
 .tab_header {
-  display: flex;
-  justify-content: space-between;
+  @include flexbox(center, space-between);
   margin-bottom: 32px;
+
   &_sorters {
     display: grid;
     grid-template-columns: 1fr 1fr;

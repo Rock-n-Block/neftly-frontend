@@ -17,6 +17,7 @@ import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router';
+import { zeroAddress } from 'appConstants';
 
 interface IProps {
   userId: string;
@@ -139,10 +140,10 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
         <div className={s.user_info__icon}>
           <img src={LinkIcon} alt="link" />
         </div>
-        <Text size="m">{shownUser.address || '0x0000000000000000000000000000000000000000'}</Text>
+        <Text size="m">{shownUser.address || zeroAddress}</Text>
       </div>
       <div className={s.user_buttons}>
-        {isSelf && (
+        {isSelf ? (
           <>
             <Uploader type="img" isButton handleUpload={handleFileUpload} isLoading={isLoading}>
               <Button className={s.user_button} color="outline" loading={isLoading}>
@@ -155,8 +156,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
               <Text tag="span">Edit Profile</Text>
             </Button>
           </>
-        )}
-        {!isSelf && (
+        ) : (
           <Button className={s.user_button} color="blue" onClick={handleFollowClick}>
             <img src={iconAddBlack} alt="" />
             {isFollowed ? 'Unfollow' : 'Follow'}

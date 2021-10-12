@@ -50,11 +50,6 @@ const Artworks: FC<IProps> = memo(({ userId }) => {
         })}
       </div>
       <div ref={anchorRef as RefObject<HTMLDivElement>} />
-      {/* <div className={s.button_wrapper}>
-        <Button className={s.button_more} color="outline">
-          Load More
-        </Button>
-      </div> */}
     </>
   );
 });
