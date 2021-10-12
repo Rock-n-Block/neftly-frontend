@@ -5,3 +5,4 @@ export { default as useTabs } from './useTabs';
 export * from './useInfiniteScroll';
 export * from './useFetchNft';
 export * from './useFetchLiked';
+export * from './useFollow';

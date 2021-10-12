@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, H2, Uploader, Text } from 'components';
 
 import {
@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 // import { useHistory } from 'react-router';
 import { zeroAddress } from 'appConstants';
 import { useFetchUser } from '../../../hooks/useFetchUser';
+import { useFollow } from '../../../hooks';
 
 interface IProps {
   userId: string;
@@ -28,6 +29,8 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
   const { user } = useMst();
   // TODO: handle user load
   const [, setIsUserLoading] = useState(false);
+  const [isFileLoading, setIsFileLoading] = useState(false);
+  const [isFollowClickPending, setIsFollowClickPending] = useState(false);
   const {
     user: shownUser,
     isSelf,
@@ -38,9 +41,13 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
     setLoading: setIsUserLoading,
     successCallback: setCurrentUser,
   });
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleFollowClick = useCallback(() => {
+  const { handleFollowClick } = useFollow({
+    setLoading: setIsFollowClickPending,
+    id: userId,
+    initialState: isFollowed,
+    successCallback: setIsFollowed,
+  });
+  /* const handleFollowClick = useCallback(() => {
     if (isFollowed) {
       userApi
         .unfollow({ id: shownUser.id })
@@ -64,10 +71,10 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
           console.log(error);
         });
     }
-  }, [isFollowed, setIsFollowed, shownUser.id]);
+  }, [isFollowed, setIsFollowed, shownUser.id]); */
 
   const handleFileUpload = (file: any) => {
-    setIsLoading(true);
+    setIsFileLoading(true);
     const fileData = new FormData();
     fileData.append('cover', file);
     userApi
@@ -81,7 +88,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
         console.log(err, 'set cover');
       })
       .finally(() => {
-        setIsLoading(false);
+        setIsFileLoading(false);
       });
   };
 
@@ -110,8 +117,8 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
       <div className={s.user_buttons}>
         {isSelf ? (
           <>
-            <Uploader type="img" isButton handleUpload={handleFileUpload} isLoading={isLoading}>
-              <Button className={s.user_button} color="outline" loading={isLoading}>
+            <Uploader type="img" isButton handleUpload={handleFileUpload} isLoading={isFileLoading}>
+              <Button className={s.user_button} color="outline" loading={isFileLoading}>
                 <img src={iconEdit} alt="" />
                 <Text tag="span">Edit Banner</Text>
               </Button>
@@ -122,7 +129,12 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
             </Button>
           </>
         ) : (
-          <Button className={s.user_button} color="blue" onClick={handleFollowClick}>
+          <Button
+            className={s.user_button}
+            color="blue"
+            onClick={handleFollowClick}
+            disabled={isFollowClickPending}
+          >
             <img src={iconAddBlack} alt="" />
             {isFollowed ? 'Unfollow' : 'Follow'}
           </Button>
