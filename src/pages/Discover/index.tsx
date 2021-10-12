@@ -1,6 +1,4 @@
 import { RefObject, useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { routes } from 'appConstants';
 import { filter } from 'assets/img';
 import cx from 'classnames';
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
@@ -94,20 +92,19 @@ const Discover = () => {
                   const { media, name, price, currency, available, creator, like_count, tags, id } =
                     artCard;
                   return (
-                    <Link to={`${routes.nft.link}/${id}`}>
-                      <ArtCard
-                        key={name}
-                        imageMain={media}
-                        name={name}
-                        price={price}
-                        asset={currency.symbol.toUpperCase()}
-                        inStockNumber={available}
-                        author={creator.name}
-                        authorAvatar={creator.avatar}
-                        likesNumber={like_count}
-                        tags={tags}
-                      />
-                    </Link>
+                    <ArtCard
+                      artId={id}
+                      key={name}
+                      imageMain={media}
+                      name={name}
+                      price={price}
+                      asset={currency.symbol.toUpperCase()}
+                      inStockNumber={available}
+                      author={creator.name}
+                      authorAvatar={creator.avatar}
+                      likesNumber={like_count}
+                      tags={tags}
+                    />
                   );
                 })
               : null}

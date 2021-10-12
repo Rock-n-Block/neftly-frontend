@@ -6,6 +6,7 @@ import likesIcon from 'assets/img/ActivityPage/action-likes.svg';
 import foldersIcon from 'assets/img/ActivityPage/action-folder.svg';
 import followIcon from 'assets/img/ActivityPage/action-follow.svg';
 import commentIcon from 'assets/img/ActivityPage/action-comment.svg';
+import { sliceString } from 'utils';
 
 interface Props {
   activityType: string;
@@ -42,7 +43,7 @@ const ActivityItem: React.FC<Props> = ({
       </div>
       <div className={s.info}>
         <div className={s.name}>
-          {userName?.length > 21 ? `${userName.slice(0, 14)}...${userName.slice(-4)}` : userName}
+          {userName?.length > 15 ? sliceString(userName) : userName}
         </div>
         <div className={s.event}>{actionDescription}</div>
         <div className={s.time}>{timeAgo}</div>

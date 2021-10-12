@@ -241,6 +241,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
           <div className={styles.artCardsWrapper}>
             {artWorks.map((art) => {
               const {
+                id: artId,
                 media: image,
                 name,
                 price,
@@ -253,6 +254,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
               } = art;
               return (
                 <ArtCard
+                  artId={artId}
                   imageMain={image}
                   name={name}
                   price={price}
