@@ -4,7 +4,8 @@ import { observer } from 'mobx-react-lite';
 import BigNumber from 'bignumber.js/bignumber';
 
 import { Button, H4, Text } from 'components';
-import { INft, IOwner } from 'typings';
+import { INft } from 'typings';
+import { useGetUserAccessForNft } from 'hooks';
 import { useMst } from '../../../../../store';
 import { useWalletConnectorContext } from '../../../../../services/walletConnect';
 import { contracts } from '../../../../../config';
@@ -27,6 +28,13 @@ const PaymentComponent: FC<Props> = observer(
     const { walletService } = useWalletConnectorContext();
     const { user, modals } = useMst();
     const isGrowPositive = (growth && growth > 0) || false;
+    const {
+      isUserCanEndAuction,
+      isUserCanBuyNft,
+      isUserCanEnterInAuction,
+      isUserCanPutOnSale,
+      isOwner,
+    } = useGetUserAccessForNft(nft, user.id, user.address);
 
     const [isApproved, setApproved] = React.useState<boolean>(false);
     const [isApproving, setApproving] = React.useState<boolean>(false);
@@ -42,118 +50,6 @@ const PaymentComponent: FC<Props> = observer(
       }
       return 0;
     }, [nft]);
-
-    const isOwner = React.useMemo(() => {
-      if (user.id && nft && nft.owners) {
-        if (Array.isArray(nft.owners)) {
-          return !!nft.owners.find((owner: IOwner) => {
-            return owner.id === user.id;
-          });
-        }
-        return user.id === nft.owners.id;
-      }
-      return false;
-    }, [nft, user.id]);
-
-    const isWrongChain = React.useMemo(() => {
-      if (!nft || !user.address) return true;
-      if (
-        nft?.network.name === 'Binance-Smart-Chain' &&
-        localStorage.netfly_nft_chainName === 'Binance-Smart-Chain'
-      ) {
-        return false;
-      }
-      if (
-        nft?.network.name === 'Kardiachain' &&
-        localStorage.netfly_nft_chainName === 'KardiaChain'
-      ) {
-        return false;
-      }
-      return true;
-    }, [nft, user.address]);
-
-    const isUserCanRemoveFromSale = React.useMemo(() => {
-      if (user.id && nft && !isWrongChain) {
-        if (nft.standart === 'ERC721' && nft.is_selling && isOwner) {
-          return true;
-        }
-        if (
-          nft.standart === 'ERC1155' &&
-          (nft.sellers.find((seller) => seller.id === user.id) ||
-            nft.owner_auction.find((seller) => seller.id === user.id)) &&
-          isOwner
-        ) {
-          return true;
-        }
-      }
-      return false;
-    }, [nft, isOwner, user.id, isWrongChain]);
-
-    console.log('isUserCanRemoveFromSale', isUserCanRemoveFromSale);
-
-    const isUserCanBuyNft = React.useMemo(() => {
-      if (user.id && nft && !isWrongChain && nft.price && nft.is_selling && nft.available !== 0) {
-        if (nft.standart === 'ERC721' && !isOwner) {
-          return true;
-        }
-        if (
-          nft.standart === 'ERC1155' &&
-          ((nft.sellers.length === 1 && nft.sellers[0].id !== user.id) || nft.sellers.length > 1)
-        ) {
-          return true;
-        }
-      }
-      return false;
-    }, [nft, user.id, isOwner, isWrongChain]);
-
-    const isUserCanEnterInAuction = React.useMemo(() => {
-      if (user.id && nft && !isWrongChain && nft.is_auc_selling && nft.available !== 0) {
-        if (nft.standart === 'ERC721' && !isOwner) {
-          return true;
-        }
-        if (
-          nft.standart === 'ERC1155' &&
-          (nft.owner_auction.length > 1 ||
-            (nft.owner_auction.length === 1 && nft.owner_auction[0].id !== user.id))
-        ) {
-          return true;
-        }
-      }
-      return false;
-    }, [nft, isOwner, user.id, isWrongChain]);
-
-    const isUserCanEndAuction = React.useMemo(() => {
-      if (user.id && nft && !isWrongChain && nft.is_auc_selling && nft.bids.length && isOwner) {
-        if (nft.standart === 'ERC721') {
-          return true;
-        }
-        if (
-          nft.standart === 'ERC1155' &&
-          nft.owner_auction.find((seller) => seller.id === user.id)
-        ) {
-          return true;
-        }
-      }
-      return false;
-    }, [nft, isOwner, user.id, isWrongChain]);
-
-    console.log('isUserCanEndAuction', isUserCanEndAuction);
-
-    const isUserCanPutOnSale = React.useMemo(() => {
-      if (user.id && nft && !isWrongChain && isOwner && !nft.is_selling && !nft.is_auc_selling) {
-        if (nft.standart === 'ERC721') {
-          return true;
-        }
-        if (
-          nft.standart === 'ERC1155' &&
-          !nft.sellers.find((seller) => seller.id === user.id) &&
-          !nft.owner_auction.find((seller) => seller.id === user.id)
-        ) {
-          return true;
-        }
-      }
-      return false;
-    }, [nft, isOwner, user.id, isWrongChain]);
 
     const nftSellingType = React.useMemo(() => {
       if (nft) {

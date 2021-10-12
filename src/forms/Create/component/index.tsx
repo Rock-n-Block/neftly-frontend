@@ -336,7 +336,11 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                             setValue={(value) => setFieldValue('currency', value)}
                             options={
                               values.sellMethod === 'openForBids'
-                                ? [...currencies.filter((rate: any) => rate !== 'bnb')]
+                                ? [
+                                    ...currencies.filter(
+                                      (rate: any) => !['bnb', 'eth'].includes(rate),
+                                    ),
+                                  ]
                                 : currencies
                             }
                             className={styles.dropdown}
