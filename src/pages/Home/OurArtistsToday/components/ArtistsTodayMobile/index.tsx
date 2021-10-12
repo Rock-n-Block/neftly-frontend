@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import cx from 'classnames';
-import { H2, Loader, TabLookingComponent } from 'components';
+import { H2, H3, Loader, TabLookingComponent } from 'components';
 import { OptionType, TTopUserRes } from 'typings';
 
 import { ArtistLabel } from '..';
@@ -46,6 +46,7 @@ const ArtistsTodayMobile: FC<Props> = ({ className, artistData, isLoading, categ
         ) : (
           <Loader />
         )}
+        {!artistData.length && <H3>No data available</H3>}
       </div>
     </div>
   );

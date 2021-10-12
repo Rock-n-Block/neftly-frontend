@@ -4,7 +4,7 @@ import { TTopUserRes } from 'typings';
 
 export const useFetchTopUsers = (
   type = 'seller',
-  sortPeriod = 'month',  
+  sortPeriod = 'day',  
 ) => {
   const [isLoading, setIsLoading] = useState(false);
   const [topUser, setTopUser] = useState<TTopUserRes>([]);
