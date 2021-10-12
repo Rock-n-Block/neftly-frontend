@@ -4,15 +4,18 @@ import cx from 'classnames';
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
+import { observer } from 'mobx-react-lite';
 
 import { selectOptions } from './helperData';
 
 import styles from './styles.module.scss';
 import BigNumber from 'bignumber.js';
+import { useMst } from 'store';
 
-const Discover = () => {
+const Discover = observer(() => {
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useMst();
 
   const handleOpenFilter = useCallback(() => {
     setFilterOpen(!isFilterOpen);
@@ -102,6 +105,7 @@ const Discover = () => {
                     highest_bid,
                     minimal_bid,
                     bids,
+                    is_liked,
                   } = artCard;
                   return (
                     <ArtCard
@@ -121,6 +125,8 @@ const Discover = () => {
                       likesNumber={like_count}
                       tags={tags}
                       bids={bids}
+                      isLiked={is_liked}
+                      hasAddress={!!user.address}
                     />
                   );
                 })
@@ -132,6 +138,6 @@ const Discover = () => {
       <LiveAuction className={styles.liveAuction} />
     </div>
   );
-};
+});
 
 export default Discover;
