@@ -157,5 +157,15 @@ export const contracts: IContracts = {
         abi: erc20Abi,
       },
     },
+    WETH: {
+      mainnet: {
+        address: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
+        abi: erc20Abi,
+      },
+      testnet: {
+        address: '0x699471954CA6C5cdD75E323530b818A373b7ccBd',
+        abi: erc20Abi,
+      },
+    },
   },
 };

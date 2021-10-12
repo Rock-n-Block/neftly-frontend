@@ -1,31 +1,39 @@
 import { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
+import { observer } from 'mobx-react-lite';
+import { useHistory } from 'react-router-dom';
 
 import { storeApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import { Button } from '..';
+import { useMst } from '../../store';
 
 import styles from './Burn.module.scss';
 
 interface IBurnProps {
   className?: string;
-  itemId?: string;
-  standart?: string;
 }
 
-const Burn: React.FC<IBurnProps> = ({ className, itemId, standart }) => {
+const Burn: React.FC<IBurnProps> = ({ className }) => {
+  const {
+    modals: { burn },
+  } = useMst();
+  const history = useHistory();
   const walletConnector = useWalletConnectorContext();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
   const burnToken = useCallback(() => {
     storeApi
-      .burnToken(itemId || '', amount)
+      .burnToken(burn.tokenId.toString() || '', amount)
       .then(({ data }: any) => {
-        return walletConnector.walletService.sendTransaction(data.initial_tx);
+        walletConnector.walletService.sendTransaction(data.initial_tx).then(() => {
+          burn.close();
+          history.push('/');
+        });
       })
       .catch((e: any) => console.error('Bid modal sendTranscation', e))
       .finally(() => setIsLoading(false));
-  }, [itemId, amount, walletConnector.walletService]);
+  }, [burn, amount, walletConnector.walletService, history]);
 
   useEffect(() => {
     if (isLoading) burnToken();
@@ -36,7 +44,7 @@ const Burn: React.FC<IBurnProps> = ({ className, itemId, standart }) => {
         Are you sure to burn this token? This action cannot be undone. Token will be transfered to
         zero address
       </div>
-      {standart === 'ERC1155' && (
+      {burn.standart === 'ERC1155' && (
         <div className={styles.field}>
           <input
             className={styles.input}
@@ -71,4 +79,4 @@ const Burn: React.FC<IBurnProps> = ({ className, itemId, standart }) => {
   );
 };
 
-export default Burn;
+export default observer(Burn);

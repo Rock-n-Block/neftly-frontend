@@ -3,7 +3,6 @@ import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
-import Burn from '../Burn';
 import Icon from '../Icon';
 import Modal from '../Modal';
 import RemoveSale from '../RemoveSale';
@@ -34,7 +33,6 @@ const Actions: React.FC<IActionsProps> = ({
   const [visible, setVisible] = useState(false);
   const [visibleModalTransfer, setVisibleModalTransfer] = useState(false);
   const [visibleModalRemoveSale, setVisibleModalRemoveSale] = useState(false);
-  const [visibleModalBurn, setVisibleModalBurn] = useState(false);
   const [visibleModalReport, setVisibleModalReport] = useState(false);
 
   const items: Array<{
@@ -60,12 +58,6 @@ const Actions: React.FC<IActionsProps> = ({
       icon: 'close-circle',
       action: () => setVisibleModalRemoveSale(true),
       condition: isMayRemoveFromSale,
-    },
-    {
-      title: 'Burn token',
-      icon: 'close-circle',
-      action: () => setVisibleModalBurn(true),
-      condition: isOwner,
     },
     {
       title: 'Report',
@@ -124,9 +116,6 @@ const Actions: React.FC<IActionsProps> = ({
       </Modal>
       <Modal visible={visibleModalRemoveSale} onClose={() => setVisibleModalRemoveSale(false)}>
         <RemoveSale removeFromSale={handleRemoveFromSale} />
-      </Modal>
-      <Modal visible={visibleModalBurn} onClose={() => setVisibleModalBurn(false)}>
-        <Burn itemId={itemId} standart={standart} />
       </Modal>
       <Modal visible={visibleModalReport} onClose={() => setVisibleModalReport(false)}>
         <Report />
