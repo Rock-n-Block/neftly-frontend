@@ -57,6 +57,7 @@ export const useFetchNft = (props: IProps) => {
         text,
       )
       .then(({ data: { items, total_tokens } }: any) => {
+        // TODO: проверить когда внесут изменения на бэке
         setTotalItems(total_tokens);
         if (refresh) {
           setNftCards(items);

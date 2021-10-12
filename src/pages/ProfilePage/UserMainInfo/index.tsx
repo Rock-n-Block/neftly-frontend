@@ -20,10 +20,10 @@ import { useHistory } from 'react-router';
 
 interface IProps {
   userId: string;
-  setUserAddress: any;
+  setCurrentUser: any;
 }
 
-const UserMainInfo: React.FC<IProps> = observer(({ userId, setUserAddress }) => {
+const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => {
   const history = useHistory();
   const { user } = useMst();
   const [shownUser, setShownUser] = useState<IExtendedInfo>({
@@ -51,9 +51,9 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setUserAddress }) => 
   const getUser = useCallback(() => {
     userApi.getUser({ id: userId }).then(({ data }: any) => {
       setShownUser(data);
-      setUserAddress(data.address);
+      setCurrentUser(data);
     });
-  }, [setUserAddress, userId]);
+  }, [setCurrentUser, userId]);
 
   const findIsFollowed = useCallback(() => {
     return !!shownUser.followers.find((follower) => follower.id.toString() === user.id.toString());

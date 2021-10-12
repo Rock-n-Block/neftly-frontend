@@ -7,6 +7,7 @@ import UserMainInfo from './UserMainInfo';
 import { useParams } from 'react-router';
 import { useState } from 'react';
 import { Artworks, Collectibles, Favorited } from './Tabs';
+import { IExtendedInfo } from '../../typings';
 
 const tabs = [
   {
@@ -30,11 +31,11 @@ const tabs = [
 const ProfilePage: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
   const [activeTab, setActiveTab] = useState(tabs[0].title);
-  const [userAddress, setUserAddress] = useState('');
+  const [currentUser, setCurrentUser] = useState<IExtendedInfo>();
 
   return (
     <section className={s.page}>
-      <UserMainInfo userId={userId} setUserAddress={setUserAddress} />
+      <UserMainInfo userId={userId} setCurrentUser={setCurrentUser} />
 
       <div className={s.page_body}>
         <div className={s.page_body__left}>
@@ -49,7 +50,7 @@ const ProfilePage: React.FC = () => {
         <div className={s.page_body__right}>
           {activeTab === 'My Artworks' && <Artworks userId={userId} />}
           {activeTab === 'Collectibles' && <Collectibles userId={userId} />}
-          {activeTab === 'Favorited' && <Favorited userAddress={userAddress} />}
+          {activeTab === 'Favorited' && <Favorited userAddress={currentUser?.address || ''} />}
           {activeTab === 'About Me' && <></>}
         </div>
       </div>
