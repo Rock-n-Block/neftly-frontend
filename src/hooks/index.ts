@@ -4,3 +4,4 @@ export { default as useFilters } from './useFilters';
 export * from './useInfiniteScroll';
 export * from './useFetchNft';
 export * from './useFetchCollection';
+export * from './useFetchTopUser';
