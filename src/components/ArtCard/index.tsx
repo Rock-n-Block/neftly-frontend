@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as PinkHeart } from 'assets/img/pinkHeart.svg';
 import cx from 'classnames';
 import { Button, Tag, Text } from 'components';
-import { useLike } from 'hooks';
+// import { useLike } from 'hooks';
 import { numberFormatter } from 'utils';
 
 import { routes } from '../../appConstants';
@@ -25,12 +25,12 @@ type Props = {
   inStockNumber?: number | string;
   author: string;
   authorAvatar: string;
-  likesNumber: number | string;
+  likesNumber: number;
   tags?: any[];
   isCollection?: boolean;
   bids?: any[];
   isLiked?: boolean;
-  hasAddress?: boolean;
+  likeAction?: (id: string | number) => void;
 };
 
 const ArtCard: FC<Props> = ({
@@ -53,10 +53,21 @@ const ArtCard: FC<Props> = ({
   isCollection,
   bids,
   isLiked = false,
-  hasAddress = false,
+  likeAction = () => {},
 }) => {
-  const { isLike, likeCount, handleLike } = useLike(isLiked, +likesNumber, artId, hasAddress);
+  const [isLike, setIsLike] = useState(isLiked);
+  const [likesCount, setLikesCount] = useState(likesNumber);
 
+  const handleLike = useCallback(() => {
+    if (isLike) {
+      likeAction(artId);
+      setLikesCount(likesNumber - 1);
+    } else {
+      likeAction(artId);
+      setLikesCount(likesNumber + 1);
+    }
+    setIsLike(!isLike);
+  }, [artId, isLike, likeAction, likesNumber]);
   return (
     <div className={cx(styles.artCard, className)}>
       <Link
@@ -124,11 +135,11 @@ const ArtCard: FC<Props> = ({
             <Button
               className={cx(styles.artCardHeart, { [styles.artCardHeartActive]: isLike })}
               onClick={handleLike}
-              color="outline"
+              color="transparent"
             >
               <PinkHeart />
-              <Text>{numberFormatter(likeCount, 3)}</Text>
             </Button>
+            <Text>{numberFormatter(likesCount, 3)}</Text>
           </div>
         </div>
       </div>

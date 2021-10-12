@@ -1,16 +1,17 @@
 import { RefObject, useCallback, useState } from 'react';
 import { filter } from 'assets/img';
+import BigNumber from 'bignumber.js';
 import cx from 'classnames';
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
 import { observer } from 'mobx-react-lite';
+import { userApi } from 'services';
+import { useMst } from 'store';
 
 import { selectOptions } from './helperData';
 
 import styles from './styles.module.scss';
-import BigNumber from 'bignumber.js';
-import { useMst } from 'store';
 
 const Discover = observer(() => {
   const [isFilterOpen, setFilterOpen] = useState(false);
@@ -52,6 +53,14 @@ const Discover = observer(() => {
     verifiedFilter.value,
   );
 
+  const likeAction = useCallback(
+    (id) => {
+      if (user.address) {
+        userApi.like({ id });
+      }
+    },
+    [user.address],
+  );
   const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading);
   return (
     <div className={styles.discover}>
@@ -126,7 +135,7 @@ const Discover = observer(() => {
                       tags={tags}
                       bids={bids}
                       isLiked={is_liked}
-                      hasAddress={!!user.address}
+                      likeAction={likeAction}
                     />
                   );
                 })
