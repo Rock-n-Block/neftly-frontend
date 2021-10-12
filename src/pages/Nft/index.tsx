@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import cx from 'classnames';
 import { useParams, useHistory } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 
 import {
@@ -23,8 +22,7 @@ import {
 } from 'components/Table/TradingHistoryCells';
 import { Chart } from 'containers';
 import { TableCell, INft, OptionType } from 'typings';
-import { useMst } from '../../store';
-import { userApi, storeApi } from '../../services/api';
+import { storeApi } from '../../services/api';
 
 import { data as mockData } from './mockdata';
 
@@ -101,8 +99,7 @@ const columnTest = [
   },
 ];
 
-const DetailArtwork: FC<Props> = observer(({ className }) => {
-  const { user } = useMst();
+const DetailArtwork: FC<Props> = ({ className }) => {
   const history = useHistory();
 
   const { id } = useParams<{ id: string }>();
@@ -144,12 +141,6 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     return [];
   }, [nft, selectedHistorySort]);
 
-  const handleLike = React.useCallback(() => {
-    if (user.address) {
-      userApi.like({ id: nft?.id });
-    }
-  }, [nft?.id, user.address]);
-
   const handleChangeSortTable = (value: any) => {
     setSelectedHistorySort(value);
   };
@@ -157,16 +148,14 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
   const getRelatedArtworks = React.useCallback((page: number) => {
     setLoadingArtWorks(true);
     storeApi
-      .getSearchResults(
-        {
-          type: 'items',
-          order_by: 'Recently added',
-          tags: 'All items',
-          max_price: [2000],
-          currency: 'bnb',
-          page
-        },
-      )
+      .getSearchResults({
+        type: 'items',
+        order_by: 'Recently added',
+        tags: 'All items',
+        max_price: [2000],
+        currency: 'bnb',
+        page,
+      })
       .then(({ data }: any) => {
         setArtWorks((prev: any) => [...prev, ...data.items]);
         setAllPages(Math.ceil(data.total_tokens / 8));
@@ -212,7 +201,6 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
         <GiantCard
           name={nft?.name || ''}
           views={mockData.views}
-          likeAction={handleLike}
           dotsAction={() => alert('dots')}
           growth={mockData.growth}
           nft={nft}
@@ -283,6 +271,6 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
       </div>
     </div>
   );
-});
+};
 
 export default DetailArtwork;
