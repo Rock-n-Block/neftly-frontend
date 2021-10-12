@@ -5,7 +5,6 @@ import BigNumber from 'bignumber.js/bignumber';
 
 import { Button, H4, Text } from 'components';
 import { INft } from 'typings';
-import { useGetUserAccessForNft } from 'hooks';
 import { useMst } from '../../../../../store';
 import { useWalletConnectorContext } from '../../../../../services/walletConnect';
 import { contracts } from '../../../../../config';
@@ -21,20 +20,29 @@ type Props = {
   growth?: number;
   nft: INft | null;
   onUpdateNft?: () => void;
+  isUserCanEndAuction: boolean;
+  isUserCanBuyNft: boolean;
+  isUserCanEnterInAuction: boolean;
+  isUserCanPutOnSale: boolean;
+  isOwner: boolean;
 };
 
 const PaymentComponent: FC<Props> = observer(
-  ({ className, bidAction, growth, nft, onUpdateNft }) => {
+  ({
+    className,
+    bidAction,
+    growth,
+    nft,
+    onUpdateNft,
+    isUserCanEndAuction,
+    isUserCanBuyNft,
+    isUserCanEnterInAuction,
+    isUserCanPutOnSale,
+    isOwner,
+  }) => {
     const { walletService } = useWalletConnectorContext();
     const { user, modals } = useMst();
     const isGrowPositive = (growth && growth > 0) || false;
-    const {
-      isUserCanEndAuction,
-      isUserCanBuyNft,
-      isUserCanEnterInAuction,
-      isUserCanPutOnSale,
-      isOwner,
-    } = useGetUserAccessForNft(nft, user.id, user.address);
 
     const [isApproved, setApproved] = React.useState<boolean>(false);
     const [isApproving, setApproving] = React.useState<boolean>(false);

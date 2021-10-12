@@ -25,6 +25,7 @@ type Props = {
   likeAction: () => void;
   isLiked?: boolean;
   nft: INft | null;
+  isOwner: boolean;
 };
 
 const ViewsAndControlsComponent: FC<Props> = ({
@@ -36,6 +37,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
   link,
   likeAction,
   nft,
+  isOwner,
 }) => {
   const {
     modals: { burn },
@@ -60,24 +62,28 @@ const ViewsAndControlsComponent: FC<Props> = ({
         name: 'Transfer Token',
         img: transferImg,
         event: () => {},
+        isVisible: isOwner,
       },
       {
         name: 'Remove from sale',
         img: removeImg,
         event: () => {},
+        isVisible: isOwner,
       },
       {
         name: 'Burn token',
         img: burnImg,
         event: () => handleActionEvent(handleBurn),
+        isVisible: isOwner,
       },
       {
         name: 'Report',
         img: reportImg,
         event: () => {},
+        isVisible: true,
       },
     ],
-    [handleActionEvent, handleBurn],
+    [handleActionEvent, handleBurn, isOwner],
   );
 
   const handleLike = React.useCallback(() => {
@@ -126,18 +132,23 @@ const ViewsAndControlsComponent: FC<Props> = ({
             trigger="click"
             overlay={
               <div className={styles.actions}>
-                {actions.map((action) => (
-                  <div
-                    className={styles.actionsItem}
-                    onClick={action.event}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={() => {}}
-                  >
-                    <img src={action.img} alt="" />
-                    <span>{action.name}</span>
-                  </div>
-                ))}
+                {actions.map((action) => {
+                  if (action.isVisible) {
+                    return (
+                      <div
+                        className={styles.actionsItem}
+                        onClick={action.event}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={() => {}}
+                      >
+                        <img src={action.img} alt="" />
+                        <span>{action.name}</span>
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
               </div>
             }
             onVisibleChange={(value) => setTooltipVisible(value)}

@@ -23,6 +23,11 @@ type Props = {
   // eslint-disable-next-line react/no-unused-prop-types
   auctionEndingTime: any;
   bidders: any[];
+  isUserCanEndAuction: boolean;
+  isUserCanBuyNft: boolean;
+  isUserCanEnterInAuction: boolean;
+  isUserCanPutOnSale: boolean;
+  isOwner: boolean;
 };
 
 const HotAuctionCardMobile: FC<Props> = ({
@@ -36,6 +41,11 @@ const HotAuctionCardMobile: FC<Props> = ({
   likes,
   artPic,
   bidders,
+  isUserCanEndAuction,
+  isUserCanBuyNft,
+  isUserCanEnterInAuction,
+  isUserCanPutOnSale,
+  isOwner,
 }) => (
   <div className={cx(styles.mobileCard, className)}>
     <div className={styles.imageWrapper}>
@@ -43,7 +53,16 @@ const HotAuctionCardMobile: FC<Props> = ({
     </div>
     <H3>{title}</H3>
     <AuthorComponent authorPic={authorPic} author={author} />
-    <PaymentComponent className={styles.paymentMobile} bidAction={() => alert('bid')} nft={null} />
+    <PaymentComponent
+      className={styles.paymentMobile}
+      bidAction={() => alert('bid')}
+      nft={null}
+      isUserCanEndAuction={isUserCanEndAuction}
+      isUserCanBuyNft={isUserCanBuyNft}
+      isUserCanEnterInAuction={isUserCanEnterInAuction}
+      isUserCanPutOnSale={isUserCanPutOnSale}
+      isOwner={isOwner}
+    />
     <Tab
       className={styles.tabs}
       tabs={[
@@ -63,6 +82,7 @@ const HotAuctionCardMobile: FC<Props> = ({
       likeAction={() => alert('likeAction')}
       link="google"
       nft={null}
+      isOwner={isOwner}
     />
   </div>
 );
