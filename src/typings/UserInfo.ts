@@ -20,6 +20,7 @@ export interface IExtendedInfo extends Omit<IBaseInfo, 'name'> {
   facebook: string | null;
   is_verificated: false;
   site: string | null;
+  created_at: string | Date;
 }
 
 export interface IOwner extends Omit<IBaseInfo, 'address'> {

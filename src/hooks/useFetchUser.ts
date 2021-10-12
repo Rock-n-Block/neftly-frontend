@@ -29,6 +29,7 @@ export const useFetchUser = (props: IProps) => {
     is_verificated: false,
     custom_url: '',
     follows: [],
+    created_at: new Date(),
   });
   const [isFollowed, setIsFollowed] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);

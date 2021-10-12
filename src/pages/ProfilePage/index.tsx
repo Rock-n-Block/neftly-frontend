@@ -6,10 +6,11 @@ import { folders, art, me, heart } from 'assets/img';
 import UserMainInfo from './UserMainInfo';
 import { useParams } from 'react-router';
 import { useState } from 'react';
-import { Artworks, Collectibles, Favorited } from './Tabs';
+import { About, Artworks, Collectibles, Favorited } from './Tabs';
 import { IExtendedInfo } from '../../typings';
 import { useTabs } from 'hooks';
 import { useLocation } from 'react-router-dom';
+import cn from 'classnames';
 
 const tabs = [
   {
@@ -39,7 +40,7 @@ const ProfilePage: React.FC = () => {
   const initialTab = useLocation().search?.replace('?tab=', '') || '';
   const { activeTab, setActiveTab } = useTabs(tabs, initialTab);
   // const [activeTab, setActiveTab] = useState(tabs[0].title);
-  const [currentUser, setCurrentUser] = useState<IExtendedInfo>();
+  const [currentUser, setCurrentUser] = useState<IExtendedInfo>({} as IExtendedInfo);
 
   return (
     <section className={s.page}>
@@ -56,11 +57,11 @@ const ProfilePage: React.FC = () => {
           />
         </div>
 
-        <div className={s.page_body__right}>
+        <div className={cn(s.page_body__right, activeTab === 'about' && s.page_body__about)}>
           {activeTab === 'artworks' && <Artworks userId={userId} />}
           {activeTab === 'collectibles' && <Collectibles userId={userId} />}
           {activeTab === 'favorited' && <Favorited userAddress={currentUser?.address || ''} />}
-          {activeTab === 'about' && <></>}
+          {activeTab === 'about' && <About currentUser={currentUser} />}
         </div>
       </div>
     </section>
