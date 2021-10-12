@@ -10,12 +10,12 @@ interface IProps {
 
 const TabHeader: React.FC<IProps> = ({ title, handleOrderByFilter, orderByFilter }) => {
   return (
-    <div className={s.page_body__top}>
+    <div className={s.tab_header}>
       <div className={s.page_body__top_col}>
         <H3 className={s.title}>My Artworks</H3>
         <Text className={s.counter}>{title}</Text>
       </div>
-      <div className={s.page_body__top_sorters}>
+      <div className={s.tab_header_sorters}>
         <Select
           onChange={handleOrderByFilter as any}
           value={orderByFilter}
