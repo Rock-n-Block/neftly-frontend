@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import cx from 'classnames';
 
 import { Button, Text } from 'components';
@@ -6,6 +6,9 @@ import { Button, Text } from 'components';
 import styles from './styles.module.scss';
 
 import { ReactComponent as PinkHeart } from '../../../../../assets/img/pinkHeart.svg';
+import { useLike } from 'hooks';
+import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
 
 type Props = {
   className?: string;
@@ -14,68 +17,38 @@ type Props = {
   link: string;
   inStock?: number;
   dotsAction: () => void;
-  likeAction: () => void;
   isLiked?: boolean;
+  id?: number | string;
 };
 
-const ViewsAndControlsComponent: FC<Props> = ({
-  className,
-  likes,
-  views,
-  inStock,
-  dotsAction,
-  isLiked = false,
-  link,
-  likeAction,
-}) => {
-  const [isLike, setIsLike] = React.useState<boolean>(isLiked);
-  const [likeCount, setLikeCount] = React.useState(likes);
+const ViewsAndControlsComponent: FC<Props> = observer(
+  ({ className, likes, views, inStock, dotsAction, isLiked = false, link, id }) => {
+    const { user } = useMst();
+    const { isLike, likeCount, handleLike } = useLike(isLiked, likes, id, !!user.address);
 
-  const handleLike = React.useCallback(() => {
-    setIsLike(!isLike);
-    if (isLike) {
-      setLikeCount((prev) => {
-        if (prev > 0) {
-          return prev - 1;
-        }
-        return 0;
-      });
-    } else {
-      setLikeCount((prev) => prev + 1);
-    }
-    likeAction();
-  }, [isLike, likeAction]);
-
-  React.useEffect(() => {
-    setIsLike(isLiked);
-  }, [isLiked]);
-
-  React.useEffect(() => {
-    setLikeCount(likes);
-  }, [likes]);
-
-  return (
-    <div className={cx(styles.viewsAndControls, className)}>
-      <Text>{`Views: ${views}`}</Text>
-      {inStock && <Text color="gray">{`In Stock: ${inStock}`}</Text>}
-      <div className={styles.controls}>
-        <Button
-          className={cx(styles.likeButton, { [styles.likeButtonActive]: isLike })}
-          onClick={handleLike}
-          color="outline"
-        >
-          <PinkHeart />
-          {likeCount}
-        </Button>
-        <Button onClick={() => alert(link)} color="outline">
-          link
-        </Button>
-        <Button onClick={dotsAction} color="outline">
-          ...
-        </Button>
+    return (
+      <div className={cx(styles.viewsAndControls, className)}>
+        <Text>{`Views: ${views}`}</Text>
+        {inStock && <Text color="gray">{`In Stock: ${inStock}`}</Text>}
+        <div className={styles.controls}>
+          <Button
+            className={cx(styles.likeButton, { [styles.likeButtonActive]: isLike })}
+            onClick={handleLike}
+            color="outline"
+          >
+            <PinkHeart />
+            {likeCount}
+          </Button>
+          <Button onClick={() => alert(link)} color="outline">
+            link
+          </Button>
+          <Button onClick={dotsAction} color="outline">
+            ...
+          </Button>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
 
 export default ViewsAndControlsComponent;

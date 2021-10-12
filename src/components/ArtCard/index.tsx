@@ -26,6 +26,7 @@ type Props = {
   likesNumber: number | string;
   tags?: any[];
   isCollection?: boolean;
+  bids?: any[];
 };
 
 const ArtCard: FC<Props> = ({
@@ -46,6 +47,7 @@ const ArtCard: FC<Props> = ({
   likesNumber,
   tags,
   isCollection,
+  bids,
 }) => (
   <div className={cx(styles.artCard, className)}>
     <Link
@@ -80,14 +82,32 @@ const ArtCard: FC<Props> = ({
       <Text size="xl">{name}</Text>
       <div className={styles.flexContainer}>
         {!isCollection && (
-          <Text className={styles.artCardPrice} size="m">{`${price} ${asset}`}</Text>
+          <Text className={styles.artCardPrice} size="m">
+            {`${price} ${asset}`}{' '}
+            {bids?.length ? <span className={styles.bidText}>(Highest Bid)</span> : null}
+          </Text>
         )}
-        {type === 'Small' && <Text size="m">{`in stock: ${inStockNumber}`}</Text>}
+        {type === 'Small' && !bids?.length && <Text size="m">{`in stock: ${inStockNumber}`}</Text>}
       </div>
       <div className={cx(styles.flexContainer, styles.artCardAuthorContainer)}>
         <div className={styles.flexContainer}>
-          <img src={authorAvatar} alt="" />
-          <Text className={styles.artCardAuthor}>{author}</Text>
+          {bids?.length ? (
+            <>
+              <div className={styles.bidder_avatars}>
+                {bids.map((bidder: any, index: number) => {
+                  return index < 2 ? (
+                    <img className={styles.bidder_avatar} src={bidder.bidder_avatar} alt="" />
+                  ) : null;
+                })}
+              </div>
+              <Text className={styles.artCardAuthor}>{bids.length} people have bidded</Text>
+            </>
+          ) : (
+            <>
+              <img src={authorAvatar} className={styles.author_avatar} alt="" />
+              <Text className={styles.artCardAuthor}>{author}</Text>
+            </>
+          )}
         </div>
         <div className={cx(styles.flexContainer, styles.artCardSmallLikes)}>
           <img className={styles.artCardHeart} src={pinkHeart} alt="" />
