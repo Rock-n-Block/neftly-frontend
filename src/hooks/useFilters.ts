@@ -92,6 +92,7 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
         [{ title: 'All items', icon: allCategory }].concat(
           links.data.tags.map((tag: { title: string; icon: string }) => ({
             title: tag.title,
+            key: tag.title.toLowerCase(),
             icon: tag.icon,
           })),
         ),

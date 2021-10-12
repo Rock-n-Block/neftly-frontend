@@ -50,7 +50,7 @@ const About: FC<IProps> = (props) => {
           {currentUser.twitter && (
             <li>
               <a
-                href={`http://twitter.com/${currentUser.twitter}`}
+                href={`https://twitter.com/${currentUser.twitter}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.social}
@@ -65,7 +65,7 @@ const About: FC<IProps> = (props) => {
           {currentUser.instagram && (
             <li>
               <a
-                href={`http://instagram.com/${currentUser.instagram}`}
+                href={`https://instagram.com/${currentUser.instagram}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.social}
@@ -80,7 +80,7 @@ const About: FC<IProps> = (props) => {
           {currentUser.facebook && (
             <li>
               <a
-                href={`http://facebook.com/${currentUser.facebook}`}
+                href={`https://facebook.com/${currentUser.facebook}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.social}

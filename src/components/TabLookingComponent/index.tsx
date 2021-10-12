@@ -4,7 +4,7 @@ import { Button, Text } from 'components';
 
 import styles from './styles.module.scss';
 
-interface ITab {
+export interface ITab {
   key: string;
   title: string;
   icon?: string;
