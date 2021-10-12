@@ -6,6 +6,7 @@ import { artists } from '../../mockData';
 import { ArtistLabel } from '..';
 
 import styles from './styles.module.scss';
+import { useTabs } from '../../../../../hooks';
 
 type Props = {
   className?: string;
@@ -26,23 +27,28 @@ const artistsLabels = [...artists, ...artists]
   })
   .slice(0, 6);
 
-const tabHelper = [
+const tabs = [
   {
     title: 'Most Selling',
+    key: 'selling',
   },
   {
     title: 'Most Earning',
+    key: 'earning',
   },
   {
     title: 'Most Followed',
+    key: 'followed',
   },
   {
     title: 'Most Favorited',
+    key: 'favorited',
   },
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ArtistsTodayMobile: FC<Props> = ({ className }) => {
+  const { activeTab, setActiveTab } = useTabs(tabs);
   return (
     <div className={cx(styles.mobileOurArtist, className)}>
       <H2 align="center">Our Artists</H2>
@@ -50,8 +56,9 @@ const ArtistsTodayMobile: FC<Props> = ({ className }) => {
       <TabLookingComponent
         tabClassName={styles.tab}
         className={styles.tabs}
-        tabs={tabHelper}
-        action={() => {}}
+        tabs={tabs}
+        activeTab={activeTab}
+        action={setActiveTab}
       />
       <div className={styles.artistsWrapper}>
         {artistsLabels}
