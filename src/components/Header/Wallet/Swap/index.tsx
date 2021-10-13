@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 // import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
@@ -7,7 +7,7 @@ import iconSwap from '../../../../assets/img/icons/arrows-swap.svg';
 import { useWalletConnectorContext } from '../../../../services/walletConnect';
 import { WalletConnect } from '../../../../services/walletService';
 import { useMst } from '../../../../store';
-import { Button, TextInput } from 'components';
+import { Button, Text, TextInput } from 'components';
 
 import styles from './Swap.module.scss';
 // import Icon from '../Icon';
@@ -19,25 +19,24 @@ interface ISwapProps {
   wrap: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC';
 }
 
-
 const Swap: React.FC<ISwapProps> = observer(({ className, close, main, wrap }) => {
+  const walletConnector = useWalletConnectorContext();
   const { user } = useMst();
   const [swappingCurrency, setSwappingCurrency] = useState<Array<'main' | 'wrap'>>([
     'main',
     'wrap',
   ]);
   const [isLoading, setLoading] = useState(false);
-  const walletConnector = useWalletConnectorContext();
   const [payInput, setPayInput] = useState('');
-  const handleConvert = (): void => {
+  const handleConvert = useCallback((): void => {
     if (swappingCurrency[0] === 'main') {
       setSwappingCurrency(['wrap', 'main']);
     } else {
       setSwappingCurrency(['main', 'wrap']);
     }
     setPayInput('');
-  };
-  const handleSubmitConvert = (): void => {
+  }, [swappingCurrency]);
+  const handleSubmitConvert = useCallback((): void => {
     const weiValue = WalletConnect.calcTransactionAmount(payInput, 18);
     setLoading(true);
     if (swappingCurrency[0] === 'main') {
@@ -65,7 +64,10 @@ const Swap: React.FC<ISwapProps> = observer(({ className, close, main, wrap }) =
           console.log('error', err);
         });
     }
-  };
+  }, [close, payInput, swappingCurrency, walletConnector.walletService, wrap]);
+  const handlePayInput = useCallback((value: string) => {
+    setPayInput(value);
+  }, []);
 
   const currentBalance = React.useMemo(() => {
     if (swappingCurrency[0] === 'main') {
@@ -78,10 +80,12 @@ const Swap: React.FC<ISwapProps> = observer(({ className, close, main, wrap }) =
       <div className={cn('h4', styles.title)}>Convert</div>
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          <span className={styles.label}>You pay</span>
-          <span className={styles.amount}>
+          <Text tag="span" className={styles.label}>
+            You pay
+          </Text>
+          <Text tag="span" className={styles.amount}>
             Max amount is {swappingCurrency[0] === 'main' ? user.balance?.eth : user.balance?.weth}
-          </span>
+          </Text>
         </div>
         <TextInput
           className={styles.input}
@@ -90,7 +94,7 @@ const Swap: React.FC<ISwapProps> = observer(({ className, close, main, wrap }) =
           label=""
           placeholder="Enter an amount"
           value={payInput}
-          onChange={(e) => setPayInput(e.target.value)}
+          onChange={(e) => handlePayInput(e.target.value)}
           prefix={swappingCurrency[0] === 'main' ? main : wrap}
           prefixClassName={styles.prefix}
         />
@@ -108,7 +112,9 @@ const Swap: React.FC<ISwapProps> = observer(({ className, close, main, wrap }) =
       </div>
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          <span className={styles.label}>You recieve</span>
+          <Text tag="span" className={styles.label}>
+            You recieve
+          </Text>
         </div>
         <TextInput
           className={styles.input}

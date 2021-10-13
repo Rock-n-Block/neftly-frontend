@@ -9,9 +9,7 @@
 }
 
 .avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexbox;
 
   width: 45px;
   height: 45px;
@@ -28,15 +26,9 @@
 .wallet {
   margin-left: 12px;
 
-  color: $neutrals8;
-
   @include m {
     display: none;
   }
-}
-
-.currency {
-  color: $green;
 }
 
 .body {
@@ -123,39 +115,26 @@
 
 .number {
   font-weight: 500;
-
-  color: $neutrals4;
 }
 
 .copy {
   margin-left: 8px;
 
   svg {
-    fill: $blue;
-
     transition: fill 0.2s;
-  }
-
-  &:hover {
-    svg {
-      fill: darken($blue, 10);
-    }
   }
 }
 
 .wrap {
   margin-bottom: 7px;
   padding: 8px;
-  // box-shadow: 0px 24px 24px -8px rgba(15, 15, 15, 0.2);
-  background: $gradient2;
   border-radius: 16px;
 }
 
 .line {
   margin-bottom: 10px;
 
-  display: flex;
-  align-items: center;
+  @include flexbox(center, flex-start);
 }
 
 .preview {
@@ -175,7 +154,6 @@
 
 .info {
   @include caption-2;
-  color: $neutrals4;
 }
 
 .price {
@@ -253,7 +231,7 @@
 
   text-align: center;
 
-  color: #fff;
+  color: $color-neutral-0;
   background-color: black;
   border-radius: 6px;
 }
@@ -270,22 +248,16 @@
   align-items: center;
 }
 
-.swap {
-  box-shadow: 0 0 0 2px #674df6 inset;
-}
-
 .uploadBtn {
   width: 100%;
   padding: 0 25px;
   font-size: 16px;
   font-weight: 600;
-  color: $color-bg;
   margin-bottom: 10px;
 }
 
 .userHeader {
-  display: flex;
-  align-items: center;
+  @include flexbox(flex-start, center);
   margin-bottom: 25px;
 }
 
@@ -301,9 +273,7 @@
     border-radius: 50%;
   }
   margin-right: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexbox
 }
 
 .walletLogo {

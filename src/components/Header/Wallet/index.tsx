@@ -1,22 +1,19 @@
-import { useCallback, useEffect, useState } from 'react';
-// import nextId from 'react-id-generator';
+import { useCallback, useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
-// import { Link } from 'react-router-dom';
-// import { routes } from 'appConstants';
-import BigNumber from 'bignumber.js/bignumber';
 import { chainsEnum } from 'typings';
 import { chains } from 'config';
 import cn from 'classnames';
 import { Button, H5, Modal, Text } from 'components';
 import { observer } from 'mobx-react';
 
-import { ratesApi, useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
 
 import Swap from './Swap';
 
 import styles from './Wallet.module.scss';
 import { wallet } from 'assets/img';
+import { useUserBalance } from 'hooks';
+import { toFixed } from 'utils/BigNumberToFixed';
 
 // import Theme from '../../Theme';
 
@@ -37,61 +34,53 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
       MAIN = 'ETH';
       WRAP = 'WETH';
       break;
-      case 'Polygon':
+    default:
       MAIN = 'MATIC';
       WRAP = 'WMATIC';
       break;
-    default:
-      break;
   }
-  const walletConnector = useWalletConnectorContext();
   const { user } = useMst();
   const [visible, setVisible] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
 
-  const fetchBalance = useCallback(() => {
-    walletConnector.walletService.connectWallet
-      .getBalance(user.address)
-      .then((data: any) =>
-        user.setBalance(
-          new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
-          'eth',
-        ),
-      );
-    walletConnector.walletService.getTokenBalance(WRAP).then((data: any) => {
-      ratesApi.getRates();
-      user.setBalance(
-        new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
-        'weth',
-      );
-    });
-  }, [walletConnector.walletService, user]);
+  const balanceMain = useUserBalance(user.address, MAIN);
+  const balanceWrap = useUserBalance(user.address, WRAP);
 
   const handleOpenModal = useCallback(() => {
     setVisibleModal(true);
     setVisible(false);
   }, []);
+  const handleVisible = useCallback(
+    (value = null) => {
+      if (value || value === false) {
+        setVisible(value);
+      } else {
+        setVisible(!visible);
+      }
+    },
+    [visible],
+  );
 
-  useEffect(() => {
-    if (user.address) fetchBalance();
-  }, [fetchBalance, user.address]);
+  const handleVisibleModal = useCallback((value) => {
+    setVisibleModal(value);
+  }, []);
+
+  const imageSrc =
+    chains[chains[chainsEnum[localStorage.netfly_nft_chainName as chainsEnum]].name].provider[
+      localStorage.netfly_nft_providerName
+    ].img;
+
   return (
-    <OutsideClickHandler onOutsideClick={() => setVisible(false)}>
+    <OutsideClickHandler onOutsideClick={() => handleVisible(false)}>
       <div className={cn(styles.user, className)}>
-        <div tabIndex={0} onKeyDown={() => {}} role="button" onClick={() => setVisible(!visible)}>
+        <div tabIndex={0} onKeyDown={() => {}} role="button" onClick={handleVisible}>
           <img src={wallet} alt="Avatar" />
         </div>
         {visible && (
           <div className={styles.body}>
             <div className={styles.triangle} />
             <div className={styles.walletLogo}>
-              <img
-                src={
-                  chains[chains[chainsEnum[localStorage.netfly_nft_chainName as chainsEnum]].name]
-                    .provider[localStorage.netfly_nft_providerName].img
-                }
-                alt="Wallet Logo"
-              />
+              <img src={imageSrc} alt="Wallet Logo" />
               <Text className={styles.provider} size="m">
                 {localStorage.netfly_nft_providerName}
               </Text>
@@ -101,12 +90,12 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
             </Text>
             <div className={styles.balance}>
               <H5>
-                {new BigNumber(user.balance.eth).toFixed(5)} {MAIN}
+                {toFixed(balanceMain, 5)} {MAIN}
               </H5>
             </div>
             <div className={styles.balance}>
               <H5>
-                {new BigNumber(user.balance.weth).toFixed(5)} {WRAP}
+                {toFixed(balanceWrap, 5)} {WRAP}
               </H5>
             </div>
             <Button className={styles.button} color="outline" onClick={handleOpenModal}>
@@ -114,8 +103,8 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
             </Button>
           </div>
         )}
-        <Modal visible={visibleModal} onClose={() => setVisibleModal(false)}>
-          <Swap close={() => setVisibleModal(false)} main={MAIN} wrap={WRAP} />
+        <Modal visible={visibleModal} onClose={() => handleVisibleModal(false)}>
+          <Swap close={() => handleVisibleModal(false)} main={MAIN} wrap={WRAP} />
         </Modal>
       </div>
     </OutsideClickHandler>

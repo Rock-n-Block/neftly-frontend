@@ -3,11 +3,9 @@
 .iconWrapper {
   margin: 10px 0;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexbox;
 
-  .icon:hover {
+  &:hover {
     cursor: pointer;
   }
 }
@@ -17,8 +15,7 @@
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
+  @include flexbox(flex-start, space-between);
 
   font-size: 12px;
   font-weight: 700;
@@ -27,29 +24,26 @@
 
   color: $neutrals5;
 }
+.swap {
+  .wrapper {
+    text-align: left;
 
-.wrapper {
-  text-align: left;
+    @include body-bold-2;
 
-  @include body-bold-2;
+    .input {
+      margin-top: 12px;
+      color: $color-neutral-0;
+      background: $color-neutral-100;
 
-  input {
-    color: $color-neutral-0 !important;
-    background: $color-neutral-100;
-
-    &::placeholder {
-      color: $color-neutral-40;
+      &::placeholder {
+        color: $color-neutral-40;
+      }
     }
   }
 }
 
-.input {
-  margin-top: 12px;
-}
-
 .btns {
-  display: flex;
-  justify-content: center;
+  @include flexbox(flex-start, center);
 }
 
 .button {
