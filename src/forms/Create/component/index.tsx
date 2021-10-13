@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { upload } from 'assets/img/upload';
 import cn from 'classnames';
@@ -95,6 +95,15 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
     // const cryptocurrencies = ['ETH', 'BTC'];
+    const stringRecieveValue = (parseFloat(`${values.minimalBid}`) * (100 - serviceFee)) / 100 || 0;
+    const stringRatesValue = new BigNumber(
+      rates.find((rate) => rate.symbol === values.currency)?.rate || 0,
+    ).toFixed(2);
+    const currencyOptions = useMemo(() => {
+      return values.sellMethod === 'openForBids'
+        ? [...rates.filter((rate: IRate) => rate.symbol !== 'bnb').map((rate) => rate.symbol)]
+        : rates.map((rate) => rate.symbol);
+    }, [rates, values.sellMethod]);
     const handleClearImg = () => {
       setFieldValue('img', '');
       setFieldValue('preview', '');
@@ -336,15 +345,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           <Dropdown
                             name="currency"
                             setValue={(value) => setFieldValue('currency', value)}
-                            options={
-                              values.sellMethod === 'openForBids'
-                                ? [
-                                    ...rates
-                                      .filter((rate: IRate) => rate.symbol !== 'bnb')
-                                      .map((rate) => rate.symbol),
-                                  ]
-                                : rates.map((rate) => rate.symbol)
-                            }
+                            options={currencyOptions}
                             className={styles.dropdown}
                             value={values.currency}
                           />
@@ -384,14 +385,10 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     </div>
                     <div className={styles.postfix}>
                       {/* change dynamically */}
-                      <Text color="gray">Minimum price 0.004 {values.currency}</Text>
+                      <Text color="gray">Minimum price 0.004 {values.currency.toUpperCase()}</Text>
                       <Text color="gray">
-                        USD{' '}
-                        {new BigNumber(
-                          rates.find((rate) => rate.symbol === values.currency)?.rate || 0,
-                        ).toFixed(2)}{' '}
-                        PER/
-                        {values.currency}
+                        USD {stringRatesValue} PER/
+                        {values.currency.toUpperCase()}
                       </Text>
                     </div>
                   </div>
@@ -439,9 +436,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   <Text color="secondary">
                     Service fee {serviceFee}%
                     <br />
-                    You will receive{' '}
-                    {(parseFloat(`${values.minimalBid}`) * (100 - serviceFee)) / 100 || 0}{' '}
-                    {values.currency?.toUpperCase()}
+                    You will receive {stringRecieveValue} {values.currency?.toUpperCase()}
                   </Text>
                 </div>
                 <div className={styles.tokenProperties}>
