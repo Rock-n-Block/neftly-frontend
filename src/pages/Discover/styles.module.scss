@@ -72,10 +72,10 @@
     }
 
     &.withFilter {
-      flex-basis: calc(100% - 300px);
-      .filterResults {
-        @include flexbox(center, flex-end);
-      }
+      flex-basis: calc(100% - 320px);
+      //.filterResults {
+      //  @include flexbox(center, flex-end);
+      //}
     }
   }
 }

@@ -15,7 +15,7 @@ export interface IProfile {
   twitter?: string;
   instagram?: string;
   facebook?: string;
-  email?: string;
+  // email?: string;
   img?: any;
   preview?: string;
   isLoading: boolean;
@@ -102,7 +102,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                     />
                   )}
                 />
-                <Field
+                {/* <Field
                   id="email"
                   name="email"
                   render={({ form: { isSubmitting } }: FieldProps) => (
@@ -119,7 +119,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                     />
                   )}
                 />
-                {errors.email && touched.email && <Text color="red">Invalid email</Text>}
+                {errors.email && touched.email && <Text color="red">Invalid email</Text>} */}
 
                 <Field
                   id="bio"

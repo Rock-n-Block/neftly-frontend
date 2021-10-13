@@ -160,5 +160,8 @@
 
 .bidder_avatar,
 .author_avatar {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
   border-radius: 50%;
 }
