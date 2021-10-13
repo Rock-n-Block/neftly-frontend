@@ -109,6 +109,14 @@ export const connectWallet = (
   };
 };
 
+const exchangeAddrs = {
+  [chainsEnum['Binance-Smart-Chain']]: !is_production
+    ? '0x5Fb28cD9423c19FD990d02a44DaFF7787932D709'
+    : '',
+  [chainsEnum.Ethereum]: !is_production ? '0x190a5d4643e55313906344176F61724fC138501c' : '',
+  [chainsEnum.Polygon]: !is_production ? '0x928724290F7F868C2fEe10720aE5b48C94c5139F' : '',
+};
+
 export const contracts: IContracts = {
   type: is_production ? 'mainnet' : 'testnet',
   names: ['Token', 'Staking', 'Presale', 'UsdtToken'],
@@ -136,14 +144,11 @@ export const contracts: IContracts = {
     },
     EXCHANGE: {
       mainnet: {
-        address: '0xEca42E21C0D44a7Df04F1f0177C321a123eA9B14',
+        address: exchangeAddrs[localStorage.netfly_nft_chainName as chainsEnum],
         abi: [],
       },
       testnet: {
-        address:
-          localStorage.netfly_nft_chainName === 'Binance'
-            ? '0xF61a883f0688C58cb83fba808bAf6F0e18448366'
-            : '0xdC2fBC02197dF78643a53a39fD5F322307613127',
+        address: exchangeAddrs[localStorage.netfly_nft_chainName as chainsEnum],
         abi: [],
       },
     },
