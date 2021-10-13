@@ -2,41 +2,41 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import { arrowUpRight } from 'assets/img';
 import cx from 'classnames';
 import { Button, H2, Loader, Text } from 'components';
-import { useFetchTopUsers } from 'hooks';
-import { OptionType, TTopUser } from 'typings';
+import { useFetchTopUsers, useTabs } from 'hooks';
+import { TTopUser } from 'typings';
 
 import { ArtistDetail, ArtistLabel, ArtistsTodayMobile } from './components';
 
 import styles from './styles.module.scss';
+import { ITab } from '../../../components/TabLookingComponent';
+import { useLocation } from 'react-router-dom';
 
 type Props = {
   className?: string;
 };
 
-type CategoryType = {
-  label: string;
-  value: string;
-};
-
-const categories: CategoryType[] = [
+const categories: ITab[] = [
   {
-    label: 'Most Selling',
-    value: 'seller',
+    title: 'Most Selling',
+    key: 'seller',
   },
   {
-    label: 'Most Earing',
-    value: 'buyer',
+    title: 'Most Earing',
+    key: 'buyer',
   },
   {
-    label: 'Most Followed',
-    value: 'follows',
+    title: 'Most Followed',
+    key: 'follows',
   },
 ];
 
 const OurArtistsToday: FC<Props> = ({ className }) => {
-  const [selectedCategory, setSelectedCategory] = useState<CategoryType>(categories[0]);
+  // const [selectedCategory, setSelectedCategory] = useState<CategoryType>(categories[0]);
 
-  const { topUser, isLoading } = useFetchTopUsers(selectedCategory.value);
+  const initialTab = useLocation().search?.replace('?tab=', '') || '';
+  const { activeTab, setActiveTab } = useTabs(categories, initialTab);
+
+  const { topUser, isLoading } = useFetchTopUsers(activeTab);
 
   const [selectedArtist, setSelectedArtist] = useState<TTopUser>(topUser[0]);
 
@@ -44,9 +44,9 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
     setSelectedArtist(artist);
   }, []);
 
-  const handleSelelectCategory = useCallback((value: OptionType) => {
-    setSelectedCategory(value);
-  }, []);
+  /*  const handleSelelectCategory = useCallback((value: OptionType) => {
+      setSelectedCategory(value);
+    }, []); */
 
   useEffect(() => {
     handleSelectArtis(topUser[0]);
@@ -60,19 +60,19 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
             <H2 className={styles.gradientTitle}>Today</H2>
           </div>
           <div className={styles.categoryWrapper}>
-            {categories.map(({ label, value }) => (
+            {categories.map(({ key, title }) => (
               <Button
                 className={styles.categorySelector}
                 color="transparent"
-                onClick={() => handleSelelectCategory({ label, value })}
+                onClick={() => setActiveTab(key)}
               >
                 <Text
                   size="m"
                   className={cx(styles.category, {
-                    [styles.selected]: selectedCategory.value === value,
+                    [styles.selected]: activeTab === key,
                   })}
                 >
-                  {label}
+                  {title}
                 </Text>
               </Button>
             ))}
@@ -126,7 +126,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
       </div>
       <ArtistsTodayMobile
         categories={categories}
-        categoriesHandler={handleSelelectCategory}
+        categoriesHandler={setActiveTab}
         artistData={topUser}
         className={styles.artistsMobile}
         isLoading={isLoading}

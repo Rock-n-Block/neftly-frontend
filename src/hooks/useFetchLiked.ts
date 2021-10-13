@@ -6,58 +6,22 @@ const NUMBER_NFTS_PER_PAGE = 6;
 interface IProps {
   setLoading: (value: boolean) => void;
   page: number;
-  sort: string;
-  order_by?: string;
-  tags?: string;
-  max_price?: number;
-  currency?: string;
-  is_verified?: string;
-  on_sale?: boolean;
-  creator?: string;
-  owner?: string;
-  text?: string;
+  address: string;
 }
 
-export const useFetchNft = (props: IProps) => {
-  const {
-    page,
-    sort,
-    order_by,
-    tags,
-    max_price,
-    currency,
-    is_verified,
-    creator,
-    owner,
-    setLoading,
-    on_sale,
-    text = '',
-  } = props;
+export const useFetchLiked = (props: IProps) => {
+  const { page, setLoading, address } = props;
   const [allPages, setAllPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [nftCards, setNftCards] = useState<any>([]);
 
-  const fetchSearch = () => {
+  const fetchLiked = () => {
     const refresh = page === 1;
     setLoading(true);
     storeApi
-      .getSearchResults(
-        {
-          sort,
-          order_by,
-          tags,
-          max_price,
-          currency,
-          page,
-          is_verified,
-          creator,
-          on_sale,
-          owner,
-        },
-        text,
-      )
+      .getLiked(address, page)
       .then(({ data: { items, total_tokens } }: any) => {
-        // TODO: проверить когда внесут изменения на бэке
+        console.log('fetchLiked', items, total_tokens);
         setTotalItems(total_tokens);
         if (refresh) {
           setNftCards(items);
@@ -75,9 +39,9 @@ export const useFetchNft = (props: IProps) => {
   };
 
   useEffect(() => {
-    fetchSearch();
+    fetchLiked();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, sort, order_by, tags, max_price, currency, is_verified, creator, on_sale, text]);
+  }, [page, address]);
 
   return {
     allPages,

@@ -84,7 +84,7 @@
 
   .artCardPrice {
     text-transform: uppercase;
-  
+
     color: $color-state-warning;
   }
 }
@@ -115,6 +115,13 @@
 
 .artCardHeart {
   margin-right: 5px;
+  &Active {
+    svg {
+      path {
+        fill: red;
+      }
+    }
+  }
 }
 
 @include forTablet {
@@ -146,7 +153,7 @@
 
 .bidder_avatars {
   @include flexbox(center, center);
-  &::not(:first-child) {
+  :not-first-child {
     margin-left: -10px;
   }
 }

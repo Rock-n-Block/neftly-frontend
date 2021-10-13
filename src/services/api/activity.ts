@@ -46,7 +46,7 @@ export default {
       params: {
         type,
         sort_period: sortPeriod,
-        network: localStorage.netfly_nft_chainName,
+        network: localStorage?.netfly_nft_chainName,
       },
     }),
 };

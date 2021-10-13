@@ -1,209 +1,68 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
-
-import UserMainInfo from './UserMainInfo/index';
-import { userApi } from 'services/api';
-import { useMst } from 'store';
-
-import { H3, ArtCard, Button, Select, TabLookingComponent } from 'components';
-import { data as dataMock } from './CardsMock';
+import { TabLookingComponent } from 'components';
 
 import s from './ProfilePage.module.scss';
 
 import { folders, art, me, heart } from 'assets/img';
+import UserMainInfo from './UserMainInfo';
+import { useParams } from 'react-router';
+import { useState } from 'react';
+import { About, Artworks, Collectibles, Favorited } from './Tabs';
+import { IExtendedInfo } from '../../typings';
+import { useTabs } from 'hooks';
+import { useLocation } from 'react-router-dom';
+import cn from 'classnames';
 
-const selectOptions = [
-  {
-    label: 'Latest',
-    value: 'latest',
-  },
-  {
-    label: 'Featured',
-    value: 'featured',
-  },
-  {
-    label: 'Rare',
-    value: 'rare',
-  },
-];
-
-const selectOptionsTwo = [
-  {
-    label: 'Hot',
-    value: 'hot',
-  },
-  {
-    label: 'Featured',
-    value: 'featured',
-  },
-  {
-    label: 'Rare',
-    value: 'rare',
-  },
-];
 const tabs = [
   {
     title: 'My Artworks',
+    key: 'artworks',
     icon: art,
   },
   {
-    title: 'Collection',
+    title: 'Collectibles',
+    key: 'collectibles',
     icon: folders,
   },
   {
     title: 'Favorited',
+    key: 'favorited',
     icon: heart,
   },
   {
-    title: 'About me',
+    title: 'About Me',
+    key: 'about',
     icon: me,
   },
 ];
 
 const ProfilePage: React.FC = () => {
-  const [filterOne, setFilterOne] = useState(selectOptions[0]);
   const { userId } = useParams<{ userId: string }>();
-  const { user } = useMst();
-  const history = useHistory();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [shownUser, setShownUser] = useState<{
-    id: number | string;
-    avatar: string;
-    display_name?: string;
-    address: string;
-    cover: string;
-    followers: Array<any>;
-    followers_count: number;
-    follows_count: number;
-    twitter: string | null;
-    instagram: string | null;
-    facebook: string | null;
-    site: string | null;
-    bio: string | null;
-    created_at: any;
-  }>({
-    address: '',
-    cover: '',
-    id: '',
-    avatar: '',
-    display_name: '',
-    followers: [],
-    followers_count: 0,
-    follows_count: 0,
-    twitter: null,
-    instagram: null,
-    facebook: null,
-    site: null,
-    bio: null,
-    created_at: '',
-  });
-
-  const getUser = useCallback(() => {
-    userApi.getUser({ id: userId }).then(({ data }: any) => setShownUser(data));
-  }, [userId]);
-
-  const handleUpload = (file: any) => {
-    setIsLoading(true);
-    const fileData = new FormData();
-    fileData.append('cover', file);
-    userApi
-      .setUserCover(fileData)
-      .then(({ data }) => {
-        setIsLoading(false);
-        user.setCover(data);
-        getUser();
-      })
-      .catch((err) => {
-        console.log(err, 'set cover');
-      });
-  };
-
-  useEffect(() => {
-    if (userId) {
-      getUser();
-    } else {
-      history.push('/');
-    }
-  }, [getUser, userId, history]);
-  const handleFilterOne = useCallback((value) => {
-    setFilterOne(value);
-  }, []);
-
-  const [filterTwo, setFilterTwo] = useState(selectOptionsTwo[0]);
-  const handleFilterTwo = useCallback((value) => {
-    setFilterTwo(value);
-  }, []);
+  const initialTab = useLocation().search?.replace('?tab=', '') || '';
+  const { activeTab, setActiveTab } = useTabs(tabs, initialTab);
+  // const [activeTab, setActiveTab] = useState(tabs[0].title);
+  const [currentUser, setCurrentUser] = useState<IExtendedInfo>({} as IExtendedInfo);
 
   return (
     <section className={s.page}>
-      <div className={s.page_user}>
-        <UserMainInfo
-          handleUpload={handleUpload}
-          isLoading={isLoading}
-          cover={shownUser.cover}
-          avatar={shownUser.avatar}
-        />
-      </div>
+      <UserMainInfo userId={userId} setCurrentUser={setCurrentUser} />
 
       <div className={s.page_body}>
         <div className={s.page_body__left}>
           <div className={s.subtitle}>Menu</div>
-          <TabLookingComponent className={s.tabs} tabs={tabs} action={() => {}} />
+          {/* TODO: change mobile view */}
+          <TabLookingComponent
+            className={s.tabs}
+            tabs={tabs}
+            activeTab={activeTab}
+            action={setActiveTab}
+          />
         </div>
 
-        <div className={s.page_body__right}>
-          <div className={s.page_body__top}>
-            <div className={s.page_body__top_col}>
-              <H3 className={s.title}>My Artworks</H3>
-              <div className={s.counter}>3.456 artwork created</div>
-            </div>
-            <div className={s.page_body__top_sorters}>
-              <Select onChange={handleFilterOne} value={filterOne} options={selectOptions} />
-              <Select onChange={handleFilterTwo} value={filterTwo} options={selectOptionsTwo} />
-            </div>
-          </div>
-
-          <div className={s.page_body__artworks}>
-            {dataMock.map((card) => {
-              const {
-                id,
-                image,
-                name,
-                price,
-                asset,
-                inStockNumber,
-                author,
-                authorAvatar,
-                likesNumber,
-              } = card;
-              /* (
-              <ArtCard
-                key={`${el.inStockNumber}-${el.author}-${el.price}`}
-                {...el}
-                imageMain={el.image}
-              />
-            ) */
-              return (
-                <ArtCard
-                  artId={id}
-                  key={name}
-                  imageMain={image}
-                  name={name}
-                  price={price}
-                  asset={asset}
-                  inStockNumber={inStockNumber}
-                  author={author}
-                  authorAvatar={authorAvatar}
-                  likesNumber={likesNumber}
-                />
-              );
-            })}
-          </div>
-          <div className={s.button_wrapper}>
-            <Button className={s.button_more} color="outline">
-              Load More
-            </Button>
-          </div>
+        <div className={cn(s.page_body__right, activeTab === 'about' && s.page_body__about)}>
+          {activeTab === 'artworks' && <Artworks userId={userId} />}
+          {activeTab === 'collectibles' && <Collectibles userId={userId} />}
+          {activeTab === 'favorited' && <Favorited userAddress={currentUser?.address || ''} />}
+          {activeTab === 'about' && <About currentUser={currentUser} />}
         </div>
       </div>
     </section>

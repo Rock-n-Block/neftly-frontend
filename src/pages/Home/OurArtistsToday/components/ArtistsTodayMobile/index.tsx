@@ -1,22 +1,29 @@
 import { FC } from 'react';
 import cx from 'classnames';
 import { H2, H3, Loader, TabLookingComponent } from 'components';
-import { OptionType, TTopUserRes } from 'typings';
+import { TTopUserRes } from 'typings';
 
 import { ArtistLabel } from '..';
 
 import styles from './styles.module.scss';
+import { ITab } from '../../../../../components/TabLookingComponent';
 
 type Props = {
   className?: string;
   artistData: TTopUserRes;
   isLoading: boolean;
-  categories: OptionType[];
-  categoriesHandler: (value: OptionType) => void;
+  categories: ITab[];
+  categoriesHandler: (value: string) => void;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ArtistsTodayMobile: FC<Props> = ({ className, artistData, isLoading, categories, categoriesHandler }) => {
+const ArtistsTodayMobile: FC<Props> = ({
+  className,
+  artistData,
+  isLoading,
+  categories,
+  categoriesHandler,
+}) => {
   return (
     <div className={cx(styles.mobileOurArtist, className)}>
       <H2 align="center">Our Artists</H2>
