@@ -10,7 +10,6 @@ export const data = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured'],
   },
   {
     image: smallArtCardImage,
@@ -21,7 +20,6 @@ export const data = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured', 'rare'],
   },
   {
     image: smallArtCardImage,
@@ -32,7 +30,6 @@ export const data = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured'],
   },
   {
     image: smallArtCardImage,
@@ -43,7 +40,6 @@ export const data = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured', 'rare'],
   },
   {
     image: smallArtCardImage,
@@ -54,7 +50,6 @@ export const data = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured'],
   },
   {
     image: smallArtCardImage,
@@ -65,7 +60,6 @@ export const data = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured', 'rare'],
   },
   {
     image: smallArtCardImage,
@@ -76,7 +70,6 @@ export const data = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured', 'rare'],
   },
   {
     image: smallArtCardImage,
@@ -87,6 +80,5 @@ export const data = [
     author: 'Gremmy Thoumeaux',
     authorAvatar: profilePic,
     likesNumber: 3500,
-    tags: ['featured'],
   },
 ];

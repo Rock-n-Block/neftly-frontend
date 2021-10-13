@@ -2,14 +2,15 @@ export * from './UserInfo';
 export * from './components';
 export * from './hooks';
 export * from './connect';
+export * from './api';
 
 export type ArtistType = {
   id?: number | string;
   avatar: string;
   name: string;
-  artsNumber: number;
+  artsNumber?: number;
   amount: number;
-  asset: string;
+  asset?: string;
 };
 
 export interface IHistoryItem {

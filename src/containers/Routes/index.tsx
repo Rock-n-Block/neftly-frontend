@@ -9,6 +9,7 @@ import {
   Activity,
   UploadVariants,
   CreateToken,
+  CollectionPage
 } from 'pages';
 
 const Routes = () => (
@@ -26,6 +27,7 @@ const Routes = () => (
     <Route path={routes.create.root} component={UploadVariants} />
     <Route exact path={routes.home.root} component={Home} />
     <Route exact path={routes.activity.root} component={Activity} />
+    <Route path={routes.collection.root} component={CollectionPage} />
     <Redirect to={{ pathname: routes.home.root }} />
   </Switch>
 );

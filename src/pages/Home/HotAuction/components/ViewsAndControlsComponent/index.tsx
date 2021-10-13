@@ -15,6 +15,7 @@ import transferImg from '../../../../../assets/img/icons/transfer.svg';
 import removeImg from '../../../../../assets/img/icons/remove.svg';
 import burnImg from '../../../../../assets/img/icons/burn.svg';
 import reportImg from '../../../../../assets/img/icons/report.svg';
+import { useLike } from 'hooks';
 
 type Props = {
   className?: string;
@@ -22,7 +23,6 @@ type Props = {
   views: number;
   link: string;
   inStock?: number;
-  likeAction: () => void;
   isLiked?: boolean;
   nft: INft | null;
   isOwner: boolean;
@@ -36,7 +36,6 @@ const ViewsAndControlsComponent: FC<Props> = ({
   inStock,
   isLiked = false,
   link,
-  likeAction,
   nft,
   isOwner,
   isUserCanRemoveFromSale,
@@ -45,8 +44,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
     modals: { burn, remove, transfer, report },
     user,
   } = useMst();
-  const [isLike, setIsLike] = React.useState<boolean>(isLiked);
-  const [likeCount, setLikeCount] = React.useState(likes);
+  const { isLike, likeCount, handleLike } = useLike(isLiked, likes, nft?.id, !!user.address);
 
   const [isTooltipVisible, setTooltipVisible] = React.useState(false);
 
@@ -117,29 +115,6 @@ const ViewsAndControlsComponent: FC<Props> = ({
       handleReport,
     ],
   );
-
-  const handleLike = React.useCallback(() => {
-    setIsLike(!isLike);
-    if (isLike) {
-      setLikeCount((prev) => {
-        if (prev > 0) {
-          return prev - 1;
-        }
-        return 0;
-      });
-    } else {
-      setLikeCount((prev) => prev + 1);
-    }
-    likeAction();
-  }, [isLike, likeAction]);
-
-  React.useEffect(() => {
-    setIsLike(isLiked);
-  }, [isLiked]);
-
-  React.useEffect(() => {
-    setLikeCount(likes);
-  }, [likes]);
 
   return (
     <>

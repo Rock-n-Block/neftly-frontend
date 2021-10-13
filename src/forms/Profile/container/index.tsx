@@ -30,7 +30,7 @@ const ProfileForm: React.FC = () => {
     validationSchema: Yup.object().shape({
       displayName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
       customUrl: Yup.string().max(50, 'Too Long!'),
-      bio: Yup.string().max(100),
+      bio: Yup.string().max(1000),
       site: Yup.string().url(),
       twitter: Yup.string().max(50),
       instagram: Yup.string().max(50),

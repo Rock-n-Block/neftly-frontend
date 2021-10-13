@@ -17,13 +17,12 @@ type Props = {
   className?: string;
   name: string;
   views: number;
-  likeAction: () => void;
   growth: number;
   nft: INft | null;
   onUpdateNft?: () => void;
 };
 
-const GiantCard: FC<Props> = ({ className, views, likeAction, growth, nft, onUpdateNft }) => {
+const GiantCard: FC<Props> = ({ className, views, growth, nft, onUpdateNft }) => {
   const { user } = useMst();
   const {
     isUserCanEndAuction,
@@ -43,7 +42,6 @@ const GiantCard: FC<Props> = ({ className, views, likeAction, growth, nft, onUpd
           likes={nft?.like_count || 0}
           views={views}
           inStock={nft?.available || 0}
-          likeAction={likeAction}
           link="google"
           isLiked={nft?.is_liked}
           nft={nft}

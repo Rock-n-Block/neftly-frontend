@@ -1,29 +1,22 @@
 import { RefObject, useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { routes } from 'appConstants';
-import { arrowUpRight, filter } from 'assets/img';
+import { filter } from 'assets/img';
+import BigNumber from 'bignumber.js';
 import cx from 'classnames';
-import {
-  ArtCard,
-  Button,
-  H2,
-  H3,
-  LiveAuction,
-  Select,
-  TabLookingComponent,
-  Text,
-} from 'components';
+import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
+import { observer } from 'mobx-react-lite';
+import { userApi } from 'services';
+import { useMst } from 'store';
 
-import { selectOptions } from './helperData';
-import { dataMediumCards } from './mockData';
+import { selectOptions } from 'typings';
 
 import styles from './styles.module.scss';
 
-const Discover = () => {
+const Discover = observer(() => {
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useMst();
 
   const handleOpenFilter = useCallback(() => {
     setFilterOpen(!isFilterOpen);
@@ -49,19 +42,27 @@ const Discover = () => {
     handlePage,
   } = useFilters(setIsLoading);
 
-  const { allPages, totalItems, bids } = useFetchNft(
-    setIsLoading,
+  const { allPages, totalItems, nftCards } = useFetchNft({
+    setLoading: setIsLoading,
     page,
-    'items',
-    orderByFilter.value,
-    tagsFilter,
-    maxPriceFilter,
-    currencyFilter.value,
-    verifiedFilter.value,
+    sort: 'items',
+    order_by: orderByFilter.value,
+    tags: tagsFilter,
+    max_price: maxPriceFilter,
+    currency: currencyFilter.value,
+    is_verified: verifiedFilter.value,
+    on_sale: true,
+  });
+
+  const likeAction = useCallback(
+    (id) => {
+      if (user.address) {
+        userApi.like({ id });
+      }
+    },
+    [user.address],
   );
-
   const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading);
-
   return (
     <div className={styles.discover}>
       <H2 className={styles.title}>
@@ -99,25 +100,44 @@ const Discover = () => {
         <div className={cx(styles.filterResultsContainer, { [styles.withFilter]: isFilterOpen })}>
           <H3>{totalItems} results</H3>
           <div className={styles.filterResults}>
-            {bids.length
-              ? bids.map((artCard: any) => {
-                  const { media, name, price, currency, available, creator, like_count, tags, id } =
-                    artCard;
+            {nftCards.length
+              ? nftCards.map((artCard: any) => {
+                  const {
+                    media,
+                    name,
+                    price,
+                    currency,
+                    available,
+                    creator,
+                    like_count,
+                    tags,
+                    id,
+                    highest_bid,
+                    minimal_bid,
+                    bids,
+                    is_liked,
+                  } = artCard;
                   return (
-                    <Link to={`${routes.nft.link}/${id}`}>
-                      <ArtCard
-                        key={name}
-                        imageMain={media}
-                        name={name}
-                        price={price}
-                        asset={currency.symbol.toUpperCase()}
-                        inStockNumber={available}
-                        author={creator.name}
-                        authorAvatar={creator.avatar}
-                        likesNumber={like_count}
-                        tags={tags}
-                      />
-                    </Link>
+                    <ArtCard
+                      artId={id}
+                      key={name}
+                      imageMain={media}
+                      name={name}
+                      price={
+                        price ||
+                        (highest_bid && new BigNumber(highest_bid.amount).toFixed()) ||
+                        minimal_bid
+                      }
+                      asset={currency.symbol.toUpperCase()}
+                      inStockNumber={available}
+                      author={creator.name}
+                      authorAvatar={creator.avatar}
+                      likesNumber={like_count}
+                      tags={tags}
+                      bids={bids}
+                      isLiked={is_liked}
+                      likeAction={likeAction}
+                    />
                   );
                 })
               : null}
@@ -126,55 +146,8 @@ const Discover = () => {
       </div>
       <div ref={anchorRef as RefObject<HTMLDivElement>} />
       <LiveAuction className={styles.liveAuction} />
-      <div>
-        <div>
-          <div className={styles.recommendArtworkTitle}>
-            <H3>Recommended Bundling Artworks</H3>
-            <Button className={styles.recommendedArtworkBtn} color="transparent">
-              <Text size="l" color="secondary">
-                More Bundling Artworks <img className={styles.arrowPic} src={arrowUpRight} alt="" />
-              </Text>
-            </Button>
-          </div>
-          <div className={styles.recommendArtworkCardContainer}>
-            {dataMediumCards.map((card, index) => {
-              const {
-                image,
-                imageSecondary1,
-                imageSecondary2,
-                imageSecondary3,
-                name,
-                price,
-                asset,
-                inStockNumber,
-                author,
-                authorAvatar,
-                likesNumber,
-              } = card;
-              return (
-                <Link to={`${routes.nft.link}/${index}`}>
-                  <ArtCard
-                    type="Medium"
-                    imageMain={image}
-                    imageSecondaryOne={imageSecondary1}
-                    imageSecondaryTwo={imageSecondary2}
-                    imageSecondaryThree={imageSecondary3}
-                    name={name}
-                    price={price}
-                    asset={asset}
-                    inStockNumber={inStockNumber}
-                    author={author}
-                    authorAvatar={authorAvatar}
-                    likesNumber={likesNumber}
-                  />
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </div>
     </div>
   );
-};
+});
 
 export default Discover;

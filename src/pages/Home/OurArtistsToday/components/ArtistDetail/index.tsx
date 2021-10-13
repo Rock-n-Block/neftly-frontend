@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { arrowUpRight, facebookLogo, instagramLogo, twitterLogo } from 'assets/img';
 import cx from 'classnames';
 import { Button, H4, Text } from 'components';
+import { sliceString } from 'utils';
 
 import styles from './styles.module.scss';
 
@@ -31,14 +32,12 @@ const ArtistDetail: FC<Props> = ({
   twitterLink,
 }) => (
   <div className={cx(styles.artistDetail, className)}>
-    <div className={styles.imageWrapper}>
-      <img src={avatar} alt="" />
-    </div>
+    <img src={avatar} className={styles.image} alt="" />
     <div className={styles.detailsSection}>
       <H4>{name}</H4>
       <div className={styles.addressAndName}>
         <Text className={styles.gradientText} size="xl">{`@${name}`}</Text>
-        <Text color="lightGray">{publicKey}</Text>
+        <Text color="lightGray">{sliceString(publicKey)}</Text>
       </div>
       <Text className={styles.artistDescription} color="lightGray">
         {description}

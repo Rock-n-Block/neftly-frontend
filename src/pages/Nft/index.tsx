@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import cx from 'classnames';
 import { useParams, useHistory } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
 import moment from 'moment';
+import { observer } from 'mobx-react-lite';
 
 import {
   ArtCard,
@@ -23,8 +23,8 @@ import {
 } from 'components/Table/TradingHistoryCells';
 import { Chart } from 'containers';
 import { TableCell, INft, OptionType } from 'typings';
+import { storeApi } from '../../services/api';
 import { useMst } from '../../store';
-import { userApi, storeApi } from '../../services/api';
 
 import { data as mockData } from './mockdata';
 
@@ -103,7 +103,6 @@ const columnTest = [
 
 const DetailArtwork: FC<Props> = observer(({ className }) => {
   const {
-    user,
     modals: { sell, remove },
   } = useMst();
   const history = useHistory();
@@ -146,12 +145,6 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     }
     return [];
   }, [nft, selectedHistorySort]);
-
-  const handleLike = React.useCallback(() => {
-    if (user.address) {
-      userApi.like({ id: nft?.id });
-    }
-  }, [nft?.id, user.address]);
 
   const handleChangeSortTable = (value: any) => {
     setSelectedHistorySort(value);
@@ -230,7 +223,6 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
         <GiantCard
           name={nft?.name || ''}
           views={mockData.views}
-          likeAction={handleLike}
           growth={mockData.growth}
           nft={nft}
           onUpdateNft={getItem}
@@ -259,6 +251,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
           <div className={styles.artCardsWrapper}>
             {artWorks.map((art) => {
               const {
+                id: artId,
                 media: image,
                 name,
                 price,
@@ -271,6 +264,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
               } = art;
               return (
                 <ArtCard
+                  artId={artId}
                   imageMain={image}
                   name={name}
                   price={price}

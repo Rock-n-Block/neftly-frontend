@@ -81,6 +81,12 @@
 
 .flexContainer {
   @include flexbox(center, space-between);
+
+  .artCardPrice {
+    text-transform: uppercase;
+
+    color: $color-state-warning;
+  }
 }
 
 .artCardAuthorContainer {
@@ -92,12 +98,6 @@
   img {
     max-width: 20px;
   }
-}
-
-.artCardPrice {
-  text-transform: uppercase;
-
-  color: $color-state-warning;
 }
 
 .artCardSmallLikes {
@@ -115,6 +115,13 @@
 
 .artCardHeart {
   margin-right: 5px;
+  &Active {
+    svg {
+      path {
+        fill: red;
+      }
+    }
+  }
 }
 
 @include forTablet {
@@ -137,4 +144,21 @@
       height: 57px;
     }
   }
+}
+
+.bidText {
+  color: $color-neutral-20;
+  text-transform: none;
+}
+
+.bidder_avatars {
+  @include flexbox(center, center);
+  :not-first-child {
+    margin-left: -10px;
+  }
+}
+
+.bidder_avatar,
+.author_avatar {
+  border-radius: 50%;
 }

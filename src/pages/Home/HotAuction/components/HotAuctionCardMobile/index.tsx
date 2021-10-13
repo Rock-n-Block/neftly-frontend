@@ -80,7 +80,6 @@ const HotAuctionCardMobile: FC<Props> = ({
     <ViewsAndControlsComponent
       likes={likes}
       views={views}
-      likeAction={() => alert('likeAction')}
       link="google"
       nft={null}
       isOwner={isOwner}

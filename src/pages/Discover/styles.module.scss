@@ -61,7 +61,7 @@
     padding: 0 10px;
 
     .filterResults {
-      @include flexbox(center, space-between);
+      @include flexbox(center, flex-start);
       flex-wrap: wrap;
 
       margin: 0 -16px;
