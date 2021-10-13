@@ -1,15 +1,16 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
 import { ArtCard, Button, H2 } from 'components';
+import { storeApi } from 'services';
 
 import styles from './styles.module.scss';
-import { storeApi } from 'services';
 
 type Props = {
   className?: string;
 };
 
 const HotCollections: FC<Props> = ({ className }) => {
+
   const [collections, setCollections] = useState([]);
   const fetchHotCollections = useCallback(() => {
     storeApi.getCollections().then(({ data }: any) => setCollections(data));
