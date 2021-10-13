@@ -20,6 +20,7 @@ type Props = {
   priceAsset: string;
   auctionEndingTime: any;
   bidders: any[];
+  isLiked: boolean;
 };
 
 const HotAuctionCard: FC<Props> = ({
@@ -36,37 +37,41 @@ const HotAuctionCard: FC<Props> = ({
   priceAsset,
   auctionEndingTime,
   bidders,
-}) => (
-  <div className={cx(styles.hotAuctionCard, className)}>
-    <HotAuctionCardDesktop
-      className={styles.desktopAuctionCard}
-      title={title}
-      authorPic={authorPic}
-      author={author}
-      body={body}
-      tags={tags}
-      views={views}
-      likes={likes}
-      artPic={artPic}
-      currentPrice={currentPrice}
-      priceAsset={priceAsset}
-      auctionEndingTime={auctionEndingTime}
-      bidders={bidders}
-    />
-    <HotAuctionCardMobile
-      className={styles.mobileAuctionCard}
-      title={title}
-      authorPic={authorPic}
-      author={author}
-      body={body}
-      tags={tags}
-      views={views}
-      likes={likes}
-      artPic={artPic}
-      auctionEndingTime={auctionEndingTime}
-      bidders={bidders}
-    />
-  </div>
-);
+  isLiked,
+}) => {
+  console.log(isLiked);
+  return (
+    <div className={cx(styles.hotAuctionCard, className)}>
+      <HotAuctionCardDesktop
+        className={styles.desktopAuctionCard}
+        title={title}
+        authorPic={authorPic}
+        author={author}
+        body={body}
+        tags={tags}
+        views={views}
+        likes={likes}
+        artPic={artPic}
+        currentPrice={currentPrice}
+        priceAsset={priceAsset}
+        auctionEndingTime={auctionEndingTime}
+        bidders={bidders}
+      />
+      <HotAuctionCardMobile
+        className={styles.mobileAuctionCard}
+        title={title}
+        authorPic={authorPic}
+        author={author}
+        body={body}
+        tags={tags}
+        views={views}
+        likes={likes}
+        artPic={artPic}
+        auctionEndingTime={auctionEndingTime}
+        bidders={bidders}
+      />
+    </div>
+  );
+};
 
 export default HotAuctionCard;

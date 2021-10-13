@@ -3,6 +3,7 @@ import cx from 'classnames';
 import { Text } from 'components';
 
 import styles from './styles.module.scss';
+import { sliceString } from 'utils';
 
 type Props = {
   className?: string;
@@ -15,7 +16,7 @@ const AuthorComponent: FC<Props> = ({ className, authorPic, author }) => (
     <div className={styles.avatarWrapper}>
       <img src={authorPic} alt="" />
     </div>
-    <Text>{`by ${author}`}</Text>
+    <Text>{`by ${sliceString(author)}`}</Text>
   </div>
 );
 

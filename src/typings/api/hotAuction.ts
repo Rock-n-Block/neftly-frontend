@@ -41,19 +41,19 @@ export type THistoryElement = {
   avatar: string;
   method: string;
   date: string;
-  price: null | string;
+  price: string;
 };
 
-export type THotAuctionRes = {
+export type THotAuction = {
   is_selling: boolean;
   is_auc_selling: boolean;
-  is_timed_auc_selling: null | string;
+  is_timed_auc_selling: string;
   like_count: number;
   tags: any[];
   id: number;
   name: string;
   media: string;
-  animation: null | string;
+  animation: string;
   total_supply: number;
   available: number;
   price: number;
@@ -63,20 +63,20 @@ export type THotAuctionRes = {
   standart: string;
   creator: TCreator;
   collection: TCollection;
-  minimal_bid: null | string;
-  description: null | string;
-  details: null | string;
+  minimal_bid: string;
+  description: string;
+  details: string;
   royalty: string;
   is_liked: false;
   selling: true;
   updated_at: string;
-  start_auction: null | string;
-  end_auction: null | string;
+  start_auction: string;
+  end_auction: string;
   format: string;
-  digital_key: null | string;
+  digital_key: string;
   bids: any[];
-  highest_bid: null | string;
-  highest_bid_USD: null | string;
+  highest_bid: string;
+  highest_bid_USD: string;
   network: {
     name: string;
     native_symbol: string;
@@ -89,3 +89,5 @@ export type THotAuctionRes = {
   internal_id: number;
   owner_auction: any[];
 };
+
+export type THotAuctionRes = THotAuction[];

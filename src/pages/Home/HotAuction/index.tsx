@@ -1,12 +1,9 @@
-import { title } from 'process';
-
 import { FC } from 'react';
 import cx from 'classnames';
 import { Carousel, H2 } from 'components';
 import { useFetchHotAuction } from 'hooks';
 
 import { HotAuctionCard } from './components';
-import { data } from './mockData';
 
 import styles from './styles.module.scss';
 
@@ -22,23 +19,38 @@ const HotAuction: FC<Props> = ({ className }) => {
         HOT <span className={styles.gradientTitle}>AUCTION</span>
       </H2>
       <Carousel classNameProp={styles.hotAuctionCarousel}>
-        {data.map((auctionItem) => (
-          <HotAuctionCard
-            key={title}
-            title={auctionItem.title}
-            author={auctionItem.author}
-            authorPic={auctionItem.authorPic}
-            artPic={auctionItem.artPic}
-            body={auctionItem.body}
-            tags={auctionItem.tags}
-            views={auctionItem.views}
-            likes={auctionItem.likes}
-            currentPrice={auctionItem.currentPrice}
-            priceAsset={auctionItem.priceAsset}
-            auctionEndingTime={auctionItem.auctionEndingTime}
-            bidders={auctionItem.bidders}
-          />
-        ))}
+        {hotAuction.map((auction) => {
+          const {
+            media,
+            description,
+            tags,
+            like_count,
+            id,
+            end_auction,
+            currency: { rate, symbol },
+            creator: { avatar, name },
+            bids,
+            is_liked,
+          } = auction;
+          return (
+            <HotAuctionCard
+              key={id}
+              title={auction.name}
+              author={name}
+              authorPic={avatar}
+              artPic={media}
+              body={description}
+              tags={tags}
+              views={10}
+              likes={like_count}
+              currentPrice={+rate}
+              priceAsset={symbol}
+              auctionEndingTime={end_auction}
+              bidders={bids}
+              isLiked={is_liked}
+            />
+          );
+        })}
       </Carousel>
     </div>
   );
