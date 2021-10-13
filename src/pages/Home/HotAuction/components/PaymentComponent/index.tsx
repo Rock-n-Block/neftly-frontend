@@ -131,8 +131,8 @@ const PaymentComponent: FC<Props> = observer(
 
     const handleBuyNft = React.useCallback(() => {
       handleSetNft();
-      if (nft?.standart === 'ERC721') {
-        modals.sell.checkout.open(nft.sellers[0].id);
+      if (nft?.standart === 'ERC721' && !Array.isArray(nft.owners)) {
+        modals.sell.checkout.open(nft.owners.id);
       } else {
         modals.sell.chooseSeller.open(nft?.sellers);
       }
