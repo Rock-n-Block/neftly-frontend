@@ -287,10 +287,25 @@ const Transfer = types
       },
     };
   });
+const Report = types
+  .model({
+    isOpen: types.optional(types.boolean, false),
+  })
+  .actions((self) => {
+    return {
+      close: () => {
+        self.isOpen = false;
+      },
+      open: () => {
+        self.isOpen = true;
+      },
+    };
+  });
 
 export const Modals = types.model({
   sell: SellModals,
   burn: Burn,
   remove: Remove,
   transfer: Transfer,
+  report: Report,
 });

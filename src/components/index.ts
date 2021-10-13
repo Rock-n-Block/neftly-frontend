@@ -38,4 +38,5 @@ export { default as Burn } from './Burn';
 export { default as RemoveSale } from './RemoveSale';
 export { default as PutOnSale } from './PutSale';
 export { default as Transfer } from './Transfer';
+export { default as Report } from './Report';
 export * from './Typography';

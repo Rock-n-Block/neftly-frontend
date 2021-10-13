@@ -42,7 +42,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
   isUserCanRemoveFromSale,
 }) => {
   const {
-    modals: { burn, remove, transfer },
+    modals: { burn, remove, transfer, report },
     user,
   } = useMst();
   const [isLike, setIsLike] = React.useState<boolean>(isLiked);
@@ -76,6 +76,10 @@ const ViewsAndControlsComponent: FC<Props> = ({
     transfer.open(nft?.id || 0, nft?.standart || '', available);
   }, [transfer, nft, user.id]);
 
+  const handleReport = React.useCallback(() => {
+    report.open();
+  }, [report]);
+
   const actions = React.useMemo(
     () => [
       {
@@ -99,7 +103,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
       {
         name: 'Report',
         img: reportImg,
-        event: () => {},
+        event: () => handleActionEvent(handleReport),
         isVisible: true,
       },
     ],
@@ -110,6 +114,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
       handleRemoveFromSale,
       isUserCanRemoveFromSale,
       handleTransfer,
+      handleReport,
     ],
   );
 

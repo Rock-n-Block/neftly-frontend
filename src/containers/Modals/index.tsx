@@ -10,12 +10,13 @@ import {
   RemoveSale,
   PutOnSale,
   Transfer,
+  Report,
 } from 'components';
 import { useMst } from '../../store';
 
 const Modals: React.FC = () => {
   const {
-    modals: { sell, burn, remove, transfer },
+    modals: { sell, burn, remove, transfer, report },
   } = useMst();
   return (
     <>
@@ -64,6 +65,9 @@ const Modals: React.FC = () => {
         title="Put on sale"
       >
         <PutOnSale />
+      </Modal>
+      <Modal maxWidth="510px" visible={report.isOpen} onClose={report.close} title="Report">
+        <Report />
       </Modal>
     </>
   );
