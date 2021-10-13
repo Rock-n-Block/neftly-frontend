@@ -5,7 +5,6 @@ import cn from 'classnames';
 
 import Icon from '../Icon';
 import Modal from '../Modal';
-import RemoveSale from '../RemoveSale';
 import Report from '../Report';
 import Transfer from '../Transfer';
 
@@ -32,7 +31,6 @@ const Actions: React.FC<IActionsProps> = ({
 }) => {
   const [visible, setVisible] = useState(false);
   const [visibleModalTransfer, setVisibleModalTransfer] = useState(false);
-  const [visibleModalRemoveSale, setVisibleModalRemoveSale] = useState(false);
   const [visibleModalReport, setVisibleModalReport] = useState(false);
 
   const items: Array<{
@@ -54,25 +52,12 @@ const Actions: React.FC<IActionsProps> = ({
       condition: isOwner,
     },
     {
-      title: 'Remove from sale',
-      icon: 'close-circle',
-      action: () => setVisibleModalRemoveSale(true),
-      condition: isMayRemoveFromSale,
-    },
-    {
       title: 'Report',
       icon: 'info-circle',
       action: () => setVisibleModalReport(true),
       condition: true,
     },
   ];
-
-  const handleRemoveFromSale = () => {
-    removeFromSale().then(() => {
-      setVisibleModalRemoveSale(false);
-    });
-  };
-
   return (
     <>
       <OutsideClickHandler onOutsideClick={() => setVisible(false)}>
@@ -113,9 +98,6 @@ const Actions: React.FC<IActionsProps> = ({
           standart={standart}
           onClose={() => setVisibleModalTransfer(false)}
         />
-      </Modal>
-      <Modal visible={visibleModalRemoveSale} onClose={() => setVisibleModalRemoveSale(false)}>
-        <RemoveSale removeFromSale={handleRemoveFromSale} />
       </Modal>
       <Modal visible={visibleModalReport} onClose={() => setVisibleModalReport(false)}>
         <Report />

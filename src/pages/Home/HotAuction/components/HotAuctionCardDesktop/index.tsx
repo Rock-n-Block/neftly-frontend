@@ -30,6 +30,7 @@ type Props = {
   isUserCanEnterInAuction: boolean;
   isUserCanPutOnSale: boolean;
   isOwner: boolean;
+  isUserCanRemoveFromSale: boolean;
 };
 
 const HotAuctionCardDesktop: FC<Props> = ({
@@ -48,6 +49,7 @@ const HotAuctionCardDesktop: FC<Props> = ({
   isUserCanEnterInAuction,
   isUserCanPutOnSale,
   isOwner,
+  isUserCanRemoveFromSale,
 }) => (
   <div className={cx(styles.desktopCard, className)}>
     <div className={styles.descriptionControls}>
@@ -63,6 +65,7 @@ const HotAuctionCardDesktop: FC<Props> = ({
         link="google"
         nft={null}
         isOwner={isOwner}
+        isUserCanRemoveFromSale={isUserCanRemoveFromSale}
       />
     </div>
     <div className={styles.imageWrapper}>

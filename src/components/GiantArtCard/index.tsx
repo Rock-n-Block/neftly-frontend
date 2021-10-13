@@ -31,6 +31,7 @@ const GiantCard: FC<Props> = ({ className, views, likeAction, growth, nft, onUpd
     isUserCanEnterInAuction,
     isUserCanPutOnSale,
     isOwner,
+    isUserCanRemoveFromSale,
   } = useGetUserAccessForNft(nft, user.id, user.address);
   return (
     <div className={cx(styles.giantCard, className)}>
@@ -47,6 +48,7 @@ const GiantCard: FC<Props> = ({ className, views, likeAction, growth, nft, onUpd
           isLiked={nft?.is_liked}
           nft={nft}
           isOwner={isOwner}
+          isUserCanRemoveFromSale={isUserCanRemoveFromSale}
         />
         {nft?.is_auc_selling || nft?.is_selling ? (
           <PaymentComponent

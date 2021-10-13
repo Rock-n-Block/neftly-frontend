@@ -26,6 +26,7 @@ type Props = {
   isLiked?: boolean;
   nft: INft | null;
   isOwner: boolean;
+  isUserCanRemoveFromSale: boolean;
 };
 
 const ViewsAndControlsComponent: FC<Props> = ({
@@ -38,9 +39,10 @@ const ViewsAndControlsComponent: FC<Props> = ({
   likeAction,
   nft,
   isOwner,
+  isUserCanRemoveFromSale,
 }) => {
   const {
-    modals: { burn },
+    modals: { burn, remove },
   } = useMst();
   const [isLike, setIsLike] = React.useState<boolean>(isLiked);
   const [likeCount, setLikeCount] = React.useState(likes);
@@ -56,6 +58,10 @@ const ViewsAndControlsComponent: FC<Props> = ({
     burn.open(nft?.id || 0, nft?.standart || '');
   }, [burn, nft]);
 
+  const handleRemoveFromSale = React.useCallback(() => {
+    remove.open(nft?.id || 0);
+  }, [remove, nft]);
+
   const actions = React.useMemo(
     () => [
       {
@@ -67,8 +73,8 @@ const ViewsAndControlsComponent: FC<Props> = ({
       {
         name: 'Remove from sale',
         img: removeImg,
-        event: () => {},
-        isVisible: isOwner,
+        event: () => handleActionEvent(handleRemoveFromSale),
+        isVisible: isUserCanRemoveFromSale,
       },
       {
         name: 'Burn token',
@@ -83,7 +89,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
         isVisible: true,
       },
     ],
-    [handleActionEvent, handleBurn, isOwner],
+    [handleActionEvent, handleBurn, isOwner, handleRemoveFromSale, isUserCanRemoveFromSale],
   );
 
   const handleLike = React.useCallback(() => {

@@ -1,34 +1,56 @@
 import React from 'react';
 import cn from 'classnames';
+import { observer } from 'mobx-react-lite';
+
+import { storeApi } from '../../services/api';
+import { useMst } from '../../store';
+import { Button } from '..';
 
 import styles from './RemoveSale.module.scss';
 
 interface IRemoveSaleProps {
   className?: string;
-  removeFromSale: () => void;
 }
 
-const RemoveSale: React.FC<IRemoveSaleProps> = ({ className, removeFromSale }) => {
+const RemoveSale: React.FC<IRemoveSaleProps> = ({ className }) => {
+  const {
+    modals: { remove },
+  } = useMst();
+
+  const removeFromSale = React.useCallback(async () => {
+    try {
+      await storeApi.removeFromSale(remove.tokenId, null, null);
+      remove.success();
+    } catch (error) {
+      console.log(error, 'remove from sale');
+    }
+  }, [remove]);
+
   return (
     <div className={cn(className, styles.transfer)}>
-      <div className={cn('h4', styles.title)}>Remove from sale</div>
       <div className={styles.text}>
         Do you really want to remove your item from sale? You can put it on sale anytime
       </div>
       <div className={styles.btns}>
-        <button type="button" className={cn('button', styles.button)} onClick={removeFromSale}>
+        <Button
+          type="button"
+          className={cn('button', styles.button)}
+          onClick={removeFromSale}
+          isFullWidth
+        >
           Remove now
-        </button>
-        <button type="button" className={cn('button-stroke', styles.button)}>
+        </Button>
+        <Button
+          type="button"
+          className={cn('button-stroke', styles.button)}
+          isFullWidth
+          color="outline"
+        >
           Cancel
-        </button>
+        </Button>
       </div>
     </div>
   );
 };
 
-RemoveSale.defaultProps = {
-  className: '',
-};
-
-export default RemoveSale;
+export default observer(RemoveSale);

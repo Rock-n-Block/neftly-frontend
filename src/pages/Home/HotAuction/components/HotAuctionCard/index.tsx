@@ -48,6 +48,7 @@ const HotAuctionCard: FC<Props> = ({
     isUserCanEnterInAuction,
     isUserCanPutOnSale,
     isOwner,
+    isUserCanRemoveFromSale,
   } = useGetUserAccessForNft(null, user.id, user.address);
   return (
     <div className={cx(styles.hotAuctionCard, className)}>
@@ -70,6 +71,7 @@ const HotAuctionCard: FC<Props> = ({
         isUserCanEnterInAuction={isUserCanEnterInAuction}
         isUserCanPutOnSale={isUserCanPutOnSale}
         isOwner={isOwner}
+        isUserCanRemoveFromSale={isUserCanRemoveFromSale}
       />
       <HotAuctionCardMobile
         className={styles.mobileAuctionCard}
@@ -88,6 +90,7 @@ const HotAuctionCard: FC<Props> = ({
         isUserCanEnterInAuction={isUserCanEnterInAuction}
         isUserCanPutOnSale={isUserCanPutOnSale}
         isOwner={isOwner}
+        isUserCanRemoveFromSale={isUserCanRemoveFromSale}
       />
     </div>
   );

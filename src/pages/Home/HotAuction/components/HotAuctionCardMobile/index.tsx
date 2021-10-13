@@ -28,6 +28,7 @@ type Props = {
   isUserCanEnterInAuction: boolean;
   isUserCanPutOnSale: boolean;
   isOwner: boolean;
+  isUserCanRemoveFromSale: boolean;
 };
 
 const HotAuctionCardMobile: FC<Props> = ({
@@ -46,6 +47,7 @@ const HotAuctionCardMobile: FC<Props> = ({
   isUserCanEnterInAuction,
   isUserCanPutOnSale,
   isOwner,
+  isUserCanRemoveFromSale,
 }) => (
   <div className={cx(styles.mobileCard, className)}>
     <div className={styles.imageWrapper}>
@@ -83,6 +85,7 @@ const HotAuctionCardMobile: FC<Props> = ({
       link="google"
       nft={null}
       isOwner={isOwner}
+      isUserCanRemoveFromSale={isUserCanRemoveFromSale}
     />
   </div>
 );
