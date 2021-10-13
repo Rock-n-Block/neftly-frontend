@@ -36,7 +36,7 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
     {
       title: 'Dashboard',
       icon: 'user',
-      url: '',
+      url: '/discover',
     },
     {
       title: 'Public profile',
