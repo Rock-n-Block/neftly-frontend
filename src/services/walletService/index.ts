@@ -100,7 +100,7 @@ export class WalletConnect {
   async createTransaction(
     method: string,
     data: Array<any>,
-    contract: 'NFT' | 'BEP20' | 'WETH' | 'WBNB' | 'WKAI',
+    contract: 'NFT' | 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC',
     tx?: any,
     tokenAddress?: string,
     walletAddress?: string,
@@ -112,6 +112,7 @@ export class WalletConnect {
     );
 
     const { baseFeePerGas }: any = await this.Web3().eth.getBlock('latest');
+    console.log(baseFeePerGas)
     let signature;
     if (transactionMethod) {
       signature = this.encodeFunctionCall(transactionMethod, data);
@@ -128,7 +129,7 @@ export class WalletConnect {
       to: tokenAddress || contracts.params[contract][is_production ? 'mainnet' : 'testnet'].address,
       data: signature || '',
       value: value || '',
-      type: baseFeePerGas ? '0x2' : '0x0',
+      // type: baseFeePerGas ? '0x2' : '0x0',
     });
   }
 

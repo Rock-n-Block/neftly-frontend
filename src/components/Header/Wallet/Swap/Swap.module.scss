@@ -1,0 +1,64 @@
+@import '../../../../styles/helpers';
+
+.iconWrapper {
+  margin: 10px 0;
+
+  @include flexbox;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.header {
+  @include flexbox(flex-start, space-between);
+
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 12px;
+  text-transform: uppercase;
+
+  color: $neutrals5;
+}
+.swap {
+  .wrapper {
+    text-align: left;
+
+    @include body-bold-2;
+
+    .input {
+      margin-top: 12px;
+      color: $color-neutral-0;
+      background: $color-neutral-100;
+
+      &::placeholder {
+        color: $color-neutral-40;
+      }
+    }
+  }
+}
+
+.btns {
+  @include flexbox(flex-start, center);
+}
+
+.button {
+  margin: 20px auto 0;
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+.prefix {
+  @include flexbox(center, flex-start);
+  padding-left: 16px;
+  width: 92px;
+  height: 38px;
+  border-right: 2px solid $color-neutral-80;
+}
