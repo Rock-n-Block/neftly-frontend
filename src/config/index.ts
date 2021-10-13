@@ -4,7 +4,7 @@ import bnbImg from '../assets/img/icons/chains/bnb.svg';
 import polygonImg from '../assets/img/icons/chains/polygon.svg';
 import metamaskImg from '../assets/img/icons/wallets/metamask.svg';
 
-import { bep20Abi, erc20Abi, nftAbi } from './abi';
+import { bep20Abi, erc20Abi, nftAbi, wbnbTestnetAbi, wethTestnetAbi, wMaticTestnetAbi } from './abi';
 
 export const is_production = false;
 
@@ -124,14 +124,14 @@ export const contracts: IContracts = {
         abi: bep20Abi,
       },
     },
-    NFT: {
+    WETH: {
       mainnet: {
         address: '',
         abi: nftAbi,
       },
       testnet: {
-        address: '',
-        abi: nftAbi,
+        address: '0xdf032bc4b9dc2782bb09352007d4c57b75160b15',
+        abi: wethTestnetAbi,
       },
     },
     EXCHANGE: {
@@ -164,7 +164,7 @@ export const contracts: IContracts = {
       },
       testnet: {
         address: '0x591873d1fff4ae144307f8da8dcfbb52b00bdf20',
-        abi: erc20Abi,
+        abi: wbnbTestnetAbi,
       },
     },
     KPHI: {
@@ -193,14 +193,14 @@ export const contracts: IContracts = {
         abi: erc20Abi,
       },
     },
-    WKAI: {
+    WMATIC: {
       mainnet: {
         address: '0xAF984E23EAA3E7967F3C5E007fbe397D8566D23d',
         abi: erc20Abi,
       },
       testnet: {
-        address: '0x02655eEF130e5F37F8b648BD9c8D10aA2e6bf698',
-        abi: erc20Abi,
+        address: '0xCF1177e9f54eE20C6E80570D678462363d56C1E5',
+        abi: wMaticTestnetAbi,
       },
     },
   },

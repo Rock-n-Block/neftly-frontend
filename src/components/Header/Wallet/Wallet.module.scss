@@ -1,0 +1,332 @@
+@import '../../../styles/helpers';
+
+.user {
+  position: relative;
+
+  @include m {
+    position: static;
+  }
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+  }
+}
+
+.wallet {
+  margin-left: 12px;
+
+  color: $neutrals8;
+
+  @include m {
+    display: none;
+  }
+}
+
+.currency {
+  color: $green;
+}
+
+.body {
+  position: absolute;
+  top: calc(100% + 35px);
+  left: -500%;
+  z-index: 1000;
+
+  margin-left: -128px;
+  padding: 24px;
+
+  width: 256px;
+
+  background: $color-neutral-80;
+
+  opacity: 0;
+  box-shadow: 0 16px 64px 0 rgba(31, 47, 70, 0.4);
+
+  transform: scale(0.9);
+  transform-origin: 50% 50px;
+  animation: showUser 0.4s forwards;
+  will-change: transform;
+
+  .triangle {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border: 16px solid transparent;
+    border-bottom: 16px solid $color-neutral-80;
+    top: -24px;
+    right: 0;
+  }
+
+  @include t {
+    right: 0;
+    left: auto;
+  }
+
+  @include m {
+    top: calc(100% + 16px);
+    right: 16px;
+    left: 16px;
+
+    margin: 0;
+
+    width: auto;
+  }
+}
+
+@keyframes showUser {
+  0% {
+    opacity: 0;
+
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}
+
+.name {
+  font-weight: 500;
+  font-size: 20px;
+  color: $color-neutral-0;
+  text-align: left;
+  margin-bottom: 3px;
+}
+
+.type {
+  font-weight: normal;
+  font-size: 14px;
+  color: $color-actions-light-yellow;
+}
+
+.code {
+  margin-bottom: 8px;
+
+  display: flex;
+  align-items: center;
+}
+
+.number {
+  font-weight: 500;
+
+  color: $neutrals4;
+}
+
+.copy {
+  margin-left: 8px;
+
+  svg {
+    fill: $blue;
+
+    transition: fill 0.2s;
+  }
+
+  &:hover {
+    svg {
+      fill: darken($blue, 10);
+    }
+  }
+}
+
+.wrap {
+  margin-bottom: 7px;
+  padding: 8px;
+  // box-shadow: 0px 24px 24px -8px rgba(15, 15, 15, 0.2);
+  background: $gradient2;
+  border-radius: 16px;
+}
+
+.line {
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+}
+
+.preview {
+  margin-right: 16px;
+
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+  }
+}
+
+.info {
+  @include caption-2;
+  color: $neutrals4;
+}
+
+.price {
+  @include body-bold-1;
+}
+
+.button {
+  padding: 0 10px;
+
+  width: 100%;
+  height: 32px;
+
+  font-size: 14px;
+}
+
+.item {
+  padding: 17px 0 12px;
+
+  display: flex;
+  align-items: center;
+
+  color: $color-neutral-10;
+
+  @include button-2;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $color-neutral-60;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    color: $color-action-hovered;
+
+    svg {
+      fill: $color-action-hovered;
+    }
+  }
+}
+
+.icon {
+  margin-right: 8px;
+
+  width: 20px;
+  flex-shrink: 0;
+
+  svg {
+    transition: fill 0.2s;
+    fill: $color-neutral-10;
+  }
+}
+
+.text {
+  margin-right: auto;
+}
+
+.tooltip {
+  position: relative;
+
+  display: inline-block;
+  visibility: hidden;
+
+  border-bottom: 1px solid black;
+}
+
+.tooltip .tooltiptext {
+  position: absolute;
+  z-index: 1;
+
+  padding: 5px 0;
+
+  visibility: hidden;
+
+  width: 120px;
+
+  text-align: center;
+
+  color: #fff;
+  background-color: black;
+  border-radius: 6px;
+}
+
+.copy:hover .tooltiptext {
+  visibility: visible;
+}
+
+.swapWrapper {
+  padding: 15px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swap {
+  box-shadow: 0 0 0 2px #674df6 inset;
+}
+
+.uploadBtn {
+  width: 100%;
+  padding: 0 25px;
+  font-size: 16px;
+  font-weight: 600;
+  color: $color-bg;
+  margin-bottom: 10px;
+}
+
+.userHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.userBio {
+  text-align: left;
+}
+
+.userAva {
+  width: 45px;
+  height: 45px;
+  img {
+    max-width: 100%;
+    border-radius: 50%;
+  }
+  margin-right: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.walletLogo {
+  @include flexbox(center, flex-start);
+}
+
+.provider {
+  @include epilogue;
+  margin-left: 16px;
+  font-weight: bold;
+}
+
+.balanceTitle{
+  @include epilogue;
+  color: $color-neutral-20;
+}
+
+.balanceTitle,
+.button {
+  margin-top: 16px;
+}
+
+.balance {
+  margin-top: 5px;
+  @include monument-extended;
+}
