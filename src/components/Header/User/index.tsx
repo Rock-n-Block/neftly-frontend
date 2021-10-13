@@ -28,7 +28,11 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
   const walletConnector = useWalletConnectorContext();
   const { user } = useMst();
 
-  const items: Array<{ title: string; icon: 'user' | 'image' | 'bulb' | 'exit'; url: string }> = [
+  const dropdownOptions: Array<{
+    title: string;
+    icon: 'user' | 'image' | 'bulb' | 'exit';
+    url: string;
+  }> = [
     {
       title: 'Dashboard',
       icon: 'user',
@@ -37,17 +41,17 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
     {
       title: 'Public profile',
       icon: 'user',
-      url: '/profile/1',
+      url: `/profile/${user.id}`,
     },
     {
       title: 'My collections',
       icon: 'user',
-      url: '/profile/1',
+      url: `/profile/${user.id}?tab=collections`,
     },
     {
       title: 'Account Settings',
       icon: 'user',
-      url: '',
+      url: '/profile/edit',
     },
     {
       title: 'Logout',
@@ -101,7 +105,7 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
         {visible && (
           <div className={styles.body}>
             <div className={styles.triangle} />
-            <div className={styles.userHeader}>
+            <Link to={`/profile/${user.id}`} className={styles.userHeader}>
               <div className={styles.userAva}>
                 {user.avatar ? <img src={user.avatar} alt="Avatar" /> : <Loader />}
               </div>
@@ -109,41 +113,41 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
                 <div className={styles.name}>{user.display_name || 'User'}</div>
                 <div className={styles.type}>Proffesional Artist</div>
               </div>
-            </div>
+            </Link>
             <Link to={routes.create.root} onClick={handleClose}>
               <Button className={styles.uploadBtn} icon="upload-file">
                 Create item
               </Button>
             </Link>
             <div className={styles.menu}>
-              {items.map((x) => {
-                if (x.url?.startsWith('http')) {
+              {dropdownOptions.map((option) => {
+                if (option.url?.startsWith('http')) {
                   return (
                     <a
                       className={styles.item}
-                      href={x.url}
+                      href={option.url}
                       rel="noopener noreferrer"
                       key={nextId()}
                     >
                       <div className={styles.icon}>
-                        <Icon name={x.icon} size="20" />
+                        <Icon name={option.icon} size="20" />
                       </div>
-                      <div className={styles.text}>{x.title}</div>
+                      <div className={styles.text}>{option.title}</div>
                     </a>
                   );
                 }
-                return x.url !== '' ? (
+                return option.url !== '' ? (
                   <Link
                     className={styles.item}
-                    to={`${x.url}/${user.custom_url ? user.custom_url : user.id}`}
+                    to={`${option.url}`}
                     onClick={() => setVisible(!visible)}
                     key={nextId()}
                     replace
                   >
                     <div className={styles.icon}>
-                      <Icon name={x.icon} size="20" />
+                      <Icon name={option.icon} size="20" />
                     </div>
-                    <div className={styles.text}>{x.title}</div>
+                    <div className={styles.text}>{option.title}</div>
                   </Link>
                 ) : (
                   <div
@@ -155,9 +159,9 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
                     onKeyDown={() => {}}
                   >
                     <div className={styles.icon}>
-                      <Icon name={x.icon} size="20" />
+                      <Icon name={option.icon} size="20" />
                     </div>
-                    <div className={styles.text}>{x.title}</div>
+                    <div className={styles.text}>{option.title}</div>
                     {/* <Theme className={styles.theme} /> */}
                   </div>
                 );

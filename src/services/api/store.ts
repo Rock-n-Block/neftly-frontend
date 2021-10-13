@@ -52,40 +52,31 @@ export default {
     axios.get(`store/owned/${address}/${page}/?network=${localStorage.netfly_nft_chainName}`),
   getUserCollections: (address: string, page: number) =>
     axios.get(`store/collections/${address}/${page}/`),
-  getSearchResults: (queries: any) => {
+  getSearchResults: (queries: any, text?: string) => {
     const queriesCopy = { ...queries };
-    switch (queriesCopy.is_verificated) {
+    switch (queriesCopy.is_verified) {
       case 'All':
-        delete queriesCopy.is_verificated;
+        delete queriesCopy.is_verified;
         break;
       case 'verified':
-        queriesCopy.is_verificated = 'true';
+        queriesCopy.is_verified = 'true';
         break;
       case 'unverified':
-        queriesCopy.is_verificated = 'false';
+        queriesCopy.is_verified = 'false';
         break;
       default:
         break;
     }
     if (queriesCopy.tags === 'All items') delete queriesCopy.tags;
-    let query = `?network=${localStorage.netfly_nft_chainName}&on_sale=true&`;
-    Object.keys(queriesCopy).forEach((key, index) => {
+    let query = `?network=${localStorage.netfly_nft_chainName}`;
+    Object.keys(queriesCopy).forEach((key) => {
       if (queriesCopy[key] || queriesCopy[key] === false || queriesCopy[key] === 0) {
-        query = query.concat(
-          `${key}=${queriesCopy[key]}${index === Object.keys(queriesCopy).length - 1 ? '' : '&'}`,
-        );
+        query = query.concat(`&${key}=${queriesCopy[key]}`);
       }
     });
-    return axios.post(
-      `/store/search/${
-        query === `?network=${localStorage.netfly_nft_chainName}&on_sale=true&`
-          ? `?network=${localStorage.netfly_nft_chainName}&on_sale=true`
-          : query
-      }`,
-      {
-        text: '',
-      },
-    );
+    return axios.post(`/store/search/${query}`, {
+      text: text || '',
+    });
   },
   getFee: (currency: string | null) =>
     axios.get(

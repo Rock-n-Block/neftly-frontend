@@ -90,7 +90,11 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
     if (links.data.tags.length) {
       setFilterTags(
         [{ title: 'All items', icon: allCategory }].concat(
-          links.data.tags.map((tag: any) => ({ title: tag.title, icon: tag.icon })),
+          links.data.tags.map((tag: { title: string; icon: string }) => ({
+            title: tag.title,
+            key: tag.title.toLowerCase(),
+            icon: tag.icon,
+          })),
         ),
       );
     }
@@ -117,7 +121,7 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
         setFiltersLoading(false);
       });
   }, [handleCurrencyFilter, setFiltersLoading]);
-
+  // TODO: stop to fetch if this filters don't used
   useEffect(() => {
     fetchMaxPrice(currencyFilter.value);
   }, [currencyFilter, fetchMaxPrice]);

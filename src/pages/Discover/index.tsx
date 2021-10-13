@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { useMst } from 'store';
 
-import { selectOptions } from './helperData';
+import { selectOptions } from 'typings';
 
 import styles from './styles.module.scss';
 
@@ -42,16 +42,17 @@ const Discover = observer(() => {
     handlePage,
   } = useFilters(setIsLoading);
 
-  const { allPages, totalItems, tokens } = useFetchNft(
-    setIsLoading,
+  const { allPages, totalItems, nftCards } = useFetchNft({
+    setLoading: setIsLoading,
     page,
-    'items',
-    orderByFilter.value,
-    tagsFilter,
-    maxPriceFilter,
-    currencyFilter.value,
-    verifiedFilter.value,
-  );
+    sort: 'items',
+    order_by: orderByFilter.value,
+    tags: tagsFilter,
+    max_price: maxPriceFilter,
+    currency: currencyFilter.value,
+    is_verified: verifiedFilter.value,
+    on_sale: true,
+  });
 
   const likeAction = useCallback(
     (id) => {
@@ -99,8 +100,8 @@ const Discover = observer(() => {
         <div className={cx(styles.filterResultsContainer, { [styles.withFilter]: isFilterOpen })}>
           <H3>{totalItems} results</H3>
           <div className={styles.filterResults}>
-            {tokens.length
-              ? tokens.map((artCard: any) => {
+            {nftCards.length
+              ? nftCards.map((artCard: any) => {
                   const {
                     media,
                     name,
