@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { storeApi } from 'services';
 import { INft } from 'typings';
 import { useLoading } from './useLoading';
 
-export const useFetchHotAuction = () => {
+export const useFetchHotAuction = (isRefetch: boolean) => {
   const { isLoading, setIsLoading } = useLoading();
   const [hotAuction, setHotAuction] = useState<INft[]>([]);
 
-  const fetchHotAuction = async () => {
+  const fetchHotAuction = useCallback(async () => {
     setIsLoading(true);
     try {
       const { data } = await storeApi.getHotAuction();
@@ -17,12 +17,17 @@ export const useFetchHotAuction = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [setIsLoading]);
 
   useEffect(() => {
     fetchHotAuction();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchHotAuction]);
+
+  useEffect(() => {
+    if (isRefetch) {
+      fetchHotAuction();
+    }
+  }, [isRefetch, fetchHotAuction]);
 
   return {
     isLoading,

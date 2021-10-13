@@ -23,7 +23,6 @@ type Props = {
   views: number;
   link: string;
   inStock?: number;
-  isLiked?: boolean;
   nft: INft | null;
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
@@ -34,7 +33,6 @@ const ViewsAndControlsComponent: FC<Props> = ({
   likes,
   views,
   inStock,
-  isLiked = false,
   link,
   nft,
   isOwner,
@@ -44,7 +42,12 @@ const ViewsAndControlsComponent: FC<Props> = ({
     modals: { burn, remove, transfer, report },
     user,
   } = useMst();
-  const { isLike, likeCount, handleLike } = useLike(isLiked, likes, nft?.id, !!user.address);
+  const { isLike, likeCount, handleLike } = useLike(
+    !!nft?.is_liked,
+    likes,
+    nft?.id,
+    !!user.address,
+  );
 
   const [isTooltipVisible, setTooltipVisible] = React.useState(false);
 

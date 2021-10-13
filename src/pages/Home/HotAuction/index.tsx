@@ -2,9 +2,11 @@ import { FC } from 'react';
 import cx from 'classnames';
 import { Carousel, H2 } from 'components';
 import { useFetchHotAuction } from 'hooks';
+import { observer } from 'mobx-react-lite';
 
 import { HotAuctionCard } from './components';
 import { INft } from 'typings';
+import { useMst } from '../../../store';
 
 import styles from './styles.module.scss';
 
@@ -13,7 +15,12 @@ type Props = {
 };
 
 const HotAuction: FC<Props> = ({ className }) => {
-  const { hotAuction } = useFetchHotAuction();
+  const {
+    modals: {
+      sell: { placeBid },
+    },
+  } = useMst();
+  const { hotAuction } = useFetchHotAuction(placeBid.isSuccess);
   return (
     <div className={cx(styles.hotAuction, className)}>
       <H2 className={styles.hotAuctionTitle}>
@@ -28,4 +35,4 @@ const HotAuction: FC<Props> = ({ className }) => {
   );
 };
 
-export default HotAuction;
+export default observer(HotAuction);

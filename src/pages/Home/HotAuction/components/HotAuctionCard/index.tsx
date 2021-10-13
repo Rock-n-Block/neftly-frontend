@@ -17,7 +17,6 @@ type Props = {
 
 const HotAuctionCard: FC<Props> = ({ className, nft }) => {
   const { user } = useMst();
-  // TODO: Пропихнуть целый объект токена, и закинуть его в хук вместо null
   const {
     isUserCanEndAuction,
     isUserCanBuyNft,
@@ -25,7 +24,7 @@ const HotAuctionCard: FC<Props> = ({ className, nft }) => {
     isUserCanPutOnSale,
     isOwner,
     isUserCanRemoveFromSale,
-  } = useGetUserAccessForNft(null, user.id, user.address);
+  } = useGetUserAccessForNft(nft, user.id, user.address);
   return (
     <div className={cx(styles.hotAuctionCard, className)}>
       <HotAuctionCardDesktop

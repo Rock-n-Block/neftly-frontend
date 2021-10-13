@@ -2,14 +2,18 @@
 
 .giantCard {
   display: flex;
+  width: 100%;
 
   & > img {
     width: 100%;
+    max-width: 65%;
     height: auto;
   }
 
   .cardInfo {
     padding: 32px;
+    width: 100%;
+    max-width: 35%;
     border-width: 1px 1px 1px 0;
     border-style: solid;
     border-color: $color-neutral-80;
