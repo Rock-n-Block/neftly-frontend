@@ -7,5 +7,6 @@ export * from './useFetchNft';
 export * from './useFetchLiked';
 export * from './useFollow';
 export * from './useLike';
+export * from './useFetchUser';
 export * from './useFetchCollection';
 export * from './useFetchTopUser';

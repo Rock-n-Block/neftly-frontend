@@ -1,7 +1,7 @@
 @import '../../../styles/helpers.scss';
 
 .user {
-  padding: 15px;
+  height: 45vh;
   position: relative;
   @include flexbox;
   flex-direction: column;
@@ -30,7 +30,7 @@
 .user_info {
   margin-top: 9px;
   @include flexbox;
-
+  text-overflow: ellipsis;
 
   &__icon {
     width: 28px;

@@ -6,6 +6,15 @@
 
   & + & {
     border-left: 1px solid $color-neutral-80;
+    @include forDesktopSm{
+      width: 100%;
+      border: none;
+    }
+  }
+
+  @include forTablet{
+    padding: 22px 32px;
+    width: 100%;
   }
 }
 
