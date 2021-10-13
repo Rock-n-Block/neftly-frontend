@@ -16,7 +16,6 @@ import { growth as growthImg } from 'assets/img';
 
 type Props = {
   className?: string;
-  bidAction?: () => void;
   growth?: number;
   nft: INft | null;
   onUpdateNft?: () => void;
@@ -30,7 +29,6 @@ type Props = {
 const PaymentComponent: FC<Props> = observer(
   ({
     className,
-    bidAction,
     growth,
     nft,
     onUpdateNft,
@@ -122,9 +120,12 @@ const PaymentComponent: FC<Props> = observer(
         currency: nft?.currency.symbol,
         tokenAvailable: nft?.available,
         media: nft?.media,
-        minimalBid: +new BigNumber(nft?.highest_bid?.amount || 0).toFixed() || nft?.minimal_bid,
+        minimalBid:
+          +new BigNumber(nft?.highest_bid?.amount || 0).toFixed() || nft?.minimal_bid || 0,
         usdPrice: nft?.USD_price,
-        feeCurrency: nft?.currency_service_fee,
+        feeCurrency: nft?.currency_service_fee || 0,
+        collection: nft?.collection,
+        royalty: nft?.royalty,
       });
     }, [nft, modals.sell]);
 
@@ -153,6 +154,11 @@ const PaymentComponent: FC<Props> = observer(
         );
       }
     }, [nft, walletService, onUpdateNft]);
+
+    const handlePutOnSale = React.useCallback(() => {
+      handleSetNft();
+      modals.sell.putOnSale.open();
+    }, [modals.sell, handleSetNft]);
 
     React.useEffect(() => {
       if (user.address && nft) {
@@ -209,7 +215,7 @@ const PaymentComponent: FC<Props> = observer(
               </Button>
             ) : null}
             {isUserCanPutOnSale ? (
-              <Button onClick={bidAction} isFullWidth>
+              <Button onClick={handlePutOnSale} isFullWidth>
                 Put on Sale
               </Button>
             ) : null}

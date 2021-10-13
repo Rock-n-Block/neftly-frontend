@@ -36,4 +36,5 @@ export { default as ChooseSeller } from './ChooseSeller';
 export { default as PlaceBid } from './PlaceBid';
 export { default as Burn } from './Burn';
 export { default as RemoveSale } from './RemoveSale';
+export { default as PutOnSale } from './PutSale';
 export * from './Typography';

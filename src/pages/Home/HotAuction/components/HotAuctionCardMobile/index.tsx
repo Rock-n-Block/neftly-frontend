@@ -57,7 +57,6 @@ const HotAuctionCardMobile: FC<Props> = ({
     <AuthorComponent authorPic={authorPic} author={author} />
     <PaymentComponent
       className={styles.paymentMobile}
-      bidAction={() => alert('bid')}
       nft={null}
       isUserCanEndAuction={isUserCanEndAuction}
       isUserCanBuyNft={isUserCanBuyNft}

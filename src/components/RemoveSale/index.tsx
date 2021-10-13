@@ -21,9 +21,14 @@ const RemoveSale: React.FC<IRemoveSaleProps> = ({ className }) => {
     try {
       await storeApi.removeFromSale(remove.tokenId, null, null);
       remove.success();
+      remove.close();
     } catch (error) {
       console.log(error, 'remove from sale');
     }
+  }, [remove]);
+
+  const handleClose = React.useCallback(() => {
+    remove.close();
   }, [remove]);
 
   return (
@@ -45,6 +50,7 @@ const RemoveSale: React.FC<IRemoveSaleProps> = ({ className }) => {
           className={cn('button-stroke', styles.button)}
           isFullWidth
           color="outline"
+          onClick={handleClose}
         >
           Cancel
         </Button>

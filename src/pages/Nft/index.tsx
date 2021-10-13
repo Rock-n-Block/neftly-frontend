@@ -199,10 +199,21 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
   React.useEffect(() => getItem(), [getItem]);
 
   React.useEffect(() => {
-    if (sell.checkout.isSuccess || sell.placeBid.isSuccess || remove.isSuccess) {
+    if (
+      sell.checkout.isSuccess ||
+      sell.placeBid.isSuccess ||
+      remove.isSuccess ||
+      sell.putOnSale.isSuccess
+    ) {
       getItem();
     }
-  }, [sell.checkout.isSuccess, sell.placeBid.isSuccess, getItem, remove.isSuccess]);
+  }, [
+    sell.checkout.isSuccess,
+    sell.placeBid.isSuccess,
+    getItem,
+    remove.isSuccess,
+    sell.putOnSale.isSuccess,
+  ]);
 
   React.useEffect(() => getRelatedArtworks(1), [getRelatedArtworks]);
 

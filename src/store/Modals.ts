@@ -1,5 +1,12 @@
 import { types, getSnapshot, applySnapshot, getParent } from 'mobx-state-tree';
 
+const NftCollection = types.model({
+  address: types.string,
+  avatar: types.string,
+  id: types.union(types.string, types.number),
+  name: types.string,
+});
+
 const NftForSale = types.model({
   tokenId: types.optional(types.number, 0),
   standart: types.optional(types.string, ''),
@@ -13,6 +20,13 @@ const NftForSale = types.model({
   currency: types.optional(types.string, ''),
   tokenAvailable: types.optional(types.number, 0),
   media: types.optional(types.string, ''),
+  royalty: types.optional(types.number, 0),
+  collection: types.optional(NftCollection, {
+    address: '',
+    avatar: '',
+    id: 0,
+    name: '',
+  }),
 });
 
 const Seller = types.model({
@@ -138,12 +152,47 @@ const Checkout = types
     },
   }));
 
+const PutOnSale = types
+  .model({
+    isOpen: types.optional(types.boolean, false),
+    isSuccess: types.optional(types.boolean, false),
+  })
+  .views((self) => ({
+    get getIsOpen() {
+      const parent: any = getParent(self);
+      if (
+        parent.nft.tokenId &&
+        parent.nft.currency &&
+        parent.nft.royalty &&
+        parent.nft.fee &&
+        parent.nft.collection &&
+        self.isOpen
+      ) {
+        return true;
+      }
+      return false;
+    },
+  }))
+  .actions((self) => ({
+    close: () => {
+      self.isOpen = false;
+    },
+    open: () => {
+      self.isSuccess = false;
+      self.isOpen = true;
+    },
+    success: () => {
+      self.isSuccess = true;
+    },
+  }));
+
 const SellModals = types
   .model({
     nft: types.optional(NftForSale, {}),
     checkout: Checkout,
     chooseSeller: ChooseSeller,
     placeBid: PlaceBid,
+    putOnSale: PutOnSale,
   })
   .actions((self) => ({
     setNft: (data: any) => {

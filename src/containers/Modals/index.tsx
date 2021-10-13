@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Modal, Checkout, ChooseSeller, PlaceBid, Burn, RemoveSale } from 'components';
+import { Modal, Checkout, ChooseSeller, PlaceBid, Burn, RemoveSale, PutOnSale } from 'components';
 import { useMst } from '../../store';
 
 const Modals: React.FC = () => {
@@ -39,6 +39,14 @@ const Modals: React.FC = () => {
         title="Remove from sale"
       >
         <RemoveSale />
+      </Modal>
+      <Modal
+        maxWidth="510px"
+        visible={sell.putOnSale.getIsOpen}
+        onClose={sell.putOnSale.close}
+        title="Put on sale"
+      >
+        <PutOnSale />
       </Modal>
     </>
   );

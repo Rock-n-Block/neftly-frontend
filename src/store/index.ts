@@ -28,6 +28,10 @@ export const Store = RootModel.create({
         isOpen: false,
         isSuccess: false,
       },
+      putOnSale: {
+        isOpen: false,
+        isSuccess: false,
+      },
       chooseSeller: {
         sellers: [],
       },

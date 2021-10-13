@@ -73,7 +73,6 @@ const HotAuctionCardDesktop: FC<Props> = ({
     </div>
     <div className={styles.priceAndBidders}>
       <PaymentComponent
-        bidAction={() => alert('bid')}
         nft={null}
         isUserCanEndAuction={isUserCanEndAuction}
         isUserCanBuyNft={isUserCanBuyNft}

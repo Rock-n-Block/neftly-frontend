@@ -50,20 +50,16 @@ const GiantCard: FC<Props> = ({ className, views, likeAction, growth, nft, onUpd
           isOwner={isOwner}
           isUserCanRemoveFromSale={isUserCanRemoveFromSale}
         />
-        {nft?.is_auc_selling || nft?.is_selling ? (
-          <PaymentComponent
-            growth={growth}
-            nft={nft}
-            onUpdateNft={onUpdateNft}
-            isUserCanEndAuction={isUserCanEndAuction}
-            isUserCanBuyNft={isUserCanBuyNft}
-            isUserCanEnterInAuction={isUserCanEnterInAuction}
-            isUserCanPutOnSale={isUserCanPutOnSale}
-            isOwner={isOwner}
-          />
-        ) : (
-          ''
-        )}
+        <PaymentComponent
+          growth={growth}
+          nft={nft}
+          onUpdateNft={onUpdateNft}
+          isUserCanEndAuction={isUserCanEndAuction}
+          isUserCanBuyNft={isUserCanBuyNft}
+          isUserCanEnterInAuction={isUserCanEnterInAuction}
+          isUserCanPutOnSale={isUserCanPutOnSale}
+          isOwner={isOwner}
+        />
         <AuthorComponent author={nft?.creator.name || ''} authorPic={nft?.creator.avatar || ''} />
         <DescriptionAndTagsComponent tags={nft?.tags || []} body={nft?.description || ''} />
       </div>
