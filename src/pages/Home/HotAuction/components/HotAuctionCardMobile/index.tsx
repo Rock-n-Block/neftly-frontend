@@ -7,22 +7,13 @@ import BiddersComponent from '../BiddersComponent';
 import DescriptionAndTagsComponent from '../DescriptionAndTagsComponent';
 import PaymentComponent from '../PaymentComponent';
 import ViewsAndControlsComponent from '../ViewsAndControlsComponent';
+import { INft } from 'typings';
 
 import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
-  title: string;
-  author: string;
-  authorPic: string;
-  artPic: string;
-  body: string;
-  tags: string[];
-  views: number;
-  likes: number;
-  // eslint-disable-next-line react/no-unused-prop-types
-  auctionEndingTime: any;
-  bidders: any[];
+  nft: INft;
   isUserCanEndAuction: boolean;
   isUserCanBuyNft: boolean;
   isUserCanEnterInAuction: boolean;
@@ -33,15 +24,7 @@ type Props = {
 
 const HotAuctionCardMobile: FC<Props> = ({
   className,
-  title,
-  authorPic,
-  author,
-  body,
-  tags,
-  views,
-  likes,
-  artPic,
-  bidders,
+  nft,
   isUserCanEndAuction,
   isUserCanBuyNft,
   isUserCanEnterInAuction,
@@ -51,10 +34,10 @@ const HotAuctionCardMobile: FC<Props> = ({
 }) => (
   <div className={cx(styles.mobileCard, className)}>
     <div className={styles.imageWrapper}>
-      <img src={artPic} alt="art pic" />
+      <img src={nft.media} alt="art pic" />
     </div>
-    <H3>{title}</H3>
-    <AuthorComponent authorPic={authorPic} author={author} />
+    <H3>{nft.name}</H3>
+    <AuthorComponent authorPic={nft.creator.avatar} author={nft.creator.name} />
     <PaymentComponent
       className={styles.paymentMobile}
       nft={null}
@@ -69,17 +52,17 @@ const HotAuctionCardMobile: FC<Props> = ({
       tabs={[
         {
           title: 'Description',
-          body: <DescriptionAndTagsComponent body={body} tags={tags} />,
+          body: <DescriptionAndTagsComponent body={nft.description} tags={nft.tags} />,
         },
         {
           title: 'Bid History',
-          body: <BiddersComponent bidders={bidders} />,
+          body: <BiddersComponent bidders={nft.bids} />,
         },
       ]}
     />
     <ViewsAndControlsComponent
-      likes={likes}
-      views={views}
+      likes={nft.like_count}
+      views={1000}
       link="google"
       nft={null}
       isOwner={isOwner}

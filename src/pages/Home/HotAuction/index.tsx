@@ -4,6 +4,7 @@ import { Carousel, H2 } from 'components';
 import { useFetchHotAuction } from 'hooks';
 
 import { HotAuctionCard } from './components';
+import { INft } from 'typings';
 
 import styles from './styles.module.scss';
 
@@ -19,37 +20,8 @@ const HotAuction: FC<Props> = ({ className }) => {
         HOT <span className={styles.gradientTitle}>AUCTION</span>
       </H2>
       <Carousel classNameProp={styles.hotAuctionCarousel}>
-        {hotAuction.map((auction) => {
-          const {
-            media,
-            description,
-            tags,
-            like_count,
-            id,
-            end_auction,
-            currency: { rate, symbol },
-            creator: { avatar, name },
-            bids,
-            is_liked,
-          } = auction;
-          return (
-            <HotAuctionCard
-              key={id}
-              title={auction.name}
-              author={name}
-              authorPic={avatar}
-              artPic={media}
-              body={description}
-              tags={tags}
-              views={10}
-              likes={like_count}
-              currentPrice={+rate}
-              priceAsset={symbol}
-              auctionEndingTime={end_auction}
-              bidders={bids}
-              isLiked={is_liked}
-            />
-          );
+        {hotAuction.map((auction: INft) => {
+          return <HotAuctionCard key={auction.id} nft={auction} />;
         })}
       </Carousel>
     </div>

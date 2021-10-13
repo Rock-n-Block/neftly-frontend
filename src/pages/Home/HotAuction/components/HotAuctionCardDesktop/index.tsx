@@ -8,23 +8,13 @@ import BiddersComponent from '../BiddersComponent';
 import DescriptionAndTagsComponent from '../DescriptionAndTagsComponent';
 import PaymentComponent from '../PaymentComponent';
 import ViewsAndControlsComponent from '../ViewsAndControlsComponent';
+import { INft } from 'typings';
 
 import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
-  title: string;
-  author: string;
-  authorPic: string;
-  artPic: string;
-  body: string;
-  tags: string[];
-  views: number;
-  likes: number;
-  currentPrice: number;
-  priceAsset: string;
-  auctionEndingTime: any;
-  bidders: any[];
+  nft: INft;
   isUserCanEndAuction: boolean;
   isUserCanBuyNft: boolean;
   isUserCanEnterInAuction: boolean;
@@ -35,15 +25,7 @@ type Props = {
 
 const HotAuctionCardDesktop: FC<Props> = ({
   className,
-  title,
-  authorPic,
-  author,
-  body,
-  tags,
-  views,
-  likes,
-  artPic,
-  bidders,
+  nft,
   isUserCanEndAuction,
   isUserCanBuyNft,
   isUserCanEnterInAuction,
@@ -54,21 +36,21 @@ const HotAuctionCardDesktop: FC<Props> = ({
   <div className={cx(styles.desktopCard, className)}>
     <div className={styles.descriptionControls}>
       <div className={styles.description}>
-        <H3>{title}</H3>
-        <AuthorComponent authorPic={authorPic} author={author} />
-        <DescriptionAndTagsComponent body={body} tags={tags} />
+        <H3>{nft.name}</H3>
+        <AuthorComponent authorPic={nft.creator.avatar} author={nft.creator.name} />
+        <DescriptionAndTagsComponent body={nft.description} tags={nft.tags} />
       </div>
       <ViewsAndControlsComponent
-        likes={likes}
-        views={views}
+        likes={nft.like_count}
+        views={1000}
         link="google"
-        nft={null}
+        nft={nft}
         isOwner={isOwner}
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
       />
     </div>
     <div className={styles.imageWrapper}>
-      <img src={artPic} alt="art pic" />
+      <img src={nft.media} alt="art pic" />
     </div>
     <div className={styles.priceAndBidders}>
       <PaymentComponent
@@ -79,7 +61,7 @@ const HotAuctionCardDesktop: FC<Props> = ({
         isUserCanPutOnSale={isUserCanPutOnSale}
         isOwner={isOwner}
       />
-      <BiddersComponent bidders={bidders} />
+      <BiddersComponent bidders={nft.bids} />
     </div>
   </div>
 );
