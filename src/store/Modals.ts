@@ -256,8 +256,41 @@ const Remove = types
     };
   });
 
+const Transfer = types
+  .model({
+    tokenId: types.optional(types.number, 0),
+    standart: types.optional(types.string, ''),
+    isSuccess: types.optional(types.boolean, false),
+    available: types.optional(types.number, 0),
+  })
+  .views((self) => ({
+    get getIsOpen() {
+      return !!(self.tokenId && self.standart && self.available);
+    },
+  }))
+  .actions((self) => {
+    let initialState = {};
+    return {
+      afterCreate: () => {
+        initialState = getSnapshot(self);
+      },
+      close: () => {
+        applySnapshot(self, initialState);
+      },
+      open: (tokenId: number, standart: string, available: number) => {
+        self.tokenId = tokenId;
+        self.standart = standart;
+        self.available = available;
+      },
+      success: () => {
+        self.isSuccess = true;
+      },
+    };
+  });
+
 export const Modals = types.model({
   sell: SellModals,
   burn: Burn,
   remove: Remove,
+  transfer: Transfer,
 });

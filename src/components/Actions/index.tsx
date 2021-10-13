@@ -6,7 +6,6 @@ import cn from 'classnames';
 import Icon from '../Icon';
 import Modal from '../Modal';
 import Report from '../Report';
-import Transfer from '../Transfer';
 
 import styles from './Actions.module.scss';
 
@@ -30,7 +29,6 @@ const Actions: React.FC<IActionsProps> = ({
   // isAuction,
 }) => {
   const [visible, setVisible] = useState(false);
-  const [visibleModalTransfer, setVisibleModalTransfer] = useState(false);
   const [visibleModalReport, setVisibleModalReport] = useState(false);
 
   const items: Array<{
@@ -45,12 +43,6 @@ const Actions: React.FC<IActionsProps> = ({
     //   action: () => console.log('coin'),
     //   condition: isOwner && !isAuction,
     // },
-    {
-      title: 'Transfer token',
-      icon: 'arrow-right-square',
-      action: () => setVisibleModalTransfer(true),
-      condition: isOwner,
-    },
     {
       title: 'Report',
       icon: 'info-circle',
@@ -92,13 +84,6 @@ const Actions: React.FC<IActionsProps> = ({
           </div>
         </div>
       </OutsideClickHandler>
-      <Modal visible={visibleModalTransfer} onClose={() => setVisibleModalTransfer(false)}>
-        <Transfer
-          itemId={itemId}
-          standart={standart}
-          onClose={() => setVisibleModalTransfer(false)}
-        />
-      </Modal>
       <Modal visible={visibleModalReport} onClose={() => setVisibleModalReport(false)}>
         <Report />
       </Modal>

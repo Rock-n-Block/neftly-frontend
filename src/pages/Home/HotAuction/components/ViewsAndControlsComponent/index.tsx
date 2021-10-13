@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 import { Button, Text } from 'components';
 import { useMst } from '../../../../../store';
-import { INft } from 'typings';
+import { INft, IOwner } from 'typings';
 
 import styles from './styles.module.scss';
 import 'rc-tooltip/assets/bootstrap.css';
@@ -42,7 +42,8 @@ const ViewsAndControlsComponent: FC<Props> = ({
   isUserCanRemoveFromSale,
 }) => {
   const {
-    modals: { burn, remove },
+    modals: { burn, remove, transfer },
+    user,
   } = useMst();
   const [isLike, setIsLike] = React.useState<boolean>(isLiked);
   const [likeCount, setLikeCount] = React.useState(likes);
@@ -62,12 +63,25 @@ const ViewsAndControlsComponent: FC<Props> = ({
     remove.open(nft?.id || 0);
   }, [remove, nft]);
 
+  const handleTransfer = React.useCallback(() => {
+    let available = 0;
+    if (Array.isArray(nft?.owners)) {
+      available =
+        nft?.owners.find((owner: IOwner) => {
+          return owner.id === user.id;
+        })?.quantity || 0;
+    } else {
+      available = nft?.owners.quantity || 0;
+    }
+    transfer.open(nft?.id || 0, nft?.standart || '', available);
+  }, [transfer, nft, user.id]);
+
   const actions = React.useMemo(
     () => [
       {
         name: 'Transfer Token',
         img: transferImg,
-        event: () => {},
+        event: () => handleActionEvent(handleTransfer),
         isVisible: isOwner,
       },
       {
@@ -89,7 +103,14 @@ const ViewsAndControlsComponent: FC<Props> = ({
         isVisible: true,
       },
     ],
-    [handleActionEvent, handleBurn, isOwner, handleRemoveFromSale, isUserCanRemoveFromSale],
+    [
+      handleActionEvent,
+      handleBurn,
+      isOwner,
+      handleRemoveFromSale,
+      isUserCanRemoveFromSale,
+      handleTransfer,
+    ],
   );
 
   const handleLike = React.useCallback(() => {
@@ -119,7 +140,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
     <>
       <div className={cx(styles.viewsAndControls, className)}>
         <Text>{`Views: ${views}`}</Text>
-        {inStock && <Text color="gray">{`In Stock: ${inStock}`}</Text>}
+        {inStock ? <Text color="gray">{`In Stock: ${inStock}`}</Text> : null}
         <div className={styles.controls}>
           <Button
             className={cx(styles.likeButton, { [styles.likeButtonActive]: isLike })}

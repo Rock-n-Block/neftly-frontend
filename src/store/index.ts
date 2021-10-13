@@ -23,6 +23,7 @@ export const Store = RootModel.create({
   modals: {
     burn: {},
     remove: {},
+    transfer: {},
     sell: {
       checkout: {
         isOpen: false,

@@ -1,12 +1,21 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Modal, Checkout, ChooseSeller, PlaceBid, Burn, RemoveSale, PutOnSale } from 'components';
+import {
+  Modal,
+  Checkout,
+  ChooseSeller,
+  PlaceBid,
+  Burn,
+  RemoveSale,
+  PutOnSale,
+  Transfer,
+} from 'components';
 import { useMst } from '../../store';
 
 const Modals: React.FC = () => {
   const {
-    modals: { sell, burn, remove },
+    modals: { sell, burn, remove, transfer },
   } = useMst();
   return (
     <>
@@ -39,6 +48,14 @@ const Modals: React.FC = () => {
         title="Remove from sale"
       >
         <RemoveSale />
+      </Modal>
+      <Modal
+        maxWidth="510px"
+        visible={transfer.getIsOpen}
+        onClose={transfer.close}
+        title="Transfer token"
+      >
+        <Transfer />
       </Modal>
       <Modal
         maxWidth="510px"
