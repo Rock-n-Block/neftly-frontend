@@ -25,6 +25,12 @@ type Props = {
   priceAsset: string;
   auctionEndingTime: any;
   bidders: any[];
+  isUserCanEndAuction: boolean;
+  isUserCanBuyNft: boolean;
+  isUserCanEnterInAuction: boolean;
+  isUserCanPutOnSale: boolean;
+  isOwner: boolean;
+  isUserCanRemoveFromSale: boolean;
 };
 
 const HotAuctionCardDesktop: FC<Props> = ({
@@ -38,6 +44,12 @@ const HotAuctionCardDesktop: FC<Props> = ({
   likes,
   artPic,
   bidders,
+  isUserCanEndAuction,
+  isUserCanBuyNft,
+  isUserCanEnterInAuction,
+  isUserCanPutOnSale,
+  isOwner,
+  isUserCanRemoveFromSale,
 }) => (
   <div className={cx(styles.desktopCard, className)}>
     <div className={styles.descriptionControls}>
@@ -49,16 +61,24 @@ const HotAuctionCardDesktop: FC<Props> = ({
       <ViewsAndControlsComponent
         likes={likes}
         views={views}
-        // likeAction={() => alert('likeAction')}
-        dotsAction={() => alert('dotsAction')}
         link="google"
+        nft={null}
+        isOwner={isOwner}
+        isUserCanRemoveFromSale={isUserCanRemoveFromSale}
       />
     </div>
     <div className={styles.imageWrapper}>
       <img src={artPic} alt="art pic" />
     </div>
     <div className={styles.priceAndBidders}>
-      <PaymentComponent bidAction={() => alert('bid')} nft={null} />
+      <PaymentComponent
+        nft={null}
+        isUserCanEndAuction={isUserCanEndAuction}
+        isUserCanBuyNft={isUserCanBuyNft}
+        isUserCanEnterInAuction={isUserCanEnterInAuction}
+        isUserCanPutOnSale={isUserCanPutOnSale}
+        isOwner={isOwner}
+      />
       <BiddersComponent bidders={bidders} />
     </div>
   </div>

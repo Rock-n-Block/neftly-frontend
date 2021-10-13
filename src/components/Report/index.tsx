@@ -1,6 +1,11 @@
 import cn from 'classnames';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import React from 'react';
+import { observer } from 'mobx-react-lite';
 
-import TextArea from '../TextArea';
+import { storeApi } from '../../services/api';
+import { TextArea, Button } from '..';
+import { useMst } from '../../store';
 
 import styles from './Report.module.scss';
 
@@ -9,29 +14,76 @@ interface IReportProps {
 }
 
 const Report: React.FC<IReportProps> = ({ className }) => {
+  const {
+    modals: { report },
+  } = useMst();
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const link = window.location;
+
+  const [reportMessage, setReportMessage] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setReportMessage(value);
+  }, []);
+
+  const handleClose = React.useCallback(() => {
+    report.close();
+  }, [report]);
+
+  const submitReport = React.useCallback(async () => {
+    if (!executeRecaptcha) {
+      return;
+    }
+    setIsLoading(true);
+    await executeRecaptcha('report').then((responseToken: string) => {
+      storeApi
+        .reportPage(link.toString(), reportMessage, responseToken)
+        .then(() => {
+          setIsLoading(false);
+          handleClose();
+        })
+        .catch((error: any) => {
+          setIsLoading(false);
+          console.log(error, 'report not submitted');
+        });
+    });
+  }, [executeRecaptcha, link, reportMessage, handleClose]);
+
   return (
     <div className={cn(className, styles.transfer)}>
-      <div className={cn('h4', styles.title)}>Report</div>
       <div className={styles.text}>
         Describe why you think this item should be removed from marketplace
       </div>
       <TextArea
         className={styles.field}
-        label="message"
+        label="Message"
+        onChange={onChange}
         name="Message"
         placeholder="Tell us the details"
         required
       />
       <div className={styles.btns}>
-        <button type="button" className={cn('button', styles.button)}>
+        <Button
+          type="button"
+          className={cn('button', styles.button)}
+          onClick={submitReport}
+          loading={isLoading}
+        >
           Send now
-        </button>
-        <button type="button" className={cn('button-stroke', styles.button)}>
+        </Button>
+        <Button
+          type="button"
+          className={cn('button-stroke', styles.button)}
+          onClick={handleClose}
+          color="outline"
+        >
           Cancel
-        </button>
+        </Button>
       </div>
     </div>
   );
 };
 
-export default Report;
+export default observer(Report);

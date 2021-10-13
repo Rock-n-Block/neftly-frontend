@@ -40,3 +40,24 @@
     justify-content: flex-start;
   }
 }
+
+.actions {
+  &Item {
+    @include flexbox(center, flex-start);
+    padding: 12px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 29px;
+    cursor: pointer;
+    transition: 0.3s;
+    img {
+      margin-right: 7px;
+    }
+    & + & {
+      border-top: 1px solid $color-neutral-80;
+    }
+    &:hover {
+      background: $color-neutral-80;
+    }
+  }
+}
