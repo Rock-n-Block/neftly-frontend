@@ -25,6 +25,7 @@ import ChooseCollection from './ChooseCollection';
 import styles from './CreateCollectibleDetails.module.scss';
 import { ratesApi } from '../../../services';
 import { iconClose } from '../../../assets/img/icons';
+import BigNumber from 'bignumber.js/bignumber';
 
 const royaltiesOptions = ['10', '20', '30'];
 
@@ -88,7 +89,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
   }) => {
     const history = useHistory();
     // const [rates, setRates] = useState<IRate[]>([]);
-    const [currencies, setCurrencies] = useState<string[]>([]);
+    // const [currencies, setCurrencies] = useState<string[]>([]);
+    const [rates, setRates] = useState<IRate[]>([]);
     const [addToCollection, setAddToCollection] = useState(true);
     // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
@@ -132,8 +134,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
 
     const fetchRates = useCallback(() => {
       ratesApi.getRates().then(({ data }: any) => {
-        // setRates(data);
-        setCurrencies(data.map((item: IRate) => item.symbol));
+        setRates(data);
+        // setCurrencies(data.map((item: IRate) => item.symbol));
         setFieldValue('currency', data[0].symbol);
       });
     }, [setFieldValue]);
@@ -335,9 +337,13 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                             name="currency"
                             setValue={(value) => setFieldValue('currency', value)}
                             options={
-                              values.sellMethod === "openForBids"
-                                ? [...currencies.filter((rate: any) => rate !== 'bnb')]
-                                : currencies
+                              values.sellMethod === 'openForBids'
+                                ? [
+                                    ...rates
+                                      .filter((rate: IRate) => rate.symbol !== 'bnb')
+                                      .map((rate) => rate.symbol),
+                                  ]
+                                : rates.map((rate) => rate.symbol)
                             }
                             className={styles.dropdown}
                             value={values.currency}
@@ -378,8 +384,15 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     </div>
                     <div className={styles.postfix}>
                       {/* change dynamically */}
-                      <Text color="gray">Minimum price 0.004 ETH</Text>
-                      <Text color="gray">USD 234.24 PER/ETH</Text>
+                      <Text color="gray">Minimum price 0.004 {values.currency}</Text>
+                      <Text color="gray">
+                        USD{' '}
+                        {new BigNumber(
+                          rates.find((rate) => rate.symbol === values.currency)?.rate || 0,
+                        ).toFixed(2)}{' '}
+                        PER/
+                        {values.currency}
+                      </Text>
                     </div>
                   </div>
                   {!isSingle && (
