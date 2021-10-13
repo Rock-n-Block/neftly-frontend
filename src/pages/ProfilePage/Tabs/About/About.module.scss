@@ -1,0 +1,50 @@
+@import "src/styles/helpers";
+
+.column {
+  padding: 44px 32px;
+  height: 100%;
+
+  & + & {
+    border-left: 1px solid $color-neutral-80;
+    @include forDesktopSm{
+      width: 100%;
+      border: none;
+    }
+  }
+
+  @include forTablet{
+    padding: 22px 32px;
+    width: 100%;
+  }
+}
+
+.info {
+  margin-top: 24px;
+  padding-bottom: 32px;
+  @include flexbox(flex-start, flex-start);
+  gap: 32px;
+  border-bottom: 1px solid $color-neutral-80;
+}
+
+.description {
+  margin-top: 32px;
+  max-width: 474px;
+  color: $color-neutral-10;
+  white-space: pre-line;
+}
+
+.socials {
+  margin-top: 16px;
+  @include flexbox(flex-start, flex-start);
+  flex-direction: column;
+  gap: 16px;
+}
+
+.social {
+  @include flexbox(center, flex-start);
+  gap: 8px;
+}
+
+.registered {
+  margin-top: 16px;
+}

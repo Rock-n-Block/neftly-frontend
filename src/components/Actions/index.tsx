@@ -3,12 +3,9 @@ import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
-import Burn from '../Burn';
 import Icon from '../Icon';
 import Modal from '../Modal';
-import RemoveSale from '../RemoveSale';
 import Report from '../Report';
-import Transfer from '../Transfer';
 
 import styles from './Actions.module.scss';
 
@@ -32,9 +29,6 @@ const Actions: React.FC<IActionsProps> = ({
   // isAuction,
 }) => {
   const [visible, setVisible] = useState(false);
-  const [visibleModalTransfer, setVisibleModalTransfer] = useState(false);
-  const [visibleModalRemoveSale, setVisibleModalRemoveSale] = useState(false);
-  const [visibleModalBurn, setVisibleModalBurn] = useState(false);
   const [visibleModalReport, setVisibleModalReport] = useState(false);
 
   const items: Array<{
@@ -50,37 +44,12 @@ const Actions: React.FC<IActionsProps> = ({
     //   condition: isOwner && !isAuction,
     // },
     {
-      title: 'Transfer token',
-      icon: 'arrow-right-square',
-      action: () => setVisibleModalTransfer(true),
-      condition: isOwner,
-    },
-    {
-      title: 'Remove from sale',
-      icon: 'close-circle',
-      action: () => setVisibleModalRemoveSale(true),
-      condition: isMayRemoveFromSale,
-    },
-    {
-      title: 'Burn token',
-      icon: 'close-circle',
-      action: () => setVisibleModalBurn(true),
-      condition: isOwner,
-    },
-    {
       title: 'Report',
       icon: 'info-circle',
       action: () => setVisibleModalReport(true),
       condition: true,
     },
   ];
-
-  const handleRemoveFromSale = () => {
-    removeFromSale().then(() => {
-      setVisibleModalRemoveSale(false);
-    });
-  };
-
   return (
     <>
       <OutsideClickHandler onOutsideClick={() => setVisible(false)}>
@@ -115,19 +84,6 @@ const Actions: React.FC<IActionsProps> = ({
           </div>
         </div>
       </OutsideClickHandler>
-      <Modal visible={visibleModalTransfer} onClose={() => setVisibleModalTransfer(false)}>
-        <Transfer
-          itemId={itemId}
-          standart={standart}
-          onClose={() => setVisibleModalTransfer(false)}
-        />
-      </Modal>
-      <Modal visible={visibleModalRemoveSale} onClose={() => setVisibleModalRemoveSale(false)}>
-        <RemoveSale removeFromSale={handleRemoveFromSale} />
-      </Modal>
-      <Modal visible={visibleModalBurn} onClose={() => setVisibleModalBurn(false)}>
-        <Burn itemId={itemId} standart={standart} />
-      </Modal>
       <Modal visible={visibleModalReport} onClose={() => setVisibleModalReport(false)}>
         <Report />
       </Modal>

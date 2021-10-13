@@ -5,4 +5,5 @@ export interface IModal {
   onClose: () => void;
   children: React.ReactNode;
   title?: string;
+  maxWidth?: string;
 }

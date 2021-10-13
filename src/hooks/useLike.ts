@@ -39,9 +39,11 @@ export const useLike = (
     setLikeCount(likes);
   }, [likes]);
 
-  return {
-    isLike,
-    likeCount,
-    handleLike,
-  };
+  return hasAddress
+    ? {
+        isLike,
+        likeCount,
+        handleLike,
+      }
+    : {};
 };

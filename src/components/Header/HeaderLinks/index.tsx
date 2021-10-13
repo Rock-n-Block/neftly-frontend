@@ -11,7 +11,7 @@ const nav = [
   },
   {
     url: '/faq',
-    title: 'How it work',
+    title: 'How it works',
   },
 ];
 

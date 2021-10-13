@@ -1,59 +1,73 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
+import { observer } from 'mobx-react-lite';
 
 import { storeApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
-import Button from '../Button';
+import { Button } from '..';
+import { useMst } from '../../store';
 
 import styles from './Transfer.module.scss';
 
 interface ITransferProps {
   className?: string;
-  itemId?: string;
-  standart?: string;
-  onClose: () => void;
 }
 
-const Transfer: React.FC<ITransferProps> = ({ className, itemId, standart, onClose }) => {
-  const walletConnector = useWalletConnectorContext();
+const Transfer: React.FC<ITransferProps> = ({ className }) => {
+  const {
+    modals: { transfer },
+  } = useMst();
+  const { walletService } = useWalletConnectorContext();
   const [inputValue, setInputValue] = useState('');
   const [amount, setAmount] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const transferToken = () => {
+
+  const handleSetAddress = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  }, []);
+  const handleSetAmount = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value);
+  }, []);
+
+  const handleClose = React.useCallback(() => {
+    transfer.close();
+  }, [transfer]);
+
+  const transferToken = React.useCallback(() => {
     setIsLoading(true);
     storeApi
-      .transferToken(itemId || '', inputValue, amount)
+      .transferToken(transfer.tokenId.toString() || '', inputValue, amount)
       .then(({ data }: any) => {
-        walletConnector.walletService.sendTransaction(data.initial_tx).then(() => {
+        walletService.sendTransaction(data.initial_tx).then(() => {
           setIsLoading(false);
-          onClose();
+          transfer.success();
+          transfer.close();
         });
       })
       .catch((e: any) => console.error('Bid modal sendTranscation', e))
       .finally(() => setIsLoading(false));
-  };
+  }, [amount, inputValue, transfer, walletService]);
 
   return (
     <div className={cn(className, styles.transfer)}>
-      <div className={cn('h4', styles.title)}>Transfer token</div>
       <div className={styles.text}>You can transfer tokens from your address to another</div>
       <div className={styles.info}>Receiver address</div>
       <div className={styles.field}>
         <input
           className={styles.input}
           value={inputValue}
-          onChange={(e: any) => setInputValue(e.target.value)}
+          onChange={handleSetAddress}
           type="text"
           name="address"
           placeholder="Paste address"
         />
       </div>
-      {standart === 'ERC1155' && (
+      {transfer.standart === 'ERC1155' && (
         <div className={styles.field}>
           <input
             className={styles.input}
             value={amount}
-            onChange={(e: any) => setAmount(e.target.value)}
+            onChange={handleSetAmount}
             type="number"
             name="amount"
             placeholder="Paste amount of transfered tokens"
@@ -66,10 +80,16 @@ const Transfer: React.FC<ITransferProps> = ({ className, itemId, standart, onClo
           className={cn('button', styles.button)}
           onClick={transferToken}
           loading={isLoading}
+          disabled={+amount > transfer.available}
         >
           Continue
         </Button>
-        <Button type="button" className={cn('button-stroke', styles.button)}>
+        <Button
+          type="button"
+          className={cn('button-stroke', styles.button)}
+          color="outline"
+          onClick={handleClose}
+        >
           Cancel
         </Button>
       </div>
@@ -77,4 +97,4 @@ const Transfer: React.FC<ITransferProps> = ({ className, itemId, standart, onClo
   );
 };
 
-export default Transfer;
+export default observer(Transfer);

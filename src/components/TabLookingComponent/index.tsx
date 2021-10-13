@@ -1,22 +1,28 @@
 import { FC, useCallback, useRef, useState } from 'react';
 import cx from 'classnames';
 import { Button, Text } from 'components';
-import { OptionType } from 'typings';
 
 import styles from './styles.module.scss';
-// TODO: look at any
+
+export interface ITab {
+  key: string;
+  title: string;
+  icon?: string;
+}
+
 type Props = {
   className?: string;
   tabClassName?: string;
-  tabs: any[] | OptionType[];
-  action: (value: any) => void;
+  tabs: ITab[];
+  activeTab?: string;
+  action: (value: string) => void;
 };
 
-const TabLookingComponent: FC<Props> = ({ className, tabs, action, tabClassName }) => {
-  const [selectedTab, setSelectedTab] = useState(0);
-  const handleClick = (index: number, value: string | OptionType) => {
-    setSelectedTab(index);
-    action(value);
+const TabLookingComponent: FC<Props> = ({ className, activeTab, tabs, action, tabClassName }) => {
+  const [selectedTab, setSelectedTab] = useState(activeTab);
+  const handleClick = (key: string) => {
+    setSelectedTab(key);
+    action(key);
   };
 
   const scrollProviderRef = useRef<HTMLDivElement>(null);
@@ -35,15 +41,15 @@ const TabLookingComponent: FC<Props> = ({ className, tabs, action, tabClassName 
     <div className={cx(styles.tabContainer, { [styles.scrollTips]: getIsScrollTips() })}>
       <div ref={scrollProviderRef} className={styles.scrollProvider}>
         <div ref={tabWrapperRef} className={cx(styles.tabWrapper, className)}>
-          {tabs.map(({ label, value, icon }, index) => (
+          {tabs.map(({ title, icon, key }) => (
             <Button
-              onClick={() => handleClick(index, { label, value })}
+              onClick={() => handleClick(key)}
               color="transparent"
-              className={cx(styles.tab, { [styles.selected]: index === selectedTab }, tabClassName)}
+              className={cx(styles.tab, { [styles.selected]: key === selectedTab }, tabClassName)}
             >
               {icon && <img className={styles.tabIcon} src={icon} alt="" />}
               <Text className={styles.tabText} size="l">
-                {label}
+                {title}
               </Text>
             </Button>
           ))}

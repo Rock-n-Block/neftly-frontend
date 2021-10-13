@@ -1,0 +1,21 @@
+@import '../../../../styles/helpers.scss';
+
+.tab_header {
+  @include flexbox(center, space-between);
+  margin-bottom: 32px;
+
+  @include forTablet {
+    @include flexbox(flex-start, space-between);
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.title {
+  margin-bottom: 5px;
+}
+
+.counter {
+  font-size: 16px;
+  color: $color-neutral-20;
+}

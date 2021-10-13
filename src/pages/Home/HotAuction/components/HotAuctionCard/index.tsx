@@ -1,8 +1,11 @@
 import { FC } from 'react';
 import cx from 'classnames';
+import { observer } from 'mobx-react-lite';
 
 import HotAuctionCardDesktop from '../HotAuctionCardDesktop';
 import HotAuctionCardMobile from '../HotAuctionCardMobile';
+import { useMst } from '../../../../../store';
+import { useGetUserAccessForNft } from 'hooks';
 
 import styles from './styles.module.scss';
 
@@ -39,7 +42,17 @@ const HotAuctionCard: FC<Props> = ({
   bidders,
   isLiked,
 }) => {
+  const { user } = useMst();
   console.log(isLiked);
+  // TODO: Пропихнуть целый объект токена, и закинуть его в хук вместо null
+  const {
+    isUserCanEndAuction,
+    isUserCanBuyNft,
+    isUserCanEnterInAuction,
+    isUserCanPutOnSale,
+    isOwner,
+    isUserCanRemoveFromSale,
+  } = useGetUserAccessForNft(null, user.id, user.address);
   return (
     <div className={cx(styles.hotAuctionCard, className)}>
       <HotAuctionCardDesktop
@@ -56,6 +69,12 @@ const HotAuctionCard: FC<Props> = ({
         priceAsset={priceAsset}
         auctionEndingTime={auctionEndingTime}
         bidders={bidders}
+        isUserCanEndAuction={isUserCanEndAuction}
+        isUserCanBuyNft={isUserCanBuyNft}
+        isUserCanEnterInAuction={isUserCanEnterInAuction}
+        isUserCanPutOnSale={isUserCanPutOnSale}
+        isOwner={isOwner}
+        isUserCanRemoveFromSale={isUserCanRemoveFromSale}
       />
       <HotAuctionCardMobile
         className={styles.mobileAuctionCard}
@@ -69,9 +88,15 @@ const HotAuctionCard: FC<Props> = ({
         artPic={artPic}
         auctionEndingTime={auctionEndingTime}
         bidders={bidders}
+        isUserCanEndAuction={isUserCanEndAuction}
+        isUserCanBuyNft={isUserCanBuyNft}
+        isUserCanEnterInAuction={isUserCanEnterInAuction}
+        isUserCanPutOnSale={isUserCanPutOnSale}
+        isOwner={isOwner}
+        isUserCanRemoveFromSale={isUserCanRemoveFromSale}
       />
     </div>
   );
 };
 
-export default HotAuctionCard;
+export default observer(HotAuctionCard);

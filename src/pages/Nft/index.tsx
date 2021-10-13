@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import cx from 'classnames';
 import { useParams, useHistory } from 'react-router-dom';
 import moment from 'moment';
+import { observer } from 'mobx-react-lite';
 
 import {
   ArtCard,
@@ -23,6 +24,7 @@ import {
 import { Chart } from 'containers';
 import { TableCell, INft, OptionType } from 'typings';
 import { storeApi } from '../../services/api';
+import { useMst } from '../../store';
 
 import { data as mockData } from './mockdata';
 
@@ -99,7 +101,10 @@ const columnTest = [
   },
 ];
 
-const DetailArtwork: FC<Props> = ({ className }) => {
+const DetailArtwork: FC<Props> = observer(({ className }) => {
+  const {
+    modals: { sell, remove },
+  } = useMst();
   const history = useHistory();
 
   const { id } = useParams<{ id: string }>();
@@ -186,6 +191,23 @@ const DetailArtwork: FC<Props> = ({ className }) => {
 
   React.useEffect(() => getItem(), [getItem]);
 
+  React.useEffect(() => {
+    if (
+      sell.checkout.isSuccess ||
+      sell.placeBid.isSuccess ||
+      remove.isSuccess ||
+      sell.putOnSale.isSuccess
+    ) {
+      getItem();
+    }
+  }, [
+    sell.checkout.isSuccess,
+    sell.placeBid.isSuccess,
+    getItem,
+    remove.isSuccess,
+    sell.putOnSale.isSuccess,
+  ]);
+
   React.useEffect(() => getRelatedArtworks(1), [getRelatedArtworks]);
 
   React.useEffect(() => {
@@ -201,9 +223,9 @@ const DetailArtwork: FC<Props> = ({ className }) => {
         <GiantCard
           name={nft?.name || ''}
           views={mockData.views}
-          dotsAction={() => alert('dots')}
           growth={mockData.growth}
           nft={nft}
+          onUpdateNft={getItem}
         />
         <div className={styles.chartAndBidders}>
           <div className={styles.chartWrapper}>
@@ -273,6 +295,6 @@ const DetailArtwork: FC<Props> = ({ className }) => {
       </div>
     </div>
   );
-};
+});
 
 export default DetailArtwork;
