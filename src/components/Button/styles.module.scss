@@ -46,6 +46,13 @@
     }
   }
 
+  &.pink {
+    height: 40px;
+
+    color: #fff;
+    background: $color-state-error;
+  }
+
   &.outline {
     height: 40px;
 

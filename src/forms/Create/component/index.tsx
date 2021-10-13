@@ -101,7 +101,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     ).toFixed(2);
     const currencyOptions = useMemo(() => {
       return values.sellMethod === 'openForBids'
-        ? [...rates.filter((rate: IRate) => rate.symbol !== 'bnb').map((rate) => rate.symbol)]
+        ? [...rates.map((rate) => rate.symbol)].filter(
+            (rateSymbol) => !['bnb', 'eth'].includes(rateSymbol),
+          )
         : rates.map((rate) => rate.symbol);
     }, [rates, values.sellMethod]);
     const handleClearImg = () => {
@@ -494,7 +496,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 <ChooseCollection
                   className={styles.collections}
                   activeCollectionId={values.collection}
-                  onChange={(value) => setFieldValue('collection', value)}
+                  onChange={(value: any) => setFieldValue('collection', value)}
                   isSingle={isSingle}
                 />
               )}

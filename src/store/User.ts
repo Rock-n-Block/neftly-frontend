@@ -96,9 +96,6 @@ export const User = types
       self.address = '';
       self.id = '';
       self.search = '';
-      delete localStorage.address;
-      delete localStorage.nft_token;
-      delete localStorage.nft_metamask;
     };
     const getMe = flow(function* getMe() {
       try {
