@@ -1,0 +1,68 @@
+@import '../../styles/helpers';
+
+.box {
+  display: grid;
+  grid-template-columns: 1.3fr 45%;
+  grid-column-gap: 25px;
+}
+.media {
+  width: 100%;
+  & > * {
+    width: 100%;
+  }
+}
+
+.content {
+  width: 100%;
+}
+
+.title {
+  font-size: 28px;
+  line-height: 34px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.item {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid $color-neutral-60;
+  &Title {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  &Price {
+    font-size: 20px;
+    line-height: 32px;
+    margin-right: 8px;
+    &Usd {
+      color: $color-neutral-20;
+    }
+  }
+  &Info {
+    @include flexbox(center, flex-start);
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+.info {
+  font-size: 16px;
+  line-height: 26px;
+  margin-bottom: 24px;
+  &Item {
+    @include flexbox(center, space-between);
+    &Value {
+      font-weight: 500;
+    }
+    &Name {
+      color: $color-neutral-20;
+    }
+    & + & {
+      margin-top: 12px;
+    }
+  }
+}

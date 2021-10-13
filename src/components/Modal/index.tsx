@@ -16,6 +16,7 @@ const Modal: React.FC<IModal> = ({
   onClose,
   children,
   title,
+  maxWidth,
 }) => {
   const escFunction = useCallback(
     (e) => {
@@ -49,7 +50,7 @@ const Modal: React.FC<IModal> = ({
   return createPortal(
     visible && (
       <div className={styles.modal}>
-        <div className={cn(styles.outer, outerClassName)}>
+        <div className={cn(styles.outer, outerClassName)} style={{ maxWidth }}>
           <OutsideClickHandler onOutsideClick={onClose}>
             <div className={cn(styles.container, containerClassName)}>
               {title ? <H3 className={styles.title}>{title}</H3> : null}

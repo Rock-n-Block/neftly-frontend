@@ -1,0 +1,39 @@
+@import '../../styles/helpers';
+
+.item {
+  @include flexbox(center, space-between);
+  font-size: 16px;
+  line-height: 26px;
+  &Wrapper {
+    @include flexbox(center);
+  }
+  &Img {
+    @include flexbox();
+    border-radius: 50%;
+    overflow: hidden;
+    width: 56px;
+    height: 56px;
+    margin-right: 15px;
+    img {
+      max-width: 100%;
+    }
+  }
+  &Name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    max-width: 200px;
+    font-weight: bold;
+  }
+  &Quantity {
+    color: $color-neutral-20;
+  }
+}
+
+.btn {
+  width: 105px;
+}
+.currency {
+  color: $color-neutral-20;
+  margin-right: 15px;
+}

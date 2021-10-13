@@ -335,8 +335,12 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                             name="currency"
                             setValue={(value) => setFieldValue('currency', value)}
                             options={
-                              values.sellMethod === "openForBids"
-                                ? [...currencies.filter((rate: any) => rate !== 'bnb')]
+                              values.sellMethod === 'openForBids'
+                                ? [
+                                    ...currencies.filter(
+                                      (rate: any) => !['bnb', 'eth'].includes(rate),
+                                    ),
+                                  ]
                                 : currencies
                             }
                             className={styles.dropdown}
@@ -486,7 +490,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 <ChooseCollection
                   className={styles.collections}
                   activeCollectionId={values.collection}
-                  onChange={(value) => setFieldValue('collection', value)}
+                  onChange={(value: any) => setFieldValue('collection', value)}
                   isSingle={isSingle}
                 />
               )}

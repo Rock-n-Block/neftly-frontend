@@ -8,7 +8,7 @@ import { Icon } from '..';
 import styles from './styles.module.scss';
 
 type Props = {
-  color?: 'blue' | 'outline' | 'transparent';
+  color?: 'blue' | 'outline' | 'transparent' | 'pink';
   size?: any;
   isFullWidth?: boolean;
   className?: string;

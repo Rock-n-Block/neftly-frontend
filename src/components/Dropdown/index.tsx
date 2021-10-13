@@ -107,12 +107,12 @@ const Dropdown: React.FC<IDropdownProps> = ({
                   },
                   option.symbol === value ? 'text-gradient' : '',
                 )}
-                onClick={() => handleClick(option.symbol)}
+                onClick={() => handleClick(option.symbol.toUpperCase())}
                 key={`dropdown_option_${option.symbol}`}
               >
                 <img alt="" className={styles.image} src={option.image} />
                 <Text className={styles.text} tag="span">
-                  {option.symbol}
+                  {option.symbol.toUpperCase()}
                 </Text>
               </div>
             ))}

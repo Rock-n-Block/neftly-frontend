@@ -90,4 +90,5 @@ export interface INft {
     name: string;
     native_symbol: string;
   };
+  currency_service_fee: number;
 }
