@@ -1,18 +1,22 @@
 import { RefObject, useCallback, useState } from 'react';
 import { filter } from 'assets/img';
+import BigNumber from 'bignumber.js';
 import cx from 'classnames';
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
+import { observer } from 'mobx-react-lite';
+import { userApi } from 'services';
+import { useMst } from 'store';
 
 import { selectOptions } from 'typings';
 
 import styles from './styles.module.scss';
-import BigNumber from 'bignumber.js';
 
-const Discover = () => {
+const Discover = observer(() => {
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useMst();
 
   const handleOpenFilter = useCallback(() => {
     setFilterOpen(!isFilterOpen);
@@ -50,6 +54,14 @@ const Discover = () => {
     on_sale: true,
   });
 
+  const likeAction = useCallback(
+    (id) => {
+      if (user.address) {
+        userApi.like({ id });
+      }
+    },
+    [user.address],
+  );
   const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading);
   return (
     <div className={styles.discover}>
@@ -103,6 +115,7 @@ const Discover = () => {
                     highest_bid,
                     minimal_bid,
                     bids,
+                    is_liked,
                   } = artCard;
                   return (
                     <ArtCard
@@ -122,6 +135,8 @@ const Discover = () => {
                       likesNumber={like_count}
                       tags={tags}
                       bids={bids}
+                      isLiked={is_liked}
+                      likeAction={likeAction}
                     />
                   );
                 })
@@ -133,6 +148,6 @@ const Discover = () => {
       <LiveAuction className={styles.liveAuction} />
     </div>
   );
-};
+});
 
 export default Discover;
