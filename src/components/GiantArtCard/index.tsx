@@ -14,13 +14,12 @@ type Props = {
   className?: string;
   name: string;
   views: number;
-  likeAction: () => void;
   dotsAction: () => void;
   growth: number;
   nft: INft | null;
 };
 
-const GiantCard: FC<Props> = ({ className, views, likeAction, dotsAction, growth, nft }) => (
+const GiantCard: FC<Props> = ({ className, views, dotsAction, growth, nft }) => (
   <div className={cx(styles.giantCard, className)}>
     <img src={nft?.media || ''} alt="" />
     <div className={styles.cardInfo}>
@@ -30,10 +29,10 @@ const GiantCard: FC<Props> = ({ className, views, likeAction, dotsAction, growth
         likes={nft?.like_count || 0}
         views={views}
         inStock={nft?.available || 0}
-        likeAction={likeAction}
         link="google"
         dotsAction={dotsAction}
         isLiked={nft?.is_liked}
+        id={nft?.id}
       />
       {nft?.is_auc_selling || nft?.is_selling ? <PaymentComponent growth={growth} nft={nft} /> : ''}
       <AuthorComponent author={nft?.creator.name || ''} authorPic={nft?.creator.avatar || ''} />

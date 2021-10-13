@@ -49,7 +49,7 @@ const HotAuctionCardDesktop: FC<Props> = ({
       <ViewsAndControlsComponent
         likes={likes}
         views={views}
-        likeAction={() => alert('likeAction')}
+        // likeAction={() => alert('likeAction')}
         dotsAction={() => alert('dotsAction')}
         link="google"
       />

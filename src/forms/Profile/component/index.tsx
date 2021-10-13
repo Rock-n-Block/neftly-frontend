@@ -132,8 +132,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                       value={values.bio}
                       onChange={handleChange}
                       placeholder="About yourselt in a few words"
-                      editable
-                      maxLettersCount={100}
+                      maxLettersCount={1000}
                     />
                   )}
                 />

@@ -3,42 +3,69 @@ import { storeApi } from 'services';
 
 const NUMBER_NFTS_PER_PAGE = 6;
 
-export const useFetchNft = (
-  setLoading: (value: boolean) => void,
-  page: number,
-  type: string,
-  order_by: string,
-  tags: string,
-  max_price: number,
-  currency: string,
-  is_verificated: string,
-) => {
+interface IProps {
+  setLoading: (value: boolean) => void;
+  page: number;
+  sort: string;
+  order_by?: string;
+  tags?: string;
+  max_price?: number;
+  currency?: string;
+  is_verified?: string;
+  on_sale?: boolean;
+  creator?: string;
+  owner?: string;
+  text?: string;
+}
+
+export const useFetchNft = (props: IProps) => {
+  const {
+    page,
+    sort,
+    order_by,
+    tags,
+    max_price,
+    currency,
+    is_verified,
+    creator,
+    owner,
+    setLoading,
+    on_sale,
+    text = '',
+  } = props;
   const [allPages, setAllPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [bids, setBids] = useState<any>([]);
+  const [nftCards, setNftCards] = useState<any>([]);
 
   const fetchSearch = () => {
     const refresh = page === 1;
     setLoading(true);
     storeApi
-      .getSearchResults({
-        type,
-        order_by,
-        tags,
-        max_price,
-        currency,
-        page,
-        is_verificated,
-      })
+      .getSearchResults(
+        {
+          sort,
+          order_by,
+          tags,
+          max_price,
+          currency,
+          page,
+          is_verified,
+          creator,
+          on_sale,
+          owner,
+        },
+        text,
+      )
       .then(({ data: { items, total_tokens } }: any) => {
+        // TODO: проверить когда внесут изменения на бэке
         setTotalItems(total_tokens);
         if (refresh) {
-          setBids(items);
+          setNftCards(items);
         } else {
-          setBids([...bids, ...items]);
+          setNftCards([...nftCards, ...items]);
         }
         if (!items.length && refresh) {
-          setBids([]);
+          setNftCards([]);
         }
         setAllPages(Math.ceil(total_tokens / NUMBER_NFTS_PER_PAGE));
       })
@@ -50,11 +77,11 @@ export const useFetchNft = (
   useEffect(() => {
     fetchSearch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, type, order_by, tags, max_price, currency, is_verificated]);
+  }, [page, sort, order_by, tags, max_price, currency, is_verified, creator, on_sale, text]);
 
   return {
     allPages,
     totalItems,
-    bids,
-  }
+    nftCards,
+  };
 };

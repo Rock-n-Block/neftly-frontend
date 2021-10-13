@@ -1,12 +1,14 @@
-import { FC } from 'react';
-import { pinkHeart } from 'assets/img';
-import cx from 'classnames';
-import { Tag, Text } from 'components';
-import { numberFormatter } from 'utils';
+import { FC, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as PinkHeart } from 'assets/img/pinkHeart.svg';
+import cx from 'classnames';
+import { Button, Tag, Text } from 'components';
+// import { useLike } from 'hooks';
+import { numberFormatter } from 'utils';
+
+import { routes } from '../../appConstants';
 
 import styles from './styles.module.scss';
-import { routes } from '../../appConstants';
 
 type Props = {
   type?: 'Small' | 'Medium';
@@ -23,9 +25,12 @@ type Props = {
   inStockNumber?: number | string;
   author: string;
   authorAvatar: string;
-  likesNumber: number | string;
+  likesNumber: number;
   tags?: any[];
   isCollection?: boolean;
+  bids?: any[];
+  isLiked?: boolean;
+  likeAction?: (id: string | number) => void;
 };
 
 const ArtCard: FC<Props> = ({
@@ -46,56 +51,100 @@ const ArtCard: FC<Props> = ({
   likesNumber,
   tags,
   isCollection,
-}) => (
-  <div className={cx(styles.artCard, className)}>
-    <Link
-      to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
-      className={styles[`mainImageWrapper${type}`]}
-    >
-      <div className={styles.tagContainer}>
-        {tags?.map((tag) => (
-          <Tag className={styles.tag} type={tag.type} auctionEndTime={tag.auctionEndTime} />
-        ))}
-      </div>
-      <img className={styles.mainImage} src={imageMain} alt="" />
-    </Link>
-    {type === 'Medium' && (
-      <div className={cx(styles.secondaryImagesContainer)}>
-        <div className={styles.secondaryImageWrapper}>
-          <img src={imageSecondaryOne} alt="" />
-        </div>
+  bids,
+  isLiked = false,
+  likeAction = () => {},
+}) => {
+  const [isLike, setIsLike] = useState(isLiked);
+  const [likesCount, setLikesCount] = useState(likesNumber);
 
-        <div className={styles.secondaryImageWrapper}>
-          {imageSecondaryTwo && <img src={imageSecondaryTwo} alt="" />}
+  const handleLike = useCallback(() => {
+    if (isLike) {
+      likeAction(artId);
+      setLikesCount(likesNumber - 1);
+    } else {
+      likeAction(artId);
+      setLikesCount(likesNumber + 1);
+    }
+    setIsLike(!isLike);
+  }, [artId, isLike, likeAction, likesNumber]);
+  return (
+    <div className={cx(styles.artCard, className)}>
+      <Link
+        to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
+        className={styles[`mainImageWrapper${type}`]}
+      >
+        <div className={styles.tagContainer}>
+          {tags?.map((tag) => (
+            <Tag className={styles.tag} type={tag.type} auctionEndTime={tag.auctionEndTime} />
+          ))}
         </div>
-        <div className={cx(styles.secondaryImageWrapper, styles.lastSecondaryImageWrapper)}>
-          {allArtNumber > 3 && (
-            <Text className={styles.allArtNumber} size="m">{`${allArtNumber} +`}</Text>
-          )}
-          {imageSecondaryThree && <img src={imageSecondaryThree} alt="" />}
+        <img className={styles.mainImage} src={imageMain} alt="" />
+      </Link>
+      {type === 'Medium' && (
+        <div className={cx(styles.secondaryImagesContainer)}>
+          <div className={styles.secondaryImageWrapper}>
+            <img src={imageSecondaryOne} alt="" />
+          </div>
+
+          <div className={styles.secondaryImageWrapper}>
+            {imageSecondaryTwo && <img src={imageSecondaryTwo} alt="" />}
+          </div>
+          <div className={cx(styles.secondaryImageWrapper, styles.lastSecondaryImageWrapper)}>
+            {allArtNumber > 3 && (
+              <Text className={styles.allArtNumber} size="m">{`${allArtNumber} +`}</Text>
+            )}
+            {imageSecondaryThree && <img src={imageSecondaryThree} alt="" />}
+          </div>
         </div>
-      </div>
-    )}
-    <div className={styles.artCardInfo}>
-      <Text size="xl">{name}</Text>
-      <div className={styles.flexContainer}>
-        {!isCollection && (
-          <Text className={styles.artCardPrice} size="m">{`${price} ${asset}`}</Text>
-        )}
-        {type === 'Small' && <Text size="m">{`in stock: ${inStockNumber}`}</Text>}
-      </div>
-      <div className={cx(styles.flexContainer, styles.artCardAuthorContainer)}>
+      )}
+      <div className={styles.artCardInfo}>
+        <Text size="xl">{name}</Text>
         <div className={styles.flexContainer}>
-          <img src={authorAvatar} alt="" />
-          <Text className={styles.artCardAuthor}>{author}</Text>
+          {!isCollection && (
+            <Text className={styles.artCardPrice} size="m">
+              {`${price} ${asset}`}{' '}
+              {bids?.length ? <span className={styles.bidText}>(Highest Bid)</span> : null}
+            </Text>
+          )}
+          {type === 'Small' && !bids?.length && (
+            <Text size="m">{`in stock: ${inStockNumber}`}</Text>
+          )}
         </div>
-        <div className={cx(styles.flexContainer, styles.artCardSmallLikes)}>
-          <img className={styles.artCardHeart} src={pinkHeart} alt="" />
-          <Text>{numberFormatter(+likesNumber, 3)}</Text>
+        <div className={cx(styles.flexContainer, styles.artCardAuthorContainer)}>
+          <div className={styles.flexContainer}>
+            {bids?.length ? (
+              <>
+                <div className={styles.bidder_avatars}>
+                  {bids.map((bidder: any, index: number) => {
+                    return index < 2 ? (
+                      <img className={styles.bidder_avatar} src={bidder.bidder_avatar} alt="" />
+                    ) : null;
+                  })}
+                </div>
+                <Text className={styles.artCardAuthor}>{bids.length} people have bidded</Text>
+              </>
+            ) : (
+              <>
+                <img src={authorAvatar} className={styles.author_avatar} alt="" />
+                <Text className={styles.artCardAuthor}>{author}</Text>
+              </>
+            )}
+          </div>
+          <div className={cx(styles.flexContainer, styles.artCardSmallLikes)}>
+            <Button
+              className={cx(styles.artCardHeart, { [styles.artCardHeartActive]: isLike })}
+              onClick={handleLike}
+              color="transparent"
+            >
+              <PinkHeart />
+            </Button>
+            <Text>{numberFormatter(likesCount, 3)}</Text>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default ArtCard;

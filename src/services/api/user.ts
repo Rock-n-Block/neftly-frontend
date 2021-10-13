@@ -23,7 +23,10 @@ export default {
   },
   follow: (data: { id: string | number }) =>
     axios.post(`account/self/follow/?network=${localStorage.netfly_nft_chainName}`, data),
-  like: (data: { id: number | undefined }) =>
+  unfollow: (
+    data: { id: string | number }, // TODO: remove if follow and unfollow united
+  ) => axios.post(`account/self/unfollow/?network=${localStorage.netfly_nft_chainName}`, data),
+  like: (data: { id: string | number | undefined }) =>
     axios.post(`account/self/like/?network=${localStorage.netfly_nft_chainName}`, data),
   verifyMe: (data: any, address: string) =>
     axios.post(`/account/verification/?network=${localStorage.netfly_nft_chainName}`, {
@@ -47,9 +50,6 @@ export default {
   },
   getRandomCover: () =>
     axios.get(`/account/get_random_cover/?network=${localStorage.netfly_nft_chainName}`),
-  unfollow: (
-    data: { id: string | number }, // TODO: remove if follow and unfollow united
-  ) => axios.post(`account/self/unfollow/?network=${localStorage.netfly_nft_chainName}`, data),
   getUser: (data: { id: string }) =>
     axios.get(`account/${data.id}/?network=${localStorage.netfly_nft_chainName}`),
   getFollowing: (address: string, page: number) =>
