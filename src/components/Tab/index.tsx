@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, ReactNode } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
@@ -14,7 +13,6 @@ type Props = {
   tabs: TabType[];
 };
 
-// eslint-disable-next-line no-unused-vars
 const TabComponent: FC<Props> = ({ className, tabs }) => (
   <Tabs className={className}>
     <TabList>
