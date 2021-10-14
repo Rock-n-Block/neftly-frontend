@@ -120,10 +120,10 @@ const TextInput: React.FC<Props> = ({
     }
   };
   useEffect(() => {
-    if (ref.current) {
+    if (ref.current && prefix) {
       setElWidth(ref.current.offsetWidth);
     }
-  }, []);
+  }, [prefix]);
 
   return (
     <div className={cn(styles.field, className)}>
