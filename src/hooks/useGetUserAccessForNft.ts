@@ -18,13 +18,13 @@ export default (nft: INft | null, userId: string | number, userAddress: string) 
     if (!nft || !userAddress) return true;
     if (
       nft?.network.name === 'Binance-Smart-Chain' &&
-      localStorage.netfly_nft_chainName === 'Binance-Smart-Chain'
+      localStorage.nftcrowd_nft_chainName === 'Binance-Smart-Chain'
     ) {
       return false;
     }
     if (
       nft?.network.name === 'Kardiachain' &&
-      localStorage.netfly_nft_chainName === 'KardiaChain'
+      localStorage.nftcrowd_nft_chainName === 'KardiaChain'
     ) {
       return false;
     }

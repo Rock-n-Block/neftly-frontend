@@ -144,11 +144,11 @@ export const contracts: IContracts = {
     },
     EXCHANGE: {
       mainnet: {
-        address: exchangeAddrs[localStorage.netfly_nft_chainName as chainsEnum],
+        address: exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum],
         abi: [],
       },
       testnet: {
-        address: exchangeAddrs[localStorage.netfly_nft_chainName as chainsEnum],
+        address: exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum],
         abi: [],
       },
     },

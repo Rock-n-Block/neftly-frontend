@@ -13,7 +13,7 @@ const ToastContentWithTxHash: React.FC<IProps> = ({ txHash }) => {
       <Text color="gray">Transaction submitted</Text>
       <a
         href={`${
-          chains[localStorage.netfly_nft_chainName as 'Binance' | 'KardiaChain'].explorer
+          chains[localStorage.nftcrowd_nft_chainName as 'Binance' | 'KardiaChain'].explorer
         }/tx/${txHash}`}
         target="_blank"
         rel="noopener noreferrer"

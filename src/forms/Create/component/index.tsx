@@ -365,6 +365,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 required
+                                positiveOnly
                                 className={styles.priceInput}
                               />
                             );
@@ -378,6 +379,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                               onChange={handleChange}
                               onBlur={handleBlur}
                               required
+                              positiveOnly
                               className={styles.priceInput}
                             />
                           );
