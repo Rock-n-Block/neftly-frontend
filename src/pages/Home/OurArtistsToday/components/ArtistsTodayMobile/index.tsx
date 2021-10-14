@@ -43,6 +43,7 @@ const ArtistsTodayMobile: FC<Props> = ({
             } = artist;
             return (
               <ArtistLabel
+                key={avatar}
                 avatar={avatar}
                 name={display_name}
                 amount={price}

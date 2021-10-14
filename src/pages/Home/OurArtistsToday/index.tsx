@@ -65,6 +65,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
                 className={styles.categorySelector}
                 color="transparent"
                 onClick={() => setActiveTab(key)}
+                key={title}
               >
                 <Text
                   size="m"
@@ -92,7 +93,12 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
                 user: { is_verificated, avatar, display_name },
               } = artist;
               return (
-                <Button isFullWidth color="transparent" onClick={() => handleSelectArtis(artist)}>
+                <Button
+                  isFullWidth
+                  color="transparent"
+                  onClick={() => handleSelectArtis(artist)}
+                  key={id}
+                >
                   <ArtistLabel
                     avatar={avatar}
                     name={display_name}

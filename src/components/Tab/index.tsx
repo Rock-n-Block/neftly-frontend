@@ -19,12 +19,12 @@ const TabComponent: FC<Props> = ({ className, tabs }) => (
   <Tabs className={className}>
     <TabList>
       {tabs.map(({ title }) => (
-        <Tab>{title}</Tab>
+        <Tab key={title}>{title}</Tab>
       ))}
     </TabList>
 
-    {tabs.map(({ body }) => (
-      <TabPanel>{body}</TabPanel>
+    {tabs.map(({ title, body }) => (
+      <TabPanel key={title}>{body}</TabPanel>
     ))}
   </Tabs>
 );

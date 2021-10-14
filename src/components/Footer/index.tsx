@@ -57,7 +57,7 @@ const Footers: React.FC = () => {
                 <div key={title} className={styles.linkBlock}>
                   <Text size="m">{title}</Text>
                   {links.map((link) => (
-                    <Link key={title} color="lightGray" name={link.title} link={link.link} />
+                    <Link key={link.title} color="lightGray" name={link.title} link={link.link} />
                   ))}
                 </div>
               );

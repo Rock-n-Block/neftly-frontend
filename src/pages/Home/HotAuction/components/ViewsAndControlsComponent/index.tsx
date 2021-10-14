@@ -151,6 +151,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
                   if (action.isVisible) {
                     return (
                       <div
+                        key={action.name}
                         className={styles.actionsItem}
                         onClick={action.event}
                         role="button"
