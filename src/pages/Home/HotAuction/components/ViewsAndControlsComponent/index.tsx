@@ -16,6 +16,7 @@ import removeImg from '../../../../../assets/img/icons/remove.svg';
 import burnImg from '../../../../../assets/img/icons/burn.svg';
 import reportImg from '../../../../../assets/img/icons/report.svg';
 import { useLike } from 'hooks';
+import linkIcon from 'assets/img/icons/link.svg';
 
 type Props = {
   className?: string;
@@ -131,7 +132,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
             {likeCount}
           </Button>
           <Button onClick={() => alert(link)} color="outline">
-            link
+            <img src={linkIcon} alt="" />
           </Button>
           <Tooltip
             visible={isTooltipVisible}
