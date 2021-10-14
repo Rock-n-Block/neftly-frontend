@@ -2,6 +2,7 @@ export { default as useWindowSize } from './useWindowSize';
 export { default as useGetSlideToShow } from './useGetSlideToShow';
 export { default as useFilters } from './useFilters';
 export { default as useUserBalance } from './useUserBalance';
+export { default as useFetchPriceHistory } from './useFetchPriceHistory';
 export { default as useGetUserAccessForNft } from './useGetUserAccessForNft';
 export { default as useTabs } from './useTabs';
 export { default as useLoadMore } from './useLoadMore';

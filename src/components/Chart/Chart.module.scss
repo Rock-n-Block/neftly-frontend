@@ -1,0 +1,11 @@
+@import '../../styles/helpers';
+
+.chartInfo {
+  margin-top: 24px;
+}
+
+.averageValue {
+  margin-top: 8px;
+  @include flexbox(center, flex-start);
+  gap: 8px;
+}

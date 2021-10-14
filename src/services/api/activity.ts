@@ -1,5 +1,6 @@
-import { TTopUserReq } from 'typings';
+import { IBackendPriceHistory, TPriceHistoryPeriod, TTopUserReq } from 'typings';
 import axios from '../../core/axios';
+import { AxiosResponse } from 'axios';
 
 export default {
   getActivity: (page: string | number, query: any) => {
@@ -47,6 +48,15 @@ export default {
         type,
         sort_period: sortPeriod,
         network: localStorage?.netfly_nft_chainName,
+      },
+    }),
+  getPriceHistory: (
+    id: string,
+    period: TPriceHistoryPeriod,
+  ): Promise<AxiosResponse<IBackendPriceHistory>> =>
+    axios.get(`/activity/price_history/${id}`, {
+      params: {
+        period,
       },
     }),
 };
