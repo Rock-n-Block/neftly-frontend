@@ -1,0 +1,13 @@
+@import './mixins/media';
+
+//Monument Extended
+@include font-face(
+  'Monument Extended',
+  '../../assets/fonts/Monument-Extended/Monument-Extended-Regular',
+  normal
+);
+@include font-face(
+  'Monument Extended',
+  '../../assets/fonts/Monument-Extended/Monument-Extended-Bold',
+  800
+);
