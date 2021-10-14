@@ -16,7 +16,7 @@ interface ISwapProps {
   className?: string;
   close: () => void;
   main: string;
-  wrap: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC';
+  wrap: 'WBNB' | 'WETH' | 'BEP20' | 'WMATIC';
 }
 
 const Swap: React.FC<ISwapProps> = observer(({ className, close, main, wrap }) => {
