@@ -42,7 +42,6 @@ const GiantCard: FC<Props> = ({ className, views, growth, nft, onUpdateNft }) =>
           likes={nft?.like_count || 0}
           views={views}
           inStock={nft?.available || 0}
-          link="google"
           isLiked={nft?.is_liked}
           nft={nft}
           isOwner={isOwner}
