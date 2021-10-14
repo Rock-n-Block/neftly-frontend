@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import { FC } from 'react';
 import cx from 'classnames';
-import { H3 } from 'components';
+import { H3, Text } from 'components';
 
 import AuthorComponent from '../AuthorComponent';
 import BiddersComponent from '../BiddersComponent';
@@ -80,6 +80,10 @@ const HotAuctionCardDesktop: FC<Props> = ({
         isOwner={isOwner}
       />
       <BiddersComponent bidders={bidders} />
+
+      <Text color="gray">
+        By placing a bid, we reserve funds from your Ethereum account till the end of the auction
+      </Text>
     </div>
   </div>
 );

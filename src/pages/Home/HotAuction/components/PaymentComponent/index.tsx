@@ -194,7 +194,7 @@ const PaymentComponent: FC<Props> = observer(
             <Text color="lightGray">Auction Ending in</Text>
             <Text size="xl">14.45</Text>
           </div>
-        )} */}
+          )} */}
         </div>
 
         {user.address ? (

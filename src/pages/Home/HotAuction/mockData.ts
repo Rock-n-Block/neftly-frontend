@@ -7,7 +7,7 @@ export const data = [
     authorPic: profilePic,
     artPic: hotAuctionTest,
     body: "When I open my eyes and see the lines that live on the life I left behind, I feel disconnected from the place that I call home When I try to rewind, I can't design a way to go back to that place and time I remember that moment that changed everything I know",
-    tags: ['netify', 'rare', 'art'],
+    tags: ['Nftcrowd', 'Rare', 'Art'],
     views: 10000,
     likes: 1000,
     currentPrice: 0,

@@ -40,7 +40,6 @@
 }
 
 .sellBtnsWrapper {
-  @include flexbox(center, space-between);
   & > * {
     &:first-child {
       flex-basis: 60%;

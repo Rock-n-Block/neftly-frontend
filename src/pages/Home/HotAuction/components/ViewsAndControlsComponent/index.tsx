@@ -17,6 +17,7 @@ import burnImg from '../../../../../assets/img/icons/burn.svg';
 import reportImg from '../../../../../assets/img/icons/report.svg';
 import { useLike } from 'hooks';
 import linkIcon from 'assets/img/icons/link.svg';
+import { numberFormatter } from 'utils';
 
 type Props = {
   className?: string;
@@ -120,7 +121,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
   return (
     <>
       <div className={cx(styles.viewsAndControls, className)}>
-        <Text>{`Views: ${views}`}</Text>
+        <Text>{`Views: ${numberFormatter(views, 1000)}`}</Text>
         {inStock ? <Text color="gray">{`In Stock: ${inStock}`}</Text> : null}
         <div className={styles.controls}>
           <Button
@@ -129,7 +130,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
             color="outline"
           >
             <PinkHeart />
-            {likeCount}
+            {numberFormatter(likeCount || 0, 1000)}
           </Button>
           <Button onClick={() => alert(link)} color="outline">
             <img src={linkIcon} alt="" />
@@ -162,7 +163,9 @@ const ViewsAndControlsComponent: FC<Props> = ({
             onVisibleChange={(value) => setTooltipVisible(value)}
             placement="bottom"
           >
-            <Button color="outline">...</Button>
+            <Button className={styles.button} color="outline">
+              <Text className={styles.dots}>...</Text>
+            </Button>
           </Tooltip>
         </div>
       </div>
