@@ -3,7 +3,7 @@
 .giantCard {
   display: flex;
 
-  & > img {
+  & > img, video {
     width: 100%;
     height: auto;
   }
