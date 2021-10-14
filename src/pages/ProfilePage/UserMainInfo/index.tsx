@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, H2, Uploader, Text } from 'components';
 
 import {
@@ -48,24 +48,27 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
     successCallback: setIsFollowed,
   });
 
-  const handleFileUpload = (file: any) => {
-    setIsFileLoading(true);
-    const fileData = new FormData();
-    fileData.append('cover', file);
-    userApi
-      .setUserCover(fileData)
-      .then(({ data }) => {
-        toast.success('Cover uploaded');
-        user.setCover(data);
-      })
-      .catch((err) => {
-        toast.error('Success unfollow');
-        console.log(err, 'set cover');
-      })
-      .finally(() => {
-        setIsFileLoading(false);
-      });
-  };
+  const handleFileUpload = useCallback(
+    (file: any) => {
+      setIsFileLoading(true);
+      const fileData = new FormData();
+      fileData.append('cover', file);
+      userApi
+        .setUserCover(fileData)
+        .then(({ data }) => {
+          toast.success('Cover uploaded');
+          user.setCover(data);
+        })
+        .catch((err) => {
+          toast.error('Success unfollow');
+          console.log(err, 'set cover');
+        })
+        .finally(() => {
+          setIsFileLoading(false);
+        });
+    },
+    [user],
+  );
 
   return (
     <section

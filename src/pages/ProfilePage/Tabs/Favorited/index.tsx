@@ -3,12 +3,14 @@ import s from '../Tabs.module.scss';
 import { ArtCard } from 'components';
 import { useFetchLiked, useFilters, useInfiniteScroll } from 'hooks';
 import TabHeader from '../TabHeader';
+import BigNumber from 'bignumber.js';
 
 interface IProps {
   userAddress: string;
+  likeAction: (id: string | number) => void;
 }
 
-const Favorited: FC<IProps> = memo(({ userAddress }) => {
+const Favorited: FC<IProps> = memo(({ userAddress, likeAction }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { page, handlePage } = useFilters(setIsLoading);
@@ -26,21 +28,39 @@ const Favorited: FC<IProps> = memo(({ userAddress }) => {
 
       <div className={s.tab}>
         {nftCards.map((artCard: any) => {
-          const { media, name, price, currency, available, creator, like_count, tags, id } =
-            artCard;
+          const {
+            media,
+            name,
+            price,
+            currency,
+            available,
+            creator,
+            like_count,
+            tags,
+            id,
+            highest_bid,
+            minimal_bid,
+            bids,
+            is_liked,
+          } = artCard;
           return (
             <ArtCard
               artId={id}
               key={name}
               imageMain={media}
               name={name}
-              price={price}
+              price={
+                price || (highest_bid && new BigNumber(highest_bid.amount).toFixed()) || minimal_bid
+              }
               asset={currency.symbol.toUpperCase()}
               inStockNumber={available}
               author={creator.name}
               authorAvatar={creator.avatar}
               likesNumber={like_count}
               tags={tags}
+              bids={bids}
+              isLiked={is_liked}
+              likeAction={likeAction}
             />
           );
         })}

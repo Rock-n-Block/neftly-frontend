@@ -40,9 +40,7 @@ export default {
       email: data.email,
       media: data.img,
     }),
-  setUserCover: (file: any) => {
-    const data = new FormData();
-    data.append('cover', file);
+  setUserCover: (data: any) => {
     return axios.post(
       `/account/set_user_cover/?network=${localStorage.nftcrowd_nft_chainName}`,
       data,
@@ -53,7 +51,11 @@ export default {
   getUser: (data: { id: string }) =>
     axios.get(`account/${data.id}/?network=${localStorage.nftcrowd_nft_chainName}`),
   getFollowing: (address: string, page: number) =>
-    axios.get(`account/following/${address}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`),
+    axios.get(
+      `account/following/${address}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`,
+    ),
   getFollowers: (address: string, page: number) =>
-    axios.get(`account/followers/${address}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`),
+    axios.get(
+      `account/followers/${address}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`,
+    ),
 };
