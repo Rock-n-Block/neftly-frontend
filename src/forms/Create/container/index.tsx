@@ -2,12 +2,14 @@ import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import * as Yup from 'yup';
 
-import { storeApi } from '../../../services/api';
+import { storeApi } from 'services/api';
 import CreateForm, { ICreateForm } from '../component';
 import { toast } from 'react-toastify';
 import { ToastContentWithTxHash } from 'components';
+import { useHistory } from 'react-router';
 
 export default observer(({ isSingle, walletConnector }: any) => {
+  const history = useHistory();
   const props: ICreateForm = {
     name: '',
     isSingle: true,
@@ -88,6 +90,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
             })
             .then(() => {
               toast.success('Token Created');
+              history.push('/');
             })
             .catch((error: any) => {
               toast.error('Create Token failed');

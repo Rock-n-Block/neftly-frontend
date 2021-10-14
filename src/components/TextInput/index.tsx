@@ -1,9 +1,9 @@
-import {useEffect, useRef, useState} from 'react';
-import {arrowLeft} from 'assets/img';
+import { useEffect, useRef, useState } from 'react';
+import { arrowLeft } from 'assets/img';
 import cn from 'classnames';
-import {Icon, Text} from 'components';
+import { Icon, Text } from 'components';
 import Button from 'components/Button';
-import {IconNames} from 'typings';
+import { IconNames } from 'typings';
 
 import styles from './TextInput.module.scss';
 
@@ -17,6 +17,7 @@ interface Props {
   prefix?: string;
   suffix?: any;
   suffixClassName?: string;
+  prefixClassName?: string;
   onChange?: (value: any) => void;
   onBlur?: (value: any) => void;
   value?: string;
@@ -27,24 +28,25 @@ interface Props {
 }
 
 const TextInput: React.FC<Props> = ({
-                                      className,
-                                      label,
-                                      suffix,
-                                      onChange,
-                                      value,
-                                      suffixClassName,
-                                      name,
-                                      disabled,
-                                      prefix,
-                                      error,
-                                      icon,
-                                      isButton,
-                                      ...props
-                                    }) => {
+  className,
+  label,
+  suffix,
+  onChange,
+  value,
+  suffixClassName,
+  name,
+  disabled,
+  prefix,
+  prefixClassName,
+  error,
+  icon,
+  isButton,
+  ...props
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const [elWidth, setElWidth] = useState(0);
   const prefixElement = (
-    <div ref={ref} className={styles.prefix}>
+    <div ref={ref} className={cn(styles.prefix, prefixClassName)}>
       {prefix}
     </div>
   );
@@ -57,11 +59,15 @@ const TextInput: React.FC<Props> = ({
 
   return (
     <div className={cn(styles.field, className)}>
-      {label && <Text className={styles.label} size="m" weight="medium">{label}</Text>}
+      {label && (
+        <Text className={styles.label} size="m" weight="medium">
+          {label}
+        </Text>
+      )}
       <div className={styles.wrap}>
         {icon && (
           <Icon
-            className={cn(styles.icon, {[styles.disabled]: disabled})}
+            className={cn(styles.icon, { [styles.disabled]: disabled })}
             name={icon}
             size="24"
             fill="#fff"
@@ -71,20 +77,20 @@ const TextInput: React.FC<Props> = ({
         <input
           id={name}
           value={value}
-          className={cn(styles.input, {[styles.error]: error, [styles.withIcon]: icon})}
+          className={cn(styles.input, { [styles.error]: error, [styles.withIcon]: icon })}
           onChange={onChange}
           onWheel={(e) => e.currentTarget.blur()}
           disabled={disabled}
           {...props}
           style={
             elWidth
-              ? {paddingLeft: `${elWidth + 24}px`, paddingRight: suffix ? '74px' : ''}
-              : {paddingRight: suffix ? '74px' : ''}
+              ? { paddingLeft: `${elWidth + 16}px`, paddingRight: suffix ? '74px' : '' }
+              : { paddingRight: suffix ? '74px' : '' }
           }
         />
         {isButton && (
           <Button className={styles.inputButton}>
-            <img src={arrowLeft} alt=""/>
+            <img src={arrowLeft} alt="" />
           </Button>
         )}
         <div className={cn(styles.suffix, suffixClassName)}>{suffix}</div>

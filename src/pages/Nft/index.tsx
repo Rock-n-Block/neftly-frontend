@@ -264,6 +264,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
               } = art;
               return (
                 <ArtCard
+                  className={styles.artCard}
                   artId={artId}
                   imageMain={image}
                   name={name}

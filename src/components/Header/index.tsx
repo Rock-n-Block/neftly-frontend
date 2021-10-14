@@ -12,7 +12,8 @@ import { routes } from 'appConstants';
 
 import styles from './styles.module.scss';
 
-import { bell, wallet } from 'assets/img';
+import { bell } from 'assets/img';
+import Wallet from './Wallet';
 
 const Headers: React.FC = observer(() => {
   const { pathname } = useLocation();
@@ -71,7 +72,7 @@ const Headers: React.FC = observer(() => {
                 </Link>
               </Button>
               <Button color="transparent">
-                <img src={wallet} alt="" />
+                <Wallet />
               </Button>
               <Button color="transparent" className={styles.profileImageWrapper}>
                 <User />

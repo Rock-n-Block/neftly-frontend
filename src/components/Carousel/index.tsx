@@ -72,7 +72,7 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
 
   const sliderConfig = {
     dots: false,
-    infinite: true,
+    infinite: React.Children.count(children) > 3,
     speed: 400,
     slidesToShow,
     slidesToScroll: slidesToShow,

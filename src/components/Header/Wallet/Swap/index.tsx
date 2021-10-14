@@ -1,0 +1,145 @@
+import React, { useCallback, useState } from 'react';
+// import BigNumber from 'bignumber.js/bignumber';
+import cn from 'classnames';
+import { observer } from 'mobx-react';
+
+import iconSwap from '../../../../assets/img/icons/arrows-swap.svg';
+import { useWalletConnectorContext } from '../../../../services/walletConnect';
+import { WalletConnect } from '../../../../services/walletService';
+import { useMst } from '../../../../store';
+import { Button, Text, TextInput } from 'components';
+
+import styles from './Swap.module.scss';
+// import Icon from '../Icon';
+
+interface ISwapProps {
+  className?: string;
+  close: () => void;
+  main: string;
+  wrap: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC';
+}
+
+const Swap: React.FC<ISwapProps> = observer(({ className, close, main, wrap }) => {
+  const walletConnector = useWalletConnectorContext();
+  const { user } = useMst();
+  const [swappingCurrency, setSwappingCurrency] = useState<Array<'main' | 'wrap'>>([
+    'main',
+    'wrap',
+  ]);
+  const [isLoading, setLoading] = useState(false);
+  const [payInput, setPayInput] = useState('');
+  const handleConvert = useCallback((): void => {
+    if (swappingCurrency[0] === 'main') {
+      setSwappingCurrency(['wrap', 'main']);
+    } else {
+      setSwappingCurrency(['main', 'wrap']);
+    }
+    setPayInput('');
+  }, [swappingCurrency]);
+  const handleSubmitConvert = useCallback((): void => {
+    const weiValue = WalletConnect.calcTransactionAmount(payInput, 18);
+    setLoading(true);
+    if (swappingCurrency[0] === 'main') {
+      walletConnector.walletService
+        .createTransaction('deposit', [], wrap, '', '', '', weiValue)
+        .then(async () => {
+          // await handleUpdateBalance();
+          setLoading(false);
+          close();
+        })
+        .catch((err: any) => {
+          setLoading(false);
+          console.log('error', err);
+        });
+    } else {
+      walletConnector.walletService
+        .createTransaction('withdraw', [weiValue], wrap)
+        .then(async () => {
+          // await handleUpdateBalance();
+          setLoading(false);
+          close();
+        })
+        .catch((err: any) => {
+          setLoading(false);
+          console.log('error', err);
+        });
+    }
+  }, [close, payInput, swappingCurrency, walletConnector.walletService, wrap]);
+  const handlePayInput = useCallback((value: string) => {
+    setPayInput(value);
+  }, []);
+
+  const currentBalance = React.useMemo(() => {
+    if (swappingCurrency[0] === 'main') {
+      return user.balance?.eth;
+    }
+    return user.balance?.weth;
+  }, [user.balance, swappingCurrency]);
+  return (
+    <div className={cn(className, styles.swap)}>
+      <div className={cn('h4', styles.title)}>Convert</div>
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <Text tag="span" className={styles.label}>
+            You pay
+          </Text>
+          <Text tag="span" className={styles.amount}>
+            Max amount is {swappingCurrency[0] === 'main' ? user.balance?.eth : user.balance?.weth}
+          </Text>
+        </div>
+        <TextInput
+          className={styles.input}
+          type="number"
+          name="Pay input"
+          label=""
+          placeholder="Enter an amount"
+          value={payInput}
+          onChange={(e) => handlePayInput(e.target.value)}
+          prefix={swappingCurrency[0] === 'main' ? main : wrap}
+          prefixClassName={styles.prefix}
+        />
+      </div>
+      <div className={styles.iconWrapper}>
+        <div
+          className={styles.icon}
+          onClick={handleConvert}
+          onKeyDown={() => {}}
+          tabIndex={0}
+          role="button"
+        >
+          <img src={iconSwap} alt="Swap" />
+        </div>
+      </div>
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <Text tag="span" className={styles.label}>
+            You recieve
+          </Text>
+        </div>
+        <TextInput
+          className={styles.input}
+          type="number"
+          name="Pay input"
+          label=""
+          placeholder="Amount you will receive"
+          value={payInput}
+          onChange={(e) => setPayInput(e.target.value)}
+          prefix={swappingCurrency[1] === 'main' ? main : wrap}
+          prefixClassName={styles.prefix}
+        />
+      </div>
+      <div className={styles.btns}>
+        <Button
+          className={cn('button', styles.button)}
+          onClick={handleSubmitConvert}
+          loading={isLoading}
+          disabled={+payInput > +currentBalance}
+        >
+          Convert
+        </Button>
+      </div>
+    </div>
+  );
+});
+
+export default Swap;

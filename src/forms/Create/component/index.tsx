@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { upload } from 'assets/img/upload';
 import cn from 'classnames';
@@ -25,6 +25,7 @@ import ChooseCollection from './ChooseCollection';
 import styles from './CreateCollectibleDetails.module.scss';
 import { ratesApi } from '../../../services';
 import { iconClose } from '../../../assets/img/icons';
+import BigNumber from 'bignumber.js/bignumber';
 
 const royaltiesOptions = ['10', '20', '30'];
 
@@ -88,11 +89,23 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
   }) => {
     const history = useHistory();
     // const [rates, setRates] = useState<IRate[]>([]);
-    const [currencies, setCurrencies] = useState<string[]>([]);
+    // const [currencies, setCurrencies] = useState<string[]>([]);
+    const [rates, setRates] = useState<IRate[]>([]);
     const [addToCollection, setAddToCollection] = useState(true);
     // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
     // const cryptocurrencies = ['ETH', 'BTC'];
+    const stringRecieveValue = (parseFloat(`${values.minimalBid}`) * (100 - serviceFee)) / 100 || 0;
+    const stringRatesValue = new BigNumber(
+      rates.find((rate) => rate.symbol === values.currency)?.rate || 0,
+    ).toFixed(2);
+    const currencyOptions = useMemo(() => {
+      return values.sellMethod === 'openForBids'
+        ? [...rates.map((rate) => rate.symbol)].filter(
+            (rateSymbol) => !['bnb', 'eth'].includes(rateSymbol),
+          )
+        : rates.map((rate) => rate.symbol);
+    }, [rates, values.sellMethod]);
     const handleClearImg = () => {
       setFieldValue('img', '');
       setFieldValue('preview', '');
@@ -132,8 +145,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
 
     const fetchRates = useCallback(() => {
       ratesApi.getRates().then(({ data }: any) => {
-        // setRates(data);
-        setCurrencies(data.map((item: IRate) => item.symbol));
+        setRates(data);
+        // setCurrencies(data.map((item: IRate) => item.symbol));
         setFieldValue('currency', data[0].symbol);
       });
     }, [setFieldValue]);
@@ -334,15 +347,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           <Dropdown
                             name="currency"
                             setValue={(value) => setFieldValue('currency', value)}
-                            options={
-                              values.sellMethod === 'openForBids'
-                                ? [
-                                    ...currencies.filter(
-                                      (rate: any) => !['bnb', 'eth'].includes(rate),
-                                    ),
-                                  ]
-                                : currencies
-                            }
+                            options={currencyOptions}
                             className={styles.dropdown}
                             value={values.currency}
                           />
@@ -382,8 +387,11 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     </div>
                     <div className={styles.postfix}>
                       {/* change dynamically */}
-                      <Text color="gray">Minimum price 0.004 ETH</Text>
-                      <Text color="gray">USD 234.24 PER/ETH</Text>
+                      <Text color="gray">Minimum price 0.004 {values.currency.toUpperCase()}</Text>
+                      <Text color="gray">
+                        USD {stringRatesValue} PER/
+                        {values.currency.toUpperCase()}
+                      </Text>
                     </div>
                   </div>
                   {!isSingle && (
@@ -430,9 +438,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   <Text color="secondary">
                     Service fee {serviceFee}%
                     <br />
-                    You will receive{' '}
-                    {(parseFloat(`${values.minimalBid}`) * (100 - serviceFee)) / 100 || 0}{' '}
-                    {values.currency?.toUpperCase()}
+                    You will receive {stringRecieveValue} {values.currency?.toUpperCase()}
                   </Text>
                 </div>
                 <div className={styles.tokenProperties}>
