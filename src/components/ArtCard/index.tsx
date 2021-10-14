@@ -69,7 +69,7 @@ const ArtCard: FC<Props> = ({
     setIsLike(!isLike);
   }, [artId, isLike, likeAction, likesNumber]);
   return (
-    <div className={cx(styles.artCard, className)}>
+    <div className={cx(styles.artCard, className, styles[`artCard${type}`])}>
       <Link
         to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
         className={styles[`mainImageWrapper${type}`]}
