@@ -115,14 +115,15 @@
   }
 }
 
+.title {
+  text-align: center;
+  margin: 44px 0 20px;
+}
+
 @include forDesktopSm {
 
   .discover {
     padding: 0 20px;
-  }
-
-  .title {
-    text-align: center !important;
   }
 
   .advancedFilter {
