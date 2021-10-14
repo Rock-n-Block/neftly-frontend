@@ -20,6 +20,8 @@ type Props = {
   isUserCanPutOnSale: boolean;
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
+  isWrongChain: boolean;
+  tooltipPlacement?: 'top' | 'bottom';
 };
 
 const HotAuctionCardMobile: FC<Props> = ({
@@ -31,6 +33,8 @@ const HotAuctionCardMobile: FC<Props> = ({
   isUserCanPutOnSale,
   isOwner,
   isUserCanRemoveFromSale,
+  tooltipPlacement,
+  isWrongChain,
 }) => (
   <div className={cx(styles.mobileCard, className)}>
     <div className={styles.imageWrapper}>
@@ -38,15 +42,17 @@ const HotAuctionCardMobile: FC<Props> = ({
     </div>
     <H3>{nft.name}</H3>
     <AuthorComponent authorPic={nft.creator.avatar} author={nft.creator.name} />
-    <PaymentComponent
-      className={styles.paymentMobile}
-      nft={nft}
-      isUserCanEndAuction={isUserCanEndAuction}
-      isUserCanBuyNft={isUserCanBuyNft}
-      isUserCanEnterInAuction={isUserCanEnterInAuction}
-      isUserCanPutOnSale={isUserCanPutOnSale}
-      isOwner={isOwner}
-    />
+    {!isWrongChain ? (
+      <PaymentComponent
+        className={styles.paymentMobile}
+        nft={nft}
+        isUserCanEndAuction={isUserCanEndAuction}
+        isUserCanBuyNft={isUserCanBuyNft}
+        isUserCanEnterInAuction={isUserCanEnterInAuction}
+        isUserCanPutOnSale={isUserCanPutOnSale}
+        isOwner={isOwner}
+      />
+    ) : null}
     <Tab
       className={styles.tabs}
       tabs={[
@@ -63,10 +69,12 @@ const HotAuctionCardMobile: FC<Props> = ({
     <ViewsAndControlsComponent
       likes={nft.like_count}
       views={1000}
+      tooltipPlacement={tooltipPlacement}
       link="google"
       nft={null}
       isOwner={isOwner}
       isUserCanRemoveFromSale={isUserCanRemoveFromSale}
+      isWrongChain={isWrongChain}
     />
   </div>
 );

@@ -37,7 +37,7 @@ export interface IBaseInfo {
   name: string;
 }
 
-interface IBidder {
+export interface IBidder {
   amount: string | number;
   bidder: string;
   bidder_avatar: string;

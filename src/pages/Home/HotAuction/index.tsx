@@ -18,9 +18,16 @@ const HotAuction: FC<Props> = ({ className }) => {
   const {
     modals: {
       sell: { placeBid },
+      remove,
+      burn,
+      transfer,
     },
   } = useMst();
-  const { hotAuction } = useFetchHotAuction(placeBid.isSuccess);
+
+  const { hotAuction } = useFetchHotAuction(
+    placeBid.isSuccess || remove.isSuccess || burn.isSuccess || transfer.isSuccess,
+  );
+
   return (
     <div className={cx(styles.hotAuction, className)}>
       <H2 className={styles.hotAuctionTitle}>

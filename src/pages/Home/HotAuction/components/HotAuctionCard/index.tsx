@@ -24,6 +24,7 @@ const HotAuctionCard: FC<Props> = ({ className, nft }) => {
     isUserCanPutOnSale,
     isOwner,
     isUserCanRemoveFromSale,
+    isWrongChain,
   } = useGetUserAccessForNft(nft, user.id, user.address);
   return (
     <div className={cx(styles.hotAuctionCard, className)}>
@@ -36,6 +37,8 @@ const HotAuctionCard: FC<Props> = ({ className, nft }) => {
         isUserCanPutOnSale={isUserCanPutOnSale}
         isOwner={isOwner}
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
+        isWrongChain={isWrongChain}
+        tooltipPlacement="top"
       />
       <HotAuctionCardMobile
         className={styles.mobileAuctionCard}
@@ -46,6 +49,8 @@ const HotAuctionCard: FC<Props> = ({ className, nft }) => {
         isUserCanPutOnSale={isUserCanPutOnSale}
         isOwner={isOwner}
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
+        isWrongChain={isWrongChain}
+        tooltipPlacement="top"
       />
     </div>
   );

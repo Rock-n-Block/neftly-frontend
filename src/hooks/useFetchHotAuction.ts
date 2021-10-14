@@ -21,6 +21,9 @@ export const useFetchHotAuction = (isRefetch: boolean) => {
 
   useEffect(() => {
     fetchHotAuction();
+    const interval = setInterval(fetchHotAuction, 60000);
+
+    return () => clearInterval(interval);
   }, [fetchHotAuction]);
 
   useEffect(() => {

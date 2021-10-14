@@ -112,7 +112,7 @@ export class WalletConnect {
     );
 
     const { baseFeePerGas }: any = await this.Web3().eth.getBlock('latest');
-    console.log(baseFeePerGas)
+    console.log(baseFeePerGas);
     let signature;
     if (transactionMethod) {
       signature = this.encodeFunctionCall(transactionMethod, data);
@@ -203,8 +203,6 @@ export class WalletConnect {
         'approve',
       );
 
-      const { baseFeePerGas }: any = await this.Web3().eth.getBlock('latest');
-
       const approveSignature = this.encodeFunctionCall(approveMethod, [
         approvedAddress || walletAddress || this.walletAddress,
         WalletConnect.calcTransactionAmount(90071992000.5474099, tokenDecimals),
@@ -214,7 +212,6 @@ export class WalletConnect {
         from: walletAddress || this.walletAddress,
         to: contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address,
         data: approveSignature,
-        type: baseFeePerGas ? '0x2' : '0x0',
       });
     } catch (error) {
       return error;

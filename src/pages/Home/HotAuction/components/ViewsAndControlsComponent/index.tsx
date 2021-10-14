@@ -26,6 +26,8 @@ type Props = {
   nft: INft | null;
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
+  isWrongChain: boolean;
+  tooltipPlacement?: 'top' | 'bottom';
 };
 
 const ViewsAndControlsComponent: FC<Props> = ({
@@ -36,7 +38,9 @@ const ViewsAndControlsComponent: FC<Props> = ({
   link,
   nft,
   isOwner,
+  tooltipPlacement = 'bottom',
   isUserCanRemoveFromSale,
+  isWrongChain,
 }) => {
   const {
     modals: { burn, remove, transfer, report },
@@ -87,7 +91,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
         name: 'Transfer Token',
         img: transferImg,
         event: () => handleActionEvent(handleTransfer),
-        isVisible: isOwner,
+        isVisible: isOwner && !isWrongChain,
       },
       {
         name: 'Remove from sale',
@@ -99,7 +103,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
         name: 'Burn token',
         img: burnImg,
         event: () => handleActionEvent(handleBurn),
-        isVisible: isOwner,
+        isVisible: isOwner && !isWrongChain,
       },
       {
         name: 'Report',
@@ -116,6 +120,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
       isUserCanRemoveFromSale,
       handleTransfer,
       handleReport,
+      isWrongChain,
     ],
   );
 
@@ -162,7 +167,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
               </div>
             }
             onVisibleChange={(value) => setTooltipVisible(value)}
-            placement="bottom"
+            placement={tooltipPlacement}
           >
             <Button color="outline">...</Button>
           </Tooltip>

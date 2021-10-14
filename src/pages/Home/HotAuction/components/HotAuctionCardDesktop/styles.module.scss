@@ -40,16 +40,11 @@
 
   .priceAndBidders {
     position: relative;
-
     padding: 30px;
 
     height: 100%;
 
     background: $color-bg2;
     flex-basis: 34%;
-
-    :not(:last-child) {
-      margin-bottom: 10px;
-    }
   }
 }

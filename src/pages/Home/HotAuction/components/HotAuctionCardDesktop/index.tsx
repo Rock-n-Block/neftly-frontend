@@ -21,6 +21,8 @@ type Props = {
   isUserCanPutOnSale: boolean;
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
+  isWrongChain: boolean;
+  tooltipPlacement?: 'top' | 'bottom';
 };
 
 const HotAuctionCardDesktop: FC<Props> = ({
@@ -31,7 +33,9 @@ const HotAuctionCardDesktop: FC<Props> = ({
   isUserCanEnterInAuction,
   isUserCanPutOnSale,
   isOwner,
+  tooltipPlacement,
   isUserCanRemoveFromSale,
+  isWrongChain,
 }) => (
   <div className={cx(styles.desktopCard, className)}>
     <div className={styles.descriptionControls}>
@@ -47,20 +51,24 @@ const HotAuctionCardDesktop: FC<Props> = ({
         nft={nft}
         isOwner={isOwner}
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
+        tooltipPlacement={tooltipPlacement}
+        isWrongChain={isWrongChain}
       />
     </div>
     <div className={styles.imageWrapper}>
       <img src={nft.media} alt="art pic" />
     </div>
     <div className={styles.priceAndBidders}>
-      <PaymentComponent
-        nft={nft}
-        isUserCanEndAuction={isUserCanEndAuction}
-        isUserCanBuyNft={isUserCanBuyNft}
-        isUserCanEnterInAuction={isUserCanEnterInAuction}
-        isUserCanPutOnSale={isUserCanPutOnSale}
-        isOwner={isOwner}
-      />
+      {!isWrongChain ? (
+        <PaymentComponent
+          nft={nft}
+          isUserCanEndAuction={isUserCanEndAuction}
+          isUserCanBuyNft={isUserCanBuyNft}
+          isUserCanEnterInAuction={isUserCanEnterInAuction}
+          isUserCanPutOnSale={isUserCanPutOnSale}
+          isOwner={isOwner}
+        />
+      ) : null}
       <BiddersComponent bidders={nft.bids} />
     </div>
   </div>
