@@ -25,7 +25,7 @@ const DiscoverMore: FC<Props> = ({ className }) => (
       {data.map((element) => {
         const { label, amount } = element;
         return (
-          <div className={styles.infoWrapper}>
+          <div className={styles.infoWrapper} key={label}>
             <H2 className={styles.title}>{numberFormatter(amount, 3)}</H2>
             <Text className={styles.text} size="xl">
               {label}
