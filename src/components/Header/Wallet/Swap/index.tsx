@@ -17,7 +17,7 @@ interface ISwapProps {
   className?: string;
   close: () => void;
   main: string;
-  wrap: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC';
+  wrap: 'WBNB' | 'WETH' | 'BEP20' | 'WMATIC';
   refresh: boolean;
   setRefresh: (value: boolean) => void;
 }
