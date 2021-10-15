@@ -27,20 +27,32 @@
 .mainImageWrapperSmall {
   width: 292px;
   height: 304px;
+  display: block;
+  position: relative;
+  overflow: hidden;
 
   & > img {
-    width: 292px;
-    height: 304px;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
   }
 }
 
 .mainImageWrapperMedium {
   width: 402px;
   height: 236px;
+  display: block;
+  position: relative;
+  overflow: hidden;
 
   & > img {
-    width: 402px;
-    height: 236px;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
   }
 }
 
@@ -51,10 +63,16 @@
 .secondaryImageWrapper {
   width: 134px;
   height: 81px;
+  display: block;
+  position: relative;
+  overflow: hidden;
 
   & > img {
-    width: 134px;
-    height: 81px;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
   }
 }
 
