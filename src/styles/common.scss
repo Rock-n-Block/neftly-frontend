@@ -11,6 +11,10 @@ body {
   background: $color-bg;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  #root{
+    overflow-x: hidden;
+  }
 }
 
 a {

@@ -3,7 +3,7 @@ import nextId from 'react-id-generator';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as FilterIcon } from 'assets/img/ActivityPage/filter.svg';
 import cn from 'classnames';
-import { ActivityItem, ArtCard, Button, H2, H3, Loader } from 'components';
+import { ActivityItem, ArtCard, Button, H2, H3, Loader, Text } from 'components';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 import profile_avatar_example from '../../assets/img/ProfilePage/profile_avatar_example.png';
@@ -32,15 +32,22 @@ const Activity: React.FC = observer(() => {
   const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
   const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
+  const [totalItems, setTotalItems] = useState(0);
 
   const fetchActivity = useCallback((searchPage: number, searchFilters) => {
+    const refresh = searchPage === 1;
     setIsLoading(true);
     activityApi
       .getActivity(searchPage, searchFilters)
       .then(({ data }: any) => {
-        setItems(data);
+        setTotalItems(data.total_items);
+        if (refresh) {
+          setItems(data.items);
+        } else {
+          setItems((prev: any) => [...prev, ...data.items]);
+        }
       })
       .finally(() => setIsLoading(false));
   }, []);
@@ -81,11 +88,6 @@ const Activity: React.FC = observer(() => {
           <div className={styles.pageSubtitle}>
             keep track of all the latest activity on the platform
           </div>
-          <div className={styles.buttonWrap}>
-            <Button className={styles.switchButton} color="outline">
-              Switch to Multiple
-            </Button>
-          </div>
 
           <div className={styles.top}>
             <h1 className={cn('h2', styles.title)}>Activity</h1>
@@ -102,7 +104,7 @@ const Activity: React.FC = observer(() => {
               <div className={styles.list}>
                 {/* OLD ITEMS */}
                 {/* TODO: fix this later */}
-                {!isLoading ? (
+                {items?.length ? (
                   items?.map((card: any) => (
                     <div
                       key={nextId()}
@@ -122,19 +124,23 @@ const Activity: React.FC = observer(() => {
                     </div>
                   ))
                 ) : (
-                  <Loader className={styles.loader} />
+                  <>{!isLoading && <Text>No activities</Text>}</>
                 )}
               </div>
 
-              {!isLoading && (
+              {items.length < totalItems && (
                 <div className={styles.buttonWrap}>
-                  <Button
-                    className={styles.moreButton}
-                    color="outline"
-                    onClick={() => handlePage(page + 1)}
-                  >
-                    Load More
-                  </Button>
+                  {isLoading ? (
+                    <Loader className={styles.loader} />
+                  ) : (
+                    <Button
+                      className={styles.moreButton}
+                      color="outline"
+                      onClick={() => handlePage(page + 1)}
+                    >
+                      Load More
+                    </Button>
+                  )}
                 </div>
               )}
             </div>

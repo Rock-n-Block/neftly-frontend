@@ -3,9 +3,9 @@ import axios from '../../core/axios';
 
 export default {
   getActivity: (page: string | number, query: any) => {
-    let queryStr = '&type=';
+    let queries = '';
     if (query.length)
-      query.forEach((key: any, index: any) => {
+      query.forEach((key: any) => {
         let formattedKey = key.toLowerCase();
         switch (formattedKey) {
           case 'sales':
@@ -32,10 +32,11 @@ export default {
           default:
             break;
         }
-        if (index !== query.length - 1) formattedKey = `${formattedKey},`;
-        queryStr = queryStr.concat(formattedKey);
+        queries = queries.concat(`${formattedKey},`);
       });
-    return axios.get(`activity/?page=${page}${query.length ? `${queryStr}` : ''}`);
+    return axios.get('activity/', {
+      params: { page, network: localStorage?.nftcrowd_nft_chainName, type: queries },
+    });
   },
   getNotification: () =>
     axios.get(`activity/notification/?network=${localStorage.nftcrowd_nft_chainName}`),

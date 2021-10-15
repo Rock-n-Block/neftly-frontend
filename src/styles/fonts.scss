@@ -11,3 +11,18 @@
   '../../assets/fonts/Monument-Extended/Monument-Extended-Bold',
   800
 );
+
+//Poppins
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-Regular', normal, normal, 'ttf');
+
+//Epilogue
+@include font-face(
+  'Epilogue',
+  '../../assets/fonts/Epilogue/Epilogue-Regular',
+  normal,
+  normal,
+  'ttf'
+);
+@include font-face('Epilogue', '../../assets/fonts/Epilogue/Epilogue-Medium', 500, normal, 'ttf');
+@include font-face('Epilogue', '../../assets/fonts/Epilogue/Epilogue-SemiBold', 600, normal, 'ttf');
+@include font-face('Epilogue', '../../assets/fonts/Epilogue/Epilogue-Bold', bold, normal, 'ttf');

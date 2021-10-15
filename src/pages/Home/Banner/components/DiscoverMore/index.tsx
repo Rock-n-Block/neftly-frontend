@@ -13,12 +13,12 @@ type Props = {
 
 const DiscoverMore: FC<Props> = ({ className }) => (
   <div className={cx(styles.discoverMore, className)}>
-    <Button className={cx(styles.infoWrapper, styles.discoverBtn)}>
-      <Text color="black" size="xl">
-        Discover more
-      </Text>
-    </Button>
-    <div className={styles.infoContainer}>
+    <div className={styles.contentWrapper}>
+      <Button className={cx(styles.infoWrapper, styles.discoverBtn)}>
+        <Text color="black" size="xl">
+          Discover more
+        </Text>
+      </Button>
       {data.map((element) => {
         const { label, amount } = element;
         return (
