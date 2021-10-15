@@ -40,11 +40,14 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
       break;
   }
   const { user } = useMst();
+  const [refresh, setRefresh] = useState(false);
   const [visible, setVisible] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
 
-  const balanceMain = useUserBalance(user.address, MAIN);
-  const balanceWrap = useUserBalance(user.address, WRAP);
+  const balanceMain = useUserBalance(user.address, MAIN, refresh);
+  user.setBalance(balanceMain, 'eth');
+  const balanceWrap = useUserBalance(user.address, WRAP, refresh);
+  user.setBalance(balanceWrap, 'weth');
 
   const handleOpenModal = useCallback(() => {
     setVisibleModal(true);
@@ -104,7 +107,13 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
           </div>
         )}
         <Modal visible={visibleModal} onClose={() => handleVisibleModal(false)}>
-          <Swap close={() => handleVisibleModal(false)} main={MAIN} wrap={WRAP} />
+          <Swap
+            close={() => handleVisibleModal(false)}
+            main={MAIN}
+            wrap={WRAP}
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
         </Modal>
       </div>
     </OutsideClickHandler>
