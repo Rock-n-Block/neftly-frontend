@@ -7,7 +7,7 @@ import iconSwap from '../../../../assets/img/icons/arrows-swap.svg';
 import { useWalletConnectorContext } from '../../../../services/walletConnect';
 import { WalletConnect } from '../../../../services/walletService';
 import { useMst } from '../../../../store';
-import { Button, Text, TextInput } from 'components';
+import { Button, H4, Text, TextInput } from 'components';
 
 import styles from './Swap.module.scss';
 import { useUserBalance } from 'hooks';
@@ -34,7 +34,7 @@ const Swap: React.FC<ISwapProps> = observer(
     ]);
     const [isLoading, setLoading] = useState(false);
     const [payInput, setPayInput] = useState('');
-    const handleConvert = useCallback((): void => {
+    const handleConvert = useCallback(() => {
       if (swappingCurrency[0] === 'main') {
         setSwappingCurrency(['wrap', 'main']);
       } else {
@@ -42,9 +42,10 @@ const Swap: React.FC<ISwapProps> = observer(
       }
       setPayInput('');
     }, [swappingCurrency]);
-    const handleSubmitConvert = useCallback((): void => {
+    const handleSubmitConvert = useCallback(() => {
       const weiValue = WalletConnect.calcTransactionAmount(payInput, 18);
       setLoading(true);
+
       if (swappingCurrency[0] === 'main') {
         walletConnector.walletService
           .createTransaction('deposit', [], wrap, '', '', '', weiValue)
@@ -87,7 +88,7 @@ const Swap: React.FC<ISwapProps> = observer(
     }, [user.balance, swappingCurrency]);
     return (
       <div className={cn(className, styles.swap)}>
-        <div className={cn('h4', styles.title)}>Convert</div>
+        <H4>Convert</H4>
         <div className={styles.wrapper}>
           <div className={styles.header}>
             <Text tag="span" className={styles.label}>
@@ -133,7 +134,7 @@ const Swap: React.FC<ISwapProps> = observer(
             label=""
             placeholder="Amount you will receive"
             value={payInput}
-            onChange={(e) => setPayInput(e.target.value)}
+            onChange={(e) => handlePayInput(e.target.value)}
             prefix={swappingCurrency[1] === 'main' ? main : wrap}
             prefixClassName={styles.prefix}
           />
