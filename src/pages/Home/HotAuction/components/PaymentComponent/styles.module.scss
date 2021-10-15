@@ -42,12 +42,4 @@
 .sellBtnsWrapper {
   @include flexbox(center, space-between);
   margin-top: 10px;
-  // & > * {
-  //   &:first-child {
-  //     flex-basis: 60%;
-  //   }
-  //   &:last-child {
-  //     flex-basis: 35%;
-  //   }
-  // }
 }

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as PinkHeart } from 'assets/img/pinkHeart.svg';
 import cx from 'classnames';
 import { Button, Tag, Text } from 'components';
-// import { useLike } from 'hooks';
 import { numberFormatter } from 'utils';
 
 import { routes } from '../../appConstants';
@@ -72,7 +71,7 @@ const ArtCard: FC<Props> = ({
     <div className={cx(styles.artCard, className)}>
       <Link
         to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
-        className={styles[`mainImageWrapper${type}`]}
+        className={cx(styles[`mainImageWrapper${type}`], styles.imageWrapper)}
       >
         <div className={styles.tagContainer}>
           {tags?.map((tag) => (
