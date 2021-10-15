@@ -20,6 +20,10 @@
   @include flexbox;
   width: 300px;
   height: 100%;
+  &Link {
+    height: 100%;
+    display: block;
+  }
 }
 
 @include forDesktopBig {
