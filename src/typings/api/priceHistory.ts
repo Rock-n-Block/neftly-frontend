@@ -1,14 +1,14 @@
+import { ChartDataset } from 'chart.js';
+
 export type TPriceHistoryPeriod = 'day' | 'week' | 'month' | 'year';
 
 export type TPriceHistoryItem = {
-  id: number | string;
-  price: string;
   date: Date;
-  amount: number;
-  currency: string;
+  avg_price: number | null;
 };
 
-export interface IBackendPriceHistory {
-  price_history: TPriceHistoryItem[];
-  bids_history: TPriceHistoryItem[];
+export interface IChartData {
+  datasets: ChartDataset<any, any>;
 }
+
+export type IBackendPriceHistory = TPriceHistoryItem[];

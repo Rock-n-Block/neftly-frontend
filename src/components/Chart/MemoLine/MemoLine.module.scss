@@ -1,0 +1,21 @@
+@import 'src/styles/helpers';
+
+.chartWrapper {
+  position: relative;
+}
+
+.tooltip {
+  padding: 12px;
+  position: absolute;
+  transform: translate(-50%, 0);
+  transition: all .1s ease;
+  pointer-events: none;
+  background-color: $color-neutral-80;
+  @include flexbox(flex-start, flex-start);
+  gap: 8px;
+}
+
+.tooltipRight {
+  @include flexbox(flex-start,flex-start);
+  flex-direction: column;
+}

@@ -22,7 +22,7 @@ import {
 //   TradingHistoryPrice,
 // } from 'components/Table/TradingHistoryCells';
 // import { Chart } from 'containers';
-import { INft } from 'typings';
+import { ICurrency, INft } from 'typings';
 // import { TableCell, INft, OptionType } from 'typings';
 import { storeApi } from '../../services/api';
 import { useMst } from '../../store';
@@ -214,7 +214,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
           nft={nft}
           onUpdateNft={getItem}
         />
-        <PriceHistory tokenId={id} />
+        <PriceHistory tokenId={id} currency={nft?.currency as ICurrency} />
         <div className={styles.relatedArtwork}>
           <H3>Related Artwork</H3>
           <div className={styles.artCardsWrapper}>

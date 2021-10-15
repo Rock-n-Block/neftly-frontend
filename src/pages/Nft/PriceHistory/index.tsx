@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Select, Text, Chart } from 'components';
 import styles from './PriceHistory.module.scss';
-import { OptionType, TPriceHistoryPeriod } from 'typings';
+import { ICurrency, OptionType, TPriceHistoryPeriod } from 'typings';
 import { useFetchPriceHistory } from 'hooks';
 
 const chartOptionsFilter: OptionType[] = [
@@ -25,10 +25,11 @@ const chartOptionsFilter: OptionType[] = [
 
 interface IProps {
   tokenId: string;
+  currency: ICurrency;
 }
 
 const PriceHistory: React.FC<IProps> = (props) => {
-  const { tokenId } = props;
+  const { tokenId, currency } = props;
   const [currentFilterOption, setCurrentFilterOption] = useState(chartOptionsFilter[0]);
   const { priceHistory } = useFetchPriceHistory({
     id: tokenId,
@@ -51,6 +52,7 @@ const PriceHistory: React.FC<IProps> = (props) => {
         </div>
       </div>
       <Chart
+        currency={currency}
         className={styles.chart}
         data={priceHistory}
         period={currentFilterOption.value as TPriceHistoryPeriod}
