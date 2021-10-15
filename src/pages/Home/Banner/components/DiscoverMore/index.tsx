@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import cx from 'classnames';
+
 import { Button, H2, Text } from 'components';
 import { numberFormatter } from 'utils';
-
 import { data } from './mockData';
 
 import styles from './styles.module.scss';
@@ -22,7 +22,7 @@ const DiscoverMore: FC<Props> = ({ className }) => (
       {data.map((element) => {
         const { label, amount } = element;
         return (
-          <div className={styles.infoWrapper}>
+          <div className={styles.infoWrapper} key={label}>
             <H2 className={styles.title}>{numberFormatter(amount, 3)}</H2>
             <Text className={styles.text} size="xl">
               {label}

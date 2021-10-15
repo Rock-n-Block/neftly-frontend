@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import cx from 'classnames';
 import Tooltip from 'rc-tooltip';
 import { observer } from 'mobx-react-lite';
+import { toast } from 'react-toastify';
 
 import { Button, Text } from 'components';
 import { useMst } from '../../../../../store';
@@ -23,7 +24,6 @@ type Props = {
   className?: string;
   likes: number;
   views: number;
-  link: string;
   inStock?: number;
   isLiked?: boolean;
   nft: INft | null;
@@ -37,7 +37,6 @@ const ViewsAndControlsComponent: FC<Props> = ({
   views,
   inStock,
   isLiked = false,
-  link,
   nft,
   isOwner,
   isUserCanRemoveFromSale,
@@ -118,6 +117,11 @@ const ViewsAndControlsComponent: FC<Props> = ({
     ],
   );
 
+  const handleCopy = React.useCallback(() => {
+    navigator.clipboard.writeText(`${window.location.origin}/nft/${nft?.id}`);
+    toast.info('Copied to Clipboard');
+  }, [nft?.id]);
+
   return (
     <>
       <div className={cx(styles.viewsAndControls, className)}>
@@ -132,7 +136,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
             <PinkHeart />
             {numberFormatter(likeCount || 0, 1000)}
           </Button>
-          <Button onClick={() => alert(link)} color="outline">
+          <Button onClick={handleCopy} color="outline">
             <img src={linkIcon} alt="" />
           </Button>
           <Tooltip

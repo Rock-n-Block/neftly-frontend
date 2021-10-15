@@ -3,8 +3,16 @@ import ethImg from '../assets/img/icons/chains/eth.svg';
 import bnbImg from '../assets/img/icons/chains/bnb.svg';
 import polygonImg from '../assets/img/icons/chains/polygon.svg';
 import metamaskImg from '../assets/img/icons/wallets/metamask.svg';
+import WcImg from '../assets/img/icons/wallets/wc.svg';
 
-import { bep20Abi, erc20Abi, nftAbi, wbnbTestnetAbi, wethTestnetAbi, wMaticTestnetAbi } from './abi';
+import {
+  bep20Abi,
+  erc20Abi,
+  nftAbi,
+  wbnbTestnetAbi,
+  wethTestnetAbi,
+  wMaticTestnetAbi,
+} from './abi';
 
 export const is_production = false;
 
@@ -27,6 +35,7 @@ export const chains: {
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
+        img: WcImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
@@ -49,6 +58,7 @@ export const chains: {
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
+        img: WcImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
@@ -72,6 +82,7 @@ export const chains: {
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
+        img: WcImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {

@@ -19,6 +19,13 @@
   @include forDesktopBig {
     width: 100%;
   }
+  &Upload {
+    position: sticky;
+    top: 120px;
+    @include forDesktopBig {
+      position: static;
+    }
+  }
 }
 
 .preview {
@@ -27,7 +34,6 @@
   right: 80px;
   flex-shrink: 0;
   width: 352px;
-
 }
 
 .head {
@@ -39,7 +45,6 @@
 .title {
   margin-right: auto;
 }
-
 
 .item {
   .previewImg {
@@ -64,7 +69,6 @@
 
       width: 30px;
       height: 30px;
-
 
       background: $color-neutral-100;
       border: 1px solid $color-actions-light-pink;
@@ -378,8 +382,6 @@
 
 .priceBid {
   margin-bottom: 24px;
-
-
 }
 
 .foot {
@@ -391,7 +393,6 @@
 
     text-align: center;
   }
-
 }
 
 .saving {
@@ -516,7 +517,6 @@
 
   @include epilogue;
   line-height: 160%;
-
 }
 
 .tokenProperties {

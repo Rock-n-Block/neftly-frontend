@@ -61,7 +61,6 @@ const HotAuctionCardDesktop: FC<Props> = ({
       <ViewsAndControlsComponent
         likes={likes}
         views={views}
-        link="google"
         nft={null}
         isOwner={isOwner}
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
