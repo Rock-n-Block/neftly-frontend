@@ -43,15 +43,14 @@ const Favorited: FC<IProps> = memo(({ userAddress, likeAction }) => {
             bids,
             is_liked,
           } = artCard;
+          const artPrice = price || (highest_bid && new BigNumber(highest_bid.amount).toFixed()) || minimal_bid
           return (
             <ArtCard
               artId={id}
               key={name}
               imageMain={media}
               name={name}
-              price={
-                price || (highest_bid && new BigNumber(highest_bid.amount).toFixed()) || minimal_bid
-              }
+              price={artPrice}
               asset={currency.symbol.toUpperCase()}
               inStockNumber={available}
               author={creator.name}

@@ -13,3 +13,4 @@ export * from './useLike';
 export * from './useFetchUser';
 export * from './useFetchCollection';
 export * from './useFetchTopUser';
+export * from './useFetchActivity';

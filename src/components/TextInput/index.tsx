@@ -125,6 +125,8 @@ const TextInput: React.FC<Props> = ({
     }
   }, [prefix]);
 
+  const handleInputChange = type === 'number' ? handleChange : onChange;
+
   return (
     <div className={cn(styles.field, className)}>
       {label && (
@@ -146,7 +148,7 @@ const TextInput: React.FC<Props> = ({
           id={name}
           value={value}
           className={cn(styles.input, { [styles.error]: error, [styles.withIcon]: icon })}
-          onChange={type === 'number' ? (e) => handleChange(e) : onChange}
+          onChange={handleInputChange}
           onWheel={(e) => e.currentTarget.blur()}
           disabled={disabled}
           {...props}
