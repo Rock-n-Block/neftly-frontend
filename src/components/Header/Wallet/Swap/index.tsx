@@ -88,7 +88,7 @@ const Swap: React.FC<ISwapProps> = observer(
     }, [user.balance, swappingCurrency]);
     return (
       <div className={cn(className, styles.swap)}>
-        <H4>Convert</H4>
+        <H4 className={styles.title}>Convert</H4>
         <div className={styles.wrapper}>
           <div className={styles.header}>
             <Text tag="span" className={styles.label}>
