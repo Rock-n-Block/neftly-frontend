@@ -1,4 +1,4 @@
-@import '../../styles/helpers';
+@import 'src/styles/helpers';
 
 .dropdown {
   position: relative;
@@ -126,9 +126,9 @@
   font-weight: 500;
   line-height: 1.71429;
 
-  color: $purple2;
+  color: $color-neutral-0;
   background-color: transparent;
   @include placeholder {
-    color: $neutrals4;
+    color: $color-neutral-40;
   }
 }

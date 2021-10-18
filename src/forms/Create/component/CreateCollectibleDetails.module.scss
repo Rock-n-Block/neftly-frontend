@@ -16,9 +16,11 @@
       margin-left: 0;
     }
   }
+
   @include forDesktopBig {
     width: 100%;
   }
+
   &Upload {
     position: sticky;
     top: 120px;
@@ -34,16 +36,6 @@
   right: 80px;
   flex-shrink: 0;
   width: 352px;
-}
-
-.head {
-  margin-bottom: 40px;
-
-  display: flex;
-}
-
-.title {
-  margin-right: auto;
 }
 
 .item {
@@ -87,7 +79,6 @@
 }
 
 .note {
-  @include epilogue;
   margin-top: 4px;
 
   line-height: 160%;
@@ -108,7 +99,7 @@
   height: 400px;
 
   background: $color-neutral-80;
-  border: 1px dashed #ffffff;
+  border: 1px dashed $color-neutral-0;
 
   input[type='file'],
   input[type='file']::-webkit-file-upload-button {
@@ -148,7 +139,6 @@
 }
 
 .format {
-  @include epilogue;
   margin-top: 10px;
 
   line-height: 120%;
@@ -156,7 +146,6 @@
 }
 
 .category {
-  @include epilogue;
   line-height: 160%;
 }
 
@@ -242,280 +231,12 @@
   opacity: 0.7;
 }
 
-.row {
-  margin: 0 -10px;
-
-  display: flex;
-
-  @include m {
-    margin: 0;
-
-    display: block;
-  }
-}
-
-.col {
-  margin: 0 10px;
-
-  width: calc(33.333% - 20px);
-  flex: 0 0 calc(33.333% - 20px);
-
-  @include m {
-    margin: 0;
-
-    width: 100%;
-
-    &:not(:last-child) {
-      margin-bottom: 20px;
-    }
-  }
-}
-
-.circle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 52px;
-  height: 52px;
-
-  background: $gradient;
-  border-radius: 50%;
-}
-
-.hidden {
-  visibility: hidden;
-
-  svg {
-    visibility: visible;
-  }
-}
-
-.box {
-  flex-grow: 1;
-}
-
-.disabled {
-  padding: 0;
-
-  display: block;
-
-  background: $dark-bg;
-  border: 2px solid $white;
-  opacity: 0.34;
-
-  :hover {
-    cursor: default;
-  }
-}
-
-.header {
-  padding: 8px 24px 9px 23px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  background: rgba(255, 255, 255, 0.34);
-  border-radius: 22px 22px 0 0;
-  gap: 5px;
-
-  span {
-    font-size: 12px;
-    line-height: 12px;
-
-    color: $white;
-  }
-}
-
-.body {
-  margin-top: 6px;
-  padding: 0 40px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
-
-  span {
-    font-size: 12px;
-    line-height: 12px;
-    text-align: center;
-  }
-}
-
-.inner {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  height: 100%;
-
-  background: $dark-bg;
-  border-radius: 22px;
-  gap: 20px;
-
-  span {
-    width: 100%;
-    max-width: 80px;
-
-    font-size: 12px;
-    line-height: 12px;
-    text-align: center;
-  }
-}
-
-.switch {
-  flex-shrink: 0;
-
-  margin-left: 24px;
-}
-
-.text {
-  margin-top: 4px;
-
-  @include caption-2;
-  color: $white;
-}
-
-.priceBid {
-  margin-bottom: 24px;
-}
-
-.foot {
-  display: flex;
-  align-items: center;
-
-  @include m {
-    display: block;
-
-    text-align: center;
-  }
-}
-
-.saving {
-  margin-left: auto;
-
-  display: inline-flex;
-  align-items: center;
-
-  @include button-1;
-}
-
-.loader {
-  margin-left: 24px;
-}
-
-.dropdownCurrency {
-  position: relative;
-  z-index: 3;
-
-  &.activeDropdown {
-    z-index: 10;
-
-    .bodyCurrency {
-      visibility: visible;
-
-      opacity: 1;
-
-      transform: translateY(0);
-    }
-  }
-}
-
-.headCurrency {
-  position: relative;
-
-  padding: 2px 15px;
-
-  display: flex;
-  align-items: center;
-
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 24px;
-
-  cursor: pointer;
-
-  color: #fff;
-  background: #674df6;
-  border-radius: 33px;
-}
-
-.selection {
-  overflow: hidden;
-
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.bodyCurrency {
-  position: absolute;
-  top: calc(100% + 2px);
-  right: 0;
-  left: 0;
-
-  padding: 8px 0;
-
-  visibility: hidden;
-
-  width: 256px;
-  height: 206px;
-
-  background: $neutrals8;
-
-  // @include dark {
-  background: $dark-bg;
-  border-radius: 12px;
-  opacity: 0;
-  box-shadow: inset 0 0 0 2px $neutrals6, 0 4px 12px rgba($neutrals2, 0.1);
-  box-shadow: inset 0 0 0 2px $neutrals3, 0 4px 12px rgba($neutrals1, 0.1);
-
-  transition: all 0.2s;
-  transform: translateY(3px);
-  // }
-}
-
-.optionCurrency {
-  padding: 8px 16px;
-
-  display: flex;
-  align-items: center;
-
-  cursor: pointer;
-
-  color: #f4f5f6;
-
-  transition: color 0.2s;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  &:hover,
-  &.selectioned {
-    color: $blue;
-  }
-}
-
-.textCurrency {
-  margin-left: 10px;
-
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 24px;
-}
-
-.image {
-  width: 24px;
-  height: 24px;
-}
 
 .fee {
   margin-top: 4px;
-  display: flex;
+  @include flexbox(normal, normal);
   flex-direction: column;
 
-  @include epilogue;
   line-height: 160%;
 }
 

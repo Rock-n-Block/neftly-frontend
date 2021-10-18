@@ -1,4 +1,4 @@
-@import '../../styles/helpers';
+@import 'src/styles/helpers';
 
 .title {
   margin-bottom: 32px;
@@ -35,10 +35,7 @@
 
   font-weight: 500;
 
-  // @include dark {
-  border-color: $neutrals3;
-  border-bottom: 1px solid $neutrals6;
-  // }
+  border-bottom: 1px solid $color-neutral-60;
 }
 
 .input {
@@ -59,7 +56,7 @@
   @include body-2;
 
   &:first-child {
-    color: $purple2;
+    //color: $purple2;
   }
 
   &:nth-child(2) {
@@ -68,7 +65,7 @@
 
     font-weight: 500;
 
-    color: $neutrals8;
+    //color: $neutrals8;
   }
 }
 

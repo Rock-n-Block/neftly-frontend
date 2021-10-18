@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
 import { iconArrowDown } from 'assets/img/icons';
 
 import styles from './Dropdown.module.scss';
-import { Text } from '../Typography';
+import { Text } from 'components';
 
 interface IDropdownProps {
   className?: string;
@@ -17,7 +17,7 @@ interface IDropdownProps {
   name?: string;
 }
 
-const Dropdown: React.FC<IDropdownProps> = ({
+const Dropdown: FC<IDropdownProps> = ({
   className,
   value,
   setValue,

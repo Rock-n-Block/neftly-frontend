@@ -2,10 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
-import { storeApi } from '../../services/api';
-import { useWalletConnectorContext } from '../../services/walletConnect';
-import { Button } from '..';
-import { useMst } from '../../store';
+import { storeApi } from 'services/api';
+import { useWalletConnectorContext } from 'services/walletConnect';
+import { Button } from 'components';
+import { useMst } from 'store';
 
 import styles from './Burn.module.scss';
 

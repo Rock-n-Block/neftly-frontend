@@ -1,4 +1,4 @@
-@import '../../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .title{
   margin-bottom: 12px;
@@ -21,12 +21,6 @@
 .header {
   @include flexbox(flex-start, space-between);
 
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 12px;
-  text-transform: uppercase;
-
-  color: $neutrals5;
 }
 .swap {
   .wrapper {
@@ -64,5 +58,5 @@
   padding-left: 16px;
   width: 92px;
   height: 38px;
-  border-right: 2px solid $color-neutral-80;
+  border-right: 2px solid $color-neutral-100;
 }

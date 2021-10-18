@@ -5,23 +5,13 @@
 }
 
 .pageTitle {
-  text-align: center;
   margin-bottom: 15px;
+
   text-transform: uppercase;
 }
 
 .pageSubtitle {
-  text-align: center;
   margin-bottom: 15px;
-  color: $color-neutral-20;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.switchButton {
-  padding: 0 15px;
-  margin-bottom: 60px;
-  font-size: 16px;
 }
 
 .top {
@@ -46,39 +36,29 @@
   }
 
   @include t {
-    padding: 0;
-    padding-bottom: 32px;
+    padding: 0 0 32px;
 
     width: 100%;
   }
-}
-
-.control {
-  background: $dark-bg;
-  border-color: $neutrals3;
 }
 
 .title {
   margin-right: auto;
 }
 
-.button {
-  @include m {
-    margin-top: 16px;
-
-    width: 100%;
-  }
-}
-
 .toggle {
   position: relative;
+
   padding: 0 11px;
+
   width: 42px;
   height: 42px;
+
   svg {
     circle {
       fill: transparent;
     }
+
     ellipse {
       fill: transparent;
     }
@@ -119,15 +99,14 @@
 }
 
 .filters {
+  margin-bottom: 32px;
   padding: 32px;
 
   width: 292px;
 
   background: $color-bg;
-  flex-shrink: 0;
   border: 1px solid $color-neutral-80;
-
-  margin-bottom: 32px;
+  flex-shrink: 0;
 
   @include d {
     padding: 32px;
@@ -152,208 +131,13 @@
   }
 }
 
-.nav {
-  margin: 0 -6px 32px;
-
-  display: flex;
-  flex-wrap: wrap;
-
-  @include t {
-    margin-top: 40px;
-  }
-
-  @include m {
-    margin-top: 32px;
-  }
-}
-
-.link {
-  margin: 0 6px;
-  padding: 6px 12px;
-
-  color: $neutrals4;
-  background: none;
-  border-radius: 14px;
-
-  transition: all 0.2s;
-
-  @include button-2;
-
-  &:hover {
-    color: $purple2;
-
-    // @include dark {
-    // color: $neutrals6;
-    // }
-  }
-
-  &.active {
-    color: $neutrals8;
-    background: $gradient;
-  }
-}
-
-.hidden {
-  display: none;
-}
-
-.item {
-  position: relative;
-
-  padding: 16px 64px 16px 16px;
-
-  display: flex;
-  align-items: center;
-
-  cursor: pointer;
-
-  background: $gradient3;
-  border-radius: 20px;
-
-  transition: background 0.2s;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-  @include m {
-    padding-right: 32px;
-  }
-
-  .circle,
-  &::after {
-    content: '';
-
-    position: absolute;
-    top: 50%;
-    right: 24px;
-
-    width: 12px;
-    height: 12px;
-
-    transition: all 0.2s;
-    transform: translateY(-50%);
-
-    @include m {
-      right: 12px;
-    }
-  }
-
-  &::after {
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' fill='none' viewBox='0 0 6 10'%3E%3Cpath fill-rule='evenodd' d='M.793.793a1 1 0 0 0 0 1.414L3.586 5 .793 7.793a1 1 0 0 0 1.414 1.414l3.5-3.5a1 1 0 0 0 0-1.414l-3.5-3.5a1 1 0 0 0-1.414 0z' fill='%23777e91'/%3E%3C/svg%3E")
-      no-repeat 50% 50% / 6px auto;
-    opacity: 0;
-  }
-
-  &:hover {
-    background: $neutrals7;
-
-    // @include dark {
-    background: $neutrals2;
-    // }
-    .circle {
-      transform: translateY(-50%) scale(0);
-    }
-
-    &::after {
-      opacity: 1;
-    }
-  }
-
-  &:not(:last-child) {
-    margin-bottom: 16px;
-  }
-}
-
-.preview {
-  position: relative;
-
-  margin-right: 24px;
-
-  width: 96px;
-  height: 96px;
-  flex-shrink: 0;
-
-  @include m {
-    margin-right: 16px;
-
-    width: 64px;
-    height: 64px;
-  }
-
-  & > img {
-    width: 100%;
-    height: 100%;
-
-    border-radius: 50%;
-    object-fit: cover;
-  }
-}
-
-.icon {
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 50%;
-
-  @include m {
-    width: 24px;
-    height: 24px;
-  }
-
-  // @include dark {
-  //   border: 1px solid $neutrals3;
-  // }
-  img {
-    width: 32px;
-    height: 32px;
-
-    @include m {
-      max-width: 12px;
-    }
-  }
-}
-
-.details {
-  flex-grow: 1;
-}
-
-.subtitle {
-  @include body-bold-1;
-  @include m {
-    margin-bottom: 3px;
-
-    font-size: 16px;
-  }
-}
-
-.description {
-  @include body-2;
-  color: $neutrals3;
-
-  @include m {
-    font-size: 12px;
-  }
-
-  // @include dark {
-  color: $neutrals6;
-  // }
-}
-
-.date {
-  @include caption-bold-2;
-  color: $neutrals4;
-}
-
 .loader {
   margin: 32px auto 0;
 }
 
 .container {
-  padding: 0 15px;
   margin: 0 auto;
+  padding: 0 15px;
 
   width: 100%;
   max-width: 1310px;
@@ -364,16 +148,19 @@
   justify-content: center;
   align-items: center;
 }
+
 .moreButton {
+  margin-top: 44px;
   padding: 10px 32px;
+
   font-size: 16px;
   font-weight: 600;
-  margin-top: 44px;
 }
 
 .hotArtworks {
   margin-top: 44px;
   padding-top: 44px;
+
   border-top: 1px solid $color-neutral-80;
 }
 

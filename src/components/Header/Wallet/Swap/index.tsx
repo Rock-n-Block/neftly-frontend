@@ -4,8 +4,7 @@ import cn from 'classnames';
 import { Button, H4, Text, TextInput } from 'components';
 import { useUserBalance } from 'hooks';
 import { observer } from 'mobx-react';
-import { useWalletConnectorContext } from 'services/walletConnect';
-import { WalletConnect } from 'services/walletService';
+import { useWalletConnectorContext, WalletConnect } from 'services';
 import { useMst } from 'store';
 
 import styles from './Swap.module.scss';
@@ -88,7 +87,7 @@ const Swap: React.FC<ISwapProps> = observer(
         <H4 className={styles.title}>Convert</H4>
         <div className={styles.wrapper}>
           <div className={styles.header}>
-            <Text tag="span" className={styles.label}>
+            <Text tag="span" className={styles.label} size="m" color="lightGray" weight="medium">
               You pay
             </Text>
             <Text tag="span" className={styles.amount}>
@@ -121,8 +120,8 @@ const Swap: React.FC<ISwapProps> = observer(
         </div>
         <div className={styles.wrapper}>
           <div className={styles.header}>
-            <Text tag="span" className={styles.label}>
-              You recieve
+            <Text className={styles.label} size="m" color="lightGray" weight="medium">
+              You receive
             </Text>
           </div>
           <TextInput

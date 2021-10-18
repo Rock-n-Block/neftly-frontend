@@ -4,10 +4,9 @@ import cn from 'classnames';
 import { toast } from 'react-toastify';
 import { observer } from 'mobx-react-lite';
 
-import { Button, Icon, Switch, TextInput } from 'components';
-import { storeApi } from '../../services/api';
-import { useWalletConnectorContext } from '../../services/walletConnect';
-import { useMst } from '../../store';
+import { Button, Icon, Switch, TextInput, Text } from 'components';
+import { storeApi, useWalletConnectorContext } from 'services';
+import { useMst } from 'store';
 import { useUserBalance } from 'hooks';
 import { is_production, contracts } from 'config';
 
@@ -96,10 +95,12 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
           <Icon name="coin" size="24" />
         </div>
         <div className={styles.details}>
-          <div className={styles.info}>Instant sale price</div>
-          <div className={styles.text}>
-            Enter the price for which the item will be instanly sold
-          </div>
+          <Text className={styles.info} color="lightGray" weight="bold" size="xl">
+            Instant sale price
+          </Text>
+          <Text className={styles.text} color="lightGray" weight="medium" size="m">
+            Enter the price for which the item will be instantly sold
+          </Text>
         </div>
         {sell.nft.currency.toUpperCase() === 'BNB' || sell.nft.currency.toUpperCase() === 'ETH' ? (
           ''

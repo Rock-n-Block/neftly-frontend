@@ -42,10 +42,6 @@
 }
 
 // fonts
-@mixin dm-sans {
-  font-family: 'DM Sans', sans-serif;
-}
-
 @mixin poppins {
   font-family: 'Poppins', sans-serif;
 }
@@ -59,41 +55,6 @@
 }
 
 // colors
-$white: #fff;
-$blue: #3772ff;
-$blue-light: #4bc9f0;
-$purple: #9757d7;
-$purple2: #674df6;
-$purple-light: #cdb4db;
-$purple-dark: #261849;
-$pink: #ef466f;
-$green: #45b26b;
-$asphalt: #e4d7cf;
-$yellow: #ffd166;
-$grey: #d9dbe1;
-$dark-grey: #21283c;
-
-$neutrals1: #141416;
-$neutrals2: #23262f;
-$neutrals3: #353945;
-$neutrals4: #777e91;
-$neutrals5: #b1b5c3;
-$neutrals6: #e6e8ec;
-$neutrals7: #f4f5f6;
-$neutrals8: #fcfcfd;
-
-$dark-bg: linear-gradient(90deg, #190f31 0%, #000 100%);
-$gradient-hover: linear-gradient(90deg, #5423fd 0%, #ff3b3e 100%);
-$gradient: linear-gradient(90deg, #6f45ff 0%, #ff6365 100%);
-$gradient2: linear-gradient(90deg, #040404 0%, #1c0e40 100%);
-$gradient3: linear-gradient(90deg, #190f31 0%, #000 100%);
-$gradient4: linear-gradient(90deg, #190f31 0%, #190f31 100%);
-$gradient-vertical: radial-gradient(
-  883.01% 239.84% at 71.43% 0.88%,
-  rgba(111, 69, 255, 0) 0%,
-  #ff6365 100%
-);
-
 $color-primary: #018df0;
 $color-secondary: #01c5ba;
 $color-bg: #080134;
@@ -138,16 +99,16 @@ $color-gradient: linear-gradient(89.92deg, #016db0 1.29%, #01ffca 99.94%);
 
   font-family: 'MD', sans-serif;
 
-  background: $gradient;
+  background: $color-gradient;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
   &::selection {
-    -webkit-text-fill-color: $white;
+    -webkit-text-fill-color: $color-neutral-0;
   }
 
   ::selection {
-    -webkit-text-fill-color: $white;
+    -webkit-text-fill-color: $color-neutral-0;
   }
 }
 
@@ -231,19 +192,6 @@ $defaultFlexBoxJustify: center;
   text-transform: uppercase;
 }
 
-@mixin button-1 {
-  @include dm-sans;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-@mixin button-2 {
-  @include dm-sans;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: (16 / 14);
-}
 
 //triangle
 @mixin arr($width, $height, $bg, $direction) {
