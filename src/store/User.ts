@@ -35,14 +35,7 @@ export const User = types
     facebook: types.optional(types.maybeNull(types.string), null),
     site: types.optional(types.maybeNull(types.string), null),
     balance: types.optional(Balance, {}),
-    search: types.optional(types.string, ''),
-    is_searching: types.optional(types.maybeNull(types.boolean), null),
   })
-  // .views((self) => ({
-  //   isLiked(id: number) {
-  //     return !!self.likes.includes(id);
-  //   },
-  // }))
   .actions((self) => {
     const setAddress = (addr: string) => {
       self.address = addr;
@@ -51,26 +44,14 @@ export const User = types
       if (currency === 'eth') self.balance.eth = value;
       if (currency === 'weth') self.balance.weth = value;
     };
-    // const addLike = (tokenId: number) => {
-    //   self.likes.push(tokenId);
-    // };
     const addLike = () => {
       self.likes += 1;
     };
     const removeLike = () => {
       self.likes -= 1;
     };
-    // const removeLike = (tokenId: number) => {
-    //   self.likes.replace(self.likes.filter((like) => like !== tokenId));
-    // };
     const setCover = (img: string) => {
       self.cover = img;
-    };
-    const setSearch = (srch: string) => {
-      self.search = srch;
-    };
-    const setIsSearching = (isSrch: boolean) => {
-      self.is_searching = isSrch;
     };
     const update = (userData: any) => {
       self.address = userData.address;
@@ -95,7 +76,6 @@ export const User = types
     const disconnect = () => {
       self.address = '';
       self.id = '';
-      self.search = '';
     };
     const getMe = flow(function* getMe() {
       try {
@@ -117,8 +97,6 @@ export const User = types
       update,
       getMe,
       disconnect,
-      setSearch,
-      setIsSearching,
     };
   });
 

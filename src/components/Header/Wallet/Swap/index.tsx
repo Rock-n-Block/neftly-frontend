@@ -102,6 +102,7 @@ const Swap: React.FC<ISwapProps> = observer(
             label=""
             placeholder="Enter an amount"
             value={payInput}
+            positiveOnly
             onChange={(e) => handlePayInput(e.target.value)}
             prefix={swappingCurrency[0] === 'main' ? main : wrap}
             prefixClassName={styles.prefix}
@@ -131,6 +132,7 @@ const Swap: React.FC<ISwapProps> = observer(
             label=""
             placeholder="Amount you will receive"
             value={payInput}
+            positiveOnly
             onChange={(e) => handlePayInput(e.target.value)}
             prefix={swappingCurrency[1] === 'main' ? main : wrap}
             prefixClassName={styles.prefix}
