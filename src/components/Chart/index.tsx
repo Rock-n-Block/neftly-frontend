@@ -15,9 +15,7 @@ type Props = {
   className?: string;
 };
 
-const ChartComponent: FC<Props> = (props) => {
-  const { data, period, className, currency } = props;
-
+const ChartComponent: FC<Props> = ({ data, period, className, currency }) => {
   const [selectedPointPrice, setSelectedPointPrice] = useState(
     `${data[data.length - 2]?.avg_price || 0}`,
   );

@@ -2,7 +2,6 @@ import { ChartOptions } from 'chart.js';
 import { IChartData } from 'typings';
 
 export const options: ChartOptions = {
-  // aspectRatio: 2,
   parsing: {
     xAxisKey: 'time',
     yAxisKey: 'data',
@@ -13,11 +12,6 @@ export const options: ChartOptions = {
     },
     tooltip: {
       enabled: false,
-      // backgroundColor: '#393556',
-      // cornerRadius: 0,
-      // padding: 12,
-      // callbacks: {},
-      // displayColors: false,
     },
   },
   scales: {

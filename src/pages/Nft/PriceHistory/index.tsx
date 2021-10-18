@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { Select, Text, Chart } from 'components';
 import styles from './PriceHistory.module.scss';
 import { ICurrency, OptionType, TPriceHistoryPeriod } from 'typings';
@@ -28,8 +28,7 @@ interface IProps {
   currency: ICurrency;
 }
 
-const PriceHistory: React.FC<IProps> = (props) => {
-  const { tokenId, currency } = props;
+const PriceHistory: FC<IProps> = ({ tokenId, currency }) => {
   const [currentFilterOption, setCurrentFilterOption] = useState(chartOptionsFilter[0]);
   const { priceHistory } = useFetchPriceHistory({
     id: tokenId,

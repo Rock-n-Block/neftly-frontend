@@ -7,8 +7,7 @@ interface IInitialProps {
   period: TPriceHistoryPeriod;
 }
 
-const useFetchPriceHistory = (props: IInitialProps) => {
-  const { id, period } = props;
+const useFetchPriceHistory = ({ id, period }: IInitialProps) => {
   const [priceHistory, setPriceHistory] = useState<TPriceHistoryItem[]>([]);
 
   const getPriceHistory = useCallback(() => {

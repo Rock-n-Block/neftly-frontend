@@ -2,6 +2,7 @@ import { ICurrency } from 'typings';
 import styles from './Tooltip.module.scss';
 import { Text } from 'components';
 import { useDifference } from 'hooks';
+import { FC } from 'react';
 
 interface IGraphTooltip {
   top: string;
@@ -12,8 +13,7 @@ interface IGraphTooltip {
   currency: ICurrency;
 }
 
-const Tooltip = (props: IGraphTooltip) => {
-  const { top, left, date, value, prevValue, currency } = props;
+const Tooltip: FC<IGraphTooltip> = ({ top, left, date, value, prevValue, currency }) => {
   const { difference, isDifferencePositive } = useDifference({ value, prevValue });
 
   return (
@@ -26,7 +26,6 @@ const Tooltip = (props: IGraphTooltip) => {
     >
       <img src={currency?.image} alt={currency?.symbol} width={20} height={20} />
       <div className={styles.tooltipRight}>
-        {/* +2.36% */}
         <Text className={styles.tooltipHeader} size="xl">
           {value}
           <Text tag="span" color={isDifferencePositive ? 'secondary' : 'red'} weight="medium">
