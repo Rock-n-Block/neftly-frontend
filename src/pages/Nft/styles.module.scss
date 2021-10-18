@@ -54,6 +54,7 @@
 .relatedArtwork {
   margin-top: 40px;
   position: relative;
+  overflow: hidden;
   padding: 40px 0;
   &:after {
     z-index: -1;
