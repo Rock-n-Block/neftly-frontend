@@ -3,10 +3,11 @@ import cx from 'classnames';
 import { Carousel, H2 } from 'components';
 import { useFetchHotAuction } from 'hooks';
 import { observer } from 'mobx-react-lite';
+import { INft } from 'typings';
+
+import { useMst } from '../../../store';
 
 import { HotAuctionCard } from './components';
-import { INft } from 'typings';
-import { useMst } from '../../../store';
 
 import styles from './styles.module.scss';
 
