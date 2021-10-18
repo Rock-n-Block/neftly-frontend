@@ -1,19 +1,18 @@
 import { useCallback, useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { chainsEnum } from 'typings';
-import { chains } from 'config';
+import { wallet } from 'assets/img';
 import cn from 'classnames';
 import { Button, H5, Modal, Text } from 'components';
+import { chains } from 'config';
+import { useUserBalance } from 'hooks';
 import { observer } from 'mobx-react';
-
 import { useMst } from 'store';
+import { chainsEnum } from 'typings';
+import { toFixed } from 'utils/BigNumberToFixed';
 
 import Swap from './Swap';
 
 import styles from './Wallet.module.scss';
-import { wallet } from 'assets/img';
-import { useUserBalance } from 'hooks';
-import { toFixed } from 'utils/BigNumberToFixed';
 
 // import Theme from '../../Theme';
 
@@ -22,7 +21,7 @@ interface IUserProps {
 }
 
 let MAIN: string;
-let WRAP: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC';
+let WRAP: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC' | 'WTRX';
 
 const Wallet: React.FC<IUserProps> = observer(({ className }) => {
   switch (localStorage.netfly_nft_chainName) {
@@ -34,10 +33,13 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
       MAIN = 'ETH';
       WRAP = 'WETH';
       break;
+    case 'Tron':
+      MAIN = 'TRX';
+      WRAP = 'WTRX';
+      break;
     default:
       MAIN = 'MATIC';
       WRAP = 'WMATIC';
-      break;
   }
   const { user } = useMst();
   const [refresh, setRefresh] = useState(false);
