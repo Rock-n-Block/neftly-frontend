@@ -1,19 +1,20 @@
+import cn from 'classnames';
+import { observer } from 'mobx-react';
+import { useMst } from 'store';
+import { useParams } from 'react-router';
+import { useCallback, useState, useMemo, FC } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import UserMainInfo from './UserMainInfo';
 import { TabLookingComponent } from 'components';
+import { About, Artworks, Favorited } from './Tabs';
+import { IExtendedInfo } from '../../typings';
+import { useTabs, useFilters, useFetchNft, useFetchLiked } from 'hooks';
+import { userApi } from 'services';
 
 import s from './ProfilePage.module.scss';
 
 import { folders, art, me, heart } from 'assets/img';
-import UserMainInfo from './UserMainInfo';
-import { useParams } from 'react-router';
-import { FC, useCallback, useState } from 'react';
-import { About, Artworks, Collectibles, Favorited } from './Tabs';
-import { IExtendedInfo } from '../../typings';
-import { useTabs } from 'hooks';
-import { useLocation } from 'react-router-dom';
-import cn from 'classnames';
-import { observer } from 'mobx-react';
-import { useMst } from 'store';
-import { userApi } from 'services';
 
 const tabs = [
   {
@@ -38,13 +39,44 @@ const tabs = [
   },
 ];
 
-const Profile: FC = observer(() => {
+const ProfilePage: FC = observer(() => {
   const { user } = useMst();
   const { userId } = useParams<{ userId: string }>();
   const initialTab = useLocation().search?.replace('?tab=', '') || '';
   const { activeTab, setActiveTab } = useTabs(tabs, initialTab);
-  // const [activeTab, setActiveTab] = useState(tabs[0].title);
   const [currentUser, setCurrentUser] = useState<IExtendedInfo>({} as IExtendedInfo);
+
+  const creatorOrOwner = useMemo(() => {
+    switch (activeTab) {
+      case 'artworks':
+        return 'creator';
+      case 'collectibles':
+        return 'owner';
+      default:
+        return '';
+    }
+  }, [activeTab]);
+
+  const {
+    orderByFilter,
+    handleOrderByFilter,
+    page,
+    handlePage,
+    isLoading: isFiltersLoading,
+  } = useFilters();
+
+  const [allPages, totalItems, nftCards, isNftsLoading] = useFetchNft({
+    page,
+    sort: 'items',
+    [creatorOrOwner]: userId,
+    order_by: orderByFilter.value,
+  });
+
+  const [allPagesLiked, totalItemsLiked, nftCardsLicked, isLickesLoading] = useFetchLiked({
+    page,
+    address: user.address,
+    isRefresh: activeTab === 'favorited',
+  });
 
   const likeAction = useCallback(
     (id) => {
@@ -71,10 +103,31 @@ const Profile: FC = observer(() => {
         </div>
 
         <div className={cn(s.page_body__right, activeTab === 'about' && s.page_body__about)}>
-          {activeTab === 'artworks' && <Artworks userId={userId} likeAction={likeAction} />}
-          {activeTab === 'collectibles' && <Collectibles userId={userId} likeAction={likeAction} />}
+          {activeTab === 'artworks' || activeTab === 'collectibles' ? (
+            <Artworks
+              likeAction={likeAction}
+              page={page}
+              allPages={allPages}
+              handlePage={handlePage}
+              isFiltersLoading={isFiltersLoading}
+              isNftsLoading={isNftsLoading}
+              totalItems={totalItems}
+              orderByFilter={orderByFilter}
+              handleOrderByFilter={handleOrderByFilter}
+              nftCards={nftCards}
+            />
+          ) : null}
           {activeTab === 'favorited' && (
-            <Favorited userAddress={currentUser?.address || ''} likeAction={likeAction} />
+            <Favorited
+              page={page}
+              handlePage={handlePage}
+              isFiltersLoading={isFiltersLoading}
+              likeAction={likeAction}
+              allPages={allPagesLiked}
+              isLickesLoading={isLickesLoading}
+              totalItems={totalItemsLiked}
+              nftCards={nftCardsLicked}
+            />
           )}
           {activeTab === 'about' && <About currentUser={currentUser} />}
         </div>
@@ -83,4 +136,4 @@ const Profile: FC = observer(() => {
   );
 });
 
-export default Profile;
+export default ProfilePage;

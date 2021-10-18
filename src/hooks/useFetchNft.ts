@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { storeApi } from 'services';
+
+import { INft } from 'typings';
 
 const NUMBER_NFTS_PER_PAGE = 6;
 
 interface IProps {
-  setLoading: (value: boolean) => void;
   page: number;
   sort: string;
   order_by?: string;
@@ -18,7 +19,7 @@ interface IProps {
   text?: string;
 }
 
-export const useFetchNft = (props: IProps) => {
+export const useFetchNft = (props: IProps): [number, number, INft[], boolean] => {
   const {
     page,
     sort,
@@ -29,15 +30,16 @@ export const useFetchNft = (props: IProps) => {
     is_verified,
     creator,
     owner,
-    setLoading,
     on_sale,
     text = '',
   } = props;
+  const [isLoading, setLoading] = useState(false);
   const [allPages, setAllPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [nftCards, setNftCards] = useState<any>([]);
+  const [nftCards, setNftCards] = useState<INft[]>([]);
 
-  const fetchSearch = () => {
+  const fetchSearch = useCallback(() => {
+    if (!owner && !creator) return;
     const refresh = page === 1;
     setLoading(true);
     storeApi
@@ -62,7 +64,7 @@ export const useFetchNft = (props: IProps) => {
         if (refresh) {
           setNftCards(items);
         } else {
-          setNftCards([...nftCards, ...items]);
+          setNftCards((prev: INft[]) => [...prev, ...items]);
         }
         if (!items.length && refresh) {
           setNftCards([]);
@@ -72,16 +74,23 @@ export const useFetchNft = (props: IProps) => {
       .finally(() => {
         setLoading(false);
       });
-  };
+  }, [creator, currency, is_verified, max_price, on_sale, order_by, owner, page, sort, tags, text]);
 
   useEffect(() => {
     fetchSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, sort, order_by, tags, max_price, currency, is_verified, creator, on_sale, text]);
+  }, [
+    page,
+    sort,
+    order_by,
+    tags,
+    max_price,
+    currency,
+    is_verified,
+    creator,
+    on_sale,
+    text,
+    fetchSearch,
+  ]);
 
-  return {
-    allPages,
-    totalItems,
-    nftCards,
-  };
+  return [allPages, totalItems, nftCards, isLoading];
 };

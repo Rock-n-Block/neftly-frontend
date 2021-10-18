@@ -13,7 +13,8 @@ const DEFAULT_FILTER_STATE = {
   is_verificated: 'All',
 };
 
-const useFilters = (setFiltersLoading: (value: boolean) => void) => {
+const useFilters = () => {
+  const [isLoading, setLoading] = useState(false);
   const [filterTags, setFilterTags] = useState<any>([]);
   const [maxPriceFilter, setMaxPriceFilter] = useState(DEFAULT_FILTER_STATE.max_price);
   const [currencyFilter, setCurrencyFilter] = useState<OptionType>({
@@ -71,21 +72,21 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
 
   const fetchMaxPrice = useCallback(
     (currency: string) => {
-      setFiltersLoading(true);
+      setLoading(true);
       storeApi
         .getMaxPrice(currency)
         .then(({ data }: any) => {
           handleMaxPrice(data.max_price);
         })
         .finally(() => {
-          setFiltersLoading(false);
+          setLoading(false);
         });
     },
-    [handleMaxPrice, setFiltersLoading],
+    [handleMaxPrice, setLoading],
   );
 
   const fetchTags = useCallback(async () => {
-    setFiltersLoading(true);
+    setLoading(true);
     const links = await storeApi.getTags();
     if (links.data.tags.length) {
       setFilterTags(
@@ -98,11 +99,11 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
         ),
       );
     }
-    setFiltersLoading(false);
-  }, [setFiltersLoading]);
+    setLoading(false);
+  }, []);
 
   const fetchRates = useCallback(() => {
-    setFiltersLoading(true);
+    setLoading(true);
     ratesApi
       .getRates()
       .then(({ data }: any) => {
@@ -118,9 +119,9 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
         console.log(err);
       })
       .finally(() => {
-        setFiltersLoading(false);
+        setLoading(false);
       });
-  }, [handleCurrencyFilter, setFiltersLoading]);
+  }, [handleCurrencyFilter, setLoading]);
   // TODO: stop to fetch if this filters don't used
   useEffect(() => {
     fetchMaxPrice(currencyFilter.value);
@@ -128,7 +129,7 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
 
   useEffect(() => {
     fetchTags();
-  }, [fetchTags]);
+  }, [fetchTags, filterTags]);
 
   useEffect(() => {
     fetchRates();
@@ -156,6 +157,7 @@ const useFilters = (setFiltersLoading: (value: boolean) => void) => {
     handleTagsFilter,
     page,
     handlePage,
+    isLoading,
   };
 };
 

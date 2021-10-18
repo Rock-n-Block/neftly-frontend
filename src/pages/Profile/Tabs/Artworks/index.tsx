@@ -1,28 +1,44 @@
-import { FC, memo, RefObject, useState } from 'react';
-import s from '../Tabs.module.scss';
+import { FC, RefObject } from 'react';
+
 import { ArtCard } from 'components';
-import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
+import { useInfiniteScroll } from 'hooks';
 import TabHeader from '../TabHeader';
-import BigNumber from 'bignumber.js';
+import { OptionType, INft } from 'typings';
+import { toFixed } from 'utils';
+
+import s from '../Tabs.module.scss';
 
 interface IProps {
-  userId: string;
   likeAction: (id: string | number) => void;
+  page: number;
+  allPages: number;
+  handlePage: (value: number) => void;
+  isFiltersLoading: boolean;
+  isNftsLoading: boolean;
+  totalItems: number;
+  orderByFilter: OptionType;
+  handleOrderByFilter: (value: OptionType) => void;
+  nftCards: INft[];
 }
 
-const Artworks: FC<IProps> = memo(({ userId, likeAction }) => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { orderByFilter, handleOrderByFilter, page, handlePage } = useFilters(setIsLoading);
-
-  const { allPages, totalItems, nftCards } = useFetchNft({
-    setLoading: setIsLoading,
+const Artworks: FC<IProps> = ({
+  likeAction,
+  page,
+  allPages,
+  handlePage,
+  isFiltersLoading,
+  isNftsLoading,
+  totalItems,
+  orderByFilter,
+  handleOrderByFilter,
+  nftCards,
+}) => {
+  const anchorRef = useInfiniteScroll(
     page,
-    sort: 'items',
-    creator: userId,
-    order_by: orderByFilter.value,
-  });
-  const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading);
+    allPages,
+    handlePage,
+    isFiltersLoading || isNftsLoading,
+  );
 
   return (
     <>
@@ -49,7 +65,7 @@ const Artworks: FC<IProps> = memo(({ userId, likeAction }) => {
             bids,
             is_liked,
           } = artCard;
-          const artPrice = price || (highest_bid && new BigNumber(highest_bid.amount).toFixed()) || minimal_bid
+          const artPrice = price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid;
           return (
             <ArtCard
               artId={id}
@@ -73,5 +89,5 @@ const Artworks: FC<IProps> = memo(({ userId, likeAction }) => {
       <div ref={anchorRef as RefObject<HTMLDivElement>} />
     </>
   );
-});
+};
 export default Artworks;

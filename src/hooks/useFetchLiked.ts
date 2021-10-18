@@ -1,23 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { storeApi } from 'services';
+import { INft } from 'typings';
 
 const NUMBER_NFTS_PER_PAGE = 6;
 
 interface IProps {
-  setLoading: (value: boolean) => void;
   page: number;
   address: string;
+  isRefresh: boolean;
 }
 
-export const useFetchLiked = (props: IProps) => {
-  const { page, setLoading, address } = props;
+export const useFetchLiked = (props: IProps): [number, number, INft[], boolean] => {
+  const { page, address, isRefresh } = props;
   const [allPages, setAllPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [nftCards, setNftCards] = useState<any>([]);
+  const [nftCards, setNftCards] = useState<INft[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const fetchLiked = () => {
+  const fetchLiked = useCallback(() => {
     const refresh = page === 1;
-    setLoading(true);
+    setIsLoading(true);
     storeApi
       .getLiked(address, page)
       .then(({ data: { items, total_tokens } }: any) => {
@@ -26,7 +28,7 @@ export const useFetchLiked = (props: IProps) => {
         if (refresh) {
           setNftCards(items);
         } else {
-          setNftCards([...nftCards, ...items]);
+          setNftCards((prev: INft[]) => [...prev, ...items]);
         }
         if (!items.length && refresh) {
           setNftCards([]);
@@ -34,18 +36,19 @@ export const useFetchLiked = (props: IProps) => {
         setAllPages(Math.ceil(total_tokens / NUMBER_NFTS_PER_PAGE));
       })
       .finally(() => {
-        setLoading(false);
+        setIsLoading(false);
       });
-  };
+  }, [address, page]);
 
   useEffect(() => {
     fetchLiked();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, address]);
+  }, [fetchLiked, page, address]);
 
-  return {
-    allPages,
-    totalItems,
-    nftCards,
-  };
+  useEffect(() => {
+    if (isRefresh) {
+      fetchLiked();
+    }
+  }, [fetchLiked, isRefresh]);
+
+  return [allPages, totalItems, nftCards, isLoading];
 };
