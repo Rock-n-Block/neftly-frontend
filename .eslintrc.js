@@ -61,6 +61,7 @@ module.exports = {
         allowedNames: ['self'],
       },
     ],
+    'spaced-comment': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     'prettier/prettier': ['warn', prettierConfig],
