@@ -16,13 +16,12 @@ import styles from './styles.module.scss';
 type Props = {
   className?: string;
   name: string;
-  views: number;
   growth: number;
   nft: INft | null;
   onUpdateNft?: () => void;
 };
 
-const GiantCard: FC<Props> = ({ className, views, growth, nft, onUpdateNft }) => {
+const GiantCard: FC<Props> = ({ className, growth, nft, onUpdateNft }) => {
   const { user } = useMst();
   const {
     isUserCanEndAuction,
@@ -67,7 +66,6 @@ const GiantCard: FC<Props> = ({ className, views, growth, nft, onUpdateNft }) =>
         <ViewsAndControlsComponent
           className={styles.detailedViewsAndControl}
           likes={nft?.like_count || 0}
-          views={views}
           inStock={nft?.available || 0}
           nft={nft}
           isOwner={isOwner}
