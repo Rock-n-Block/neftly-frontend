@@ -15,7 +15,6 @@ import styles from './styles.module.scss';
 
 const Discover = observer(() => {
   const [isFilterOpen, setFilterOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const { user } = useMst();
 
   const handleOpenFilter = useCallback(() => {
@@ -40,10 +39,10 @@ const Discover = observer(() => {
     handleTagsFilter,
     page,
     handlePage,
-  } = useFilters(setIsLoading);
+    isLoading,
+  } = useFilters();
 
-  const { allPages, totalItems, nftCards } = useFetchNft({
-    setLoading: setIsLoading,
+  const [allPages, totalItems, nftCards, isNftsLoading] = useFetchNft({
     page,
     sort: 'items',
     order_by: orderByFilter.value,
@@ -62,7 +61,7 @@ const Discover = observer(() => {
     },
     [user.address],
   );
-  const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading);
+  const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading || isNftsLoading);
   return (
     <div className={styles.discover}>
       <H2 className={styles.title}>

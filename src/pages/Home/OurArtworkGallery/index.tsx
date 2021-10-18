@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback } from 'react';
 import cx from 'classnames';
 import { ArtCard, Button, H2, Loader } from 'components';
 import { useFetchNft, useLoadMore } from 'hooks';
@@ -15,11 +15,9 @@ type Props = {
 const OurArtworkGallery: FC<Props> = observer(({ className }) => {
   const { user } = useMst();
 
-  const [isLoading, setIsLoading] = useState(false);
   const { page, handleLoadMore } = useLoadMore(1);
 
-  const { allPages, nftCards } = useFetchNft({
-    setLoading: setIsLoading,
+  const [allPages, , nftCards, isLoading] = useFetchNft({
     page,
     sort: 'items',
     on_sale: true,
