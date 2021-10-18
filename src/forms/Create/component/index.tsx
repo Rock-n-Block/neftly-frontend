@@ -465,20 +465,22 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                             )}
                           />
 
-                          <Field
-                            name={`details[${index}].amount`}
-                            render={() => (
-                              <TextInput
-                                name="amount"
-                                label="amount"
-                                type="text"
-                                placeholder="e. g. M"
-                                onChange={(e) => handleChangeProperty(e, index, 'amount')}
-                                onBlur={handleBlur}
-                                className={styles.tokenPropertyValue}
-                              />
-                            )}
-                          />
+                          {!values.isSingle ? (
+                            <Field
+                              name={`details[${index}].amount`}
+                              render={() => (
+                                <TextInput
+                                  name="amount"
+                                  label="amount"
+                                  type="text"
+                                  placeholder="e. g. M"
+                                  onChange={(e) => handleChangeProperty(e, index, 'amount')}
+                                  onBlur={handleBlur}
+                                  className={styles.tokenPropertyValue}
+                                />
+                              )}
+                            />
+                          ) : null}
                         </div>
                       ));
                     }}
