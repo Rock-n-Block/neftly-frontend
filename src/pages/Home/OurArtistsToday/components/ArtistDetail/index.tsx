@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { FC } from 'react';
-import { arrowUpRight, facebookLogo, instagramLogo, twitterLogo } from 'assets/img';
+import { facebookLogo, instagramLogo, twitterLogo } from 'assets/img';
 import cx from 'classnames';
-import { Button, H4, Text } from 'components';
+import { H4, Text } from 'components';
 import { sliceString } from 'utils';
 
 import styles from './styles.module.scss';
@@ -54,11 +54,11 @@ const ArtistDetail: FC<Props> = ({
             <img src={twitterLogo} alt="" />
           </a>
         </div>
-        <Button className={styles.viewArtworkBtn} color="transparent">
+        {/* <Button className={styles.viewArtworkBtn} color="transparent">
           <Text size="l" color="secondary">
             View Artwork <img className={styles.arrowPic} src={arrowUpRight} alt="" />
           </Text>
-        </Button>
+        </Button> */}
       </div>
     </div>
   </div>

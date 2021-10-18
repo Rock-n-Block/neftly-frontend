@@ -29,13 +29,15 @@
 }
 
 .artistDescription {
+  overflow: auto;
+  max-height: 170px;
   line-height: 26px;
 }
 
 .artistDetailsControls {
   @include flexbox(center, space-between);
   position: absolute;
-  bottom: 88px;
+  bottom: 60px;
 
   width: 80%;
 }
