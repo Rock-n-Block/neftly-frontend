@@ -1,48 +1,11 @@
-@import '../../styles/helpers';
-
-.title {
-  margin-bottom: 32px;
-}
+@import 'src/styles/helpers';
 
 .text {
   margin-bottom: 32px;
-
-  @include body-2;
-  color: $neutrals4;
 }
 
 .info {
-  margin-bottom: 3px;
-
-  @include body-bold-1;
-}
-
-.input {
-  width: 100%;
-  height: 48px;
-
-  color: $neutrals2;
-  color: $neutrals8;
-  background: none;
-
-  // @include dark {
-  border-color: $neutrals3;
-  border-bottom: 1px solid $neutrals6;
-  border-radius: 0;
-
-  transform: border-color 0.2s;
-
-  @include poppins;
-  @include body-bold-2;
-  // }
-
-  @include placeholder {
-    color: $neutrals4;
-  }
-
-  &:focus {
-    border-color: $neutrals4;
-  }
+  margin-bottom: 12px;
 }
 
 .btns {

@@ -25,19 +25,6 @@
   }
 }
 
-.wallet {
-  margin-left: 12px;
-
-  color: $neutrals8;
-
-  @include m {
-    display: none;
-  }
-}
-
-.currency {
-  color: $green;
-}
 
 .body {
   position: absolute;
@@ -114,83 +101,6 @@
   color: $color-actions-light-yellow;
 }
 
-.code {
-  margin-bottom: 8px;
-
-  display: flex;
-  align-items: center;
-}
-
-.number {
-  font-weight: 500;
-
-  color: $neutrals4;
-}
-
-.copy {
-  margin-left: 8px;
-
-  svg {
-    fill: $blue;
-
-    transition: fill 0.2s;
-  }
-
-  &:hover {
-    svg {
-      fill: darken($blue, 10);
-    }
-  }
-}
-
-.wrap {
-  margin-bottom: 7px;
-  padding: 8px;
-  // box-shadow: 0px 24px 24px -8px rgba(15, 15, 15, 0.2);
-  background: $gradient2;
-  border-radius: 16px;
-}
-
-.line {
-  margin-bottom: 10px;
-
-  display: flex;
-  align-items: center;
-}
-
-.preview {
-  margin-right: 16px;
-
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-
-  img {
-    width: 100%;
-    height: 100%;
-
-    border-radius: 50%;
-  }
-}
-
-.info {
-  @include caption-2;
-  color: $neutrals4;
-}
-
-.price {
-  @include body-bold-1;
-}
-
-.button {
-  padding: 0 10px;
-
-  width: 100%;
-  height: 32px;
-
-  font-size: 14px;
-}
-
 .item {
   padding: 17px 0 12px;
 
@@ -199,7 +109,6 @@
 
   color: $color-neutral-10;
 
-  @include button-2;
 
   &:not(:last-child) {
     border-bottom: 1px solid $color-neutral-60;
@@ -232,48 +141,6 @@
   margin-right: auto;
 }
 
-.tooltip {
-  position: relative;
-
-  display: inline-block;
-  visibility: hidden;
-
-  border-bottom: 1px solid black;
-}
-
-.tooltip .tooltiptext {
-  position: absolute;
-  z-index: 1;
-
-  padding: 5px 0;
-
-  visibility: hidden;
-
-  width: 120px;
-
-  text-align: center;
-
-  color: #fff;
-  background-color: black;
-  border-radius: 6px;
-}
-
-.copy:hover .tooltiptext {
-  visibility: visible;
-}
-
-.swapWrapper {
-  padding: 15px 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swap {
-  box-shadow: 0 0 0 2px #674df6 inset;
-}
-
 .uploadBtn {
   width: 100%;
   padding: 0 25px;
@@ -284,26 +151,21 @@
 }
 
 .userHeader {
-  display: flex;
-  align-items: center;
+  @include flexbox(center, flex-start);
   margin-bottom: 25px;
 }
 
-.userBio {
-  text-align: left;
-}
-
 .userAva {
+  @include flexbox;
   width: 45px;
   height: 45px;
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
   }
+
   margin-right: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

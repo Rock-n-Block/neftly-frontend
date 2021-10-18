@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { createCollection } from 'assets/img/ChooseCollection';
 import cn from 'classnames';
 import { Carousel, Modal, Text } from 'components';
-// import {connect} from 'formik';
 import { observer } from 'mobx-react';
 import { userApi } from 'services/api';
 import { useMst } from 'store';
@@ -82,7 +81,9 @@ const ChooseCollection: React.FC<IProps> = observer(
             className={cn(styles.card, !activeCollectionId && styles.active)}
           >
             <img src={createCollection} alt="create" className={styles.plus} />
-            <Text className={styles.subtitle}>Create collection</Text>
+            <Text className={styles.subtitle} color="gray">
+              Create collection
+            </Text>
           </div>
           {!!collections.length &&
             collections.map((collection) => (

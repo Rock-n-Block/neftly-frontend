@@ -1,5 +1,4 @@
-import cn from 'classnames';
-import { Control } from 'components';
+import { Control, H2, Text } from 'components';
 import { observer } from 'mobx-react';
 
 import styles from './ProfileEdit.module.scss';
@@ -21,11 +20,11 @@ const ProfileEdit: FC = observer(() => {
     <div className={styles.profileEdit}>
       <Control className={styles.control} item={breadcrumbs} />
       <div className={styles.top}>
-        <h1 className={cn('h2', styles.title)}>Edit profile</h1>
-        <div className={styles.info}>
+        <H2 className={styles.title}>Edit profile</H2>
+        <Text className={styles.info} color="lightGray" weight="medium" size="m">
           You can set preferred display name, create your profile URL and manage other personal
           settings.
-        </div>
+        </Text>
       </div>
       <ProfileForm />
     </div>

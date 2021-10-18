@@ -1,8 +1,4 @@
-@import '../../styles/helpers';
-
-.title {
-  margin-bottom: 32px;
-}
+@import 'src/styles/helpers';
 
 .line {
   display: flex;
@@ -16,20 +12,16 @@
 
 .icon {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexbox;
   flex-shrink: 0;
   width: 48px;
   height: 48px;
   margin-right: 16px;
-  // background: $logo-color-orange1;
-  // border: 2px solid $logo-color-orange1;
   border-radius: 50%;
   transition: all 0.2s;
 
   svg {
-    fill: $neutrals8;
+    fill: $color-neutral-80;
     transition: fill 0.2s;
   }
 
@@ -50,9 +42,6 @@
   @include body-bold-2;
 }
 
-.text {
-  color: $neutrals4;
-}
 
 .switch {
   flex-shrink: 0;
@@ -60,18 +49,13 @@
 }
 
 .row {
-  display: flex;
-  align-items: center;
+  @include flexbox(center, normal);
   padding-top: 12px;
 
   &:first-child {
-    border-bottom: 1px solid $neutrals6;
-    font-weight: 500;
-
-    // @include dark {
-    border-color: $neutrals3;
-    // }
+    border-bottom: 1px solid $color-neutral-60;
   }
+
   &Input {
     background: $color-neutral-100;
     padding: 0 10px;
@@ -93,9 +77,6 @@
 .col {
   @include body-2;
 
-  &:first-child {
-    // color: $logo-color-orange1;
-  }
 
   &:nth-child(2) {
     margin-left: auto;

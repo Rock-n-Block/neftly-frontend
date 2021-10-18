@@ -1,4 +1,4 @@
-@import '../../styles/helpers';
+@import 'src/styles/helpers';
 
 .control {
   margin: 40px 0;
@@ -10,22 +10,11 @@
   padding: 0;
 }
 
-.button {
-  margin-right: auto;
-
-  box-shadow: 0 0 0 2px $purple2 inset;
-
-  svg {
-    fill: $purple2;
-  }
-}
-
 .breadcrumbs {
   display: flex;
 }
 
 .item {
-  @include button-2;
 
   &:not(:last-child) {
     margin-right: 33px;
@@ -46,11 +35,11 @@
 }
 
 .link {
-  color: $color-neutral-60;
+  color: $color-neutral-100;
 
   transition: color 0.2s;
 
   &:hover {
-    color: $blue;
+    color: $color-action-hovered;
   }
 }

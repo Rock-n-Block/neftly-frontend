@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { single, multiple } from 'assets/img/upload';
@@ -21,7 +21,7 @@ const items = [
   },
 ];
 
-const Upload: React.FC = () => {
+const Upload: FC = () => {
   return (
     <div className={styles.upload}>
       <div className={styles.section}>

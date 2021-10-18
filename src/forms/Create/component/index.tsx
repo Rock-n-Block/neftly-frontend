@@ -10,7 +10,6 @@ import {
   RequiredMark,
   Switch,
   Text,
-  // Modal,
   TextArea,
   TextInput,
   Uploader,
@@ -21,10 +20,9 @@ import { observer } from 'mobx-react-lite';
 
 import ChooseCollection from './ChooseCollection';
 
-// import SuccessCreated from './SuccessCreated';
 import styles from './CreateCollectibleDetails.module.scss';
-import { ratesApi } from '../../../services';
-import { iconClose } from '../../../assets/img/icons';
+import { ratesApi } from 'services';
+import { iconClose } from 'assets/img/icons';
 import BigNumber from 'bignumber.js/bignumber';
 
 const royaltiesOptions = ['10', '20', '30'];
@@ -88,13 +86,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     isSingle = true,
   }) => {
     const history = useHistory();
-    // const [rates, setRates] = useState<IRate[]>([]);
-    // const [currencies, setCurrencies] = useState<string[]>([]);
     const [rates, setRates] = useState<IRate[]>([]);
     const [addToCollection, setAddToCollection] = useState(true);
-    // const [visiblePreview, setVisiblePreview] = useState(false);
     const serviceFee = 3; // TODO: remove after get service fee request
-    // const cryptocurrencies = ['ETH', 'BTC'];
     const stringRecieveValue = (parseFloat(`${values.minimalBid}`) * (100 - serviceFee)) / 100 || 0;
     const stringRatesValue = new BigNumber(
       rates.find((rate) => rate.symbol === values.currency)?.rate || 0,
@@ -146,7 +140,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     const fetchRates = useCallback(() => {
       ratesApi.getRates().then(({ data }: any) => {
         setRates(data);
-        // setCurrencies(data.map((item: IRate) => item.symbol));
         setFieldValue('currency', data[0].symbol);
       });
     }, [setFieldValue]);
@@ -236,10 +229,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   )}
                   {values.format === 'audio' && (
                     <audio controls>
-                      <source
-                        src={values.preview}
-                        // type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
-                      />
+                      <source src={values.preview} />
                       <track kind="captions" />
                     </audio>
                   )}
@@ -339,7 +329,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 <div className={styles.fieldsetRow}>
                   <div className={cn(styles.price, styles.fieldsetRowColumn)}>
                     <Text className={styles.label} size="m" weight="medium">
-                      {`${values.sellMethod === 'fixedPrice' ? 'Price' : 'Minimal Bid'}`} <RequiredMark />
+                      {`${values.sellMethod === 'fixedPrice' ? 'Price' : 'Minimal Bid'}`}{' '}
+                      <RequiredMark />
                     </Text>
                     <div className={styles.inputs}>
                       <Field
@@ -523,10 +514,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
             </div>
           </div>
         </Form>
-
-        {/* <Modal visible={values.showModal} onClose={() => setFieldValue('showModal', false)}>
-          <SuccessCreated close={() => setFieldValue('showModal', false)} title='token' />
-        </Modal> */}
       </>
     );
   },

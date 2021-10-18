@@ -177,7 +177,6 @@
 
   color: $color-neutral-10;
 
-  @include button-2;
 
   &:not(:last-child) {
     border-bottom: 1px solid $color-neutral-60;

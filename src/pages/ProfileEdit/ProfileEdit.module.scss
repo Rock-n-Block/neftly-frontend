@@ -4,16 +4,12 @@
   margin: 0 auto;
 }
 
-.container {
-  padding: 0;
-}
-
 .top {
   text-align: center;
   margin-top: 69px;
   padding-bottom: 45px;
   border-bottom: 1px solid $color-neutral-80;
-  @include m{
+  @include m {
     padding: 0px 32px 32px;
   }
 }
@@ -22,227 +18,16 @@
   width: 100%;
   margin-top: 29px;
 
-  font-size: 40px;
-  font-weight: normal;
-  line-height: 120%;
   @include flexbox;
-  @include monument-extended;
 }
 
 .info {
   margin-top: 16px;
-  @include epilogue;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 160%;
 
-  color: $color-neutral-20;
   @include flexbox;
 }
 
-.row {
-  @include flexbox(flex-start);
-  @include m{
-    flex-direction: column;
-  }
-}
 
 .control {
   margin-left: 20px;
-}
-
-.col {
-
-  width: 100%;
-
-  &:first-child{
-    padding-right: 32px;
-    border-right: 1px solid $color-neutral-80;
-    @include m{
-      padding:0;
-      border-right: none;
-    }
-  }
-  &:last-child{
-    padding-left: 32px;
-    @include m{
-      padding:0;
-      .item{
-        border-bottom: none;
-      }
-    }
-  }
-
-}
-
-.user {
-  padding: 44px 0 32px 0;
-  @include flexbox(flex-start, flex-start);
-  border-bottom: 1px solid $color-neutral-80;
-  @include d {
-    //max-width: 416px;
-  }
-  @include m{
-    padding: 32px 0;
-  }
-}
-
-.avatar {
-  margin-right: 32px;
-
-  width: 128px;
-  height: 128px;
-  flex-shrink: 0;
-
-  @include m {
-
-    width: 80px;
-    height: 80px;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-
-    border-radius: 50%;
-    object-fit: cover;
-  }
-}
-
-.details {
-  max-width: 256px;
-
-  @include m{
-    max-width:197px;
-  }
-}
-
-.stage {
-  @include monument-extended;
-  margin-bottom: 8px;
-
-  font-size: 20px;
-  line-height: 120%;
-}
-
-.text {
-  @include epilogue;
-  margin-bottom: 16px;
-
-  font-size: 16px;
-  line-height: 160%;
-
-  color: $color-neutral-20;
-}
-
-.file {
-  position: relative;
-
-  display: inline-block;
-  overflow: hidden;
-}
-
-.button {
-  width: 121px;
-  @include m{
-    width:197px;
-  }
-}
-
-.load {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  font-size: 140px;
-
-  opacity: 0;
-}
-
-.item {
-  padding: 32px 0 45px;
-  @include d {
-    margin: 0 20px;
-
-  }
-
-  @include m {
-    margin: 0;
-
-    width: 100%;
-    padding: 32px 0 32px;
-    border-bottom: 1px solid $color-neutral-80;
-  }
-
-  & > .button {
-    margin-top: 32px;
-  }
-
-  &:not(:last-child) {
-    margin-bottom: 40px;
-
-    @include d {
-      margin-bottom: 0;
-    }
-
-    @include m {
-      margin-bottom: 32px;
-    }
-  }
-}
-
-.category {
-  @include monument-extended;
-  margin-bottom: 24px;
-
-  font-size: 20px;
-  line-height: 120%;
-}
-
-.fieldset {
-  & > .field {
-    &:not(:last-child) {
-      margin-bottom: 32px;
-    }
-  }
-}
-
-.error {
-  input {
-    border-color: red;
-  }
-}
-
-.box {
-  position: relative;
-
-  .button {
-    position: absolute;
-    right: 12px;
-    bottom: 8px;
-
-    padding: 0 10px;
-
-    height: 32px;
-  }
-}
-
-.submitButton {
-  margin-top: 32px;
-
-  width: 259px;
-  @include m{
-    margin: 32px auto 0;
-    width: 311px;
-  }
-}
-
-.note {
-  color: $neutrals4;
-}
-
-.button {
-  svg {
-    fill: $neutrals4;
-  }
 }

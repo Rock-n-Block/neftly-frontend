@@ -3,9 +3,9 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { storeApi } from '../../services/api';
-import { TextArea, Button } from '..';
-import { useMst } from '../../store';
+import { storeApi } from 'services/api';
+import { TextArea, Button, Text } from 'components';
+import { useMst } from 'store';
 
 import styles from './Report.module.scss';
 
@@ -53,9 +53,9 @@ const Report: React.FC<IReportProps> = ({ className }) => {
 
   return (
     <div className={cn(className, styles.transfer)}>
-      <div className={styles.text}>
+      <Text className={styles.text} color="lightGray" size="m" weight="medium">
         Describe why you think this item should be removed from marketplace
-      </div>
+      </Text>
       <TextArea
         className={styles.field}
         label="Message"

@@ -3,20 +3,14 @@ import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
 import { routes } from 'appConstants';
-// import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
-import { Button, Icon, Loader, Modal } from 'components';
+import { Button, Icon, Loader } from 'components';
 import { observer } from 'mobx-react';
 
-// import { ratesApi } from '../../../services/api';
-import { useWalletConnectorContext } from '../../../services/walletConnect';
-import { useMst } from '../../../store';
-
-import Swap from './Swap';
+import { useWalletConnectorContext } from 'services';
+import { useMst } from 'store';
 
 import styles from './User.module.scss';
-
-// import Theme from '../../Theme';
 
 interface IUserProps {
   className?: string;
@@ -24,7 +18,6 @@ interface IUserProps {
 
 const User: React.FC<IUserProps> = observer(({ className }) => {
   const [visible, setVisible] = useState(false);
-  const [visibleModal, setVisibleModal] = useState(false);
   const walletConnector = useWalletConnectorContext();
   const { user } = useMst();
 
@@ -59,33 +52,6 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
       url: '',
     },
   ];
-
-  // const handleCopy = () => {
-  //   navigator.clipboard.writeText(user.address);
-  //   setCopyAddress(true);
-  // };
-
-  // const fetchBalance = useCallback(() => {
-  //   walletConnector.walletService
-  //     .getEthBalance()
-  //     .then((data: any) =>
-  //       user.setBalance(
-  //         new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
-  //         'eth',
-  //       ),
-  //     );
-  //   walletConnector.walletService.getWethBalance().then((data: any) => {
-  //     ratesApi.getRates();
-  //     user.setBalance(
-  //       new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
-  //       'weth',
-  //     );
-  //   });
-  // }, [walletConnector.walletService, user]);
-
-  // useEffect(() => {
-  //   if (user.address) fetchBalance();
-  // }, [fetchBalance, user.address]);
 
   const handleClose = useCallback(() => {
     setVisible(false);
@@ -162,16 +128,12 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
                       <Icon name={option.icon} size="20" />
                     </div>
                     <div className={styles.text}>{option.title}</div>
-                    {/* <Theme className={styles.theme} /> */}
                   </div>
                 );
               })}
             </div>
           </div>
         )}
-        <Modal visible={visibleModal} onClose={() => setVisibleModal(false)}>
-          <Swap close={() => setVisibleModal(false)} />
-        </Modal>
       </div>
     </OutsideClickHandler>
   );

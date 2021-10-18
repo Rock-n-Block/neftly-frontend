@@ -2,9 +2,9 @@ import React from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
-import { storeApi } from '../../services/api';
-import { useMst } from '../../store';
-import { Button } from '..';
+import { storeApi } from 'services/api';
+import { useMst } from 'store';
+import { Button, Text } from 'components';
 
 import styles from './RemoveSale.module.scss';
 
@@ -33,9 +33,9 @@ const RemoveSale: React.FC<IRemoveSaleProps> = ({ className }) => {
 
   return (
     <div className={cn(className, styles.transfer)}>
-      <div className={styles.text}>
+      <Text className={styles.text} weight="medium" color="lightGray" size="m">
         Do you really want to remove your item from sale? You can put it on sale anytime
-      </div>
+      </Text>
       <div className={styles.btns}>
         <Button
           type="button"

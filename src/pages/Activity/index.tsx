@@ -47,10 +47,18 @@ const Activity: React.FC = observer(() => {
     <div className={styles.page}>
       <div className={cn(styles.section, styles.body)}>
         <div className={styles.container}>
-          <H2 className={styles.pageTitle}>Social activity</H2>
-          <div className={styles.pageSubtitle}>
+          <H2 align="center" className={styles.pageTitle}>
+            Social activity
+          </H2>
+          <Text
+            align="center"
+            className={styles.pageSubtitle}
+            color="lightGray"
+            size="m"
+            weight="medium"
+          >
             keep track of all the latest activity on the platform
-          </div>
+          </Text>
 
           <div className={styles.top}>
             <h1 className={cn('h2', styles.title)}>Activity</h1>

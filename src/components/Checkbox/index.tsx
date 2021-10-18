@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
 import styles from './Checkbox.module.scss';
+import { FC } from 'react';
 
 interface ICheckboxProps {
   className?: string;
@@ -9,7 +10,7 @@ interface ICheckboxProps {
   onChange: () => void;
 }
 
-const Checkbox: React.FC<ICheckboxProps> = ({ className, content, value, onChange }) => {
+const Checkbox: FC<ICheckboxProps> = ({ className, content, value, onChange }) => {
   return (
     <label htmlFor={`toogle_${content}`} className={cn(styles.checkbox, className)}>
       <input

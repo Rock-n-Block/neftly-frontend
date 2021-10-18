@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
-import { storeApi } from '../../services/api';
-import { useWalletConnectorContext } from '../../services/walletConnect';
-import { Button } from '..';
-import { useMst } from '../../store';
+import { storeApi, useWalletConnectorContext } from 'services';
+import { Button, Text, TextInput } from 'components';
+import { useMst } from 'store';
 
 import styles from './Transfer.module.scss';
 
@@ -50,11 +49,14 @@ const Transfer: React.FC<ITransferProps> = ({ className }) => {
 
   return (
     <div className={cn(className, styles.transfer)}>
-      <div className={styles.text}>You can transfer tokens from your address to another</div>
-      <div className={styles.info}>Receiver address</div>
+      <Text className={styles.text} weight="medium" color="lightGray" size="m">
+        You can transfer tokens from your address to another
+      </Text>
+      <Text className={styles.info} weight="medium" color="lightGray" size="xl">
+        Receiver address
+      </Text>
       <div className={styles.field}>
-        <input
-          className={styles.input}
+        <TextInput
           value={inputValue}
           onChange={handleSetAddress}
           type="text"
