@@ -1,4 +1,5 @@
 import axios from '../../core/axios';
+import { TOptionable } from '../../typings';
 
 interface ILogin {
   address: string;
@@ -26,7 +27,7 @@ export default {
   unfollow: (
     data: { id: string | number }, // TODO: remove if follow and unfollow united
   ) => axios.post(`account/self/unfollow/?network=${localStorage.nftcrowd_nft_chainName}`, data),
-  like: (data: { id: string | number | undefined }) =>
+  like: (data: { id: TOptionable<string | number> }) =>
     axios.post(`account/self/like/?network=${localStorage.nftcrowd_nft_chainName}`, data),
   verifyMe: (data: any, address: string) =>
     axios.post(`/account/verification/?network=${localStorage.nftcrowd_nft_chainName}`, {

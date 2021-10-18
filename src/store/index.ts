@@ -3,6 +3,7 @@ import { Instance, onSnapshot, types } from 'mobx-state-tree';
 
 import { User } from './User';
 import { Modals } from './Modals';
+import { TNullable } from 'typings';
 
 const RootModel = types.model({
   user: User,
@@ -17,8 +18,6 @@ export const Store = RootModel.create({
     balance: { eth: '0', weth: '0' },
     follows_count: 0,
     followers_count: 0,
-    search: '',
-    is_searching: false,
   },
   modals: {
     burn: {},
@@ -52,7 +51,7 @@ onSnapshot(rootStore, (snapshot) => {
 });
 
 export type RootInstance = Instance<typeof RootModel>;
-const RootStoreContext = createContext<null | RootInstance>(null);
+const RootStoreContext = createContext<TNullable<RootInstance>>(null);
 
 export const { Provider } = RootStoreContext;
 

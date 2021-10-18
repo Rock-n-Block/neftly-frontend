@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { userApi } from 'services';
+import { TOptionable } from 'typings';
 
 export const useLike = (
   isLiked: boolean,
   likes: number,
-  id: string | number | undefined,
+  id: TOptionable<string | number>,
   hasAddress: boolean,
 ) => {
   const [isLike, setIsLike] = useState<boolean>(isLiked);

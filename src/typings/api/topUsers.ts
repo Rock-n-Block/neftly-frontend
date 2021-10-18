@@ -1,9 +1,11 @@
+import { TNullable } from 'typings';
+
 type TUser = {
   address: string;
   avatar: string;
   bio: string;
   created_at: string;
-  custom_url: string | null;
+  custom_url: TNullable<string>;
   display_name: string;
   facebook: string;
   id: number;
@@ -11,7 +13,7 @@ type TUser = {
   is_verificated: boolean;
   site: string;
   twitter: string;
-}
+};
 
 export type TTopUser = {
   id: number;
@@ -26,6 +28,6 @@ export type TTopUserRes = {
 }[];
 
 export type TTopUserReq = {
-  type: string,
-  sortPeriod: string,
-}
+  type: string;
+  sortPeriod: string;
+};

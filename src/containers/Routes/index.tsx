@@ -1,23 +1,23 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { routes } from 'appConstants';
 import {
-  DetailArtwork,
   Discover,
-  Home,
   ProfileEdit,
-  ProfilePage,
+  Profile,
   Activity,
   UploadVariants,
   CreateToken,
-  CollectionPage
+  CollectionPage,
+  Home,
+  Nft,
 } from 'pages';
 
 const Routes = () => (
   <Switch>
-    <Route path={routes.nft.root} component={DetailArtwork} />
+    <Route path={routes.nft.root} component={Nft} />
     <Route exact path={routes.discover.root} component={Discover} />
     <Route exact path={routes.profile.edit} component={ProfileEdit} />
-    <Route path={routes.profile.root} component={ProfilePage} />
+    <Route path={routes.profile.root} component={Profile} />
     <Route path={routes.create.single}>
       <CreateToken />
     </Route>

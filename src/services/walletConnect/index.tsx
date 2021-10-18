@@ -44,12 +44,12 @@ class Connector extends React.Component<
 
   componentDidMount() {
     if (window.ethereum) {
-      if (localStorage.netfly_nft_chainName && localStorage.netfly_nft_providerName) {
-        if (localStorage.netfly_nft_chainName === 'Tron') {
+      if (localStorage.nftcrowd_nft_chainName && localStorage.nftcrowd_nft_providerName) {
+        if (localStorage.nftcrowd_nft_chainName === 'Tron') {
           connectTron();
           return;
         }
-        this.connect(localStorage.netfly_nft_chainName, localStorage.netfly_nft_providerName);
+        this.connect(localStorage.nftcrowd_nft_chainName, localStorage.nftcrowd_nft_providerName);
       }
     }
   }

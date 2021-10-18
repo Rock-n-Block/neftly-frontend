@@ -42,7 +42,7 @@ async function setConnect() {
       status: address ? TronStatus.ADDRESS_SELECTED : TronStatus.AVAILABLE,
       // balance: await getTronBalance(address),
     };
-    if (!localStorage.netfly_nft_token) {
+    if (!localStorage.nftcrowd_nft_token) {
       const { data }: any = await userApi.getMsg();
 
       const hexData = window.tronWeb.toHex(data);
@@ -57,10 +57,10 @@ async function setConnect() {
         signedMsg,
       });
 
-      localStorage.netfly_nft_token = key;
+      localStorage.nftcrowd_nft_token = key;
     }
-    localStorage.netfly_nft_chainName = 'Tron';
-    localStorage.netfly_nft_providerName = 'TronLink';
+    localStorage.nftcrowd_nft_chainName = 'Tron';
+    localStorage.nftcrowd_nft_providerName = 'TronLink';
     rootStore.user.setAddress(payload.address);
     rootStore.user.getMe();
   } else {

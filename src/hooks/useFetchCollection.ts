@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { storeApi } from 'services';
+import { TNullable } from 'typings';
 
 export const useFetchCollection = (
   setLoading: (value: boolean) => void,
@@ -18,7 +19,7 @@ export const useFetchCollection = (
     cover: string;
     creator: any;
     tokens: Array<any>;
-    description: string | null;
+    description: TNullable<string>;
   }>({
     address: '',
     cover: '',

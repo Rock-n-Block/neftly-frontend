@@ -9,10 +9,6 @@ const nav = [
     url: '/discover',
     title: 'Discover',
   },
-  {
-    url: '/faq',
-    title: 'How it works',
-  },
 ];
 
 type Props = {

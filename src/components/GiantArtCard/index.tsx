@@ -7,7 +7,7 @@ import AuthorComponent from 'pages/Home/HotAuction/components/AuthorComponent';
 import DescriptionAndTagsComponent from 'pages/Home/HotAuction/components/DescriptionAndTagsComponent';
 import PaymentComponent from 'pages/Home/HotAuction/components/PaymentComponent';
 import ViewsAndControlsComponent from 'pages/Home/HotAuction/components/ViewsAndControlsComponent';
-import { INft } from 'typings';
+import { INft, TNullable } from 'typings';
 import { useMst } from '../../store';
 import { useGetUserAccessForNft } from 'hooks';
 
@@ -17,7 +17,7 @@ type Props = {
   className?: string;
   name: string;
   growth: number;
-  nft: INft | null;
+  nft: TNullable<INft>;
   onUpdateNft?: () => void;
 };
 

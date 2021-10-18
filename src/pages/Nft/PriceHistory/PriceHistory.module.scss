@@ -1,0 +1,36 @@
+@import 'src/styles/helpers';
+
+.chartWrapper {
+  padding: 32px;
+  border: 1px solid $color-neutral-80;
+  margin-top: 40px;
+
+  &:first-child {
+    margin-right: 40px;
+  }
+}
+
+.chartFilter {
+  @include flexbox(baseline, space-between);
+  border-bottom: 1px solid $color-neutral-80;
+  padding-bottom: 20px;
+
+  .chartSelect {
+    @include flexbox;
+
+    & > * {
+      &:first-child {
+        margin-right: 12px;
+      }
+    }
+  }
+}
+
+
+.chart {
+  margin-top: 24px;
+
+  canvas {
+    max-height: 500px;
+  }
+}
