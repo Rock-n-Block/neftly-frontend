@@ -46,7 +46,7 @@ export interface ICreateForm {
   totalSupply: number;
   currency: string;
   description: string;
-  price: string;
+  price: number;
   minimalBid: number;
   creatorRoyalty: '10' | '20' | '30';
   collection: number;
@@ -339,7 +339,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 <div className={styles.fieldsetRow}>
                   <div className={cn(styles.price, styles.fieldsetRowColumn)}>
                     <Text className={styles.label} size="m" weight="medium">
-                      {`${values.sellMethod === 'fixedPrice' ? 'Price' : 'Minimal Bid'}`}
+                      {`${values.sellMethod === 'fixedPrice' ? 'Price' : 'Minimal Bid'}`} <RequiredMark />
                     </Text>
                     <div className={styles.inputs}>
                       <Field
@@ -361,7 +361,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                                 name="price"
                                 type="number"
                                 placeholder="e.g. 0.007"
-                                value={values.price}
+                                value={values.price.toString()}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 required
@@ -389,7 +389,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     </div>
                     <div className={styles.postfix}>
                       {/* change dynamically */}
-                      <Text color="gray">Minimum price 0.004 {values.currency.toUpperCase()}</Text>
+                      <Text color="gray">Minimum price 0.0001 {values.currency.toUpperCase()}</Text>
                       <Text color="gray">
                         USD {stringRatesValue} PER/
                         {values.currency.toUpperCase()}
