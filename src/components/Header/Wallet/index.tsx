@@ -70,6 +70,7 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
     setVisibleModal(value);
   }, []);
 
+  console.log(chains, 'CHAINS');
   const imageSrc =
     chains[chains[chainsEnum[localStorage.nftcrowd_nft_chainName as chainsEnum]].name].provider[
       localStorage.nftcrowd_nft_providerName
