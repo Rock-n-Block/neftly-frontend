@@ -1,6 +1,6 @@
 import React from 'react';
 import { contracts, is_production } from 'config';
-import { getTronBalance } from 'services/tron/tronConnect';
+import { getTronBalance } from 'services/tron';
 import { getTronContract } from 'utils';
 
 import { useWalletConnectorContext } from '../services/walletConnect';

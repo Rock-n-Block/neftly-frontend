@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { connectTron } from 'services/tron/tronConnect';
+import { connectTron } from 'services/tron';
 import { chainsEnum } from 'typings';
 
 import arrowImg from '../../assets/img/arrowRight.svg';
