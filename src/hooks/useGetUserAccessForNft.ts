@@ -1,7 +1,7 @@
 import React from 'react';
-import { INft, IOwner, chainsEnum } from 'typings';
+import { INft, IOwner, chainsEnum, TNullable } from 'typings';
 
-export default (nft: INft | null, userId: string | number, userAddress: string) => {
+export default (nft: TNullable<INft>, userId: string | number, userAddress: string) => {
   const isOwner = React.useMemo(() => {
     if (userId && nft && nft.owners) {
       if (Array.isArray(nft.owners)) {

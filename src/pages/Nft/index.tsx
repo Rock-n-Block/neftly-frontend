@@ -1,30 +1,13 @@
 import React, { FC } from 'react';
 import cx from 'classnames';
 import { useParams, useHistory } from 'react-router-dom';
-import moment from 'moment';
 import { observer } from 'mobx-react-lite';
 
-import {
-  ArtCard,
-  Button,
-  GiantCard,
-  H3,
-  Select,
-  H4,
-  Text,
-  TradingHistory,
-  Control,
-  Loader,
-} from 'components';
-import {
-  TradingHistoryBuyer,
-  TradingHistoryEvent,
-  TradingHistoryPrice,
-} from 'components/Table/TradingHistoryCells';
-import { Chart } from 'containers';
-import { TableCell, INft, OptionType } from 'typings';
-import { storeApi } from '../../services/api';
-import { useMst } from '../../store';
+import { ArtCard, Button, GiantCard, H3, H4, Control, Loader } from 'components';
+import { ICurrency, INft, TNullable } from 'typings';
+import { storeApi } from 'services/api';
+import { useMst } from 'store';
+import PriceHistory from './PriceHistory';
 
 import { data as mockData } from './mockdata';
 
@@ -40,66 +23,9 @@ const breadcrumbs = [
   },
 ];
 
-const chartOptionsFilter = [
-  {
-    label: 'This Year',
-    value: 'thisYear',
-  },
-  {
-    label: 'This month',
-    value: 'thisMonth',
-  },
-  {
-    label: 'Today',
-    value: 'today',
-  },
-];
-
-const historyOptionsFilter = [
-  {
-    label: 'Latest',
-    value: 'latest',
-  },
-  {
-    label: 'Highest Price',
-    value: 'highestPrice',
-  },
-  {
-    label: 'Lowest Price',
-    value: 'lowestPrice',
-  },
-];
-
 type Props = {
   className?: string;
 };
-
-const columnTest = [
-  {
-    Header: 'Event',
-    accessor: 'event',
-    Cell: ({ row }: TableCell<any>) => {
-      const { type, isDeclined } = row.original.event;
-      return <TradingHistoryEvent type={type} isDeclined={isDeclined} />;
-    },
-  },
-  {
-    Header: 'Price',
-    accessor: 'price',
-    Cell: ({ row }: TableCell<any>) => {
-      const { amount, asset } = row.original.price;
-      return <TradingHistoryPrice amount={amount} asset={asset} />;
-    },
-  },
-  {
-    Header: 'Buyer',
-    accessor: 'buyer',
-    Cell: ({ row }: TableCell<any>) => {
-      const { name, avatar, date } = row.original.buyer;
-      return <TradingHistoryBuyer name={name} avatar={avatar} date={date} />;
-    },
-  },
-];
 
 const DetailArtwork: FC<Props> = observer(({ className }) => {
   const {
@@ -109,46 +35,11 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
 
   const { id } = useParams<{ id: string }>();
 
-  const [selectedHistorySort, setSelectedHistorySort] = React.useState<OptionType>(
-    historyOptionsFilter[0],
-  );
-  const [nft, setNft] = React.useState<INft | null>(null);
+  const [nft, setNft] = React.useState<TNullable<INft>>(null);
   const [allPages, setAllPages] = React.useState<number>(1);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [artWorks, setArtWorks] = React.useState<INft[]>([]);
   const [isLoadingArtWorks, setLoadingArtWorks] = React.useState<boolean>(false);
-
-  console.log('nft data', nft);
-
-  const nftHistory = React.useMemo(() => {
-    if (nft) {
-      const data = nft.history.map((event) => ({
-        event: {
-          type: event.method,
-          isDeclined: false,
-        },
-        price: {
-          amount: event.price ? +event.price : 0,
-          asset: nft.currency.symbol,
-        },
-        buyer: {
-          avatar: event.avatar,
-          name: event.name.length > 20 ? `${event.name.slice(0, 15)}...` : event.name,
-          date: moment(event.date).fromNow(),
-        },
-      }));
-
-      if (selectedHistorySort.value === 'latest') return data;
-      if (selectedHistorySort.value === 'highestPrice')
-        return data.sort((a, b) => b.price.amount - a.price.amount);
-      return data.sort((a, b) => a.price.amount - b.price.amount);
-    }
-    return [];
-  }, [nft, selectedHistorySort]);
-
-  const handleChangeSortTable = (value: any) => {
-    setSelectedHistorySort(value);
-  };
 
   const getRelatedArtworks = React.useCallback((page: number) => {
     setLoadingArtWorks(true);
@@ -226,25 +117,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
           nft={nft}
           onUpdateNft={getItem}
         />
-        <div className={styles.chartAndBidders}>
-          <div className={styles.chartWrapper}>
-            <div className={styles.chartFilter}>
-              <Text size="l">Price History</Text>
-              <div className={styles.chartSelect}>
-                <Text color="lightGray">Filter Period</Text>
-                <Select className={styles.chartSelect} options={chartOptionsFilter} />
-              </div>
-            </div>
-            <Chart />
-          </div>
-          <TradingHistory
-            columns={columnTest}
-            filterOptions={historyOptionsFilter}
-            tableData={nftHistory}
-            onChangeSort={handleChangeSortTable}
-            selectedOption={selectedHistorySort}
-          />
-        </div>
+        <PriceHistory tokenId={id} currency={nft?.currency as ICurrency} />
         <div className={styles.relatedArtwork}>
           <H3>Related Artwork</H3>
           <div className={styles.artCardsWrapper}>
@@ -263,6 +136,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
               } = art;
               return (
                 <ArtCard
+                  key={`nft_card_${artId}`}
                   className={styles.artCard}
                   artId={artId}
                   imageMain={image}

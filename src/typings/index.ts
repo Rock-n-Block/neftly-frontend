@@ -19,7 +19,7 @@ export interface IHistoryItem {
   id: number;
   method: string;
   name: string;
-  price: null | string;
+  price: TNullable<string>;
 }
 
 export interface ICurrency {
@@ -30,7 +30,7 @@ export interface ICurrency {
 }
 
 export interface IBaseInfo {
-  is_verificated: boolean | undefined;
+  is_verificated: TOptionable<boolean>;
   address: string;
   avatar: string;
   id: number;
@@ -60,9 +60,9 @@ export interface INft {
   creator: IBaseInfo;
   currency: ICurrency;
   description: string;
-  details: null | any;
-  highest_bid: null | IBidder;
-  highest_bid_USD: null | number | string;
+  details: TNullable<any>;
+  highest_bid: TNullable<IBidder>;
+  highest_bid_USD: TNullable<string | number>;
   history: IHistoryItem[];
   id: number;
   internal_id: number;
@@ -71,7 +71,7 @@ export interface INft {
   is_selling: boolean;
   like_count: number;
   media: string;
-  minimal_bid: string | null;
+  minimal_bid: TNullable<string>;
   name: string;
   owner_auction: any[];
   owners: IOwner | IOwner[];
@@ -92,3 +92,6 @@ export interface INft {
   };
   currency_service_fee: number;
 }
+
+export type TNullable<T> = T | null;
+export type TOptionable<T> = T | undefined;

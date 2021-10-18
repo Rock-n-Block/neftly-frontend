@@ -1,5 +1,7 @@
+import { TNullable, TOptionable } from 'typings';
+
 export interface IBaseInfo {
-  is_verificated: boolean | undefined;
+  is_verificated: TOptionable<boolean>;
   address: string;
   avatar: string;
   id: number;
@@ -7,19 +9,19 @@ export interface IBaseInfo {
 }
 
 export interface IExtendedInfo extends Omit<IBaseInfo, 'name'> {
-  bio: string | null;
-  cover: string | null;
-  custom_url: string | null;
-  display_name: string | null;
+  bio: TNullable<string>;
+  cover: TNullable<string>;
+  custom_url: TNullable<string>;
+  display_name: TNullable<string>;
   followers: any[];
   followers_count: number;
   follows: any[];
   follows_count: number;
-  instagram: string | null;
-  twitter: string | null;
-  facebook: string | null;
+  instagram: TNullable<string>;
+  twitter: TNullable<string>;
+  facebook: TNullable<string>;
   is_verificated: false;
-  site: string | null;
+  site: TNullable<string>;
   created_at: string | Date;
 }
 

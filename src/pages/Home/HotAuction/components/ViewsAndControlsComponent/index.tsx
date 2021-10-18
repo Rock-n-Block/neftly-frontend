@@ -5,17 +5,17 @@ import { observer } from 'mobx-react-lite';
 import { toast } from 'react-toastify';
 
 import { Button, Text } from 'components';
-import { useMst } from '../../../../../store';
-import { INft, IOwner } from 'typings';
+import { useMst } from 'store';
+import { INft, IOwner, TNullable } from 'typings';
 
 import styles from './styles.module.scss';
 import 'rc-tooltip/assets/bootstrap.css';
 
-import { ReactComponent as PinkHeart } from '../../../../../assets/img/pinkHeart.svg';
-import transferImg from '../../../../../assets/img/icons/transfer.svg';
-import removeImg from '../../../../../assets/img/icons/remove.svg';
-import burnImg from '../../../../../assets/img/icons/burn.svg';
-import reportImg from '../../../../../assets/img/icons/report.svg';
+import { ReactComponent as PinkHeart } from 'assets/img/pinkHeart.svg';
+import transferImg from 'assets/img/icons/transfer.svg';
+import removeImg from 'assets/img/icons/remove.svg';
+import burnImg from 'assets/img/icons/burn.svg';
+import reportImg from 'assets/img/icons/report.svg';
 import { useLike } from 'hooks';
 import linkIcon from 'assets/img/icons/link.svg';
 import { numberFormatter } from 'utils';
@@ -24,7 +24,7 @@ type Props = {
   className?: string;
   likes: number;
   inStock?: number;
-  nft: INft | null;
+  nft: TNullable<INft>;
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
   isWrongChain: boolean;

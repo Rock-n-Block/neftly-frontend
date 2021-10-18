@@ -6,13 +6,14 @@ import profile_avatar_example from 'assets/img/ProfilePage/profile_avatar_exampl
 import profile_page_bg_example from 'assets/img/ProfilePage/profile_page_bg_example.png';
 
 import s from './CollectionMainInfo.module.scss';
+import { TNullable } from 'typings';
 
 interface ICollectionMainInfo {
   cover?: string;
   avatar?: string;
   name?: string;
   address?: string;
-  description: string | null;
+  description: TNullable<string>;
 }
 
 const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({

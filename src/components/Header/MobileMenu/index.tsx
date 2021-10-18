@@ -1,9 +1,7 @@
-import { FC, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { FC } from 'react';
 import cx from 'classnames';
-import { Logo, TextInput } from 'components';
+import { Logo } from 'components';
 import { Text } from 'components/Typography';
-import { useMst } from 'store';
 
 import HeaderLinks from '../HeaderLinks';
 
@@ -15,29 +13,10 @@ type Props = {
 };
 
 const MobileMenu: FC<Props> = ({ className, toggleMenu }) => {
-  const { pathname } = useLocation();
-  const { user } = useMst();
-
-  useEffect(() => {
-    if (pathname !== '/') {
-      user.setSearch('');
-      user.setIsSearching(false);
-    }
-  }, [user, pathname]);
-
   return (
     <div className={cx(styles.container, className)}>
       <Logo className={styles.logo} />
       <div className={styles.connectWrapper}>
-        <TextInput
-          type="text"
-          placeholder="Search by tags, themes, artists, etc"
-          icon="search"
-          name="search"
-          value={user.search}
-          onChange={(e) => user.setSearch(e.target.value)}
-          className={styles.headerSearch}
-        />
         <HeaderLinks toggleMenu={toggleMenu} className={styles.mobileMenuLinks} />
       </div>
       <Text align="center" className={styles.bottomText} size="xs" color="lightGray">
