@@ -56,6 +56,7 @@ export const options: ChartOptions = {
 };
 
 export const defaultChartData: IChartData = {
+  labels: [],
   datasets: [
     {
       data: [{ time: '1', data: '0' }],

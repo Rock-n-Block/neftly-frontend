@@ -29,13 +29,13 @@ const ChartComponent: FC<Props> = (props) => {
         case 'day':
           return moment(date).format('HH:mm');
         case 'week':
-          return moment('ddd');
+          return moment(date).format('ddd');
         case 'month':
-          return moment('MMM, D');
+          return moment(date).format('MMM, D');
         case 'year':
-          return moment('MMM');
+          return moment(date).format('MMM');
         default:
-          return moment('DD MMM YYYY, HH:mm');
+          return moment(date).format('DD MMM YYYY, HH:mm');
       }
     },
     [period],
@@ -51,10 +51,11 @@ const ChartComponent: FC<Props> = (props) => {
   }, [data, formatDate]);
 
   const chartData = useMemo(() => {
-    return {
+    const newChartData = {
       ...defaultChartData,
       datasets: [{ ...defaultChartData.datasets[0], data: formatedData }],
     };
+    return newChartData;
   }, [formatedData]);
 
   const getElementAtEvent = (element: any[]) => {
@@ -79,7 +80,7 @@ const ChartComponent: FC<Props> = (props) => {
         <Text size="xxl" weight="bold" className={styles.averageValue}>
           {+selectedPointPrice || lastPointPrice} {currency?.symbol.toUpperCase()}
           <Text tag="span" color={isDifferencePositive ? 'secondary' : 'red'} weight="medium">
-            {isDifferencePositive ? `+${difference}` : difference}% than now
+            {isDifferencePositive ? `+${difference}` : difference}%
           </Text>
         </Text>
       </div>

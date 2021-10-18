@@ -8,6 +8,7 @@ export type TPriceHistoryItem = {
 };
 
 export interface IChartData {
+  labels: any[];
   datasets: ChartDataset<any, any>;
 }
 
