@@ -46,7 +46,7 @@ const ProfilePage: React.FC = observer(() => {
   const { activeTab, setActiveTab } = useTabs(tabs, initialTab);
   const [currentUser, setCurrentUser] = useState<IExtendedInfo>({} as IExtendedInfo);
 
-  const fetchTest = useMemo(() => {
+  const creatorOrOwner = useMemo(() => {
     switch (activeTab) {
       case 'artworks':
         return 'creator';
@@ -68,7 +68,7 @@ const ProfilePage: React.FC = observer(() => {
   const [allPages, totalItems, nftCards, isNftsLoading] = useFetchNft({
     page,
     sort: 'items',
-    [fetchTest]: userId,
+    [creatorOrOwner]: userId,
     order_by: orderByFilter.value,
   });
 
