@@ -46,7 +46,6 @@ const HotAuctionCardDesktop: FC<Props> = ({
       </div>
       <ViewsAndControlsComponent
         likes={nft.like_count}
-        views={1000}
         nft={nft}
         isOwner={isOwner}
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
