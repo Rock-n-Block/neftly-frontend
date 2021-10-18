@@ -1,6 +1,6 @@
 import { ICurrency } from 'typings';
 import styles from './Tooltip.module.scss';
-import { H5, Text } from 'components';
+import { Text } from 'components';
 import { useDifference } from 'hooks';
 
 interface IGraphTooltip {
@@ -27,12 +27,12 @@ const Tooltip = (props: IGraphTooltip) => {
       <img src={currency?.image} alt={currency?.symbol} width={20} height={20} />
       <div className={styles.tooltipRight}>
         {/* +2.36% */}
-        <H5 className={styles.tooltipHeader}>
+        <Text className={styles.tooltipHeader} size="xl">
           {value}
           <Text tag="span" color={isDifferencePositive ? 'secondary' : 'red'} weight="medium">
             {isDifferencePositive ? `+${difference}` : difference}%
           </Text>
-        </H5>
+        </Text>
         <Text color="gray" size="m">
           {date}
         </Text>
