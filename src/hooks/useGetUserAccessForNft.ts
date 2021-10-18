@@ -1,5 +1,5 @@
 import React from 'react';
-import { INft, IOwner } from 'typings';
+import { INft, IOwner, chainsEnum } from 'typings';
 
 export default (nft: INft | null, userId: string | number, userAddress: string) => {
   const isOwner = React.useMemo(() => {
@@ -17,14 +17,14 @@ export default (nft: INft | null, userId: string | number, userAddress: string) 
   const isWrongChain = React.useMemo(() => {
     if (!nft || !userAddress) return true;
     if (
-      nft?.network.name === 'Binance-Smart-Chain' &&
-      localStorage.netfly_nft_chainName === 'Binance-Smart-Chain'
+      nft?.network.name === chainsEnum['Binance-Smart-Chain'] &&
+      localStorage.netfly_nft_chainName === chainsEnum['Binance-Smart-Chain']
     ) {
       return false;
     }
     if (
-      nft?.network.name === 'Kardiachain' &&
-      localStorage.netfly_nft_chainName === 'KardiaChain'
+      nft?.network.name === chainsEnum.Ethereum &&
+      localStorage.netfly_nft_chainName === chainsEnum.Ethereum
     ) {
       return false;
     }
@@ -33,7 +33,7 @@ export default (nft: INft | null, userId: string | number, userAddress: string) 
 
   const isUserCanRemoveFromSale = React.useMemo(() => {
     if (userId && nft && !isWrongChain) {
-      if (nft.standart === 'ERC721' && nft.is_selling && isOwner) {
+      if (nft.standart === 'ERC721' && (nft.is_selling || nft.is_auc_selling) && isOwner) {
         return true;
       }
       if (

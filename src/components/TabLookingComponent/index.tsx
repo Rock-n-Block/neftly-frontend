@@ -45,6 +45,7 @@ const TabLookingComponent: FC<Props> = ({ className, activeTab, tabs, action, ta
             <Button
               onClick={() => handleClick(key)}
               color="transparent"
+              key={title}
               className={cx(styles.tab, { [styles.selected]: key === selectedTab }, tabClassName)}
             >
               {icon && <img className={styles.tabIcon} src={icon} alt="" />}

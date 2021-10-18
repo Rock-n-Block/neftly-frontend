@@ -44,7 +44,7 @@ class Connector extends React.Component<
   }
 
   componentDidMount() {
-    if (window.ethereum || window.kardiachain) {
+    if (window.ethereum) {
       if (localStorage.netfly_nft_chainName && localStorage.netfly_nft_providerName) {
         this.connect(localStorage.netfly_nft_chainName, localStorage.netfly_nft_providerName);
       }
@@ -52,7 +52,7 @@ class Connector extends React.Component<
   }
 
   connect = async (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => {
-    if (window.ethereum || window.kardiachain) {
+    if (window.ethereum) {
       try {
         const isConnected = await this.state.provider.initWalletConnect(chainName, providerName);
         if (isConnected) {

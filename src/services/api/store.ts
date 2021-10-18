@@ -158,6 +158,7 @@ export default {
     return axios.patch(`/store/${id}/?network=${localStorage.netfly_nft_chainName}`, data);
   },
   getMaxPrice: (currency: string) => axios.get(`/store/max_price/?currency=${currency}`),
+  getHotAuction: () => axios.get(`/store/most_bidded/`),
   getCollection: (id: string, page: number) =>
     axios.get(`/store/collection/${id}/${page}/?network=${localStorage.netfly_nft_chainName}`),
 };

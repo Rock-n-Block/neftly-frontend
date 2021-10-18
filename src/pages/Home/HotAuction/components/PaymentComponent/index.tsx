@@ -219,7 +219,7 @@ const PaymentComponent: FC<Props> = observer(
                 Put on Sale
               </Button>
             ) : null}
-            {!isApproved && !isOwner ? (
+            {!isApproved && !isOwner && (nft?.is_selling || nft?.is_auc_selling) ? (
               <Button isFullWidth loading={isApproving} onClick={handleApproveToken}>
                 Approve Token
               </Button>
