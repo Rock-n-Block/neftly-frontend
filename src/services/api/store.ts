@@ -1,4 +1,5 @@
-import axios from '../../core/axios';
+import axios from 'core/axios';
+import { TNullable } from 'typings';
 
 export default {
   burnToken: (id: string, amount?: string) =>
@@ -78,7 +79,7 @@ export default {
       text: text || '',
     });
   },
-  getFee: (currency: string | null) =>
+  getFee: (currency: TNullable<string>) =>
     axios.get(
       `/store/fee/?network=${localStorage.nftcrowd_nft_chainName}${
         currency ? `&currency=${currency}` : ''
@@ -105,7 +106,7 @@ export default {
     axios.post(`/store/end_auction/${id}/?network=${localStorage.nftcrowd_nft_chainName}`, {
       token: localStorage.dds_token,
     }),
-  putOnSale: (tokenId: number, price?: number | null, selling?: boolean) => {
+  putOnSale: (tokenId: number, price?: TNullable<number>, selling?: boolean) => {
     const data: any = {
       selling: true,
       price,

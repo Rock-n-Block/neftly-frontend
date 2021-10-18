@@ -2,7 +2,7 @@ import nextId from 'react-id-generator';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import { IBaseInfo, IOwner } from 'typings';
+import { IBaseInfo, IOwner, TOptionable } from 'typings';
 
 import styles from './Users.module.scss';
 
@@ -10,7 +10,7 @@ interface IUsersProps {
   className?: string;
   // items: Array<{ name: string; position: string; avatar: string; reward: string }>;
   owners: any;
-  creator: IBaseInfo | undefined;
+  creator: TOptionable<IBaseInfo>;
   history?: any;
   bids?: any;
 }

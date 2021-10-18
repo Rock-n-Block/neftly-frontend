@@ -3,12 +3,13 @@ import cn from 'classnames';
 
 import styles from './Sellers.module.scss';
 import { sliceString } from 'utils';
+import { TNullable } from 'typings';
 
 interface ISellersProps {
   className?: string;
   owners: any;
   openCheckout: (value: string) => void;
-  user: string | number | null;
+  user: TNullable<string | number>;
 }
 
 const Sellers: React.FC<ISellersProps> = ({ className, owners, openCheckout, user }) => {

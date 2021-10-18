@@ -1,10 +1,11 @@
 import { ChartDataset } from 'chart.js';
+import { TNullable } from 'typings';
 
 export type TPriceHistoryPeriod = 'day' | 'week' | 'month' | 'year';
 
 export type TPriceHistoryItem = {
   date: Date;
-  avg_price: number | null;
+  avg_price: TNullable<number>;
 };
 
 export interface IChartData {

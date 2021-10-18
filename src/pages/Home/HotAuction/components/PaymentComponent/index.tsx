@@ -4,11 +4,11 @@ import { observer } from 'mobx-react-lite';
 import BigNumber from 'bignumber.js/bignumber';
 
 import { Button, H4, Text } from 'components';
-import { INft } from 'typings';
-import { useMst } from '../../../../../store';
-import { useWalletConnectorContext } from '../../../../../services/walletConnect';
-import { contracts } from '../../../../../config';
-import { storeApi } from '../../../../../services/api';
+import { INft, TNullable } from 'typings';
+import { useMst } from 'store';
+import { useWalletConnectorContext } from 'services/walletConnect';
+import { contracts } from 'config';
+import { storeApi } from 'services/api';
 
 import styles from './styles.module.scss';
 
@@ -17,7 +17,7 @@ import { growth as growthImg } from 'assets/img';
 type Props = {
   className?: string;
   growth?: number;
-  nft: INft | null;
+  nft: TNullable<INft>;
   onUpdateNft?: () => void;
   isUserCanEndAuction: boolean;
   isUserCanBuyNft: boolean;

@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 
-import { storeApi } from '../../services/api';
-import { useMst } from '../../store';
-import { IBaseInfo, IOwner } from 'typings';
+import { storeApi } from 'services/api';
+import { useMst } from 'store';
+import { IBaseInfo, IOwner, TNullable } from 'typings';
 
 import Control from './Control';
 import Options from './Options';
@@ -33,7 +33,7 @@ interface IHistoryItem {
   id: number;
   method: string;
   name: string;
-  price: null | string;
+  price: TNullable<string>;
 }
 
 // TODO: change any
@@ -45,8 +45,8 @@ export interface IItem {
   creator: IBaseInfo;
   currency: ICurrency;
   description: string;
-  details: null | any;
-  highest_bid: null | any;
+  details: TNullable<any>;
+  highest_bid: TNullable<any>;
   history: IHistoryItem[];
   id: number;
   internal_id: number;
@@ -55,7 +55,7 @@ export interface IItem {
   is_selling: boolean;
   like_count: number;
   media: string;
-  minimal_bid: string | null;
+  minimal_bid: TNullable<string>;
   name: string;
   owner_auction: any[];
   owners: IOwner | IOwner[];
@@ -87,7 +87,7 @@ const Item: React.FC = observer(() => {
   const { itemId } = useParams<IItemId>();
   const [activeIndex, setActiveIndex] = useState(0);
   // const [itemId, setItemId] = useState('');
-  const [item, setItem] = useState<IItem | null>(null);
+  const [item, setItem] = useState<TNullable<IItem>>(null);
   const [isOwner, setIsOwner] = useState(false);
   const { user } = useMst();
   const [isMayRemoveFromSale, setMayRemoveFromSale] = useState<boolean>(false);

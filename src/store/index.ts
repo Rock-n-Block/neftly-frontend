@@ -3,6 +3,7 @@ import { Instance, onSnapshot, types } from 'mobx-state-tree';
 
 import { User } from './User';
 import { Modals } from './Modals';
+import { TNullable } from '../typings';
 
 const RootModel = types.model({
   user: User,
@@ -52,7 +53,7 @@ onSnapshot(rootStore, (snapshot) => {
 });
 
 export type RootInstance = Instance<typeof RootModel>;
-const RootStoreContext = createContext<null | RootInstance>(null);
+const RootStoreContext = createContext<TNullable<RootInstance>>(null);
 
 export const { Provider } = RootStoreContext;
 
