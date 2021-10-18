@@ -68,7 +68,6 @@ const HotAuctionCardMobile: FC<Props> = ({
     />
     <ViewsAndControlsComponent
       likes={nft.like_count}
-      views={1000}
       tooltipPlacement={tooltipPlacement}
       nft={null}
       isOwner={isOwner}

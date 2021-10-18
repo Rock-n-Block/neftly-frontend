@@ -21,7 +21,6 @@ import { useLike } from 'hooks';
 type Props = {
   className?: string;
   likes: number;
-  views: number;
   inStock?: number;
   nft: INft | null;
   isOwner: boolean;
@@ -33,7 +32,6 @@ type Props = {
 const ViewsAndControlsComponent: FC<Props> = ({
   className,
   likes,
-  views,
   inStock,
   nft,
   isOwner,
@@ -131,7 +129,6 @@ const ViewsAndControlsComponent: FC<Props> = ({
   return (
     <>
       <div className={cx(styles.viewsAndControls, className)}>
-        <Text>{`Views: ${views}`}</Text>
         {inStock ? <Text color="gray">{`In Stock: ${inStock}`}</Text> : null}
         <div className={styles.controls}>
           <Button
