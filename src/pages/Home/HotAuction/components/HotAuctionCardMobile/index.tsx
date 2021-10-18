@@ -70,7 +70,6 @@ const HotAuctionCardMobile: FC<Props> = ({
       likes={nft.like_count}
       views={1000}
       tooltipPlacement={tooltipPlacement}
-      link="google"
       nft={null}
       isOwner={isOwner}
       isUserCanRemoveFromSale={isUserCanRemoveFromSale}

@@ -47,7 +47,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
         await walletService.createTransaction(
           'setApprovalForAll',
           [contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address, true],
-          'NFT',
+          'BEP20',
           false,
           sell.nft.collection.address,
         );
