@@ -17,6 +17,8 @@ import removeImg from '../../../../../assets/img/icons/remove.svg';
 import burnImg from '../../../../../assets/img/icons/burn.svg';
 import reportImg from '../../../../../assets/img/icons/report.svg';
 import { useLike } from 'hooks';
+import linkIcon from 'assets/img/icons/link.svg';
+import { numberFormatter } from 'utils';
 
 type Props = {
   className?: string;
@@ -137,10 +139,10 @@ const ViewsAndControlsComponent: FC<Props> = ({
             color="outline"
           >
             <PinkHeart />
-            {likeCount}
+            {numberFormatter(likeCount || 0, 1000)}
           </Button>
           <Button onClick={handleCopy} color="outline">
-            link
+            <img src={linkIcon} alt="" />
           </Button>
           <Tooltip
             visible={isTooltipVisible}
@@ -171,7 +173,9 @@ const ViewsAndControlsComponent: FC<Props> = ({
             onVisibleChange={(value) => setTooltipVisible(value)}
             placement={tooltipPlacement}
           >
-            <Button color="outline">...</Button>
+            <Button className={styles.button} color="outline">
+              <Text className={styles.dots}>...</Text>
+            </Button>
           </Tooltip>
         </div>
       </div>

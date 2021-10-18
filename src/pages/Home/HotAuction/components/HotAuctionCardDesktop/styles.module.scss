@@ -39,6 +39,8 @@
   }
 
   .priceAndBidders {
+    @include flexbox(normal, space-between);
+    flex-direction: column;
     position: relative;
     padding: 30px;
 

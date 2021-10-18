@@ -2,14 +2,21 @@
 
 .discoverMore {
   height: 180px;
-  @include flexbox();
   border-width: 1px 0 0 0;
   border-style: solid;
   border-color: $color-neutral-80;
 }
 
+.contentWrapper {
+  @include flexbox(center, space-between);
+  margin: 0 auto;
+  height: 100%;
+  max-width: 1500px;
+}
+
 .infoContainer {
-  @include flexbox();
+  @include flexbox(center, space-between);
+  width: 100%;
 }
 
 .infoWrapper {

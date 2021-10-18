@@ -15,7 +15,7 @@ export const data = {
   authorAvatar: profilePic,
   description:
     'Glassy Cube on the Block is a collection of 10,000 unique Cube NFTs. They live, as you have guessed by the name, in the Ethereum blockchain. They were aesthetically perfected to please the human eye and their owners have exclusive access to a community wallet.',
-  tags: ['netfly', 'rare', 'art'],
+  tags: ['nftcrowd', 'rare', 'art'],
 };
 
 export const tableDataArtwork = [
