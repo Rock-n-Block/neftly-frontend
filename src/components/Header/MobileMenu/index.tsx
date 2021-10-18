@@ -10,32 +10,17 @@ import HeaderLinks from '../HeaderLinks';
 import styles from './styles.module.scss';
 
 type Props = {
-  // isConnected: boolean;
-  // address: string;
   className?: string;
-  // toggleModal: () => void;
   toggleMenu: () => void;
-  // connectAction: () => void;
-  // disconnect: () => void;
 };
 
-const MobileMenu: FC<Props> = ({
-  // isConnected,
-  // address,
-  className,
-  // toggleModal,
-  toggleMenu,
-  // connectAction,
-  // disconnect,
-}) => {
+const MobileMenu: FC<Props> = ({ className, toggleMenu }) => {
   const { pathname } = useLocation();
-  // const walletConnector = useWalletConnectorContext();
   const { user } = useMst();
 
   useEffect(() => {
     if (pathname !== '/') {
       user.setSearch('');
-      // setSearch('');
       user.setIsSearching(false);
     }
   }, [user, pathname]);
