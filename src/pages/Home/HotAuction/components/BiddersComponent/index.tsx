@@ -34,9 +34,9 @@ const BiddersComponent: FC<Props> = ({ className, bidders }) => (
         );
       })}
     </div>
-    <Text color="gray">
+    {/* <Text color="gray">
       By placing a bid, we reserve funds from your Ethereum account till the end of the auction
-    </Text>
+    </Text> */}
   </div>
 );
 

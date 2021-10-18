@@ -67,7 +67,9 @@ const Headers: React.FC = observer(() => {
           {user.address ? (
             <div className={styles.profileInfo}>
               <Button color="transparent">
-                <Link to={routes.activity.root}>
+                <Link
+                  to={routes.activity.root}
+                >
                   <img src={bell} alt="" />
                 </Link>
               </Button>

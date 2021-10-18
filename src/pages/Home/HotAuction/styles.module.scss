@@ -13,6 +13,13 @@
 
 .hotAuctionCarousel {
   margin-top: 50px;
+  min-height: 650px;
+}
+
+@include forDesktopMiddle {
+  .hotAuctionCarousel {
+    min-height: 450px;
+  }
 }
 
 @include forDesktopSm {
@@ -20,9 +27,11 @@
     padding: 30px;
   }
 
-  .hotAuctionTitle {
-    margin-bottom: -60px;
+  .hotAuctionCarousel {
+    margin-top: 10px;
+  }
 
+  .hotAuctionTitle {
     text-align: center;
   }
 }

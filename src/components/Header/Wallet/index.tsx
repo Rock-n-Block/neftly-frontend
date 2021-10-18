@@ -24,7 +24,7 @@ let MAIN: string;
 let WRAP: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC' | 'WTRX';
 
 const Wallet: React.FC<IUserProps> = observer(({ className }) => {
-  switch (localStorage.netfly_nft_chainName) {
+  switch (localStorage.nftcrowd_nft_chainName) {
     case 'Binance-Smart-Chain':
       MAIN = 'BNB';
       WRAP = 'WBNB';
@@ -71,8 +71,8 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
   }, []);
 
   const imageSrc =
-    chains[chains[chainsEnum[localStorage.netfly_nft_chainName as chainsEnum]].name].provider[
-      localStorage.netfly_nft_providerName
+    chains[chains[chainsEnum[localStorage.nftcrowd_nft_chainName as chainsEnum]].name].provider[
+      localStorage.nftcrowd_nft_providerName
     ].img;
 
   return (
@@ -87,7 +87,7 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
             <div className={styles.walletLogo}>
               <img src={imageSrc} alt="Wallet Logo" />
               <Text className={styles.provider} size="m">
-                {localStorage.netfly_nft_providerName}
+                {localStorage.nftcrowd_nft_providerName}
               </Text>
             </div>
             <Text size="s" className={styles.balanceTitle}>

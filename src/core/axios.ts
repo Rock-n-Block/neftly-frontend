@@ -11,8 +11,8 @@ axios.interceptors.request.use(
     config.headers.common = {
       ...config.headers.common,
       Authorization: `${
-        localStorage.getItem('netfly_nft_token')
-          ? `Token ${localStorage.getItem('netfly_nft_token')}`
+        localStorage.getItem('nftcrowd_nft_token')
+          ? `Token ${localStorage.getItem('nftcrowd_nft_token')}`
           : ''
       }`,
     };
