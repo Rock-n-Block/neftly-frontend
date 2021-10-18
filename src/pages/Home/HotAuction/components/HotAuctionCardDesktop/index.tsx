@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import { FC } from 'react';
 import cx from 'classnames';
-import { H3, Text } from 'components';
+import { H3 } from 'components';
 
 import AuthorComponent from '../AuthorComponent';
 import BiddersComponent from '../BiddersComponent';
