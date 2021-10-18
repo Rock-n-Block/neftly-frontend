@@ -39,5 +39,7 @@ export { default as tradingEth } from './tradingEth.svg';
 export { default as heart } from './heart.svg';
 export { default as me } from './me.svg';
 export { default as folders } from './folders.svg';
+export { default as tronChain } from './tronChain.svg';
+export { default as tronLink } from './tronLink.svg';
 export * from './ProfilePage';
 export * from './icons';

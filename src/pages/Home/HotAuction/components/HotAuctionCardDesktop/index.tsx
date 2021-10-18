@@ -8,81 +8,67 @@ import BiddersComponent from '../BiddersComponent';
 import DescriptionAndTagsComponent from '../DescriptionAndTagsComponent';
 import PaymentComponent from '../PaymentComponent';
 import ViewsAndControlsComponent from '../ViewsAndControlsComponent';
+import { INft } from 'typings';
 
 import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
-  title: string;
-  author: string;
-  authorPic: string;
-  artPic: string;
-  body: string;
-  tags: string[];
-  views: number;
-  likes: number;
-  currentPrice: number;
-  priceAsset: string;
-  auctionEndingTime: any;
-  bidders: any[];
+  nft: INft;
   isUserCanEndAuction: boolean;
   isUserCanBuyNft: boolean;
   isUserCanEnterInAuction: boolean;
   isUserCanPutOnSale: boolean;
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
+  isWrongChain: boolean;
+  tooltipPlacement?: 'top' | 'bottom';
 };
 
 const HotAuctionCardDesktop: FC<Props> = ({
   className,
-  title,
-  authorPic,
-  author,
-  body,
-  tags,
-  views,
-  likes,
-  artPic,
-  bidders,
+  nft,
   isUserCanEndAuction,
   isUserCanBuyNft,
   isUserCanEnterInAuction,
   isUserCanPutOnSale,
   isOwner,
+  tooltipPlacement,
   isUserCanRemoveFromSale,
+  isWrongChain,
 }) => (
   <div className={cx(styles.desktopCard, className)}>
     <div className={styles.descriptionControls}>
       <div className={styles.description}>
-        <H3>{title}</H3>
-        <AuthorComponent authorPic={authorPic} author={author} />
-        <DescriptionAndTagsComponent body={body} tags={tags} />
+        <H3>{nft.name}</H3>
+        <AuthorComponent authorPic={nft.creator.avatar} author={nft.creator.name} />
+        <DescriptionAndTagsComponent body={nft.description} tags={nft.tags} />
       </div>
       <ViewsAndControlsComponent
-        likes={likes}
-        views={views}
-        nft={null}
+        likes={nft.like_count}
+        views={1000}
+        nft={nft}
         isOwner={isOwner}
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
+        tooltipPlacement={tooltipPlacement}
+        isWrongChain={isWrongChain}
       />
     </div>
     <div className={styles.imageWrapper}>
-      <img src={artPic} alt="art pic" />
+      <img src={nft.media} alt="art pic" />
     </div>
     <div className={styles.priceAndBidders}>
-      <PaymentComponent
-        nft={null}
-        isUserCanEndAuction={isUserCanEndAuction}
-        isUserCanBuyNft={isUserCanBuyNft}
-        isUserCanEnterInAuction={isUserCanEnterInAuction}
-        isUserCanPutOnSale={isUserCanPutOnSale}
-        isOwner={isOwner}
-      />
-      <BiddersComponent bidders={bidders} />
-
-      <Text color="gray">
-        By placing a bid, we reserve funds from your Ethereum account till the end of the auction
-      </Text>
+      {!isWrongChain ? (
+        <PaymentComponent
+          nft={nft}
+          isUserCanEndAuction={isUserCanEndAuction}
+          isUserCanBuyNft={isUserCanBuyNft}
+          isUserCanEnterInAuction={isUserCanEnterInAuction}
+          isUserCanPutOnSale={isUserCanPutOnSale}
+          isOwner={isOwner}
+        />
+      ) : null}
+      <BiddersComponent bidders={nft.bids} />
     </div>
   </div>
 );

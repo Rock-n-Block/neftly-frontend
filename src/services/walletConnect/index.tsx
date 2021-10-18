@@ -1,12 +1,11 @@
 import React, { createContext, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { notification } from 'antd';
-import { observer } from 'mobx-react';
-
 import { is_production } from 'config';
-import { userApi, WalletConnect } from 'services';
-import { chainsEnum } from 'typings';
+import { observer } from 'mobx-react';
+import { connectTron, userApi, WalletConnect } from 'services';
 import { rootStore } from 'store';
+import { chainsEnum } from 'typings';
 
 declare global {
   interface Window {
@@ -16,7 +15,7 @@ declare global {
 }
 
 const walletConnectorContext = createContext<{
-  connect: (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => void;
+  connect: (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect' | 'TronLink') => void;
   disconnect: () => void;
   walletService: WalletConnect;
 }>({
@@ -44,17 +43,28 @@ class Connector extends React.Component<
   }
 
   componentDidMount() {
-    if (window.ethereum || window.kardiachain) {
-      if (localStorage.nftcrowd_nft_chainName && localStorage.nftcrowd_nft_providerName) {
-        this.connect(localStorage.nftcrowd_nft_chainName, localStorage.nftcrowd_nft_providerName);
+    if (window.ethereum) {
+      if (localStorage.netfly_nft_chainName && localStorage.netfly_nft_providerName) {
+        if (localStorage.netfly_nft_chainName === 'Tron') {
+          connectTron();
+          return;
+        }
+        this.connect(localStorage.netfly_nft_chainName, localStorage.netfly_nft_providerName);
       }
     }
   }
 
-  connect = async (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => {
-    if (window.ethereum || window.kardiachain) {
+  connect = async (
+    chainName: chainsEnum,
+    providerName: 'MetaMask' | 'WalletConnect' | 'TronLink',
+  ) => {
+    if (window.ethereum) {
       try {
-        const isConnected = await this.state.provider.initWalletConnect(chainName, providerName);
+        console.log(chainName, providerName, 'COONNNECT');
+        const isConnected = await this.state.provider.initWalletConnect(
+          chainName,
+          providerName as any,
+        );
         if (isConnected) {
           const subscriber = this.state.provider.getAccount().subscribe(
             async (userAccount: any) => {
@@ -120,16 +130,6 @@ class Connector extends React.Component<
     delete localStorage.nftcrowd_nft_token;
 
     this.props.history.push('/');
-    // if (
-    //   [
-    //     '/upload-variants',
-    //     '/upload-details-single',
-    //     '/profile',
-    //     '/upload-details-multiple',
-    //   ].includes(this.props.location.pathname)
-    // ) {
-    //   this.props.history.push('/');
-    // }
   }
 
   render() {

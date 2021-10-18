@@ -1,13 +1,13 @@
 import React from 'react';
 import cn from 'classnames';
-
-import { chains } from '../../config';
-import { useWalletConnectorContext } from '../../services/walletConnect';
+import { connectTron } from 'services/tron';
 import { chainsEnum } from 'typings';
 
-import styles from './ChooseWallet.module.scss';
-
 import arrowImg from '../../assets/img/arrowRight.svg';
+import { chains } from '../../config';
+import { useWalletConnectorContext } from '../../services/walletConnect';
+
+import styles from './ChooseWallet.module.scss';
 
 const ChooseWallet: React.FC = () => {
   const { connect } = useWalletConnectorContext();
@@ -43,20 +43,24 @@ const ChooseWallet: React.FC = () => {
       </div>
       <div className={styles.box}>
         <div className={styles.box_title}>Available Wallet</div>
-        {Object.keys(chains[activeChain].provider).map((wallet: any) => (
-          <div
-            className={cn(styles.item, styles.item_wallet)}
-            onClick={() => connect(activeChain, wallet)}
-            onKeyDown={() => {}}
-            role="button"
-            tabIndex={0}
-          >
-            <div className={styles.item_wrapper}>
-              <img src={chains[activeChain].provider[wallet].img} alt="" />
-              {wallet}
+        {Object.keys(chains[activeChain].provider).map((wallet: any) => {
+          const connectAction =
+            wallet === 'TronLink' ? connectTron : () => connect(activeChain, wallet);
+          return (
+            <div
+              className={cn(styles.item, styles.item_wallet)}
+              onClick={connectAction}
+              onKeyDown={() => {}}
+              role="button"
+              tabIndex={0}
+            >
+              <div className={styles.item_wrapper}>
+                <img src={chains[activeChain].provider[wallet].img} alt="" />
+                {wallet}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

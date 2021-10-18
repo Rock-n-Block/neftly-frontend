@@ -31,6 +31,7 @@ const GiantCard: FC<Props> = ({ className, views, growth, nft, onUpdateNft }) =>
     isUserCanPutOnSale,
     isOwner,
     isUserCanRemoveFromSale,
+    isWrongChain,
   } = useGetUserAccessForNft(nft, user.id, user.address);
   return (
     <div className={cx(styles.giantCard, className)}>
@@ -68,21 +69,23 @@ const GiantCard: FC<Props> = ({ className, views, growth, nft, onUpdateNft }) =>
           likes={nft?.like_count || 0}
           views={views}
           inStock={nft?.available || 0}
-          isLiked={nft?.is_liked}
           nft={nft}
           isOwner={isOwner}
           isUserCanRemoveFromSale={isUserCanRemoveFromSale}
+          isWrongChain={isWrongChain}
         />
-        <PaymentComponent
-          growth={growth}
-          nft={nft}
-          onUpdateNft={onUpdateNft}
-          isUserCanEndAuction={isUserCanEndAuction}
-          isUserCanBuyNft={isUserCanBuyNft}
-          isUserCanEnterInAuction={isUserCanEnterInAuction}
-          isUserCanPutOnSale={isUserCanPutOnSale}
-          isOwner={isOwner}
-        />
+        {!isWrongChain ? (
+          <PaymentComponent
+            growth={growth}
+            nft={nft}
+            onUpdateNft={onUpdateNft}
+            isUserCanEndAuction={isUserCanEndAuction}
+            isUserCanBuyNft={isUserCanBuyNft}
+            isUserCanEnterInAuction={isUserCanEnterInAuction}
+            isUserCanPutOnSale={isUserCanPutOnSale}
+            isOwner={isOwner}
+          />
+        ) : null}
         <AuthorComponent author={nft?.creator.name || ''} authorPic={nft?.creator.avatar || ''} />
         <DescriptionAndTagsComponent tags={nft?.tags || []} body={nft?.description || ''} />
       </div>

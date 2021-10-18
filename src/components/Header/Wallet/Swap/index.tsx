@@ -1,23 +1,20 @@
 import React, { useCallback, useState } from 'react';
-// import BigNumber from 'bignumber.js/bignumber';
+import iconSwap from 'assets/img/icons/arrows-swap.svg';
 import cn from 'classnames';
-import { observer } from 'mobx-react';
-
-import iconSwap from '../../../../assets/img/icons/arrows-swap.svg';
-import { useWalletConnectorContext } from '../../../../services/walletConnect';
-import { WalletConnect } from '../../../../services/walletService';
-import { useMst } from '../../../../store';
 import { Button, H4, Text, TextInput } from 'components';
+import { useUserBalance } from 'hooks';
+import { observer } from 'mobx-react';
+import { useWalletConnectorContext } from 'services/walletConnect';
+import { WalletConnect } from 'services/walletService';
+import { useMst } from 'store';
 
 import styles from './Swap.module.scss';
-import { useUserBalance } from 'hooks';
-// import Icon from '../Icon';
 
 interface ISwapProps {
   className?: string;
   close: () => void;
   main: string;
-  wrap: 'WBNB' | 'WETH' | 'BEP20' | 'WMATIC';
+  wrap: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC' | 'WTRX';
   refresh: boolean;
   setRefresh: (value: boolean) => void;
 }
