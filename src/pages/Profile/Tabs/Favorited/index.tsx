@@ -1,7 +1,7 @@
 import { FC, memo, RefObject } from 'react';
 
 import { ArtCard } from 'components';
-import { toFixed } from 'utils/BigNumberToFixed';
+import { toFixed } from 'utils';
 import { useInfiniteScroll } from 'hooks';
 import TabHeader from '../TabHeader';
 import { INft } from 'typings';

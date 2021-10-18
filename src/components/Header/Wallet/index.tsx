@@ -8,7 +8,7 @@ import { useUserBalance } from 'hooks';
 import { observer } from 'mobx-react';
 import { useMst } from 'store';
 import { chainsEnum } from 'typings';
-import { toFixed } from 'utils/BigNumberToFixed';
+import { toFixed } from 'utils';
 
 import Swap from './Swap';
 

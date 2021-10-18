@@ -4,7 +4,7 @@ import { ArtCard } from 'components';
 import { useInfiniteScroll } from 'hooks';
 import TabHeader from '../TabHeader';
 import { OptionType, INft } from 'typings';
-import { toFixed } from 'utils/BigNumberToFixed';
+import { toFixed } from 'utils';
 
 import s from '../Tabs.module.scss';
 

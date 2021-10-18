@@ -3,13 +3,13 @@ import { observer } from 'mobx-react';
 import { useMst } from 'store';
 import { useParams } from 'react-router';
 import { useCallback, useState, useMemo, FC } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import UserMainInfo from './UserMainInfo';
 import { TabLookingComponent } from 'components';
 import { About, Artworks, Favorited } from './Tabs';
 import { IExtendedInfo } from '../../typings';
 import { useTabs, useFilters, useFetchNft, useFetchLiked } from 'hooks';
-import { useLocation } from 'react-router-dom';
 import { userApi } from 'services';
 
 import s from './ProfilePage.module.scss';

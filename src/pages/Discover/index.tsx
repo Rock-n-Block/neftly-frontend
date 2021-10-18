@@ -8,7 +8,7 @@ import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
 import { userApi } from 'services';
 import { useMst } from 'store';
 import { selectOptions } from 'typings';
-import { toFixed } from 'utils/BigNumberToFixed';
+import { toFixed } from 'utils';
 
 import styles from './styles.module.scss';
 
