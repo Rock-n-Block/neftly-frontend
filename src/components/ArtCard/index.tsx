@@ -82,14 +82,20 @@ const ArtCard: FC<Props> = ({
       </Link>
       {type === 'Medium' && (
         <div className={cx(styles.secondaryImagesContainer)}>
-          <div className={styles.secondaryImageWrapper}>
+          <div className={cx(styles.secondaryImageWrapper, styles.imageWrapper)}>
             <img src={imageSecondaryOne} alt="" />
           </div>
 
-          <div className={styles.secondaryImageWrapper}>
+          <div className={cx(styles.secondaryImageWrapper, styles.imageWrapper)}>
             {imageSecondaryTwo && <img src={imageSecondaryTwo} alt="" />}
           </div>
-          <div className={cx(styles.secondaryImageWrapper, styles.lastSecondaryImageWrapper)}>
+          <div
+            className={cx(
+              styles.secondaryImageWrapper,
+              styles.lastSecondaryImageWrapper,
+              styles.imageWrapper,
+            )}
+          >
             {allArtNumber > 3 && (
               <Text className={styles.allArtNumber} size="m">{`${allArtNumber} +`}</Text>
             )}
