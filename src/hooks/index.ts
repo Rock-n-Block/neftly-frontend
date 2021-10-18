@@ -7,6 +7,7 @@ export { default as useGetUserAccessForNft } from './useGetUserAccessForNft';
 export { default as useTabs } from './useTabs';
 export { default as useLoadMore } from './useLoadMore';
 export { default as useDifference } from './useDifference';
+export { default as useChartTooltip } from './useChartTooltip';
 export * from './useInfiniteScroll';
 export * from './useFetchNft';
 export * from './useFetchLiked';

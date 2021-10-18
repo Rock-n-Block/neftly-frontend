@@ -1,12 +1,12 @@
 import { FC, useCallback, useMemo, useState } from 'react';
 import { ICurrency, TPriceHistoryItem, TPriceHistoryPeriod } from 'typings';
 import moment from 'moment';
-import MemoLine from './MemoLine';
+import LineWrapper from './LineWrapper';
 import { defaultChartData, options } from './chartOptions';
 import styles from './Chart.module.scss';
 import { Text } from 'components';
 import BigNumber from 'bignumber.js/bignumber';
-import { useDifference } from '../../hooks';
+import { useDifference } from 'hooks';
 // import ReactDOM from 'react-dom';
 // import { Chart } from 'chart.js';
 
@@ -211,14 +211,13 @@ const ChartComponent: FC<Props> = (props) => {
           </Text>
         </Text>
       </div>
-      <div className={className}>
-        <MemoLine
-          currency={currency}
-          data={chartData as any}
-          options={options}
-          getElementAtEvent={getElementAtEvent}
-        />
-      </div>
+      <LineWrapper
+        className={className}
+        currency={currency}
+        data={chartData as any}
+        options={options}
+        getElementAtEvent={getElementAtEvent}
+      />
     </>
   );
 };
