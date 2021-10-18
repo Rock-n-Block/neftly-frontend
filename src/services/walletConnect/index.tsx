@@ -7,6 +7,7 @@ import { is_production } from 'config';
 import { userApi, WalletConnect } from 'services';
 import { chainsEnum } from 'typings';
 import { rootStore } from 'store';
+import { connectTron } from 'services/tron/tronConnect';
 
 declare global {
   interface Window {
@@ -16,7 +17,7 @@ declare global {
 }
 
 const walletConnectorContext = createContext<{
-  connect: (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => void;
+  connect: (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect' | 'TronLink') => void;
   disconnect: () => void;
   walletService: WalletConnect;
 }>({
@@ -46,15 +47,20 @@ class Connector extends React.Component<
   componentDidMount() {
     if (window.ethereum || window.kardiachain) {
       if (localStorage.netfly_nft_chainName && localStorage.netfly_nft_providerName) {
+        if (localStorage.netfly_nft_chainName === 'Tron') {
+          connectTron();
+          return;
+        }
         this.connect(localStorage.netfly_nft_chainName, localStorage.netfly_nft_providerName);
       }
     }
   }
 
-  connect = async (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => {
+  connect = async (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect' | 'TronLink') => {
     if (window.ethereum || window.kardiachain) {
       try {
-        const isConnected = await this.state.provider.initWalletConnect(chainName, providerName);
+        console.log(chainName, providerName, 'COONNNECT');
+        const isConnected = await this.state.provider.initWalletConnect(chainName, providerName as any);
         if (isConnected) {
           const subscriber = this.state.provider.getAccount().subscribe(
             async (userAccount: any) => {
