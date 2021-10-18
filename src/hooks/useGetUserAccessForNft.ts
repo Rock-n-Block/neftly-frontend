@@ -18,13 +18,13 @@ export default (nft: TNullable<INft>, userId: string | number, userAddress: stri
     if (!nft || !userAddress) return true;
     if (
       nft?.network.name === chainsEnum['Binance-Smart-Chain'] &&
-      localStorage.netfly_nft_chainName === chainsEnum['Binance-Smart-Chain']
+      localStorage.nftcrowd_nft_chainName === chainsEnum['Binance-Smart-Chain']
     ) {
       return false;
     }
     if (
       nft?.network.name === chainsEnum.Ethereum &&
-      localStorage.netfly_nft_chainName === chainsEnum.Ethereum
+      localStorage.nftcrowd_nft_chainName === chainsEnum.Ethereum
     ) {
       return false;
     }
