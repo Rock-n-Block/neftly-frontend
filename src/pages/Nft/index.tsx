@@ -209,7 +209,6 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
         <Control item={breadcrumbs} />
         <GiantCard
           name={nft?.name || ''}
-          views={mockData.views}
           growth={mockData.growth}
           nft={nft}
           onUpdateNft={getItem}

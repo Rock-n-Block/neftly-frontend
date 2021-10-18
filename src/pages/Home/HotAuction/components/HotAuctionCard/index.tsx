@@ -6,42 +6,17 @@ import HotAuctionCardDesktop from '../HotAuctionCardDesktop';
 import HotAuctionCardMobile from '../HotAuctionCardMobile';
 import { useMst } from '../../../../../store';
 import { useGetUserAccessForNft } from 'hooks';
+import { INft } from 'typings';
 
 import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
-  title: string;
-  author: string;
-  authorPic: string;
-  artPic: string;
-  body: string;
-  tags: string[];
-  views: number;
-  likes: number;
-  currentPrice: number;
-  priceAsset: string;
-  auctionEndingTime: any;
-  bidders: any[];
+  nft: INft;
 };
 
-const HotAuctionCard: FC<Props> = ({
-  className,
-  title,
-  authorPic,
-  author,
-  body,
-  tags,
-  views,
-  likes,
-  artPic,
-  currentPrice,
-  priceAsset,
-  auctionEndingTime,
-  bidders,
-}) => {
+const HotAuctionCard: FC<Props> = ({ className, nft }) => {
   const { user } = useMst();
-  // TODO: Пропихнуть целый объект токена, и закинуть его в хук вместо null
   const {
     isUserCanEndAuction,
     isUserCanBuyNft,
@@ -49,48 +24,33 @@ const HotAuctionCard: FC<Props> = ({
     isUserCanPutOnSale,
     isOwner,
     isUserCanRemoveFromSale,
-  } = useGetUserAccessForNft(null, user.id, user.address);
+    isWrongChain,
+  } = useGetUserAccessForNft(nft, user.id, user.address);
   return (
     <div className={cx(styles.hotAuctionCard, className)}>
       <HotAuctionCardDesktop
         className={styles.desktopAuctionCard}
-        title={title}
-        authorPic={authorPic}
-        author={author}
-        body={body}
-        tags={tags}
-        views={views}
-        likes={likes}
-        artPic={artPic}
-        currentPrice={currentPrice}
-        priceAsset={priceAsset}
-        auctionEndingTime={auctionEndingTime}
-        bidders={bidders}
+        nft={nft}
         isUserCanEndAuction={isUserCanEndAuction}
         isUserCanBuyNft={isUserCanBuyNft}
         isUserCanEnterInAuction={isUserCanEnterInAuction}
         isUserCanPutOnSale={isUserCanPutOnSale}
         isOwner={isOwner}
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
+        isWrongChain={isWrongChain}
+        tooltipPlacement="top"
       />
       <HotAuctionCardMobile
         className={styles.mobileAuctionCard}
-        title={title}
-        authorPic={authorPic}
-        author={author}
-        body={body}
-        tags={tags}
-        views={views}
-        likes={likes}
-        artPic={artPic}
-        auctionEndingTime={auctionEndingTime}
-        bidders={bidders}
+        nft={nft}
         isUserCanEndAuction={isUserCanEndAuction}
         isUserCanBuyNft={isUserCanBuyNft}
         isUserCanEnterInAuction={isUserCanEnterInAuction}
         isUserCanPutOnSale={isUserCanPutOnSale}
         isOwner={isOwner}
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
+        isWrongChain={isWrongChain}
+        tooltipPlacement="top"
       />
     </div>
   );

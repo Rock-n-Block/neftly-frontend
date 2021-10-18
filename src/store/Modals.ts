@@ -207,6 +207,7 @@ const Burn = types
   .model({
     tokenId: types.optional(types.number, 0),
     standart: types.optional(types.string, ''),
+    isSuccess: types.optional(types.boolean, false),
   })
   .views((self) => ({
     get getIsOpen() {
@@ -223,8 +224,12 @@ const Burn = types
         applySnapshot(self, initialState);
       },
       open: (tokenId: number, standart: string) => {
+        self.isSuccess = false;
         self.tokenId = tokenId;
         self.standart = standart;
+      },
+      success: () => {
+        self.isSuccess = true;
       },
     };
   });

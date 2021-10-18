@@ -2,10 +2,11 @@ import { ConnectWallet } from '@amfi/connect-wallet';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import BigNumber from 'bignumber.js/bignumber';
 import { Observable } from 'rxjs';
+import { chainsEnum } from 'typings';
+import { getTronContract } from 'utils';
 import Web3 from 'web3';
 
 import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
-import { chainsEnum } from 'typings';
 
 export class WalletConnect {
   public connectWallet: ConnectWallet;
@@ -45,12 +46,21 @@ export class WalletConnect {
   public Web3(): Web3 {
     return this.connectWallet.currentWeb3();
   }
+  // Promise<string | number>
 
-  public async getTokenBalance(contractAbi: string): Promise<string | number> {
+  public async getTokenBalance(contractAbi: string) {
+    console.log('contracts', contracts, 'contractAbi', contractAbi);
+    if (contractAbi === 'WTRX') {
+      const { address } = contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'];
+      const contract = await getTronContract(address);
+      console.log(this.walletAddress, 'this.walletAddress');
+      return contract.balanceOf(this.walletAddress).call();
+    }
     const contract = this.connectWallet.getContract({
       address: contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'].address,
       abi: contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'].abi,
     });
+    // eslint-disable-next-line consistent-return
     return contract.methods.balanceOf(this.walletAddress).call();
   }
 
@@ -61,7 +71,7 @@ export class WalletConnect {
   async checkNftTokenAllowance(tokenAddress: string) {
     const contract = this.connectWallet.getContract({
       address: tokenAddress,
-      abi: contracts.params.NFT[is_production ? 'mainnet' : 'testnet'].abi,
+      abi: contracts.params.BEP20[is_production ? 'mainnet' : 'testnet'].abi,
     });
 
     const result = await contract.methods
@@ -100,7 +110,7 @@ export class WalletConnect {
   async createTransaction(
     method: string,
     data: Array<any>,
-    contract: 'NFT' | 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC',
+    contract: 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX' | 'NFT',
     tx?: any,
     tokenAddress?: string,
     walletAddress?: string,
@@ -112,7 +122,7 @@ export class WalletConnect {
     );
 
     const { baseFeePerGas }: any = await this.Web3().eth.getBlock('latest');
-    console.log(baseFeePerGas)
+    console.log(baseFeePerGas);
     let signature;
     if (transactionMethod) {
       signature = this.encodeFunctionCall(transactionMethod, data);
@@ -203,8 +213,6 @@ export class WalletConnect {
         'approve',
       );
 
-      const { baseFeePerGas }: any = await this.Web3().eth.getBlock('latest');
-
       const approveSignature = this.encodeFunctionCall(approveMethod, [
         approvedAddress || walletAddress || this.walletAddress,
         WalletConnect.calcTransactionAmount(90071992000.5474099, tokenDecimals),
@@ -214,7 +222,6 @@ export class WalletConnect {
         from: walletAddress || this.walletAddress,
         to: contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address,
         data: approveSignature,
-        type: baseFeePerGas ? '0x2' : '0x0',
       });
     } catch (error) {
       return error;

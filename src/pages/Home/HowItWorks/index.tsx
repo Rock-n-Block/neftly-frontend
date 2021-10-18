@@ -47,7 +47,7 @@ const HowItWorks: FC<Props> = ({ className }) => (
       </div>
     </div>
     <div className={styles.viewMoreBtnWrapper}>
-      <Button className={styles.viewMoreBtn}>Start Selling Now</Button>
+      <Button className={styles.viewMoreBtn}>Start selling now</Button>
     </div>
   </div>
 );

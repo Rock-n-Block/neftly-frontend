@@ -1,12 +1,11 @@
 import React, { createContext, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { notification } from 'antd';
-import { observer } from 'mobx-react';
-
 import { is_production } from 'config';
-import { userApi, WalletConnect } from 'services';
-import { chainsEnum } from 'typings';
+import { observer } from 'mobx-react';
+import { connectTron, userApi, WalletConnect } from 'services';
 import { rootStore } from 'store';
+import { chainsEnum } from 'typings';
 
 declare global {
   interface Window {
@@ -16,7 +15,7 @@ declare global {
 }
 
 const walletConnectorContext = createContext<{
-  connect: (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => void;
+  connect: (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect' | 'TronLink') => void;
   disconnect: () => void;
   walletService: WalletConnect;
 }>({
@@ -44,17 +43,28 @@ class Connector extends React.Component<
   }
 
   componentDidMount() {
-    if (window.ethereum || window.kardiachain) {
+    if (window.ethereum) {
       if (localStorage.netfly_nft_chainName && localStorage.netfly_nft_providerName) {
+        if (localStorage.netfly_nft_chainName === 'Tron') {
+          connectTron();
+          return;
+        }
         this.connect(localStorage.netfly_nft_chainName, localStorage.netfly_nft_providerName);
       }
     }
   }
 
-  connect = async (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => {
-    if (window.ethereum || window.kardiachain) {
+  connect = async (
+    chainName: chainsEnum,
+    providerName: 'MetaMask' | 'WalletConnect' | 'TronLink',
+  ) => {
+    if (window.ethereum) {
       try {
-        const isConnected = await this.state.provider.initWalletConnect(chainName, providerName);
+        console.log(chainName, providerName, 'COONNNECT');
+        const isConnected = await this.state.provider.initWalletConnect(
+          chainName,
+          providerName as any,
+        );
         if (isConnected) {
           const subscriber = this.state.provider.getAccount().subscribe(
             async (userAccount: any) => {
@@ -63,7 +73,7 @@ class Connector extends React.Component<
                 this.disconnect();
               } else {
                 this.state.provider.setAccountAddress(userAccount.address);
-                if (!localStorage.netfly_nft_token) {
+                if (!localStorage.nftcrowd_nft_token) {
                   const metMsg: any = await userApi.getMsg();
                   const signedMsg = await this.state.provider.connectWallet.signMsg(
                     userAccount.address,
@@ -76,10 +86,10 @@ class Connector extends React.Component<
                     signedMsg,
                   });
 
-                  localStorage.netfly_nft_token = login.data.key;
+                  localStorage.nftcrowd_nft_token = login.data.key;
                 }
-                localStorage.netfly_nft_chainName = chainName;
-                localStorage.netfly_nft_providerName = providerName;
+                localStorage.nftcrowd_nft_chainName = chainName;
+                localStorage.nftcrowd_nft_providerName = providerName;
                 rootStore.user.setAddress(userAccount.address);
                 rootStore.user.getMe();
               }
@@ -114,22 +124,12 @@ class Connector extends React.Component<
 
   disconnect() {
     rootStore.user.disconnect();
-    delete localStorage.netfly_nft_chainName;
-    delete localStorage.netfly_nft_providerName;
+    delete localStorage.nftcrowd_nft_chainName;
+    delete localStorage.nftcrowd_nft_providerName;
     delete localStorage.walletconnect;
-    delete localStorage.netfly_nft_token;
+    delete localStorage.nftcrowd_nft_token;
 
     this.props.history.push('/');
-    // if (
-    //   [
-    //     '/upload-variants',
-    //     '/upload-details-single',
-    //     '/profile',
-    //     '/upload-details-multiple',
-    //   ].includes(this.props.location.pathname)
-    // ) {
-    //   this.props.history.push('/');
-    // }
   }
 
   render() {

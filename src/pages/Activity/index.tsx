@@ -1,19 +1,18 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import nextId from 'react-id-generator';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as FilterIcon } from 'assets/img/ActivityPage/filter.svg';
 import cn from 'classnames';
-import { ActivityItem, ArtCard, Button, H2, H3, Loader } from 'components';
+import { ActivityItem, ArtCard, Button, H2, H3, Loader, Text } from 'components';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 import profile_avatar_example from '../../assets/img/ProfilePage/profile_avatar_example.png';
-
-import { activityApi } from '../../services/api';
 
 import Filters from './Filters';
 import { data as cardsData } from './mockData';
 
 import styles from './Activity.module.scss';
+import { useFetchActivity } from 'hooks';
 
 const filters = [
   'Sales',
@@ -29,37 +28,12 @@ const filters = [
 
 const Activity: React.FC = observer(() => {
   const history = useHistory();
-  const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
   const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [items, setItems] = useState([]);
-  const [page, setPage] = useState<number>(1);
+  // const [items, setItems] = useState<any>([]);
 
-  const fetchActivity = useCallback((searchPage: number, searchFilters) => {
-    setIsLoading(true);
-    activityApi
-      .getActivity(searchPage, searchFilters)
-      .then(({ data }: any) => {
-        setItems(data);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
-
-  const handleFilters = useCallback(
-    (values: any) => {
-      setSelectedFilters(values);
-      fetchActivity(1, values);
-    },
-    [fetchActivity],
-  );
-
-  const handlePage = useCallback(
-    (newPage) => {
-      setPage(newPage);
-      fetchActivity(newPage, selectedFilters);
-    },
-    [fetchActivity, selectedFilters],
-  );
+  const { totalItems, items, selectedFilters, handleFilters, handlePage, page } =
+    useFetchActivity(setIsLoading);
 
   const openNotification = (method: string, link_id: number | string) => {
     if (method === 'follow') {
@@ -69,10 +43,6 @@ const Activity: React.FC = observer(() => {
     }
   };
 
-  useEffect(() => {
-    fetchActivity(1, []);
-  }, [fetchActivity]);
-
   return (
     <div className={styles.page}>
       <div className={cn(styles.section, styles.body)}>
@@ -80,11 +50,6 @@ const Activity: React.FC = observer(() => {
           <H2 className={styles.pageTitle}>Social activity</H2>
           <div className={styles.pageSubtitle}>
             keep track of all the latest activity on the platform
-          </div>
-          <div className={styles.buttonWrap}>
-            <Button className={styles.switchButton} color="outline">
-              Switch to Multiple
-            </Button>
           </div>
 
           <div className={styles.top}>
@@ -102,7 +67,7 @@ const Activity: React.FC = observer(() => {
               <div className={styles.list}>
                 {/* OLD ITEMS */}
                 {/* TODO: fix this later */}
-                {!isLoading ? (
+                {items?.length ? (
                   items?.map((card: any) => (
                     <div
                       key={nextId()}
@@ -122,19 +87,23 @@ const Activity: React.FC = observer(() => {
                     </div>
                   ))
                 ) : (
-                  <Loader className={styles.loader} />
+                  <>{!isLoading && <Text>No activities</Text>}</>
                 )}
               </div>
 
-              {!isLoading && (
+              {items.length < totalItems && (
                 <div className={styles.buttonWrap}>
-                  <Button
-                    className={styles.moreButton}
-                    color="outline"
-                    onClick={() => handlePage(page + 1)}
-                  >
-                    Load More
-                  </Button>
+                  {isLoading ? (
+                    <Loader className={styles.loader} />
+                  ) : (
+                    <Button
+                      className={styles.moreButton}
+                      color="outline"
+                      onClick={() => handlePage(page + 1)}
+                    >
+                      Load More
+                    </Button>
+                  )}
                 </div>
               )}
             </div>

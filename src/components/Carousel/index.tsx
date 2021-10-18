@@ -89,7 +89,9 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
   return (
     <Slider className={cx(classNameProp, 'discover-slider')} {...sliderConfig}>
       {React.Children.map(children, (child) => (
-        <div onClickCapture={handleOnItemClick}>{child}</div>
+        <div onClickCapture={handleOnItemClick}>
+          {child}
+        </div>
       ))}
     </Slider>
   );

@@ -61,3 +61,13 @@
     }
   }
 }
+
+.button {
+  position: relative;
+}
+
+.dots {
+  position: absolute;
+  left: calc(50% - 6px);
+  top: calc(50% - 13px);
+}

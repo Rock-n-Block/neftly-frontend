@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import cx from 'classnames';
 import Tooltip from 'rc-tooltip';
 import { observer } from 'mobx-react-lite';
+import { toast } from 'react-toastify';
 
 import { Button, Text } from 'components';
 import { useMst } from '../../../../../store';
@@ -16,35 +17,40 @@ import removeImg from '../../../../../assets/img/icons/remove.svg';
 import burnImg from '../../../../../assets/img/icons/burn.svg';
 import reportImg from '../../../../../assets/img/icons/report.svg';
 import { useLike } from 'hooks';
+import linkIcon from 'assets/img/icons/link.svg';
+import { numberFormatter } from 'utils';
 
 type Props = {
   className?: string;
   likes: number;
-  views: number;
-  link: string;
   inStock?: number;
-  isLiked?: boolean;
   nft: INft | null;
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
+  isWrongChain: boolean;
+  tooltipPlacement?: 'top' | 'bottom';
 };
 
 const ViewsAndControlsComponent: FC<Props> = ({
   className,
   likes,
-  views,
   inStock,
-  isLiked = false,
-  link,
   nft,
   isOwner,
+  tooltipPlacement = 'bottom',
   isUserCanRemoveFromSale,
+  isWrongChain,
 }) => {
   const {
     modals: { burn, remove, transfer, report },
     user,
   } = useMst();
-  const { isLike, likeCount, handleLike } = useLike(isLiked, likes, nft?.id, !!user.address);
+  const { isLike, likeCount, handleLike } = useLike(
+    !!nft?.is_liked,
+    likes,
+    nft?.id,
+    !!user.address,
+  );
 
   const [isTooltipVisible, setTooltipVisible] = React.useState(false);
 
@@ -84,7 +90,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
         name: 'Transfer Token',
         img: transferImg,
         event: () => handleActionEvent(handleTransfer),
-        isVisible: isOwner,
+        isVisible: isOwner && !isWrongChain,
       },
       {
         name: 'Remove from sale',
@@ -96,7 +102,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
         name: 'Burn token',
         img: burnImg,
         event: () => handleActionEvent(handleBurn),
-        isVisible: isOwner,
+        isVisible: isOwner && !isWrongChain,
       },
       {
         name: 'Report',
@@ -113,13 +119,18 @@ const ViewsAndControlsComponent: FC<Props> = ({
       isUserCanRemoveFromSale,
       handleTransfer,
       handleReport,
+      isWrongChain,
     ],
   );
+
+  const handleCopy = React.useCallback(() => {
+    navigator.clipboard.writeText(`${window.location.origin}/nft/${nft?.id}`);
+    toast.info('Copied to Clipboard');
+  }, [nft?.id]);
 
   return (
     <>
       <div className={cx(styles.viewsAndControls, className)}>
-        <Text>{`Views: ${views}`}</Text>
         {inStock ? <Text color="gray">{`In Stock: ${inStock}`}</Text> : null}
         <div className={styles.controls}>
           <Button
@@ -128,10 +139,10 @@ const ViewsAndControlsComponent: FC<Props> = ({
             color="outline"
           >
             <PinkHeart />
-            {likeCount}
+            {numberFormatter(likeCount || 0, 1000)}
           </Button>
-          <Button onClick={() => alert(link)} color="outline">
-            link
+          <Button onClick={handleCopy} color="outline">
+            <img src={linkIcon} alt="" />
           </Button>
           <Tooltip
             visible={isTooltipVisible}
@@ -143,6 +154,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
                   if (action.isVisible) {
                     return (
                       <div
+                        key={action.name}
                         className={styles.actionsItem}
                         onClick={action.event}
                         role="button"
@@ -159,9 +171,11 @@ const ViewsAndControlsComponent: FC<Props> = ({
               </div>
             }
             onVisibleChange={(value) => setTooltipVisible(value)}
-            placement="bottom"
+            placement={tooltipPlacement}
           >
-            <Button color="outline">...</Button>
+            <Button className={styles.button} color="outline">
+              <Text className={styles.dots}>...</Text>
+            </Button>
           </Tooltip>
         </div>
       </div>

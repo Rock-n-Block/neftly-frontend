@@ -2,9 +2,9 @@
 
 .hotAuction {
   margin: 0 auto;
-  padding-top: 88px;
+  padding: 88px 30px 0;
 
-  max-width: 1500px;
+  max-width: 1560px;
 }
 
 .gradientTitle {
@@ -13,6 +13,13 @@
 
 .hotAuctionCarousel {
   margin-top: 50px;
+  min-height: 650px;
+}
+
+@include forDesktopMiddle {
+  .hotAuctionCarousel {
+    min-height: 450px;
+  }
 }
 
 @include forDesktopSm {
@@ -20,9 +27,11 @@
     padding: 30px;
   }
 
-  .hotAuctionTitle {
-    margin-bottom: -60px;
+  .hotAuctionCarousel {
+    margin-top: 10px;
+  }
 
+  .hotAuctionTitle {
     text-align: center;
   }
 }

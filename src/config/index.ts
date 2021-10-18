@@ -1,10 +1,20 @@
-import { IConnectWallet, IContracts, chainsEnum } from '../typings';
-import ethImg from '../assets/img/icons/chains/eth.svg';
-import bnbImg from '../assets/img/icons/chains/bnb.svg';
-import polygonImg from '../assets/img/icons/chains/polygon.svg';
-import metamaskImg from '../assets/img/icons/wallets/metamask.svg';
+import { tronChain, tronLink } from 'assets/img';
+import bnbImg from 'assets/img/icons/chains/bnb.svg';
+import ethImg from 'assets/img/icons/chains/eth.svg';
+import polygonImg from 'assets/img/icons/chains/polygon.svg';
+import metamaskImg from 'assets/img/icons/wallets/metamask.svg';
+import WcImg from 'assets/img/icons/wallets/wc.svg';
+import { chainsEnum, IConnectWallet, IContracts } from 'typings';
 
-import { bep20Abi, erc20Abi, nftAbi, wbnbTestnetAbi, wethTestnetAbi, wMaticTestnetAbi } from './abi';
+import {
+  bep20Abi,
+  erc20Abi,
+  nftAbi,
+  wbnbTestnetAbi,
+  wethTestnetAbi,
+  wMaticTestnetAbi,
+  wTrx,
+} from './abi';
 
 export const is_production = false;
 
@@ -27,6 +37,7 @@ export const chains: {
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
+        img: WcImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
@@ -49,6 +60,7 @@ export const chains: {
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
+        img: WcImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
@@ -72,6 +84,7 @@ export const chains: {
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
+        img: WcImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
@@ -87,6 +100,15 @@ export const chains: {
       },
     },
     explorer: is_production ? '' : '',
+  },
+  [chainsEnum.Tron]: {
+    name: chainsEnum.Tron,
+    chainId: is_production ? 1 : 0,
+    img: tronChain,
+    provider: {
+      TronLink: { name: 'TronLink', img: tronLink },
+    },
+    explorer: is_production ? 'https://tronscan.org' : 'https://shasta.tronscan.org',
   },
 };
 
@@ -115,6 +137,7 @@ const exchangeAddrs = {
     : '',
   [chainsEnum.Ethereum]: !is_production ? '0x190a5d4643e55313906344176F61724fC138501c' : '',
   [chainsEnum.Polygon]: !is_production ? '0x928724290F7F868C2fEe10720aE5b48C94c5139F' : '',
+  [chainsEnum.Tron]: !is_production ? '41636f5cc24f43433106190fb9ffa8e044a1761e75' : '',
 };
 
 export const contracts: IContracts = {
@@ -122,6 +145,16 @@ export const contracts: IContracts = {
   names: ['Token', 'Staking', 'Presale', 'UsdtToken'],
   decimals: 18,
   params: {
+    NFT: {
+      mainnet: {
+        address: '',
+        abi: nftAbi,
+      },
+      testnet: {
+        address: '',
+        abi: nftAbi,
+      },
+    },
     BEP20: {
       mainnet: {
         address: '',
@@ -144,11 +177,11 @@ export const contracts: IContracts = {
     },
     EXCHANGE: {
       mainnet: {
-        address: exchangeAddrs[localStorage.netfly_nft_chainName as chainsEnum],
+        address: exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum],
         abi: [],
       },
       testnet: {
-        address: exchangeAddrs[localStorage.netfly_nft_chainName as chainsEnum],
+        address: exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum],
         abi: [],
       },
     },
@@ -170,6 +203,16 @@ export const contracts: IContracts = {
       testnet: {
         address: '0xCF1177e9f54eE20C6E80570D678462363d56C1E5',
         abi: wMaticTestnetAbi,
+      },
+    },
+    WTRX: {
+      mainnet: {
+        address: '41891cdb91d149f23b1a45d9c5ca78a88d0cb44c18',
+        abi: wTrx,
+      },
+      testnet: {
+        address: '41d351e1784dc2ba00b6011924c515dcfce4501488',
+        abi: wTrx,
       },
     },
   },

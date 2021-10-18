@@ -161,7 +161,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     return (
       <>
         <Form name="form-create" className={styles.form}>
-          <div className={styles.column}>
+          <div className={cn(styles.column, styles.columnUpload)}>
             {(values.format === 'video' || values.format === 'audio') && (
               <div className={styles.item}>
                 {values.cover ? (
@@ -365,6 +365,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 required
+                                positiveOnly
                                 className={styles.priceInput}
                               />
                             );
@@ -378,6 +379,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                               onChange={handleChange}
                               onBlur={handleBlur}
                               required
+                              positiveOnly
                               className={styles.priceInput}
                             />
                           );

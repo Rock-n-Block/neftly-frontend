@@ -70,7 +70,7 @@ const Discover = observer(() => {
       </H2>
       <div className={styles.filterControls}>
         <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
-          Advanced Filter <img src={filter} alt="" />
+          Advanced Filter <img src={filter} className={styles.image} alt="" />
         </Button>
         <TabLookingComponent
           tabClassName={styles.filterTab}
@@ -81,6 +81,7 @@ const Discover = observer(() => {
           onChange={handleOrderByFilter as any}
           value={orderByFilter}
           options={selectOptions}
+          classNameSelect={styles.select}
         />
       </div>
       <div className={cx(styles.filterAndCards, { [styles.open]: isFilterOpen })}>

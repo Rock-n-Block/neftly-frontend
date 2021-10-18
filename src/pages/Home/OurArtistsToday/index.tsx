@@ -1,15 +1,16 @@
 import { FC, useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { arrowUpRight } from 'assets/img';
 import cx from 'classnames';
 import { Button, H2, Loader, Text } from 'components';
 import { useFetchTopUsers, useTabs } from 'hooks';
 import { TTopUser } from 'typings';
 
+import { ITab } from '../../../components/TabLookingComponent';
+
 import { ArtistDetail, ArtistLabel, ArtistsTodayMobile } from './components';
 
 import styles from './styles.module.scss';
-import { ITab } from '../../../components/TabLookingComponent';
-import { useLocation } from 'react-router-dom';
 
 type Props = {
   className?: string;
@@ -31,8 +32,6 @@ const categories: ITab[] = [
 ];
 
 const OurArtistsToday: FC<Props> = ({ className }) => {
-  // const [selectedCategory, setSelectedCategory] = useState<CategoryType>(categories[0]);
-
   const initialTab = useLocation().search?.replace('?tab=', '') || '';
   const { activeTab, setActiveTab } = useTabs(categories, initialTab);
 
@@ -43,10 +42,6 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
   const handleSelectArtis = useCallback((artist: TTopUser) => {
     setSelectedArtist(artist);
   }, []);
-
-  /*  const handleSelelectCategory = useCallback((value: OptionType) => {
-      setSelectedCategory(value);
-    }, []); */
 
   useEffect(() => {
     handleSelectArtis(topUser[0]);
@@ -65,6 +60,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
                 className={styles.categorySelector}
                 color="transparent"
                 onClick={() => setActiveTab(key)}
+                key={title}
               >
                 <Text
                   size="m"
@@ -92,7 +88,12 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
                 user: { is_verificated, avatar, display_name },
               } = artist;
               return (
-                <Button isFullWidth color="transparent" onClick={() => handleSelectArtis(artist)}>
+                <Button
+                  isFullWidth
+                  color="transparent"
+                  onClick={() => handleSelectArtis(artist)}
+                  key={id}
+                >
                   <ArtistLabel
                     avatar={avatar}
                     name={display_name}

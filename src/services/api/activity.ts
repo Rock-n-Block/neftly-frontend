@@ -4,9 +4,9 @@ import { AxiosResponse } from 'axios';
 
 export default {
   getActivity: (page: string | number, query: any) => {
-    let queryStr = '&type=';
+    let queries = '';
     if (query.length)
-      query.forEach((key: any, index: any) => {
+      query.forEach((key: any) => {
         let formattedKey = key.toLowerCase();
         switch (formattedKey) {
           case 'sales':
@@ -33,21 +33,22 @@ export default {
           default:
             break;
         }
-        if (index !== query.length - 1) formattedKey = `${formattedKey},`;
-        queryStr = queryStr.concat(formattedKey);
+        queries = queries.concat(`${formattedKey},`);
       });
-    return axios.get(`activity/?page=${page}${query.length ? `${queryStr}` : ''}`);
+    return axios.get('activity/', {
+      params: { page, network: localStorage?.nftcrowd_nft_chainName, type: queries },
+    });
   },
   getNotification: () =>
-    axios.get(`activity/notification/?network=${localStorage.netfly_nft_chainName}`),
+    axios.get(`activity/notification/?network=${localStorage.nftcrowd_nft_chainName}`),
   readNotification: (data: any) =>
-    axios.post(`/activity/notification/?network=${localStorage.netfly_nft_chainName}`, data),
+    axios.post(`/activity/notification/?network=${localStorage.nftcrowd_nft_chainName}`, data),
   getTopUsers: ({ type, sortPeriod }: TTopUserReq) =>
     axios.get('/activity/topusers', {
       params: {
         type,
         sort_period: sortPeriod,
-        network: localStorage?.netfly_nft_chainName,
+        network: localStorage?.nftcrowd_nft_chainName,
       },
     }),
   getPriceHistory: (

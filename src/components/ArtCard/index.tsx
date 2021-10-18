@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as PinkHeart } from 'assets/img/pinkHeart.svg';
 import cx from 'classnames';
 import { Button, Tag, Text } from 'components';
-// import { useLike } from 'hooks';
 import { numberFormatter } from 'utils';
 
 import { routes } from '../../appConstants';
@@ -69,10 +68,10 @@ const ArtCard: FC<Props> = ({
     setIsLike(!isLike);
   }, [artId, isLike, likeAction, likesNumber]);
   return (
-    <div className={cx(styles.artCard, className)}>
+    <div className={cx(styles.artCard, className, styles[`artCard${type}`])}>
       <Link
         to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
-        className={styles[`mainImageWrapper${type}`]}
+        className={cx(styles[`mainImageWrapper${type}`], styles.imageWrapper)}
       >
         <div className={styles.tagContainer}>
           {tags?.map((tag) => (
@@ -83,14 +82,20 @@ const ArtCard: FC<Props> = ({
       </Link>
       {type === 'Medium' && (
         <div className={cx(styles.secondaryImagesContainer)}>
-          <div className={styles.secondaryImageWrapper}>
+          <div className={cx(styles.secondaryImageWrapper, styles.imageWrapper)}>
             <img src={imageSecondaryOne} alt="" />
           </div>
 
-          <div className={styles.secondaryImageWrapper}>
+          <div className={cx(styles.secondaryImageWrapper, styles.imageWrapper)}>
             {imageSecondaryTwo && <img src={imageSecondaryTwo} alt="" />}
           </div>
-          <div className={cx(styles.secondaryImageWrapper, styles.lastSecondaryImageWrapper)}>
+          <div
+            className={cx(
+              styles.secondaryImageWrapper,
+              styles.lastSecondaryImageWrapper,
+              styles.imageWrapper,
+            )}
+          >
             {allArtNumber > 3 && (
               <Text className={styles.allArtNumber} size="m">{`${allArtNumber} +`}</Text>
             )}

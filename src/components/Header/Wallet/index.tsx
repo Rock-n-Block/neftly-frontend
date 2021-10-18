@@ -1,19 +1,18 @@
 import { useCallback, useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { chainsEnum } from 'typings';
-import { chains } from 'config';
+import { wallet } from 'assets/img';
 import cn from 'classnames';
 import { Button, H5, Modal, Text } from 'components';
+import { chains } from 'config';
+import { useUserBalance } from 'hooks';
 import { observer } from 'mobx-react';
-
 import { useMst } from 'store';
+import { chainsEnum } from 'typings';
+import { toFixed } from 'utils/BigNumberToFixed';
 
 import Swap from './Swap';
 
 import styles from './Wallet.module.scss';
-import { wallet } from 'assets/img';
-import { useUserBalance } from 'hooks';
-import { toFixed } from 'utils/BigNumberToFixed';
 
 // import Theme from '../../Theme';
 
@@ -22,10 +21,10 @@ interface IUserProps {
 }
 
 let MAIN: string;
-let WRAP: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC';
+let WRAP: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC' | 'WTRX';
 
 const Wallet: React.FC<IUserProps> = observer(({ className }) => {
-  switch (localStorage.netfly_nft_chainName) {
+  switch (localStorage.nftcrowd_nft_chainName) {
     case 'Binance-Smart-Chain':
       MAIN = 'BNB';
       WRAP = 'WBNB';
@@ -34,17 +33,23 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
       MAIN = 'ETH';
       WRAP = 'WETH';
       break;
+    case 'Tron':
+      MAIN = 'TRX';
+      WRAP = 'WTRX';
+      break;
     default:
       MAIN = 'MATIC';
       WRAP = 'WMATIC';
-      break;
   }
   const { user } = useMst();
+  const [refresh, setRefresh] = useState(false);
   const [visible, setVisible] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
 
-  const balanceMain = useUserBalance(user.address, MAIN);
-  const balanceWrap = useUserBalance(user.address, WRAP);
+  const balanceMain = useUserBalance(user.address, MAIN, refresh);
+  user.setBalance(balanceMain, 'eth');
+  const balanceWrap = useUserBalance(user.address, WRAP, refresh);
+  user.setBalance(balanceWrap, 'weth');
 
   const handleOpenModal = useCallback(() => {
     setVisibleModal(true);
@@ -66,8 +71,8 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
   }, []);
 
   const imageSrc =
-    chains[chains[chainsEnum[localStorage.netfly_nft_chainName as chainsEnum]].name].provider[
-      localStorage.netfly_nft_providerName
+    chains[chains[chainsEnum[localStorage.nftcrowd_nft_chainName as chainsEnum]].name].provider[
+      localStorage.nftcrowd_nft_providerName
     ].img;
 
   return (
@@ -82,7 +87,7 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
             <div className={styles.walletLogo}>
               <img src={imageSrc} alt="Wallet Logo" />
               <Text className={styles.provider} size="m">
-                {localStorage.netfly_nft_providerName}
+                {localStorage.nftcrowd_nft_providerName}
               </Text>
             </div>
             <Text size="s" className={styles.balanceTitle}>
@@ -104,7 +109,13 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
           </div>
         )}
         <Modal visible={visibleModal} onClose={() => handleVisibleModal(false)}>
-          <Swap close={() => handleVisibleModal(false)} main={MAIN} wrap={WRAP} />
+          <Swap
+            close={() => handleVisibleModal(false)}
+            main={MAIN}
+            wrap={WRAP}
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
         </Modal>
       </div>
     </OutsideClickHandler>

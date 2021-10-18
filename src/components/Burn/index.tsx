@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
-import { useHistory } from 'react-router-dom';
 
 import { storeApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
@@ -18,7 +17,6 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
   const {
     modals: { burn },
   } = useMst();
-  const history = useHistory();
   const walletConnector = useWalletConnectorContext();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
@@ -27,13 +25,13 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
       .burnToken(burn.tokenId.toString() || '', amount)
       .then(({ data }: any) => {
         walletConnector.walletService.sendTransaction(data.initial_tx).then(() => {
+          burn.success();
           burn.close();
-          history.push('/');
         });
       })
       .catch((e: any) => console.error('Bid modal sendTranscation', e))
       .finally(() => setIsLoading(false));
-  }, [burn, amount, walletConnector.walletService, history]);
+  }, [burn, amount, walletConnector.walletService]);
 
   useEffect(() => {
     if (isLoading) burnToken();

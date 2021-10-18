@@ -7,16 +7,18 @@ import HowItWorks from './HowItWorks';
 import OurArtistsToday from './OurArtistsToday';
 import OurArtworkGallery from './OurArtworkGallery';
 
+import styles from './Home.module.scss';
+
 const Home: React.FC = observer(() => {
   return (
-    <>
+    <div className={styles.container}>
       <Banner />
       <HotAuction />
       <OurArtistsToday />
       <OurArtworkGallery />
       <HotCollections />
       <HowItWorks />
-    </>
+    </div>
   );
 });
 
