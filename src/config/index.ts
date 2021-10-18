@@ -145,6 +145,16 @@ export const contracts: IContracts = {
   names: ['Token', 'Staking', 'Presale', 'UsdtToken'],
   decimals: 18,
   params: {
+    NFT: {
+      mainnet: {
+        address: '',
+        abi: nftAbi,
+      },
+      testnet: {
+        address: '',
+        abi: nftAbi,
+      },
+    },
     BEP20: {
       mainnet: {
         address: '',

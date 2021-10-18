@@ -110,7 +110,7 @@ export class WalletConnect {
   async createTransaction(
     method: string,
     data: Array<any>,
-    contract: 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX',
+    contract: 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX' | 'NFT',
     tx?: any,
     tokenAddress?: string,
     walletAddress?: string,
