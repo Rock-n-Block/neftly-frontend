@@ -8,9 +8,11 @@ interface IProps {
 const useChartTooltip = ({ options }: IProps) => {
   const [tooltipTop, setTooltipTop] = useState('0');
   const [tooltipLeft, setTooltipLeft] = useState('0');
-  const [tooltipDate, setTooltipDate] = useState('');
-  const [tooltipValue, setTooltipValue] = useState('');
+  const [tooltipDate, setTooltipDate] = useState('0');
+  const [tooltipValue, setTooltipValue] = useState('0');
   const [showTooltip, setShowTooltip] = useState(false);
+
+  const [prevValue, setPrevValue] = useState('0');
 
   const setTooltip = useCallback((tooltipModel: any) => {
     // if chart is not defined, return early
@@ -33,10 +35,15 @@ const useChartTooltip = ({ options }: IProps) => {
     // set position of tooltip
     const left = position.offsetLeft + tooltip.caretX;
     const top = position.offsetTop + tooltip.caretY;
+    const dataPoints = tooltip.dataPoints[0];
+
+    // prevValue and calc diff
+    const { dataIndex } = dataPoints;
 
     // set values for display of data in the tooltip
-    const date = tooltip.dataPoints[0].label;
-    const value = tooltip.dataPoints[0].formattedValue;
+    const date = dataPoints.label;
+    const value = dataPoints.dataset.data[dataIndex].data;
+    setPrevValue(dataPoints.dataset.data[dataIndex - 1]?.data || '0');
     setTooltipTop(top);
     setTooltipLeft(left);
     setTooltipDate(date);
@@ -65,6 +72,7 @@ const useChartTooltip = ({ options }: IProps) => {
     tooltipLeft,
     tooltipDate,
     tooltipValue,
+    prevValue,
     showTooltip,
     optionsWithCustomTooltip,
   };

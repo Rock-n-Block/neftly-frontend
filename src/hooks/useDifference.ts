@@ -1,42 +1,37 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import BigNumber from 'bignumber.js';
-import { IChartData } from '../typings';
 
 interface IProps {
-  chartData: IChartData;
-  selectedPointPrice: string;
+  value: string;
+  prevValue: string;
 }
 
-const useDifference = ({ chartData, selectedPointPrice }: IProps) => {
+const useDifference = ({ value = '0', prevValue = '0' }: IProps) => {
   const [difference, setDifference] = useState('0');
 
-  const getDelta = useCallback(() => {
-    if (chartData.datasets[0].data.length < 2) {
-      setDifference('-100');
-      return;
+  const calculateDifference = useCallback(() => {
+    const absoluteDelta = new BigNumber(value).minus(prevValue);
+    const onePercent = new BigNumber(value).dividedBy(100);
+    let percentDelta = '100.00';
+    if (onePercent.isEqualTo(0)) {
+      if (new BigNumber(prevValue).isEqualTo(0)) {
+        percentDelta = '0';
+      } else {
+        percentDelta = new BigNumber(value).isGreaterThan(prevValue) ? '100.00' : '-100.00';
+      }
+    } else {
+      percentDelta = new BigNumber(absoluteDelta).dividedBy(onePercent).toFixed(2);
     }
-    const prevLastElPrice = chartData.datasets[0].data[chartData.datasets[0].data.length - 2].data;
-    let selectedElPrice = prevLastElPrice;
-    if (selectedPointPrice) {
-      selectedElPrice = selectedPointPrice;
-    }
-    const lastElPrice = chartData.datasets[0].data[chartData.datasets[0].data.length - 1].data;
-    const absoluteDelta = new BigNumber(lastElPrice).minus(selectedElPrice);
-    const onePercent = new BigNumber(lastElPrice).dividedBy(100);
-    const percentDelta = new BigNumber(absoluteDelta)
-      .dividedBy(onePercent)
-      .multipliedBy(-1)
-      .toFixed(2);
     setDifference(percentDelta);
-  }, [chartData.datasets, selectedPointPrice]);
+  }, [prevValue, value]);
 
   const isDifferencePositive = useMemo(() => {
     return new BigNumber(difference).isGreaterThan(0);
   }, [difference]);
 
   useEffect(() => {
-    getDelta();
-  }, [getDelta]);
+    calculateDifference();
+  }, [calculateDifference]);
 
   return { isDifferencePositive, difference };
 };

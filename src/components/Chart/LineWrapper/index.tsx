@@ -29,6 +29,7 @@ const LineWrapper: FC<ILineWrapper> = ({
     tooltipValue,
     showTooltip,
     optionsWithCustomTooltip,
+    prevValue,
   } = useChartTooltip({ options });
 
   return (
@@ -46,6 +47,7 @@ const LineWrapper: FC<ILineWrapper> = ({
           left={tooltipLeft}
           date={tooltipDate}
           currency={currency}
+          prevValue={prevValue}
         />
       )}
     </div>
