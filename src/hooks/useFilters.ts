@@ -129,7 +129,7 @@ const useFilters = () => {
 
   useEffect(() => {
     fetchTags();
-  }, [fetchTags, filterTags]);
+  }, [fetchTags]);
 
   useEffect(() => {
     fetchRates();
