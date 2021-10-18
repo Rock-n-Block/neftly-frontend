@@ -1,12 +1,11 @@
 import { tronChain, tronLink } from 'assets/img';
+import bnbImg from 'assets/img/icons/chains/bnb.svg';
+import ethImg from 'assets/img/icons/chains/eth.svg';
+import polygonImg from 'assets/img/icons/chains/polygon.svg';
+import metamaskImg from 'assets/img/icons/wallets/metamask.svg';
+import WcImg from 'assets/img/icons/wallets/wc.svg';
+import { chainsEnum, IConnectWallet, IContracts } from 'typings';
 
-import bnbImg from '../assets/img/icons/chains/bnb.svg';
-import ethImg from '../assets/img/icons/chains/eth.svg';
-import polygonImg from '../assets/img/icons/chains/polygon.svg';
-import metamaskImg from '../assets/img/icons/wallets/metamask.svg';
-import { chainsEnum, IConnectWallet, IContracts } from '../typings';
-
-import wTrx from './abi/wTrx';
 import {
   bep20Abi,
   erc20Abi,
@@ -14,6 +13,7 @@ import {
   wbnbTestnetAbi,
   wethTestnetAbi,
   wMaticTestnetAbi,
+  wTrx,
 } from './abi';
 
 export const is_production = false;
@@ -37,6 +37,7 @@ export const chains: {
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
+        img: WcImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
@@ -59,6 +60,7 @@ export const chains: {
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
+        img: WcImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
@@ -82,6 +84,7 @@ export const chains: {
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
+        img: WcImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {

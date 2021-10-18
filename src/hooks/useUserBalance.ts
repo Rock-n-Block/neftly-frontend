@@ -6,7 +6,7 @@ import { getTronContract } from 'utils';
 import { useWalletConnectorContext } from '../services/walletConnect';
 import { WalletConnect } from '../services/walletService';
 
-export default (userAddress: string, currency: string) => {
+export default (userAddress: string, currency: string, refresh = false) => {
   const [balance, setBalance] = React.useState<string>('');
 
   const { walletService } = useWalletConnectorContext();
@@ -32,10 +32,10 @@ export default (userAddress: string, currency: string) => {
   }, [walletService, userAddress, currency]);
 
   React.useEffect(() => {
-    if (userAddress) {
+    if (userAddress || (userAddress && refresh)) {
       getUserBalance();
     }
-  }, [getUserBalance, userAddress]);
+  }, [getUserBalance, userAddress, refresh]);
 
   return balance;
 };

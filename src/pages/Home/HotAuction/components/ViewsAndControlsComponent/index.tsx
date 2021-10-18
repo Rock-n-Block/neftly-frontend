@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import cx from 'classnames';
 import Tooltip from 'rc-tooltip';
 import { observer } from 'mobx-react-lite';
+import { toast } from 'react-toastify';
 
 import { Button, Text } from 'components';
 import { useMst } from '../../../../../store';
@@ -21,12 +22,12 @@ type Props = {
   className?: string;
   likes: number;
   views: number;
-  link: string;
   inStock?: number;
-  isLiked?: boolean;
   nft: INft | null;
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
+  isWrongChain: boolean;
+  tooltipPlacement?: 'top' | 'bottom';
 };
 
 const ViewsAndControlsComponent: FC<Props> = ({
@@ -34,17 +35,22 @@ const ViewsAndControlsComponent: FC<Props> = ({
   likes,
   views,
   inStock,
-  isLiked = false,
-  link,
   nft,
   isOwner,
+  tooltipPlacement = 'bottom',
   isUserCanRemoveFromSale,
+  isWrongChain,
 }) => {
   const {
     modals: { burn, remove, transfer, report },
     user,
   } = useMst();
-  const { isLike, likeCount, handleLike } = useLike(isLiked, likes, nft?.id, !!user.address);
+  const { isLike, likeCount, handleLike } = useLike(
+    !!nft?.is_liked,
+    likes,
+    nft?.id,
+    !!user.address,
+  );
 
   const [isTooltipVisible, setTooltipVisible] = React.useState(false);
 
@@ -84,7 +90,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
         name: 'Transfer Token',
         img: transferImg,
         event: () => handleActionEvent(handleTransfer),
-        isVisible: isOwner,
+        isVisible: isOwner && !isWrongChain,
       },
       {
         name: 'Remove from sale',
@@ -96,7 +102,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
         name: 'Burn token',
         img: burnImg,
         event: () => handleActionEvent(handleBurn),
-        isVisible: isOwner,
+        isVisible: isOwner && !isWrongChain,
       },
       {
         name: 'Report',
@@ -113,8 +119,14 @@ const ViewsAndControlsComponent: FC<Props> = ({
       isUserCanRemoveFromSale,
       handleTransfer,
       handleReport,
+      isWrongChain,
     ],
   );
+
+  const handleCopy = React.useCallback(() => {
+    navigator.clipboard.writeText(`${window.location.origin}/nft/${nft?.id}`);
+    toast.info('Copied to Clipboard');
+  }, [nft?.id]);
 
   return (
     <>
@@ -130,7 +142,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
             <PinkHeart />
             {likeCount}
           </Button>
-          <Button onClick={() => alert(link)} color="outline">
+          <Button onClick={handleCopy} color="outline">
             link
           </Button>
           <Tooltip
@@ -143,6 +155,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
                   if (action.isVisible) {
                     return (
                       <div
+                        key={action.name}
                         className={styles.actionsItem}
                         onClick={action.event}
                         role="button"
@@ -159,7 +172,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
               </div>
             }
             onVisibleChange={(value) => setTooltipVisible(value)}
-            placement="bottom"
+            placement={tooltipPlacement}
           >
             <Button color="outline">...</Button>
           </Tooltip>

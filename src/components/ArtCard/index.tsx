@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as PinkHeart } from 'assets/img/pinkHeart.svg';
 import cx from 'classnames';
 import { Button, Tag, Text } from 'components';
-// import { useLike } from 'hooks';
 import { numberFormatter } from 'utils';
 
 import { routes } from '../../appConstants';
@@ -69,10 +68,10 @@ const ArtCard: FC<Props> = ({
     setIsLike(!isLike);
   }, [artId, isLike, likeAction, likesNumber]);
   return (
-    <div className={cx(styles.artCard, className)}>
+    <div className={cx(styles.artCard, className, styles[`artCard${type}`])}>
       <Link
         to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
-        className={styles[`mainImageWrapper${type}`]}
+        className={cx(styles[`mainImageWrapper${type}`], styles.imageWrapper)}
       >
         <div className={styles.tagContainer}>
           {tags?.map((tag) => (
