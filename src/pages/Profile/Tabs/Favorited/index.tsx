@@ -1,7 +1,7 @@
 import { FC, memo, RefObject } from 'react';
-import BigNumber from 'bignumber.js';
 
 import { ArtCard } from 'components';
+import { toFixed } from 'utils/BigNumberToFixed';
 import { useInfiniteScroll } from 'hooks';
 import TabHeader from '../TabHeader';
 import { INft } from 'typings';
@@ -11,11 +11,11 @@ import s from '../Tabs.module.scss';
 interface IProps {
   likeAction: (id: string | number) => void;
   page: number;
-  handlePage: any;
+  handlePage: (value: number) => void;
   isFiltersLoading: boolean;
   allPages: number;
   isLickesLoading: boolean;
-  totalItems: any;
+  totalItems: number;
   nftCards: INft[];
 }
 
@@ -58,8 +58,7 @@ const Favorited: FC<IProps> = memo(
               bids,
               is_liked,
             } = artCard;
-            const artPrice =
-              price || (highest_bid && new BigNumber(highest_bid.amount).toFixed()) || minimal_bid;
+            const artPrice = price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid;
             return (
               <ArtCard
                 artId={id}

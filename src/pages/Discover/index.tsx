@@ -1,17 +1,18 @@
 import { RefObject, useCallback, useState } from 'react';
-import { filter } from 'assets/img';
-import BigNumber from 'bignumber.js';
+import { observer } from 'mobx-react-lite';
 import cx from 'classnames';
+
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
-import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { useMst } from 'store';
-
 import { selectOptions } from 'typings';
+import { toFixed } from 'utils/BigNumberToFixed';
 
 import styles from './styles.module.scss';
+
+import { filter } from 'assets/img';
 
 const Discover = observer(() => {
   const [isFilterOpen, setFilterOpen] = useState(false);
@@ -123,11 +124,7 @@ const Discover = observer(() => {
                       key={name}
                       imageMain={media}
                       name={name}
-                      price={
-                        price ||
-                        (highest_bid && new BigNumber(highest_bid.amount).toFixed()) ||
-                        minimal_bid
-                      }
+                      price={price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid}
                       asset={currency.symbol.toUpperCase()}
                       inStockNumber={available}
                       author={creator.name}

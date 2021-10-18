@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { observer } from 'mobx-react';
 import { useMst } from 'store';
 import { useParams } from 'react-router';
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useState, useMemo, FC } from 'react';
 
 import UserMainInfo from './UserMainInfo';
 import { TabLookingComponent } from 'components';
@@ -39,7 +39,7 @@ const tabs = [
   },
 ];
 
-const ProfilePage: React.FC = observer(() => {
+const ProfilePage: FC = observer(() => {
   const { user } = useMst();
   const { userId } = useParams<{ userId: string }>();
   const initialTab = useLocation().search?.replace('?tab=', '') || '';

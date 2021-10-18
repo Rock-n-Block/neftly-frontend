@@ -59,7 +59,6 @@ const useFilters = () => {
   }, []);
 
   const handleOrderByFilter = useCallback((value: OptionType) => {
-    debugger;
     setOrderByFilter(value);
   }, []);
 
@@ -129,10 +128,7 @@ const useFilters = () => {
   }, [currencyFilter, fetchMaxPrice]);
 
   useEffect(() => {
-    if (!filterTags.length) {
-      console.log('fetch tags');
-      fetchTags();
-    }
+    fetchTags();
   }, [fetchTags, filterTags]);
 
   useEffect(() => {

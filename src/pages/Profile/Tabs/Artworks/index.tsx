@@ -1,10 +1,10 @@
 import { FC, RefObject } from 'react';
-import BigNumber from 'bignumber.js';
 
 import { ArtCard } from 'components';
 import { useInfiniteScroll } from 'hooks';
 import TabHeader from '../TabHeader';
 import { OptionType, INft } from 'typings';
+import { toFixed } from 'utils/BigNumberToFixed';
 
 import s from '../Tabs.module.scss';
 
@@ -12,10 +12,10 @@ interface IProps {
   likeAction: (id: string | number) => void;
   page: number;
   allPages: number;
-  handlePage: any;
+  handlePage: (value: number) => void;
   isFiltersLoading: boolean;
   isNftsLoading: boolean;
-  totalItems: any;
+  totalItems: number;
   orderByFilter: OptionType;
   handleOrderByFilter: (value: OptionType) => void;
   nftCards: INft[];
@@ -65,8 +65,7 @@ const Artworks: FC<IProps> = ({
             bids,
             is_liked,
           } = artCard;
-          const artPrice =
-            price || (highest_bid && new BigNumber(highest_bid.amount).toFixed()) || minimal_bid;
+          const artPrice = price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid;
           return (
             <ArtCard
               artId={id}
