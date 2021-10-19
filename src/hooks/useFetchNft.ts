@@ -33,28 +33,6 @@ export const useFetchNft = (props: IProps): [number, number, INft[], boolean] =>
     on_sale,
     text = '',
   } = props;
-  console.log(
-    'page',
-    page,
-    'sort',
-    sort,
-    'order_by',
-    order_by,
-    'tags',
-    tags,
-    'max_price',
-    max_price,
-    'currency',
-    currency,
-    'is_verified',
-    is_verified,
-    'creator',
-    creator,
-    'owner',
-    owner,
-    'on_sale',
-    on_sale,
-  );
   const [isLoading, setLoading] = useState(false);
   const [allPages, setAllPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
