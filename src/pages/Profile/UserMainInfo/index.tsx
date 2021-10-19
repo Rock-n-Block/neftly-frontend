@@ -59,7 +59,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
         .then(({ data }) => {
           toast.success('Cover uploaded');
           user.setCover(data);
-          setCover(data)
+          setCover(data);
         })
         .catch((err) => {
           toast.error('Success unfollow');
@@ -97,7 +97,12 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
       <div className={s.user_buttons}>
         {isSelf ? (
           <>
-            <Uploader type="img" isButton handleUpload={handleFileUpload} isLoading={isFileLoading}>
+            <Uploader
+              type="cover"
+              isButton
+              handleUpload={handleFileUpload}
+              isLoading={isFileLoading}
+            >
               <Button className={s.user_button} color="outline" loading={isFileLoading}>
                 <img src={iconEdit} alt="" />
                 <Text tag="span">Edit Banner</Text>
