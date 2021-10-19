@@ -31,7 +31,7 @@ const Banner: FC<Props> = ({ className }) => (
       </div>
       <div className={styles.description}>
         <Text size="xl">
-          Welcome to the world of rare digital art. explore the best art from hand-picked digital
+          Welcome to the world of rare digital art. Explore the best art from hand-picked digital
           artist out there and find the hidden gem.
         </Text>
       </div>
