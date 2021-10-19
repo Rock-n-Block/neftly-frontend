@@ -39,6 +39,7 @@
     margin-right: 8px;
     border-radius: 50%;
     @include flexbox;
+    cursor: pointer;
   }
 
   &__value {

@@ -70,6 +70,11 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
     [user],
   );
 
+  const handleCopy = React.useCallback(() => {
+    navigator.clipboard.writeText(user.address);
+    toast.info('Copied to Clipboard');
+  }, [user.address]);
+
   return (
     <section
       className={s.user}
@@ -87,7 +92,13 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
       </div>
       <H2 className={s.user_name}>{shownUser.display_name || 'User Name'}</H2>
       <div className={s.user_info}>
-        <div className={s.user_info__icon}>
+        <div
+          className={s.user_info__icon}
+          onClick={handleCopy}
+          tabIndex={0}
+          role="button"
+          onKeyDown={() => {}}
+        >
           <img src={LinkIcon} alt="link" />
         </div>
         <Text size="m">{sliceString(shownUser.address || zeroAddress)}</Text>
