@@ -24,6 +24,7 @@ type Props = {
   inStockNumber?: number | string;
   author: string;
   authorAvatar: string;
+  authorId?: string;
   likesNumber: number;
   tags?: any[];
   isCollection?: boolean;
@@ -46,6 +47,7 @@ const ArtCard: FC<Props> = ({
   asset,
   inStockNumber,
   author,
+  authorId,
   authorAvatar,
   likesNumber,
   tags,
@@ -131,7 +133,9 @@ const ArtCard: FC<Props> = ({
               </>
             ) : (
               <>
-                <img src={authorAvatar} className={styles.author_avatar} alt="" />
+                <Link to={`${routes.profile.link}/${authorId}`}>
+                  <img src={authorAvatar} className={styles.author_avatar} alt="" />
+                </Link>
                 <Text className={styles.artCardAuthor}>{author}</Text>
               </>
             )}
