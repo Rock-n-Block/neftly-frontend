@@ -70,7 +70,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
     [user],
   );
 
-  const handleCopy = React.useCallback(() => {
+  const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(user.address);
     toast.info('Copied to Clipboard');
   }, [user.address]);
