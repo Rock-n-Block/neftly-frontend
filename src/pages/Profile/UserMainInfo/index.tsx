@@ -31,7 +31,6 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
   const [, setIsUserLoading] = useState(false);
   const [isFileLoading, setIsFileLoading] = useState(false);
   const [isFollowClickPending, setIsFollowClickPending] = useState(false);
-  const [cover, setCover] = useState('');
   const {
     user: shownUser,
     isSelf,
@@ -59,7 +58,6 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
         .then(({ data }) => {
           toast.success('Cover uploaded');
           user.setCover(data);
-          setCover(data);
         })
         .catch((err) => {
           toast.error('Success unfollow');
@@ -72,11 +70,16 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
     [user],
   );
 
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(user.address);
+    toast.info('Copied to Clipboard');
+  }, [user.address]);
+
   return (
     <section
       className={s.user}
       style={{
-        backgroundImage: `url(${cover || shownUser.cover || profile_page_bg_example})`,
+        backgroundImage: `url(${user.cover || shownUser.cover || profile_page_bg_example})`,
       }}
     >
       <div className={s.user_avatar}>
@@ -89,7 +92,13 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
       </div>
       <H2 className={s.user_name}>{shownUser.display_name || 'User Name'}</H2>
       <div className={s.user_info}>
-        <div className={s.user_info__icon}>
+        <div
+          className={s.user_info__icon}
+          onClick={handleCopy}
+          tabIndex={0}
+          role="button"
+          onKeyDown={() => {}}
+        >
           <img src={LinkIcon} alt="link" />
         </div>
         <Text size="m">{sliceString(shownUser.address || zeroAddress)}</Text>

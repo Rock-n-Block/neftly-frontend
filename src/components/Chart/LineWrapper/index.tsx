@@ -36,7 +36,7 @@ const LineWrapper: FC<ILineWrapper> = ({
     <div className={cn(styles.chartWrapper, className)}>
       <Line
         data={data}
-        options={optionsWithCustomTooltip}
+        options={optionsWithCustomTooltip as any}
         height={500}
         getElementAtEvent={getElementAtEvent}
       />

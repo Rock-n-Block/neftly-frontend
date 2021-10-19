@@ -45,6 +45,7 @@ const HotCollections: FC<Props> = ({ className }) => {
                   allArtNumber={tokens.length}
                   author={creator.name}
                   authorAvatar={creator.avatar}
+                  authorId={creator.id}
                   likesNumber={likes_count.likes_count}
                   isCollection
                 />
