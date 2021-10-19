@@ -43,6 +43,8 @@ const Activity: React.FC = observer(() => {
     }
   };
 
+  console.log(items, "ITEMS");
+
   return (
     <div className={styles.page}>
       <div className={cn(styles.section, styles.body)}>

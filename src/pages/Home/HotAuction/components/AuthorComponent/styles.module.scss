@@ -1,7 +1,15 @@
 @import '../../../../../styles/helpers';
 
 .authorBlock {
+  @include flexbox(center, space-between);
+}
+
+.user{
   @include flexbox(center, flex-start);
+}
+
+.avatar{
+  border-radius: 50%;
 }
 
 .avatarWrapper {
