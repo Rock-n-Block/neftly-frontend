@@ -4,18 +4,21 @@ import { observer } from 'mobx-react';
 import styles from './ProfileEdit.module.scss';
 import { ProfileForm } from 'forms';
 import { FC } from 'react';
-
-const breadcrumbs = [
-  {
-    title: 'My profile',
-    url: '/profile',
-  },
-  {
-    title: 'Edit Profile',
-  },
-];
+import { useMst } from 'store';
 
 const ProfileEdit: FC = observer(() => {
+  const {user} = useMst()
+
+  const breadcrumbs = [
+    {
+      title: 'My profile',
+      url: `/profile/${user.id}`,
+    },
+    {
+      title: 'Edit Profile',
+    },
+  ];
+
   return (
     <div className={styles.profileEdit}>
       <Control className={styles.control} item={breadcrumbs} />
