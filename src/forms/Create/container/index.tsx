@@ -39,8 +39,14 @@ export default observer(({ isSingle, walletConnector }: any) => {
       name: Yup.string().min(2, 'Too short!').max(50, 'Too long!'),
       totalSupply: Yup.number().min(1, 'Minimal amount equal to 1!').max(100, 'Too much!'),
       description: Yup.string().max(500, 'Too long!'),
-      minimalBid: Yup.number().min(0.0001),
-      price: Yup.number().min(0.0001),
+      minimalBid: Yup.number().when('sellMethod', {
+        is: 'openForBids',
+        then: Yup.number().min(0.0001),
+      }),
+      price: Yup.number().when('sellMethod', {
+        is: 'fixedPrice',
+        then: Yup.number().min(0.0001),
+      }),
     }),
     handleSubmit: (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
