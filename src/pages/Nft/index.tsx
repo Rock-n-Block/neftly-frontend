@@ -130,6 +130,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
                 available: inStockNumber,
                 creator: { name: author },
                 creator: { avatar: authorAvatar },
+                creator: { id: authorId },
                 tags,
                 like_count: likesNumber,
                 currency: { symbol: asset },
@@ -146,6 +147,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
                   inStockNumber={inStockNumber}
                   author={author}
                   authorAvatar={authorAvatar}
+                  authorId={authorId.toString()}
                   likesNumber={likesNumber}
                   tags={tags}
                 />

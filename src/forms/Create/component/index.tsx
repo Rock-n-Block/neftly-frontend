@@ -88,7 +88,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     const [rates, setRates] = useState<IRate[]>([]);
     const [addToCollection, setAddToCollection] = useState(true);
     const serviceFee = 3; // TODO: remove after get service fee request
-    const stringRecieveValue = (parseFloat(`${values.minimalBid}`) * (100 - serviceFee)) / 100 || 0;
+    const stringRecieveValue = (parseFloat(`${values.price || values.minimalBid}`) * (100 - serviceFee)) / 100 || 0;
     const stringRatesValue = new BigNumber(
       rates.find((rate) => rate.symbol === values.currency)?.rate || 0,
     ).toFixed(2);

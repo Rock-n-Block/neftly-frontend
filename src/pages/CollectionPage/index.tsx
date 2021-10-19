@@ -102,6 +102,7 @@ const CollectionPage: React.FC = () => {
                       inStockNumber={available}
                       author={creator.name}
                       authorAvatar={creator.avatar}
+                      authorId={creator.id}
                       likesNumber={like_count}
                     />
                   );

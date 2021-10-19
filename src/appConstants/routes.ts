@@ -20,6 +20,7 @@ export const routes = {
   },
   profile: {
     root: '/profile/:userId',
+    link: '/profile',
     edit: '/profile/edit',
   },
   activity: {

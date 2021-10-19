@@ -33,7 +33,7 @@
   }
 }
 
-@include forDesktopBig {
+@include forDesktopHuge {
   .discoverMore {
     height: 150px;
   }
@@ -52,6 +52,12 @@
 
   .discoverMore .text {
     font-size: 16px;
+  }
+}
+
+@include forDesktopMiddle{
+  .title {
+    font-size: 20px;
   }
 }
 

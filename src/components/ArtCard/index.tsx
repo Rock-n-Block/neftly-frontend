@@ -24,6 +24,7 @@ type Props = {
   inStockNumber?: number | string;
   author: string;
   authorAvatar: string;
+  authorId?: string;
   likesNumber: number;
   tags?: any[];
   isCollection?: boolean;
@@ -46,6 +47,7 @@ const ArtCard: FC<Props> = ({
   asset,
   inStockNumber,
   author,
+  authorId,
   authorAvatar,
   likesNumber,
   tags,
@@ -106,7 +108,7 @@ const ArtCard: FC<Props> = ({
       <div className={styles.artCardInfo}>
         <Text size="xl">{name}</Text>
         <div className={styles.flexContainer}>
-          {!isCollection && (
+          {!isCollection && price && (
             <Text className={styles.artCardPrice} size="m">
               {`${price} ${asset}`}{' '}
               {bids?.length ? <span className={styles.bidText}>(Highest Bid)</span> : null}
@@ -131,7 +133,9 @@ const ArtCard: FC<Props> = ({
               </>
             ) : (
               <>
-                <img src={authorAvatar} className={styles.author_avatar} alt="" />
+                <Link to={`${routes.profile.link}/${authorId}`}>
+                  <img src={authorAvatar} className={styles.author_avatar} alt="" />
+                </Link>
                 <Text className={styles.artCardAuthor}>{author}</Text>
               </>
             )}

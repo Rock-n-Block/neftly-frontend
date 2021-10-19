@@ -39,7 +39,7 @@ const Favorited: FC<IProps> = memo(
 
     return (
       <>
-        <TabHeader title={`${totalItems} artworks owned`} />
+        <TabHeader title={`${totalItems} artworks liked`} />
 
         <div className={s.tab}>
           {nftCards.map((artCard: any) => {
@@ -70,6 +70,7 @@ const Favorited: FC<IProps> = memo(
                 inStockNumber={available}
                 author={creator.name}
                 authorAvatar={creator.avatar}
+                authorId={creator.id}
                 likesNumber={like_count}
                 tags={tags}
                 bids={bids}

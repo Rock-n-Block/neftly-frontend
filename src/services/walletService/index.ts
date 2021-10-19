@@ -49,7 +49,6 @@ export class WalletConnect {
   // Promise<string | number>
 
   public async getTokenBalance(contractAbi: string) {
-    console.log('contracts', contracts, 'contractAbi', contractAbi);
     if (contractAbi === 'WTRX') {
       const { address } = contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'];
       const contract = await getTronContract(address);
