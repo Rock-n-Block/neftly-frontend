@@ -98,7 +98,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
         {isSelf ? (
           <>
             <Uploader
-              type="cover"
+              // type="cover"
               isButton
               handleUpload={handleFileUpload}
               isLoading={isFileLoading}

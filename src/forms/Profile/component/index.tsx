@@ -1,6 +1,6 @@
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useEffect } from 'react';
 import cn from 'classnames';
-import { Button, Text, TextArea, TextInput, Uploader } from 'components';
+import { Button, Text, TextArea, TextInput, UploaderNew } from 'components';
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
@@ -16,7 +16,7 @@ export interface IProfile {
   instagram?: string;
   facebook?: string;
   // email?: string;
-  img?: any;
+  avatar?: any;
   preview?: string;
   isLoading: boolean;
 }
@@ -24,7 +24,9 @@ export interface IProfile {
 const Profile: React.FC<FormikProps<IProfile>> = observer(
   ({ touched, errors, handleChange, handleBlur, values, handleSubmit }: any) => {
     const { user } = useMst();
-
+    useEffect(() => {
+      console.log('profile values', values);
+    }, [values]);
     return (
       <Form name="form-profile" className={cn('container', styles.container)}>
         <div className={styles.row}>
@@ -32,7 +34,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
             <div className={styles.col}>
               <div className={styles.user}>
                 <div className={styles.avatar}>
-                  {values.img ? (
+                  {values.avatar ? (
                     <img alt="" src={values.preview} />
                   ) : (
                     <img src={user.avatar || '/images/content/avatar-user.jpg'} alt="Avatar" />
@@ -50,7 +52,9 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                     <Field
                       id="img"
                       name="img"
-                      render={() => <Uploader type="img" isButton className={styles.fileUpload} />}
+                      render={() => (
+                        <UploaderNew formikValue="avatar" isButton className={styles.fileUpload} />
+                      )}
                     />
                   </div>
                 </div>

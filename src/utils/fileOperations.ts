@@ -3,10 +3,7 @@ import { FormikContextType } from 'formik/dist/types';
 
 export type FileType = 'img' | 'cover';
 
-export const checkValidFileType = (fileType: string, type: FileType) => {
-  if (!fileType) {
-    return false;
-  }
+export const isValidFileType = (fileType: string) => {
   const isValidType =
     fileType === 'image/jpeg' ||
     fileType === 'image/jpg' ||
@@ -15,15 +12,20 @@ export const checkValidFileType = (fileType: string, type: FileType) => {
     fileType === 'image/png' ||
     fileType === 'image/webp' ||
     fileType === 'image/gif' ||
-    (type === 'img' && fileType === 'video/mp4') ||
-    (type === 'img' && fileType === 'audio/mpeg');
+    fileType === 'video/mp4' ||
+    fileType === 'audio/mpeg';
+
+  // (type === 'img' && fileType === 'video/mp4') ||
+  // (type === 'img' && fileType === 'audio/mpeg');
   return isValidType;
 };
-export const checkValidFileSize = (fileSize: number, maxSize: number) => {
-  if (!fileSize) {
-    return false;
-  }
-  const isValidSize = fileSize / 1024 / 1024 <= maxSize;
+export const isValidFileSize = (fileSize: number, maxSize: number) => {
+  // if (!fileSize) {
+  //   return false;
+  // }
+  const maxFileSizeInBytes = maxSize * 1024 * 1024;
+
+  const isValidSize = fileSize <= maxFileSizeInBytes;
 
   return isValidSize;
 };
@@ -46,6 +48,7 @@ export const getBase64 = (
   });
   reader.readAsDataURL(img);
 };
+/*
 
 export const beforeUpload = (file: any, type: FileType, maxSize: number, message: any) => {
   const isValidType = checkValidFileType(file.type, type);
@@ -59,3 +62,4 @@ export const beforeUpload = (file: any, type: FileType, maxSize: number, message
   }
   return isValidType && isValidSize;
 };
+*/

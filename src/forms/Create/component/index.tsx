@@ -177,7 +177,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         required
                         render={() => (
                           <Uploader
-                            type="cover"
+                            // type="cover"
                             name="cover"
                             setFormat={(value: string) => setFieldValue('format', value)}
                           />
@@ -243,7 +243,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       required
                       render={() => (
                         <Uploader
-                          type="img"
+                          // type="img"
                           name="img"
                           setFormat={(value: string) => setFieldValue('format', value)}
                         />

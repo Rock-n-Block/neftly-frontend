@@ -44,7 +44,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
               <RequiredMark />
             </Text>
             <div className={styles.file}>
-              <Field id="img" name="img" render={() => <Uploader type="img" isButton />} />
+              <Field id="img" name="img" render={() => <Uploader isButton />} />
               {errors.img && touched.img && (
                 <Text color="red">Display name should be more than 2 and less than 50 symbols</Text>
               )}
