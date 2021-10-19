@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 import iconSwap from 'assets/img/icons/arrows-swap.svg';
 import cn from 'classnames';
-import { Button, H4, Text, TextInput } from 'components';
+import { Button, H4, Text, TextInput, ToastContentWithTxHash } from 'components';
 import { useUserBalance } from 'hooks';
 import { observer } from 'mobx-react';
 import { useWalletConnectorContext, WalletConnect } from 'services';
@@ -45,9 +46,10 @@ const Swap: React.FC<ISwapProps> = observer(
       if (swappingCurrency[0] === 'main') {
         walletConnector.walletService
           .createTransaction('deposit', [], wrap, '', '', '', weiValue)
-          .then(async () => {
+          .then(async (data: any) => {
             setRefresh(true);
             close();
+            toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
           })
           .catch((err: any) => {
             console.log('error', err);
@@ -59,9 +61,10 @@ const Swap: React.FC<ISwapProps> = observer(
       } else {
         walletConnector.walletService
           .createTransaction('withdraw', [weiValue], wrap)
-          .then(async () => {
+          .then(async (data: any) => {
             setRefresh(true);
             close();
+            toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
           })
           .catch((err: any) => {
             console.log('error', err);
