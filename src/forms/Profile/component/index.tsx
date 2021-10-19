@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect } from 'react';
+import { FC, SyntheticEvent } from 'react';
 import cn from 'classnames';
 import { Button, H5, Text, TextArea, TextInput, Uploader } from 'components';
 import { Field, FieldProps, Form, FormikProps } from 'formik';
@@ -21,12 +21,9 @@ export interface IProfile {
   isLoading: boolean;
 }
 
-const Profile: React.FC<FormikProps<IProfile>> = observer(
+const Profile: FC<FormikProps<IProfile>> = observer(
   ({ touched, errors, handleChange, handleBlur, values, handleSubmit }: any) => {
     const { user } = useMst();
-    useEffect(() => {
-      console.log('profile values', values);
-    }, [values]);
     return (
       <Form name="form-profile" className={styles.container}>
         <div className={styles.row}>

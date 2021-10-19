@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import { Form, Field, FormikProps } from 'formik';
 
@@ -24,11 +24,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
   handleBlur,
   values,
   handleSubmit,
-  // setFieldValue,
 }) => {
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
   return (
     <Form name="form-create-coll" className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.createCollection}>
@@ -124,9 +120,6 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
         <Button type="submit" className={cn('button', styles.button)} disabled={values.isLoading}>
           Create Collection
         </Button>
-        {/* <Modal visible={values.showModal} onClose={() => setFieldValue('showModal', false)}>
-          <SuccessCreated close={() => setFieldValue('showModal', false)} title="collection" />
-        </Modal> */}
       </div>
     </Form>
   );

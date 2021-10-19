@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { upload } from 'assets/img/upload';
 import cn from 'classnames';
@@ -73,7 +73,7 @@ const sellMethods: IRadioButton[] = [
   },
 ];
 
-const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
+const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
   ({
     setFieldValue,
     values,
@@ -150,10 +150,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       setFieldValue('isSingle', isSingle);
     }, [isSingle, setFieldValue]);
 
-    useEffect(() => {
-      console.log(values);
-    }, [values]);
-
     return (
       <>
         <Form name="form-create" className={styles.form}>
@@ -180,10 +176,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         required
                         render={() => (
                           <Uploader
-                            // type="media"
+                            isImgOnly
                             formikValue="cover"
                             setFormat={(value: string) => setFieldValue('format', value)}
-                            maxSizeInMb={5}
                           />
                         )}
                       />
@@ -247,10 +242,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       required
                       render={() => (
                         <Uploader
-                          // type="media"
                           formikValue="media"
                           setFormat={(value: string) => setFieldValue('format', value)}
-                          maxSizeInMb={500}
                         />
                       )}
                     />
