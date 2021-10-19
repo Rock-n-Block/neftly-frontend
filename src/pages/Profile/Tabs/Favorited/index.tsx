@@ -39,7 +39,7 @@ const Favorited: FC<IProps> = memo(
 
     return (
       <>
-        <TabHeader title={`${totalItems} artworks owned`} />
+        <TabHeader title={`${totalItems} artworks liked`} />
 
         <div className={s.tab}>
           {nftCards.map((artCard: any) => {
