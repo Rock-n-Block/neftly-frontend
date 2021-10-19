@@ -1,6 +1,5 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { arrowUpRight } from 'assets/img';
 import cx from 'classnames';
 import { Button, H2, Loader, Text } from 'components';
 import { useFetchTopUsers, useTabs } from 'hooks';
@@ -73,11 +72,6 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
               </Button>
             ))}
           </div>
-          <Button className={styles.moreArtistsBtn} color="transparent">
-            <Text size="l" color="secondary">
-              More Artists <img className={styles.arrowPic} src={arrowUpRight} alt="" />
-            </Text>
-          </Button>
         </div>
         <div className={styles.artistsSection}>
           {!isLoading ? (
