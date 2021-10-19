@@ -7,7 +7,7 @@
 }
 
 .upload {
-  @include flexbox;
+  @include flexbox(center,space-between);
 
   img {
     width: 128px;
@@ -15,7 +15,7 @@
 
     border-radius: 100%;
     flex-shrink: 0;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   .empty {

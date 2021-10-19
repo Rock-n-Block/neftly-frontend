@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import cn from 'classnames';
 import { Form, Field, FormikProps } from 'formik';
 
-import { H3, TextInput, Text, Button, TextArea, RequiredMark } from 'components';
-import Uploader from '../../../components/Uploader';
-
-// import SuccessCreated from './SuccessCreated';
+import { H3, TextInput, Text, Button, TextArea, RequiredMark, UploaderNew } from 'components';
 
 import styles from './CreateCollection.module.scss';
 
@@ -14,7 +11,7 @@ export interface ICreateCollection {
   symbol: string;
   shortUrl: string;
   description?: string;
-  img: any;
+  avatar: any;
   preview?: string;
   isLoading: boolean;
   standart: 'ERC721' | 'ERC1155';
@@ -37,17 +34,18 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
       <div className={styles.createCollection}>
         <H3 className={styles.title}>Create collection</H3>
         <div className={styles.upload}>
-          {values.img ? <img alt="" src={values.preview} /> : <div className={styles.empty} />}
+          {values.avatar ? <img alt="" src={values.preview} /> : <div className={styles.empty} />}
           <div className={styles.wrapper}>
             <Text className={styles.text} color="lightGray" align="center">
               We recommend an image of at least 400 x 400. Gifs work too.
               <RequiredMark />
             </Text>
             <div className={styles.file}>
-              <Field id="img" name="img" render={() => <Uploader isButton />} />
-              {errors.img && touched.img && (
-                <Text color="red">Display name should be more than 2 and less than 50 symbols</Text>
-              )}
+              <Field
+                id="avatar"
+                name="avatar"
+                render={() => <UploaderNew formikValue="avatar" isButton />}
+              />
             </div>
           </div>
         </div>

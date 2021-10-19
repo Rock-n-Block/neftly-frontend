@@ -36,7 +36,7 @@ const UploaderNew: FC<IProps> = ({
   isLoading,
   handleUpload,
   setFormat,
-  maxSizeInMb = 30,
+  maxSizeInMb = 5,
   children,
 }) => {
   const formik = useFormikContext();
@@ -47,6 +47,7 @@ const UploaderNew: FC<IProps> = ({
       return;
     }
     const currentFile = acceptedFiles[0];
+    // TODO: To release an object URL, call revokeObjectURL().
     const fileUrl = URL.createObjectURL(currentFile);
     if (handleUpload) {
       handleUpload(currentFile);
