@@ -66,7 +66,7 @@ const Transfer: React.FC<ITransferProps> = ({ className }) => {
       </div>
       {transfer.standart === 'ERC1155' && (
         <div className={styles.field}>
-          <input
+          <TextInput
             className={styles.input}
             value={amount}
             onChange={handleSetAmount}
