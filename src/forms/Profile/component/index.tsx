@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useEffect } from 'react';
 import cn from 'classnames';
-import { Button, Text, TextArea, TextInput, UploaderNew } from 'components';
+import { Button, H5, Text, TextArea, TextInput, Uploader } from 'components';
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
@@ -28,36 +28,32 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
       console.log('profile values', values);
     }, [values]);
     return (
-      <Form name="form-profile" className={cn('container', styles.container)}>
+      <Form name="form-profile" className={styles.container}>
         <div className={styles.row}>
           <div className={cn(styles.col, styles.left)}>
-            <div className={styles.col}>
-              <div className={styles.user}>
-                <div className={styles.avatar}>
-                  {values.avatar ? (
-                    <img alt="" src={values.preview} />
-                  ) : (
-                    <img src={user.avatar || '/images/content/avatar-user.jpg'} alt="Avatar" />
+            <div className={styles.user}>
+              <div className={styles.avatar}>
+                {values.avatar ? (
+                  <img alt="" src={values.preview} />
+                ) : (
+                  <img src={user.avatar || '/images/content/avatar-user.jpg'} alt="Avatar" />
+                )}
+              </div>
+              <div className={styles.details}>
+                <H5 className={styles.stage}>Profile photo</H5>
+                <Text color="lightGray" className={styles.fileInfo}>
+                  We recommend an image of at least 400x400. Gifs work too{' '}
+                  <span role="img" aria-label="hooray">
+                    🙌
+                  </span>
+                </Text>
+                <Field
+                  id="img"
+                  name="img"
+                  render={() => (
+                    <Uploader formikValue="avatar" isButton className={styles.fileUpload} />
                   )}
-                </div>
-                <div className={styles.details}>
-                  <div className={styles.stage}>Profile photo</div>
-                  <Text color="lightGray">
-                    We recommend an image of at least 400x400. Gifs work too{' '}
-                    <span role="img" aria-label="hooray">
-                      🙌
-                    </span>
-                  </Text>
-                  <div>
-                    <Field
-                      id="img"
-                      name="img"
-                      render={() => (
-                        <UploaderNew formikValue="avatar" isButton className={styles.fileUpload} />
-                      )}
-                    />
-                  </div>
-                </div>
+                />
               </div>
             </div>
             <div className={styles.item}>

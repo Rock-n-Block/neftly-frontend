@@ -20,8 +20,10 @@ const ProfileEdit: FC = observer(() => {
     <div className={styles.profileEdit}>
       <Control className={styles.control} item={breadcrumbs} />
       <div className={styles.top}>
-        <H2 className={styles.title}>Edit profile</H2>
-        <Text className={styles.info} color="lightGray" weight="medium" size="m">
+        <H2 className={styles.title} align="center">
+          Edit profile
+        </H2>
+        <Text className={styles.info} color="lightGray" weight="medium" size="m" align="center">
           You can set preferred display name, create your profile URL and manage other personal
           settings.
         </Text>

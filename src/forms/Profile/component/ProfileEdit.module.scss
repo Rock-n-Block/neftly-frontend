@@ -5,7 +5,11 @@
 }
 
 .container {
-  padding: 0;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  width: 100%;
+  max-width: 1310px;
 }
 
 .row {
@@ -83,9 +87,10 @@
 .stage {
   @include monument-extended;
   margin-bottom: 8px;
+}
 
-  font-size: 20px;
-  line-height: 120%;
+.fileInfo {
+  margin-bottom: 32px;
 }
 
 .text {
@@ -100,9 +105,6 @@
 
 .item {
   padding: 32px 0 45px;
-  @include d {
-    margin: 0 20px;
-  }
 
   @include m {
     margin: 0;

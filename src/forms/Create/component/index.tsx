@@ -12,7 +12,7 @@ import {
   Text,
   TextArea,
   TextInput,
-  UploaderNew,
+  Uploader,
 } from 'components';
 import { IRadioButton } from 'components/Radio';
 import { Field, FieldArray, Form, FormikProps } from 'formik';
@@ -179,7 +179,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         className={styles.load}
                         required
                         render={() => (
-                          <UploaderNew
+                          <Uploader
                             // type="media"
                             formikValue="cover"
                             setFormat={(value: string) => setFieldValue('format', value)}
@@ -246,7 +246,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       className={styles.load}
                       required
                       render={() => (
-                        <UploaderNew
+                        <Uploader
                           // type="media"
                           formikValue="media"
                           setFormat={(value: string) => setFieldValue('format', value)}

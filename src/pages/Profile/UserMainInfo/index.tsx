@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Button, H2, Text, UploaderNew } from 'components';
+import { Button, H2, Text, Uploader } from 'components';
 
 import {
   iconAddBlack,
@@ -96,17 +96,17 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
       <div className={s.user_buttons}>
         {isSelf ? (
           <>
-            <UploaderNew
+            <Uploader
               // type="cover"
               isButton
               handleUpload={handleFileUpload}
               isLoading={isFileLoading}
             >
-              <Button className={s.user_button} color="outline" loading={isFileLoading}>
+              <div className={s.user_button}>
                 <img src={iconEdit} alt="" />
                 <Text tag="span">Edit Banner</Text>
-              </Button>
-            </UploaderNew>
+              </div>
+            </Uploader>
             <Button className={s.user_button} color="outline" href="/profile/edit">
               <img src={iconSettings} alt="" />
               <Text tag="span">Edit Profile</Text>

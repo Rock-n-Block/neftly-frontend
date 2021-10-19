@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import cn from 'classnames';
 import { Form, Field, FormikProps } from 'formik';
 
-import { H3, TextInput, Text, Button, TextArea, RequiredMark, UploaderNew } from 'components';
+import { H3, TextInput, Text, Button, TextArea, RequiredMark, Uploader } from 'components';
 
 import styles from './CreateCollection.module.scss';
 
@@ -44,7 +44,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
               <Field
                 id="avatar"
                 name="avatar"
-                render={() => <UploaderNew formikValue="avatar" isButton />}
+                render={() => <Uploader formikValue="avatar" isButton />}
               />
             </div>
           </div>
