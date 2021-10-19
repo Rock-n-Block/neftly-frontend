@@ -5,14 +5,12 @@
   width: 100%;
 
   & > img, video {
-    width: 100%;
     max-width: 65%;
     height: auto;
   }
 
   .cardInfo {
     padding: 32px;
-    width: 100%;
     max-width: 35%;
     border-width: 1px 1px 1px 0;
     border-style: solid;
@@ -34,7 +32,13 @@
 @include forDesktopBig() {
   .giantCard {
     flex-direction: column;
+
+    & > img, video {
+      max-width: unset;
+      height: auto;
+    }
     .cardInfo {
+      max-width: unset;
       border-width: 0 1px 1px 1px;
     }
   }
