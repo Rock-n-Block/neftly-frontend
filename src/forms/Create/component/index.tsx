@@ -12,7 +12,7 @@ import {
   Text,
   TextArea,
   TextInput,
-  Uploader,
+  UploaderNew,
 } from 'components';
 import { IRadioButton } from 'components/Radio';
 import { Field, FieldArray, Form, FormikProps } from 'formik';
@@ -55,7 +55,6 @@ export interface ICreateForm {
   coverPreview: string;
   format: 'image' | 'video' | 'audio';
 
-  img: any;
   preview: string;
   sellMethod: string;
   isLoading: boolean;
@@ -101,7 +100,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
         : rates.map((rate) => rate.symbol);
     }, [rates, values.sellMethod]);
     const handleClearImg = () => {
-      setFieldValue('img', '');
+      setFieldValue('media', '');
       setFieldValue('preview', '');
       setFieldValue('cover', '');
       setFieldValue('coverPreview', '');
@@ -151,6 +150,10 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       setFieldValue('isSingle', isSingle);
     }, [isSingle, setFieldValue]);
 
+    useEffect(() => {
+      console.log(values);
+    }, [values]);
+
     return (
       <>
         <Form name="form-create" className={styles.form}>
@@ -176,10 +179,11 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         className={styles.load}
                         required
                         render={() => (
-                          <Uploader
-                            // type="cover"
-                            name="cover"
+                          <UploaderNew
+                            // type="media"
+                            formikValue="cover"
                             setFormat={(value: string) => setFieldValue('format', value)}
+                            maxSizeInMb={5}
                           />
                         )}
                       />
@@ -203,7 +207,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               </div>
             )}
             <div className={styles.item}>
-              {values.img ? (
+              {values.media ? (
                 <div className={styles.previewImg}>
                   {values.format === 'image' && (
                     <>
@@ -238,14 +242,15 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 <>
                   <div className={styles.file}>
                     <Field
-                      name="img"
+                      name="media"
                       className={styles.load}
                       required
                       render={() => (
-                        <Uploader
-                          // type="img"
-                          name="img"
+                        <UploaderNew
+                          // type="media"
+                          formikValue="media"
                           setFormat={(value: string) => setFieldValue('format', value)}
+                          maxSizeInMb={500}
                         />
                       )}
                     />
@@ -456,22 +461,20 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                             )}
                           />
 
-                          {!values.isSingle ? (
-                            <Field
-                              name={`details[${index}].amount`}
-                              render={() => (
-                                <TextInput
-                                  name="amount"
-                                  label="amount"
-                                  type="text"
-                                  placeholder="e. g. M"
-                                  onChange={(e) => handleChangeProperty(e, index, 'amount')}
-                                  onBlur={handleBlur}
-                                  className={styles.tokenPropertyValue}
-                                />
-                              )}
-                            />
-                          ) : null}
+                          <Field
+                            name={`details[${index}].amount`}
+                            render={() => (
+                              <TextInput
+                                name="amount"
+                                label="amount"
+                                type="text"
+                                placeholder="e. g. M"
+                                onChange={(e) => handleChangeProperty(e, index, 'amount')}
+                                onBlur={handleBlur}
+                                className={styles.tokenPropertyValue}
+                              />
+                            )}
+                          />
                         </div>
                       ));
                     }}

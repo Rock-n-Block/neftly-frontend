@@ -26,7 +26,6 @@ export default observer(({ isSingle, walletConnector }: any) => {
     cover: '',
     coverPreview: '',
     format: 'image',
-    img: '',
     preview: '',
     sellMethod: 'fixedPrice',
     isLoading: false,
@@ -81,7 +80,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
       // TODO: change selling from always true
       formData.append('selling', values.selling.toString());
 
-      formData.append('media', values.img);
+      formData.append('media', values.media);
       if (values.format !== 'image') {
         formData.append('cover', values.cover);
       }

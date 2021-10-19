@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-unresolved
-import { FormikContextType } from 'formik/dist/types';
+import { FileError } from 'react-dropzone';
 
 export type FileType = 'img' | 'cover';
 
@@ -30,36 +29,18 @@ export const isValidFileSize = (fileSize: number, maxSize: number) => {
   return isValidSize;
 };
 
-export const getBase64 = (
-  img: any,
-  type: FileType,
-  callback: any,
-  formik: FormikContextType<any>,
-) => {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => {
-    if (type === 'img') {
-      formik.setFieldValue('preview', reader.result);
-    }
-    if (type === 'cover') {
-      formik.setFieldValue('coverPreview', reader.result);
-    }
-    callback(reader.result);
-  });
-  reader.readAsDataURL(img);
-};
-/*
-
-export const beforeUpload = (file: any, type: FileType, maxSize: number, message: any) => {
-  const isValidType = checkValidFileType(file.type, type);
-  const isValidSize = checkValidFileSize(file.size, maxSize);
-
-  if (!isValidType) {
-    message.error('You can only upload JPG/PNG/WEBP/GIF file!');
+export const fileValidation = (file: File, maxSizeInMb: number): FileError | FileError[] | null => {
+  if (!isValidFileType(file.type)) {
+    return {
+      code: 'invalid-file-type',
+      message: `File type must be `,
+    };
   }
-  if (!isValidSize) {
-    message.error(`Image must be smaller than ${maxSize}MB!`);
+  if (!isValidFileSize(file.size, maxSizeInMb)) {
+    return {
+      code: 'file-size-too-large',
+      message: `File size is larger than ${maxSizeInMb} mb`,
+    };
   }
-  return isValidType && isValidSize;
+  return null;
 };
-*/

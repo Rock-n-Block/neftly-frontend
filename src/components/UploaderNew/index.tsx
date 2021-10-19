@@ -1,19 +1,20 @@
-import { FileError, FileWithPath, useDropzone } from 'react-dropzone';
+import { FileRejection, useDropzone } from 'react-dropzone';
 import styles from './Uploader.module.scss';
 import cn from 'classnames';
 import { FC } from 'react';
 import { Button } from 'components';
-import { isValidFileSize, isValidFileType } from 'utils';
+import { fileValidation } from 'utils';
 import { useFormikContext } from 'formik';
-
-// import { useFormikContext } from 'formik';
+import { toast } from 'react-toastify';
 
 interface IProps {
   isLoading?: boolean;
   handleUpload?: (value: string) => void;
   className?: string;
-  isButton: boolean;
-  formikValue: string;
+  isButton?: boolean;
+  formikValue: string | 'cover'; // cover for video/audio
+  setFormat?: (format: string) => void;
+  maxSizeInMb?: number;
 }
 
 export type TFile =
@@ -27,60 +28,42 @@ export type TFile =
   | 'video/mp4'
   | 'audio/mpeg';
 
-const MAX_FILE_SIZE = 10;
-
-const fileValidation = (file: File): FileError | FileError[] | null => {
-  if (!isValidFileType(file.type)) {
-    return {
-      code: 'invalid-file-type',
-      message: `File type must be `,
-    };
-  }
-  if (!isValidFileSize(file.size, MAX_FILE_SIZE)) {
-    return {
-      code: 'file-size-too-large',
-      message: `File size is larger than ${MAX_FILE_SIZE} mb`,
-    };
-  }
-  return null;
-};
-
 const UploaderNew: FC<IProps> = ({
   className,
   // handleUpload,
   formikValue,
   isButton = false,
   isLoading,
+  setFormat,
+  maxSizeInMb = 30,
   children,
 }) => {
   const formik = useFormikContext();
 
   console.log(isLoading);
-  const handleChange = <T extends File>(acceptedFiles: T[]) => {
+
+  const handleChange = <T extends File>(acceptedFiles: T[], fileRejections: FileRejection[]) => {
+    if (!acceptedFiles.length) {
+      toast.error(fileRejections[0].errors[0].message);
+      return;
+    }
     const currentFile = acceptedFiles[0];
     const fileUrl = URL.createObjectURL(currentFile);
     // add preview to formik
-    formik.setFieldValue('preview', fileUrl);
+    if (formikValue === 'cover') {
+      formik.setFieldValue('coverPreview', fileUrl);
+    } else {
+      formik.setFieldValue('preview', fileUrl);
+    }
     formik.setFieldValue(formikValue, currentFile);
+    if (setFormat && formikValue !== 'cover') {
+      setFormat(currentFile.type.slice(0, currentFile.type.indexOf('/')));
+    }
   };
-  const { getRootProps, fileRejections, getInputProps, open } = useDropzone({
-    validator: fileValidation,
+  const { getRootProps, getInputProps, open } = useDropzone({
+    validator: (file) => fileValidation(file, maxSizeInMb),
     onDrop: handleChange,
   });
-
-  //Error handling
-  const fileRejectionItems = fileRejections.map(
-    ({ file, errors }: { file: FileWithPath; errors: FileError[] }) => (
-      <li key={file.path}>
-        {file.path} - {file.size} bytes
-        <ul>
-          {errors.map((e) => (
-            <li key={e.code}>{e.message}</li>
-          ))}
-        </ul>
-      </li>
-    ),
-  );
 
   return (
     <div className={cn(className, !isButton ? styles.uploader : '')}>
@@ -96,10 +79,9 @@ const UploaderNew: FC<IProps> = ({
       ) : (
         <div {...getRootProps({ className: 'dropzone' })}>
           <input {...getInputProps()} />
-          <p>Drag n drop some files here</p>
+          {children}
         </div>
       )}
-      <ul>{fileRejectionItems}</ul>
     </div>
   );
 };
