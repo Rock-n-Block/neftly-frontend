@@ -31,7 +31,6 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
   const [, setIsUserLoading] = useState(false);
   const [isFileLoading, setIsFileLoading] = useState(false);
   const [isFollowClickPending, setIsFollowClickPending] = useState(false);
-  const [cover, setCover] = useState('');
   const {
     user: shownUser,
     isSelf,
@@ -59,7 +58,6 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
         .then(({ data }) => {
           toast.success('Cover uploaded');
           user.setCover(data);
-          setCover(data);
         })
         .catch((err) => {
           toast.error('Success unfollow');
@@ -76,7 +74,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
     <section
       className={s.user}
       style={{
-        backgroundImage: `url(${cover || shownUser.cover || profile_page_bg_example})`,
+        backgroundImage: `url(${user.cover || shownUser.cover || profile_page_bg_example})`,
       }}
     >
       <div className={s.user_avatar}>
