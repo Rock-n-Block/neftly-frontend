@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ interface IUserProps {
   className?: string;
 }
 
-const User: React.FC<IUserProps> = observer(({ className }) => {
+const User: FC<IUserProps> = observer(({ className }) => {
   const [visible, setVisible] = useState(false);
   const walletConnector = useWalletConnectorContext();
   const { user } = useMst();

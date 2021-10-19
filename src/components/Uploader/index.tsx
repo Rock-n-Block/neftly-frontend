@@ -15,18 +15,19 @@ interface IProps {
   formikValue?: string | 'cover'; // cover for video/audio
   setFormat?: (format: string) => void;
   maxSizeInMb?: number;
+  isImgOnly?: boolean;
 }
 
-export type TFile =
+type TImage =
   | 'image/jpeg'
   | 'image/jpg'
   | 'image/svg'
   | 'image/svg+xml'
   | 'image/png'
   | 'image/webp'
-  | 'image/gif'
-  | 'video/mp4'
-  | 'audio/mpeg';
+  | 'image/gif';
+type TOtherMedia = 'video/mp4' | 'audio/mpeg';
+export type TFile = TImage | TOtherMedia;
 
 const Uploader: FC<IProps> = ({
   className,
@@ -38,6 +39,7 @@ const Uploader: FC<IProps> = ({
   setFormat,
   maxSizeInMb = 5,
   children,
+  isImgOnly = false,
 }) => {
   const formik = useFormikContext();
 
@@ -67,6 +69,7 @@ const Uploader: FC<IProps> = ({
     }
   };
   const { getRootProps, getInputProps, open } = useDropzone({
+    accept: isImgOnly ? 'image/*' : ['image/*', 'video/mp4', 'audio/mpeg'],
     validator: (file) => fileValidation(file, maxSizeInMb),
     onDrop: handleChange,
   });

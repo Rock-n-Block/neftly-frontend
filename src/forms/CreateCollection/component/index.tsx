@@ -44,7 +44,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
               <Field
                 id="avatar"
                 name="avatar"
-                render={() => <Uploader formikValue="avatar" isButton />}
+                render={() => <Uploader isImgOnly formikValue="avatar" isButton />}
               />
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { Button, H2, Text, Uploader } from 'components';
 
 import {
@@ -24,7 +24,7 @@ interface IProps {
   setCurrentUser: any;
 }
 
-const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => {
+const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
   const { user } = useMst();
   // TODO: handle user load
   const [, setIsUserLoading] = useState(false);
@@ -96,12 +96,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
       <div className={s.user_buttons}>
         {isSelf ? (
           <>
-            <Uploader
-              // type="cover"
-              isButton
-              handleUpload={handleFileUpload}
-              isLoading={isFileLoading}
-            >
+            <Uploader isImgOnly isButton handleUpload={handleFileUpload} isLoading={isFileLoading}>
               <div className={s.user_button}>
                 <img src={iconEdit} alt="" />
                 <Text tag="span">Edit Banner</Text>

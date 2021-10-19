@@ -48,10 +48,15 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                   </span>
                 </Text>
                 <Field
-                  id="img"
-                  name="img"
+                  id="avatar"
+                  name="avatar"
                   render={() => (
-                    <Uploader formikValue="avatar" isButton className={styles.fileUpload} />
+                    <Uploader
+                      isImgOnly
+                      formikValue="avatar"
+                      isButton
+                      className={styles.fileUpload}
+                    />
                   )}
                 />
               </div>
