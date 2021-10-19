@@ -108,7 +108,7 @@ const ArtCard: FC<Props> = ({
       <div className={styles.artCardInfo}>
         <Text size="xl">{name}</Text>
         <div className={styles.flexContainer}>
-          {!isCollection && (
+          {!isCollection && price && (
             <Text className={styles.artCardPrice} size="m">
               {`${price} ${asset}`}{' '}
               {bids?.length ? <span className={styles.bidText}>(Highest Bid)</span> : null}
