@@ -1,4 +1,4 @@
-@import '../../styles/helpers';
+@import 'src/styles/helpers';
 
 .uploader {
   position: relative;
@@ -29,7 +29,5 @@
 }
 
 .button {
-  margin-top: 32px;
-
   width: 100%;
 }

@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { Button, H2, Uploader, Text } from 'components';
+import { FC, useCallback, useState } from 'react';
+import { Button, H2, Text, Uploader } from 'components';
 
 import {
   iconAddBlack,
@@ -15,7 +15,6 @@ import { useMst } from 'store';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { toast } from 'react-toastify';
-// import { useHistory } from 'react-router';
 import { useFetchUser, useFollow } from 'hooks';
 import { zeroAddress } from 'appConstants';
 import { sliceString } from 'utils';
@@ -25,7 +24,7 @@ interface IProps {
   setCurrentUser: any;
 }
 
-const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => {
+const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
   const { user } = useMst();
   // TODO: handle user load
   const [, setIsUserLoading] = useState(false);
@@ -49,7 +48,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
   });
 
   const handleFileUpload = useCallback(
-    (file: any) => {
+    (file: File) => {
       setIsFileLoading(true);
       const fileData = new FormData();
       fileData.append('cover', file);
@@ -106,16 +105,11 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
       <div className={s.user_buttons}>
         {isSelf ? (
           <>
-            <Uploader
-              type="cover"
-              isButton
-              handleUpload={handleFileUpload}
-              isLoading={isFileLoading}
-            >
-              <Button className={s.user_button} color="outline" loading={isFileLoading}>
+            <Uploader isImgOnly isButton handleUpload={handleFileUpload} isLoading={isFileLoading}>
+              <div className={s.user_button}>
                 <img src={iconEdit} alt="" />
                 <Text tag="span">Edit Banner</Text>
-              </Button>
+              </div>
             </Uploader>
             <Button className={s.user_button} color="outline" href="/profile/edit">
               <img src={iconSettings} alt="" />

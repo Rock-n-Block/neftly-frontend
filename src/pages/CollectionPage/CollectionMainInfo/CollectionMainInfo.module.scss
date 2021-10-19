@@ -11,10 +11,12 @@
 
 .user_avatar {
   margin-bottom: 15px;
+
   img {
-    max-width: 130px;
-    max-height: 130px;
-    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+    border-radius: 100%;
+    object-fit: cover;
   }
 }
 
@@ -31,6 +33,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
+
 .user_button {
   padding: 6px 33px;
   font-weight: 600;
@@ -45,6 +48,7 @@
 .user_info {
   @include flexbox;
   margin-bottom: 8px;
+
   & + & {
     margin-bottom: 16px;
   }
@@ -58,6 +62,7 @@
 
     @include flexbox;
   }
+
   &__value {
     font-size: 16px;
   }
