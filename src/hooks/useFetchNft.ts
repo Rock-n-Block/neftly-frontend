@@ -39,7 +39,6 @@ export const useFetchNft = (props: IProps): [number, number, INft[], boolean] =>
   const [nftCards, setNftCards] = useState<INft[]>([]);
 
   const fetchSearch = useCallback(() => {
-    // if (!owner && !creator) return;
     const refresh = page === 1;
     setLoading(true);
     storeApi
