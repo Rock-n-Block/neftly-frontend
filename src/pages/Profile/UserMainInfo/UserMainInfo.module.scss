@@ -12,6 +12,7 @@
 .user_avatar {
 
   img {
+    object-fit: cover;
     max-width: 130px;
     max-height: 130px;
     border-radius: 50%;

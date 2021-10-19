@@ -9,10 +9,10 @@ import { toast } from 'react-toastify';
 
 interface IProps {
   isLoading?: boolean;
-  handleUpload?: (value: string) => void;
+  handleUpload?: (value: File) => void;
   className?: string;
   isButton?: boolean;
-  formikValue: string | 'cover'; // cover for video/audio
+  formikValue?: string | 'cover'; // cover for video/audio
   setFormat?: (format: string) => void;
   maxSizeInMb?: number;
 }
@@ -34,13 +34,12 @@ const UploaderNew: FC<IProps> = ({
   formikValue,
   isButton = false,
   isLoading,
+  handleUpload,
   setFormat,
   maxSizeInMb = 30,
   children,
 }) => {
   const formik = useFormikContext();
-
-  console.log(isLoading);
 
   const handleChange = <T extends File>(acceptedFiles: T[], fileRejections: FileRejection[]) => {
     if (!acceptedFiles.length) {
@@ -49,7 +48,13 @@ const UploaderNew: FC<IProps> = ({
     }
     const currentFile = acceptedFiles[0];
     const fileUrl = URL.createObjectURL(currentFile);
+    if (handleUpload) {
+      handleUpload(currentFile);
+    }
     // add preview to formik
+    if (!formikValue) {
+      return;
+    }
     if (formikValue === 'cover') {
       formik.setFieldValue('coverPreview', fileUrl);
     } else {
@@ -71,7 +76,7 @@ const UploaderNew: FC<IProps> = ({
         <>
           <input {...getInputProps()} />
           {children || (
-            <Button color="outline" className={styles.button} onClick={open}>
+            <Button color="outline" className={styles.button} onClick={open} disabled={isLoading}>
               Upload
             </Button>
           )}

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Button, H2, Uploader, Text } from 'components';
+import { Button, H2, Text, UploaderNew } from 'components';
 
 import {
   iconAddBlack,
@@ -15,7 +15,6 @@ import { useMst } from 'store';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { toast } from 'react-toastify';
-// import { useHistory } from 'react-router';
 import { useFetchUser, useFollow } from 'hooks';
 import { zeroAddress } from 'appConstants';
 import { sliceString } from 'utils';
@@ -50,7 +49,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
   });
 
   const handleFileUpload = useCallback(
-    (file: any) => {
+    (file: File) => {
       setIsFileLoading(true);
       const fileData = new FormData();
       fileData.append('cover', file);
@@ -97,7 +96,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
       <div className={s.user_buttons}>
         {isSelf ? (
           <>
-            <Uploader
+            <UploaderNew
               // type="cover"
               isButton
               handleUpload={handleFileUpload}
@@ -107,7 +106,7 @@ const UserMainInfo: React.FC<IProps> = observer(({ userId, setCurrentUser }) => 
                 <img src={iconEdit} alt="" />
                 <Text tag="span">Edit Banner</Text>
               </Button>
-            </Uploader>
+            </UploaderNew>
             <Button className={s.user_button} color="outline" href="/profile/edit">
               <img src={iconSettings} alt="" />
               <Text tag="span">Edit Profile</Text>
