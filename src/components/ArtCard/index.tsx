@@ -106,14 +106,14 @@ const ArtCard: FC<Props> = ({
       <div className={styles.artCardInfo}>
         <Text size="xl">{name}</Text>
         <div className={styles.flexContainer}>
-          {!isCollection && (
+          {!isCollection && !!inStockNumber && (
             <Text className={styles.artCardPrice} size="m">
               {`${price} ${asset}`}{' '}
               {bids?.length ? <span className={styles.bidText}>(Highest Bid)</span> : null}
             </Text>
           )}
           {type === 'Small' && !bids?.length && (
-            <Text size="m">{`in stock: ${inStockNumber}`}</Text>
+            <Text size="m">{inStockNumber ? `in stock: ${inStockNumber}` : 'Out of stock'}</Text>
           )}
         </div>
         <div className={cx(styles.flexContainer, styles.artCardAuthorContainer)}>

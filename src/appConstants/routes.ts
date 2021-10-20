@@ -19,6 +19,7 @@ export const routes = {
     multiple: '/create/multiple',
   },
   profile: {
+    link: (id: string | number): string => `/profile/${id}`,
     root: '/profile/:userId',
     edit: '/profile/edit',
   },

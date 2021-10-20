@@ -1,12 +1,14 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { routes } from 'appConstants';
 import cx from 'classnames';
 import { H2, H3, Loader, TabLookingComponent } from 'components';
 import { TTopUserRes } from 'typings';
 
+import { ITab } from '../../../../../components/TabLookingComponent';
 import { ArtistLabel } from '..';
 
 import styles from './styles.module.scss';
-import { ITab } from '../../../../../components/TabLookingComponent';
 
 type Props = {
   className?: string;
@@ -39,16 +41,18 @@ const ArtistsTodayMobile: FC<Props> = ({
           artistData.map((artist) => {
             const {
               price,
-              user: { is_verificated, avatar, display_name },
+              user: { is_verificated, avatar, display_name, id },
             } = artist;
             return (
-              <ArtistLabel
-                key={avatar}
-                avatar={avatar}
-                name={display_name}
-                amount={price}
-                isVerified={is_verificated}
-              />
+              <Link to={routes.profile.link(id)}>
+                <ArtistLabel
+                  key={avatar}
+                  avatar={avatar}
+                  name={display_name}
+                  amount={price}
+                  isVerified={is_verificated}
+                />
+              </Link>
             );
           })
         ) : (

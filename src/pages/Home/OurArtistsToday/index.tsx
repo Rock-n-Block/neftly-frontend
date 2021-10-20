@@ -45,6 +45,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
   useEffect(() => {
     handleSelectArtis(topUser[0]);
   }, [handleSelectArtis, topUser]);
+
   return (
     <div>
       <div className={cx(styles.artistsDesktop, className)}>
@@ -105,7 +106,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
         <div className={styles.artistDetails}>
           {!isLoading ? (
             <ArtistDetail
-              id={1}
+              id={selectedArtist?.user.id}
               avatar={selectedArtist?.user.avatar}
               name={selectedArtist?.user.display_name}
               publicKey={selectedArtist?.user.address}
