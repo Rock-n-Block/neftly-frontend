@@ -18,12 +18,12 @@ import s from './ProfilePage.module.scss';
 
 const tabs = [
   {
-    title: 'Owned',
+    title: 'Created',
     key: 'artworks',
     icon: art,
   },
   {
-    title: 'Created',
+    title: 'Owned',
     key: 'collectibles',
     icon: folders,
   },
