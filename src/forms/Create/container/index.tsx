@@ -99,17 +99,25 @@ export default observer(({ isSingle, walletConnector }: any) => {
               toast.success('Token Created');
               history.push('/');
             })
-            .catch((error: any) => {
-              toast.error('Create Token failed');
-              console.error('Wallet Create token failure', error);
+            .catch(({ response }: any) => {
+              if (response.data && response.data.name) {
+                toast.error(response.data.name);
+              } else {
+                toast.error('Create Token failed');
+              }
+              console.error('Backend Create token failure', response.data);
             })
             .finally(() => {
               setFieldValue('isLoading', false);
             });
         })
-        .catch((error) => {
-          toast.error('Create Token failed');
-          console.error('Backend Create token failure', error);
+        .catch(({ response }) => {
+          if (response.data && response.data.name) {
+            toast.error(response.data.name);
+          } else {
+            toast.error('Create Token failed');
+          }
+          console.error('Backend Create token failure', response.data);
         });
     },
 

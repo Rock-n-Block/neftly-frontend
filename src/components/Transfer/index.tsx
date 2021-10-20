@@ -42,10 +42,16 @@ const Transfer: React.FC<ITransferProps> = ({ className }) => {
           setIsLoading(false);
           transfer.success();
           transfer.close();
-          toast.success('Token Transfered')
+          toast.success('Token Transfered');
         });
       })
-      .catch((e: any) => console.error('Bid modal sendTranscation', e))
+      .catch((e: any) => {
+        toast.error({
+          message: 'Error',
+          description: 'Token Transfer failed',
+        });
+        console.error('Token Transfer failed', e);
+      })
       .finally(() => setIsLoading(false));
   }, [amount, inputValue, transfer, walletService]);
 
