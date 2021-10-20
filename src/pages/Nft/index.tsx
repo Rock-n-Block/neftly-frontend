@@ -104,7 +104,10 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
       handleLoadMore();
     }
   }, [handleLoadMore, currentPage]);
-  console.log(nft, 'nft 9999999');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className={cx(styles.detailArtwork, className)}>
       <div className={styles.detailArtworkContent}>
