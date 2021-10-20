@@ -144,7 +144,7 @@ const RangePicker: FC<Props> = ({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore (rc-slider show that className invalid prop, but exist
           className={cx(styles.slider, 'rc-slider-wrap', className)}
-          value={localValue === undefined ? value : localValue}
+          value={typeof localValue !== undefined ? localValue : value}
           min={min}
           max={max}
           step={step}
