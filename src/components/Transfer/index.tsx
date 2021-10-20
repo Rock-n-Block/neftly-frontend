@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
@@ -41,6 +42,7 @@ const Transfer: React.FC<ITransferProps> = ({ className }) => {
           setIsLoading(false);
           transfer.success();
           transfer.close();
+          toast.success('Token Transfered')
         });
       })
       .catch((e: any) => console.error('Bid modal sendTranscation', e))
