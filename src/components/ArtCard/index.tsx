@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as PinkHeart } from 'assets/img/pinkHeart.svg';
 import cx from 'classnames';
 import { Button, Tag, Text } from 'components';
-import { numberFormatter } from 'utils';
+import { numberFormatter, sliceString } from 'utils';
 
 import { routes } from '../../appConstants';
 
@@ -125,7 +125,7 @@ const ArtCard: FC<Props> = ({
         </div>
       )}
       <div className={styles.artCardInfo}>
-        <Text size="xl">{name}</Text>
+        <Text size="xl">{sliceString(name, 20, 0)}</Text>
         <div className={styles.flexContainer}>
           {!isCollection && price && !!inStockNumber && (
             <Text className={styles.artCardPrice} size="m">
