@@ -93,6 +93,7 @@ const AdvancedFilter: FC<Props> = ({
           min={0}
           max={maxPrice}
           step={0.01}
+          isDebounce
         />
       </div>
       <div>

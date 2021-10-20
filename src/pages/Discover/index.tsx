@@ -54,7 +54,6 @@ const Discover = observer(() => {
     on_sale: true,
     isCanFetch: !isLoading,
   });
-  console.log(totalItems, 'totalItems');
 
   const likeAction = useCallback(
     (id) => {
