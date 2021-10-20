@@ -20,6 +20,7 @@
 .h5 {
   font-size: 20px;
 }
+
 .h6 {
   font-size: 16px;
 }
@@ -125,4 +126,34 @@
 
 .boldWeight {
   font-weight: 700;
+}
+
+.ellipsis {
+  max-width: fit-content;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+@import 'src/styles/helpers';
+
+.tooltip {
+  .rc-tooltip-arrow {
+    //display: none;
+  }
+
+  .rc-tooltip-inner {
+    background: $color-neutral-80;
+    border-radius: 0;
+    color: $color-neutral-0;
+  }
+
+  * {
+    @include epilogue;
+    font-style: normal ;
+    font-weight: 500 ;
+    font-size: 20px ;
+    line-height: 120% ;
+    letter-spacing: 0.03em ;
+    color: $color-neutral-0 ;
+  }
 }

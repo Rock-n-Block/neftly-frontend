@@ -41,7 +41,7 @@ const HotAuctionCardDesktop: FC<Props> = ({
     <div className={styles.descriptionControls}>
       <div className={styles.description}>
         <H3>{nft.name}</H3>
-        <AuthorComponent authorPic={nft.creator.avatar} author={nft.creator.name} />
+        <AuthorComponent creator={nft.creator} />
         <DescriptionAndTagsComponent body={nft.description} tags={nft.tags} />
       </div>
       <ViewsAndControlsComponent
