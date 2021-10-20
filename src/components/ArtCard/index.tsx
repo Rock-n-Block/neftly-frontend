@@ -133,7 +133,7 @@ const ArtCard: FC<Props> = ({
               </>
             ) : (
               <>
-                <Link to={`${routes.profile.link}/${authorId}`}>
+                <Link to={routes.profile.link(authorId || 0)}>
                   <img src={authorAvatar} className={styles.author_avatar} alt="" />
                 </Link>
                 <Text className={styles.artCardAuthor}>{author}</Text>
