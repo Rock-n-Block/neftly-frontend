@@ -7,7 +7,6 @@ import { storeApi } from 'services/api';
 import { useMst } from 'store';
 import { ICurrency, INft, TNullable } from 'typings';
 
-import { data as mockData } from './mockdata';
 import PriceHistory from './PriceHistory';
 
 import styles from './styles.module.scss';
@@ -113,12 +112,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     <div className={cx(styles.detailArtwork, className)}>
       <div className={styles.detailArtworkContent}>
         <Control item={breadcrumbs} />
-        <GiantCard
-          name={nft?.name || ''}
-          growth={mockData.growth}
-          nft={nft}
-          onUpdateNft={getItem}
-        />
+        <GiantCard name={nft?.name || ''} nft={nft} onUpdateNft={getItem} />
         <PriceHistory tokenId={id} currency={nft?.currency as ICurrency} />
         <div className={styles.relatedArtwork}>
           <H3>Related Artwork</H3>

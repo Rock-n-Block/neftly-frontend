@@ -3,6 +3,7 @@
 .giantCard {
   display: flex;
   width: 100%;
+  border: 1px solid $color-neutral-80;
 
   & > img, video {
     width: 65%;
@@ -12,9 +13,6 @@
   .cardInfo {
     padding: 32px;
     width: 35%;
-    border-width: 1px 1px 1px 0;
-    border-style: solid;
-    border-color: $color-neutral-80;
 
     & > * {
       &:not(:first-child) {
@@ -36,9 +34,9 @@
     & > img, video {
       width: 100%;
     }
+
     .cardInfo {
       width: 100%;
-      border-width: 0 1px 1px 1px;
     }
   }
 }
