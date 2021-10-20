@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import { sliceString } from 'utils';
 import { IBaseInfo, IOwner, TOptionable } from 'typings';
+import { routes } from '../../../../../appConstants';
 
 type Props = {
   className?: string;
@@ -16,7 +17,7 @@ type Props = {
 const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
   <div className={cx(styles.authorBlock, className)}>
     <div className={styles.user}>
-      <Link to={`/profile/${creator?.id}`} className={styles.avatarWrapper}>
+      <Link to={routes.profile.link(creator?.id || '')} className={styles.avatarWrapper}>
         <img src={creator?.avatar} className={styles.avatar} alt="" />
       </Link>
       <div className={styles.text}>
@@ -28,7 +29,7 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
       <div className={styles.user}>
         {Array.isArray(owners) ? (
           <>
-            <Link to={`/profile/${owners[0].id}`} className={styles.avatarWrapper}>
+            <Link to={routes.profile.link(owners[0].id)} className={styles.avatarWrapper}>
               <img src={owners[0].avatar} className={styles.avatar} alt="" />
             </Link>
             <div className={styles.text}>
@@ -38,7 +39,7 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
           </>
         ) : (
           <>
-            <Link to={`/profile/${owners?.id}`} className={styles.avatarWrapper}>
+            <Link to={routes.profile.link(owners?.id)} className={styles.avatarWrapper}>
               <img src={owners?.avatar} className={styles.avatar} alt="" />
             </Link>
             <div className={styles.text}>
