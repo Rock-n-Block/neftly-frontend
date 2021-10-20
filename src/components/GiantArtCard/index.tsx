@@ -2,13 +2,13 @@ import { FC } from 'react';
 import cx from 'classnames';
 import { observer } from 'mobx-react-lite';
 
-import { H2 } from 'components';
+import { H2, EllipsisText } from 'components';
 import AuthorComponent from 'pages/Home/HotAuction/components/AuthorComponent';
 import DescriptionAndTagsComponent from 'pages/Home/HotAuction/components/DescriptionAndTagsComponent';
 import PaymentComponent from 'pages/Home/HotAuction/components/PaymentComponent';
 import ViewsAndControlsComponent from 'pages/Home/HotAuction/components/ViewsAndControlsComponent';
 import { INft, TNullable } from 'typings';
-import { useMst } from '../../store';
+import { useMst } from 'store';
 import { useGetUserAccessForNft } from 'hooks';
 
 import styles from './styles.module.scss';
@@ -16,12 +16,11 @@ import styles from './styles.module.scss';
 type Props = {
   className?: string;
   name: string;
-  growth: number;
   nft: TNullable<INft>;
   onUpdateNft?: () => void;
 };
 
-const GiantCard: FC<Props> = ({ className, growth, nft, onUpdateNft }) => {
+const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
   const { user } = useMst();
   const {
     isUserCanEndAuction,
@@ -62,7 +61,9 @@ const GiantCard: FC<Props> = ({ className, growth, nft, onUpdateNft }) => {
           <img src={nft.media || '/images/content/card-pic-6.jpg'} alt="Card" />
         ))}
       <div className={styles.cardInfo}>
-        <H2>{nft?.name || ''}</H2>
+        <EllipsisText className={styles.cardName}>
+          <H2>{nft?.name || ''}</H2>
+        </EllipsisText>
         <ViewsAndControlsComponent
           className={styles.detailedViewsAndControl}
           likes={nft?.like_count || 0}
@@ -74,7 +75,6 @@ const GiantCard: FC<Props> = ({ className, growth, nft, onUpdateNft }) => {
         />
         {!isWrongChain ? (
           <PaymentComponent
-            growth={growth}
             nft={nft}
             onUpdateNft={onUpdateNft}
             isUserCanEndAuction={isUserCanEndAuction}
