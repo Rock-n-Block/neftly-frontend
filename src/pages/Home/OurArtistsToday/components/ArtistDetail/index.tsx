@@ -7,6 +7,8 @@ import { H4, Text } from 'components';
 import { sliceString } from 'utils';
 
 import styles from './styles.module.scss';
+import { routes } from 'appConstants';
+import { Link } from 'react-router-dom';
 
 type Props = {
   id: number | string;
@@ -32,7 +34,9 @@ const ArtistDetail: FC<Props> = ({
   twitterLink,
 }) => (
   <div className={cx(styles.artistDetail, className)}>
-    <img src={avatar} className={styles.image} alt="" />
+    <Link to={`${routes.profile.link(id)}`}>
+      <img src={avatar} className={styles.image} alt="user avatar" />
+    </Link>
     <div className={styles.detailsSection}>
       <H4>{name}</H4>
       <div className={styles.addressAndName}>
