@@ -78,3 +78,12 @@
     }
   }
 }
+
+.connect {
+  .connectText {
+    @include poppins;
+    &:hover {
+      color: $color-action-hovered;
+    }
+  }
+}

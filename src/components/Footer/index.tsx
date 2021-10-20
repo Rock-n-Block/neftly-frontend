@@ -1,46 +1,68 @@
+import { useCallback, useState } from 'react';
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Link, Logo, Text, TextInput } from 'components';
+import { Link, Logo, Text, TextInput, Modal, ChooseWallet, Button } from 'components';
+
+import { routes } from 'appConstants';
 
 import styles from './styles.module.scss';
+import { observer } from 'mobx-react';
+import { useMst } from 'store';
+import { toast } from 'react-toastify';
 
-const nav = [
-  {
-    title: 'Stacks',
-    links: [
-      {
-        title: 'Discover',
-        link: 'https://google.com',
-      },
-      {
-        title: 'Connect wallet',
-        link: 'https://google.com',
-      },
-      {
-        title: 'Create item',
-        link: 'https://google.com',
-      },
-    ],
-  },
-  {
-    title: 'Info',
-    links: [
-      {
-        title: 'Download',
-        link: 'https://google.com',
-      },
-      {
-        title: 'Demos',
-        link: 'https://google.com',
-      },
-      {
-        title: 'Support',
-        link: 'https://google.com',
-      },
-    ],
-  },
-];
+const Footers: React.FC = observer(() => {
+  const { user } = useMst();
+  const [isConnectOpen, setConnectOpen] = useState(false);
 
-const Footers: React.FC = () => {
+  const handleOpenConnect = useCallback(() => {
+    setConnectOpen(true);
+  }, []);
+
+  const handleCloseConnect = useCallback(() => {
+    setConnectOpen(false);
+  }, []);
+
+  const nav = [
+    {
+      title: 'Stacks',
+      links: [
+        {
+          title: 'Discover',
+          link: routes.discover.root,
+        },
+        {
+          title: 'Connect wallet',
+          onClick: () => {
+            if (user.address) {
+              toast.info('You are already connected');
+            } else {
+              handleOpenConnect();
+            }
+          },
+        },
+        {
+          title: 'Create item',
+          link: routes.create.root,
+        },
+      ],
+    },
+    {
+      title: 'Info',
+      links: [
+        {
+          title: 'Download',
+          link: 'https://google.com',
+        },
+        {
+          title: 'Demos',
+          link: 'https://google.com',
+        },
+        {
+          title: 'Support',
+          link: 'https://google.com',
+        },
+      ],
+    },
+  ];
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
@@ -57,7 +79,26 @@ const Footers: React.FC = () => {
                 <div key={title} className={styles.linkBlock}>
                   <Text size="m">{title}</Text>
                   {links.map((link) => (
-                    <Link key={link.title} color="lightGray" name={link.title} link={link.link} />
+                    <>
+                      {typeof link.link === 'string' ? (
+                        <Link
+                          key={link.title}
+                          color="lightGray"
+                          name={link.title}
+                          link={link.link}
+                        />
+                      ) : (
+                        <Button
+                          className={styles.connect}
+                          color="transparent"
+                          onClick={link.onClick}
+                        >
+                          <Text className={styles.connectText} size="m" color="lightGray">
+                            {link.title}
+                          </Text>
+                        </Button>
+                      )}
+                    </>
                   ))}
                 </div>
               );
@@ -75,8 +116,15 @@ const Footers: React.FC = () => {
           <Text color="gray">Copyright © 2021 UI8 LLC. All rights reserved</Text>
         </div>
       </div>
+      <Modal
+        visible={isConnectOpen && !user.address}
+        onClose={handleCloseConnect}
+        title="Pick a wallet"
+      >
+        <ChooseWallet />
+      </Modal>
     </footer>
   );
-};
+});
 
 export default Footers;
