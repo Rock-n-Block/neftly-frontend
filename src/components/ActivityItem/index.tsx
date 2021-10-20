@@ -1,9 +1,15 @@
 import React from 'react';
-import { tradingOffer, tradingPurchase } from 'assets/img';
-import commentIcon from 'assets/img/ActivityPage/action-comment.svg';
-import foldersIcon from 'assets/img/ActivityPage/action-folder.svg';
-import followIcon from 'assets/img/ActivityPage/action-follow.svg';
-import likesIcon from 'assets/img/ActivityPage/action-likes.svg';
+import {
+  bidAction,
+  burnAction,
+  commentAction,
+  followingAction,
+  likeAction,
+  listingAction,
+  mintAction,
+  saleAction,
+  transferAction,
+} from 'assets/img';
 import { sliceString } from 'utils';
 
 import s from './ActivityItem.module.scss';
@@ -18,13 +24,16 @@ interface Props {
 }
 
 const ActionsIcons: { [key: string]: string } = {
-  like: likesIcon,
-  follow: followIcon,
-  comment: commentIcon,
-  default: likesIcon,
-  bet: tradingOffer,
-  buy: tradingPurchase,
-  listing: foldersIcon,
+  like: likeAction,
+  follow: followingAction,
+  comment: commentAction,
+  default: likeAction,
+  bet: bidAction,
+  buy: saleAction,
+  listing: listingAction,
+  transfer: transferAction,
+  mint: mintAction,
+  burn: burnAction,
 };
 
 const ActivityItem: React.FC<Props> = ({
@@ -35,7 +44,6 @@ const ActivityItem: React.FC<Props> = ({
   actionDescription,
   timeAgo,
 }) => {
-  console.log(activityType);
   return (
     <section className={s.item}>
       <div className={s.avatar}>
