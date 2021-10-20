@@ -60,7 +60,7 @@ const User: FC<IUserProps> = observer(({ className }) => {
   }, []);
 
   const handleOpenUser = useCallback(() => {
-    history.push(`${routes.profile.link}/${user.id}`);
+    history.push(routes.profile.link(user.id));
     handleClose()
   }, [history, user.id, handleClose]);
   return (
