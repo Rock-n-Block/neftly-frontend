@@ -1,10 +1,11 @@
 @import '../../../styles/helpers.scss';
 
 .user {
+  height: 45vh;
+  position: relative;
   @include flexbox;
   flex-direction: column;
-
-  padding: 52px 15px;
+  background-color: $color-primary;
   background-size: cover;
 }
 
