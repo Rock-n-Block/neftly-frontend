@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { Text } from 'components';
-import cn from 'classnames';
 import BigNumber from 'bignumber.js/bignumber';
-
+import cn from 'classnames';
+import { Copyable, Text } from 'components';
 import { IBidder } from 'typings';
+import { sliceString } from 'utils';
 
 import styles from './styles.module.scss';
 
@@ -26,17 +26,14 @@ const BiddersComponent: FC<Props> = ({ className, bidders }) => (
               <Text className={styles.bidderValue}>{`${(+new BigNumber(
                 bidder.amount,
               )).toString()} ${bidder.currency.symbol.toUpperCase()}`}</Text>
-              <Text color="lightGray" className={styles.bidderName}>
-                {bidder.bidder}
-              </Text>
+              <Copyable valueToCopy={bidder.bidder} className={styles.bidderName}>
+                <Text color="lightGray">{sliceString(bidder.bidder)}</Text>
+              </Copyable>
             </div>
           </div>
         );
       })}
     </div>
-    {/* <Text color="gray">
-      By placing a bid, we reserve funds from your Ethereum account till the end of the auction
-    </Text> */}
   </div>
 );
 

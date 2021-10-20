@@ -1,29 +1,29 @@
-import cn from 'classnames';
-import { observer } from 'mobx-react';
-import { useMst } from 'store';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
-import { useCallback, useState, useMemo, FC } from 'react';
 import { useLocation } from 'react-router-dom';
-
-import UserMainInfo from './UserMainInfo';
+import { art, folders, heart, me } from 'assets/img';
+import cn from 'classnames';
 import { TabLookingComponent } from 'components';
-import { About, Artworks, Favorited } from './Tabs';
-import { IExtendedInfo } from '../../typings';
-import { useTabs, useFilters, useFetchNft, useFetchLiked } from 'hooks';
+import { useFetchLiked, useFetchNft, useFilters, useTabs } from 'hooks';
+import { observer } from 'mobx-react';
 import { userApi } from 'services';
+import { useMst } from 'store';
+
+import { IExtendedInfo } from '../../typings';
+
+import { About, Artworks, Favorited } from './Tabs';
+import UserMainInfo from './UserMainInfo';
 
 import s from './ProfilePage.module.scss';
 
-import { folders, art, me, heart } from 'assets/img';
-
 const tabs = [
   {
-    title: 'My Artworks',
+    title: 'Created',
     key: 'artworks',
     icon: art,
   },
   {
-    title: 'Collectibles',
+    title: 'Owned',
     key: 'collectibles',
     icon: folders,
   },
@@ -70,6 +70,7 @@ const ProfilePage: FC = observer(() => {
     sort: 'items',
     [creatorOrOwner]: userId,
     order_by: orderByFilter.value,
+    isOnlyForOwnerOrCreator: true,
   });
 
   const [allPagesLiked, totalItemsLiked, nftCardsLicked, isLickesLoading] = useFetchLiked({

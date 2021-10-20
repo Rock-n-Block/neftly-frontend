@@ -1,6 +1,5 @@
 import React, { createContext, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
-import { notification } from 'antd';
 import { is_production } from 'config';
 import { observer } from 'mobx-react';
 import { connectTron, userApi, WalletConnect } from 'services';
@@ -101,12 +100,6 @@ class Connector extends React.Component<
               } else {
                 this.disconnect();
               }
-              notification.error({
-                message: err.message.title,
-                description: `Wrong Network, please select ${
-                  is_production ? 'mainnet' : 'testnet'
-                } network in your wallet and try again`,
-              });
               alert(
                 `Wrong Network, please select ${
                   is_production ? 'mainnet' : 'testnet'

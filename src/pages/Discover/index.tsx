@@ -1,18 +1,16 @@
-import { RefObject, useCallback, useState } from 'react';
-import { observer } from 'mobx-react-lite';
+import { RefObject, useCallback, useState, useEffect } from 'react';
+import { filter } from 'assets/img';
 import cx from 'classnames';
-
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
+import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { useMst } from 'store';
 import { selectOptions } from 'typings';
 import { toFixed } from 'utils';
 
 import styles from './styles.module.scss';
-
-import { filter } from 'assets/img';
 
 const Discover = observer(() => {
   const [isFilterOpen, setFilterOpen] = useState(false);
@@ -52,6 +50,7 @@ const Discover = observer(() => {
     currency: currencyFilter.value,
     is_verified: verifiedFilter.value,
     on_sale: true,
+    isCanFetch: !isLoading,
   });
 
   const likeAction = useCallback(
@@ -63,15 +62,26 @@ const Discover = observer(() => {
     [user.address],
   );
   const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading || isNftsLoading);
+
+  useEffect(() => {
+    if (!nftCards.length) {
+      setFilterOpen(false);
+    }
+  }, [nftCards.length]);
+
   return (
     <div className={styles.discover}>
       <H2 className={styles.title}>
         DISCOVER <span className={styles.gradientTitle}>ARTWORK</span>
       </H2>
       <div className={styles.filterControls}>
-        <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
-          Advanced Filter <img src={filter} className={styles.image} alt="" />
-        </Button>
+        {nftCards.length ? (
+          <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
+            Advanced Filter <img src={filter} className={styles.image} alt="" />
+          </Button>
+        ) : (
+          <div className={styles.advancedFilterBtnEmpty} />
+        )}
         <TabLookingComponent
           tabClassName={styles.filterTab}
           tabs={filterTags}
@@ -98,7 +108,11 @@ const Discover = observer(() => {
           verifiedFilter={verifiedFilter}
           handleVerifiedFilter={handleVerifiedFilter}
         />
-        <div className={cx(styles.filterResultsContainer, { [styles.withFilter]: isFilterOpen })}>
+        <div
+          className={cx(styles.filterResultsContainer, {
+            [styles.withFilter]: isFilterOpen,
+          })}
+        >
           <H3>{totalItems} results</H3>
           <div className={styles.filterResults}>
             {nftCards.length

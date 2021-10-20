@@ -26,7 +26,7 @@
   position: relative;
   z-index: 10;
 
-  padding: 88px 40px 88px 88px;
+  padding: 8px 40px 88px 88px;
 
   height: 100%;
 
@@ -91,14 +91,9 @@
   }
 }
 
-.moreArtistsBtn {
-  position: absolute;
-  bottom: 88px;
-}
-
 .artistsSection {
   position: relative;
-  padding: 88px 20px 88px 20px;
+  padding: 8px 20px 88px 20px;
   overflow: auto;
   border-right: 1px solid $color-secondary;
 
@@ -139,11 +134,11 @@
 
     position: absolute;
     z-index: -1;
-    top: -132.5%;
+    top: -129.5%;
     left: 0;
 
     width: 300%;
-    height: 132.5%;
+    height: 129.5%;
 
     background: $color-bg2;
   }
@@ -167,9 +162,4 @@
       display: none;
     }
   }
-}
-
-// misc
-.arrowPic {
-  margin: 0 10px;
 }

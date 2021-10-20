@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import { Form, Field, FormikProps } from 'formik';
 
-import { H3, TextInput, Text, Button, TextArea, RequiredMark } from 'components';
-import Uploader from '../../../components/Uploader';
-
-// import SuccessCreated from './SuccessCreated';
+import { H3, TextInput, Text, Button, TextArea, RequiredMark, Uploader } from 'components';
 
 import styles from './CreateCollection.module.scss';
 
@@ -14,7 +11,7 @@ export interface ICreateCollection {
   symbol: string;
   shortUrl: string;
   description?: string;
-  img: any;
+  avatar: any;
   preview?: string;
   isLoading: boolean;
   standart: 'ERC721' | 'ERC1155';
@@ -27,27 +24,24 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
   handleBlur,
   values,
   handleSubmit,
-  // setFieldValue,
 }) => {
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
   return (
     <Form name="form-create-coll" className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.createCollection}>
         <H3 className={styles.title}>Create collection</H3>
         <div className={styles.upload}>
-          {values.img ? <img alt="" src={values.preview} /> : <div className={styles.empty} />}
+          {values.avatar ? <img alt="" src={values.preview} /> : <div className={styles.empty} />}
           <div className={styles.wrapper}>
             <Text className={styles.text} color="lightGray" align="center">
               We recommend an image of at least 400 x 400. Gifs work too.
               <RequiredMark />
             </Text>
             <div className={styles.file}>
-              <Field id="img" name="img" render={() => <Uploader type="img" isButton />} />
-              {errors.img && touched.img && (
-                <Text color="red">Display name should be more than 2 and less than 50 symbols</Text>
-              )}
+              <Field
+                id="avatar"
+                name="avatar"
+                render={() => <Uploader isImgOnly formikValue="avatar" isButton />}
+              />
             </div>
           </div>
         </div>
@@ -126,9 +120,6 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
         <Button type="submit" className={cn('button', styles.button)} disabled={values.isLoading}>
           Create Collection
         </Button>
-        {/* <Modal visible={values.showModal} onClose={() => setFieldValue('showModal', false)}>
-          <SuccessCreated close={() => setFieldValue('showModal', false)} title="collection" />
-        </Modal> */}
       </div>
     </Form>
   );

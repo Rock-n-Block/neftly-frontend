@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { upload } from 'assets/img/upload';
 import cn from 'classnames';
@@ -55,7 +55,6 @@ export interface ICreateForm {
   coverPreview: string;
   format: 'image' | 'video' | 'audio';
 
-  img: any;
   preview: string;
   sellMethod: string;
   isLoading: boolean;
@@ -74,7 +73,7 @@ const sellMethods: IRadioButton[] = [
   },
 ];
 
-const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
+const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
   ({
     setFieldValue,
     values,
@@ -89,7 +88,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     const [rates, setRates] = useState<IRate[]>([]);
     const [addToCollection, setAddToCollection] = useState(true);
     const serviceFee = 3; // TODO: remove after get service fee request
-    const stringRecieveValue = (parseFloat(`${values.price || values.minimalBid}`) * (100 - serviceFee)) / 100 || 0;
+    const stringRecieveValue =
+      (parseFloat(`${values.price || values.minimalBid}`) * (100 - serviceFee)) / 100 || 0;
     const stringRatesValue = new BigNumber(
       rates.find((rate) => rate.symbol === values.currency)?.rate || 0,
     ).toFixed(2);
@@ -101,7 +101,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
         : rates.map((rate) => rate.symbol);
     }, [rates, values.sellMethod]);
     const handleClearImg = () => {
-      setFieldValue('img', '');
+      setFieldValue('media', '');
       setFieldValue('preview', '');
       setFieldValue('cover', '');
       setFieldValue('coverPreview', '');
@@ -177,8 +177,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         required
                         render={() => (
                           <Uploader
-                            type="cover"
-                            name="cover"
+                            isImgOnly
+                            formikValue="cover"
                             setFormat={(value: string) => setFieldValue('format', value)}
                           />
                         )}
@@ -203,7 +203,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               </div>
             )}
             <div className={styles.item}>
-              {values.img ? (
+              {values.media ? (
                 <div className={styles.previewImg}>
                   {values.format === 'image' && (
                     <>
@@ -238,13 +238,12 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 <>
                   <div className={styles.file}>
                     <Field
-                      name="img"
+                      name="media"
                       className={styles.load}
                       required
                       render={() => (
                         <Uploader
-                          type="img"
-                          name="img"
+                          formikValue="media"
                           setFormat={(value: string) => setFieldValue('format', value)}
                         />
                       )}
@@ -456,22 +455,20 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                             )}
                           />
 
-                          {!values.isSingle ? (
-                            <Field
-                              name={`details[${index}].amount`}
-                              render={() => (
-                                <TextInput
-                                  name="amount"
-                                  label="amount"
-                                  type="text"
-                                  placeholder="e. g. M"
-                                  onChange={(e) => handleChangeProperty(e, index, 'amount')}
-                                  onBlur={handleBlur}
-                                  className={styles.tokenPropertyValue}
-                                />
-                              )}
-                            />
-                          ) : null}
+                          <Field
+                            name={`details[${index}].amount`}
+                            render={() => (
+                              <TextInput
+                                name="amount"
+                                label="amount"
+                                type="text"
+                                placeholder="e. g. M"
+                                onChange={(e) => handleChangeProperty(e, index, 'amount')}
+                                onBlur={handleBlur}
+                                className={styles.tokenPropertyValue}
+                              />
+                            )}
+                          />
                         </div>
                       ));
                     }}
@@ -500,7 +497,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               <Button
                 className={cn('button', styles.button, styles.submitBtn)}
                 onClick={onSubmit}
-                loading={values.isLoading}
+                disabled={values.isLoading}
               >
                 Create item
               </Button>

@@ -39,7 +39,7 @@ const Activity: React.FC = observer(() => {
     if (method === 'follow') {
       history.push(`/profile/${link_id}`);
     } else {
-      history.push(`/item/${link_id}`);
+      history.push(`/nft/${link_id}`);
     }
   };
 

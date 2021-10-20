@@ -1,15 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import cx from 'classnames';
-import { useParams, useHistory } from 'react-router-dom';
+import { ArtCard, Button, Control, GiantCard, H3, H4, Loader } from 'components';
 import { observer } from 'mobx-react-lite';
-
-import { ArtCard, Button, GiantCard, H3, H4, Control, Loader } from 'components';
-import { ICurrency, INft, TNullable } from 'typings';
 import { storeApi } from 'services/api';
 import { useMst } from 'store';
-import PriceHistory from './PriceHistory';
+import { ICurrency, INft, TNullable } from 'typings';
 
 import { data as mockData } from './mockdata';
+import PriceHistory from './PriceHistory';
 
 import styles from './styles.module.scss';
 
@@ -35,13 +34,13 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
 
   const { id } = useParams<{ id: string }>();
 
-  const [nft, setNft] = React.useState<TNullable<INft>>(null);
-  const [allPages, setAllPages] = React.useState<number>(1);
-  const [currentPage, setCurrentPage] = React.useState<number>(1);
-  const [artWorks, setArtWorks] = React.useState<INft[]>([]);
-  const [isLoadingArtWorks, setLoadingArtWorks] = React.useState<boolean>(false);
+  const [nft, setNft] = useState<TNullable<INft>>(null);
+  const [allPages, setAllPages] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [artWorks, setArtWorks] = useState<INft[]>([]);
+  const [isLoadingArtWorks, setLoadingArtWorks] = useState<boolean>(false);
 
-  const getRelatedArtworks = React.useCallback((page: number) => {
+  const getRelatedArtworks = useCallback((page: number) => {
     setLoadingArtWorks(true);
     storeApi
       .getSearchResults({
@@ -80,9 +79,9 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
       });
   }, [id, history]);
 
-  React.useEffect(() => getItem(), [getItem]);
+  useEffect(() => getItem(), [getItem]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       sell.checkout.isSuccess ||
       sell.placeBid.isSuccess ||
@@ -99,14 +98,17 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     sell.putOnSale.isSuccess,
   ]);
 
-  React.useEffect(() => getRelatedArtworks(1), [getRelatedArtworks]);
+  useEffect(() => getRelatedArtworks(1), [getRelatedArtworks]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (currentPage !== 1) {
       handleLoadMore();
     }
   }, [handleLoadMore, currentPage]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className={cx(styles.detailArtwork, className)}>
       <div className={styles.detailArtworkContent}>

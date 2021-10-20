@@ -2,22 +2,20 @@
 // @ts-ignore
 // eslint-disable-next-line no-param-reassign
 import React from 'react';
-import { withFormik } from 'formik';
-import { observer } from 'mobx-react-lite';
-
-import { useWalletConnectorContext, storeApi } from 'services';
-// import { useMst } from '../../../store';
-import CreateCollection, { ICreateCollection } from '../component';
-import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { ToastContentWithTxHash } from 'components';
+import { withFormik } from 'formik';
+import { observer } from 'mobx-react-lite';
+import { storeApi, useWalletConnectorContext } from 'services';
+import * as Yup from 'yup';
+
+import CreateCollection, { ICreateCollection } from '../component';
 
 export default observer(({ isSingle }: any) => {
-  // const { modals } = useMst();
   const walletConnector = useWalletConnectorContext();
   const props: ICreateCollection = {
     name: '',
-    img: '',
+    avatar: '',
     symbol: '',
     description: '',
     shortUrl: '',
@@ -29,8 +27,8 @@ export default observer(({ isSingle }: any) => {
     enableReinitialize: true,
     mapPropsToValues: () => props,
     validationSchema: Yup.object().shape({
-      name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
-      symbol: Yup.string().min(2, 'Too Short!').max(6, 'Too Long!'),
+      name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required(),
+      symbol: Yup.string().min(2, 'Too Short!').max(6, 'Too Long!').required(),
       descr: Yup.string().max(500, 'Too Long!'),
       shortUrl: Yup.string().max(50, 'Too Long!'),
     }),
@@ -40,7 +38,7 @@ export default observer(({ isSingle }: any) => {
       const formData = new FormData();
 
       formData.append('name', values.name);
-      formData.append('avatar', values.img);
+      formData.append('avatar', values.avatar);
       formData.append('symbol', values.symbol);
       formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
 

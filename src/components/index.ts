@@ -40,4 +40,7 @@ export { default as PutOnSale } from './PutSale';
 export { default as Transfer } from './Transfer';
 export { default as Report } from './Report';
 export { default as Chart } from './Chart';
+export { default as Copyable } from './Copyable';
+export { default as Header } from './Header';
+export { default as Footer } from './Footer';
 export * from './Typography';

@@ -1,10 +1,10 @@
-import { ArtCard, Carousel, H3 } from 'components/index';
-import mockData from './mockData';
-import { useGetSlideToShow } from 'hooks';
 import React, { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
-import styles from './LiveAuction.module.scss';
+import { ArtCard, Carousel, H3 } from 'components/index';
+import { useGetSlideToShow } from 'hooks';
 import { storeApi } from 'services';
+
+import styles from './LiveAuction.module.scss';
 
 interface IProps {
   className?: string;
@@ -26,12 +26,10 @@ interface IHotBidShorted {
 
 const LiveAuction: React.FC<IProps> = ({ className }) => {
   const numberOfSlide = useGetSlideToShow();
-  const [tokens, setTokens] = useState<IHotBidShorted[]>([]);
-  // in API live auction is similar to hot bids
+  const [auctions, setAuctions] = useState<IHotBidShorted[]>([]);
   const getHotBids = useCallback(() => {
     storeApi.getHotBids().then(({ data }) => {
-      // TODO: remove mockData and create interface IHotBid
-      const formatedData = [...mockData, ...data].map((hotBid: any) => {
+      const formatedData = [...data].map((hotBid: any) => {
         const { id, media, name, price, currency, available, creator, like_count, tags } = hotBid;
         return {
           id,
@@ -48,20 +46,19 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
         } as IHotBidShorted;
       });
 
-      setTokens(formatedData);
+      setAuctions(formatedData);
     });
   }, []);
 
   useEffect(() => {
     getHotBids();
   }, [getHotBids]);
-
   return (
     <div className={cn(className, styles.liveAuction)}>
       <H3 className={styles.title}>Live Auction Today</H3>
-      {!!tokens.length && (
+      {!!auctions.length && (
         <Carousel slidesToShow={numberOfSlide}>
-          {tokens.map((artCard) => {
+          {auctions.map((artCard) => {
             const {
               id,
               image,

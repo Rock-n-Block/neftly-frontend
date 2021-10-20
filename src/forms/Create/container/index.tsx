@@ -26,7 +26,6 @@ export default observer(({ isSingle, walletConnector }: any) => {
     cover: '',
     coverPreview: '',
     format: 'image',
-    img: '',
     preview: '',
     sellMethod: 'fixedPrice',
     isLoading: false,
@@ -81,7 +80,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
       // TODO: change selling from always true
       formData.append('selling', values.selling.toString());
 
-      formData.append('media', values.img);
+      formData.append('media', values.media);
       if (values.format !== 'image') {
         formData.append('cover', values.cover);
       }
@@ -94,10 +93,10 @@ export default observer(({ isSingle, walletConnector }: any) => {
             .sendTransaction(data.initial_tx)
             .on('transactionHash', (txHash: string) => {
               toast.info(<ToastContentWithTxHash txHash={txHash} />);
+              history.push('/');
             })
             .then(() => {
               toast.success('Token Created');
-              history.push('/');
             })
             .catch(({ response }: any) => {
               if (response.data && response.data.name) {
@@ -118,6 +117,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
             toast.error('Create Token failed');
           }
           console.error('Backend Create token failure', response.data);
+          setFieldValue('isLoading', false);
         });
     },
 

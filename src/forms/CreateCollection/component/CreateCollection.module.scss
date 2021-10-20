@@ -7,7 +7,7 @@
 }
 
 .upload {
-  @include flexbox;
+  @include flexbox(center, space-between);
 
   img {
     width: 128px;
@@ -15,7 +15,7 @@
 
     border-radius: 100%;
     flex-shrink: 0;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   .empty {
@@ -34,7 +34,9 @@
 
   @include flexbox(center, space-between);
   flex-direction: column;
-  .file{
+
+  .file {
+    margin-top: 32px;
     width: 100%;
   }
 }
@@ -52,11 +54,13 @@
 
 .fieldset {
   margin-top: 32px;
-  .field{
-    &:not(:first-child){
+
+  .field {
+    &:not(:first-child) {
       margin-top: 16px;
     }
   }
+
   /*.field {
     input::placeholder {
       color: $purple2;
