@@ -25,7 +25,7 @@ const AuthorComponent: FC<Props> = ({ className, authorPic, author, owners }) =>
       </div>
     </div>
     <div className={styles.user}>
-      {Array.isArray(owners) && (
+      {Array.isArray(owners) ? (
         <>
           <div className={styles.avatarWrapper}>
             <img src={owners[0].avatar} className={styles.avatar} alt="" />
@@ -33,6 +33,16 @@ const AuthorComponent: FC<Props> = ({ className, authorPic, author, owners }) =>
           <div className={styles.text}>
             <Text color="lightGray">Owner</Text>
             <Text>{sliceString(owners[0].name)}</Text>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={styles.avatarWrapper}>
+            <img src={owners?.avatar} className={styles.avatar} alt="" />
+          </div>
+          <div className={styles.text}>
+            <Text color="lightGray">Owner</Text>
+            <Text>{sliceString(owners?.name || '')}</Text>
           </div>
         </>
       )}

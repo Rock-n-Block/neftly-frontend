@@ -19,3 +19,9 @@
     margin-bottom: 8px;
   }
 }
+
+.field {
+  & + & {
+    margin-bottom: 20px;
+  }
+}

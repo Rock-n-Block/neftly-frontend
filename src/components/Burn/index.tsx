@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
@@ -27,6 +28,7 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
         walletConnector.walletService.sendTransaction(data.initial_tx).then(() => {
           burn.success();
           burn.close();
+          toast.success('Token Burned')
         });
       })
       .catch((e: any) => console.error('Bid modal sendTranscation', e))
