@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useLocation, withRouter } from 'react-router-dom';
 import { clearAllBodyScrollLocks } from 'body-scroll-lock';
 
-import styles from './Page.module.scss';
+import styles from './ScrollToTop.module.scss';
 
 // TODO: fix any property
-const Page: React.FC<any> = ({ children }) => {
+const ScrollToTop: React.FC<any> = ({ children }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -20,4 +20,4 @@ const Page: React.FC<any> = ({ children }) => {
   );
 };
 
-export default withRouter(Page);
+export default withRouter(ScrollToTop);
