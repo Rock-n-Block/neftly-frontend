@@ -93,10 +93,10 @@ export default observer(({ isSingle, walletConnector }: any) => {
             .sendTransaction(data.initial_tx)
             .on('transactionHash', (txHash: string) => {
               toast.info(<ToastContentWithTxHash txHash={txHash} />);
+              history.push('/');
             })
             .then(() => {
               toast.success('Token Created');
-              history.push('/');
             })
             .catch((error: any) => {
               toast.error('Create Token failed');
@@ -109,6 +109,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
         .catch((error) => {
           toast.error('Create Token failed');
           console.error('Backend Create token failure', error);
+          setFieldValue('isLoading', false);
         });
     },
 
