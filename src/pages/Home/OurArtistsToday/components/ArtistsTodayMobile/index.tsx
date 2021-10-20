@@ -41,7 +41,7 @@ const ArtistsTodayMobile: FC<Props> = ({
           artistData.map((artist) => {
             const {
               price,
-              user: { is_verificated, avatar, display_name, id },
+              user: { is_verificated, avatar, display_name, id, owned_tokens },
             } = artist;
             return (
               <Link to={routes.profile.link(id)}>
@@ -51,6 +51,7 @@ const ArtistsTodayMobile: FC<Props> = ({
                   name={display_name}
                   amount={price}
                   isVerified={is_verificated}
+                  artOwned={owned_tokens}
                 />
               </Link>
             );

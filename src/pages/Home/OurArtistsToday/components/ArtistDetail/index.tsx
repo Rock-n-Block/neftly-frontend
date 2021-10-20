@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { routes } from 'appConstants';
 import { facebookLogo, instagramLogo, twitterLogo } from 'assets/img';
 import cx from 'classnames';
 import { H4, Text } from 'components';
 import { sliceString } from 'utils';
 
 import styles from './styles.module.scss';
-import { routes } from 'appConstants';
-import { Link } from 'react-router-dom';
 
 type Props = {
   id: number | string;
@@ -34,9 +34,11 @@ const ArtistDetail: FC<Props> = ({
   twitterLink,
 }) => (
   <div className={cx(styles.artistDetail, className)}>
-    <Link to={`${routes.profile.link(id)}`}>
-      <img src={avatar} className={styles.image} alt="user avatar" />
-    </Link>
+    {!!avatar && (
+      <Link to={`${routes.profile.link(id)}`}>
+        <img src={avatar} className={styles.image} alt="user avatar" />
+      </Link>
+    )}
     <div className={styles.detailsSection}>
       <H4>{name}</H4>
       <div className={styles.addressAndName}>
@@ -58,11 +60,6 @@ const ArtistDetail: FC<Props> = ({
             <img src={twitterLogo} alt="" />
           </a>
         </div>
-        {/* <Button className={styles.viewArtworkBtn} color="transparent">
-          <Text size="l" color="secondary">
-            View Artwork <img className={styles.arrowPic} src={arrowUpRight} alt="" />
-          </Text>
-        </Button> */}
       </div>
     </div>
   </div>
