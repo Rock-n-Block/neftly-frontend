@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import cx from 'classnames';
-import { Button, H2, Loader, Text } from 'components';
+import { Button, H2, H3, Loader, Text } from 'components';
 import { useFetchTopUsers, useTabs } from 'hooks';
 import { TTopUser } from 'typings';
 
@@ -46,6 +46,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
     handleSelectArtis(topUser[0]);
   }, [handleSelectArtis, topUser]);
 
+
   return (
     <div>
       <div className={cx(styles.artistsDesktop, className)}>
@@ -79,8 +80,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
             topUser.map((artist) => {
               const {
                 price,
-                id,
-                user: { is_verificated, avatar, display_name },
+                user: { is_verificated, avatar, display_name, id, owned_tokens },
               } = artist;
               return (
                 <Button
@@ -95,6 +95,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
                     amount={price}
                     isSelected={id === selectedArtist?.user?.id}
                     isVerified={is_verificated}
+                    artOwned={owned_tokens}
                   />
                 </Button>
               );
@@ -104,7 +105,8 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
           )}
         </div>
         <div className={styles.artistDetails}>
-          {!isLoading ? (
+          {isLoading && <Loader />}
+          {topUser.length ? (
             <ArtistDetail
               id={selectedArtist?.user.id}
               avatar={selectedArtist?.user.avatar}
@@ -116,7 +118,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
               twitterLink={selectedArtist?.user.twitter}
             />
           ) : (
-            <Loader />
+            <H3>No data available</H3>
           )}
         </div>
       </div>

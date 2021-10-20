@@ -9,18 +9,21 @@ type Props = ArtistType & {
   className?: string;
   isSelected?: boolean;
   isVerified?: boolean;
+  artOwned?: number;
 };
 
 const ArtistLabel: FC<Props> = ({
   className,
   avatar,
   name,
-  artsNumber,
+  artOwned,
   isSelected,
   amount,
   asset,
   isVerified = false,
-}) => (
+}) => {
+  console.log('artOwned', artOwned);
+  return (
   <div className={cx(styles.artistLabel, className)}>
     <div className={styles.avatarContainer}>
       <img src={avatar} alt="avatar" />
@@ -29,11 +32,11 @@ const ArtistLabel: FC<Props> = ({
         <Text size="m" className={cx(styles.name, { [styles.selected]: isSelected })}>
           {name || 'noname'}
         </Text>
-        <Text size="m">{`${artsNumber || 0} Arts`}</Text>
+        <Text size="m">{`${artOwned} Arts`}</Text>
       </div>
     </div>
     <Text size="m" color="lightGray">{`${amount} ${asset || 'ETH'}`}</Text>
   </div>
-);
+)};
 
 export default ArtistLabel;
