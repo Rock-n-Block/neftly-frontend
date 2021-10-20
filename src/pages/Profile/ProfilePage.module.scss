@@ -1,7 +1,6 @@
 @import 'src/styles/helpers.scss';
 
 .page {
-
   &_body {
     margin: 0 auto;
     padding: 0 15px;
@@ -14,14 +13,14 @@
       border-right: 1px solid $color-neutral-80;
       @include forDesktopMiddle {
         padding: 20px 0 0;
-        border:none;
+        border: none;
       }
     }
 
     &__right {
       padding: 44px 32px;
       @include forDesktopMiddle {
-        padding:32px;
+        padding: 32px;
         width: 100%;
       }
     }
@@ -29,7 +28,7 @@
     &__about {
       @include flexbox(flex-start, flex-start);
       padding: 0;
-      @include forDesktopSm{
+      @include forDesktopSm {
         flex-direction: column;
       }
     }
@@ -54,7 +53,7 @@
     }
 
     &::before {
-      bottom: -24px !important;
+      bottom: -5px !important;
     }
   }
 
