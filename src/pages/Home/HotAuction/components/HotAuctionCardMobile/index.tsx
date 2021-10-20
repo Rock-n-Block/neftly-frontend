@@ -41,7 +41,7 @@ const HotAuctionCardMobile: FC<Props> = ({
       <img src={nft.media} alt="art pic" />
     </div>
     <H3>{nft.name}</H3>
-    <AuthorComponent authorPic={nft.creator.avatar} author={nft.creator.name} />
+    <AuthorComponent creator={nft.creator} />
     {!isWrongChain ? (
       <PaymentComponent
         className={styles.paymentMobile}

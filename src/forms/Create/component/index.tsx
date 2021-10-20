@@ -140,7 +140,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     const fetchRates = useCallback(() => {
       ratesApi.getRates().then(({ data }: any) => {
         setRates(data);
-        setFieldValue('currency', data[0].symbol);
+        setFieldValue('currency', data[0]?.symbol);
       });
     }, [setFieldValue]);
     useEffect(() => {
@@ -379,10 +379,12 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     </div>
                     <div className={styles.postfix}>
                       {/* change dynamically */}
-                      <Text color="gray">Minimum price 0.0001 {values.currency.toUpperCase()}</Text>
+                      <Text color="gray">
+                        Minimum price 0.0001 {values.currency?.toUpperCase()}
+                      </Text>
                       <Text color="gray">
                         USD {stringRatesValue} PER/
-                        {values.currency.toUpperCase()}
+                        {values.currency?.toUpperCase()}
                       </Text>
                     </div>
                   </div>
