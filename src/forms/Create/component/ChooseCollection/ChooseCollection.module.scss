@@ -1,12 +1,13 @@
 @import 'src/styles/helpers';
 
 .card {
-  padding: 8px 16px 30px;
-
   width: 160px;
   height: 160px;
-  @include flexbox(flex-start, space-between);
+  padding: 8px 8px;
+
+  @include flexbox(center, space-between);
   flex-direction: column;
+  gap: 8px;
   //height: 100%;
 
   cursor: pointer;
@@ -15,8 +16,14 @@
 
   .avatar{
     width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
-
+}
+.cardImg{
+  width: 110px;
+  height: 110px;
+  overflow: hidden;
 }
 
 .plus {

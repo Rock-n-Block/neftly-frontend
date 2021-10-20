@@ -98,9 +98,11 @@ const ChooseCollection: React.FC<IProps> = observer(
                 })}
                 // className={styles.cardContent}
               >
-                {!!collection.avatar && (
-                  <img src={collection.avatar} alt="create" className={styles.avatar} />
-                )}
+                <div className={styles.cardImg}>
+                  {!!collection.avatar && (
+                    <img src={collection.avatar} alt="create" className={styles.avatar} />
+                  )}
+                </div>
                 <Text className={styles.subtitle} align="center">
                   {collection.name}
                 </Text>
