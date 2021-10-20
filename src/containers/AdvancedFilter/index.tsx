@@ -90,7 +90,7 @@ const AdvancedFilter: FC<Props> = ({
           className={styles.rangeFilter}
           onChange={handleMaxPriceFilter}
           value={maxPriceFilter}
-          min={0.01}
+          min={0}
           max={maxPrice}
           step={0.01}
         />

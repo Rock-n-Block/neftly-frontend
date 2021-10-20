@@ -12,6 +12,9 @@
 
   .advancedFilterBtn {
     padding: 0 20px;
+    &Empty {
+      width: 170px;
+    }
   }
 
   .filterTab {
@@ -21,6 +24,7 @@
 
 .filterAndCards {
   position: relative;
+  // min-height: 620px;
   @include flexbox(flex-start, flex-end);
   padding: 44px 0;
 
@@ -121,7 +125,6 @@
 }
 
 @include forDesktopSm {
-
   .discover {
     padding: 0 20px;
   }
@@ -144,7 +147,8 @@
     }
   }
 
-  .filterResults, .filterAndCards {
+  .filterResults,
+  .filterAndCards {
     justify-content: center !important;
   }
 
@@ -175,10 +179,10 @@
   }
 }
 
-.select{
+.select {
   width: 155px;
 }
 
-.image{
+.image {
   margin-left: 10px;
 }

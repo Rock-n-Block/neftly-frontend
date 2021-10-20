@@ -14,7 +14,9 @@ const DEFAULT_FILTER_STATE = {
 };
 
 const useFilters = () => {
-  const [isLoading, setLoading] = useState(false);
+  const [isMaxPriceLoading, setMaxPriceLoading] = useState(false);
+  const [isTagsLoading, setTagsLoading] = useState(false);
+  const [isRatesLoading, setRatesLoading] = useState(false);
   const [filterTags, setFilterTags] = useState<any>([]);
   const [maxPriceFilter, setMaxPriceFilter] = useState(DEFAULT_FILTER_STATE.max_price);
   const [currencyFilter, setCurrencyFilter] = useState<OptionType>({
@@ -72,38 +74,43 @@ const useFilters = () => {
 
   const fetchMaxPrice = useCallback(
     (currency: string) => {
-      setLoading(true);
+      setMaxPriceLoading(true);
       storeApi
         .getMaxPrice(currency)
         .then(({ data }: any) => {
           handleMaxPrice(data.max_price);
+          handleMaxPriceFilter(data.max_price);
         })
         .finally(() => {
-          setLoading(false);
+          setMaxPriceLoading(false);
         });
     },
-    [handleMaxPrice, setLoading],
+    [handleMaxPrice, setMaxPriceLoading, handleMaxPriceFilter],
   );
 
   const fetchTags = useCallback(async () => {
-    setLoading(true);
-    const links = await storeApi.getTags();
-    if (links.data.tags.length) {
-      setFilterTags(
-        [{ title: 'All items', icon: allCategory }].concat(
-          links.data.tags.map((tag: { title: string; icon: string }) => ({
-            title: tag.title,
-            key: tag.title.toLowerCase(),
-            icon: tag.icon,
-          })),
-        ),
-      );
+    try {
+      setTagsLoading(true);
+      const links = await storeApi.getTags();
+      if (links.data.tags.length) {
+        setFilterTags(
+          [{ title: 'All items', icon: allCategory }].concat(
+            links.data.tags.map((tag: { title: string; icon: string }) => ({
+              title: tag.title,
+              key: tag.title.toLowerCase(),
+              icon: tag.icon,
+            })),
+          ),
+        );
+      }
+      setTagsLoading(false);
+    } catch (error) {
+      setTagsLoading(false);
     }
-    setLoading(false);
   }, []);
 
   const fetchRates = useCallback(() => {
-    setLoading(true);
+    setRatesLoading(true);
     ratesApi
       .getRates()
       .then(({ data }: any) => {
@@ -119,9 +126,16 @@ const useFilters = () => {
         console.log(err);
       })
       .finally(() => {
-        setLoading(false);
+        setRatesLoading(false);
       });
-  }, [handleCurrencyFilter, setLoading]);
+  }, [handleCurrencyFilter, setRatesLoading]);
+
+  // const isLoading = useMemo(() => {
+  //   if(awaitUntilAllLoaded) {
+  //     return isMaxPriceLoading ||
+  //   }
+  // }, [])
+
   // TODO: stop to fetch if this filters don't used
   useEffect(() => {
     fetchMaxPrice(currencyFilter.value);
@@ -157,7 +171,7 @@ const useFilters = () => {
     handleTagsFilter,
     page,
     handlePage,
-    isLoading,
+    isLoading: isMaxPriceLoading || isTagsLoading || isRatesLoading,
   };
 };
 

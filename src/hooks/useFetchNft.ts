@@ -17,6 +17,7 @@ interface IProps {
   creator?: string;
   owner?: string;
   text?: string;
+  isCanFetch?: boolean;
 }
 
 export const useFetchNft = (props: IProps): [number, number, INft[], boolean] => {
@@ -32,6 +33,7 @@ export const useFetchNft = (props: IProps): [number, number, INft[], boolean] =>
     owner,
     on_sale,
     text = '',
+    isCanFetch = true,
   } = props;
   const [isLoading, setLoading] = useState(false);
   const [allPages, setAllPages] = useState(1);
@@ -39,6 +41,9 @@ export const useFetchNft = (props: IProps): [number, number, INft[], boolean] =>
   const [nftCards, setNftCards] = useState<INft[]>([]);
 
   const fetchSearch = useCallback(() => {
+    if (!isCanFetch) {
+      return;
+    }
     const refresh = page === 1;
     setLoading(true);
     storeApi
@@ -59,7 +64,7 @@ export const useFetchNft = (props: IProps): [number, number, INft[], boolean] =>
       )
       .then(({ data: { items, total_tokens } }: any) => {
         // TODO: проверить когда внесут изменения на бэке
-        setTotalItems(total_tokens);
+        setTotalItems(() => total_tokens);
         if (refresh) {
           setNftCards(items);
         } else {
@@ -73,7 +78,20 @@ export const useFetchNft = (props: IProps): [number, number, INft[], boolean] =>
       .finally(() => {
         setLoading(false);
       });
-  }, [creator, currency, is_verified, max_price, on_sale, order_by, owner, page, sort, tags, text]);
+  }, [
+    creator,
+    currency,
+    is_verified,
+    max_price,
+    on_sale,
+    order_by,
+    owner,
+    page,
+    sort,
+    tags,
+    text,
+    isCanFetch,
+  ]);
 
   useEffect(() => {
     fetchSearch();
