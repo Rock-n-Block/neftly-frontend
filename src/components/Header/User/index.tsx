@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useHistory } from 'react-router';
+import { FC, useCallback, useState } from 'react';
 import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
@@ -16,7 +17,8 @@ interface IUserProps {
   className?: string;
 }
 
-const User: React.FC<IUserProps> = observer(({ className }) => {
+const User: FC<IUserProps> = observer(({ className }) => {
+  const history = useHistory();
   const [visible, setVisible] = useState(false);
   const walletConnector = useWalletConnectorContext();
   const { user } = useMst();
@@ -56,6 +58,11 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
   const handleClose = useCallback(() => {
     setVisible(false);
   }, []);
+
+  const handleOpenUser = useCallback(() => {
+    history.push(`${routes.profile.link}/${user.id}`);
+    handleClose()
+  }, [history, user.id, handleClose]);
   return (
     <OutsideClickHandler onOutsideClick={() => setVisible(false)}>
       <div className={cn(styles.user, className)}>
@@ -71,7 +78,13 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
         {visible && (
           <div className={styles.body}>
             <div className={styles.triangle} />
-            <Link to={`/profile/${user.id}`} className={styles.userHeader}>
+            <div
+              onClick={handleOpenUser}
+              onKeyDown={() => {}}
+              tabIndex={0}
+              role="button"
+              className={styles.userHeader}
+            >
               <div className={styles.userAva}>
                 {user.avatar ? <img src={user.avatar} alt="Avatar" /> : <Loader />}
               </div>
@@ -79,7 +92,7 @@ const User: React.FC<IUserProps> = observer(({ className }) => {
                 <div className={styles.name}>{user.display_name || 'User'}</div>
                 <div className={styles.type}>Proffesional Artist</div>
               </div>
-            </Link>
+            </div>
             <Link to={routes.create.root} onClick={handleClose}>
               <Button className={styles.uploadBtn} icon="upload-file">
                 Create item

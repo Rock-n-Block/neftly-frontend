@@ -145,7 +145,7 @@ const Activity: React.FC = observer(() => {
                 return (
                   <ArtCard
                     className={styles.artwork}
-                    key={`${card.author}-${card.likesNumber}-${card.price}`}
+                    key={nextId()}
                     artId={id}
                     imageMain={image}
                     name={name}

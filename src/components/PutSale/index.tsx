@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
 import { toast } from 'react-toastify';
 import { observer } from 'mobx-react-lite';
 
-import { Button, Icon, Switch, TextInput, Text } from 'components';
+import { Button, Switch, TextInput, Text } from 'components';
 import { storeApi, useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
 import { useUserBalance } from 'hooks';
 import { is_production, contracts } from 'config';
+import { ReactComponent as Coin } from 'assets/img/icons/coin.svg';
 
 import styles from './PutSale.module.scss';
 
@@ -23,13 +24,15 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
     modals: { sell },
   } = useMst();
   const [price, setPrice] = useState(
-    sell.nft.currency.toUpperCase() === 'BNB' || sell.nft.currency.toUpperCase() === 'ETH',
+    sell.nft.currency.toUpperCase() === 'BNB' ||
+      sell.nft.currency.toUpperCase() === 'ETH' ||
+      sell.nft.currency.toUpperCase() === 'MATIC',
   );
   const [priceValue, setPriceValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const balance = useUserBalance(user.address, sell.nft.currency);
 
-  const handleCheckApproveNft = React.useCallback(async () => {
+  const handleCheckApproveNft = useCallback(async () => {
     try {
       const result = await walletService.checkNftTokenAllowance(sell.nft.collection.address);
       return result;
@@ -39,7 +42,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
     }
   }, [sell.nft.collection.address, walletService]);
 
-  const handleApproveNft = React.useCallback(async () => {
+  const handleApproveNft = useCallback(async () => {
     try {
       const isAppr = await handleCheckApproveNft();
       if (!isAppr) {
@@ -56,7 +59,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
     }
   }, [handleCheckApproveNft, sell.nft.collection.address, walletService]);
 
-  const fetchStore = React.useCallback(() => {
+  const fetchStore = useCallback(() => {
     setIsLoading(true);
     handleApproveNft()
       .then(() => {
@@ -65,6 +68,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
           .then(() => {
             sell.putOnSale.success();
             sell.putOnSale.close();
+            toast.success('Token Put on sale')
           })
           .catch((err: any) => {
             toast.error({
@@ -84,7 +88,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
       .finally(() => setIsLoading(false));
   }, [sell.nft, priceValue, price, handleApproveNft, sell.putOnSale]);
 
-  const handleClose = React.useCallback(() => {
+  const handleClose = useCallback(() => {
     sell.putOnSale.close();
   }, [sell.putOnSale]);
 
@@ -92,7 +96,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
     <div className={cn(className, styles.sale)}>
       <div className={styles.line}>
         <div className={styles.icon}>
-          <Icon name="coin" size="24" />
+          <Coin />
         </div>
         <div className={styles.details}>
           <Text className={styles.info} color="lightGray" weight="bold" size="xl">
@@ -102,7 +106,9 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
             Enter the price for which the item will be instantly sold
           </Text>
         </div>
-        {sell.nft.currency.toUpperCase() === 'BNB' || sell.nft.currency.toUpperCase() === 'ETH' ? (
+        {sell.nft.currency.toUpperCase() === 'BNB' ||
+        sell.nft.currency.toUpperCase() === 'ETH' ||
+        sell.nft.currency.toUpperCase() === 'MATIC' ? (
           ''
         ) : (
           <Switch className={styles.switch} value={price} setValue={setPrice} />

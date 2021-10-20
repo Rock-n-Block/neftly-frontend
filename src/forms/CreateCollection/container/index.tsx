@@ -15,7 +15,7 @@ export default observer(({ isSingle }: any) => {
   const walletConnector = useWalletConnectorContext();
   const props: ICreateCollection = {
     name: '',
-    img: '',
+    avatar: '',
     symbol: '',
     description: '',
     shortUrl: '',
@@ -38,7 +38,7 @@ export default observer(({ isSingle }: any) => {
       const formData = new FormData();
 
       formData.append('name', values.name);
-      formData.append('avatar', values.img);
+      formData.append('avatar', values.avatar);
       formData.append('symbol', values.symbol);
       formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
 

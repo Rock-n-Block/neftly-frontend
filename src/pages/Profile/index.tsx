@@ -70,6 +70,7 @@ const ProfilePage: FC = observer(() => {
     sort: 'items',
     [creatorOrOwner]: userId,
     order_by: orderByFilter.value,
+    isOnlyForOwnerOrCreator: true,
   });
 
   const [allPagesLiked, totalItemsLiked, nftCardsLicked, isLickesLoading] = useFetchLiked({
@@ -115,6 +116,7 @@ const ProfilePage: FC = observer(() => {
               orderByFilter={orderByFilter}
               handleOrderByFilter={handleOrderByFilter}
               nftCards={nftCards}
+              activeTab={activeTab}
             />
           ) : null}
           {activeTab === 'favorited' && (

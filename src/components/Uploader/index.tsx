@@ -1,103 +1,96 @@
-import React, { useCallback } from 'react';
-import { message, Upload } from 'antd';
-import cn from 'classnames';
-import { useFormikContext } from 'formik';
-
+import { FileRejection, useDropzone } from 'react-dropzone';
 import styles from './Uploader.module.scss';
+import cn from 'classnames';
+import { FC } from 'react';
 import { Button } from 'components';
-import { checkValidFileType, getBase64, FileType, beforeUpload, checkValidFileSize } from 'utils';
-import { RcFile } from 'antd/es/upload';
+import { fileValidation } from 'utils';
+import { useFormikContext } from 'formik';
+import { toast } from 'react-toastify';
 
-const { Dragger } = Upload;
-
-interface IUploader {
-  type: FileType;
-  className?: string;
+interface IProps {
   isLoading?: boolean;
-  handleUpload?: (value: string) => void;
-  setFormat?: (value: string) => void;
-  name?: string;
+  handleUpload?: (value: File) => void;
+  className?: string;
   isButton?: boolean;
+  formikValue?: string | 'cover'; // cover for video/audio
+  setFormat?: (format: string) => void;
+  maxSizeInMb?: number;
+  isImgOnly?: boolean;
 }
 
-const Uploader: React.FC<IUploader> = ({
-  type,
+type TImage =
+  | 'image/jpeg'
+  | 'image/jpg'
+  | 'image/svg'
+  | 'image/svg+xml'
+  | 'image/png'
+  | 'image/webp'
+  | 'image/gif';
+type TOtherMedia = 'video/mp4' | 'audio/mpeg';
+export type TFile = TImage | TOtherMedia;
+
+const Uploader: FC<IProps> = ({
   className,
-  children,
+  // handleUpload,
+  formikValue,
+  isButton = false,
+  isLoading,
   handleUpload,
   setFormat,
-  name,
-  isButton,
-  isLoading,
+  maxSizeInMb = 5,
+  children,
+  isImgOnly = false,
 }) => {
   const formik = useFormikContext();
-  const MAX_FILE_SIZE = 30;
-  const handleChange = useCallback(
-    ({ file }: any) => {
-      if (isLoading) {
-        return;
-      }
-      const isValidType = checkValidFileType(file.type, type);
-      if (!isValidType) {
-        return;
-      }
-      const isLt2M = checkValidFileSize(file.size, MAX_FILE_SIZE);
-      if (!isLt2M) {
-        return;
-      }
-      if (type === 'img' && setFormat) {
-        setFormat(file.type.slice(0, file.type.indexOf('/')));
-      }
-      if (handleUpload) {
-        handleUpload(file.originFileObj);
-      } else {
-        formik.setFieldValue(type, file.originFileObj);
-        getBase64(file.originFileObj, type, () => {}, formik);
-      }
-    },
-    [formik, handleUpload, isLoading, setFormat, type],
-  );
 
-  const doBeforeUpload = useCallback(
-    (file: RcFile) => {
-      return beforeUpload(file, type, MAX_FILE_SIZE, message);
-    },
-    [type],
-  );
+  const handleChange = <T extends File>(acceptedFiles: T[], fileRejections: FileRejection[]) => {
+    if (!acceptedFiles.length) {
+      toast.error(fileRejections[0].errors[0].message);
+      return;
+    }
+    const currentFile = acceptedFiles[0];
+    // TODO: To release an object URL, call revokeObjectURL().
+    const fileUrl = URL.createObjectURL(currentFile);
+    if (handleUpload) {
+      handleUpload(currentFile);
+    }
+    // add preview to formik
+    if (!formikValue) {
+      return;
+    }
+    if (formikValue === 'cover') {
+      formik.setFieldValue('coverPreview', fileUrl);
+    } else {
+      formik.setFieldValue('preview', fileUrl);
+    }
+    formik.setFieldValue(formikValue, currentFile);
+    if (setFormat && formikValue !== 'cover') {
+      setFormat(currentFile.type.slice(0, currentFile.type.indexOf('/')));
+    }
+  };
+  const { getRootProps, getInputProps, open } = useDropzone({
+    accept: isImgOnly ? 'image/*' : ['image/*', 'video/mp4', 'audio/mpeg'],
+    validator: (file) => fileValidation(file, maxSizeInMb),
+    onDrop: handleChange,
+  });
+
   return (
     <div className={cn(className, !isButton ? styles.uploader : '')}>
       {isButton ? (
-        <Upload
-          beforeUpload={doBeforeUpload}
-          onChange={handleChange}
-          multiple={false}
-          showUploadList={false}
-        >
-          {children || (
-            <Button color="outline" className={styles.button}>
-              Upload
-            </Button>
-          )}
-        </Upload>
+        <>
+          <input {...getInputProps()} />
+          <Button color="outline" className={styles.button} onClick={open} disabled={isLoading}>
+            {children || 'Upload'}
+          </Button>
+        </>
       ) : (
-        <Dragger
-          id={name}
-          beforeUpload={doBeforeUpload}
-          onChange={handleChange}
-          onDrop={handleChange}
-          multiple={false}
-          showUploadList={false}
-        />
+        <div {...getRootProps({ className: 'dropzone' })}>
+          <input {...getInputProps()} />
+          {children}
+        </div>
       )}
     </div>
   );
-};
-
-Uploader.defaultProps = {
-  name: '',
-  className: '',
-  setFormat: () => {},
-  isButton: false,
 };
 
 export default Uploader;

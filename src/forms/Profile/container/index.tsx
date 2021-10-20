@@ -20,7 +20,7 @@ const ProfileForm: React.FC = () => {
     instagram: user.instagram || '',
     facebook: user.facebook || '',
     // email: user.email || '',
-    img: '',
+    avatar: '',
     preview: `https://${user.avatar}` || '',
     isLoading: false,
   };
@@ -41,7 +41,7 @@ const ProfileForm: React.FC = () => {
     handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
       const formData = new FormData();
-      formData.append('avatar', values.img);
+      formData.append('avatar', values.avatar || '');
       formData.append('display_name', values.displayName || '');
       formData.append('bio', values.bio || '');
       formData.append('custom_url', values.customUrl || '');

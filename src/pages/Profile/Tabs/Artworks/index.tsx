@@ -19,6 +19,7 @@ interface IProps {
   orderByFilter: OptionType;
   handleOrderByFilter: (value: OptionType) => void;
   nftCards: INft[];
+  activeTab: string;
 }
 
 const Artworks: FC<IProps> = ({
@@ -32,6 +33,7 @@ const Artworks: FC<IProps> = ({
   orderByFilter,
   handleOrderByFilter,
   nftCards,
+  activeTab,
 }) => {
   const anchorRef = useInfiniteScroll(
     page,
@@ -43,7 +45,7 @@ const Artworks: FC<IProps> = ({
   return (
     <>
       <TabHeader
-        title={`${totalItems} artwork created`}
+        title={`${totalItems} artwork ${activeTab === 'artworks' ? 'owned' : 'created'}`}
         orderByFilter={orderByFilter}
         handleOrderByFilter={handleOrderByFilter}
       />
@@ -77,6 +79,7 @@ const Artworks: FC<IProps> = ({
               inStockNumber={available}
               author={creator.name}
               authorAvatar={creator.avatar}
+              authorId={creator.id}
               likesNumber={like_count}
               tags={tags}
               bids={bids}

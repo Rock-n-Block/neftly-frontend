@@ -21,6 +21,7 @@ export const routes = {
   profile: {
     link: (id: string | number): string => `/profile/${id}`,
     root: '/profile/:userId',
+    link: '/profile',
     edit: '/profile/edit',
   },
   activity: {

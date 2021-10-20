@@ -19,6 +19,7 @@ interface IHotBidShorted {
   inStockNumber: string;
   author: string;
   authorAvatar: string;
+  authorId: string;
   likesNumber: number;
   tags: string[];
 }
@@ -39,6 +40,7 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
           inStockNumber: available,
           author: creator.name,
           authorAvatar: creator.avatar,
+          authorId: creator.id,
           likesNumber: like_count,
           tags,
         } as IHotBidShorted;
@@ -66,6 +68,7 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
               inStockNumber,
               author,
               authorAvatar,
+              authorId,
               likesNumber,
               tags,
             } = artCard;
@@ -79,6 +82,7 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
                 inStockNumber={inStockNumber}
                 author={author}
                 authorAvatar={authorAvatar}
+                authorId={authorId}
                 likesNumber={likesNumber}
                 tags={tags}
               />

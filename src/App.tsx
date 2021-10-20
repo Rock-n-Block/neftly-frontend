@@ -1,11 +1,10 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { Routes, Modals } from 'containers';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
-import Footer from './components/Footer';
-import Header from './components/Header';
+import { Header, Footer } from 'components';
 import Connector from './services/walletConnect';
+import { Routes, Modals, ScrollToTop } from 'containers';
 import { Provider, rootStore } from './store';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,9 +22,11 @@ function App() {
           <Router>
             <Connector>
               <Header />
-              <Routes />
+              <ScrollToTop>
+                <Routes />
+                <Modals />
+              </ScrollToTop>
               <Footer />
-              <Modals />
             </Connector>
           </Router>
         </Provider>
