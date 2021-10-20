@@ -13,6 +13,8 @@ type TUser = {
   is_verificated: boolean;
   site: string;
   twitter: string;
+  owned_tokens: number;
+  created_tokens: number;
 };
 
 export type TTopUser = {

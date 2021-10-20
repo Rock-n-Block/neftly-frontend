@@ -8,6 +8,7 @@ import { numberFormatter, sliceString } from 'utils';
 import { routes } from '../../appConstants';
 
 import styles from './styles.module.scss';
+import { toast } from 'react-toastify';
 
 type Props = {
   type?: 'Small' | 'Medium';
@@ -25,12 +26,12 @@ type Props = {
   author: string;
   authorAvatar: string;
   authorId?: string;
-  likesNumber: number;
+  likesNumber?: number;
   tags?: any[];
   isCollection?: boolean;
   bids?: any[];
   isLiked?: boolean;
-  likeAction?: (id: string | number) => void;
+  likeAction?: (id: string | number) => Promise<any>;
 };
 
 const ArtCard: FC<Props> = ({
@@ -54,21 +55,39 @@ const ArtCard: FC<Props> = ({
   isCollection,
   bids,
   isLiked = false,
-  likeAction = () => {},
+  likeAction,
 }) => {
   const [isLike, setIsLike] = useState(isLiked);
-  const [likesCount, setLikesCount] = useState(likesNumber);
+  const [likesCount, setLikesCount] = useState(likesNumber || 0);
 
   const handleLike = useCallback(() => {
-    if (isLike) {
-      likeAction(artId);
-      setLikesCount(likesNumber - 1);
-    } else {
-      likeAction(artId);
-      setLikesCount(likesNumber + 1);
+    if (!likeAction) {
+      return;
     }
-    setIsLike(!isLike);
-  }, [artId, isLike, likeAction, likesNumber]);
+    if (isLike) {
+      likeAction(artId)
+        .then(() => {
+          setLikesCount((prevValue) => prevValue - 1);
+          setIsLike(!isLike);
+          toast.success('Dislike submitted');
+        })
+        .catch((error: any) => {
+          console.log('Dislike error', error);
+          toast.success('Dislike error');
+        });
+    } else {
+      likeAction(artId)
+        .then(() => {
+          setLikesCount((prevValue) => prevValue + 1);
+          setIsLike(!isLike);
+          toast.success('Like submitted');
+        })
+        .catch((error: any) => {
+          console.log('Like error', error);
+          toast.success('Like error');
+        });
+    }
+  }, [artId, isLike, likeAction]);
   return (
     <div className={cx(styles.artCard, className, styles[`artCard${type}`])}>
       <Link
@@ -133,23 +152,25 @@ const ArtCard: FC<Props> = ({
               </>
             ) : (
               <>
-                <Link to={routes.profile.link(authorId || 0)}>
+                <Link to={routes.profile.link(authorId || '')}>
                   <img src={authorAvatar} className={styles.author_avatar} alt="" />
                 </Link>
                 <Text className={styles.artCardAuthor}>{author}</Text>
               </>
             )}
           </div>
-          <div className={cx(styles.flexContainer, styles.artCardSmallLikes)}>
-            <Button
-              className={cx(styles.artCardHeart, { [styles.artCardHeartActive]: isLike })}
-              onClick={handleLike}
-              color="transparent"
-            >
-              <PinkHeart />
-            </Button>
-            <Text>{numberFormatter(likesCount, 3)}</Text>
-          </div>
+          {likeAction && (
+            <div className={cx(styles.flexContainer, styles.artCardSmallLikes)}>
+              <Button
+                className={cx(styles.artCardHeart, { [styles.artCardHeartActive]: isLike })}
+                onClick={handleLike}
+                color="transparent"
+              >
+                <PinkHeart />
+              </Button>
+              <Text>{numberFormatter(likesCount, 3)}</Text>
+            </div>
+          )}
         </div>
       </div>
     </div>

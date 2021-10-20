@@ -54,10 +54,11 @@ const Discover = observer(() => {
   });
 
   const likeAction = useCallback(
-    (id) => {
-      if (user.address) {
-        userApi.like({ id });
+    (id): Promise<any> => {
+      if (!user.address) {
+        return Promise.reject(new Error('Please login'));
       }
+      return userApi.like({ id });
     },
     [user.address],
   );

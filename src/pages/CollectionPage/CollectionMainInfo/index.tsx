@@ -27,7 +27,7 @@ const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({
     <section
       className={s.user}
       style={{
-        background: `url(${cover || profile_page_bg_example}) center center no-repeat`,
+        backgroundImage: `url(${cover || profile_page_bg_example})`,
       }}
     >
       <div className={s.user_avatar}>

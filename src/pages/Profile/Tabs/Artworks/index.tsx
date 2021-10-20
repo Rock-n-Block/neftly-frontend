@@ -9,7 +9,7 @@ import { toFixed } from 'utils';
 import s from '../Tabs.module.scss';
 
 interface IProps {
-  likeAction: (id: string | number) => void;
+  likeAction: (id: string | number) => Promise<any>;
   page: number;
   allPages: number;
   handlePage: (value: number) => void;
