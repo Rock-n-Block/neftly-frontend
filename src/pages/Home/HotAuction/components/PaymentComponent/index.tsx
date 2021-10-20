@@ -1,18 +1,16 @@
 import React, { FC } from 'react';
-import cx from 'classnames';
-import { observer } from 'mobx-react-lite';
+import { growth as growthImg } from 'assets/img';
 import BigNumber from 'bignumber.js/bignumber';
-
+import cx from 'classnames';
 import { Button, H4, Text } from 'components';
-import { INft, TNullable } from 'typings';
-import { useMst } from 'store';
-import { useWalletConnectorContext } from 'services/walletConnect';
 import { contracts } from 'config';
+import { observer } from 'mobx-react-lite';
 import { storeApi } from 'services/api';
+import { useWalletConnectorContext } from 'services/walletConnect';
+import { useMst } from 'store';
+import { INft, TNullable } from 'typings';
 
 import styles from './styles.module.scss';
-
-import { growth as growthImg } from 'assets/img';
 
 type Props = {
   className?: string;
@@ -178,6 +176,9 @@ const PaymentComponent: FC<Props> = observer(
               {currentPrice ? <H4>{`${currentPrice} ${nft?.currency.symbol}`}</H4> : ''}
               {nftSellingType === 'sell' && <Text size="m">{`($${nft?.USD_price})`}</Text>}
             </div>
+            {!!nft?.minimal_bid && (
+              <Text color="lightGray">{`Minimal bid ${nft.minimal_bid}`}</Text>
+            )}
             {nftSellingType === 'sell' && (
               <Text size="m" className={styles.growthWrapper}>
                 <img
