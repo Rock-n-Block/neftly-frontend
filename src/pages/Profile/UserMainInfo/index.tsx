@@ -70,9 +70,9 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
   );
 
   const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(user.address);
+    navigator.clipboard.writeText(shownUser.address);
     toast.info('Copied to Clipboard');
-  }, [user.address]);
+  }, [shownUser.address]);
 
   return (
     <section
