@@ -17,6 +17,7 @@ interface IProps {
   creator?: string;
   owner?: string;
   text?: string;
+  isCanFetch?: boolean;
   isOnlyForOwnerOrCreator?: boolean;
 }
 
@@ -33,6 +34,7 @@ export const useFetchNft = (props: IProps): [number, number, INft[], boolean] =>
     owner,
     on_sale,
     text = '',
+    isCanFetch = true,
     isOnlyForOwnerOrCreator,
   } = props;
   const [isLoading, setLoading] = useState(false);
@@ -41,7 +43,7 @@ export const useFetchNft = (props: IProps): [number, number, INft[], boolean] =>
   const [nftCards, setNftCards] = useState<INft[]>([]);
 
   const fetchSearch = useCallback(() => {
-    if (isOnlyForOwnerOrCreator && !owner && !creator) {
+    if (!isCanFetch || (isOnlyForOwnerOrCreator && !owner && !creator)) {
       return;
     }
     const refresh = page === 1;
@@ -63,8 +65,7 @@ export const useFetchNft = (props: IProps): [number, number, INft[], boolean] =>
         text,
       )
       .then(({ data: { items, total_tokens } }: any) => {
-        // TODO: проверить когда внесут изменения на бэке
-        setTotalItems(total_tokens);
+        setTotalItems(() => total_tokens);
         if (refresh) {
           setNftCards(items);
         } else {
@@ -90,6 +91,7 @@ export const useFetchNft = (props: IProps): [number, number, INft[], boolean] =>
     sort,
     tags,
     text,
+    isCanFetch,
     isOnlyForOwnerOrCreator,
   ]);
 

@@ -1,7 +1,10 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState, useCallback, ChangeEvent } from 'react';
 import cx from 'classnames';
 import { Switcher, Text } from 'components';
 import Slider from 'rc-slider';
+import { debounce } from 'lodash';
+
+import { TOptionable } from 'typings';
 
 import 'rc-slider/assets/index.css';
 import './styles.scss';
@@ -23,6 +26,7 @@ type Props = {
   valueSwitcher?: boolean;
   onChange?: (value: number) => void;
   onSwitcher?: (value: boolean) => void;
+  isDebounce?: boolean;
 };
 
 const RangePicker: FC<Props> = ({
@@ -41,23 +45,47 @@ const RangePicker: FC<Props> = ({
   valueSwitcher,
   onChange = () => {},
   onSwitcher = () => {},
+  isDebounce,
 }) => {
+  const [localValue, setLocalValue] = useState<TOptionable<number>>(undefined);
+
+  const [debouncedCallApi] = useState(() => debounce(onChange, 1000));
+
+  const handleChangeRange = useCallback(
+    (val: number) => {
+      setLocalValue(val);
+      if (isDebounce) {
+        debouncedCallApi(val);
+      } else {
+        onChange(val);
+      }
+    },
+    [debouncedCallApi, isDebounce, onChange],
+  );
+
+  const handleChangeInput = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const numberValue = Number(e.target.value.replace(/[^0-9.]/g, ''));
+      const total = numberValue > max ? max : numberValue;
+      setLocalValue(total);
+      onChange(total);
+    },
+    [max, onChange],
+  );
+
   const input = useMemo(
     () => (
       <div className={cx(styles.values, top && styles.top)}>
         <input
           type="text"
-          value={value || '0'}
+          value={localValue === undefined ? value : localValue}
           className={styles.valueInput}
-          onChange={(e) => {
-            const numberValue = Number(e.target.value.replace(/[^0-9.]/g, ''));
-            onChange(numberValue > max ? max : numberValue);
-          }}
+          onChange={handleChangeInput}
         />
         <Text className={styles.maxValue}>{max}</Text>
       </div>
     ),
-    [top, value, max, onChange],
+    [top, value, max, handleChangeInput, localValue],
   );
 
   return (
@@ -116,12 +144,12 @@ const RangePicker: FC<Props> = ({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore (rc-slider show that className invalid prop, but exist
           className={cx(styles.slider, 'rc-slider-wrap', className)}
-          value={value}
+          value={typeof localValue !== undefined ? localValue : value}
           min={min}
           max={max}
           step={step}
           vertical={isVertical}
-          onChange={onChange}
+          onChange={handleChangeRange}
           railStyle={
             isVertical
               ? {
