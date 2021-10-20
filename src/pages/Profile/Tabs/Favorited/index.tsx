@@ -9,7 +9,7 @@ import { INft } from 'typings';
 import s from '../Tabs.module.scss';
 
 interface IProps {
-  likeAction: (id: string | number) => void;
+  likeAction: (id: string | number) => Promise<any>;
   page: number;
   handlePage: (value: number) => void;
   isFiltersLoading: boolean;

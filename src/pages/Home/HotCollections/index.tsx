@@ -10,7 +10,6 @@ type Props = {
 };
 
 const HotCollections: FC<Props> = ({ className }) => {
-
   const [collections, setCollections] = useState([]);
   const fetchHotCollections = useCallback(() => {
     storeApi.getCollections().then(({ data }: any) => setCollections(data));
@@ -29,7 +28,7 @@ const HotCollections: FC<Props> = ({ className }) => {
       <div className={styles.artCardsWrapper}>
         {collections
           ? collections.map((art: any) => {
-              const { avatar, tokens, name, price, asset, creator, likes_count, id } = art;
+              const { avatar, tokens, name, price, asset, creator, id } = art;
               return (
                 <ArtCard
                   artId={id}
@@ -46,7 +45,6 @@ const HotCollections: FC<Props> = ({ className }) => {
                   author={creator.name}
                   authorAvatar={creator.avatar}
                   authorId={creator.id}
-                  likesNumber={likes_count.likes_count}
                   isCollection
                 />
               );
