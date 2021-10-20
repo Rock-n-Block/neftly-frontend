@@ -20,8 +20,8 @@ export const routes = {
   },
   profile: {
     link: (id: string | number): string => `/profile/${id}`,
+    root: '/profile/:userId',
     edit: '/profile/edit',
-    root: '/profile',
   },
   activity: {
     root: '/activity',
