@@ -5,13 +5,13 @@
   width: 100%;
 
   & > img, video {
-    max-width: 65%;
+    width: 65%;
     height: auto;
   }
 
   .cardInfo {
     padding: 32px;
-    max-width: 35%;
+    width: 35%;
     border-width: 1px 1px 1px 0;
     border-style: solid;
     border-color: $color-neutral-80;
@@ -34,10 +34,10 @@
     flex-direction: column;
 
     & > img, video {
-      max-width: unset;
+      width: 100%;
     }
     .cardInfo {
-      max-width: unset;
+      width: 100%;
       border-width: 0 1px 1px 1px;
     }
   }
