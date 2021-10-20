@@ -45,7 +45,7 @@ const Artworks: FC<IProps> = ({
   return (
     <>
       <TabHeader
-        title={`${totalItems} artwork ${activeTab === 'artworks' ? 'created' : 'owned'}`}
+        title={`${totalItems} artwork ${activeTab === 'collectibles' ? 'owned' : 'created'}`}
         orderByFilter={orderByFilter}
         handleOrderByFilter={handleOrderByFilter}
       />
