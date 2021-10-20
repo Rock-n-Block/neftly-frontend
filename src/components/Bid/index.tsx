@@ -10,6 +10,7 @@ import { useMst } from '../../store';
 import TextInput from '../TextInput';
 
 import styles from './Bid.module.scss';
+import { toast } from 'react-toastify';
 
 interface IBidProps {
   className?: string;
@@ -44,11 +45,12 @@ const Bid: React.FC<IBidProps> = observer(
       storeApi
         .createBid(id, +bidValue, +quantity, currency)
         .then(() => {
+          toast.success('Bid Placed')
           // walletConnector.walletService
           //   .sendTransaction(data.initial_tx)
           //   .catch((e: any) => console.error('Bid modal sendTranscation', e));
         })
-        .catch((e) => console.error('Bid modal createBid', e))
+        .catch(() => toast.error('Error Place a Bid'))
         .finally(() => setIsLoading(false));
     };
 

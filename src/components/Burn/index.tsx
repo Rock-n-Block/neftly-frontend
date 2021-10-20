@@ -28,10 +28,15 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
         walletConnector.walletService.sendTransaction(data.initial_tx).then(() => {
           burn.success();
           burn.close();
-          toast.success('Token Burned')
+          toast.success('Token Burned');
         });
       })
-      .catch((e: any) => console.error('Bid modal sendTranscation', e))
+      .catch(() =>
+        toast.error({
+          message: 'Error',
+          description: 'Bid modal sendTranscation',
+        }),
+      )
       .finally(() => setIsLoading(false));
   }, [burn, amount, walletConnector.walletService]);
 
