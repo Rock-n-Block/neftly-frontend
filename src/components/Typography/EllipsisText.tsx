@@ -17,7 +17,7 @@ const EllipsisText: FC<PropsWithChildren<Props>> = ({ children, className, style
   const text = cloneElement(children, { className: cn(className, styles.ellipsis), style });
   return (
     <>
-      <Tooltip overlay={<span>{children}</span>} overlayClassName="tooltip">
+      <Tooltip overlay={children} overlayClassName="tooltip">
         {text}
       </Tooltip>
     </>

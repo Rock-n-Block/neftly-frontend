@@ -84,11 +84,7 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
             isOwner={isOwner}
           />
         ) : null}
-        <AuthorComponent
-          author={nft?.creator.name || ''}
-          authorPic={nft?.creator.avatar || ''}
-          owners={nft?.owners}
-        />
+        <AuthorComponent creator={nft?.creator} owners={nft?.owners} />
         <DescriptionAndTagsComponent tags={nft?.tags || []} body={nft?.description || ''} />
       </div>
     </div>
