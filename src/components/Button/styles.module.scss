@@ -1,9 +1,9 @@
 @import '../../styles/helpers.scss';
 
 .button {
-  // @include flexbox(center, center);
   font-weight: 400;
   @include flexbox();
+  @include epilogue;
   cursor: pointer;
 
   &:focus {

@@ -67,7 +67,7 @@ const CollectionPage: React.FC = () => {
         <div className={s.page_body__right}>
           <div className={s.page_body__top}>
             <div className={s.page_body__top_col}>
-              <H3 className={s.title}>My Artworks</H3>
+              <H3 className={s.title}>Artworks</H3>
               <div className={s.counter}>{totalTokens} artwork created</div>
             </div>
           </div>

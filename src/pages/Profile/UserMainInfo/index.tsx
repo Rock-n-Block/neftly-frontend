@@ -1,11 +1,10 @@
 import { FC, useCallback, useState } from 'react';
-import { Button, H2, Text, Uploader } from 'components';
+import { Button, Copyable, H2, Text, Uploader } from 'components';
 
 import {
   iconAddBlack,
   iconEdit,
   iconSettings,
-  LinkIcon,
   profile_avatar_example,
   profile_page_bg_example,
 } from 'assets/img';
@@ -30,6 +29,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
   const [, setIsUserLoading] = useState(false);
   const [isFileLoading, setIsFileLoading] = useState(false);
   const [isFollowClickPending, setIsFollowClickPending] = useState(false);
+  const [userCover, setUserCover] = useState('');
   const {
     user: shownUser,
     isSelf,
@@ -57,6 +57,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
         .then(({ data }) => {
           toast.success('Cover uploaded');
           user.setCover(data);
+          setUserCover(data);
         })
         .catch((err) => {
           toast.error('Success unfollow');
@@ -69,16 +70,11 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
     [user],
   );
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(shownUser.address);
-    toast.info('Copied to Clipboard');
-  }, [shownUser.address]);
-
   return (
     <section
       className={s.user}
       style={{
-        backgroundImage: `url(${user.cover || shownUser.cover || profile_page_bg_example})`,
+        backgroundImage: `url(${userCover || shownUser.cover || profile_page_bg_example})`,
       }}
     >
       <div className={s.user_avatar}>
@@ -91,16 +87,14 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
       </div>
       <H2 className={s.user_name}>{shownUser.display_name || 'User Name'}</H2>
       <div className={s.user_info}>
-        <div
-          className={s.user_info__icon}
-          onClick={handleCopy}
-          tabIndex={0}
-          role="button"
-          onKeyDown={() => {}}
+        <Copyable
+          valueToCopy={shownUser.address || zeroAddress}
+          classNameIcon={s.user_info__icon}
+          withIcon
+          title="Address"
         >
-          <img src={LinkIcon} alt="link" />
-        </div>
-        <Text size="m">{sliceString(shownUser.address || zeroAddress)}</Text>
+          <Text size="m">{sliceString(shownUser.address || zeroAddress)}</Text>
+        </Copyable>
       </div>
       <div className={s.user_buttons}>
         {isSelf ? (

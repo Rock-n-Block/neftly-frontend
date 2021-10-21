@@ -63,6 +63,10 @@
     @include flexbox;
   }
 
+  &__button {
+    cursor: pointer;
+  }
+
   &__value {
     font-size: 16px;
   }

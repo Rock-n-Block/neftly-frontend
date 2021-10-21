@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
-import { folders } from 'assets/img';
+import { LinkIcon } from 'assets/img';
 import cx from 'classnames';
 
 import styles from './styles.module.scss';
@@ -12,6 +12,7 @@ type Props = {
   withIcon?: boolean;
   className?: string;
   classNameIcon?: string;
+  title?: string
 };
 
 const Copyable: FC<PropsWithChildren<Props>> = ({
@@ -21,17 +22,18 @@ const Copyable: FC<PropsWithChildren<Props>> = ({
   withIcon,
   className,
   classNameIcon,
+  title = 'Value'
 }) => (
   <CopyToClipboard
     text={valueToCopy}
     onCopy={() => {
       onCopy();
-      toast.success('Value copied');
+      toast.success(`${title} copied`);
     }}
   >
     <div className={cx(styles.copy, withIcon && styles.withIcon, className)}>
+      {withIcon && <img src={LinkIcon} alt="" className={cx(styles.icon, classNameIcon)} />}
       {children}
-      {withIcon && <img src={folders} alt="" className={cx(styles.icon, classNameIcon)} />}
     </div>
   </CopyToClipboard>
 );
