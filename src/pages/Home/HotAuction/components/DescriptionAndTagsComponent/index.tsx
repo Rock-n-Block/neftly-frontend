@@ -22,7 +22,7 @@ const DescriptionAndTagsComponent: FC<Props> = ({ className, tags, body }) => (
         <div className={styles.tagWrapper}>
           {tags.map((tag) => (
             <div className={styles.tag}>
-              <Text size="m">{`#${tag}`}</Text>
+              <Text size="m">{`#${tag.value}`}</Text>
             </div>
           ))}
         </div>
