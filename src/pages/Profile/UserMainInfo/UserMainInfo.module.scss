@@ -10,7 +10,6 @@
 }
 
 .user_avatar {
-
   img {
     object-fit: cover;
     max-width: 130px;
@@ -27,31 +26,29 @@
     font-size: 24px;
   }
 }
-
-.user_info {
-  margin-top: 9px;
-  @include flexbox;
-  text-overflow: ellipsis;
-
-  &__icon {
-    width: 28px;
-    height: 28px;
-    background: rgba($color-neutral-0, 0.16);
-    margin-right: 8px;
-    border-radius: 50%;
+.user {
+  .user_info {
+    margin-top: 9px;
     @include flexbox;
-    cursor: pointer;
-  }
+    text-overflow: ellipsis;
 
-  &__value {
-    font-size: 16px;
+    .user_info__icon {
+      background: rgba($color-neutral-0, 0.16);
+      margin-right: 8px;
+      border-radius: 50%;
+      @include flexbox;
+      cursor: pointer;
+    }
+
+    &__value {
+      font-size: 16px;
+    }
   }
 }
-
 .user_buttons {
   @include flexbox;
   margin-top: 17px;
-  gap: 8px
+  gap: 8px;
 }
 
 .user_button {
@@ -65,4 +62,3 @@
     font-size: 15px;
   }
 }
-
