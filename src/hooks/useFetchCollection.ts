@@ -7,6 +7,7 @@ export const useFetchCollection = (
   setLoading: (value: boolean) => void,
   page: number,
   collectionId: string,
+  activeTab: string,
 ) => {
   const history = useHistory();
   const [totalTokens, setTotalTokens] = useState(0);
@@ -38,16 +39,19 @@ export const useFetchCollection = (
       .getCollection(collectionId, page)
       .then(({ data }: any) => {
         setCollection(data);
-        setTotalTokens(data.tokens_count);
+        const filteredTokens =
+          activeTab === 'sale' ? data.tokens.filter((token: any) => token.selling) : data.tokens;
+        setTotalTokens(filteredTokens.length);
         if (refresh) {
-          setTokens(data.tokens);
+          setTokens(filteredTokens);
         } else {
-          setTokens((prev: any) => [...prev, ...data.tokens]);
+          setTokens((prev: any) => [...prev, ...filteredTokens]);
         }
-        if (!data.tokens.length) {
+        if (!filteredTokens.length) {
           setTokens([]);
         }
       })
+      .catch((err: any) => console.error(err))
       .finally(() => {
         setLoading(false);
       });
@@ -60,7 +64,7 @@ export const useFetchCollection = (
       history.push('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, collectionId, history]);
+  }, [page, collectionId, history, activeTab]);
 
   return {
     totalTokens,

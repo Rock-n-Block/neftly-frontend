@@ -10,6 +10,7 @@
 }
 
 .user_avatar {
+  position: relative;
   img {
     object-fit: cover;
     max-width: 130px;
@@ -60,5 +61,35 @@
   @include forTablet {
     padding: 6px 12px;
     font-size: 15px;
+  }
+}
+
+.isVerified {
+  position: absolute;
+  right: 24px;
+  bottom: 0;
+
+  width: 24px;
+  height: 24px;
+
+  background: $color-primary;
+  border: 1.5px solid $color-neutral-80;
+  border-radius: 50%;
+
+  &::before {
+    content: ' ';
+
+    position: absolute;
+    left: 7px;
+    bottom: 5px;
+
+    width: 6px;
+    height: 12px;
+
+    border-width: 0 2px 2px 0;
+    border-style: solid;
+    border-color: $color-neutral-0;
+
+    transform: rotate(45deg);
   }
 }

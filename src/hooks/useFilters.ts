@@ -33,7 +33,7 @@ const useFilters = () => {
   });
   const [orderByFilter, setOrderByFilter] = useState<OptionType>({
     value: DEFAULT_FILTER_STATE.order_by,
-    label: 'Date',
+    label: 'Newest',
   });
   const [filterSelectCurrencyOptions, setFilterSelectCurrencyOptions] = useState<any>([]);
   const [tagsFilter, setTagsFilter] = useState(DEFAULT_FILTER_STATE.tags);

@@ -6,7 +6,7 @@ export const routes = {
     root: '/discover',
   },
   nft: {
-    link: (id: string | number): string => `/collection/${id}`,
+    link: (id: string | number): string => `/nft/${id}`,
     root: '/nft/:id',
   },
   collection: {
