@@ -5,7 +5,7 @@ import cx from 'classnames';
 import { Button, Tag, Text } from 'components';
 import { numberFormatter, sliceString } from 'utils';
 
-import { routes } from '../../appConstants';
+import { routes } from 'appConstants';
 
 import styles from './styles.module.scss';
 import { toast } from 'react-toastify';
@@ -50,7 +50,7 @@ const ArtCard: FC<Props> = ({
   author,
   authorId,
   authorAvatar,
-  likesNumber,
+  likesNumber = 0,
   tags,
   isCollection,
   bids,
@@ -58,16 +58,18 @@ const ArtCard: FC<Props> = ({
   likeAction,
 }) => {
   const [isLike, setIsLike] = useState(isLiked);
-  const [likesCount, setLikesCount] = useState(likesNumber || 0);
+  const [likesCount, setLikesCount] = useState(likesNumber || (isLiked ? 1 : 0));
 
   const handleLike = useCallback(() => {
     if (!likeAction) {
       return;
     }
+    // setIsLikePending(true);
     if (isLike) {
       likeAction(artId)
         .then(() => {
-          setLikesCount((prevValue) => prevValue - 1);
+          // setLikesCount((prevValue) => prevValue - 1);
+          setLikesCount(isLiked ? likesNumber - 1 : likesNumber);
           setIsLike(!isLike);
           toast.success('Dislike submitted');
         })
@@ -78,7 +80,7 @@ const ArtCard: FC<Props> = ({
     } else {
       likeAction(artId)
         .then(() => {
-          setLikesCount((prevValue) => prevValue + 1);
+          setLikesCount(isLiked ? likesNumber : likesNumber + 1);
           setIsLike(!isLike);
           toast.success('Like submitted');
         })
@@ -87,11 +89,11 @@ const ArtCard: FC<Props> = ({
           toast.success('Like error');
         });
     }
-  }, [artId, isLike, likeAction]);
+  }, [artId, isLike, isLiked, likeAction, likesNumber]);
   return (
     <div className={cx(styles.artCard, className, styles[`artCard${type}`])}>
       <Link
-        to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
+        to={isCollection ? routes.collection.link(artId) : routes.nft.link(artId)}
         className={cx(styles[`mainImageWrapper${type}`], styles.imageWrapper)}
       >
         <div className={styles.tagContainer}>

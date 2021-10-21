@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import nextId from 'react-id-generator';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as FilterIcon } from 'assets/img/ActivityPage/filter.svg';
@@ -13,6 +13,7 @@ import { data as cardsData } from './mockData';
 
 import styles from './Activity.module.scss';
 import { useFetchActivity } from 'hooks';
+import { routes } from 'appConstants';
 
 const filters = [
   'Sales',
@@ -26,7 +27,7 @@ const filters = [
   'Mints',
 ];
 
-const Activity: React.FC = observer(() => {
+const Activity: FC = observer(() => {
   const history = useHistory();
   const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,9 +38,9 @@ const Activity: React.FC = observer(() => {
 
   const openNotification = (method: string, link_id: number | string) => {
     if (method === 'follow') {
-      history.push(`/profile/${link_id}`);
+      history.push(routes.profile.link(link_id));
     } else {
-      history.push(`/nft/${link_id}`);
+      history.push(routes.nft.link(link_id));
     }
   };
 

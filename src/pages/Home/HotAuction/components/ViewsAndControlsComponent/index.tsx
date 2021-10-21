@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import cx from 'classnames';
 import Tooltip from 'rc-tooltip';
 import { observer } from 'mobx-react-lite';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
-import { Button, Text } from 'components';
+import { Button, Copyable, Text } from 'components';
 import { useMst } from 'store';
 import { INft, IOwner, TNullable } from 'typings';
 
@@ -19,6 +19,7 @@ import reportImg from 'assets/img/icons/report.svg';
 import { useLike } from 'hooks';
 import linkIcon from 'assets/img/icons/link.svg';
 import { numberFormatter } from 'utils';
+import { routes } from 'appConstants';
 
 type Props = {
   className?: string;
@@ -52,22 +53,22 @@ const ViewsAndControlsComponent: FC<Props> = ({
     !!user.address,
   );
 
-  const [isTooltipVisible, setTooltipVisible] = React.useState(false);
+  const [isTooltipVisible, setTooltipVisible] = useState(false);
 
-  const handleActionEvent = React.useCallback((event: () => void) => {
+  const handleActionEvent = useCallback((event: () => void) => {
     setTooltipVisible(false);
     event();
   }, []);
 
-  const handleBurn = React.useCallback(() => {
+  const handleBurn = useCallback(() => {
     burn.open(nft?.id || 0, nft?.standart || '');
   }, [burn, nft]);
 
-  const handleRemoveFromSale = React.useCallback(() => {
+  const handleRemoveFromSale = useCallback(() => {
     remove.open(nft?.id || 0);
   }, [remove, nft]);
 
-  const handleTransfer = React.useCallback(() => {
+  const handleTransfer = useCallback(() => {
     let available = 0;
     if (Array.isArray(nft?.owners)) {
       available =
@@ -80,11 +81,11 @@ const ViewsAndControlsComponent: FC<Props> = ({
     transfer.open(nft?.id || 0, nft?.standart || '', available);
   }, [transfer, nft, user.id]);
 
-  const handleReport = React.useCallback(() => {
+  const handleReport = useCallback(() => {
     report.open();
   }, [report]);
 
-  const actions = React.useMemo(
+  const actions = useMemo(
     () => [
       {
         name: 'Transfer Token',
@@ -123,10 +124,10 @@ const ViewsAndControlsComponent: FC<Props> = ({
     ],
   );
 
-  const handleCopy = React.useCallback(() => {
-    navigator.clipboard.writeText(`${window.location.origin}/nft/${nft?.id}`);
-    toast.info('Copied to Clipboard');
-  }, [nft?.id]);
+  // const handleCopy = useCallback(() => {
+  //   navigator.clipboard.writeText(`${window.location.origin}${routes.nft.link(nft?.id || '')}`);
+  //   toast.info('Copied to Clipboard');
+  // }, [nft]);
 
   return (
     <>
@@ -141,9 +142,11 @@ const ViewsAndControlsComponent: FC<Props> = ({
             <PinkHeart />
             {numberFormatter(likeCount || 0, 1000)}
           </Button>
-          <Button onClick={handleCopy} color="outline">
-            <img src={linkIcon} alt="" />
-          </Button>
+          <Copyable valueToCopy={`${window.location.origin}${routes.nft.link(nft?.id || '')}`}>
+            <Button color="outline" className={styles.copyButton}>
+              <img src={linkIcon} alt="" />
+            </Button>
+          </Copyable>
           <Tooltip
             visible={isTooltipVisible}
             animation="zoom"
@@ -174,7 +177,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
             placement={tooltipPlacement}
           >
             <Button className={styles.button} color="outline">
-              <Text className={styles.dots}>...</Text>
+              <Text className={styles.dots}>&hellip;</Text>
             </Button>
           </Tooltip>
         </div>
