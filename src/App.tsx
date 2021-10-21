@@ -13,7 +13,7 @@ import './styles/app.scss';
 function App() {
   return (
     <>
-      <ToastContainer limit={7} />
+      <ToastContainer limit={3} />
       <GoogleReCaptchaProvider
         reCaptchaKey="6LfRLJscAAAAAEsnpB4vjDK-ZZABY6blkCiXk49v"
         language="en"
