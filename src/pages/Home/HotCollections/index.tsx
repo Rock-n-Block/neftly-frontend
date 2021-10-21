@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
-import { ArtCard, Button, H2 } from 'components';
+import { ArtCard, H2 } from 'components';
 import { storeApi } from 'services';
 
 import styles from './styles.module.scss';
@@ -50,11 +50,6 @@ const HotCollections: FC<Props> = ({ className }) => {
               );
             })
           : null}
-      </div>
-      <div className={styles.viewMoreBtnWrapper}>
-        <Button color="outline" className={styles.viewMoreBtn}>
-          View More
-        </Button>
       </div>
     </div>
   );
