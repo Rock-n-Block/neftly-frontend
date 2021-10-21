@@ -1,12 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import cx from 'classnames';
-import { ArtCard, Button, Control, GiantCard, H3, H4, Loader } from 'components';
 import { observer } from 'mobx-react-lite';
+
+import { ArtCard, Control, GiantCard, H3 } from 'components';
 import { storeApi } from 'services/api';
 import { useMst } from 'store';
 import { ICurrency, INft, TNullable } from 'typings';
 import { useLoadMore, useFetchNft } from 'hooks';
+import { LoadMore } from 'containers';
 
 import PriceHistory from './PriceHistory';
 
@@ -81,49 +83,48 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
         <PriceHistory tokenId={id} currency={nft?.currency as ICurrency} />
         <div className={styles.relatedArtwork}>
           <H3>Related Artwork</H3>
-          <div className={styles.artCardsWrapper}>
-            {nftCards.map((art) => {
-              const {
-                id: artId,
-                media: image,
-                name,
-                price,
-                available: inStockNumber,
-                creator: { name: author },
-                creator: { avatar: authorAvatar },
-                creator: { id: authorId },
-                tags,
-                like_count: likesNumber,
-                currency: { symbol: asset },
-              } = art;
-              return (
-                <ArtCard
-                  key={`nft_card_${artId}`}
-                  className={styles.artCard}
-                  artId={artId}
-                  imageMain={image}
-                  name={name}
-                  price={price}
-                  asset={asset}
-                  inStockNumber={inStockNumber}
-                  author={author}
-                  authorAvatar={authorAvatar}
-                  authorId={authorId.toString()}
-                  likesNumber={likesNumber}
-                  tags={tags}
-                />
-              );
-            })}
-          </div>
-          {!nftCards.length && !isLoading ? <H4>No matches</H4> : ''}
-          {isLoading ? <Loader className={styles.loader} /> : ''}
-          {page < allPages && !isLoading && nftCards.length ? (
-            <div className={styles.viewMoreBtnWrapper}>
-              <Button color="outline" className={styles.viewMoreBtn} onClick={handleLoadMore}>
-                View More
-              </Button>
+          <LoadMore
+            itemsLength={nftCards.length}
+            isLoading={isLoading}
+            currentPage={page}
+            allPages={allPages}
+            handleLoadMore={handleLoadMore}
+          >
+            <div className={styles.artCardsWrapper}>
+              {nftCards.map((art) => {
+                const {
+                  id: artId,
+                  media: image,
+                  name,
+                  price,
+                  available: inStockNumber,
+                  creator: { name: author },
+                  creator: { avatar: authorAvatar },
+                  creator: { id: authorId },
+                  tags,
+                  like_count: likesNumber,
+                  currency: { symbol: asset },
+                } = art;
+                return (
+                  <ArtCard
+                    key={`nft_card_${artId}`}
+                    className={styles.artCard}
+                    artId={artId}
+                    imageMain={image}
+                    name={name}
+                    price={price}
+                    asset={asset}
+                    inStockNumber={inStockNumber}
+                    author={author}
+                    authorAvatar={authorAvatar}
+                    authorId={authorId.toString()}
+                    likesNumber={likesNumber}
+                    tags={tags}
+                  />
+                );
+              })}
             </div>
-          ) : null}
+          </LoadMore>
         </div>
       </div>
     </div>

@@ -1,10 +1,12 @@
 import { FC, useCallback } from 'react';
 import cx from 'classnames';
-import { ArtCard, Button, H2, Loader } from 'components';
-import { useFetchNft, useLoadMore } from 'hooks';
 import { observer } from 'mobx-react-lite';
+
 import { userApi } from 'services';
 import { useMst } from 'store';
+import { ArtCard, H2 } from 'components';
+import { useFetchNft, useLoadMore } from 'hooks';
+import { LoadMore } from 'containers';
 
 import styles from './styles.module.scss';
 
@@ -39,50 +41,50 @@ const OurArtworkGallery: FC<Props> = observer(({ className }) => {
           Our Artwork <span className={styles.gradientTitle}>Gallery</span>
         </H2>
       </div>
-      <div className={styles.artCardsWrapper}>
-        {nftCards.map((artPiece: any) => {
-          const {
-            id,
-            media,
-            name,
-            price,
-            highest_bid,
-            minimal_bid,
-            currency,
-            creator,
-            like_count,
-            available,
-            tags,
-            is_liked,
-          } = artPiece;
-          return (
-            <ArtCard
-              artId={id}
-              key={name}
-              imageMain={media}
-              name={name}
-              price={price || highest_bid || minimal_bid}
-              asset={currency.symbol.toUpperCase()}
-              inStockNumber={available}
-              author={creator.name}
-              authorAvatar={creator.avatar}
-              authorId={creator.id}
-              likesNumber={like_count}
-              tags={tags}
-              likeAction={likeAction}
-              isLiked={is_liked}
-            />
-          );
-        })}
-      </div>
-      {isLoading && <Loader className={styles.loader} />}
-      {!isLoading && page < allPages ? (
-        <div className={styles.viewMoreBtnWrapper}>
-          <Button color="outline" className={styles.viewMoreBtn} onClick={handleLoadMore}>
-            View More
-          </Button>
+      <LoadMore
+        itemsLength={nftCards.length}
+        isLoading={isLoading}
+        currentPage={page}
+        allPages={allPages}
+        handleLoadMore={handleLoadMore}
+      >
+        <div className={styles.artCardsWrapper}>
+          {nftCards.map((artPiece: any) => {
+            const {
+              id,
+              media,
+              name,
+              price,
+              highest_bid,
+              minimal_bid,
+              currency,
+              creator,
+              like_count,
+              available,
+              tags,
+              is_liked,
+            } = artPiece;
+            return (
+              <ArtCard
+                artId={id}
+                key={name}
+                imageMain={media}
+                name={name}
+                price={price || highest_bid || minimal_bid}
+                asset={currency.symbol.toUpperCase()}
+                inStockNumber={available}
+                author={creator.name}
+                authorAvatar={creator.avatar}
+                authorId={creator.id}
+                likesNumber={like_count}
+                tags={tags}
+                likeAction={likeAction}
+                isLiked={is_liked}
+              />
+            );
+          })}
         </div>
-      ) : null}
+      </LoadMore>
     </div>
   );
 });

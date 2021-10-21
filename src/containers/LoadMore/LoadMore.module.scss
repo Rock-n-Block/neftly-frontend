@@ -1,0 +1,21 @@
+@import 'src/styles/helpers';
+.container {
+  padding-bottom: 80px;
+}
+.viewMoreBtnWrapper,
+.loader {
+  @include flexbox;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: unset;
+}
+
+.viewMoreBtn {
+  width: 150px;
+}
+
+.loader {
+  bottom: 15px;
+}
