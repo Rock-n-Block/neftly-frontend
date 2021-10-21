@@ -24,19 +24,20 @@ const ArtistLabel: FC<Props> = ({
 }) => {
   console.log('artOwned', artOwned);
   return (
-  <div className={cx(styles.artistLabel, className)}>
-    <div className={styles.avatarContainer}>
-      <img src={avatar} alt="avatar" />
-      {isVerified && <div className={styles.isVerified} />}
-      <div>
-        <Text size="m" className={cx(styles.name, { [styles.selected]: isSelected })}>
-          {name || 'noname'}
-        </Text>
-        <Text size="m">{`${artOwned} Arts`}</Text>
+    <div className={cx(styles.artistLabel, className)}>
+      <div className={styles.avatarContainer}>
+        <img src={avatar} alt="avatar" />
+        {isVerified && <div className={styles.isVerified} />}
+        <div>
+          <Text size="m" className={cx(styles.name, { [styles.selected]: isSelected })}>
+            {name || 'noname'}
+          </Text>
+          <Text size="m">{`${artOwned} Arts`}</Text>
+        </div>
       </div>
+      <Text size="m" color="lightGray">{`${amount} ${asset || '$'}`}</Text>
     </div>
-    <Text size="m" color="lightGray">{`${amount} ${asset || 'ETH'}`}</Text>
-  </div>
-)};
+  );
+};
 
 export default ArtistLabel;
