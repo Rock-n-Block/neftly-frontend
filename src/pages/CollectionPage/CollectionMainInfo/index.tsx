@@ -39,7 +39,7 @@ const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({
       <div className={s.user_info}>
       <Copyable
           valueToCopy={address || zeroAddress}
-          classNameIcon={s.user_info__button}
+          classNameIcon={s.user_info__icon}
           withIcon
           title="Address"
         >
