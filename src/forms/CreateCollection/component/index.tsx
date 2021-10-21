@@ -94,6 +94,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
               <TextArea
                 label="Description"
                 name="description"
+                value={values.description}
                 placeholder="Spread some words about your token collection"
                 onChange={handleChange}
                 className={styles.field}
