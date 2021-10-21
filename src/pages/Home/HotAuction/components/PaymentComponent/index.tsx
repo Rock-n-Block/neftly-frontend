@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { growth as growthImg } from 'assets/img';
+// import { growth as growthImg } from 'assets/img';
 import BigNumber from 'bignumber.js/bignumber';
 import cx from 'classnames';
 import { Button, H4, Text } from 'components';
@@ -14,7 +14,6 @@ import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
-  growth?: number;
   nft: TNullable<INft>;
   onUpdateNft?: () => void;
   isUserCanEndAuction: boolean;
@@ -27,7 +26,6 @@ type Props = {
 const PaymentComponent: FC<Props> = observer(
   ({
     className,
-    growth,
     nft,
     onUpdateNft,
     isUserCanEndAuction,
@@ -38,7 +36,6 @@ const PaymentComponent: FC<Props> = observer(
   }) => {
     const { walletService } = useWalletConnectorContext();
     const { user, modals } = useMst();
-    const isGrowPositive = (growth && growth > 0) || false;
 
     const [isApproved, setApproved] = React.useState<boolean>(false);
     const [isApproving, setApproving] = React.useState<boolean>(false);
@@ -179,16 +176,16 @@ const PaymentComponent: FC<Props> = observer(
             {!!nft?.minimal_bid && (
               <Text color="lightGray">{`Minimal bid ${nft.minimal_bid}`}</Text>
             )}
-            {nftSellingType === 'sell' && (
+            {/*{nftSellingType === 'sell' && (
               <Text size="m" className={styles.growthWrapper}>
                 <img
-                  className={cx(styles.growth, { [styles.negativeGrowth]: !isGrowPositive })}
+                  className={cx(styles.growth, { [styles.negativeGrowth]: !isDifferencePositive })}
                   src={growthImg}
                   alt=""
                 />
-                {`${isGrowPositive ? '+' : '-'}${growth}%`}
+                {`${isDifferencePositive ? '+' : ''}${difference || '0'}%`}
               </Text>
-            )}
+            )}*/}
           </div>
           {/* {type === 'auction' && (
           <div>
