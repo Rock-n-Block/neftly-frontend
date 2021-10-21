@@ -12,7 +12,6 @@
   }
 }
 
-
 //.tableWrapper {
 //  height: 80%;
 //  overflow-y: auto;
@@ -23,10 +22,9 @@
 }
 
 .relatedArtwork {
-  margin-top: 40px;
   position: relative;
   overflow: hidden;
-  padding: 40px 0;
+  padding: 40px 0 80px;
   &:after {
     z-index: -1;
     position: absolute;
@@ -51,16 +49,24 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  gap: 28px;
+  gap: 35px;
 }
 
 .viewMoreBtn {
   margin: 0 auto;
 }
-
-.viewMoreBtnWrapper {
-  margin-top: 40px;
+.viewMoreBtnWrapper,
+.loader {
   @include flexbox;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: unset;
+}
+
+.loader {
+  bottom: 5px;
 }
 
 .viewMoreBtn {
