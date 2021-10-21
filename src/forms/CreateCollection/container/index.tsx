@@ -31,6 +31,7 @@ export default observer(({ isSingle }: any) => {
       symbol: Yup.string().min(2, 'Too Short!').max(6, 'Too Long!').required(),
       descr: Yup.string().max(500, 'Too Long!'),
       shortUrl: Yup.string().max(50, 'Too Long!'),
+      avatar: Yup.string().required(),
     }),
     handleSubmit: (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);

@@ -118,7 +118,11 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
           />
         </div>
 
-        <Button type="submit" className={cn('button', styles.button)} disabled={values.isLoading}>
+        <Button
+          type="submit"
+          className={cn('button', styles.button)}
+          disabled={values.isLoading || !!Object.keys(errors).length}
+        >
           Create Collection
         </Button>
       </div>
