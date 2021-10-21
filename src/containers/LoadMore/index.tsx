@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { H4, Button, Loader } from 'components';
 
@@ -12,7 +12,7 @@ interface ILoadMore {
   handleLoadMore: () => void;
 }
 
-const LoadMore: React.FC<ILoadMore> = ({
+const LoadMore: FC<ILoadMore> = ({
   children,
   itemsLength,
   isLoading,
