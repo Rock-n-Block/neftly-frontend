@@ -76,13 +76,13 @@ const OurArtworkGallery: FC<Props> = observer(({ className }) => {
         })}
       </div>
       {isLoading && <Loader className={styles.loader} />}
-      {(!isLoading || page >= allPages) && (
+      {!isLoading && page < allPages ? (
         <div className={styles.viewMoreBtnWrapper}>
           <Button color="outline" className={styles.viewMoreBtn} onClick={handleLoadMore}>
             View More
           </Button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 });
