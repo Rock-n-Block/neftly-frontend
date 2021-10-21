@@ -19,7 +19,8 @@ export const routes = {
     multiple: '/create/multiple',
   },
   profile: {
-    link: (id: string | number): string => `/profile/${id}`,
+    link: (id: string | number, tab?: 'created' | 'owned' | 'favorited' | 'about'): string =>
+      `/profile/${id}${tab ? `/?tab=${tab}` : ''}`,
     root: '/profile/:userId',
     edit: '/profile/edit',
   },

@@ -31,22 +31,22 @@ const User: FC<IUserProps> = observer(({ className }) => {
     {
       title: 'Dashboard',
       icon: 'user',
-      url: '/discover',
+      url: routes.discover.root,
     },
     {
       title: 'Public profile',
       icon: 'user',
-      url: `/profile/${user.id}`,
+      url: routes.profile.link(user.id),
     },
     {
-      title: 'My collections',
+      title: 'Owned Artworks',
       icon: 'user',
-      url: `/profile/${user.id}?tab=collections`,
+      url: routes.profile.link(user.id, 'owned'),
     },
     {
       title: 'Account Settings',
       icon: 'user',
-      url: '/profile/edit',
+      url: routes.profile.edit,
     },
     {
       title: 'Logout',
@@ -61,7 +61,7 @@ const User: FC<IUserProps> = observer(({ className }) => {
 
   const handleOpenUser = useCallback(() => {
     history.push(routes.profile.link(user.id));
-    handleClose()
+    handleClose();
   }, [history, user.id, handleClose]);
   return (
     <OutsideClickHandler onOutsideClick={() => setVisible(false)}>
