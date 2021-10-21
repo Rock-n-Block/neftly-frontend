@@ -7,6 +7,7 @@ export const useFetchCollection = (
   setLoading: (value: boolean) => void,
   page: number,
   collectionId: string,
+  activeTab: string,
 ) => {
   const history = useHistory();
   const [totalTokens, setTotalTokens] = useState(0);
@@ -32,19 +33,26 @@ export const useFetchCollection = (
   });
 
   const fetchSearch = () => {
+    let filteredTokens = <any>[]
     const refresh = page === 1;
     setLoading(true);
     storeApi
       .getCollection(collectionId, page)
       .then(({ data }: any) => {
         setCollection(data);
-        setTotalTokens(data.tokens_count);
-        if (refresh) {
-          setTokens(data.tokens);
+        if (activeTab === 'sale') {
+          filteredTokens = [...filteredTokens, ...data.tokens.filter((token: any) => token.selling)]
+          setTotalTokens(filteredTokens.length)
         } else {
-          setTokens((prev: any) => [...prev, ...data.tokens]);
+          filteredTokens = [...filteredTokens,  ...data.tokens]
+          setTotalTokens(data.tokens_count);
         }
-        if (!data.tokens.length) {
+        if (refresh) {
+          setTokens(filteredTokens);
+        } else {
+          setTokens((prev: any) => [...prev, ...filteredTokens]);
+        }
+        if (!filteredTokens.length) {
           setTokens([]);
         }
       })
@@ -60,7 +68,7 @@ export const useFetchCollection = (
       history.push('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, collectionId, history]);
+  }, [page, collectionId, history, activeTab]);
 
   return {
     totalTokens,

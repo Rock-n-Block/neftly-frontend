@@ -31,14 +31,12 @@ const CollectionPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { collectionId } = useParams<{ collectionId: string }>();
 
-  const { totalTokens, collection, tokens } = useFetchCollection(setIsLoading, page, collectionId);
-
-  /*
-    const handleTabChange = (title: string) => {
-      setActiveTab(title);
-      setPage(1);
-    };
-  */
+  const { totalTokens, collection, tokens } = useFetchCollection(
+    setIsLoading,
+    page,
+    collectionId,
+    activeTab,
+  );
 
   return (
     <section className={s.page}>
@@ -73,11 +71,7 @@ const CollectionPage: React.FC = () => {
 
           <div className={s.page_body__artworks}>
             {tokens.length
-              ? [
-                  ...(activeTab === 'On sale'
-                    ? tokens.filter((token: any) => token.selling)
-                    : tokens),
-                ].map((el: any) => {
+              ? tokens.map((el: any) => {
                   const {
                     id,
                     media,
