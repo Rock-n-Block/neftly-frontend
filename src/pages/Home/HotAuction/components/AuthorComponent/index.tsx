@@ -26,19 +26,23 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
       </div>
     </div>
     {owners && (
-      <div className={styles.user}>
+      <div className={styles.owners}>
         {Array.isArray(owners) ? (
           <>
-            <Link to={routes.profile.link(owners[0].id)} className={styles.avatarWrapper}>
-              <img src={owners[0].avatar} className={styles.avatar} alt="" />
-            </Link>
-            <div className={styles.text}>
-              <Text color="lightGray">Owner</Text>
-              <Text>{sliceString(owners[0].name)}</Text>
-            </div>
+            {owners.map((owner: IOwner) => (
+              <div className={styles.user}>
+                <Link to={routes.profile.link(owner.id)} className={styles.avatarWrapper}>
+                  <img src={owner.avatar} className={styles.avatar} alt="" />
+                </Link>
+                <div className={styles.text}>
+                  <Text color="lightGray">Owner</Text>
+                  <Text>{sliceString(owner.name)}</Text>
+                </div>
+              </div>
+            ))}
           </>
         ) : (
-          <>
+          <div className={styles.user}>
             <Link to={routes.profile.link(owners?.id)} className={styles.avatarWrapper}>
               <img src={owners?.avatar} className={styles.avatar} alt="" />
             </Link>
@@ -46,7 +50,7 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
               <Text color="lightGray">Owner</Text>
               <Text>{sliceString(owners?.name || '')}</Text>
             </div>
-          </>
+          </div>
         )}
       </div>
     )}

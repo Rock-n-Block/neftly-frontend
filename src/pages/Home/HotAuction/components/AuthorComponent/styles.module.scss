@@ -1,14 +1,14 @@
 @import '../../../../../styles/helpers';
 
 .authorBlock {
-  @include flexbox(center, space-between);
+  @include flexbox(flex-start, space-between);
 }
 
-.user{
+.user {
   @include flexbox(center, flex-start);
 }
 
-.avatar{
+.avatar {
   border-radius: 50%;
 }
 
@@ -23,6 +23,17 @@
 
     width: 100%;
     height: 100%;
+  }
+}
+
+.owners {
+  @include flexbox(flex-start, flex-start);
+  flex-direction: column;
+
+  .user {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
   }
 }
 
