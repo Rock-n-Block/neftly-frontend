@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import cx from 'classnames';
 import { ArtCard, Button, Control, GiantCard, H3, H4, Loader } from 'components';
@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { storeApi } from 'services/api';
 import { useMst } from 'store';
 import { ICurrency, INft, TNullable } from 'typings';
+import { useLoadMore, useFetchNft } from 'hooks';
 
 import PriceHistory from './PriceHistory';
 
@@ -35,39 +36,14 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
   const { id } = useParams<{ id: string }>();
 
   const [nft, setNft] = useState<TNullable<INft>>(null);
-  const [allPages, setAllPages] = useState<number>(1);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [artWorks, setArtWorks] = useState<INft[]>([]);
-  const [isLoadingArtWorks, setLoadingArtWorks] = useState<boolean>(false);
 
-  const getRelatedArtworks = useCallback((page: number) => {
-    setLoadingArtWorks(true);
-    storeApi
-      .getSearchResults({
-        type: 'items',
-        order_by: 'Recently added',
-        tags: 'All items',
-        max_price: [2000],
-        currency: 'bnb',
-        page,
-      })
-      .then(({ data }: any) => {
-        setArtWorks((prev: any) => [...prev, ...data.items]);
-        setAllPages(Math.ceil(data.total_tokens / 8));
-      })
-      .catch((err) => {
-        console.log('get artworks', err);
-      })
-      .finally(() => {
-        setLoadingArtWorks(false);
-      });
-  }, []);
+  const { page, handleLoadMore } = useLoadMore(1);
 
-  const handleLoadMore = React.useCallback(() => {
-    if (currentPage <= allPages) {
-      getRelatedArtworks(currentPage);
-    }
-  }, [currentPage, allPages, getRelatedArtworks]);
+  const [allPages, , nftCards, isLoading] = useFetchNft({
+    page,
+    sort: 'items',
+    on_sale: true,
+  });
 
   const getItem = React.useCallback(() => {
     storeApi
@@ -98,17 +74,6 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     sell.putOnSale.isSuccess,
   ]);
 
-  useEffect(() => getRelatedArtworks(1), [getRelatedArtworks]);
-
-  useEffect(() => {
-    if (currentPage !== 1) {
-      handleLoadMore();
-    }
-  }, [handleLoadMore, currentPage]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   return (
     <div className={cx(styles.detailArtwork, className)}>
       <div className={styles.detailArtworkContent}>
@@ -118,7 +83,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
         <div className={styles.relatedArtwork}>
           <H3>Related Artwork</H3>
           <div className={styles.artCardsWrapper}>
-            {artWorks.map((art) => {
+            {nftCards.map((art) => {
               const {
                 id: artId,
                 media: image,
@@ -151,15 +116,11 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
               );
             })}
           </div>
-          {!artWorks.length && !isLoadingArtWorks ? <H4>No matches</H4> : ''}
-          {isLoadingArtWorks ? <Loader className={styles.loader} /> : ''}
-          {currentPage < allPages && !isLoadingArtWorks && artWorks.length ? (
+          {!nftCards.length && !isLoading ? <H4>No matches</H4> : ''}
+          {isLoading ? <Loader className={styles.loader} /> : ''}
+          {page < allPages && !isLoading && nftCards.length ? (
             <div className={styles.viewMoreBtnWrapper}>
-              <Button
-                color="outline"
-                className={styles.viewMoreBtn}
-                onClick={() => setCurrentPage(currentPage + 1)}
-              >
+              <Button color="outline" className={styles.viewMoreBtn} onClick={handleLoadMore}>
                 View More
               </Button>
             </div>
