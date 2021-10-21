@@ -19,6 +19,7 @@ import reportImg from 'assets/img/icons/report.svg';
 import { useLike } from 'hooks';
 import linkIcon from 'assets/img/icons/link.svg';
 import { numberFormatter } from 'utils';
+import { routes } from '../../../../../appConstants';
 
 type Props = {
   className?: string;
@@ -124,9 +125,9 @@ const ViewsAndControlsComponent: FC<Props> = ({
   );
 
   const handleCopy = React.useCallback(() => {
-    navigator.clipboard.writeText(`${window.location.origin}/nft/${nft?.id}`);
+    navigator.clipboard.writeText(`${window.location.origin}${routes.nft.link(nft?.id || '')}`);
     toast.info('Copied to Clipboard');
-  }, [nft?.id]);
+  }, [nft]);
 
   return (
     <>

@@ -16,7 +16,7 @@ import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { toast } from 'react-toastify';
 import { useFetchUser, useFollow } from 'hooks';
-import { zeroAddress } from 'appConstants';
+import { routes, zeroAddress } from 'appConstants';
 import { sliceString } from 'utils';
 
 interface IProps {
@@ -111,7 +111,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
                 <Text tag="span">Edit Banner</Text>
               </div>
             </Uploader>
-            <Button className={s.user_button} color="outline" href="/profile/edit">
+            <Button className={s.user_button} color="outline" href={routes.profile.edit}>
               <img src={iconSettings} alt="" />
               <Text tag="span">Edit Profile</Text>
             </Button>

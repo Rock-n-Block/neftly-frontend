@@ -3,10 +3,11 @@ import cx from 'classnames';
 import { Link } from 'components';
 
 import styles from './styles.module.scss';
+import { routes } from 'appConstants';
 
 const nav = [
   {
-    url: '/discover',
+    url: routes.discover.root,
     title: 'Discover',
   },
 ];

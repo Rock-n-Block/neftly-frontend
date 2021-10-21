@@ -5,7 +5,7 @@ import cx from 'classnames';
 import { Button, Tag, Text } from 'components';
 import { numberFormatter, sliceString } from 'utils';
 
-import { routes } from '../../appConstants';
+import { routes } from 'appConstants';
 
 import styles from './styles.module.scss';
 import { toast } from 'react-toastify';
@@ -91,7 +91,7 @@ const ArtCard: FC<Props> = ({
   return (
     <div className={cx(styles.artCard, className, styles[`artCard${type}`])}>
       <Link
-        to={isCollection ? `${routes.collection.link}/${artId}` : `${routes.nft.link}/${artId}`}
+        to={isCollection ? routes.collection.link(artId) : routes.nft.link(artId)}
         className={cx(styles[`mainImageWrapper${type}`], styles.imageWrapper)}
       >
         <div className={styles.tagContainer}>

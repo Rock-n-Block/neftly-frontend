@@ -5,17 +5,18 @@ import { single, multiple } from 'assets/img/upload';
 
 import styles from './UploadVariants.module.scss';
 import { Button, H2, Text } from 'components';
+import { routes } from 'appConstants';
 
 const items = [
   {
     key: 'single',
-    url: '/create/single',
+    url: routes.create.single,
     buttonText: 'Create Single',
     image: single,
   },
   {
     key: 'multiple',
-    url: '/create/multiple',
+    url: routes.create.multiple,
     buttonText: 'Create Multiple',
     image: multiple,
   },

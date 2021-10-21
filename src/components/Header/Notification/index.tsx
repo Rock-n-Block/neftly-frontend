@@ -1,22 +1,23 @@
-import { useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 
-import { ReactComponent as Trangle } from '../../../assets/img/icons/triangle-white.svg';
-import { activityApi } from '../../../services/api';
-import { useMst } from '../../../store';
+import { ReactComponent as Trangle } from 'assets/img/icons/triangle-white.svg';
+import { activityApi } from 'services/api';
+import { useMst } from 'store';
 import { Button, Icon } from 'components';
 
 import styles from './Notification.module.scss';
+import { routes } from 'appConstants';
 
 interface INotificationProps {
   className?: string;
 }
 
-const Notification: React.FC<INotificationProps> = observer(({ className }) => {
+const Notification: FC<INotificationProps> = observer(({ className }) => {
   const { user } = useMst();
   const [visible, setVisible] = useState(false);
   const [items, setItems] = useState<any>([]);
@@ -45,7 +46,7 @@ const Notification: React.FC<INotificationProps> = observer(({ className }) => {
               {items?.map((x: any) => (
                 <Link
                   className={styles.item}
-                  to={x.from_id ? `/profile/${x.from_id}` : `/item/${x.token_id}`}
+                  to={x.from_id ? routes.profile.link(x.from_id) : `/item/${x.token_id}`}
                   onClick={() => setVisible(!visible)}
                   key={nextId()}
                 >
@@ -71,7 +72,7 @@ const Notification: React.FC<INotificationProps> = observer(({ className }) => {
             </div>
             <Link
               className={cn('button-small', styles.button)}
-              to="/activity"
+              to={routes.activity.root}
               onClick={() => setVisible(!visible)}
             >
               See all

@@ -10,11 +10,12 @@ import { ICurrency, INft, TNullable } from 'typings';
 import PriceHistory from './PriceHistory';
 
 import styles from './styles.module.scss';
+import { routes } from 'appConstants';
 
 const breadcrumbs = [
   {
     title: 'Discover',
-    url: '/discover',
+    url: routes.discover.root,
   },
   {
     title: 'Artwork Details',
