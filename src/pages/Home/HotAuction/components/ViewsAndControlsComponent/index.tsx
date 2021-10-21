@@ -2,9 +2,9 @@ import { FC, useCallback, useMemo, useState } from 'react';
 import cx from 'classnames';
 import Tooltip from 'rc-tooltip';
 import { observer } from 'mobx-react-lite';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
-import { Button, Text } from 'components';
+import { Button, Copyable, Text } from 'components';
 import { useMst } from 'store';
 import { INft, IOwner, TNullable } from 'typings';
 
@@ -124,10 +124,10 @@ const ViewsAndControlsComponent: FC<Props> = ({
     ],
   );
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(`${window.location.origin}${routes.nft.link(nft?.id || '')}`);
-    toast.info('Copied to Clipboard');
-  }, [nft]);
+  // const handleCopy = useCallback(() => {
+  //   navigator.clipboard.writeText(`${window.location.origin}${routes.nft.link(nft?.id || '')}`);
+  //   toast.info('Copied to Clipboard');
+  // }, [nft]);
 
   return (
     <>
@@ -142,9 +142,11 @@ const ViewsAndControlsComponent: FC<Props> = ({
             <PinkHeart />
             {numberFormatter(likeCount || 0, 1000)}
           </Button>
-          <Button onClick={handleCopy} color="outline">
-            <img src={linkIcon} alt="" />
-          </Button>
+          <Copyable valueToCopy={`${window.location.origin}${routes.nft.link(nft?.id || '')}`}>
+            <Button color="outline" className={styles.copyButton}>
+              <img src={linkIcon} alt="" />
+            </Button>
+          </Copyable>
           <Tooltip
             visible={isTooltipVisible}
             animation="zoom"
@@ -175,7 +177,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
             placement={tooltipPlacement}
           >
             <Button className={styles.button} color="outline">
-              <Text className={styles.dots}>...</Text>
+              <Text className={styles.dots}>&hellip;</Text>
             </Button>
           </Tooltip>
         </div>

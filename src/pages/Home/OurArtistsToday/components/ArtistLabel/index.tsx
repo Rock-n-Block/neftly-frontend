@@ -22,7 +22,6 @@ const ArtistLabel: FC<Props> = ({
   asset,
   isVerified = false,
 }) => {
-  console.log('artOwned', artOwned);
   return (
     <div className={cx(styles.artistLabel, className)}>
       <div className={styles.avatarContainer}>
