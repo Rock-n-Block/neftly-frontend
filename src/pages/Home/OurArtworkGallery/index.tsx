@@ -58,7 +58,7 @@ const OurArtworkGallery: FC<Props> = observer(({ className }) => {
           return (
             <ArtCard
               artId={id}
-              key={name}
+              key={`${id}_${media}_${creator.name}`}
               imageMain={media}
               name={name}
               price={price || highest_bid || minimal_bid}

@@ -136,7 +136,7 @@ const Discover = observer(() => {
                   return (
                     <ArtCard
                       artId={id}
-                      key={name}
+                      key={id}
                       imageMain={media}
                       name={name}
                       price={price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid}

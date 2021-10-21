@@ -93,7 +93,7 @@ const CollectionPage: React.FC = () => {
                   return (
                     <ArtCard
                       artId={id}
-                      key={name}
+                      key={id}
                       imageMain={media}
                       name={name}
                       price={price || highest_bid || minimal_bid}

@@ -62,7 +62,7 @@ const Favorited: FC<IProps> = memo(
             return (
               <ArtCard
                 artId={id}
-                key={name}
+                key={id}
                 imageMain={media}
                 name={name}
                 price={artPrice}

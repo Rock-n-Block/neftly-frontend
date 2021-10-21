@@ -84,7 +84,12 @@ const Footers: React.FC = observer(() => {
                     return typeof link.link === 'string' ? (
                       <Link key={link.title} color="lightGray" name={link.title} link={link.link} />
                     ) : (
-                      <Button className={styles.connect} color="transparent" onClick={link.onClick}>
+                      <Button
+                        key={link.title}
+                        className={styles.connect}
+                        color="transparent"
+                        onClick={link.onClick}
+                      >
                         <Text className={styles.connectText} size="m" color="lightGray">
                           {link.title}
                         </Text>
