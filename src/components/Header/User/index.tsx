@@ -5,8 +5,13 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
 import { routes } from 'appConstants';
 import cn from 'classnames';
-import { Button, Icon, Loader } from 'components';
+import { Button, Loader } from 'components';
 import { observer } from 'mobx-react';
+import { ReactComponent as Dashboard } from 'assets/img/icons/dashboard.svg';
+import { ReactComponent as Profile } from 'assets/img/icons/profile.svg';
+import { ReactComponent as Folders } from 'assets/img/icons/folders.svg';
+import { ReactComponent as Settings } from 'assets/img/icons/settings.svg';
+import { ReactComponent as Logout } from 'assets/img/icons/logout.svg';
 
 import { useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
@@ -25,32 +30,32 @@ const User: FC<IUserProps> = observer(({ className }) => {
 
   const dropdownOptions: Array<{
     title: string;
-    icon: 'user' | 'image' | 'bulb' | 'exit';
+    icon: any;
     url: string;
   }> = [
     {
       title: 'Dashboard',
-      icon: 'user',
+      icon: <Dashboard />,
       url: routes.discover.root,
     },
     {
       title: 'Public profile',
-      icon: 'user',
+      icon: <Profile />,
       url: routes.profile.link(user.id),
     },
     {
       title: 'Owned Artworks',
-      icon: 'user',
+      icon: <Folders />,
       url: routes.profile.link(user.id, 'owned'),
     },
     {
       title: 'Account Settings',
-      icon: 'user',
+      icon: <Settings />,
       url: routes.profile.edit,
     },
     {
       title: 'Logout',
-      icon: 'exit',
+      icon: <Logout />,
       url: '',
     },
   ];
@@ -108,9 +113,7 @@ const User: FC<IUserProps> = observer(({ className }) => {
                       rel="noopener noreferrer"
                       key={nextId()}
                     >
-                      <div className={styles.icon}>
-                        <Icon name={option.icon} size="20" />
-                      </div>
+                      <div className={styles.icon}>{option.icon}</div>
                       <div className={styles.text}>{option.title}</div>
                     </a>
                   );
@@ -123,9 +126,7 @@ const User: FC<IUserProps> = observer(({ className }) => {
                     key={nextId()}
                     replace
                   >
-                    <div className={styles.icon}>
-                      <Icon name={option.icon} size="20" />
-                    </div>
+                    <div className={styles.icon}>{option.icon}</div>
                     <div className={styles.text}>{option.title}</div>
                   </Link>
                 ) : (
@@ -137,9 +138,7 @@ const User: FC<IUserProps> = observer(({ className }) => {
                     role="button"
                     onKeyDown={() => {}}
                   >
-                    <div className={styles.icon}>
-                      <Icon name={option.icon} size="20" />
-                    </div>
+                    <div className={styles.icon}>{option.icon}</div>
                     <div className={styles.text}>{option.title}</div>
                   </div>
                 );
