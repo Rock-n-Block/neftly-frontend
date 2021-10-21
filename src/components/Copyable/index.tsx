@@ -32,7 +32,6 @@ const Copyable: FC<PropsWithChildren<Props>> = ({
     }}
   >
     <div className={cx(styles.copy, withIcon && styles.withIcon, className)}>
-      {console.log('classNameIcon', classNameIcon)}
       {withIcon && <img src={LinkIcon} alt="" className={cx(styles.icon, classNameIcon)} />}
       {children}
     </div>
