@@ -5,14 +5,15 @@ import styles from './ProfileEdit.module.scss';
 import { ProfileForm } from 'forms';
 import { FC } from 'react';
 import { useMst } from 'store';
+import { routes } from 'appConstants';
 
 const ProfileEdit: FC = observer(() => {
-  const {user} = useMst()
+  const { user } = useMst();
 
   const breadcrumbs = [
     {
       title: 'My profile',
-      url: `/profile/${user.id}`,
+      url: routes.profile.link(user.id),
     },
     {
       title: 'Edit Profile',

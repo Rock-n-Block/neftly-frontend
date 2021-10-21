@@ -19,12 +19,12 @@ import s from './ProfilePage.module.scss';
 const tabs = [
   {
     title: 'Created',
-    key: 'artworks',
+    key: 'created',
     icon: art,
   },
   {
     title: 'Owned',
-    key: 'collectibles',
+    key: 'owned',
     icon: folders,
   },
   {
@@ -48,9 +48,9 @@ const ProfilePage: FC = observer(() => {
 
   const creatorOrOwner = useMemo(() => {
     switch (activeTab) {
-      case 'artworks':
+      case 'created':
         return 'creator';
-      case 'collectibles':
+      case 'owned':
         return 'owner';
       default:
         return '';
@@ -105,7 +105,7 @@ const ProfilePage: FC = observer(() => {
         </div>
 
         <div className={cn(s.page_body__right, activeTab === 'about' && s.page_body__about)}>
-          {activeTab === 'artworks' || activeTab === 'collectibles' ? (
+          {activeTab === 'created' || activeTab === 'owned' ? (
             <Artworks
               likeAction={likeAction}
               page={page}

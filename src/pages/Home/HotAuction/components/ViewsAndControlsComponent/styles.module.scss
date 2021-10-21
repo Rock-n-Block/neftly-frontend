@@ -8,10 +8,9 @@
 
 .controls {
   @include flexbox;
+  gap: 10px;
 
   & > button {
-    margin-right: 10px;
-
     min-width: 38px;
   }
 }
@@ -30,7 +29,10 @@
     }
   }
 }
-
+.copyButton{
+  @include flexbox;
+  padding: 0 10px;
+}
 @include forTablet {
   .viewsAndControls {
     display: block;
