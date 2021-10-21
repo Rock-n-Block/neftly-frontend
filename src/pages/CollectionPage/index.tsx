@@ -8,7 +8,6 @@ import { H3, ArtCard, Button, TabLookingComponent, Loader } from 'components';
 import s from './CollectionPage.module.scss';
 
 import { folders, art } from 'assets/img';
-import { sliceString } from 'utils';
 import { useFetchCollection, useTabs } from 'hooks';
 import { useLocation } from 'react-router-dom';
 
@@ -48,7 +47,7 @@ const CollectionPage: React.FC = () => {
           cover={collection.cover}
           avatar={collection.avatar}
           name={collection.name}
-          address={sliceString(collection.address)}
+          address={collection.address}
           description={collection.description}
         />
       </div>

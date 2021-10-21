@@ -1,10 +1,10 @@
 import React from 'react';
-import { toast } from 'react-toastify';
-import { H2, Text } from 'components';
+import { H2, Copyable, Text } from 'components';
 
-import { ReactComponent as LinkIcon } from 'assets/img/ProfilePage/link_icon.svg';
+import { sliceString } from 'utils';
 import profile_avatar_example from 'assets/img/ProfilePage/profile_avatar_example.png';
 import profile_page_bg_example from 'assets/img/ProfilePage/profile_page_bg_example.png';
+import { zeroAddress } from 'appConstants';
 
 import s from './CollectionMainInfo.module.scss';
 import { TNullable } from 'typings';
@@ -24,10 +24,6 @@ const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({
   address,
   description,
 }) => {
-  const handleCopy = (addr: string) => {
-    navigator.clipboard.writeText(addr);
-    toast.info('Copied to Clipboard');
-  };
 
   return (
     <section
@@ -41,16 +37,14 @@ const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({
       </div>
       <H2 className={s.user_name}>{name}</H2>
       <div className={s.user_info}>
-        <div
-          className={s.user_info__button}
-          role="button"
-          tabIndex={0}
-          onClick={() => handleCopy(address || '')}
-          onKeyDown={() => {}}
+      <Copyable
+          valueToCopy={address || zeroAddress}
+          classNameIcon={s.user_info__button}
+          withIcon
+          title="Address"
         >
-          <LinkIcon className={s.user_info__icon} />
-        </div>
-        <Text size="m">{address}</Text>
+          <Text size="m">{sliceString(address || zeroAddress)}</Text>
+        </Copyable>
       </div>
       <div className={s.user_info}>
         <div className={s.user_info__value}>{description}</div>
