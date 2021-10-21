@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { routes } from 'appConstants';
+import { bell } from 'assets/img';
 import cx from 'classnames';
+import { Burger, Button, ChooseWallet, Logo, Modal } from 'components';
 import { observer } from 'mobx-react-lite';
-
 import { useMst } from 'store';
-import { Button, Burger, Logo, Modal, ChooseWallet } from 'components';
+import { TNullable } from 'typings';
+
 import HeaderLinks from './HeaderLinks';
 import MobileMenu from './MobileMenu';
 import User from './User';
-import { routes } from 'appConstants';
+import Wallet from './Wallet';
 
 import styles from './styles.module.scss';
-
-import { bell } from 'assets/img';
-import Wallet from './Wallet';
 
 const Headers: React.FC = observer(() => {
   const { user } = useMst();
@@ -30,9 +30,24 @@ const Headers: React.FC = observer(() => {
     setConnectOpen(false);
   }, []);
 
+  const headerRef = useRef<TNullable<HTMLDivElement>>(null);
+
+  let prevScrollpos = window.pageYOffset;
+  window.onscroll = function () {
+    const currentScrollPos = window.pageYOffset;
+    if (headerRef.current) {
+      if (prevScrollpos > currentScrollPos) {
+        headerRef.current.style.top = '0';
+      } else {
+        headerRef.current.style.top = `-${headerRef.current.offsetHeight}px`;
+      }
+      prevScrollpos = currentScrollPos;
+    }
+  };
+
   return (
     <>
-      <header className={styles.header}>
+      <header ref={headerRef} className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.flex}>
             <Burger className={styles.burger} onClick={toggleMenu} isMenuOpen={isMenuOpen} />
