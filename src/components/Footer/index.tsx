@@ -7,7 +7,6 @@ import { routes } from 'appConstants';
 import styles from './styles.module.scss';
 import { observer } from 'mobx-react';
 import { useMst } from 'store';
-import { toast } from 'react-toastify';
 
 const Footers: React.FC = observer(() => {
   const { user } = useMst();
@@ -28,20 +27,17 @@ const Footers: React.FC = observer(() => {
         {
           title: 'Discover',
           link: routes.discover.root,
+          isVisible: true,
         },
         {
           title: 'Connect wallet',
-          onClick: () => {
-            if (user.address) {
-              toast.info('You are already connected');
-            } else {
-              handleOpenConnect();
-            }
-          },
+          onClick: () => handleOpenConnect(),
+          isVisible: !user.address,
         },
         {
           title: 'Create item',
           link: routes.create.root,
+          isVisible: true,
         },
       ],
     },
@@ -51,14 +47,17 @@ const Footers: React.FC = observer(() => {
         {
           title: 'Download',
           link: 'https://google.com',
+          isVisible: true,
         },
         {
           title: 'Demos',
           link: 'https://google.com',
+          isVisible: true,
         },
         {
           title: 'Support',
           link: 'https://google.com',
+          isVisible: true,
         },
       ],
     },
@@ -78,28 +77,20 @@ const Footers: React.FC = observer(() => {
               return (
                 <div key={title} className={styles.linkBlock}>
                   <Text size="m">{title}</Text>
-                  {links.map((link) => (
-                    <>
-                      {typeof link.link === 'string' ? (
-                        <Link
-                          key={link.title}
-                          color="lightGray"
-                          name={link.title}
-                          link={link.link}
-                        />
-                      ) : (
-                        <Button
-                          className={styles.connect}
-                          color="transparent"
-                          onClick={link.onClick}
-                        >
-                          <Text className={styles.connectText} size="m" color="lightGray">
-                            {link.title}
-                          </Text>
-                        </Button>
-                      )}
-                    </>
-                  ))}
+                  {links.map((link) => {
+                    if (!link.isVisible) {
+                      return null;
+                    }
+                    return typeof link.link === 'string' ? (
+                      <Link key={link.title} color="lightGray" name={link.title} link={link.link} />
+                    ) : (
+                      <Button className={styles.connect} color="transparent" onClick={link.onClick}>
+                        <Text className={styles.connectText} size="m" color="lightGray">
+                          {link.title}
+                        </Text>
+                      </Button>
+                    );
+                  })}
                 </div>
               );
             })}
