@@ -33,20 +33,15 @@ export const useFetchCollection = (
   });
 
   const fetchSearch = () => {
-    let filteredTokens = <any>[]
     const refresh = page === 1;
     setLoading(true);
     storeApi
       .getCollection(collectionId, page)
       .then(({ data }: any) => {
         setCollection(data);
-        if (activeTab === 'sale') {
-          filteredTokens = [...filteredTokens, ...data.tokens.filter((token: any) => token.selling)]
-          setTotalTokens(filteredTokens.length)
-        } else {
-          filteredTokens = [...filteredTokens,  ...data.tokens]
-          setTotalTokens(data.tokens_count);
-        }
+        const filteredTokens =
+          activeTab === 'sale' ? data.tokens.filter((token: any) => token.selling) : data.tokens;
+        setTotalTokens(filteredTokens.length);
         if (refresh) {
           setTokens(filteredTokens);
         } else {
@@ -56,6 +51,7 @@ export const useFetchCollection = (
           setTokens([]);
         }
       })
+      .catch((err: any) => console.error(err))
       .finally(() => {
         setLoading(false);
       });
