@@ -3,7 +3,7 @@ import { storeApi } from 'services';
 
 import { INft } from 'typings';
 
-const NUMBER_NFTS_PER_PAGE = 6;
+const NUMBER_NFTS_PER_PAGE = 8;
 
 interface IProps {
   page: number;
