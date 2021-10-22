@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { createCollection } from 'assets/img';
+import { iconCreateCircle } from 'assets/img';
 import cn from 'classnames';
 import { Carousel, Modal, Text } from 'components';
 import { observer } from 'mobx-react';
@@ -80,7 +80,7 @@ const ChooseCollection: React.FC<IProps> = observer(
             tabIndex={0}
             className={cn(styles.card, !activeCollectionId && styles.active)}
           >
-            <img src={createCollection} alt="create" className={styles.plus} />
+            <img src={iconCreateCircle} alt="create" className={styles.plus} />
             <Text className={styles.subtitle} color="gray">
               Create collection
             </Text>

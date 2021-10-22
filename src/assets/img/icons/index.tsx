@@ -14,6 +14,7 @@ export { default as iconReport } from './icon-report.svg';
 export { default as iconLink } from './icon-link.svg';
 export { default as iconUpload } from './icon-upload.svg';
 export { default as iconCloudUpload } from './icon-cloud-upload.svg';
+export { default as iconCreateCircle } from './icon-create-circle.svg';
 export { ReactComponent as IconCoin } from './icon-coin.svg';
 export { ReactComponent as IconDashboard } from './icon-dashboard.svg';
 export { ReactComponent as IconSettings } from './icon-settings.svg';

@@ -84,7 +84,6 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
           width={130}
           height={130}
         />
-        {console.log('shownUser.is_verificated', shownUser.is_verificated)}
         {shownUser.is_verificated && <div className={s.isVerified} />}
       </div>
       <H2 className={s.user_name}>{shownUser.display_name || 'User Name'}</H2>
