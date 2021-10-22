@@ -174,7 +174,7 @@ const PaymentComponent: FC<Props> = observer(
               {nftSellingType === 'sell' && <Text size="m">{`($${nft?.USD_price})`}</Text>}
             </div>
             {!!nft?.minimal_bid && (
-              <Text color="lightGray">{`Minimal bid ${nft.minimal_bid}`}</Text>
+              <Text color="lightGray">{`Minimal bid ${nft.minimal_bid} ${nft?.currency.symbol}`}</Text>
             )}
             {/*{nftSellingType === 'sell' && (
               <Text size="m" className={styles.growthWrapper}>
