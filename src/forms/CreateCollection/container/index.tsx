@@ -11,7 +11,7 @@ import * as Yup from 'yup';
 
 import CreateCollection, { ICreateCollection } from '../component';
 
-export default observer(({ isSingle }: any) => {
+export default observer(({ isSingle, onClose }: any) => {
   const walletConnector = useWalletConnectorContext();
   const props: ICreateCollection = {
     name: '',
@@ -59,18 +59,27 @@ export default observer(({ isSingle }: any) => {
             })
             .then(() => {
               toast.success('Collection Created');
+              onClose()
             })
-            .catch((error) => {
-              toast.error('Create Collection failed');
-              console.error('Wallet Create collection failure', error);
+            .catch(({ response }) => {
+              if (response.data && response.data.name) {
+                toast.error(response.data.name);
+              } else {
+                toast.error('Create Token failed');
+              }
+              console.error('Wallet Create collection failure', response);
             })
             .finally(() => {
               setFieldValue('isLoading', false);
             });
         })
-        .catch((error) => {
-          toast.error('Create Collection failed');
-          console.error('Backend Create collection failure', error);
+        .catch(({ response }) => {
+          if (response.data && response.data.name) {
+            toast.error(response.data.name);
+          } else {
+            toast.error('Create Token failed');
+          }
+          console.error('Wallet Create collection failure', response);
         });
     },
 
