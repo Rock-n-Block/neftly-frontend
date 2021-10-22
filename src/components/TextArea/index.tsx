@@ -40,7 +40,7 @@ const TextArea: React.FC<ITextAreaProps> = ({
         <textarea value={value} onChange={handleChange} className={styles.textarea} {...props} />
         {maxLettersCount ? (
           <p className={styles.counter}>
-            {value?.length || 0}/{maxLettersCount}
+            {value?.length}/{maxLettersCount}
           </p>
         ) : (
           <></>
