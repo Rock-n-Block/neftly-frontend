@@ -2,7 +2,7 @@
 
 .header {
   border-bottom: 1px solid $color-neutral-80;
-  position: fixed;
+  position: sticky;
   top: 0;
   z-index: 1000;
   background: $color-neutral-100;
