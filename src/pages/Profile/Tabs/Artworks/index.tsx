@@ -1,10 +1,10 @@
 import { FC, RefObject } from 'react';
-
 import { ArtCard } from 'components';
 import { useInfiniteScroll } from 'hooks';
-import TabHeader from '../TabHeader';
-import { OptionType, INft } from 'typings';
+import { INft, OptionType } from 'typings';
 import { toFixed } from 'utils';
+
+import TabHeader from '../TabHeader';
 
 import s from '../Tabs.module.scss';
 
@@ -19,7 +19,6 @@ interface IProps {
   orderByFilter: OptionType;
   handleOrderByFilter: (value: OptionType) => void;
   nftCards: INft[];
-  activeTab: string;
 }
 
 const Artworks: FC<IProps> = ({
@@ -33,7 +32,6 @@ const Artworks: FC<IProps> = ({
   orderByFilter,
   handleOrderByFilter,
   nftCards,
-  activeTab,
 }) => {
   const anchorRef = useInfiniteScroll(
     page,
@@ -45,7 +43,7 @@ const Artworks: FC<IProps> = ({
   return (
     <>
       <TabHeader
-        title={`${totalItems} artwork ${activeTab === 'collectibles' ? 'owned' : 'created'}`}
+        title={`${totalItems} artwork${totalItems !== 1 ? 's' : ''}`}
         orderByFilter={orderByFilter}
         handleOrderByFilter={handleOrderByFilter}
       />
