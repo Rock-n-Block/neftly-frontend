@@ -32,6 +32,7 @@ const ChooseWallet: React.FC = () => {
             onKeyDown={() => {}}
             role="button"
             tabIndex={0}
+            key={blockchain.name}
           >
             <div className={styles.item_wrapper}>
               <img src={blockchain.img} alt="" />
@@ -53,6 +54,7 @@ const ChooseWallet: React.FC = () => {
               onKeyDown={() => {}}
               role="button"
               tabIndex={0}
+              key={wallet}
             >
               <div className={styles.item_wrapper}>
                 <img src={chains[activeChain].provider[wallet].img} alt="" />

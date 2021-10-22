@@ -71,7 +71,7 @@ const Artworks: FC<IProps> = ({
           return (
             <ArtCard
               artId={id}
-              key={name}
+              key={id}
               imageMain={media}
               name={name}
               price={artPrice}

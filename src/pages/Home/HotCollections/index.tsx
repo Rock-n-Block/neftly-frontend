@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
-import { ArtCard, Button, H2 } from 'components';
+import { ArtCard, H2 } from 'components';
 import { storeApi } from 'services';
 
 import styles from './styles.module.scss';
@@ -28,11 +28,11 @@ const HotCollections: FC<Props> = ({ className }) => {
       <div className={styles.artCardsWrapper}>
         {collections
           ? collections.map((art: any) => {
-              const { avatar, tokens, name, price, asset, creator, id } = art;
+              const { avatar, tokens, name, price, asset, creator, id, media } = art;
               return (
                 <ArtCard
                   artId={id}
-                  key={name}
+                  key={`${id}_${media}_${creator.name}`}
                   type="Medium"
                   imageMain={avatar}
                   imageSecondaryOne={tokens[0]}
@@ -50,11 +50,6 @@ const HotCollections: FC<Props> = ({ className }) => {
               );
             })
           : null}
-      </div>
-      <div className={styles.viewMoreBtnWrapper}>
-        <Button color="outline" className={styles.viewMoreBtn}>
-          View More
-        </Button>
       </div>
     </div>
   );

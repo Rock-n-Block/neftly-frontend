@@ -46,9 +46,8 @@ const ArtistsTodayMobile: FC<Props> = ({
               user: { is_verificated, avatar, display_name, id, owned_tokens },
             } = artist;
             return (
-              <Link to={routes.profile.link(id)}>
+              <Link to={routes.profile.link(id)} key={id}>
                 <ArtistLabel
-                  key={avatar}
                   avatar={avatar}
                   name={display_name}
                   amount={price}

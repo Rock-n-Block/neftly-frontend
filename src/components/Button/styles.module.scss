@@ -5,6 +5,7 @@
   @include flexbox();
   @include epilogue;
   cursor: pointer;
+  position: relative;
 
   &:focus {
     outline: none;
@@ -95,4 +96,9 @@
   margin-right: 10px;
 
   height: unset;
+}
+
+.loader {
+  position: static !important;
+  margin-left: 20px;
 }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import { IconNames } from 'typings';
 
-import { Icon } from '..';
+import { Icon, Loader } from '..';
 
 import styles from './styles.module.scss';
 
@@ -17,7 +17,6 @@ type Props = {
   disabled?: boolean;
   icon?: IconNames;
   loading?: boolean;
-  // styledType?: string;
   onMouseLeave?: (event: any) => void;
   style?: CSSProperties;
   href?: string;
@@ -58,7 +57,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
       type={type}
       className={cx(styles.button, styles[size], styles[color], className, {
         [styles.isFullWidth]: isFullWidth,
-        [styles.disabled]: disabled,
+        [styles.disabled]: disabled || loading,
       })}
       onClick={onClick}
       disabled={disabled || loading}
@@ -67,6 +66,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
     >
       {icon && <Icon className={styles.icon} name={icon} />}
       {children}
+      {loading ? <Loader className={styles.loader} /> : ''}
     </button>
   );
 };
