@@ -146,7 +146,7 @@ const Activity: FC = observer(() => {
                 return (
                   <ArtCard
                     className={styles.artwork}
-                    key={nextId()}
+                    key={id}
                     artId={id}
                     imageMain={image}
                     name={name}

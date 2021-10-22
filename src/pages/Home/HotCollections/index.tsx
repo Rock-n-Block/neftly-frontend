@@ -28,11 +28,11 @@ const HotCollections: FC<Props> = ({ className }) => {
       <div className={styles.artCardsWrapper}>
         {collections
           ? collections.map((art: any) => {
-              const { avatar, tokens, name, price, asset, creator, id } = art;
+              const { avatar, tokens, name, price, asset, creator, id, media } = art;
               return (
                 <ArtCard
                   artId={id}
-                  key={name}
+                  key={`${id}_${media}_${creator.name}`}
                   type="Medium"
                   imageMain={avatar}
                   imageSecondaryOne={tokens[0]}

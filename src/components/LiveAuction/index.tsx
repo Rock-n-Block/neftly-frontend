@@ -75,6 +75,7 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
             return (
               <ArtCard
                 artId={id}
+                key={id}
                 imageMain={image}
                 name={name}
                 price={price}

@@ -2,8 +2,11 @@ import { FC, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as PinkHeart } from 'assets/img/pinkHeart.svg';
 import cx from 'classnames';
+import nextId from 'react-id-generator';
 import { Button, Tag, Text } from 'components';
 import { numberFormatter, sliceString } from 'utils';
+
+import { IBidder } from 'typings';
 
 import { routes } from 'appConstants';
 
@@ -98,7 +101,12 @@ const ArtCard: FC<Props> = ({
       >
         <div className={styles.tagContainer}>
           {tags?.map((tag) => (
-            <Tag className={styles.tag} type={tag.type} auctionEndTime={tag.auctionEndTime} />
+            <Tag
+              className={styles.tag}
+              key={nextId()}
+              type={tag.type}
+              auctionEndTime={tag.auctionEndTime}
+            />
           ))}
         </div>
         <img className={styles.mainImage} src={imageMain} alt="" />
@@ -144,9 +152,14 @@ const ArtCard: FC<Props> = ({
             {bids?.length ? (
               <>
                 <div className={styles.bidder_avatars}>
-                  {bids.map((bidder: any, index: number) => {
+                  {bids.map((bidder: IBidder, index: number) => {
                     return index < 2 ? (
-                      <img className={styles.bidder_avatar} src={bidder.bidder_avatar} alt="" />
+                      <img
+                        key={bidder.id}
+                        className={styles.bidder_avatar}
+                        src={bidder.bidder_avatar}
+                        alt=""
+                      />
                     ) : null;
                   })}
                 </div>
