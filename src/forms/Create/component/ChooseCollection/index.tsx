@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { createCollection } from 'assets/img/ChooseCollection';
+import { createCollection } from 'assets/img';
 import cn from 'classnames';
 import { Carousel, Modal, Text } from 'components';
 import { observer } from 'mobx-react';

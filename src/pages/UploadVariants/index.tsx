@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
-import { single, multiple } from 'assets/img/upload';
+import { single, multiple } from 'assets/img';
 
 import styles from './UploadVariants.module.scss';
 import { Button, H2, Text } from 'components';

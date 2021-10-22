@@ -2,8 +2,7 @@ import React from 'react';
 import { H2, Copyable, Text } from 'components';
 
 import { sliceString } from 'utils';
-import profile_avatar_example from 'assets/img/ProfilePage/profile_avatar_example.png';
-import profile_page_bg_example from 'assets/img/ProfilePage/profile_page_bg_example.png';
+import { profile_avatar_example, profile_page_bg_example } from 'assets/img';
 import { zeroAddress } from 'appConstants';
 
 import s from './CollectionMainInfo.module.scss';
@@ -24,7 +23,6 @@ const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({
   address,
   description,
 }) => {
-
   return (
     <section
       className={s.user}
@@ -37,7 +35,7 @@ const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({
       </div>
       <H2 className={s.user_name}>{name}</H2>
       <div className={s.user_info}>
-      <Copyable
+        <Copyable
           valueToCopy={address || zeroAddress}
           classNameIcon={s.user_info__icon}
           withIcon

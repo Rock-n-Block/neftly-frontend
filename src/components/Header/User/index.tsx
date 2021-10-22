@@ -7,11 +7,14 @@ import { routes } from 'appConstants';
 import cn from 'classnames';
 import { Button, Loader } from 'components';
 import { observer } from 'mobx-react';
-import { ReactComponent as Dashboard } from 'assets/img/icons/dashboard.svg';
-import { ReactComponent as Profile } from 'assets/img/icons/profile.svg';
-import { ReactComponent as Folders } from 'assets/img/icons/folders.svg';
-import { ReactComponent as Settings } from 'assets/img/icons/settings.svg';
-import { ReactComponent as Logout } from 'assets/img/icons/logout.svg';
+import {
+  IconDashboard,
+  IconProfile,
+  IconFolders,
+  IconSettings,
+  IconLogout,
+  iconCloudUpload,
+} from 'assets/img';
 
 import { useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
@@ -35,27 +38,27 @@ const User: FC<IUserProps> = observer(({ className }) => {
   }> = [
     {
       title: 'Dashboard',
-      icon: <Dashboard />,
+      icon: <IconDashboard />,
       url: routes.discover.root,
     },
     {
       title: 'Public profile',
-      icon: <Profile />,
+      icon: <IconProfile />,
       url: routes.profile.link(user.id),
     },
     {
       title: 'Owned Artworks',
-      icon: <Folders />,
+      icon: <IconFolders />,
       url: routes.profile.link(user.id, 'owned'),
     },
     {
       title: 'Account Settings',
-      icon: <Settings />,
+      icon: <IconSettings />,
       url: routes.profile.edit,
     },
     {
       title: 'Logout',
-      icon: <Logout />,
+      icon: <IconLogout />,
       url: '',
     },
   ];
@@ -99,7 +102,7 @@ const User: FC<IUserProps> = observer(({ className }) => {
               </div>
             </div>
             <Link to={routes.create.root} onClick={handleClose}>
-              <Button className={styles.uploadBtn} icon="upload-file">
+              <Button className={styles.uploadBtn} icon={iconCloudUpload}>
                 Create item
               </Button>
             </Link>

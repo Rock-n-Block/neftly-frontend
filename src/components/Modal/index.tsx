@@ -5,7 +5,7 @@ import cn from 'classnames';
 
 import { H3 } from 'components';
 import { IModal } from 'typings';
-import { iconClose } from 'assets/img/icons';
+import { iconClose } from 'assets/img';
 
 import styles from './Modal.module.scss';
 

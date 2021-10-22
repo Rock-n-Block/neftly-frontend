@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import BigNumber from 'bignumber.js/bignumber';
 import { arrowLeft } from 'assets/img';
 import cn from 'classnames';
-import { Icon, Text } from 'components';
+import { Text } from 'components';
 import Button from 'components/Button';
 import { IconNames } from 'typings';
 
@@ -135,14 +135,6 @@ const TextInput: React.FC<Props> = ({
         </Text>
       )}
       <div className={styles.wrap}>
-        {icon && (
-          <Icon
-            className={cn(styles.icon, { [styles.disabled]: disabled })}
-            name={icon}
-            size="24"
-            fill="#fff"
-          />
-        )}
         {prefixElement}
         <input
           id={name}

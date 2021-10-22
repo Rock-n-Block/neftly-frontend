@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
-import { iconArrowDown } from 'assets/img/icons';
+import { iconArrowDown } from 'assets/img';
 
 import styles from './Dropdown.module.scss';
 import { Text } from 'components';

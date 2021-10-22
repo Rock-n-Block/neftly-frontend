@@ -1,12 +1,11 @@
 import { FC, useState } from 'react';
 import nextId from 'react-id-generator';
 import { useHistory } from 'react-router-dom';
-import { ReactComponent as FilterIcon } from 'assets/img/ActivityPage/filter.svg';
+import { IconFilter, profile_avatar_example } from 'assets/img';
 import cn from 'classnames';
 import { ActivityItem, ArtCard, Button, H2, H3, Loader, Text } from 'components';
 import { observer } from 'mobx-react';
 import moment from 'moment';
-import profile_avatar_example from '../../assets/img/ProfilePage/profile_avatar_example.png';
 
 import Filters from './Filters';
 import { data as cardsData } from './mockData';
@@ -68,7 +67,7 @@ const Activity: FC = observer(() => {
               className={cn('button-circle-stroke button-small tablet-show', styles.toggle)}
               onClick={() => setVisible(!visible)}
             >
-              <FilterIcon />
+              <IconFilter />
             </Button>
           </div>
           <div className={styles.row}>

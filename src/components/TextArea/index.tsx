@@ -1,7 +1,4 @@
-import { bold, emoji, italic, link, olList, ulList } from 'assets/img/icons/textEditor';
 import cn from 'classnames';
-
-import { Button } from '../index';
 
 import styles from './TextArea.module.scss';
 
@@ -22,7 +19,6 @@ const TextArea: React.FC<ITextAreaProps> = ({
   label,
   onChange,
   value,
-  editable = false,
   maxLettersCount,
   ...props
 }) => {
@@ -42,33 +38,9 @@ const TextArea: React.FC<ITextAreaProps> = ({
       {label && <div className={styles.label}>{label}</div>}
       <div className={styles.wrap}>
         <textarea value={value} onChange={handleChange} className={styles.textarea} {...props} />
-        {editable ? (
-          <div className={styles.edit}>
-            <Button color="transparent">
-              <img src={emoji} alt="emoji" width={24} height={24} />
-            </Button>
-            <Button color="transparent">
-              <img src={bold} alt="emoji" width={24} height={24} />
-            </Button>
-            <Button color="transparent">
-              <img src={italic} alt="emoji" width={24} height={24} />
-            </Button>
-            <Button color="transparent">
-              <img src={olList} alt="emoji" width={24} height={24} />
-            </Button>
-            <Button color="transparent">
-              <img src={ulList} alt="emoji" width={24} height={24} />
-            </Button>
-            <Button color="transparent">
-              <img src={link} alt="emoji" width={24} height={24} />
-            </Button>
-          </div>
-        ) : (
-          <></>
-        )}
         {maxLettersCount ? (
           <p className={styles.counter}>
-            {value?.length||0}/{maxLettersCount}
+            {value?.length || 0}/{maxLettersCount}
           </p>
         ) : (
           <></>
