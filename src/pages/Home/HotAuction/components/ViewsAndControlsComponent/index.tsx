@@ -61,8 +61,16 @@ const ViewsAndControlsComponent: FC<Props> = ({
   }, []);
 
   const handleBurn = useCallback(() => {
-    burn.open(nft?.id || 0, nft?.standart || '');
-  }, [burn, nft]);
+    let quantity = 0;
+    if (isOwner && nft?.owners) {
+      if (Array.isArray(nft.owners)) {
+        quantity = nft.owners.filter((owner: any) => owner.id === user.id)[0].quantity;
+      } else {
+        quantity = nft.owners.quantity;
+      }
+    }
+    burn.open(nft?.id || 0, nft?.standart || '', quantity || 0);
+  }, [burn, nft, isOwner, user.id]);
 
   const handleRemoveFromSale = useCallback(() => {
     remove.open(nft?.id || 0);

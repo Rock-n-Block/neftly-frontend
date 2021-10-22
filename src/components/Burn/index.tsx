@@ -68,6 +68,7 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
           onClick={() => setIsLoading(true)}
           isFullWidth
           color="pink"
+          disabled={+amount > burn.amount}
         >
           Continue
         </Button>
