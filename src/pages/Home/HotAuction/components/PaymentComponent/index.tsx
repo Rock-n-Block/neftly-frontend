@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import BigNumber from 'bignumber.js/bignumber';
 import cx from 'classnames';
 import { Button, H4, Text } from 'components';
-import { contracts } from 'config';
+import { contracts, is_production } from 'config';
 import { observer } from 'mobx-react-lite';
 import { storeApi } from 'services/api';
 import { useWalletConnectorContext } from 'services/walletConnect';
@@ -74,14 +74,14 @@ const PaymentComponent: FC<Props> = observer(
           .checkTokenAllowance(
             nft.currency.symbol.toUpperCase(),
             18,
-            contracts.params.EXCHANGE.testnet.address,
+            contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address,
           )
           .then((res: boolean) => {
             setApproved(res);
           })
           .catch((err: any) => {
             setApproved(false);
-            console.log(err, 'check');
+            console.error(err, 'check');
           });
       }
     }, [walletService, nft]);
@@ -93,13 +93,13 @@ const PaymentComponent: FC<Props> = observer(
           .approveToken(
             nft.currency.symbol.toUpperCase(),
             18,
-            contracts.params.EXCHANGE.testnet.address,
+            contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address,
           )
           .then(() => {
             setApproved(true);
           })
           .catch((err: any) => {
-            console.log(err, 'err approve');
+            console.error(err, 'err approve');
           })
           .finally(() => setApproving(false));
       }

@@ -65,7 +65,7 @@ const CreateCollection: React.FC<ICreateCollectionProps> = ({
           })
           .finally(() => close());
       })
-      .catch((e) => console.log('Error', e))
+      .catch((e) => console.error('Error', e))
       .finally(() => {
         setIsLoading(false);
       });

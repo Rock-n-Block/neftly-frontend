@@ -95,7 +95,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     const currencyOptions = useMemo(() => {
       return values.sellMethod === 'openForBids'
         ? [...rates.map((rate) => rate.symbol)].filter(
-            (rateSymbol) => !['bnb', 'eth'].includes(rateSymbol),
+            (rateSymbol) => !['bnb', 'eth', 'matic'].includes(rateSymbol),
           )
         : rates.map((rate) => rate.symbol);
     }, [rates, values.sellMethod]);

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { iconCreateCircle } from 'assets/img';
 import cn from 'classnames';
-import { Carousel, Modal, Text } from 'components';
+import { Carousel, EllipsisText, Modal, Text } from 'components';
 import { observer } from 'mobx-react';
 import { userApi } from 'services/api';
 import { useMst } from 'store';
@@ -53,7 +53,7 @@ const ChooseCollection: React.FC<IProps> = observer(
           setCollections(newCollections);
           handleCollectionChange(newCollections[0].id);
         })
-        .catch((err) => console.log(err, 'get single'));
+        .catch((err) => console.error(err, 'get single'));
     }, [handleCollectionChange, isSingle, user.address]);
 
     const handleOpenModal = () => {
@@ -103,14 +103,16 @@ const ChooseCollection: React.FC<IProps> = observer(
                     <img src={collection.avatar} alt="create" className={styles.avatar} />
                   )}
                 </div>
-                <Text className={styles.subtitle} align="center">
-                  {collection.name}
-                </Text>
+                <div className={styles.cardSubtitle}>
+                  <EllipsisText>
+                    <Text tag="span">{collection.name}</Text>
+                  </EllipsisText>
+                </div>
               </div>
             ))}
         </Carousel>
         <Modal visible={isModalVisible} onClose={() => setIsModalVisible(false)}>
-          <CreateCollection isSingle={isSingle} />
+          <CreateCollection isSingle={isSingle} onClose={() => setIsModalVisible(false)} />
         </Modal>
       </div>
     );

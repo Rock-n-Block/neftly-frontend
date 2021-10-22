@@ -81,7 +81,7 @@ export interface INft {
   selling: boolean;
   service_fee: any;
   standart: 'ERC721' | 'ERC1155';
-  tags: any[];
+  tags: ITag[];
   total_supply: number;
   updated_at: number;
   format: string;
@@ -91,6 +91,11 @@ export interface INft {
     native_symbol: string;
   };
   currency_service_fee: number;
+}
+
+export interface ITag {
+  media: string;
+  value: string;
 }
 
 export type TNullable<T> = T | null;

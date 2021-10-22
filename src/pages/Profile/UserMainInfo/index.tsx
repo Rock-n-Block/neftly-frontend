@@ -60,8 +60,8 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
           setUserCover(data);
         })
         .catch((err) => {
-          toast.error('Success unfollow');
-          console.log(err, 'set cover');
+          toast.error('Error on unfollow');
+          console.error(err, 'set cover');
         })
         .finally(() => {
           setIsFileLoading(false);

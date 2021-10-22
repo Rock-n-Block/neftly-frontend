@@ -52,7 +52,7 @@ const Swap: React.FC<ISwapProps> = observer(
             toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
           })
           .catch((err: any) => {
-            console.log('error', err);
+            console.error('error', err);
           })
           .finally(() => {
             setRefresh(false);
@@ -67,7 +67,7 @@ const Swap: React.FC<ISwapProps> = observer(
             toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
           })
           .catch((err: any) => {
-            console.log('error', err);
+            console.error('error', err);
           })
           .finally(() => {
             setRefresh(false);

@@ -23,9 +23,9 @@ const RemoveSale: React.FC<IRemoveSaleProps> = ({ className }) => {
       await storeApi.removeFromSale(remove.tokenId, null, null);
       remove.success();
       remove.close();
-      toast.success('Token Removed from sale')
+      toast.success('Token Removed from sale');
     } catch (error) {
-      console.log(error, 'remove from sale');
+      console.error(error, 'remove from sale');
     }
   }, [remove]);
 

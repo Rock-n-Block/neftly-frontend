@@ -15,7 +15,6 @@ import {
   nftAbi,
   wbnbTestnetAbi,
   wethTestnetAbi,
-  wMaticTestnetAbi,
   wTrx,
 } from './abi';
 
@@ -204,8 +203,8 @@ export const contracts: IContracts = {
         abi: erc20Abi,
       },
       testnet: {
-        address: '0xCF1177e9f54eE20C6E80570D678462363d56C1E5',
-        abi: wMaticTestnetAbi,
+        address: '0x86652c1301843B4E06fBfbBDaA6849266fb2b5e7',
+        abi: wethTestnetAbi,
       },
     },
     WTRX: {

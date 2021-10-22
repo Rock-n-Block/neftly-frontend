@@ -77,7 +77,7 @@ const ArtCard: FC<Props> = ({
           toast.success('Dislike submitted');
         })
         .catch((error: any) => {
-          console.log('Dislike error', error);
+          console.error('Dislike error', error);
           toast.success('Dislike error');
         });
     } else {
@@ -88,7 +88,7 @@ const ArtCard: FC<Props> = ({
           toast.success('Like submitted');
         })
         .catch((error: any) => {
-          console.log('Like error', error);
+          console.error('Like error', error);
           toast.success('Like error');
         });
     }

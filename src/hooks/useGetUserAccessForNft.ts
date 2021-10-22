@@ -23,6 +23,12 @@ export default (nft: TNullable<INft>, userId: string | number, userAddress: stri
       return false;
     }
     if (
+      nft?.network.name === chainsEnum.Polygon &&
+      localStorage.nftcrowd_nft_chainName === chainsEnum.Polygon
+    ) {
+      return false;
+    }
+    if (
       nft?.network.name === chainsEnum.Ethereum &&
       localStorage.nftcrowd_nft_chainName === chainsEnum.Ethereum
     ) {

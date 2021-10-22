@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useState, useEffect } from 'react';
+import { RefObject, useCallback, useEffect, useState } from 'react';
 import { filter } from 'assets/img';
 import cx from 'classnames';
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
@@ -27,8 +27,6 @@ const Discover = observer(() => {
     handleMaxPriceFilter,
     currencyFilter,
     handleCurrencyFilter,
-    likesFilter,
-    handleLikesFilter,
     verifiedFilter,
     handleVerifiedFilter,
     orderByFilter,
@@ -100,8 +98,6 @@ const Discover = observer(() => {
           handleMaxPriceFilter={handleMaxPriceFilter}
           currencyFilter={currencyFilter}
           handleCurrencyFilter={handleCurrencyFilter}
-          likesFilter={likesFilter}
-          handleLikesFilter={handleLikesFilter}
           verifiedFilter={verifiedFilter}
           handleVerifiedFilter={handleVerifiedFilter}
         />

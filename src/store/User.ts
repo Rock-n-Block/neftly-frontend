@@ -83,7 +83,7 @@ export const User = types
 
         update(data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
         disconnect();
       }
     });
