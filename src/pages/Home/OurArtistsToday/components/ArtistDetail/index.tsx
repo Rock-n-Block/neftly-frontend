@@ -42,7 +42,7 @@ const ArtistDetail: FC<Props> = ({
     <div className={styles.detailsSection}>
       <H4>{name}</H4>
       <div className={styles.addressAndName}>
-        <Text className={styles.gradientText} size="xl">{`@${name}`}</Text>
+        {name && <Text className={styles.gradientText} size="xl">{`@${name}`}</Text>}
         <Text color="lightGray">{sliceString(publicKey)}</Text>
       </div>
       <Text className={styles.artistDescription} color="lightGray">
