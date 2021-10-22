@@ -30,7 +30,7 @@ export class WalletConnect {
           return connected;
         })
         .catch((err: any) => {
-          console.log('initWalletConnect providerWallet err: ', err);
+          console.error('initWalletConnect providerWallet err: ', err);
         });
 
       Promise.all([connecting]).then((connect: any) => {
@@ -119,8 +119,6 @@ export class WalletConnect {
       method,
     );
 
-    const { baseFeePerGas }: any = await this.Web3().eth.getBlock('latest');
-    console.log(baseFeePerGas);
     let signature;
     if (transactionMethod) {
       signature = this.encodeFunctionCall(transactionMethod, data);
@@ -226,11 +224,11 @@ export class WalletConnect {
     }
   }
 
-  static calcTransactionAmount(amount: number | string, tokenDecimal: number) {
+  static calcTransactionAmount(amount: number | string, tokenDecimal: number): string {
     return new BigNumber(amount).times(new BigNumber(10).pow(tokenDecimal)).toString(10);
   }
 
-  static weiToEth(amount: number | string) {
+  static weiToEth(amount: number | string): string {
     return new BigNumber(amount).dividedBy(new BigNumber(10).pow(18)).toString(10);
   }
 }

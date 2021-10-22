@@ -37,7 +37,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
       const result = await walletService.checkNftTokenAllowance(sell.nft.collection.address);
       return result;
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return false;
     }
   }, [sell.nft.collection.address, walletService]);

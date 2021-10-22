@@ -1,6 +1,6 @@
 import { round } from 'lodash';
 
-export function numberFormatter(num: number, digits: number) {
+export function numberFormatter(num: number, digits: number): string {
   const si = [
     { value: 1, symbol: '' },
     { value: 1e3, symbol: ' K' },

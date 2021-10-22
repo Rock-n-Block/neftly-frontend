@@ -13,7 +13,7 @@ export const useFetchHotAuction = (isRefetch: boolean) => {
       const { data } = await storeApi.getHotAuction();
       setHotAuction(data);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     } finally {
       setIsLoading(false);
     }

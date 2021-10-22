@@ -70,7 +70,7 @@ async function setConnect() {
       balance: 0,
     };
 
-    console.log('cant find tron', payload);
+    console.error('cant find tron', payload);
   }
 }
 
@@ -81,6 +81,6 @@ export async function connectTron() {
     }
     await setConnect();
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
