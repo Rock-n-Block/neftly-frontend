@@ -27,7 +27,7 @@ export const useFollow = (props: IProps) => {
         })
         .catch((error) => {
           toast.error('Error when unfollow');
-          console.log(error);
+          console.error(error);
         })
         .finally(() => {
           setLoading(false);
@@ -44,7 +44,7 @@ export const useFollow = (props: IProps) => {
         })
         .catch((error) => {
           toast.error('Error when follow');
-          console.log(error);
+          console.error(error);
         })
         .finally(() => {
           setLoading(false);

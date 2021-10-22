@@ -36,12 +36,14 @@ const Headers: React.FC = observer(() => {
   window.onscroll = function () {
     const currentScrollPos = window.pageYOffset;
     if (headerRef.current) {
-      if (prevScrollpos > currentScrollPos) {
-        headerRef.current.style.top = '0';
-      } else {
+      if (prevScrollpos - currentScrollPos < -50) {
         headerRef.current.style.top = `-${headerRef.current.offsetHeight}px`;
+        prevScrollpos = currentScrollPos;
       }
-      prevScrollpos = currentScrollPos;
+      if (prevScrollpos - currentScrollPos > 50) {
+        headerRef.current.style.top = '0';
+        prevScrollpos = currentScrollPos;
+      }
     }
   };
 

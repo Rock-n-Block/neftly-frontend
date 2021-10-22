@@ -1,10 +1,9 @@
-import { FC, useMemo, useState, useCallback, ChangeEvent } from 'react';
+import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { Switcher, Text } from 'components';
-import Slider from 'rc-slider';
 import { debounce } from 'lodash';
-
-import { TOptionable } from 'typings';
+import Slider from 'rc-slider';
+import { validateOnlyNumbers } from 'utils';
 
 import 'rc-slider/assets/index.css';
 import './styles.scss';
@@ -47,13 +46,13 @@ const RangePicker: FC<Props> = ({
   onSwitcher = () => {},
   isDebounce,
 }) => {
-  const [localValue, setLocalValue] = useState<TOptionable<number>>(undefined);
+  const [localValue, setLocalValue] = useState('');
 
   const [debouncedCallApi] = useState(() => debounce(onChange, 1000));
 
   const handleChangeRange = useCallback(
     (val: number) => {
-      setLocalValue(val);
+      setLocalValue(val.toString());
       if (isDebounce) {
         debouncedCallApi(val);
       } else {
@@ -65,10 +64,12 @@ const RangePicker: FC<Props> = ({
 
   const handleChangeInput = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      const numberValue = Number(e.target.value.replace(/[^0-9.]/g, ''));
-      const total = numberValue > max ? max : numberValue;
-      setLocalValue(total);
-      onChange(total);
+      if (validateOnlyNumbers(e.target.value)) {
+        const numberValue = e.target.value;
+        const total = +numberValue > max ? max : numberValue;
+        setLocalValue(total.toString());
+        onChange(+total);
+      }
     },
     [max, onChange],
   );
@@ -77,7 +78,6 @@ const RangePicker: FC<Props> = ({
     () => (
       <div className={cx(styles.values, top && styles.top)}>
         <input
-          type="text"
           value={localValue === undefined ? value : localValue}
           className={styles.valueInput}
           onChange={handleChangeInput}
@@ -144,7 +144,7 @@ const RangePicker: FC<Props> = ({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore (rc-slider show that className invalid prop, but exist
           className={cx(styles.slider, 'rc-slider-wrap', className)}
-          value={typeof localValue !== 'undefined' ? localValue : value}
+          value={+localValue || value}
           min={min}
           max={max}
           step={step}

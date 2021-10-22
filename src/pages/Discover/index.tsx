@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useState, useEffect } from 'react';
+import { RefObject, useCallback, useEffect, useState } from 'react';
 import { filter } from 'assets/img';
 import cx from 'classnames';
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';

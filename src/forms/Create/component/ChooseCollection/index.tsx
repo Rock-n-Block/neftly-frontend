@@ -53,7 +53,7 @@ const ChooseCollection: React.FC<IProps> = observer(
           setCollections(newCollections);
           handleCollectionChange(newCollections[0].id);
         })
-        .catch((err) => console.log(err, 'get single'));
+        .catch((err) => console.error(err, 'get single'));
     }, [handleCollectionChange, isSingle, user.address]);
 
     const handleOpenModal = () => {

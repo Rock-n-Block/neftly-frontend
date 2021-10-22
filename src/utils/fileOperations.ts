@@ -1,6 +1,6 @@
 import { FileError } from 'react-dropzone';
 
-export const isValidFileSize = (fileSize: number, maxSize: number) => {
+export const isValidFileSize = (fileSize: number, maxSize: number): boolean => {
   const maxFileSizeInBytes = maxSize * 1024 * 1024;
 
   const isValidSize = fileSize <= maxFileSizeInBytes;

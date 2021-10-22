@@ -59,7 +59,7 @@ export default observer(({ isSingle, onClose }: any) => {
             })
             .then(() => {
               toast.success('Collection Created');
-              onClose()
+              onClose();
             })
             .catch(({ response }) => {
               if (response.data && response.data.name) {
@@ -80,6 +80,9 @@ export default observer(({ isSingle, onClose }: any) => {
             toast.error('Create Token failed');
           }
           console.error('Wallet Create collection failure', response);
+        })
+        .finally(() => {
+          setFieldValue('isLoading', false);
         });
     },
 

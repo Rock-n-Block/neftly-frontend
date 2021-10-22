@@ -46,7 +46,7 @@ const Report: React.FC<IReportProps> = ({ className }) => {
         })
         .catch((error: any) => {
           setIsLoading(false);
-          console.log(error, 'report not submitted');
+          console.error(error, 'report not submitted');
         });
     });
   }, [executeRecaptcha, link, reportMessage, handleClose]);
