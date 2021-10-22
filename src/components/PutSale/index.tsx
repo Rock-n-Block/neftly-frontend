@@ -68,7 +68,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
           .then(() => {
             sell.putOnSale.success();
             sell.putOnSale.close();
-            toast.success('Token Put on sale')
+            toast.success('Token Put on sale');
           })
           .catch((err: any) => {
             toast.error({
