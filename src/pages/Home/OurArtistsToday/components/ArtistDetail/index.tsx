@@ -42,7 +42,7 @@ const ArtistDetail: FC<Props> = ({
     <div className={styles.detailsSection}>
       <H4>{name}</H4>
       <div className={styles.addressAndName}>
-        <Text className={styles.gradientText} size="xl">{`@${name}`}</Text>
+        {name && <Text className={styles.gradientText} size="xl">{`@${name}`}</Text>}
         <Text color="lightGray">{sliceString(publicKey)}</Text>
       </div>
       <Text className={styles.artistDescription} color="lightGray">
@@ -50,15 +50,21 @@ const ArtistDetail: FC<Props> = ({
       </Text>
       <div className={styles.artistDetailsControls}>
         <div>
-          <a className={styles.iconLink} href={instagramLink}>
-            <img src={instagramLogo} alt="" />
-          </a>
-          <a className={styles.iconLink} href={facebookLink}>
-            <img src={facebookLogo} alt="" />
-          </a>
-          <a className={styles.iconLink} href={twitterLink}>
-            <img src={twitterLogo} alt="" />
-          </a>
+          {instagramLink && (
+            <a className={styles.iconLink} href={instagramLink}>
+              <img src={instagramLogo} alt="" />
+            </a>
+          )}
+          {facebookLink && (
+            <a className={styles.iconLink} href={facebookLink}>
+              <img src={facebookLogo} alt="" />
+            </a>
+          )}
+          {twitterLink && (
+            <a className={styles.iconLink} href={twitterLink}>
+              <img src={twitterLogo} alt="" />
+            </a>
+          )}
         </div>
       </div>
     </div>
