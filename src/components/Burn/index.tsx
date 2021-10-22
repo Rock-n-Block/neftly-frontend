@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 import { storeApi } from 'services/api';
 import { useWalletConnectorContext } from 'services/walletConnect';
-import { Button } from 'components';
+import { Button, TextInput } from 'components';
 import { useMst } from 'store';
 
 import styles from './Burn.module.scss';
@@ -51,13 +51,15 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
       </div>
       {burn.standart === 'ERC1155' && (
         <div className={styles.field}>
-          <input
+          <TextInput
             className={styles.input}
             value={amount}
             onChange={(e: any) => setAmount(e.target.value)}
             type="number"
             name="amount"
             placeholder="Paste amount of burned tokens"
+            positiveOnly
+            integer
           />
         </div>
       )}
@@ -68,7 +70,7 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
           onClick={() => setIsLoading(true)}
           isFullWidth
           color="pink"
-          disabled={+amount > burn.amount || (burn.standart === 'ERC1155' && !amount)}
+          disabled={+amount > burn.amount || (burn.standart === 'ERC1155' && +amount === 0)}
         >
           Continue
         </Button>
