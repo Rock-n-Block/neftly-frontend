@@ -31,12 +31,9 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
           toast.success('Token Burned');
         });
       })
-      .catch(() =>
-        toast.error({
-          message: 'Error',
-          description: 'Bid modal sendTranscation',
-        }),
-      )
+      .catch(() => {
+        toast.error('Bid modal sendTranscation');
+      })
       .finally(() => setIsLoading(false));
   }, [burn, amount, walletConnector.walletService]);
 
@@ -68,6 +65,7 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
           onClick={() => setIsLoading(true)}
           isFullWidth
           color="pink"
+          disabled={+amount > burn.amount || !amount}
         >
           Continue
         </Button>
