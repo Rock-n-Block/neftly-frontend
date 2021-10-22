@@ -98,8 +98,8 @@ export default (nft: TNullable<INft>, userId: string | number, userAddress: stri
   }, [nft, isOwner, userId, isWrongChain]);
 
   const isUserCanPutOnSale = React.useMemo(() => {
-    if (userId && nft && !isWrongChain && isOwner && !nft.is_selling && !nft.is_auc_selling) {
-      if (nft.standart === 'ERC721') {
+    if (userId && nft && !isWrongChain && isOwner) {
+      if (nft.standart === 'ERC721' && !nft.is_selling && !nft.is_auc_selling) {
         return true;
       }
       if (
