@@ -97,17 +97,17 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
             <div className={styles.balance}>
               <H6 className={styles.title}>
                 <EllipsisText>
-                  <span>{toFixed(balanceMain, 5)} </span>
+                  <Text tag="span">{toFixed(balanceMain, 5)} </Text>
                 </EllipsisText>
-                <span>{MAIN}</span>
+                <Text tag="span">{MAIN}</Text>
               </H6>
             </div>
             <div className={styles.balance}>
               <H6 className={styles.title}>
                 <EllipsisText>
-                  <span>{toFixed(balanceWrap, 5)} </span>
+                  <Text tag="span">{toFixed(balanceWrap, 5)} </Text>
                 </EllipsisText>
-                <span>{WRAP}</span>
+                <Text tag="span">{WRAP}</Text>
               </H6>
             </div>
             <Button className={styles.button} color="outline" onClick={handleOpenModal}>

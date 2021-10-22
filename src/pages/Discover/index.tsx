@@ -27,8 +27,6 @@ const Discover = observer(() => {
     handleMaxPriceFilter,
     currencyFilter,
     handleCurrencyFilter,
-    likesFilter,
-    handleLikesFilter,
     verifiedFilter,
     handleVerifiedFilter,
     orderByFilter,
@@ -100,8 +98,6 @@ const Discover = observer(() => {
           handleMaxPriceFilter={handleMaxPriceFilter}
           currencyFilter={currencyFilter}
           handleCurrencyFilter={handleCurrencyFilter}
-          likesFilter={likesFilter}
-          handleLikesFilter={handleLikesFilter}
           verifiedFilter={verifiedFilter}
           handleVerifiedFilter={handleVerifiedFilter}
         />

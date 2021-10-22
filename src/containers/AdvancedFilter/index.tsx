@@ -7,16 +7,6 @@ import { OptionType } from 'typings';
 // import FilterTag from './FilterTag';
 import styles from './styles.module.scss';
 
-const filterSelectLikesOptions = [
-  {
-    value: 'leastLikes',
-    label: 'Least Likes',
-  },
-  {
-    value: 'mostLikes',
-    label: 'Most Likes',
-  },
-];
 
 const filterSelectArtistsOptions = [
   {
@@ -38,8 +28,6 @@ type Props = {
   handleMaxPriceFilter: (maxPrice: number) => void;
   currencyFilter: OptionType;
   handleCurrencyFilter: (value: any) => void;
-  likesFilter: OptionType;
-  handleLikesFilter: (value: any) => void;
   verifiedFilter: OptionType;
   handleVerifiedFilter: (value: any) => void;
 };
@@ -53,8 +41,6 @@ const AdvancedFilter: FC<Props> = ({
   handleMaxPriceFilter,
   currencyFilter,
   handleCurrencyFilter,
-  likesFilter,
-  handleLikesFilter,
   verifiedFilter,
   handleVerifiedFilter,
 }) => {
@@ -106,7 +92,7 @@ const AdvancedFilter: FC<Props> = ({
           options={filterSelectCurrencyOptions}
         />
       </div>
-      <div>
+      {/* <div>
         <Text color="gray" size="m">
           Likes
         </Text>
@@ -115,7 +101,7 @@ const AdvancedFilter: FC<Props> = ({
           value={likesFilter}
           options={filterSelectLikesOptions}
         />
-      </div>
+      </div> */}
       <div>
         <Text color="gray" size="m">
           Artists
