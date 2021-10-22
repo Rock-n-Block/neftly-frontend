@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 // import { growth as growthImg } from 'assets/img';
 import BigNumber from 'bignumber.js/bignumber';
 import cx from 'classnames';
@@ -155,6 +155,21 @@ const PaymentComponent: FC<Props> = observer(
       modals.sell.putOnSale.open();
     }, [modals.sell, handleSetNft]);
 
+    const isUserCanApprove = useMemo(() => {
+      if (!isOwner) {
+        return true;
+      }
+      if (nft?.standart === 'ERC1155') {
+        if (nft.sellers.length > 1) {
+          return true;
+        }
+        if (nft.sellers.length === 1 && nft.sellers[0].id !== user.id) {
+          return true;
+        }
+      }
+      return false;
+    }, [nft?.standart, nft?.sellers, isOwner, user.id]);
+
     React.useEffect(() => {
       if (user.address && nft) {
         handleCheckAllowance();
@@ -217,7 +232,7 @@ const PaymentComponent: FC<Props> = observer(
                 Put on Sale
               </Button>
             ) : null}
-            {!isApproved && !isOwner && (nft?.is_selling || nft?.is_auc_selling) ? (
+            {!isApproved && isUserCanApprove && (nft?.is_selling || nft?.is_auc_selling) ? (
               <Button isFullWidth loading={isApproving} onClick={handleApproveToken}>
                 Approve Token
               </Button>
