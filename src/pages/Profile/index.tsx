@@ -117,7 +117,6 @@ const ProfilePage: FC = observer(() => {
               orderByFilter={orderByFilter}
               handleOrderByFilter={handleOrderByFilter}
               nftCards={nftCards}
-              activeTab={activeTab}
             />
           ) : null}
           {activeTab === 'favorited' && (
