@@ -16,6 +16,7 @@ type Props = {
   isLoading: boolean;
   categories: ITab[];
   categoriesHandler: (value: string) => void;
+  activeTab: string
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -25,6 +26,7 @@ const ArtistsTodayMobile: FC<Props> = ({
   isLoading,
   categories,
   categoriesHandler,
+  activeTab
 }) => {
   return (
     <div className={cx(styles.mobileOurArtist, className)}>
@@ -51,6 +53,7 @@ const ArtistsTodayMobile: FC<Props> = ({
                   amount={price}
                   isVerified={is_verificated}
                   artOwned={owned_tokens}
+                  activeTab={activeTab}
                 />
               </Link>
             );

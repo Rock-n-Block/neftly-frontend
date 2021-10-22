@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { wallet } from 'assets/img';
 import cn from 'classnames';
-import { Button, H5, Modal, Text } from 'components';
+import { Button, EllipsisText, H6, Modal, Text } from 'components';
 import { chains } from 'config';
 import { useUserBalance } from 'hooks';
 import { observer } from 'mobx-react';
@@ -95,14 +95,20 @@ const Wallet: React.FC<IUserProps> = observer(({ className }) => {
               Your balance
             </Text>
             <div className={styles.balance}>
-              <H5>
-                {toFixed(balanceMain, 5)} {MAIN}
-              </H5>
+              <H6 className={styles.title}>
+                <EllipsisText>
+                  <span>{toFixed(balanceMain, 5)} </span>
+                </EllipsisText>
+                <span>{MAIN}</span>
+              </H6>
             </div>
             <div className={styles.balance}>
-              <H5>
-                {toFixed(balanceWrap, 5)} {WRAP}
-              </H5>
+              <H6 className={styles.title}>
+                <EllipsisText>
+                  <span>{toFixed(balanceWrap, 5)} </span>
+                </EllipsisText>
+                <span>{WRAP}</span>
+              </H6>
             </div>
             <Button className={styles.button} color="outline" onClick={handleOpenModal}>
               Convert

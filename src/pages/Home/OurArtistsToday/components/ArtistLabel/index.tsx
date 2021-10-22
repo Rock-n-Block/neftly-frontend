@@ -10,6 +10,7 @@ type Props = ArtistType & {
   isSelected?: boolean;
   isVerified?: boolean;
   artOwned?: number;
+  activeTab: string;
 };
 
 const ArtistLabel: FC<Props> = ({
@@ -19,8 +20,8 @@ const ArtistLabel: FC<Props> = ({
   artOwned,
   isSelected,
   amount,
-  asset,
   isVerified = false,
+  activeTab,
 }) => {
   return (
     <div className={cx(styles.artistLabel, className)}>
@@ -34,7 +35,7 @@ const ArtistLabel: FC<Props> = ({
           <Text size="m">{`${artOwned} Arts`}</Text>
         </div>
       </div>
-      <Text size="m" color="lightGray">{`${amount} ${asset || '$'}`}</Text>
+      <Text size="m" color="lightGray">{`${activeTab !== 'follows' ? '$' : ''}${amount}`}</Text>
     </div>
   );
 };

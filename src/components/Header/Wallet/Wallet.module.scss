@@ -92,6 +92,10 @@
   }
 }
 
+.title {
+  @include flexbox(flex-start, space-between);
+}
+
 .name {
   font-weight: 500;
   font-size: 20px;
@@ -176,7 +180,6 @@
   align-items: center;
 
   color: $color-neutral-10;
-
 
   &:not(:last-child) {
     border-bottom: 1px solid $color-neutral-60;
@@ -272,7 +275,7 @@
     border-radius: 50%;
   }
   margin-right: 16px;
-  @include flexbox
+  @include flexbox;
 }
 
 .walletLogo {
@@ -285,7 +288,7 @@
   font-weight: bold;
 }
 
-.balanceTitle{
+.balanceTitle {
   @include epilogue;
   color: $color-neutral-20;
 }
