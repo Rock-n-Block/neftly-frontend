@@ -9,6 +9,7 @@ import { Button } from 'components';
 import { useMst } from 'store';
 
 import styles from './Burn.module.scss';
+import { useHistory } from 'react-router';
 
 interface IBurnProps {
   className?: string;
@@ -18,6 +19,7 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
   const {
     modals: { burn },
   } = useMst();
+  const history = useHistory();
   const walletConnector = useWalletConnectorContext();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
@@ -29,13 +31,14 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
           burn.success();
           burn.close();
           toast.success('Token Burned');
+          history.push('/');
         });
       })
       .catch(() => {
         toast.error('Bid modal sendTranscation');
       })
       .finally(() => setIsLoading(false));
-  }, [burn, amount, walletConnector.walletService]);
+  }, [burn, amount, walletConnector.walletService, history]);
 
   useEffect(() => {
     if (isLoading) burnToken();
@@ -65,7 +68,7 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
           onClick={() => setIsLoading(true)}
           isFullWidth
           color="pink"
-          disabled={+amount > burn.amount || !amount}
+          disabled={+amount > burn.amount || (burn.standart === 'ERC1155' && !amount)}
         >
           Continue
         </Button>

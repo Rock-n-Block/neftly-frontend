@@ -186,10 +186,12 @@ const PaymentComponent: FC<Props> = observer(
             ) : null}
             <div className={styles.priceAndGrowth}>
               {currentPrice ? <H4>{`${currentPrice} ${nft?.currency.symbol}`}</H4> : ''}
-              {nftSellingType === 'sell' && <Text size="m">{`($${nft?.USD_price})`}</Text>}
+              {nftSellingType === 'sell' && nft?.USD_price !== undefined && (
+                <Text size="m">{nft.USD_price > 0.01 ? `$${nft.USD_price}` : '<$0.01'}</Text>
+              )}
             </div>
             {!!nft?.minimal_bid && (
-              <Text color="lightGray">{`Minimal bid ${nft.minimal_bid}`}</Text>
+              <Text color="lightGray">{`Minimal bid ${nft.minimal_bid} ${nft?.currency.symbol}`}</Text>
             )}
             {/*{nftSellingType === 'sell' && (
               <Text size="m" className={styles.growthWrapper}>
