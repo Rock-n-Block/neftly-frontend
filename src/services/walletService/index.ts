@@ -52,7 +52,6 @@ export class WalletConnect {
     if (contractAbi === 'WTRX') {
       const { address } = contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'];
       const contract = await getTronContract(address);
-      console.log(this.walletAddress, 'this.walletAddress');
       return contract.balanceOf(this.walletAddress).call();
     }
     const contract = this.connectWallet.getContract({
