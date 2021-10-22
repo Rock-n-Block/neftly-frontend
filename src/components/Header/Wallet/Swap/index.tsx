@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-import iconSwap from 'assets/img/icons/arrows-swap.svg';
+import { iconSwap } from 'assets/img';
 import cn from 'classnames';
 import { Button, H4, Text, TextInput, ToastContentWithTxHash } from 'components';
 import { useUserBalance } from 'hooks';

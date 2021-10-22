@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
-import { upload } from 'assets/img/upload';
+import { iconUpload, iconClose } from 'assets/img';
 import cn from 'classnames';
 import {
   Button,
@@ -22,7 +22,6 @@ import ChooseCollection from './ChooseCollection';
 
 import styles from './CreateCollectibleDetails.module.scss';
 import { ratesApi } from 'services';
-import { iconClose } from 'assets/img/icons';
 import BigNumber from 'bignumber.js/bignumber';
 
 const royaltiesOptions = ['10', '20', '30'];
@@ -185,7 +184,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       />
                       <div className={styles.capture}>
                         <div className={styles.icon}>
-                          <img alt="" src={upload} />
+                          <img alt="" src={iconUpload} />
                         </div>
                         <Text className={styles.category} size="m" weight="medium" color="white">
                           Upload preview cover
@@ -250,7 +249,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     />
                     <div className={styles.capture}>
                       <div className={styles.icon}>
-                        <img alt="" src={upload} />
+                        <img alt="" src={iconUpload} />
                       </div>
                       <Text className={styles.category} size="m" weight="medium" color="white">
                         Upload preview

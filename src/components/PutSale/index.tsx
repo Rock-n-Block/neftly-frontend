@@ -9,7 +9,7 @@ import { storeApi, useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
 import { useUserBalance } from 'hooks';
 import { is_production, contracts } from 'config';
-import { ReactComponent as Coin } from 'assets/img/icons/coin.svg';
+import { IconCoin } from 'assets/img';
 
 import styles from './PutSale.module.scss';
 
@@ -96,7 +96,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
     <div className={cn(className, styles.sale)}>
       <div className={styles.line}>
         <div className={styles.icon}>
-          <Coin />
+          <IconCoin />
         </div>
         <div className={styles.details}>
           <Text className={styles.info} color="lightGray" weight="bold" size="xl">

@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
 
-import Modal from '../../../components/Modal';
-import TextInput from '../../../components/TextInput';
-import { storeApi } from '../../../services/api';
-import { useWalletConnectorContext } from '../../../services/walletConnect';
-import SuccessCreated from '../SuccessCreated';
+import { TextInput } from 'components';
+import { storeApi } from 'services/api';
+import { useWalletConnectorContext } from 'services/walletConnect';
 
 import styles from './CreateCollection.module.scss';
 
@@ -23,7 +21,6 @@ const CreateCollection: React.FC<ICreateCollectionProps> = ({
   const walletConnector = useWalletConnectorContext();
   const [avatarURL, setAvatarURL] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [visibleModal, setVisibleModal] = useState(true);
 
   const [formData, setFormData] = useState({
     avatar: '',
@@ -65,7 +62,6 @@ const CreateCollection: React.FC<ICreateCollectionProps> = ({
             newFormData.append('tx_hash', transactionHash);
             storeApi.saveCollection(newFormData);
             setCollection(formData.short_url);
-            setVisibleModal(true);
           })
           .finally(() => close());
       })
@@ -160,9 +156,6 @@ const CreateCollection: React.FC<ICreateCollectionProps> = ({
           Create Collection
         </button>
       </form>
-      <Modal visible={visibleModal} onClose={() => setVisibleModal(false)}>
-        <SuccessCreated close={() => setVisibleModal(false)} title="collection" />
-      </Modal>
     </div>
   );
 };

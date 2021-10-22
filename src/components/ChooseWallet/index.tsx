@@ -3,9 +3,9 @@ import cn from 'classnames';
 import { connectTron } from 'services/tron';
 import { chainsEnum } from 'typings';
 
-import arrowImg from '../../assets/img/arrowRight.svg';
-import { chains } from '../../config';
-import { useWalletConnectorContext } from '../../services/walletConnect';
+import { arrowRight } from 'assets/img';
+import { chains } from 'config';
+import { useWalletConnectorContext } from 'services/walletConnect';
 
 import styles from './ChooseWallet.module.scss';
 
@@ -38,7 +38,7 @@ const ChooseWallet: React.FC = () => {
               <img src={blockchain.img} alt="" />
               {blockchain.name.replaceAll('-', ' ')}
             </div>
-            <img src={arrowImg} alt="" />
+            <img src={arrowRight} alt="" />
           </div>
         ))}
       </div>

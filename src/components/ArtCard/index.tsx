@@ -1,6 +1,6 @@
 import { FC, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ReactComponent as PinkHeart } from 'assets/img/pinkHeart.svg';
+import { PinkHeart } from 'assets/img';
 import cx from 'classnames';
 import nextId from 'react-id-generator';
 import { Button, Tag, Text } from 'components';

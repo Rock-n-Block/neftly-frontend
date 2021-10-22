@@ -157,26 +157,4 @@
   font-weight: 600;
 }
 
-.hotArtworks {
-  margin-top: 44px;
-  padding-top: 44px;
 
-  border-top: 1px solid $color-neutral-80;
-}
-
-.artworksTitle {
-  margin-bottom: 32px;
-}
-
-.works {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  @include a {
-    justify-content: center;
-  }
-}
-
-.artwork {
-  margin-bottom: 30px;
-}

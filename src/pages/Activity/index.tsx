@@ -1,15 +1,13 @@
 import { FC, useState } from 'react';
 import nextId from 'react-id-generator';
 import { useHistory } from 'react-router-dom';
-import { ReactComponent as FilterIcon } from 'assets/img/ActivityPage/filter.svg';
+import { IconFilter, profile_avatar_example } from 'assets/img';
 import cn from 'classnames';
-import { ActivityItem, ArtCard, Button, H2, H3, Loader, Text } from 'components';
+import { ActivityItem, Button, H2, Loader, Text } from 'components';
 import { observer } from 'mobx-react';
 import moment from 'moment';
-import profile_avatar_example from '../../assets/img/ProfilePage/profile_avatar_example.png';
 
 import Filters from './Filters';
-import { data as cardsData } from './mockData';
 
 import styles from './Activity.module.scss';
 import { useFetchActivity } from 'hooks';
@@ -68,7 +66,7 @@ const Activity: FC = observer(() => {
               className={cn('button-circle-stroke button-small tablet-show', styles.toggle)}
               onClick={() => setVisible(!visible)}
             >
-              <FilterIcon />
+              <IconFilter />
             </Button>
           </div>
           <div className={styles.row}>
@@ -124,48 +122,6 @@ const Activity: FC = observer(() => {
               selectAll={() => handleFilters(filters)}
               unselectAll={() => handleFilters([])}
             />
-          </div>
-        </div>
-        <div className={styles.hotArtworks}>
-          <div className={styles.container}>
-            <H3 className={styles.artworksTitle}>Hot Artworks</H3>
-            <div className={styles.works}>
-              {cardsData.map((card) => {
-                const {
-                  id,
-                  image,
-                  name,
-                  price,
-                  asset,
-                  inStockNumber,
-                  author,
-                  authorAvatar,
-                  likesNumber,
-                  tags,
-                } = card;
-                return (
-                  <ArtCard
-                    className={styles.artwork}
-                    key={id}
-                    artId={id}
-                    imageMain={image}
-                    name={name}
-                    price={price}
-                    asset={asset}
-                    inStockNumber={inStockNumber}
-                    author={author}
-                    authorAvatar={authorAvatar}
-                    likesNumber={likesNumber}
-                    tags={tags}
-                  />
-                );
-              })}
-            </div>
-            <div className={styles.buttonWrap}>
-              <Button className={styles.moreButton} color="outline">
-                View More
-              </Button>
-            </div>
           </div>
         </div>
       </div>

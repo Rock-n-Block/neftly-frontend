@@ -16,7 +16,7 @@ type Props = {
 const DiscoverMore: FC<Props> = ({ className }) => (
   <div className={cx(styles.discoverMore, className)}>
     <div className={styles.contentWrapper}>
-      <Link to={routes.discover.root}>
+      <Link to={routes.discover.root} className={styles.discoverBtn}>
         <Button className={cx(styles.infoWrapper, styles.discoverBtn)}>
           <Text color="black" size="xl">
             Discover more

@@ -1,9 +1,9 @@
 import { CSSProperties, FC, PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
-import { IconNames } from 'typings';
+// import { IconNames } from 'typings';
 
-import { Icon, Loader } from '..';
+import { Loader } from '..';
 
 import styles from './styles.module.scss';
 
@@ -15,7 +15,8 @@ type Props = {
   onClick?: (event: any) => void;
   type?: 'button' | 'submit';
   disabled?: boolean;
-  icon?: IconNames;
+  // icon?: IconNames;
+  icon?: string;
   loading?: boolean;
   onMouseLeave?: (event: any) => void;
   style?: CSSProperties;
@@ -47,7 +48,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
         })}
         style={style}
       >
-        {icon && <Icon className={styles.icon} name={icon} />}
+        {icon && <img src={icon} className={styles.icon} alt="" />}
         {children}
       </Link>
     );
@@ -64,7 +65,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
       style={style}
       onMouseLeave={onMouseLeave}
     >
-      {icon && <Icon className={styles.icon} name={icon} />}
+      {icon && <img src={icon} className={styles.icon} alt="" />}
       {children}
       {loading ? <Loader className={styles.loader} /> : ''}
     </button>

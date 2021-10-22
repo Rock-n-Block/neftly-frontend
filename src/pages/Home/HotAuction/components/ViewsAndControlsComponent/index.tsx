@@ -11,13 +11,8 @@ import { INft, IOwner, TNullable } from 'typings';
 import styles from './styles.module.scss';
 import 'rc-tooltip/assets/bootstrap.css';
 
-import { ReactComponent as PinkHeart } from 'assets/img/pinkHeart.svg';
-import transferImg from 'assets/img/icons/transfer.svg';
-import removeImg from 'assets/img/icons/remove.svg';
-import burnImg from 'assets/img/icons/burn.svg';
-import reportImg from 'assets/img/icons/report.svg';
+import { PinkHeart, iconBurn, iconTransfer, iconRemove, iconReport, iconLink } from 'assets/img';
 import { useLike } from 'hooks';
-import linkIcon from 'assets/img/icons/link.svg';
 import { numberFormatter } from 'utils';
 import { routes } from 'appConstants';
 
@@ -97,25 +92,25 @@ const ViewsAndControlsComponent: FC<Props> = ({
     () => [
       {
         name: 'Transfer Token',
-        img: transferImg,
+        img: iconTransfer,
         event: () => handleActionEvent(handleTransfer),
         isVisible: isOwner && !isWrongChain,
       },
       {
         name: 'Remove from sale',
-        img: removeImg,
+        img: iconRemove,
         event: () => handleActionEvent(handleRemoveFromSale),
         isVisible: isUserCanRemoveFromSale,
       },
       {
         name: 'Burn token',
-        img: burnImg,
+        img: iconBurn,
         event: () => handleActionEvent(handleBurn),
         isVisible: isOwner && !isWrongChain,
       },
       {
         name: 'Report',
-        img: reportImg,
+        img: iconReport,
         event: () => handleActionEvent(handleReport),
         isVisible: true,
       },
@@ -152,7 +147,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
           </Button>
           <Copyable valueToCopy={`${window.location.origin}${routes.nft.link(nft?.id || '')}`}>
             <Button color="outline" className={styles.copyButton}>
-              <img src={linkIcon} alt="" />
+              <img src={iconLink} alt="" />
             </Button>
           </Copyable>
           <Tooltip

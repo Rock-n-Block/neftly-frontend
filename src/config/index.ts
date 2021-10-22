@@ -1,9 +1,12 @@
-import { tronChain, tronLink } from 'assets/img';
-import bnbImg from 'assets/img/icons/chains/bnb.svg';
-import ethImg from 'assets/img/icons/chains/eth.svg';
-import polygonImg from 'assets/img/icons/chains/polygon.svg';
-import metamaskImg from 'assets/img/icons/wallets/metamask.svg';
-import WcImg from 'assets/img/icons/wallets/wc.svg';
+import {
+  tronChain,
+  tronLink,
+  bnbLogo,
+  ethLogo,
+  polygonLogo,
+  metamaskImg,
+  walletConnectImg,
+} from 'assets/img';
 import { chainsEnum, IConnectWallet, IContracts } from 'typings';
 
 import {
@@ -31,12 +34,12 @@ export const chains: {
   [chainsEnum.Ethereum]: {
     name: chainsEnum.Ethereum,
     chainId: is_production ? 1 : 4,
-    img: ethImg,
+    img: ethLogo,
     explorer: is_production ? '' : '',
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
-        img: WcImg,
+        img: walletConnectImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
@@ -55,11 +58,11 @@ export const chains: {
   [chainsEnum['Binance-Smart-Chain']]: {
     name: chainsEnum['Binance-Smart-Chain'],
     chainId: is_production ? 56 : 97,
-    img: bnbImg,
+    img: bnbLogo,
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
-        img: WcImg,
+        img: walletConnectImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
@@ -79,11 +82,11 @@ export const chains: {
   [chainsEnum.Polygon]: {
     name: chainsEnum.Polygon,
     chainId: is_production ? 137 : 80001,
-    img: polygonImg,
+    img: polygonLogo,
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
       WalletConnect: {
-        img: WcImg,
+        img: walletConnectImg,
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {

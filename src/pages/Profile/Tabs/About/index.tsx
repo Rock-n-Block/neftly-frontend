@@ -7,7 +7,7 @@ import {
   iconInstagramOutline,
   iconSiteOutline,
   iconTwitterOutline,
-} from 'assets/img/icons/social';
+} from 'assets/img';
 import moment from 'moment';
 
 interface IProps {
