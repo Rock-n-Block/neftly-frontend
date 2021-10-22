@@ -31,7 +31,11 @@ export default (userAddress: string, currency: string, refresh = false) => {
 
     req.then((data: string | number) => {
       // convert to string cause tron contracts return balance in BN
-      setBalance(WalletConnect.weiToEth(data));
+      if (currency.toUpperCase() === 'TRX') {
+        setBalance(data.toString());
+      } else {
+        setBalance(WalletConnect.weiToEth(data.toString()));
+      }
     });
   }, [walletService, userAddress, currency]);
 

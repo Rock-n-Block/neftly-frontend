@@ -75,7 +75,7 @@ const ProfilePage: FC = observer(() => {
 
   const [allPagesLiked, totalItemsLiked, nftCardsLicked, isLickesLoading] = useFetchLiked({
     page,
-    address: user.address,
+    address: userId,
     isRefresh: activeTab === 'favorited',
   });
 

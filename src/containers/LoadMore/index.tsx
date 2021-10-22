@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { H4, Button, Loader } from 'components';
+import { Button, H4, Loader } from 'components';
 
 import styles from './LoadMore.module.scss';
 
