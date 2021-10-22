@@ -76,13 +76,9 @@ const Discover = observer(() => {
         DISCOVER <span className={styles.gradientTitle}>ARTWORK</span>
       </H2>
       <div className={styles.filterControls}>
-        {nftCards.length ? (
-          <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
-            Advanced Filter <img src={filter} className={styles.image} alt="" />
-          </Button>
-        ) : (
-          <div className={styles.advancedFilterBtnEmpty} />
-        )}
+        <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
+          Advanced Filter <img src={filter} className={styles.image} alt="" />
+        </Button>
         <TabLookingComponent
           tabClassName={styles.filterTab}
           tabs={filterTags}

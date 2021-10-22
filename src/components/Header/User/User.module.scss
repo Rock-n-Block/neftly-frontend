@@ -119,9 +119,6 @@
 
     color: $color-action-hovered;
 
-    svg {
-      fill: $color-action-hovered;
-    }
   }
 }
 
@@ -133,7 +130,6 @@
 
   svg {
     transition: fill 0.2s;
-    fill: $color-neutral-10;
   }
 }
 

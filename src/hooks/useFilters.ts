@@ -33,7 +33,7 @@ const useFilters = () => {
   });
   const [orderByFilter, setOrderByFilter] = useState<OptionType>({
     value: DEFAULT_FILTER_STATE.order_by,
-    label: 'Date',
+    label: 'Newest',
   });
   const [filterSelectCurrencyOptions, setFilterSelectCurrencyOptions] = useState<any>([]);
   const [tagsFilter, setTagsFilter] = useState(DEFAULT_FILTER_STATE.tags);
@@ -97,7 +97,7 @@ const useFilters = () => {
           [{ title: 'All items', icon: allCategory }].concat(
             links.data.tags.map((tag: { title: string; icon: string }) => ({
               title: tag.title,
-              key: tag.title.toLowerCase(),
+              key: tag.title,
               icon: tag.icon,
             })),
           ),

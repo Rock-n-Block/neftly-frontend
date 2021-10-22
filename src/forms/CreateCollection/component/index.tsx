@@ -94,6 +94,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
               <TextArea
                 label="Description"
                 name="description"
+                value={values.description}
                 placeholder="Spread some words about your token collection"
                 onChange={handleChange}
                 className={styles.field}
@@ -117,7 +118,11 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
           />
         </div>
 
-        <Button type="submit" className={cn('button', styles.button)} disabled={values.isLoading}>
+        <Button
+          type="submit"
+          className={cn('button', styles.button)}
+          disabled={values.isLoading || !!Object.keys(errors).length}
+        >
           Create Collection
         </Button>
       </div>

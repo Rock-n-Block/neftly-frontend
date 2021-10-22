@@ -24,7 +24,7 @@
 .relatedArtwork {
   position: relative;
   overflow: hidden;
-  padding: 40px 0 80px;
+  padding: 40px 0 0;
   &:after {
     z-index: -1;
     position: absolute;
@@ -50,25 +50,4 @@
   flex-wrap: wrap;
   width: 100%;
   gap: 35px;
-}
-
-.viewMoreBtn {
-  margin: 0 auto;
-}
-.viewMoreBtnWrapper,
-.loader {
-  @include flexbox;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  top: unset;
-}
-
-.loader {
-  bottom: 5px;
-}
-
-.viewMoreBtn {
-  width: 150px;
 }
