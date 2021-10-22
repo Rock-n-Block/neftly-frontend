@@ -61,6 +61,7 @@ const useFilters = () => {
   }, []);
 
   const handleOrderByFilter = useCallback((value: OptionType) => {
+    setPage(1);
     setOrderByFilter(value);
   }, []);
 
