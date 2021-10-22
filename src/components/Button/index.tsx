@@ -17,7 +17,6 @@ type Props = {
   disabled?: boolean;
   icon?: IconNames;
   loading?: boolean;
-  // styledType?: string;
   onMouseLeave?: (event: any) => void;
   style?: CSSProperties;
   href?: string;
