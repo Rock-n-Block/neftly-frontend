@@ -19,7 +19,6 @@ export default {
     axios.get(`account/${address}/collections/?network=${localStorage.nftcrowd_nft_chainName}`),
   getMe: () => axios.get(`account/self/?network=${localStorage.nftcrowd_nft_chainName}`),
   update: (data: any) => {
-    console.log(data);
     return axios.patch(`account/self/?network=${localStorage.nftcrowd_nft_chainName}`, data);
   },
   follow: (data: { id: string | number }) =>

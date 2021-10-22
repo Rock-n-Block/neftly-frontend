@@ -124,7 +124,7 @@ const useFilters = () => {
         handleCurrencyFilter({ value: data[0].symbol, label: data[0].symbol.toUpperCase() });
       })
       .catch((err: Error) => {
-        console.log(err);
+        console.error(err);
       })
       .finally(() => {
         setRatesLoading(false);

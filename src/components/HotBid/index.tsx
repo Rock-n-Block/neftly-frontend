@@ -66,7 +66,7 @@ const Hot: React.FC<IHotProps> = ({ classSection }) => {
     storeApi
       .getHotBids()
       .then(({ data }: any) => setBids(data))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {

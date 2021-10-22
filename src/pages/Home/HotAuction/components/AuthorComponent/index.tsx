@@ -30,7 +30,7 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
         {Array.isArray(owners) ? (
           <>
             {owners.map((owner: IOwner) => (
-              <div className={styles.user}>
+              <div className={styles.user} key={`owner-${owner.id}`}>
                 <Link to={routes.profile.link(owner.id)} className={styles.avatarWrapper}>
                   <img src={owner.avatar} className={styles.avatar} alt="" />
                 </Link>

@@ -81,7 +81,7 @@ const PaymentComponent: FC<Props> = observer(
           })
           .catch((err: any) => {
             setApproved(false);
-            console.log(err, 'check');
+            console.error(err, 'check');
           });
       }
     }, [walletService, nft]);
@@ -99,7 +99,7 @@ const PaymentComponent: FC<Props> = observer(
             setApproved(true);
           })
           .catch((err: any) => {
-            console.log(err, 'err approve');
+            console.error(err, 'err approve');
           })
           .finally(() => setApproving(false));
       }

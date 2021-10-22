@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import { connectTron, userApi, WalletConnect } from 'services';
 import { rootStore } from 'store';
 import { chainsEnum } from 'typings';
+import { toast } from 'react-toastify';
 
 declare global {
   interface Window {
@@ -59,7 +60,6 @@ class Connector extends React.Component<
   ) => {
     if (window.ethereum) {
       try {
-        console.log(chainName, providerName, 'COONNNECT');
         const isConnected = await this.state.provider.initWalletConnect(
           chainName,
           providerName as any,
@@ -94,13 +94,11 @@ class Connector extends React.Component<
               }
             },
             (err: any) => {
-              console.log('getAccount wallet connect - get user account err: ', err);
-              if (err.code && err.code === 6) {
-                console.log('');
-              } else {
+              console.error('getAccount wallet connect - get user account err: ', err);
+              if (!(err.code && err.code === 6)) {
                 this.disconnect();
               }
-              alert(
+              toast.error(
                 `Wrong Network, please select ${
                   is_production ? 'mainnet' : 'testnet'
                 } network in your wallet and try again`,
@@ -109,7 +107,7 @@ class Connector extends React.Component<
           );
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         this.disconnect();
       }
     }
