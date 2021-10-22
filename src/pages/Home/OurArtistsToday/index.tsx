@@ -96,6 +96,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
                     isSelected={id === selectedArtist?.user?.id}
                     isVerified={is_verificated}
                     artOwned={owned_tokens}
+                    activeTab={activeTab}
                   />
                 </Button>
               );
@@ -128,6 +129,7 @@ const OurArtistsToday: FC<Props> = ({ className }) => {
         artistData={topUser}
         className={styles.artistsMobile}
         isLoading={isLoading}
+        activeTab={activeTab}
       />
     </div>
   );
