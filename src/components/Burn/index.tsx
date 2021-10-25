@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
@@ -24,25 +24,26 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
   const burnToken = useCallback(() => {
+    setIsLoading(true);
     storeApi
       .burnToken(burn.tokenId.toString() || '', amount)
       .then(({ data }: any) => {
-        walletConnector.walletService.sendTransaction(data.initial_tx).then(() => {
-          burn.success();
-          burn.close();
-          toast.success('Token Burned');
-          history.push('/');
-        });
+        walletConnector.walletService
+          .sendTransaction(data.initial_tx)
+          .then(() => {
+            burn.success();
+            burn.close();
+            toast.success('Token Burned');
+            history.push('/');
+          })
+          .finally(() => setIsLoading(false));
       })
       .catch(() => {
         toast.error('Bid modal sendTranscation');
-      })
-      .finally(() => setIsLoading(false));
+        setIsLoading(false);
+      });
   }, [burn, amount, walletConnector.walletService, history]);
 
-  useEffect(() => {
-    if (isLoading) burnToken();
-  }, [isLoading, burnToken]);
   return (
     <div className={cn(className, styles.transfer)}>
       <div className={styles.text}>
@@ -67,9 +68,10 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
         <Button
           type="button"
           className={cn('button-pink', styles.button)}
-          onClick={() => setIsLoading(true)}
+          onClick={burnToken}
           isFullWidth
           color="pink"
+          loading={isLoading}
           disabled={+amount > burn.amount || (burn.standart === 'ERC1155' && +amount === 0)}
         >
           Continue
