@@ -28,7 +28,7 @@
 
 .footerLinks {
   flex-basis: 50%;
-  @include flexbox;
+  @include flexbox(flex-start, center);
 
   & > .linkBlock {
     &:not(:last-child) {
