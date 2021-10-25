@@ -6,6 +6,7 @@ export { default as iconClose } from './icon-close.svg';
 export { default as iconEdit } from './icon-edit.svg';
 export { default as iconSettings } from './icon-settings.svg';
 export { default as iconAddBlack } from './icon-add-black.svg';
+export { default as iconRemoveBlack } from './icon-remove-black.svg';
 export { default as iconSwap } from './icon-arrows-swap.svg';
 export { default as iconBurn } from './icon-burn.svg';
 export { default as iconTransfer } from './icon-transfer.svg';
