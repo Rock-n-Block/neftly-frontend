@@ -60,7 +60,8 @@ const Transfer: React.FC<ITransferProps> = ({ className }) => {
           description: 'Token Transfer failed',
         });
         console.error('Token Transfer failed', e);
-      })
+        setIsLoading(false);
+      });
   }, [amount, inputValue, transfer, walletService]);
 
   return (
