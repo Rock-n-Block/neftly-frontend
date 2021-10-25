@@ -56,7 +56,7 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
   return (
     <div className={cn(className, styles.liveAuction)}>
       <H3 className={styles.title}>Live Auction Today</H3>
-      {!!auctions.length && (
+      {auctions.length ? (
         <Carousel slidesToShow={numberOfSlide}>
           {auctions.map((artCard) => {
             const {
@@ -90,6 +90,8 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
             );
           })}
         </Carousel>
+      ) : (
+        <H3>No Active Auctions</H3>
       )}
     </div>
   );
