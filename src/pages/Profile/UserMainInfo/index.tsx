@@ -99,7 +99,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
         </Copyable>
       </div>
       <div className={s.user_buttons}>
-        {isSelf ? (
+        {user.address && isSelf ? (
           <>
             <Uploader isImgOnly isButton handleUpload={handleFileUpload} isLoading={isFileLoading}>
               <div className={s.user_button}>
@@ -112,7 +112,8 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
               <Text tag="span">Edit Profile</Text>
             </Button>
           </>
-        ) : (
+        ) : null}
+        {user.address && !isSelf ? (
           <Button
             className={s.user_button}
             color="blue"
@@ -122,7 +123,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
             <img src={isFollowed ? iconRemoveBlack : iconAddBlack} alt="follow" />
             {isFollowed ? 'Unfollow' : 'Follow'}
           </Button>
-        )}
+        ) : null}
       </div>
     </section>
   );
