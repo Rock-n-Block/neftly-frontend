@@ -7,6 +7,7 @@ import {
   iconSettings,
   profile_avatar_example,
   profile_page_bg_example,
+  iconRemoveBlack,
 } from 'assets/img';
 
 import s from './UserMainInfo.module.scss';
@@ -118,7 +119,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
             onClick={handleFollowClick}
             disabled={isFollowClickPending}
           >
-            <img src={iconAddBlack} alt="" />
+            <img src={isFollowed ? iconRemoveBlack : iconAddBlack} />
             {isFollowed ? 'Unfollow' : 'Follow'}
           </Button>
         )}
