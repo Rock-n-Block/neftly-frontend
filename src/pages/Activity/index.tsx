@@ -98,7 +98,7 @@ const Activity: FC = observer(() => {
                 )}
               </div>
 
-              {items.length < totalItems && (
+              {items?.length < totalItems && (
                 <div className={styles.buttonWrap}>
                   {isLoading ? (
                     <Loader className={styles.loader} />
