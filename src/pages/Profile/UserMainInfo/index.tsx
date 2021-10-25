@@ -119,7 +119,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
             onClick={handleFollowClick}
             disabled={isFollowClickPending}
           >
-            {isFollowed ? <img src={iconRemoveBlack} alt="" /> : <img src={iconAddBlack} alt="" />}
+            <img src={isFollowed ? iconRemoveBlack : iconAddBlack} />
             {isFollowed ? 'Unfollow' : 'Follow'}
           </Button>
         )}
