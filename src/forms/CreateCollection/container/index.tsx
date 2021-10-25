@@ -5,16 +5,16 @@ import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 
-import { useWalletConnectorContext, storeApi } from 'services';
+import { storeApi } from 'services';
 // import { useMst } from '../../../store';
 import CreateCollection, { ICreateCollection } from '../component';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { ToastContentWithTxHash } from 'components';
+// import { ToastContentWithTxHash } from 'components';
 
 export default observer(({ isSingle }: any) => {
   // const { modals } = useMst();
-  const walletConnector = useWalletConnectorContext();
+  // const walletConnector = useWalletConnectorContext();
   const props: ICreateCollection = {
     name: '',
     img: '',
@@ -53,25 +53,43 @@ export default observer(({ isSingle }: any) => {
       storeApi
         .createCollection(formData)
         .then(({ data }) => {
-          walletConnector.walletService
-            .sendTransaction(data)
-            .on('transactionHash', (txHash) => {
-              toast.info(<ToastContentWithTxHash txHash={txHash} />);
+          
+          console.log('data', data);
+          const hexData = window.tronWeb.toHex(data);
+          console.log('equal', 'hexData', hexData, 'data.raw_data_hex', data.raw_data_hex);
+
+          window.tronWeb.trx
+            .sign(data.raw_data_hex)
+            .then((signedMsg: any) => {
+              console.log('signedMsg', signedMsg)
+              window.tronWeb.trx
+                .sendRawTransaction(signedMsg)
+                .then((receipt: any) => console.log(receipt))
+                .catch((error: any) => console.log('error1', error));
             })
-            .then(() => {
-              toast.success('Collection Created');
-            })
-            .catch((error) => {
-              toast.error('Create Collection failed');
-              console.error('Wallet Create collection failure', error);
-            })
-            .finally(() => {
-              setFieldValue('isLoading', false);
-            });
+            .catch((error: any) => console.log('error2', error));
+          // walletConnector.walletService
+          //   .sendTransaction(data)
+          //   .on('transactionHash', (txHash) => {
+          //     toast.info(<ToastContentWithTxHash txHash={txHash} />);
+          //   })
+          //   .then(() => {
+          //     toast.success('Collection Created');
+          //   })
+          //   .catch((error) => {
+          //     toast.error('Create Collection failed');
+          //     console.error('Wallet Create collection failure', error);
+          //   })
+          //   .finally(() => {
+          //     setFieldValue('isLoading', false);
+          //   });
         })
         .catch((error) => {
           toast.error('Create Collection failed');
           console.error('Backend Create collection failure', error);
+        })
+        .finally(() => {
+          setFieldValue('isLoading', false);
         });
     },
 

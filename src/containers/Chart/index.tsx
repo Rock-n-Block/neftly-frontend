@@ -53,7 +53,7 @@ const ChartComponent: FC<Props> = () => {
       <div className="header">
         <H2 className="title">Line Chart</H2>
       </div>
-      <Line data={data} options={options as any} />
+      <Line data={data as any} options={options as any} />
     </>
   );
 };

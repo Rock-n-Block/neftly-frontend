@@ -4,7 +4,7 @@ import { is_production } from '../config';
 
 axios.defaults.baseURL = is_production
   ? 'https://app.kephi.io/api/v1/'
-  : 'https://nft-marketplace.rocknblock.io/api/v1/';
+  : 'https://tron-marketplace.rocknblock.io/api/v1/';
 
 axios.interceptors.request.use(
   (config) => {
