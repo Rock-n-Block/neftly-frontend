@@ -3,16 +3,17 @@
 // eslint-disable-next-line no-param-reassign
 import React from 'react';
 import { toast } from 'react-toastify';
-import { ToastContentWithTxHash } from 'components';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { storeApi, useWalletConnectorContext } from 'services';
+import { storeApi } from 'services';
 import * as Yup from 'yup';
 
 import CreateCollection, { ICreateCollection } from '../component';
+import { useMst } from 'store';
 
-export default observer(({ isSingle, onClose }: any) => {
-  const walletConnector = useWalletConnectorContext();
+export default observer(({ isSingle }: any) => {
+  const { user } = useMst();
+  // const walletConnector = useWalletConnectorContext();
   const props: ICreateCollection = {
     name: '',
     avatar: '',
@@ -52,29 +53,62 @@ export default observer(({ isSingle, onClose }: any) => {
       storeApi
         .createCollection(formData)
         .then(({ data }) => {
-          walletConnector.walletService
-            .sendTransaction(data)
-            .on('transactionHash', (txHash) => {
-              toast.info(<ToastContentWithTxHash txHash={txHash} />);
-            })
-            .then(() => {
-              toast.success('Collection Created');
-              onClose();
-            })
-            .catch(({ response }) => {
-              if (response.data && response.data.name) {
-                toast.error(response.data.name);
-              } else {
-                toast.error('Create Token failed');
-              }
-              console.error('Wallet Create collection failure', response);
-            })
-            .finally(() => {
-              setFieldValue('isLoading', false);
+          console.log('data', data);
+          // const transaction = { ...data.transaction };
+          window.tronWeb.transactionBuilder
+            .triggerSmartContract(
+              data.contractAddress,
+              data.function,
+              data.options,
+              data.parameter,
+              user.address,
+            )
+            .then(({ transaction }: any) => {
+              window.tronWeb.trx
+                .sign(transaction)
+                .then((signedMsg: any) => {
+                  console.log('signedMsg', signedMsg);
+                  window.tronWeb.trx
+                    .sendRawTransaction(signedMsg)
+                    .then((receipt: any) => console.log(receipt))
+                    .catch((error: any) => console.log('error1', error));
+                })
+                .catch((error: any) => console.log('error2', error));
             });
+          // window.tronWeb.trx
+          //   .sign(data)
+          //   .then((signedMsg: any) => {
+          //     console.log('signedMsg', signedMsg);
+          //     window.tronWeb.trx
+          //       .sendRawTransaction(signedMsg)
+          //       .then((receipt: any) => console.log(receipt))
+          //       .catch((error: any) => console.log('error1', error));
+          //   })
+          //   .catch((error: any) => console.log('error2', error));
+          // walletConnector.walletService
+          //   .sendTransaction(data)
+          //   .on('transactionHash', (txHash) => {
+          //     toast.info(<ToastContentWithTxHash txHash={txHash} />);
+          //   })
+          //   .then(() => {
+          //     toast.success('Collection Created');
+          //     onClose();
+          //   })
+          //   .catch(({ response }) => {
+          //     if (response.data && response.data.name) {
+          //       toast.error(response.data.name);
+          //     } else {
+          //       toast.error('Create Token failed');
+          //     }
+          //     console.error('Wallet Create collection failure', response);
+          //   })
+          //   .finally(() => {
+          //     setFieldValue('isLoading', false);
+          //   });
         })
         .catch(({ response }) => {
-          if (response.data && response.data.name) {
+          console.log(response);
+          if (response && response.data && response.data.name) {
             toast.error(response.data.name);
           } else {
             toast.error('Create Token failed');
