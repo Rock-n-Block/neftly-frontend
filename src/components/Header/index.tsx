@@ -14,6 +14,7 @@ import User from './User';
 import Wallet from './Wallet';
 
 import styles from './styles.module.scss';
+import Search from './Search';
 
 const Headers: React.FC = observer(() => {
   const { user } = useMst();
@@ -55,6 +56,7 @@ const Headers: React.FC = observer(() => {
             <Burger className={styles.burger} onClick={toggleMenu} isMenuOpen={isMenuOpen} />
             <Logo className={styles.headerLogo} />
           </div>
+          <Search className={styles.searchDesktop} />
           <HeaderLinks className={styles.headerLinks} />
           {user.address ? (
             <div className={styles.profileInfo}>

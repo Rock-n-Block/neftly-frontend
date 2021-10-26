@@ -1,21 +1,20 @@
-import { useHistory } from 'react-router';
 import { FC, useCallback, useState } from 'react';
 import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { routes } from 'appConstants';
+import {
+  iconCloudUpload,
+  IconDashboard,
+  IconFolders,
+  IconLogout,
+  IconProfile,
+  IconSettings,
+} from 'assets/img';
 import cn from 'classnames';
 import { Button, Loader } from 'components';
 import { observer } from 'mobx-react';
-import {
-  IconDashboard,
-  IconProfile,
-  IconFolders,
-  IconSettings,
-  IconLogout,
-  iconCloudUpload,
-} from 'assets/img';
-
 import { useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
 

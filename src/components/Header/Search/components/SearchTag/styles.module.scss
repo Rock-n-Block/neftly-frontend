@@ -1,0 +1,30 @@
+@import '../../../../../styles/helpers';
+
+.searchTag {
+  padding: 8px;
+}
+
+.searchTagImg {
+  width: 48px;
+  height: 48px;
+  margin-right: 16px;
+}
+
+.searchTag {
+  @include flexbox(center, space-between);
+}
+
+.searchTagFlexContainer {
+  @include flexbox();
+}
+
+.searchTagInfo {
+  width: 80px;
+}
+
+.typeText {
+  color: $color-actions-light-pink;
+  &.auction {
+    color: $color-actions-light-purple;
+  }
+}
