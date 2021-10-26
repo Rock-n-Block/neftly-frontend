@@ -1,4 +1,6 @@
 import { useCallback, useState, VFC } from 'react';
+import { Link } from 'react-router-dom';
+import { routes } from 'appConstants';
 import cx from 'classnames';
 import { Button, H5, Text, TextInput } from 'components';
 import Loader from 'components/Loader';
@@ -64,16 +66,19 @@ const Search: VFC<Props> = ({ className, classNameDropdown }) => {
                 currency: { symbol },
                 total_supply,
                 is_auc_selling,
+                id,
               } = nft;
               return (
-                <SearchTag
-                  image={media}
-                  title={name}
-                  price={price}
-                  asset={symbol}
-                  isAuction={is_auc_selling}
-                  inStock={total_supply}
-                />
+                <Link to={routes.nft.link(id)} onClick={() => setInputValue('')}>
+                  <SearchTag
+                    image={media}
+                    title={name}
+                    price={price}
+                    asset={symbol}
+                    isAuction={is_auc_selling}
+                    inStock={total_supply}
+                  />
+                </Link>
               );
             })}
             <Button color="transparent" onClick={() => alert('view result')}>
