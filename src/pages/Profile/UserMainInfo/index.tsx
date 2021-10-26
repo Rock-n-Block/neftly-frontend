@@ -1,23 +1,22 @@
 import { FC, useCallback, useState } from 'react';
-import { Button, Copyable, H2, Text, Uploader } from 'components';
-
+import { toast } from 'react-toastify';
+import { routes, zeroAddress } from 'appConstants';
 import {
   iconAddBlack,
   iconEdit,
+  iconRemoveBlack,
   iconSettings,
   profile_avatar_example,
   profile_page_bg_example,
-  iconRemoveBlack,
 } from 'assets/img';
-
-import s from './UserMainInfo.module.scss';
-import { useMst } from 'store';
+import { Button, Copyable, H2, Text, Uploader } from 'components';
+import { useFetchUser, useFollow } from 'hooks';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
-import { toast } from 'react-toastify';
-import { useFetchUser, useFollow } from 'hooks';
-import { routes, zeroAddress } from 'appConstants';
+import { useMst } from 'store';
 import { sliceString } from 'utils';
+
+import s from './UserMainInfo.module.scss';
 
 interface IProps {
   userId: string;
@@ -119,7 +118,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
             onClick={handleFollowClick}
             disabled={isFollowClickPending}
           >
-            <img src={isFollowed ? iconRemoveBlack : iconAddBlack} />
+            <img src={isFollowed ? iconRemoveBlack : iconAddBlack} alt="plus icon" />
             {isFollowed ? 'Unfollow' : 'Follow'}
           </Button>
         )}

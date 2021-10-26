@@ -1,4 +1,6 @@
 interface Window {
+  ethereum: any;
+  kardiachain: any;
   tronWeb: {
     defaultAddress?: {
       base58: string;
