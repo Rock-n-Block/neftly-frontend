@@ -10,6 +10,10 @@
   width: 100%;
 }
 
+.searchDesktop {
+  margin-left: 30px;
+}
+
 .headerInner {
   position: relative;
 
@@ -40,7 +44,9 @@
 }
 
 .headerConnectBtn {
-  margin-left: auto;
+  position: absolute;
+  top: 30%;
+  right: 5%;
 
   width: 180px;
 }
@@ -85,7 +91,7 @@
   .burger {
     display: block;
   }
-
+  .searchDesktop,
   .headerLinks,
   .headerSearch {
     display: none;
