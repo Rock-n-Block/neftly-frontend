@@ -9,13 +9,17 @@
 }
 
 .searchDropdown {
-  max-width: 500px;
+  width: 100%;
   box-sizing: border-box;
   top: 65px;
   position: absolute;
   background: $color-neutral-80;
   height: 0;
   transition: 200ms;
+
+  &.desktop {
+    width: 500px;
+  }
 
   &.isVisible {
     padding: 24px;
