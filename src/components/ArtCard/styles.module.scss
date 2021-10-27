@@ -130,6 +130,11 @@
 }
 
 @include forTablet {
+  .artCard {
+    &Medium {
+      width: unset;
+    }
+  }
   .mainImageWrapperMedium {
     width: 281px;
     height: 165px;

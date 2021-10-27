@@ -2,6 +2,10 @@
 
 .search {
   position: relative;
+  width: 100%;
+  &.desktop {
+    width: 500px;
+  }
 }
 
 .searchDropdown {
