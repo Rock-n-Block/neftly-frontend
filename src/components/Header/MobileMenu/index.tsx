@@ -17,7 +17,7 @@ const MobileMenu: FC<Props> = ({ className, toggleMenu }) => {
   return (
     <div className={cx(styles.container, className)}>
       <Logo className={styles.logo} />
-      <Search className={styles.mobileSearch} />
+      <Search className={styles.mobileSearch} isDesktop={false} />
       <div className={styles.connectWrapper}>
         <HeaderLinks toggleMenu={toggleMenu} className={styles.mobileMenuLinks} />
       </div>

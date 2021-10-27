@@ -46,3 +46,10 @@
 .viewMoreBtn {
   width: 150px;
 }
+
+@include forDesktopSm {
+  .ourArtworkGallery {
+    padding: 20px;
+  }
+  
+}

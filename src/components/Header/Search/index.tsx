@@ -14,9 +14,10 @@ import styles from './styles.module.scss';
 type Props = {
   className?: string;
   classNameDropdown?: string;
+  isDesktop?: boolean;
 };
 
-const Search: VFC<Props> = ({ className, classNameDropdown }) => {
+const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) => {
   const [inputValue, setInputValue] = useState('');
   // TODO: check if pagination needed, if not delete
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -45,7 +46,7 @@ const Search: VFC<Props> = ({ className, classNameDropdown }) => {
   const isNoResults = totalItems === 0 && inputValue !== '' && !isLoading;
 
   return (
-    <div className={cx(styles.search, className)}>
+    <div className={cx(styles.search, { [styles.desktop]: isDesktop }, className)}>
       <TextInput onChange={handleInput} value={inputValue} placeholder="Search" type="text" />
       {isLoading && <Loader className={styles.searchLoader} />}
       <div
