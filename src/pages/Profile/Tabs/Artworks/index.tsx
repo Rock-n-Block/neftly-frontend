@@ -2,7 +2,7 @@ import { FC, RefObject } from 'react';
 import { ArtCard } from 'components';
 import { useInfiniteScroll } from 'hooks';
 import { INft, OptionType } from 'typings';
-import { toFixed } from 'utils';
+// import { toFixed } from 'utils';
 
 import TabHeader from '../TabHeader';
 
@@ -65,7 +65,7 @@ const Artworks: FC<IProps> = ({
             bids,
             is_liked,
           } = artCard;
-          const artPrice = price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid;
+          const artPrice = price || (highest_bid && highest_bid.amount) || minimal_bid;
           return (
             <ArtCard
               artId={id}
