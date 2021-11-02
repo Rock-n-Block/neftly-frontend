@@ -11,10 +11,13 @@ import { connectWallet as connectWalletConfig, contracts, is_production } from '
 export class WalletConnect {
   public connectWallet: ConnectWallet;
 
+  public tronWeb: any;
+
   public walletAddress = '';
 
   constructor() {
     this.connectWallet = new ConnectWallet();
+    this.tronWeb = window.tronWeb;
   }
 
   public async initWalletConnect(
@@ -144,6 +147,30 @@ export class WalletConnect {
       ...transactionConfig,
       from: this.walletAddress,
     });
+  }
+
+  async trxCreateTransaction(data: any, address: string) {
+    const { transaction } = await window.tronWeb.transactionBuilder.triggerSmartContract(
+      data.contractAddress,
+      data.function,
+      data.options,
+      data.parameter,
+      address,
+    );
+    return this.trxSendTransaction(transaction);
+  }
+
+  trxSendTransaction(transaction: any) {
+    return this.tronWeb.trx
+      .sign(transaction)
+      .then((signedMsg: any) => {
+        console.log('signedMsg', signedMsg);
+        window.tronWeb.trx
+          .sendRawTransaction(signedMsg)
+          .then((receipt: any) => console.log(receipt))
+          .catch((error: any) => console.log('error1', error));
+      })
+      .catch((error: any) => console.log('error2', error));
   }
 
   async totalSupply(tokenAddress: string, abi: Array<any>, tokenDecimals: number) {

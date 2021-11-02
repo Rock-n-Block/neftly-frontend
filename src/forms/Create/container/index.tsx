@@ -5,11 +5,16 @@ import * as Yup from 'yup';
 import { storeApi } from 'services/api';
 import CreateForm, { ICreateForm } from '../component';
 import { toast } from 'react-toastify';
+import { useMst } from 'store';
+import { chainsEnum } from 'typings';
+import { useWalletConnectorContext } from 'services';
 import { ToastContentWithTxHash } from 'components';
 import { useHistory } from 'react-router';
 
-export default observer(({ isSingle, walletConnector }: any) => {
+export default observer(({ isSingle }: any) => {
   const history = useHistory();
+  const walletConnector = useWalletConnectorContext();
+  const { user } = useMst();
   const props: ICreateForm = {
     name: '',
     isSingle: true,
@@ -19,7 +24,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
     price: 0,
     minimalBid: 0,
     creatorRoyalty: '10',
-    collection: 0,
+    collection: 99,
     details: [{ name: '', amount: '' }],
     selling: true,
     media: '',
@@ -89,26 +94,51 @@ export default observer(({ isSingle, walletConnector }: any) => {
       storeApi
         .createToken(formData)
         .then(({ data }) => {
-          walletConnector.walletService
-            .sendTransaction(data.initial_tx)
-            .on('transactionHash', (txHash: string) => {
-              toast.info(<ToastContentWithTxHash txHash={txHash} />);
-              history.push('/');
-            })
-            .then(() => {
-              toast.success('Token Created');
-            })
-            .catch(({ response }: any) => {
-              if (response.data && response.data.name) {
-                toast.error(response.data.name);
-              } else {
-                toast.error('Create Token failed');
-              }
-              console.error('Backend Create token failure', response.data);
-            })
-            .finally(() => {
-              setFieldValue('isLoading', false);
-            });
+          console.log('data', data);
+          if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
+            walletConnector.walletService.trxCreateTransaction(data.initial_tx, user.address);
+          } else {
+            // window.tronWeb.transactionBuilder
+            //   .triggerSmartContract(
+            //     data.initial_tx.contractAddress,
+            //     data.initial_tx.function,
+            //     data.initial_tx.options,
+            //     data.initial_tx.parameter,
+            //     user.address,
+            //   )
+            //   .then(({ transaction }: any) => {
+            //     window.tronWeb.trx
+            //       .sign(transaction)
+            //       .then((signedMsg: any) => {
+            //         console.log('signedMsg', signedMsg);
+            //         window.tronWeb.trx
+            //           .sendRawTransaction(signedMsg)
+            //           .then((receipt: any) => console.log(receipt))
+            //           .catch((error: any) => console.log('error1', error));
+            //       })
+            //       .catch((error: any) => console.log('error2', error));
+            //   });
+            walletConnector.walletService
+              .sendTransaction(data.initial_tx)
+              .on('transactionHash', (txHash: string) => {
+                toast.info(<ToastContentWithTxHash txHash={txHash} />);
+                history.push('/');
+              })
+              .then(() => {
+                toast.success('Token Created');
+              })
+              .catch(({ response }: any) => {
+                if (response.data && response.data.name) {
+                  toast.error(response.data.name);
+                } else {
+                  toast.error('Create Token failed');
+                }
+                console.error('Backend Create token failure', response.data);
+              })
+              .finally(() => {
+                setFieldValue('isLoading', false);
+              });
+          }
         })
         .catch(({ response }) => {
           if (response.data && response.data.name) {
