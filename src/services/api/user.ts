@@ -15,8 +15,8 @@ export default {
       msg: data.msg,
     }),
   getMsg: () => axios.get('account/get_metamask_message/'),
-  getSingleCollections: (address: string) =>
-    axios.get(`account/${address}/collections/?network=${localStorage.nftcrowd_nft_chainName}`),
+  getSingleCollections: () =>
+    axios.get(`account/collections/?network=${localStorage.nftcrowd_nft_chainName}`),
   getMe: () => axios.get(`account/self/?network=${localStorage.nftcrowd_nft_chainName}`),
   update: (data: any) => {
     return axios.patch(`account/self/?network=${localStorage.nftcrowd_nft_chainName}`, data);
