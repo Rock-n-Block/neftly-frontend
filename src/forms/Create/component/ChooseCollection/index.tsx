@@ -42,7 +42,7 @@ const ChooseCollection: React.FC<IProps> = observer(
 
     const getCollections = useCallback(() => {
       userApi
-        .getSingleCollections(user.address)
+        .getSingleCollections()
         .then(({ data }) => {
           const newCollections = data.collections.filter((coll: any) => {
             if (isSingle) {
@@ -54,7 +54,7 @@ const ChooseCollection: React.FC<IProps> = observer(
           handleCollectionChange(newCollections[0].id);
         })
         .catch((err) => console.error(err, 'get single'));
-    }, [handleCollectionChange, isSingle, user.address]);
+    }, [handleCollectionChange, isSingle]);
 
     const handleOpenModal = () => {
       setIsModalVisible(true);

@@ -153,7 +153,7 @@ const ArtCard: FC<Props> = ({
               <>
                 <div className={styles.bidder_avatars}>
                   {bids.map((bidder: IBidder, index: number) => {
-                    return index < 2 ? (
+                    return index < 3 ? (
                       <img
                         key={bidder.id}
                         className={styles.bidder_avatar}
