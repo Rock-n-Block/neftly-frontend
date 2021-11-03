@@ -1,4 +1,4 @@
-import { CSSProperties, FC, PropsWithChildren } from 'react';
+import { CSSProperties, FC, PropsWithChildren, SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 // import { IconNames } from 'typings';
@@ -19,6 +19,7 @@ type Props = {
   icon?: string;
   loading?: boolean;
   onMouseLeave?: (event: any) => void;
+  onMouseOver?: (event: SyntheticEvent) => void;
   style?: CSSProperties;
   href?: string;
 };
@@ -37,6 +38,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
   href,
   loading,
   onMouseLeave,
+  onMouseOver = () => {},
 }) => {
   if (href)
     return (
@@ -64,6 +66,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
       disabled={disabled || loading}
       style={style}
       onMouseLeave={onMouseLeave}
+      onMouseEnter={onMouseOver}
     >
       {icon && <img src={icon} className={styles.icon} alt="" />}
       {children}

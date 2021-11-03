@@ -4,6 +4,7 @@ export const routes = {
   },
   discover: {
     root: '/discover',
+    link: (fileterValue: string): string => `/discover/${fileterValue}`,
   },
   nft: {
     link: (id: string | number): string => `/nft/${id}`,
