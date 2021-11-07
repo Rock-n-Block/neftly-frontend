@@ -10,6 +10,7 @@ import { storeApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 
 import styles from './Checkout.module.scss';
+import { chainsEnum } from 'typings';
 
 const Checkout: React.FC = observer(() => {
   const {
@@ -37,27 +38,51 @@ const Checkout: React.FC = observer(() => {
           sell.nft.standart === 'ERC721' ? '' : sell.nft.sellerId,
         )
         .then(({ data }) => {
-          walletService
-            .sendTransaction(data.initial_tx)
-            .then((res: any) => {
-              toast.success('success');
-              storeApi
-                .trackTransaction(res.transactionHash, sell.nft.tokenId, sell.nft.sellerId)
-                .then(() => {
-                  setTimeout(() => {
-                    sell.checkout.success();
-                    sell.checkout.close();
-                  }, 1000);
+          if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
+            walletService
+              .trxCreateTransaction(data.initial_tx, user.address)
+              .then((res: any) => {
+                toast.success('success');
+                storeApi
+                  .trackTransaction(res.transactionHash, sell.nft.tokenId, sell.nft.sellerId)
+                  .then(() => {
+                    setTimeout(() => {
+                      sell.checkout.success();
+                      sell.checkout.close();
+                    }, 1000);
+                  });
+              })
+              .catch((error: any) => {
+                toast.error({
+                  message: 'Error',
+                  description: 'Something went wrong',
                 });
-            })
-            .catch((error: any) => {
-              toast.error({
-                message: 'Error',
-                description: 'Something went wrong',
-              });
-              console.error(error);
-            })
-            .finally(() => setIsLoading(false));
+                console.error(error);
+              })
+              .finally(() => setIsLoading(false));
+          } else {
+            walletService
+              .sendTransaction(data.initial_tx)
+              .then((res: any) => {
+                toast.success('success');
+                storeApi
+                  .trackTransaction(res.transactionHash, sell.nft.tokenId, sell.nft.sellerId)
+                  .then(() => {
+                    setTimeout(() => {
+                      sell.checkout.success();
+                      sell.checkout.close();
+                    }, 1000);
+                  });
+              })
+              .catch((error: any) => {
+                toast.error({
+                  message: 'Error',
+                  description: 'Something went wrong',
+                });
+                console.error(error);
+              })
+              .finally(() => setIsLoading(false));
+          }
         })
         .catch((error: any) => {
           toast.error({
@@ -67,7 +92,7 @@ const Checkout: React.FC = observer(() => {
           console.error(error);
         });
     }
-  }, [walletService, quantity, user.id, sell]);
+  }, [walletService, quantity, user.id, sell, user.address]);
 
   const userWillPay = React.useMemo(() => {
     return new BigNumber(sell.nft.price || 0)

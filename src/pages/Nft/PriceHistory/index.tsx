@@ -50,12 +50,14 @@ const PriceHistory: FC<IProps> = ({ tokenId, currency }) => {
           />
         </div>
       </div>
-      <Chart
-        currency={currency}
-        className={styles.chart}
-        data={priceHistory}
-        period={currentFilterOption.value as TPriceHistoryPeriod}
-      />
+      {priceHistory.length && (
+        <Chart
+          currency={currency}
+          className={styles.chart}
+          data={priceHistory}
+          period={currentFilterOption.value as TPriceHistoryPeriod}
+        />
+      )}
     </div>
   );
 };

@@ -8,6 +8,10 @@ import Web3 from 'web3';
 
 import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
 
+const MS_RETRY_TRON = 2000;
+
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
 export class WalletConnect {
   public connectWallet: ConnectWallet;
 
@@ -17,7 +21,8 @@ export class WalletConnect {
 
   constructor() {
     this.connectWallet = new ConnectWallet();
-    this.tronWeb = window.tronWeb;
+    this.tronWeb = null;
+    this.connectTronWeb();
   }
 
   public async initWalletConnect(
@@ -48,6 +53,17 @@ export class WalletConnect {
 
   public Web3(): Web3 {
     return this.connectWallet.currentWeb3();
+  }
+
+  async connectTronWeb() {
+    try {
+      if (!window.tronWeb?.defaultAddress?.base58) {
+        await delay(MS_RETRY_TRON);
+      }
+      this.tronWeb = window.tronWeb;
+    } catch (err) {
+      console.error(err);
+    }
   }
   // Promise<string | number>
 
@@ -150,6 +166,18 @@ export class WalletConnect {
   }
 
   async trxCreateTransaction(data: any, address: string) {
+    console.log(
+      data.contractAddress,
+      'contractAddress',
+      data.function,
+      'function',
+      data.options,
+      'options',
+      data.parameter,
+      'parameter',
+      address,
+      'address',
+    );
     const { transaction } = await window.tronWeb.transactionBuilder.triggerSmartContract(
       data.contractAddress,
       data.function,
@@ -160,17 +188,16 @@ export class WalletConnect {
     return this.trxSendTransaction(transaction);
   }
 
-  trxSendTransaction(transaction: any) {
-    return this.tronWeb.trx
-      .sign(transaction)
-      .then((signedMsg: any) => {
-        console.log('signedMsg', signedMsg);
-        window.tronWeb.trx
-          .sendRawTransaction(signedMsg)
-          .then((receipt: any) => console.log(receipt))
-          .catch((error: any) => console.log('error1', error));
-      })
-      .catch((error: any) => console.log('error2', error));
+  async trxSendTransaction(transaction: any) {
+    console.log('transaction', transaction);
+    let receipt;
+    try {
+      const signedMsg = await this.tronWeb.trx.sign(transaction);
+      receipt = await window.tronWeb.trx.sendRawTransaction(signedMsg);
+    } catch (err: any) {
+      console.log(err);
+    }
+    return receipt;
   }
 
   async totalSupply(tokenAddress: string, abi: Array<any>, tokenDecimals: number) {
@@ -224,6 +251,38 @@ export class WalletConnect {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  async trxTotalSupply(contract: any) {
+    const { _hex } = await contract.totalSupply().call();
+    const totalSupply = new BigNumber(_hex).toString();
+    return +new BigNumber(totalSupply).dividedBy(new BigNumber(10).pow(18)).toString(10);
+  }
+
+  async trxCheckAllowance(contractName: string, approvedAddress: string, walletAddress: string) {
+    try {
+      const contract = await this.tronWeb
+        .contract()
+        .at(contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address);
+      console.log('contract', contract);
+
+      const { _hex } = await contract.allowance(walletAddress, approvedAddress).call();
+      let result: number | string | null = new BigNumber(_hex).toString();
+      const totalSupply = await this.trxTotalSupply(contract);
+
+      result =
+        result === '0'
+          ? null
+          : +new BigNumber(result).dividedBy(new BigNumber(10).pow(18)).toString(10);
+      if (result && new BigNumber(result).minus(totalSupply).isPositive()) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.log('Allowance error', error);
+      return false;
+    }
+  }
+
   async approveToken(
     contractName: string,
     tokenDecimals: number,
@@ -247,6 +306,22 @@ export class WalletConnect {
         data: approveSignature,
       });
     } catch (error) {
+      return error;
+    }
+  }
+
+  async trxApproveToken(contractName: string, approvedAddress: string) {
+    try {
+      const contract = await this.tronWeb
+        .contract()
+        .at(contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address);
+
+      const amount = WalletConnect.calcTransactionAmount(90071992000.5474099, 18);
+      const res = await contract.approve(approvedAddress, amount).send({ feeLimit: 100000000 });
+      console.log('res', res);
+      return true;
+    } catch (error) {
+      console.log('Approve error', error);
       return error;
     }
   }

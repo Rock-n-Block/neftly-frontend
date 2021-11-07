@@ -94,30 +94,24 @@ export default observer(({ isSingle }: any) => {
       storeApi
         .createToken(formData)
         .then(({ data }) => {
-          console.log('data', data);
           if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-            walletConnector.walletService.trxCreateTransaction(data.initial_tx, user.address);
+            walletConnector.walletService
+              .trxCreateTransaction(data.initial_tx, user.address)
+              .then((res: any) => {
+                if (res.result) {
+                  toast.success('Token Created');
+                  toast.info(<ToastContentWithTxHash txHash={res.transaction.txID} />);
+                }
+              })
+              .catch(( response : any) => {
+                if (response && response.data && response.data.name) {
+                  toast.error(response.data.name);
+                } else {
+                  toast.error('Create Token failed');
+                }
+                console.error('Backend Create token failure', response);
+              });
           } else {
-            // window.tronWeb.transactionBuilder
-            //   .triggerSmartContract(
-            //     data.initial_tx.contractAddress,
-            //     data.initial_tx.function,
-            //     data.initial_tx.options,
-            //     data.initial_tx.parameter,
-            //     user.address,
-            //   )
-            //   .then(({ transaction }: any) => {
-            //     window.tronWeb.trx
-            //       .sign(transaction)
-            //       .then((signedMsg: any) => {
-            //         console.log('signedMsg', signedMsg);
-            //         window.tronWeb.trx
-            //           .sendRawTransaction(signedMsg)
-            //           .then((receipt: any) => console.log(receipt))
-            //           .catch((error: any) => console.log('error1', error));
-            //       })
-            //       .catch((error: any) => console.log('error2', error));
-            //   });
             walletConnector.walletService
               .sendTransaction(data.initial_tx)
               .on('transactionHash', (txHash: string) => {
@@ -128,12 +122,12 @@ export default observer(({ isSingle }: any) => {
                 toast.success('Token Created');
               })
               .catch(({ response }: any) => {
-                if (response.data && response.data.name) {
+                if (response && response.data && response.data.name) {
                   toast.error(response.data.name);
                 } else {
                   toast.error('Create Token failed');
                 }
-                console.error('Backend Create token failure', response.data);
+                console.error('Backend Create token failure', response);
               })
               .finally(() => {
                 setFieldValue('isLoading', false);
