@@ -4,7 +4,7 @@ import { Button, H4, Text } from 'components';
 
 import { RandomCard } from './components';
 import styles from './styles.module.scss';
-import { routes } from '../../../appConstants';
+import { routes } from 'appConstants';
 
 const Banner: FC = () => (
   <div className={styles.banner}>
