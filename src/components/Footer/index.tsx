@@ -1,45 +1,30 @@
-// import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { marketplaceLinks, routes } from 'appConstants';
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, Logo, Text, TextInput } from 'components';
+import IconLinks from 'components/IconLinks';
 import { observer } from 'mobx-react';
 import { useMst } from 'store';
 
 import styles from './styles.module.scss';
-import IconLinks from 'components/IconLinks';
 
 const Footers: React.FC = observer(() => {
   const { user } = useMst();
-  // const [isConnectOpen, setConnectOpen] = useState(false);
-
-  // const handleOpenConnect = useCallback(() => {
-  //   setConnectOpen(true);
-  // }, []);
-
-  // const handleCloseConnect = useCallback(() => {
-  //   setConnectOpen(false);
-  // }, []);
 
   const accountHelperObject = [
     {
       label: 'Profile',
-      isVisible: !!user.address,
       link: routes.profile.root,
     },
     {
       label: 'Favourites',
-      isVisible: !!user.address,
       link: `${routes.profile.root}/favourite`,
     },
     {
       label: 'My Collection',
-      isVisible: !!user.address,
       link: `${routes.profile.root}/myCollectction`,
     },
     {
       label: 'Settings',
-      isVisible: !!user.address,
       link: routes.profile.edit,
     },
   ];
@@ -67,29 +52,28 @@ const Footers: React.FC = observer(() => {
               );
             })}
           </div>
-          <div className={styles.linkBlock}>
-            <Text weight="bold" size="m">
-              My Account
-            </Text>
-            {accountHelperObject.map(({ label, link, isVisible }) => {
-              return (
-                isVisible && (
+          {user.address && (
+            <div className={styles.linkBlock}>
+              <Text weight="bold" size="m">
+                My Account
+              </Text>
+              {accountHelperObject.map(({ label, link }) => {
+                return (
                   <Link to={link}>
                     <Button color="transparent">
                       <Text color="lightGray">{label}</Text>
                     </Button>
                   </Link>
-                )
-              );
-            })}
-            {user.address && (
+                );
+              })}
+
               <Link to={routes.activity.root}>
                 <Text weight="bold" size="m">
                   Activity
                 </Text>
               </Link>
-            )}
-          </div>
+            </div>
+          )}
           <div className={styles.footerActions}>
             <Text weight="bold" size="m">
               Join Newsletter
@@ -109,13 +93,6 @@ const Footers: React.FC = observer(() => {
           <Text color="gray">Copyright © 2021 UI8 LLC. All rights reserved</Text>
         </div>
       </div>
-      {/* <Modal
-        visible={isConnectOpen && !user.address}
-        onClose={handleCloseConnect}
-        title="Pick a wallet"
-      >
-        <ChooseWallet />
-      </Modal> */}
     </footer>
   );
 });
