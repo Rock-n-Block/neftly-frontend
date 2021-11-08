@@ -5,6 +5,7 @@ enum Values {
   gray,
   lightGray,
   secondary,
+  inherit,
 }
 
 enum SizeValues {

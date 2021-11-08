@@ -1,2 +1,1 @@
-export { default as Star } from './FourPointStar';
-export { default as DiscoverMore } from './DiscoverMore';
+export { default as RandomCard } from './RandomCard';

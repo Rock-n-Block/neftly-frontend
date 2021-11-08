@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { PinkHeart } from 'assets/img';
 import cx from 'classnames';
 import nextId from 'react-id-generator';
-import { Button, Tag, Text } from 'components';
+import { ArtCardAuthor, Button, Tag, Text } from 'components';
 import { numberFormatter, sliceString } from 'utils';
 
 import { IBidder } from 'typings';
@@ -28,7 +28,7 @@ type Props = {
   inStockNumber?: number | string;
   author: string;
   authorAvatar: string;
-  authorId?: string;
+  authorId: string;
   likesNumber?: number;
   tags?: any[];
   isCollection?: boolean;
@@ -166,12 +166,7 @@ const ArtCard: FC<Props> = ({
                 <Text className={styles.artCardAuthor}>{bids.length} people have bidded</Text>
               </>
             ) : (
-              <>
-                <Link to={routes.profile.link(authorId || '')}>
-                  <img src={authorAvatar} className={styles.author_avatar} alt="" />
-                </Link>
-                <Text className={styles.artCardAuthor}>{author}</Text>
-              </>
+              <ArtCardAuthor id={authorId} avatar={authorAvatar} name={author} />
             )}
           </div>
           {likeAction && (
