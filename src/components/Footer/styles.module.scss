@@ -13,7 +13,7 @@
 }
 
 .linksAndControls {
-  @include flexbox(flex-start, center);
+  @include flexbox(flex-start, space-between);
 }
 
 .footerLogo {
@@ -62,9 +62,17 @@
   border-top: 1px solid $color-neutral-80;
 }
 
+.footerIconLinks {
+  margin-top: 30px;
+}
+
 @include forDesktopSm {
   .footerContent {
     padding: 30px;
+  }
+
+  .footerLogo, .linkBlock {
+    align-items: center;
   }
   .linksAndControls {
     flex-direction: column;

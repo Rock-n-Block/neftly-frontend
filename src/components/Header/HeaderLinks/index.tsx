@@ -1,6 +1,4 @@
-/* eslint-disable consistent-return */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-array-index-key */
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { marketplaceLinks, routes } from 'appConstants';
@@ -31,8 +29,14 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
         internalLinks: marketplaceLinks,
       },
       {
+        url: routes.activity.root,
+        title: 'Activity',
+        isNested: false,
+        disabled: !user.address,
+      },
+      {
         url: routes.create.root,
-        title: 'Create item',
+        title: 'Create',
         isNested: false,
         disabled: !user.address,
       },
@@ -55,12 +59,15 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
         if (isNested) {
           return (
             <Button
-              color="transparent"
+              key={index}
               onMouseOver={() => handleMouseOver(index)}
               onMouseLeave={handleMouseLeave}
+              onClick={toggleMenu}
               className={styles.internalLinkWrapperBtn}
+              disabled={disabled}
+              color="transparent"
             >
-              <Text color="secondary">{title}</Text>
+              <Text>{title}</Text>
               <div
                 className={cx(styles.internalLinksWrapper, {
                   [styles.isOpen]: openedMenuIndex === index,
@@ -68,7 +75,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
               >
                 {internalLinks?.map(({ label, value }) => {
                   return (
-                    <Link style={{ width: '100%' }} to={routes.discover.link(value)}>
+                    <Link style={{ width: '100%' }} to={routes.discover.filter(value)}>
                       <Button isFullWidth>{label}</Button>
                     </Link>
                   );
@@ -77,7 +84,20 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
             </Button>
           );
         }
-        return 123;
+        if (url) {
+          return (
+            <Link to={url} key={index}>
+              <Button color="transparent" onClick={toggleMenu}>
+                <Text>{title}</Text>
+              </Button>
+            </Link>
+          );
+        }
+        return (
+          <Button color="transparent" onClick={toggleMenu}>
+            <Text>{title}</Text>
+          </Button>
+        );
       })}
     </div>
   );

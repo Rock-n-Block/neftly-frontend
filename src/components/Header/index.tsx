@@ -1,7 +1,4 @@
 import { FC, useCallback, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { routes } from 'appConstants';
-import { bell } from 'assets/img';
 import cx from 'classnames';
 import { Burger, Button, ChooseWallet, Logo, Modal } from 'components';
 import { observer } from 'mobx-react-lite';
@@ -60,11 +57,6 @@ const Headers: FC = observer(() => {
           <HeaderLinks className={styles.headerLinks} />
           {user.address ? (
             <div className={styles.profileInfo}>
-              <Button color="transparent">
-                <Link to={routes.activity.root}>
-                  <img src={bell} alt="" />
-                </Link>
-              </Button>
               <Button color="transparent">
                 <Wallet />
               </Button>

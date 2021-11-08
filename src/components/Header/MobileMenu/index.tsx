@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import cx from 'classnames';
 import { Logo } from 'components';
+import IconLinks from 'components/IconLinks';
 import { Text } from 'components/Typography';
 
 import HeaderLinks from '../HeaderLinks';
@@ -21,6 +22,7 @@ const MobileMenu: FC<Props> = ({ className, toggleMenu }) => {
       <div className={styles.connectWrapper}>
         <HeaderLinks toggleMenu={toggleMenu} className={styles.mobileMenuLinks} />
       </div>
+      <IconLinks className={styles.mobileMenuIconLinks} />
       <Text align="center" className={styles.bottomText} size="xs" color="lightGray">
         Copyright © 2021 UI8 LLC. All rights reserved
       </Text>

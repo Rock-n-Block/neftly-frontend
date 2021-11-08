@@ -1,0 +1,7 @@
+@import '../../styles/helpers.scss';
+
+.iconLinks {
+  @include flexbox(center, space-between);
+  width: 100%;
+  max-width: 280px;
+}
