@@ -167,16 +167,16 @@ export class WalletConnect {
 
   async trxCreateTransaction(data: any, address: string) {
     console.log(
-      data.contractAddress,
       'contractAddress',
-      data.function,
+      data.contractAddress,
       'function',
-      data.options,
+      data.function,
       'options',
-      data.parameter,
+      data.options,
       'parameter',
-      address,
+      data.parameter,
       'address',
+      address,
     );
     const { transaction } = await window.tronWeb.transactionBuilder.triggerSmartContract(
       data.contractAddress,
@@ -255,7 +255,7 @@ export class WalletConnect {
   async trxTotalSupply(contract: any) {
     const { _hex } = await contract.totalSupply().call();
     const totalSupply = new BigNumber(_hex).toString();
-    return +new BigNumber(totalSupply).dividedBy(new BigNumber(10).pow(18)).toString(10);
+    return +new BigNumber(totalSupply).dividedBy(new BigNumber(10).pow(6)).toString(10);
   }
 
   async trxCheckAllowance(contractName: string, approvedAddress: string, walletAddress: string) {
@@ -272,7 +272,7 @@ export class WalletConnect {
       result =
         result === '0'
           ? null
-          : +new BigNumber(result).dividedBy(new BigNumber(10).pow(18)).toString(10);
+          : +new BigNumber(result).dividedBy(new BigNumber(10).pow(6)).toString(10);
       if (result && new BigNumber(result).minus(totalSupply).isPositive()) {
         return true;
       }
@@ -316,7 +316,7 @@ export class WalletConnect {
         .contract()
         .at(contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address);
 
-      const amount = WalletConnect.calcTransactionAmount(90071992000.5474099, 18);
+      const amount = WalletConnect.calcTransactionAmount(90071992000.5474099, 6);
       const res = await contract.approve(approvedAddress, amount).send({ feeLimit: 100000000 });
       console.log('res', res);
       return true;

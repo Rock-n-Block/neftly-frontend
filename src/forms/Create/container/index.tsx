@@ -24,7 +24,7 @@ export default observer(({ isSingle }: any) => {
     price: 0,
     minimalBid: 0,
     creatorRoyalty: '10',
-    collection: 99,
+    collection: 25,
     details: [{ name: '', amount: '' }],
     selling: true,
     media: '',
