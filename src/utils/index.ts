@@ -6,4 +6,5 @@ export * from './getTronContract';
 export * from './bnToFixed';
 export * from './validateOnlyNumbers';
 export { default as sliceString } from './sliceString';
+export { default as findQueryParameter } from './findQueryParameter';
 export { default as history } from './history';

@@ -35,7 +35,7 @@ const IconLinks: FC<Props> = ({ className }) => (
   <div className={cx(styles.iconLinks, className)}>
     {iconLinksHelperObject.map(({ link, icon }) => {
       return (
-        <a href={link} target="_blank" rel="noopener noreferrer">
+        <a href={link} target="_blank" rel="noopener noreferrer" key={icon}>
           <img src={icon} alt="" />
         </a>
       );

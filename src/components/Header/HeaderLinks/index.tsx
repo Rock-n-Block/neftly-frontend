@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { marketplaceLinks, routes } from 'appConstants';
@@ -59,7 +58,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
         if (isNested) {
           return (
             <Button
-              key={index}
+              key={title}
               onMouseOver={() => handleMouseOver(index)}
               onMouseLeave={handleMouseLeave}
               onClick={toggleMenu}
@@ -75,7 +74,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
               >
                 {internalLinks?.map(({ label, value }) => {
                   return (
-                    <Link style={{ width: '100%' }} to={routes.discover.filter(value)}>
+                    <Link style={{ width: '100%' }} to={routes.discover.filter(value)} key={label}>
                       <Button isFullWidth>{label}</Button>
                     </Link>
                   );
@@ -86,7 +85,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
         }
         if (url) {
           return (
-            <Link to={url} key={index}>
+            <Link to={url} key={title}>
               <Button color="transparent" onClick={toggleMenu}>
                 <Text>{title}</Text>
               </Button>
@@ -94,7 +93,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
           );
         }
         return (
-          <Button color="transparent" onClick={toggleMenu}>
+          <Button key={title} color="transparent" onClick={toggleMenu}>
             <Text>{title}</Text>
           </Button>
         );

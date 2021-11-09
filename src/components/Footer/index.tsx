@@ -44,7 +44,7 @@ const Footers: React.FC = observer(() => {
             </Text>
             {marketplaceLinks.map(({ label, value }) => {
               return (
-                <Link to={routes.discover.filter(value)}>
+                <Link to={routes.discover.filter(value)} key={value}>
                   <Button color="transparent">
                     <Text color="lightGray">{label}</Text>
                   </Button>
@@ -59,7 +59,7 @@ const Footers: React.FC = observer(() => {
               </Text>
               {accountHelperObject.map(({ label, link }) => {
                 return (
-                  <Link to={link}>
+                  <Link to={link} key={label}>
                     <Button color="transparent">
                       <Text color="lightGray">{label}</Text>
                     </Button>

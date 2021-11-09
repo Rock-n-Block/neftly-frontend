@@ -1,5 +1,4 @@
 import { RefObject, useCallback, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { filter } from 'assets/img';
 import cx from 'classnames';
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
@@ -9,7 +8,7 @@ import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { useMst } from 'store';
 import { selectOptions } from 'typings';
-import { toFixed } from 'utils';
+import { findQueryParameter, toFixed } from 'utils';
 
 import styles from './styles.module.scss';
 
@@ -17,8 +16,8 @@ const Discover = observer(() => {
   const [isFilterOpen, setFilterOpen] = useState(false);
   const { user } = useMst();
 
-  const { search } = useLocation();
-  const filterVar = search.replace(/^(.*?)=/, '');
+  const fullUrlPath = window.location.href;
+  const filterVar = findQueryParameter(fullUrlPath, 'filter');
 
   console.log(filterVar);
 

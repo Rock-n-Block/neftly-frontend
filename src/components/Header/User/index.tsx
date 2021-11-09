@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { FC, useCallback, useState } from 'react';
 import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -94,14 +95,14 @@ const User: FC<IUserProps> = observer(({ className }) => {
               </div>
             </div>
             <div className={styles.menu}>
-              {dropdownOptions.map((option) => {
+              {dropdownOptions.map((option, index) => {
                 if (option.url?.startsWith('http')) {
                   return (
                     <a
                       className={styles.item}
                       href={option.url}
                       rel="noopener noreferrer"
-                      key={nextId()}
+                      key={index}
                     >
                       <div className={styles.icon}>{option.icon}</div>
                       <div className={styles.text}>{option.title}</div>
