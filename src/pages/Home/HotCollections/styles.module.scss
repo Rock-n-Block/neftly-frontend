@@ -19,7 +19,12 @@
 }
 
 .gradientTitle {
+  @include monument-extended;
   @include gradientText;
+  font-style: normal;
+  font-weight: normal !important;
+  font-size: 40px !important;
+  line-height: 120% !important;
 }
 
 .collectionsWrapper {
@@ -29,6 +34,20 @@
   grid-column-gap: 30px;
   grid-row-gap: 16px;
   grid-auto-flow: column;
+}
+
+.select {
+  &Control {
+    border: none !important;
+    height: unset !important;
+    padding: unset !important;
+    justify-content: flex-start !important;
+  }
+
+  &ValueContainer {
+    height: unset !important;
+    font-size: unset !important;
+  }
 }
 
 @include forTablet {
