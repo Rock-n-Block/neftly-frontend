@@ -1,7 +1,9 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import {FC, useCallback, useEffect, useState} from 'react';
 import cx from 'classnames';
-import { ArtCard, H2 } from 'components';
-import { storeApi } from 'services';
+import {H2} from 'components';
+import {storeApi} from 'services';
+import CollectionCard from "./CollectionCard";
+import mockData from './mockCollections';
 
 import styles from './styles.module.scss';
 
@@ -9,10 +11,11 @@ type Props = {
   className?: string;
 };
 
-const HotCollections: FC<Props> = ({ className }) => {
-  const [collections, setCollections] = useState([]);
+const HotCollections: FC<Props> = ({className}) => {
+  const [, setCollections] = useState([]);
+  const [period,] = useState(1);
   const fetchHotCollections = useCallback(() => {
-    storeApi.getCollections().then(({ data }: any) => setCollections(data));
+    storeApi.getCollections().then(({data}: any) => setCollections(data));
   }, []);
 
   useEffect(() => {
@@ -22,35 +25,16 @@ const HotCollections: FC<Props> = ({ className }) => {
     <div className={cx(styles.hotCollections, className)}>
       <div className={styles.title}>
         <H2>
-          Hot <span className={styles.gradientTitle}>Collections</span>
+          Top collections over <span
+          className={styles.gradientTitle}>last {period} {period === 1 ? 'day' : 'days'}</span>
         </H2>
       </div>
-      <div className={styles.artCardsWrapper}>
-        {collections
-          ? collections.map((art: any) => {
-              const { avatar, tokens, name, price, asset, creator, id, media } = art;
-              return (
-                <ArtCard
-                  artId={id}
-                  key={`${id}_${media}_${creator.name}`}
-                  type="Medium"
-                  imageMain={avatar}
-                  imageSecondaryOne={tokens[0]}
-                  imageSecondaryTwo={tokens[1]}
-                  imageSecondaryThree={tokens[2]}
-                  name={name}
-                  price={price}
-                  asset={asset}
-                  allArtNumber={tokens.length}
-                  author={creator.name}
-                  authorAvatar={creator.avatar}
-                  authorId={creator.id}
-                  isCollection
-                />
-              );
-            })
-          : null}
-      </div>
+      <ol className={styles.collectionsWrapper}>
+        {mockData.map((collection,index) => (
+          <CollectionCard avatar={collection.avatar} isVerified={collection.is_verified} id={collection.id} index={index+1} name={collection.name} price={collection.eth}/>
+        ))}
+
+      </ol>
     </div>
   );
 };

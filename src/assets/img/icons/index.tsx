@@ -18,6 +18,7 @@ export { default as iconCloudUpload } from './icon-cloud-upload.svg';
 export { default as iconCreateCircle } from './icon-create-circle.svg';
 export { default as iconVerifiedMark } from './icon-verified-mark.svg';
 export { ReactComponent as IconCoin } from './icon-coin.svg';
+export { ReactComponent as IconEth } from './icon-eth.svg';
 export { ReactComponent as IconDashboard } from './icon-dashboard.svg';
 export { ReactComponent as IconSettings } from './icon-settings.svg';
 export { ReactComponent as IconProfile } from './icon-profile.svg';

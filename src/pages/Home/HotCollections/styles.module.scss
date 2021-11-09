@@ -1,4 +1,4 @@
-@import '../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .hotCollections {
   margin: 0 auto;
@@ -22,23 +22,13 @@
   @include gradientText;
 }
 
-.artCardsWrapper {
-  @include flexbox();
-  flex-wrap: wrap;
-
-  margin: -20px;
-
-  & > * {
-    margin: 20px;
-  }
-}
-
-.viewMoreBtnWrapper {
-  @include flexbox;
-}
-
-.viewMoreBtn {
-  width: 150px;
+.collectionsWrapper {
+  display: grid;
+  grid-template-columns:repeat(auto-fit, 240px);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 30px;
+  grid-row-gap: 16px;
+  grid-auto-flow: column;
 }
 
 @include forTablet {

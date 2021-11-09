@@ -1,0 +1,20 @@
+@import 'src/styles/helpers';
+
+.collectionCard {
+  @include flexbox(center, flex-start);
+  padding: 10px 0 10px;
+  border-bottom: 1px solid $color-neutral-10;
+  max-width: 340px;
+  width: 100%;
+}
+
+.avatar {
+  margin: 0 16px 0 29px;
+}
+.info{
+  overflow: hidden;
+}
+.price{
+  @include flexbox(center,flex-start);
+  gap: 3px;
+}
