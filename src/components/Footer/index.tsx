@@ -68,15 +68,21 @@ const Footers: React.FC = observer(() => {
         <div className={styles.linksAndControls}>
           <div className={styles.footerLogo}>
             <Logo className={styles.logo} />
-            <Text size="xxl">The New Creative</Text>
-            <Text size="xxl">Economy.</Text>
+            <Text size="xxl" color="white">
+              The New Creative
+            </Text>
+            <Text size="xxl" color="white">
+              Economy.
+            </Text>
           </div>
           <div className={styles.footerLinks}>
             {nav.map((block) => {
               const { title, links } = block;
               return (
                 <div key={title} className={styles.linkBlock}>
-                  <Text size="m">{title}</Text>
+                  <Text size="m" color="white">
+                    {title}
+                  </Text>
                   {links.map((link) => {
                     if (!link.isVisible) {
                       return null;
@@ -101,8 +107,10 @@ const Footers: React.FC = observer(() => {
             })}
           </div>
           <div className={styles.footerActions}>
-            <Text size="m">Join Newsletter</Text>
-            <Text size="m">
+            <Text color="white" size="m">
+              Join Newsletter
+            </Text>
+            <Text color="white" size="m">
               Subscribe our newsletter to get more free design course and resource
             </Text>
             <TextInput isButton placeholder="Enter your email" type="text" />

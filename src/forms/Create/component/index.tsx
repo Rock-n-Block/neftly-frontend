@@ -186,10 +186,10 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         <div className={styles.icon}>
                           <img alt="" src={iconUpload} />
                         </div>
-                        <Text className={styles.category} size="m" weight="medium" color="white">
+                        <Text className={styles.category} size="m" weight="medium" color="black">
                           Upload preview cover
                         </Text>
-                        <Text className={styles.note} color="lightGray">
+                        <Text className={styles.note} color="black">
                           Drag or choose your file to upload
                         </Text>
                         <Text className={styles.format} size="xxs" color="gray">
@@ -251,10 +251,10 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       <div className={styles.icon}>
                         <img alt="" src={iconUpload} />
                       </div>
-                      <Text className={styles.category} size="m" weight="medium" color="white">
+                      <Text className={styles.category} size="m" weight="medium" color="black">
                         Upload preview
                       </Text>
-                      <Text className={styles.note} color="lightGray">
+                      <Text className={styles.note} color="black">
                         Drag or choose your file to upload
                       </Text>
                       <Text className={styles.format} size="xxs" color="gray">
@@ -326,7 +326,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 )}
                 <div className={styles.fieldsetRow}>
                   <div className={cn(styles.price, styles.fieldsetRowColumn)}>
-                    <Text className={styles.label} size="m" weight="medium">
+                    <Text className={styles.label} color="black" size="m" weight="medium">
                       {`${values.sellMethod === 'fixedPrice' ? 'Price' : 'Minimal Bid'}`}{' '}
                       <RequiredMark />
                     </Text>
@@ -428,7 +428,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   </div>
                 </div>
                 <div className={styles.fee}>
-                  <Text color="secondary">
+                  <Text color="primary">
                     Service fee {serviceFee}%
                     <br />
                     You will receive {stringRecieveValue} {values.currency?.toUpperCase()}

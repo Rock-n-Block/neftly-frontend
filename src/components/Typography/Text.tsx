@@ -27,7 +27,7 @@ const Text: FC<PropsWithChildren<Props>> = ({
   className,
   style = {},
   size = 's',
-  color = 'white',
+  color = 'black',
   align = 'left',
   weight = 'normal',
 }) =>

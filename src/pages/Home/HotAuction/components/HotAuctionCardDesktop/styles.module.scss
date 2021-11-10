@@ -7,7 +7,7 @@
   max-width: 1500px;
   height: 580px;
 
-  border: 1px solid $color-neutral-80;
+  border: 1px solid $color-neutral-20;
 
   .descriptionControls {
     @include flexbox(flex-start, space-between);
@@ -29,7 +29,7 @@
     height: 100%;
     flex-basis: 33%;
     width: 33vw;
-    border-left: 1px solid $color-neutral-80;
+    border-left: 1px solid $color-neutral-20;
     box-sizing: border-box;
 
     & > img {

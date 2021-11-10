@@ -18,7 +18,7 @@ const createHeading =
     children,
     className = '',
     align = 'left',
-    color = 'white',
+    color = 'black',
     weight = 'medium',
     ...rest
   }: Props) => {

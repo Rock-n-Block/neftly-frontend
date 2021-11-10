@@ -5,16 +5,14 @@
   position: relative;
 
   &.scrollTips {
-    
   }
 }
 .scrollTip {
-  
   position: absolute;
   content: ' ';
   width: 10px;
   height: 80%;
-  background: $color-secondary;
+  background: $color-primary;
   filter: blur(4px);
   top: 10%;
 }
@@ -29,14 +27,13 @@
       border-radius: 0 50% 50% 0;
       left: 0;
     }
-  
+
     &:after {
       @extend .scrollTip;
       border-radius: 50% 0 0 50%;
       right: 0;
     }
   }
-  
 }
 
 .tabWrapper {
@@ -59,7 +56,7 @@
       width: 0;
       height: 2px;
 
-      background: $color-secondary;
+      background: $color-primary;
 
       transition: 150ms ease-out;
     }

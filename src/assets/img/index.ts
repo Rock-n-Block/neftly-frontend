@@ -46,3 +46,7 @@ export { default as saleAction } from './saleAction.svg';
 export { default as transferAction } from './transferAction.svg';
 export { default as commentAction } from './commentAction.svg';
 export { ReactComponent as PinkHeart } from './pinkHeart.svg';
+export { ReactComponent as Art } from './Art.svg';
+export { ReactComponent as Folders } from './folders.svg';
+export { ReactComponent as Heart } from './heart.svg';
+export { ReactComponent as Me } from './me.svg';

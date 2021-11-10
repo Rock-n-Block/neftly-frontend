@@ -4,7 +4,7 @@
   height: 180px;
   border-width: 1px 0 0 0;
   border-style: solid;
-  border-color: $color-neutral-80;
+  border-color: $color-neutral-20;
 }
 
 .contentWrapper {
@@ -55,7 +55,7 @@
   }
 }
 
-@include forDesktopMiddle{
+@include forDesktopMiddle {
   .title {
     font-size: 20px;
   }

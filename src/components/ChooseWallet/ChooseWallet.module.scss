@@ -16,6 +16,7 @@
   }
   &_title {
     font-weight: 500;
+    color: $color-neutral-100;
     font-size: 18px;
     line-height: 29px;
   }
@@ -23,10 +24,11 @@
 
 .item {
   @include flexbox(center, space-between);
-  border: 1px solid $color-neutral-60;
   padding: 16px 25px 16px 16px;
+  background: $color-neutral-10;
   cursor: pointer;
   margin-top: 16px;
+  color: $color-neutral-100;
   transition: 0.3s;
   font-weight: 500;
   font-size: 18px;
@@ -46,14 +48,15 @@
     opacity: 0;
   }
   &_active {
-    background: $color-neutral-60;
+    background: $color-primary;
+    color: $color-neutral-0;
     & > img {
       opacity: 1;
     }
   }
   &_wallet {
     &:hover {
-      background: $color-neutral-60;
+      background: rgba($color-primary, 0.4);
     }
   }
 }

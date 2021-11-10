@@ -22,8 +22,8 @@
   &.blue {
     height: 40px;
 
-    color: $color-neutral-100;
-    background: $color-action-default;
+    color: $color-neutral-0;
+    background: $color-primary;
 
     & > svg {
       fill: $color-neutral-100;
@@ -57,22 +57,58 @@
   &.outline {
     height: 40px;
 
-    color: $color-neutral-0;
+    color: $color-neutral-100;
     background: none;
-    border: 1px solid $color-action-default;
+    border: 1px solid $color-primary;
 
     & > svg {
       fill: $color-neutral-0;
     }
 
     &:hover {
-      background: $color-neutral-80;
+      background: $color-action-hovered;
       border-color: $color-action-hovered;
+      color: $color-neutral-0;
     }
 
     &:active {
-      background: $color-neutral-60;
+      background: $color-action-pressed;
       border-color: $color-action-pressed;
+      color: $color-neutral-0;
+    }
+
+    &.disabled {
+      color: $color-neutral-40;
+      background: $color-neutral-80;
+      border-color: $color-neutral-60;
+
+      & > svg {
+        fill: $color-neutral-20;
+      }
+    }
+  }
+
+  &.dark {
+    height: 40px;
+
+    color: $color-neutral-0;
+    background: $color-neutral-100;
+    border: 1px solid $color-neutral-100;
+
+    & > svg {
+      fill: $color-neutral-0;
+    }
+
+    &:hover {
+      background: rgba($color-neutral-100, 0.7);
+      border-color: rgba($color-neutral-100, 0.7);
+      color: $color-neutral-0;
+    }
+
+    &:active {
+      background: rgba($color-neutral-100, 0.9);
+      border-color: rgba($color-neutral-100, 0.9);
+      color: $color-neutral-0;
     }
 
     &.disabled {

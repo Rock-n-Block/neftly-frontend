@@ -6,7 +6,7 @@
   flex-direction: column;
   gap: 16px;
   @include monument-extended;
-  border-bottom: 1px solid $color-neutral-80;
+  border-bottom: 1px solid $color-neutral-20;
 
   button {
     width: 172px;

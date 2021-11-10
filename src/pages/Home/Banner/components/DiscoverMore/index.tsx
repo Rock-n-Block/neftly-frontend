@@ -18,7 +18,7 @@ const DiscoverMore: FC<Props> = ({ className }) => (
     <div className={styles.contentWrapper}>
       <Link to={routes.discover.root} className={styles.discoverBtn}>
         <Button className={cx(styles.infoWrapper, styles.discoverBtn)}>
-          <Text color="black" size="xl">
+          <Text size="xl" color="white">
             Discover more
           </Text>
         </Button>
