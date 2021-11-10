@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { observer } from 'mobx-react';
 
 import Banner from './Banner';
+import CreateAndSell from './CreateAndSellNft';
 import HotAuction from './HotAuction';
 import HotCollections from './HotCollections';
-import HowItWorks from './HowItWorks';
 import OurArtistsToday from './OurArtistsToday';
 import OurArtworkGallery from './OurArtworkGallery';
 import ResourceForGettingStarted from './ResourceForGettingStarted';
@@ -19,7 +19,7 @@ const Home: FC = observer(() => {
       <OurArtistsToday />
       <OurArtworkGallery />
       <HotCollections />
-      <HowItWorks />
+      <CreateAndSell />
       <ResourceForGettingStarted />
     </div>
   );

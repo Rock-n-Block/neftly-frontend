@@ -1,4 +1,5 @@
 import { RefObject, useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { filter } from 'assets/img';
 import cx from 'classnames';
 import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
@@ -14,14 +15,23 @@ import styles from './styles.module.scss';
 
 const Discover = observer(() => {
   const [isFilterOpen, setFilterOpen] = useState(false);
-  const { user } = useMst();
+  const { user, nftTags } = useMst();
+
+  const convertedTagsForComponents = nftTags.tags.map((tag) => {
+    return {
+      ...tag,
+      key: tag.title,
+    };
+  });
+
+  const { search } = useLocation();
+  const filterTag = search.replace(/^(.*?)=/, '');
 
   const handleOpenFilter = useCallback(() => {
     setFilterOpen(!isFilterOpen);
   }, [isFilterOpen]);
 
   const {
-    filterTags,
     maxPrice,
     maxPriceFilter,
     handleMaxPriceFilter,
@@ -37,7 +47,7 @@ const Discover = observer(() => {
     page,
     handlePage,
     isLoading,
-  } = useFilters();
+  } = useFilters(filterTag);
 
   const [allPages, totalItems, nftCards, isNftsLoading] = useFetchNft({
     page,
@@ -79,8 +89,9 @@ const Discover = observer(() => {
         </Button>
         <TabLookingComponent
           tabClassName={styles.filterTab}
-          tabs={filterTags}
+          tabs={convertedTagsForComponents}
           action={handleTagsFilter}
+          activeTab={tagsFilter}
         />
         <Select
           onChange={handleOrderByFilter as any}

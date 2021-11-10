@@ -1,9 +1,8 @@
+/* eslint-disable react/no-array-index-key */
 import { useState } from 'react';
-import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
 import cn from 'classnames';
 
-// import Icon from '../Icon';
 import styles from './DropdownWithImage.module.scss';
 
 interface IDropdownWithImageProps {
@@ -50,7 +49,7 @@ const DropdownWithImage: React.FC<IDropdownWithImageProps> = ({
           <div className={styles.selection}>{value}</div>
         </div>
         <div className={styles.bodyCurrency}>
-          {options.map((x: any) => (
+          {options.map((x, index) => (
             <div
               onKeyDown={() => {}}
               tabIndex={0}
@@ -59,7 +58,7 @@ const DropdownWithImage: React.FC<IDropdownWithImageProps> = ({
                 [styles.selectioned]: x.symbol.toUpperCase() === value,
               })}
               onClick={() => handleClick(x.symbol)}
-              key={nextId()}
+              key={index}
             >
               <img alt="" className={styles.image} src={x.image} />
               <span className={styles.textCurrency}>{x.symbol}</span>
@@ -68,47 +67,6 @@ const DropdownWithImage: React.FC<IDropdownWithImageProps> = ({
         </div>
       </div>
     </OutsideClickHandler>
-    // <OutsideClickHandler onOutsideClick={() => setVisible(false)}>
-    //   <div className={cn(className, styles.user, { [styles.active]: visible }, customClasses.user)}>
-    //     <div
-    //       tabIndex={0}
-    //       onKeyDown={() => {}}
-    //       role="button"
-    //       className={cn(styles.head, customClasses.head)}
-    //       onClick={() => setVisible(!visible)}
-    //     >
-    //       {imageSrc && (
-    //         <div className={cn(styles.avatar, customClasses.avatar)}>
-    //           <img src={imageSrc} alt="Avatar" />
-    //         </div>
-    //       )}
-    //       <div className={cn(styles.selection, customClasses.selection)}>{value}</div>
-    //       <div className={cn(styles.arrow, customClasses.arrow)}>
-    //         <Icon name="arrow-bottom" size="13" />
-    //       </div>
-    //     </div>
-    //     <div className={cn(styles.body, customClasses.body)}>
-    //       {options.map((x) => (
-    //         <div
-    //           onKeyDown={() => {}}
-    //           tabIndex={0}
-    //           role="button"
-    //           className={cn(
-    //             styles.option,
-    //             {
-    //               [styles.selected]: x === value,
-    //             },
-    //             customClasses.option,
-    //           )}
-    //           onClick={() => handleClick(x)}
-    //           key={JSON.stringify(x)}
-    //         >
-    //           {x}
-    //         </div>
-    //       ))}
-    //     </div>
-    //   </div>
-    // </OutsideClickHandler>
   );
 };
 

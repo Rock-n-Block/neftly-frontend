@@ -24,3 +24,7 @@ export { ReactComponent as IconProfile } from './icon-profile.svg';
 export { ReactComponent as IconFolders } from './icon-folders.svg';
 export { ReactComponent as IconLogout } from './icon-logout.svg';
 export { ReactComponent as IconTriangle } from './icon-triangle-white.svg';
+export { ReactComponent as SaleHomePage } from './saleHomePage.svg';
+export { ReactComponent as AuthorHomePage } from './authorHomePage.svg';
+export { ReactComponent as BookHomePage } from './bookHomePage.svg';
+export { ReactComponent as WalletHomePage } from './walletHomePage.svg';
