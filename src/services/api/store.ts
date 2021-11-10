@@ -167,7 +167,7 @@ export default {
   getCollection: (id: string, page: number) =>
     axios.get(`/store/collection/${id}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`),
   getRandomToken: () =>
-    axios.get(`/account/get_random_token/`, {
+    axios.get(`/store/get_random_token/`, {
       params: {
         network: localStorage.nftcrowd_nft_chainName
       }
