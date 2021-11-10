@@ -1,22 +1,22 @@
 import { FC, useCallback, useState } from 'react';
-import { Button, Copyable, H2, Text, Uploader } from 'components';
-
+import { toast } from 'react-toastify';
+import { routes, zeroAddress } from 'appConstants';
 import {
   iconAddBlack,
   iconEdit,
+  iconRemoveBlack,
   iconSettings,
   profile_avatar_example,
   profile_page_bg_example,
 } from 'assets/img';
-
-import s from './UserMainInfo.module.scss';
-import { useMst } from 'store';
+import { Button, Copyable, H2, Text, Uploader } from 'components';
+import { useFetchUser, useFollow } from 'hooks';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
-import { toast } from 'react-toastify';
-import { useFetchUser, useFollow } from 'hooks';
-import { routes, zeroAddress } from 'appConstants';
+import { useMst } from 'store';
 import { sliceString } from 'utils';
+
+import s from './UserMainInfo.module.scss';
 
 interface IProps {
   userId: string;
@@ -98,7 +98,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
         </Copyable>
       </div>
       <div className={s.user_buttons}>
-        {isSelf ? (
+        {user.address && isSelf ? (
           <>
             <Uploader isImgOnly isButton handleUpload={handleFileUpload} isLoading={isFileLoading}>
               <div className={s.user_button}>
@@ -111,17 +111,22 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
               <Text tag="span">Edit Profile</Text>
             </Button>
           </>
-        ) : (
+        ) : null}
+        {user.address && !isSelf ? (
           <Button
             className={s.user_button}
             color="blue"
             onClick={handleFollowClick}
             disabled={isFollowClickPending}
           >
-            <img src={iconAddBlack} alt="" />
+            {isFollowed ? (
+              <img src={iconRemoveBlack} alt="minus icon" />
+            ) : (
+              <img src={iconAddBlack} alt="plus icon" />
+            )}
             {isFollowed ? 'Unfollow' : 'Follow'}
           </Button>
-        )}
+        ) : null}
       </div>
     </section>
   );

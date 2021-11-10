@@ -4,6 +4,7 @@ import { Logo } from 'components';
 import { Text } from 'components/Typography';
 
 import HeaderLinks from '../HeaderLinks';
+import Search from '../Search';
 
 import styles from './styles.module.scss';
 
@@ -16,6 +17,7 @@ const MobileMenu: FC<Props> = ({ className, toggleMenu }) => {
   return (
     <div className={cx(styles.container, className)}>
       <Logo className={styles.logo} />
+      <Search className={styles.mobileSearch} isDesktop={false} />
       <div className={styles.connectWrapper}>
         <HeaderLinks toggleMenu={toggleMenu} className={styles.mobileMenuLinks} />
       </div>

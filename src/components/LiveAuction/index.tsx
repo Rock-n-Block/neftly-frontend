@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
-import { ArtCard, Carousel, H3 } from 'components/index';
+import { ArtCard, Carousel, H3, H4 } from 'components/index';
 import { useGetSlideToShow } from 'hooks';
 import { storeApi } from 'services';
 
@@ -56,7 +56,7 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
   return (
     <div className={cn(className, styles.liveAuction)}>
       <H3 className={styles.title}>Live Auction Today</H3>
-      {!!auctions.length && (
+      {auctions.length ? (
         <Carousel slidesToShow={numberOfSlide}>
           {auctions.map((artCard) => {
             const {
@@ -90,6 +90,8 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
             );
           })}
         </Carousel>
+      ) : (
+        <H4 className={styles.noItems}>No Active Auctions</H4>
       )}
     </div>
   );

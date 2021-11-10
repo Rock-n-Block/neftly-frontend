@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-
+import { FC } from 'react';
 import Banner from './Banner';
 import HotAuction from './HotAuction';
 import HotCollections from './HotCollections';
@@ -9,7 +9,7 @@ import OurArtworkGallery from './OurArtworkGallery';
 
 import styles from './Home.module.scss';
 
-const Home: React.FC = observer(() => {
+const Home: FC = observer(() => {
   return (
     <div className={styles.container}>
       <Banner />

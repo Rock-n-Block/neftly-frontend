@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import { FC, useCallback, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from 'appConstants';
 import { bell } from 'assets/img';
@@ -10,23 +10,24 @@ import { TNullable } from 'typings';
 
 import HeaderLinks from './HeaderLinks';
 import MobileMenu from './MobileMenu';
+import Search from './Search';
 import User from './User';
 import Wallet from './Wallet';
 
 import styles from './styles.module.scss';
 
-const Headers: React.FC = observer(() => {
+const Headers: FC = observer(() => {
   const { user } = useMst();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConnectOpen, setConnectOpen] = useState(false);
   const toggleMenu = useCallback(() => setIsMenuOpen(!isMenuOpen), [isMenuOpen]);
 
-  const handleOpenConnect = React.useCallback(() => {
+  const handleOpenConnect = useCallback(() => {
     setConnectOpen(true);
   }, []);
 
-  const handleCloseConnect = React.useCallback(() => {
+  const handleCloseConnect = useCallback(() => {
     setConnectOpen(false);
   }, []);
 
@@ -55,6 +56,7 @@ const Headers: React.FC = observer(() => {
             <Burger className={styles.burger} onClick={toggleMenu} isMenuOpen={isMenuOpen} />
             <Logo className={styles.headerLogo} />
           </div>
+          <Search className={styles.searchDesktop} />
           <HeaderLinks className={styles.headerLinks} />
           {user.address ? (
             <div className={styles.profileInfo}>

@@ -90,6 +90,7 @@ const Checkout: React.FC = observer(() => {
             description: 'Something went wrong',
           });
           console.error(error);
+          setIsLoading(false);
         });
     }
   }, [walletService, quantity, user.id, sell, user.address]);
