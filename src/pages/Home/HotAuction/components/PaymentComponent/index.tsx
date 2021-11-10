@@ -40,6 +40,8 @@ const PaymentComponent: FC<Props> = observer(
     const [isApproved, setApproved] = React.useState<boolean>(false);
     const [isApproving, setApproving] = React.useState<boolean>(false);
 
+    const ExchangeAddress = contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address
+
     const currentPrice = React.useMemo(() => {
       if (nft) {
         if (nft.is_selling) {
@@ -74,7 +76,7 @@ const PaymentComponent: FC<Props> = observer(
           walletService
             .trxCheckAllowance(
               nft.currency.symbol.toUpperCase(),
-              contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address,
+              ExchangeAddress,
               user.address,
             )
             .then((res: boolean) => {
@@ -89,7 +91,7 @@ const PaymentComponent: FC<Props> = observer(
             .checkTokenAllowance(
               nft.currency.symbol.toUpperCase(),
               18,
-              contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address,
+              ExchangeAddress,
             )
             .then((res: boolean) => {
               setApproved(res);
@@ -100,7 +102,7 @@ const PaymentComponent: FC<Props> = observer(
             });
         }
       }
-    }, [nft, walletService, user.address]);
+    }, [nft, walletService, ExchangeAddress, user.address]);
 
     const handleApproveToken = React.useCallback(() => {
       if (nft) {
@@ -109,7 +111,7 @@ const PaymentComponent: FC<Props> = observer(
           walletService
             .trxApproveToken(
               nft.currency.symbol.toUpperCase(),
-              contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address
+              ExchangeAddress
             )
             .then(() => {
               setApproved(true);
@@ -123,7 +125,7 @@ const PaymentComponent: FC<Props> = observer(
             .approveToken(
               nft.currency.symbol.toUpperCase(),
               18,
-              contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address,
+              ExchangeAddress,
             )
             .then(() => {
               setApproved(true);
@@ -134,7 +136,7 @@ const PaymentComponent: FC<Props> = observer(
             .finally(() => setApproving(false));
         }
       }
-    }, [nft, walletService]);
+    }, [ExchangeAddress, nft, walletService]);
 
     const handleSetNft = React.useCallback(() => {
       modals.sell.setNft({

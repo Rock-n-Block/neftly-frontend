@@ -3,12 +3,13 @@ import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import BigNumber from 'bignumber.js/bignumber';
 import { Observable } from 'rxjs';
 import { chainsEnum } from 'typings';
-import { getTronContract } from 'utils';
+import { getTronContract, getTokenAmount, getTokenAmountDisplay } from 'utils';
 import Web3 from 'web3';
 
 import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
 
 const MS_RETRY_TRON = 2000;
+const trxFeeLimit = 100000000
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
@@ -197,6 +198,8 @@ export class WalletConnect {
     } catch (err: any) {
       console.log(err);
     }
+
+    // receipt will need in future to check transaction in explorer bt txId
     return receipt;
   }
 
@@ -255,24 +258,18 @@ export class WalletConnect {
   async trxTotalSupply(contract: any) {
     const { _hex } = await contract.totalSupply().call();
     const totalSupply = new BigNumber(_hex).toString();
-    return +new BigNumber(totalSupply).dividedBy(new BigNumber(10).pow(6)).toString(10);
+    return +getTokenAmountDisplay(totalSupply, 6);
   }
 
   async trxCheckAllowance(contractName: string, approvedAddress: string, walletAddress: string) {
     try {
-      const contract = await this.tronWeb
-        .contract()
-        .at(contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address);
-      console.log('contract', contract);
+      const contract = await this.tronWeb.contract().at(WalletConnect.getAddress(contractName));
 
       const { _hex } = await contract.allowance(walletAddress, approvedAddress).call();
       let result: number | string | null = new BigNumber(_hex).toString();
       const totalSupply = await this.trxTotalSupply(contract);
 
-      result =
-        result === '0'
-          ? null
-          : +new BigNumber(result).dividedBy(new BigNumber(10).pow(6)).toString(10);
+      result = result === '0' ? null : +getTokenAmount(result, 6);
       if (result && new BigNumber(result).minus(totalSupply).isPositive()) {
         return true;
       }
@@ -312,12 +309,10 @@ export class WalletConnect {
 
   async trxApproveToken(contractName: string, approvedAddress: string) {
     try {
-      const contract = await this.tronWeb
-        .contract()
-        .at(contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address);
+      const contract = await this.tronWeb.contract().at(WalletConnect.getAddress(contractName));
 
       const amount = WalletConnect.calcTransactionAmount(90071992000.5474099, 6);
-      const res = await contract.approve(approvedAddress, amount).send({ feeLimit: 100000000 });
+      const res = await contract.approve(approvedAddress, amount).send({ feeLimit: trxFeeLimit });
       console.log('res', res);
       return true;
     } catch (error) {
@@ -332,5 +327,9 @@ export class WalletConnect {
 
   static weiToEth(amount: number | string): string {
     return new BigNumber(amount).dividedBy(new BigNumber(10).pow(18)).toString(10);
+  }
+
+  static getAddress(contractName: string): string {
+    return contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address;
   }
 }
