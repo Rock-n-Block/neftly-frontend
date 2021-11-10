@@ -1,3 +1,4 @@
+export { default as ArtCardAuthor } from './ArtCardAuthor';
 export { default as Button } from './Button';
 export { default as TextInput } from './TextInput';
 export { default as Checkbox } from './Checkbox';

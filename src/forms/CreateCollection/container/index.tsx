@@ -3,15 +3,18 @@
 // eslint-disable-next-line no-param-reassign
 import React from 'react';
 import { toast } from 'react-toastify';
-import { ToastContentWithTxHash } from 'components';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import { storeApi, useWalletConnectorContext } from 'services';
 import * as Yup from 'yup';
+import { chainsEnum } from 'typings';
 
 import CreateCollection, { ICreateCollection } from '../component';
+import { useMst } from 'store';
+import { ToastContentWithTxHash } from 'components';
 
 export default observer(({ isSingle, onClose }: any) => {
+  const { user } = useMst();
   const walletConnector = useWalletConnectorContext();
   const props: ICreateCollection = {
     name: '',
@@ -52,29 +55,50 @@ export default observer(({ isSingle, onClose }: any) => {
       storeApi
         .createCollection(formData)
         .then(({ data }) => {
-          walletConnector.walletService
-            .sendTransaction(data)
-            .on('transactionHash', (txHash) => {
-              toast.info(<ToastContentWithTxHash txHash={txHash} />);
-            })
-            .then(() => {
-              toast.success('Collection Created');
-              onClose();
-            })
-            .catch(({ response }) => {
-              if (response.data && response.data.name) {
-                toast.error(response.data.name);
-              } else {
-                toast.error('Create Token failed');
-              }
-              console.error('Wallet Create collection failure', response);
-            })
-            .finally(() => {
-              setFieldValue('isLoading', false);
-            });
+          if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
+            walletConnector.walletService
+              .trxCreateTransaction(data.initial_tx, user.address)
+              .then((res: any) => {
+                if (res.result) {
+                  toast.success('Collection Created');
+                  onClose();
+                  toast.info(<ToastContentWithTxHash txHash={res.transaction.txID} />);
+                }
+              })
+              .catch(({ response }) => {
+                if (response && response.data && response.data.name) {
+                  toast.error(response.data.name);
+                } else {
+                  toast.error('Create Collection failed');
+                }
+                console.error('Wallet Create collection failure', response);
+              });
+          } else {
+            walletConnector.walletService
+              .sendTransaction(data.initial_tx)
+              .on('transactionHash', (txHash) => {
+                toast.info(<ToastContentWithTxHash txHash={txHash} />);
+              })
+              .then(() => {
+                toast.success('Collection Created');
+                onClose();
+              })
+              .catch(( response ) => {
+                if (response && response.data && response.data.name) {
+                  toast.error(response.data.name);
+                } else {
+                  toast.error('Create Collection failed');
+                }
+                console.error('Wallet Create collection failure', response);
+              })
+              .finally(() => {
+                setFieldValue('isLoading', false);
+              });
+          }
         })
         .catch(({ response }) => {
-          if (response.data && response.data.name) {
+          console.log(response);
+          if (response && response.data && response.data.name) {
             toast.error(response.data.name);
           } else {
             toast.error('Create Token failed');

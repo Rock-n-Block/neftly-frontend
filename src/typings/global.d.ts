@@ -18,6 +18,7 @@ interface Window {
     trx: {
       getBalance: (address: string) => number;
       sign: any;
+      sendRawTransaction: (signedTxn: string) => any;
     };
     getEventResult: (
       address: string,
@@ -29,6 +30,7 @@ interface Window {
       callback?: () => void,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ) => Promise<any[]>;
+    transactionBuilder: any
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tronLinkInitialData: {
