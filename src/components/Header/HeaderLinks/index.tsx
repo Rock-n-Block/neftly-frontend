@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { marketplaceLinks, routes } from 'appConstants';
+import { routes } from 'appConstants';
 import cx from 'classnames';
 import { Button, Text } from 'components';
 import { debounce } from 'lodash';
@@ -15,7 +15,10 @@ type Props = {
 };
 
 const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
-  const { user } = useMst();
+  const {
+    user,
+    nftTags: { tags },
+  } = useMst();
 
   const location = useLocation();
 
@@ -25,7 +28,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
         title: 'Explore',
         disabled: false,
         isNested: true,
-        internalLinks: marketplaceLinks,
+        internalLinks: tags,
       },
       {
         url: routes.activity.root,
@@ -40,7 +43,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
         disabled: !user.address,
       },
     ],
-    [user.address],
+    [user.address, tags],
   );
 
   const [openedMenuIndex, setOpenedMenuIndex] = useState<TNullable<number>>(null);
@@ -72,10 +75,15 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
                   [styles.isOpen]: openedMenuIndex === index,
                 })}
               >
-                {internalLinks?.map(({ label, value }) => {
+                {internalLinks?.map((tag) => {
                   return (
-                    <Link style={{ width: '100%' }} to={routes.discover.filter(value)} key={label}>
-                      <Button isFullWidth>{label}</Button>
+                    <Link
+                      className={styles.dropdownLink}
+                      to={routes.discover.filter(tag.title)}
+                      key={tag.title}
+                    >
+                      <img className={styles.dropdownLinkIcon} src={tag.icon} alt="tag" />
+                      <Text color="black">{tag.title}</Text>
                     </Link>
                   );
                 })}

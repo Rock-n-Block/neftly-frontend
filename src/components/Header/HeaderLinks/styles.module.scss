@@ -11,6 +11,22 @@
   }
 }
 
+.dropdownLink {
+  width: 100%;
+  height: 30px;
+  @include flexbox(center, flex-start);
+  padding-left: 30%;
+  background: $color-secondary;
+
+  .dropdownLinkIcon {
+    margin-right: 20px;
+  }
+
+  &:hover {
+    filter: brightness(85%);
+  }
+}
+
 .internalLinkWrapperBtn {
   position: relative;
   z-index: 100;

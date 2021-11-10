@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { marketplaceLinks, routes } from 'appConstants';
+import { routes } from 'appConstants';
 import { Button, Logo, Text, TextInput } from 'components';
 import IconLinks from 'components/IconLinks';
 import { observer } from 'mobx-react';
@@ -8,7 +8,10 @@ import { useMst } from 'store';
 import styles from './styles.module.scss';
 
 const Footers: React.FC = observer(() => {
-  const { user } = useMst();
+  const {
+    user,
+    nftTags: { tags },
+  } = useMst();
 
   const accountHelperObject = [
     {
@@ -42,11 +45,11 @@ const Footers: React.FC = observer(() => {
             <Text weight="bold" size="m">
               Marketplace
             </Text>
-            {marketplaceLinks.map(({ label, value }) => {
+            {tags.map(({ title }) => {
               return (
-                <Link to={routes.discover.filter(value)} key={value}>
+                <Link to={routes.discover.filter(title)} key={title}>
                   <Button color="transparent">
-                    <Text color="lightGray">{label}</Text>
+                    <Text color="lightGray">{title}</Text>
                   </Button>
                 </Link>
               );

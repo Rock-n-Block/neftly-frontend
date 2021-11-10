@@ -8,6 +8,7 @@ export { default as useTabs } from './useTabs';
 export { default as useLoadMore } from './useLoadMore';
 export { default as useDifference } from './useDifference';
 export { default as useChartTooltip } from './useChartTooltip';
+export { default as useFetchTags } from './useFetchTags';
 export * from './useInfiniteScroll';
 export * from './useFetchNft';
 export * from './useFetchHotAuction';

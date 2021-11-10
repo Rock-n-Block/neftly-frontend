@@ -1,11 +1,11 @@
 import React, { createContext, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { is_production } from 'config';
 import { observer } from 'mobx-react';
 import { connectTron, userApi, WalletConnect } from 'services';
 import { rootStore } from 'store';
 import { chainsEnum } from 'typings';
-import { toast } from 'react-toastify';
 
 declare global {
   interface Window {
