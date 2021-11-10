@@ -2,6 +2,7 @@ export * from './social';
 export * from './wallets';
 export * from './chains';
 export { default as iconArrowDown } from './icon-arrow-down.svg';
+export { default as iconArrowDownBlue } from './icon-arrow-down-blue.svg';
 export { default as iconClose } from './icon-close.svg';
 export { default as iconEdit } from './icon-edit.svg';
 export { default as iconSettings } from './icon-settings.svg';

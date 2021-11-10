@@ -1,6 +1,6 @@
 import {FC, useCallback, useEffect, useState} from 'react';
 import cx from 'classnames';
-import {H2, Select} from 'components';
+import {H2, TitleDropdown} from 'components';
 import {storeApi} from 'services';
 import CollectionCard from "./CollectionCard";
 // import mockData from './mockCollections';
@@ -30,27 +30,20 @@ const HotCollections: FC<Props> = ({className}) => {
   const [collections, setCollections] = useState<any[]>([]);
   const [period, setPeriod] = useState<OptionType>(dropDownOptions[0]);
   const fetchHotCollections = useCallback(() => {
+    //TODO: add period.value
     storeApi.getCollections().then(({data}: any) => setCollections(data));
   }, []);
 
-  const handlePeriodChange = useCallback((value: any) => {
-    setPeriod(value || {
-      value: '',
-      label: '',
-    });
-  }, []);
 
   useEffect(() => {
     fetchHotCollections();
   }, [fetchHotCollections]);
   return (
     <div className={cx(styles.hotCollections, className)}>
-      <div className={styles.title}>
-        <H2>
+      <div className={styles.titleWrapper}>
+        <H2 className={styles.title} align="center">
           Top collections over{' '}
-          {/*<span className={styles.gradientTitle}>last {period} {period === 1 ? 'day' : 'days'}</span>*/}
-          {/*<TitleDropdown options={dropDownOptions} className={styles.gradientTitle}/>*/}
-          <Select value={period} onChange={handlePeriodChange} options={dropDownOptions} classNameValueContainer={styles.selectValueContainer} classNameControl={styles.selectControl} classNameSingleValue={styles.gradientTitle}/>
+          <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions}/>
         </H2>
       </div>
       <ol className={styles.collectionsWrapper}>

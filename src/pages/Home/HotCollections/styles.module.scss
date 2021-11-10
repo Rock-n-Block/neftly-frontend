@@ -13,9 +13,16 @@
   }
 }
 
-.title {
+.titleWrapper {
   width: 100%;
   @include flexbox;
+}
+.title{
+  @include flexbox(center,flex-start);
+  gap: 16px;
+  @include forDesktopBig{
+    flex-direction: column;
+  }
 }
 
 .gradientTitle {
@@ -36,19 +43,6 @@
   grid-auto-flow: column;
 }
 
-.select {
-  &Control {
-    border: none !important;
-    height: unset !important;
-    padding: unset !important;
-    justify-content: flex-start !important;
-  }
-
-  &ValueContainer {
-    height: unset !important;
-    font-size: unset !important;
-  }
-}
 
 @include forTablet {
   .hotCollections {
