@@ -34,14 +34,16 @@ const ResourceForGettingStarted: FC<Props> = ({ className }) => (
     <div className={styles.title}>
       <H2>Resources for getting started</H2>
     </div>
-    {heplerObject.map(({ description, image }) => {
-      return (
-        <Link className={styles.resourcesBlock} to="https://google.com" key={description}>
-          <img className={styles.resourcesImage} src={image} alt={image} />
-          <Text className={styles.resourcesText}>{description}</Text>
-        </Link>
-      );
-    })}
+    <div className={styles.box}>
+      {heplerObject.map(({ description, image }) => {
+        return (
+          <Link className={styles.resourcesBlock} to="https://google.com" key={description}>
+            <img className={styles.resourcesImage} src={image} alt={image} />
+            <Text className={styles.resourcesText}>{description}</Text>
+          </Link>
+        );
+      })}
+    </div>
   </div>
 );
 

@@ -1,10 +1,14 @@
 @import '../../../styles/helpers';
 
 .resourceForGettingStarted {
-  @include flexbox();
   flex-wrap: wrap;
-  margin: -20px;
+  margin: -20px auto 0;
   padding: 80px 0;
+  max-width: 1000px;
+}
+
+.box {
+  @include flexbox();
 }
 
 .title {
