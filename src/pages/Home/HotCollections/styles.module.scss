@@ -12,16 +12,10 @@
     }
   }
 }
-.titleWrapper {
-  width: 100%;
-  @include flexbox;
-}
 .title{
-  @include flexbox(center,flex-start);
+  @include flexbox;
   gap: 16px;
-  @include forDesktopBig{
-    flex-direction: column;
-  }
+  flex-wrap: wrap;
 }
 
 

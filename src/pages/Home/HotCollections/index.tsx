@@ -40,12 +40,10 @@ const HotCollections: FC<Props> = ({className}) => {
   }, [fetchHotCollections]);
   return (
     <div className={cx(styles.hotCollections, className)}>
-      <div className={styles.titleWrapper}>
-        <H2 className={styles.title} align="center">
-          Top collections over
-          <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions}/>
-        </H2>
-      </div>
+      <H2 className={styles.title} align="center">
+        Top collections over
+        <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions}/>
+      </H2>
       <ol className={styles.collectionsWrapper}>
         {collections.map((collection, index) => (
           <CollectionCard avatar={collection.avatar} isVerified={collection.is_verified} id={collection.id}
