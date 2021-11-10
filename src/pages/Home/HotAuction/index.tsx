@@ -35,9 +35,10 @@ const HotAuction: FC<Props> = ({ className }) => {
         HOT <span className={styles.gradientTitle}>AUCTION</span>
       </H2>
       <Carousel classNameProp={styles.hotAuctionCarousel}>
-        {hotAuction.map((auction: INft) => {
-          return <HotAuctionCard key={auction.id} nft={auction} />;
-        })}
+        {hotAuction?.length &&
+          hotAuction.map((auction: INft) => {
+            return <HotAuctionCard key={auction.id} nft={auction} />;
+          })}
       </Carousel>
     </div>
   );

@@ -44,7 +44,7 @@ export default {
   readNotification: (data: any) =>
     axios.post(`/activity/notification/?network=${localStorage.nftcrowd_nft_chainName}`, data),
   getTopUsers: ({ type, sortPeriod }: TTopUserReq) =>
-    axios.get('/activity/topusers', {
+    axios.get('/activity/topusers/', {
       params: {
         type,
         sort_period: sortPeriod,
