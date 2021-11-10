@@ -75,7 +75,7 @@ export default observer(({ isSingle, onClose }: any) => {
               });
           } else {
             walletConnector.walletService
-              .sendTransaction(data)
+              .sendTransaction(data.initial_tx)
               .on('transactionHash', (txHash) => {
                 toast.info(<ToastContentWithTxHash txHash={txHash} />);
               })
@@ -83,7 +83,7 @@ export default observer(({ isSingle, onClose }: any) => {
                 toast.success('Collection Created');
                 onClose();
               })
-              .catch(({ response }) => {
+              .catch(( response ) => {
                 if (response && response.data && response.data.name) {
                   toast.error(response.data.name);
                 } else {
