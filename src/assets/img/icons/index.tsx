@@ -10,6 +10,7 @@ export { default as iconRemoveBlack } from './icon-remove-black.svg';
 export { default as iconSwap } from './icon-arrows-swap.svg';
 export { default as iconBurn } from './icon-burn.svg';
 export { default as iconTransfer } from './icon-transfer.svg';
+export { default as iconChange } from './icon-dollar.svg';
 export { default as iconRemove } from './icon-remove.svg';
 export { default as iconReport } from './icon-report.svg';
 export { default as iconLink } from './icon-link.svg';

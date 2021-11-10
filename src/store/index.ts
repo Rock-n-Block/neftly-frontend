@@ -24,6 +24,7 @@ export const Store = RootModel.create({
     remove: {},
     transfer: {},
     report: {},
+    change: {},
     sell: {
       checkout: {
         isOpen: false,

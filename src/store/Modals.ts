@@ -308,6 +308,33 @@ const Report = types
       },
     };
   });
+  const Change = types
+  .model({
+    tokenId: types.optional(types.number, 0),
+    isSuccess: types.optional(types.boolean, false),
+  })
+  .views((self) => ({
+    get getIsOpen() {
+      return !!self.tokenId;
+    },
+  }))
+  .actions((self) => {
+    let initialState = {};
+    return {
+      afterCreate: () => {
+        initialState = getSnapshot(self);
+      },
+      close: () => {
+        applySnapshot(self, initialState);
+      },
+      open: (tokenId: number) => {
+        self.tokenId = tokenId;
+      },
+      success: () => {
+        self.isSuccess = true;
+      },
+    };
+  });
 
 export const Modals = types.model({
   sell: SellModals,
@@ -315,4 +342,5 @@ export const Modals = types.model({
   remove: Remove,
   transfer: Transfer,
   report: Report,
+  change: Change
 });

@@ -59,6 +59,15 @@ export default (nft: TNullable<INft>, userId: string | number, userAddress: stri
     }
     return false;
   }, [nft, isOwner, userId, isWrongChain]);
+  
+  const isUserCanChangePrice = React.useMemo(() => {
+    if (userId && nft && !isWrongChain) {
+      if (nft.is_selling && isOwner) {
+        return true;
+      }
+    }
+    return false;
+  }, [nft, isOwner, userId, isWrongChain]);
 
   const isUserCanBuyNft = React.useMemo(() => {
     if (userId && nft && !isWrongChain && nft.price && nft.is_selling && nft.available !== 0) {
@@ -131,5 +140,6 @@ export default (nft: TNullable<INft>, userId: string | number, userAddress: stri
     isUserCanEnterInAuction,
     isUserCanPutOnSale,
     isUserCanEndAuction,
+    isUserCanChangePrice
   };
 };

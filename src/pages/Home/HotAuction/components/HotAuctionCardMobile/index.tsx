@@ -21,6 +21,7 @@ type Props = {
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
   isWrongChain: boolean;
+  isUserCanChangePrice: boolean;
   tooltipPlacement?: 'top' | 'bottom';
 };
 
@@ -35,6 +36,7 @@ const HotAuctionCardMobile: FC<Props> = ({
   isUserCanRemoveFromSale,
   tooltipPlacement,
   isWrongChain,
+  isUserCanChangePrice
 }) => (
   <div className={cx(styles.mobileCard, className)}>
     <div className={styles.imageWrapper}>
@@ -73,6 +75,7 @@ const HotAuctionCardMobile: FC<Props> = ({
       isOwner={isOwner}
       isUserCanRemoveFromSale={isUserCanRemoveFromSale}
       isWrongChain={isWrongChain}
+      isUserCanChangePrice={isUserCanChangePrice}
     />
   </div>
 );
