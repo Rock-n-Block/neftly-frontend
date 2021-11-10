@@ -1,6 +1,7 @@
 import React from 'react';
-import styles from './Radio.module.scss';
 import cn from 'classnames';
+
+import styles from './Radio.module.scss';
 
 export interface IRadioButton {
   value: string;
@@ -47,9 +48,7 @@ const Radio: React.FC<RadioProps> = ({
             className={styles.input}
             onChange={handleChange}
           />
-          <h4 className={styles.optionTitle} color="black">
-            {option.optionTitle}
-          </h4>
+          <h4 className={styles.optionTitle}>{option.optionTitle}</h4>
           <p className={styles.optionInfo}>{option.optionInfo}</p>
         </label>
       ))}

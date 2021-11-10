@@ -75,7 +75,7 @@ export const useFetchNft = (
           } else {
             setNftCards((prev: INft[]) => [...prev, ...items]);
           }
-          if (!items.length && refresh) {
+          if (!items && refresh) {
             setNftCards([]);
           }
           setAllPages(Math.ceil(total_tokens / NUMBER_NFTS_PER_PAGE));

@@ -6,6 +6,7 @@ enum Values {
   lightGray,
   secondary,
   primary,
+  inherit,
 }
 
 enum SizeValues {
@@ -19,6 +20,7 @@ enum SizeValues {
   xxl,
   xxxl,
   xxxxl,
+  inherit,
 }
 
 enum WeightValues {

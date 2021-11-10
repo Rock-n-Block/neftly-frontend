@@ -20,22 +20,22 @@ const tabs = [
   {
     title: 'Created',
     key: 'created',
-    icon: Art,
+    icon: <Art />,
   },
   {
     title: 'Owned',
     key: 'owned',
-    icon: Folders,
+    icon: <Folders />,
   },
   {
     title: 'Favorited',
     key: 'favorited',
-    icon: Heart,
+    icon: <Heart />,
   },
   {
     title: 'About Me',
     key: 'about',
-    icon: Me,
+    icon: <Me />,
   },
 ];
 

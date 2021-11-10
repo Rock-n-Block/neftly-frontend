@@ -1,17 +1,15 @@
+/* eslint-disable react/no-array-index-key */
 import { FC, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { routes } from 'appConstants';
 import { PinkHeart } from 'assets/img';
 import cx from 'classnames';
-import nextId from 'react-id-generator';
-import { Button, Tag, Text } from 'components';
+import { ArtCardAuthor, Button, Tag, Text } from 'components';
+import { IBidder } from 'typings';
 import { numberFormatter, sliceString } from 'utils';
 
-import { IBidder } from 'typings';
-
-import { routes } from 'appConstants';
-
 import styles from './styles.module.scss';
-import { toast } from 'react-toastify';
 
 type Props = {
   type?: 'Small' | 'Medium';
@@ -28,7 +26,7 @@ type Props = {
   inStockNumber?: number | string;
   author: string;
   authorAvatar: string;
-  authorId?: string;
+  authorId: string;
   likesNumber?: number;
   tags?: any[];
   isCollection?: boolean;
@@ -100,10 +98,10 @@ const ArtCard: FC<Props> = ({
         className={cx(styles[`mainImageWrapper${type}`], styles.imageWrapper)}
       >
         <div className={styles.tagContainer}>
-          {tags?.map((tag) => (
+          {tags?.map((tag, index) => (
             <Tag
               className={styles.tag}
-              key={nextId()}
+              key={index}
               type={tag.type}
               auctionEndTime={tag.auctionEndTime}
             />
@@ -166,12 +164,7 @@ const ArtCard: FC<Props> = ({
                 <Text className={styles.artCardAuthor}>{bids.length} people have bidded</Text>
               </>
             ) : (
-              <>
-                <Link to={routes.profile.link(authorId || '')}>
-                  <img src={authorAvatar} className={styles.author_avatar} alt="" />
-                </Link>
-                <Text className={styles.artCardAuthor}>{author}</Text>
-              </>
+              <ArtCardAuthor id={authorId} avatar={authorAvatar} name={author} />
             )}
           </div>
           {likeAction && (

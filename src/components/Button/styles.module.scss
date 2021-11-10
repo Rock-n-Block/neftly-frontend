@@ -126,6 +126,10 @@
 .transparent {
   border: none;
   background-color: transparent;
+
+  &:hover {
+    filter: brightness(85%);
+  }
 }
 
 .icon {

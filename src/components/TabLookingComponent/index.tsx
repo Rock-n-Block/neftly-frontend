@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState } from 'react';
+import { FC, useCallback, useRef } from 'react';
 import cx from 'classnames';
 import { Button, Text } from 'components';
 
@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 export interface ITab {
   key: string;
   title: string;
-  icon?: any;
+  icon?: JSX.Element | string;
 }
 
 type Props = {
@@ -19,9 +19,7 @@ type Props = {
 };
 
 const TabLookingComponent: FC<Props> = ({ className, activeTab, tabs, action, tabClassName }) => {
-  const [selectedTab, setSelectedTab] = useState(activeTab);
   const handleClick = (key: string) => {
-    setSelectedTab(key);
     action(key);
   };
 
@@ -46,14 +44,13 @@ const TabLookingComponent: FC<Props> = ({ className, activeTab, tabs, action, ta
               onClick={() => handleClick(key)}
               color="transparent"
               key={title}
-              className={cx(styles.tab, { [styles.selected]: key === selectedTab }, tabClassName)}
+              className={cx(styles.tab, { [styles.selected]: key === activeTab }, tabClassName)}
             >
-              {icon &&
-                (typeof icon === 'string' ? (
-                  <img className={styles.tabIcon} src={icon} alt="" />
-                ) : (
-                  { icon }
-                ))}
+              {icon && typeof icon === 'string' ? (
+                <img className={styles.tabIcon} src={icon} alt="" />
+              ) : (
+                icon
+              )}
               <Text className={styles.tabText} size="l">
                 {title}
               </Text>

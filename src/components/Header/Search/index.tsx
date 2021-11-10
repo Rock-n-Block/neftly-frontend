@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { useCallback, useState, VFC } from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from 'appConstants';
@@ -59,7 +60,7 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
         {isShowResults && (
           <>
             <H5>{`Artwork (${totalItems})`}</H5>
-            {nftCards.map((nft: INft) => {
+            {nftCards.map((nft: INft, index) => {
               const {
                 media,
                 name,
@@ -70,7 +71,7 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
                 id,
               } = nft;
               return (
-                <Link to={routes.nft.link(id)} onClick={() => setInputValue('')}>
+                <Link to={routes.nft.link(id)} onClick={() => setInputValue('')} key={index}>
                   <SearchTag
                     image={media}
                     title={name}

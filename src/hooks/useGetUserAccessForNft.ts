@@ -34,6 +34,12 @@ export default (nft: TNullable<INft>, userId: string | number, userAddress: stri
     ) {
       return false;
     }
+    if (
+      nft?.network.name === chainsEnum.Tron &&
+      localStorage.nftcrowd_nft_chainName === chainsEnum.Tron
+    ) {
+      return false;
+    }
     return true;
   }, [nft, userAddress]);
 

@@ -1,164 +1,49 @@
-@import '../../../styles/helpers';
-
-.firstBlockContainer {
-  border-width: 0 0 1px 0;
-  border-style: solid;
-  border-color: $color-neutral-20;
-}
-
-.contentWrapper {
-  @include flexbox;
-  margin: 0 auto;
-
-  max-width: 1500px;
-}
-
-.description {
-  padding: 88px 88px 88px 45px;
-  flex-basis: 30%;
-
-  line-height: 32px;
-}
+@import 'src/styles/helpers';
 
 .banner {
-  padding: 88px 50px 25px 88px;
+  margin: 0 auto;
+  padding-top: 53px;
+  max-width: 1500px;
 
-  line-height: 96px;
-
-  border-width: 0 1px 0 0;
-  border-style: solid;
-  border-color: $color-neutral-20;
-  flex-basis: 70%;
+  @include flexbox(center, space-between);
+  gap: 12px;
+  @include forDesktopMiddle {
+    padding: 53px 30px 0;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
-.titleGradient {
-  place-self: flex-end;
-
-  width: fit-content;
-  @include gradientText;
-}
-
-.titleAndStar {
-  position: relative;
-}
-
-.textAndStars {
-  @include flexbox();
-}
-
-.textWrapper {
-  @include flexbox();
+.info {
+  @include flexbox(flex-start);
   flex-direction: column;
 }
 
-.starsWrapper {
-  position: relative;
-  flex-basis: 30%;
-}
+.title {
+  @include flexbox(flex-start);
+  flex-direction: column;
+  text-transform: uppercase;
+  gap: 16px;
 
-.greenStar {
-  position: absolute;
-  top: -30px;
-  left: 40%;
-}
-
-.blueStar {
-  position: absolute;
-  top: 20px;
-  left: 75%;
-}
-
-.purpleStar {
-  position: absolute;
-  top: 25%;
-  right: 20%;
-}
-
-@include forDesktopBig {
-  .description {
-    margin: auto;
-    padding: 0 20px;
-  }
-
-  .banner {
-    padding: 44px 44px 44px 22px;
-  }
-
-  .title {
-    font-size: 50px;
-  }
-}
-
-@include forDesktopSm {
-  .contentWrapper {
-    display: block;
-  }
-
-  .banner {
-    @include flexbox();
-    margin: 0 auto;
-
-    flex-direction: column;
-
-    max-width: 400px;
-
-    border: none;
-  }
-
-  .titleAndStar {
-    width: 100%;
-
-    & > .title {
-      text-align: center;
-    }
-  }
-
-  .textAndStars {
-    width: 100%;
-
-    .textWrapper {
-      width: 100%;
-
-      :nth-child(2) {
-        width: 100%;
-
-        text-align: center;
-      }
-    }
-  }
-
-  .greenStar {
-    top: -20px;
-    left: 90px;
-
-    transform: scale(0.2);
-  }
-
-  .blueStar {
-    top: -5px;
-    left: 115px;
-
-    transform: scale(0.25);
-  }
-
-  .purpleStar {
-    right: 30px;
-    bottom: -250px;
-
-    transform: scale(0.5);
-  }
-
-  .description {
-    margin: auto;
-    padding: 24px 32px;
-
-    border-width: 1px 0 0 0;
-    border-style: solid;
-    border-color: $color-neutral-80;
-  }
-
-  .title {
+  &Row {
     font-size: 28px;
-    line-height: 120%;
+    &:not(:first-child) {
+      @include gradientText;
+    }
+  }
+}
+
+.description {
+  margin-top: 12px;
+  max-width: 460px;
+}
+
+.buttons {
+  margin-top: 36px;
+  @include flexbox;
+  gap: 20px;
+
+  .button {
+    padding: 8px 32px;
   }
 }

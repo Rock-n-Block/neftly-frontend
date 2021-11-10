@@ -27,6 +27,7 @@
   // min-height: 620px;
   @include flexbox(flex-start, flex-end);
   padding: 44px 0;
+  min-height: 50vh;
 
   transition: 200ms;
 

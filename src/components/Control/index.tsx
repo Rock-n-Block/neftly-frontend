@@ -1,6 +1,6 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import nextId from 'react-id-generator';
 import cn from 'classnames';
 import { Link, Text } from 'components';
 
@@ -17,8 +17,8 @@ const Control: React.FC<IControlProps> = ({ className, item }) => {
     <div className={cn(styles.control, className)}>
       <div className={cn('container', styles.container)}>
         <div className={styles.breadcrumbs}>
-          {item.map((x) => (
-            <div className={styles.item} key={nextId()}>
+          {item.map((x, index) => (
+            <div className={styles.item} key={index}>
               {x.url ? (
                 <Link color="lightGray" name={x.title} className={styles.link} link={x.url} />
               ) : (

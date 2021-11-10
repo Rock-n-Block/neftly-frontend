@@ -37,8 +37,6 @@
 }
 
 .tabWrapper {
-  margin: 0 auto;
-
   width: max-content;
   @include flexbox(center, space-around);
 
@@ -61,9 +59,20 @@
       transition: 150ms ease-out;
     }
 
+    svg {
+      display: block;
+      margin-right: 10px;
+    }
+
     &.selected {
+      p {
+        color: $color-primary;
+      }
       &::before {
         width: 100%;
+      }
+      path {
+        fill: $color-primary;
       }
     }
   }

@@ -3,18 +3,27 @@ import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import BigNumber from 'bignumber.js/bignumber';
 import { Observable } from 'rxjs';
 import { chainsEnum } from 'typings';
-import { getTronContract } from 'utils';
+import { getTronContract, getTokenAmount, getTokenAmountDisplay } from 'utils';
 import Web3 from 'web3';
 
 import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
 
+const MS_RETRY_TRON = 2000;
+const trxFeeLimit = 100000000
+
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
 export class WalletConnect {
   public connectWallet: ConnectWallet;
+
+  public tronWeb: any;
 
   public walletAddress = '';
 
   constructor() {
     this.connectWallet = new ConnectWallet();
+    this.tronWeb = null;
+    this.connectTronWeb();
   }
 
   public async initWalletConnect(
@@ -45,6 +54,17 @@ export class WalletConnect {
 
   public Web3(): Web3 {
     return this.connectWallet.currentWeb3();
+  }
+
+  async connectTronWeb() {
+    try {
+      if (!window.tronWeb?.defaultAddress?.base58) {
+        await delay(MS_RETRY_TRON);
+      }
+      this.tronWeb = window.tronWeb;
+    } catch (err) {
+      console.error(err);
+    }
   }
   // Promise<string | number>
 
@@ -146,6 +166,43 @@ export class WalletConnect {
     });
   }
 
+  async trxCreateTransaction(data: any, address: string) {
+    console.log(
+      'contractAddress',
+      data.contractAddress,
+      'function',
+      data.function,
+      'options',
+      data.options,
+      'parameter',
+      data.parameter,
+      'address',
+      address,
+    );
+    const { transaction } = await window.tronWeb.transactionBuilder.triggerSmartContract(
+      data.contractAddress,
+      data.function,
+      data.options,
+      data.parameter,
+      address,
+    );
+    return this.trxSendTransaction(transaction);
+  }
+
+  async trxSendTransaction(transaction: any) {
+    console.log('transaction', transaction);
+    let receipt;
+    try {
+      const signedMsg = await this.tronWeb.trx.sign(transaction);
+      receipt = await window.tronWeb.trx.sendRawTransaction(signedMsg);
+    } catch (err: any) {
+      console.log(err);
+    }
+
+    // receipt will need in future to check transaction in explorer bt txId
+    return receipt;
+  }
+
   async totalSupply(tokenAddress: string, abi: Array<any>, tokenDecimals: number) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -197,6 +254,32 @@ export class WalletConnect {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  async trxTotalSupply(contract: any) {
+    const { _hex } = await contract.totalSupply().call();
+    const totalSupply = new BigNumber(_hex).toString();
+    return +getTokenAmountDisplay(totalSupply, 6);
+  }
+
+  async trxCheckAllowance(contractName: string, approvedAddress: string, walletAddress: string) {
+    try {
+      const contract = await this.tronWeb.contract().at(WalletConnect.getAddress(contractName));
+
+      const { _hex } = await contract.allowance(walletAddress, approvedAddress).call();
+      let result: number | string | null = new BigNumber(_hex).toString();
+      const totalSupply = await this.trxTotalSupply(contract);
+
+      result = result === '0' ? null : +getTokenAmount(result, 6);
+      if (result && new BigNumber(result).minus(totalSupply).isPositive()) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.log('Allowance error', error);
+      return false;
+    }
+  }
+
   async approveToken(
     contractName: string,
     tokenDecimals: number,
@@ -224,11 +307,29 @@ export class WalletConnect {
     }
   }
 
+  async trxApproveToken(contractName: string, approvedAddress: string) {
+    try {
+      const contract = await this.tronWeb.contract().at(WalletConnect.getAddress(contractName));
+
+      const amount = WalletConnect.calcTransactionAmount(90071992000.5474099, 6);
+      const res = await contract.approve(approvedAddress, amount).send({ feeLimit: trxFeeLimit });
+      console.log('res', res);
+      return true;
+    } catch (error) {
+      console.log('Approve error', error);
+      return error;
+    }
+  }
+
   static calcTransactionAmount(amount: number | string, tokenDecimal: number): string {
     return new BigNumber(amount).times(new BigNumber(10).pow(tokenDecimal)).toString(10);
   }
 
   static weiToEth(amount: number | string): string {
     return new BigNumber(amount).dividedBy(new BigNumber(10).pow(18)).toString(10);
+  }
+
+  static getAddress(contractName: string): string {
+    return contracts.params[contractName][is_production ? 'mainnet' : 'testnet'].address;
   }
 }

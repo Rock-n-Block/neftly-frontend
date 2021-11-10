@@ -47,8 +47,6 @@
   position: absolute;
   top: 30%;
   right: 5%;
-
-  width: 180px;
 }
 
 .profileImageWrapper {
@@ -65,8 +63,6 @@
   margin-left: auto;
 
   display: flex;
-
-  width: 180px;
 
   & > * {
     &:not(:last-child) {

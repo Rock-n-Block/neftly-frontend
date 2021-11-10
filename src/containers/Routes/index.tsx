@@ -15,7 +15,7 @@ import {
 const Routes = () => (
   <Switch>
     <Route path={routes.nft.root} component={Nft} />
-    <Route exact path={routes.discover.root} component={Discover} />
+    <Route path={routes.discover.root} component={Discover} />
     <Route exact path={routes.profile.edit} component={ProfileEdit} />
     <Route path={routes.profile.root} component={Profile} />
     <Route path={routes.create.single}>
