@@ -15,15 +15,15 @@ type Props = {
 const dropDownOptions: OptionType[] = [
   {
     label: 'last 1 day',
-    value: '1'
+    value: '1 day'
   },
   {
     label: 'last 3 days',
-    value: '3'
+    value: '3 days'
   },
   {
     label: 'last month',
-    value: '30'
+    value: '30 month'
   },
 ]
 const HotCollections: FC<Props> = ({className}) => {
@@ -42,7 +42,7 @@ const HotCollections: FC<Props> = ({className}) => {
     <div className={cx(styles.hotCollections, className)}>
       <div className={styles.titleWrapper}>
         <H2 className={styles.title} align="center">
-          Top collections over{' '}
+          Top collections over
           <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions}/>
         </H2>
       </div>

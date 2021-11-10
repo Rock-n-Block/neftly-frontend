@@ -7,7 +7,7 @@
 }
 
 .selected {
-  @include flexbox(center,flex-start);
+  @include flexbox(center, flex-start);
   cursor: pointer;
 
   &Img {
@@ -30,27 +30,52 @@
   max-height: 0;
   max-width: 100%;
   overflow: hidden;
-  left: 0;
+  right: 0;
   top: 48px;
-  background: $color-bg2;
-  border-radius: 10px;
+  background: $color-neutral-80;
+  border-radius: 2px;
+  box-shadow: $color-box-shadow;
 
   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), padding 0.4s ease-in-out,
   max-width 0.5s cubic-bezier(0, 1, 0, 1);
+  li:first-child{
+    padding-bottom: 12px;
+  }
+  li:not(:first-child){
+    padding-top: 16px;
+    padding-bottom: 12px;
+    border-top: 1px solid $color-neutral-60;
+  }
+  li:last-child{
+    padding-bottom: 0;
+  }
 }
 
 .activeDropdown {
   max-height: 1000px;
   max-width: 1000px;
 
-  padding: 8px;
+  padding: 24px;
 
   transition: max-height 1s ease-in-out, max-width 1s ease-in-out;
 
 }
-.option{
-  padding: 4px;
-  @include gradientText;
+
+.option {
+  width: 208px;
   cursor: pointer;
   white-space: nowrap;
+  color: $color-neutral-10;
+  @include epilogue;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 160%;
+  -webkit-text-fill-color: $color-neutral-10;
+  text-align: left;
+  &:hover{
+    -webkit-text-fill-color: $color-action-hovered;
+  }
+  &:active{
+    -webkit-text-fill-color: $color-action-pressed;
+  }
 }

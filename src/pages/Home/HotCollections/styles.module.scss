@@ -12,7 +12,6 @@
     }
   }
 }
-
 .titleWrapper {
   width: 100%;
   @include flexbox;
@@ -25,14 +24,6 @@
   }
 }
 
-.gradientTitle {
-  @include monument-extended;
-  @include gradientText;
-  font-style: normal;
-  font-weight: normal !important;
-  font-size: 40px !important;
-  line-height: 120% !important;
-}
 
 .collectionsWrapper {
   display: grid;
