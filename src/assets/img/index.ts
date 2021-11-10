@@ -45,4 +45,7 @@ export { default as purchaseAction } from './purchaseAction.svg';
 export { default as saleAction } from './saleAction.svg';
 export { default as transferAction } from './transferAction.svg';
 export { default as commentAction } from './commentAction.svg';
+export { default as resourceForGettingStarted3 } from './resourceForGettingStarted3.png';
+export { default as resourceForGettingStarted2 } from './resourceForGettingStarted2.png';
+export { default as resourceForGettingStarted1 } from './resourceForGettingStarted1.png';
 export { ReactComponent as PinkHeart } from './pinkHeart.svg';
