@@ -6,7 +6,7 @@ import { FC } from 'react';
 import { iconVerifiedMark } from 'assets/img';
 
 interface IProps {
-  id: string;
+  id: number|string;
   avatar: string;
   name: string;
   verified?: boolean;
