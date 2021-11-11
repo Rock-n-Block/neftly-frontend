@@ -3,7 +3,7 @@ import { Text,Avatar } from 'components';
 import { FC } from 'react';
 
 interface IProps {
-  id: string;
+  id: number|string;
   avatar: string;
   name: string;
   verified?: boolean;
