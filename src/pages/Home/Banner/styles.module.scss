@@ -1,4 +1,4 @@
-@import "src/styles/helpers";
+@import 'src/styles/helpers';
 
 .banner {
   margin: 0 auto;
@@ -27,8 +27,7 @@
 
   &Row {
     font-size: 28px;
-    &:not(:first-child){
-
+    &:not(:first-child) {
       @include gradientText;
     }
   }

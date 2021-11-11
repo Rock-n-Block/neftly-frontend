@@ -3,7 +3,9 @@
 .headerNavigation {
   @include flexbox;
   flex-basis: 30%;
-
+  * {
+    color: $color-neutral-100;
+  }
   & > * {
     &:not(:last-child) {
       margin-right: 30px;

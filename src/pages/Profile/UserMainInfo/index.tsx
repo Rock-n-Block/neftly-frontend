@@ -5,7 +5,7 @@ import {
   iconAddBlack,
   iconEdit,
   iconRemoveBlack,
-  iconSettings,
+  iconSettingsWhite,
   profile_avatar_example,
   profile_page_bg_example,
 } from 'assets/img';
@@ -86,7 +86,9 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
         />
         {shownUser.is_verificated && <div className={s.isVerified} />}
       </div>
-      <H2 className={s.user_name}>{shownUser.display_name || 'User Name'}</H2>
+      <H2 className={s.user_name} color="white">
+        {shownUser.display_name || 'User Name'}
+      </H2>
       <div className={s.user_info}>
         <Copyable
           valueToCopy={shownUser.address || zeroAddress}
@@ -94,7 +96,9 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
           withIcon
           title="Address"
         >
-          <Text size="m">{sliceString(shownUser.address || zeroAddress)}</Text>
+          <Text size="m" color="white">
+            {sliceString(shownUser.address || zeroAddress)}
+          </Text>
         </Copyable>
       </div>
       <div className={s.user_buttons}>
@@ -103,12 +107,16 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
             <Uploader isImgOnly isButton handleUpload={handleFileUpload} isLoading={isFileLoading}>
               <div className={s.user_button}>
                 <img src={iconEdit} alt="" />
-                <Text tag="span">Edit Banner</Text>
+                <Text tag="span" color="white">
+                  Edit Banner
+                </Text>
               </div>
             </Uploader>
             <Button className={s.user_button} color="outline" href={routes.profile.edit}>
-              <img src={iconSettings} alt="" />
-              <Text tag="span">Edit Profile</Text>
+              <img src={iconSettingsWhite} alt="" />
+              <Text tag="span" color="white">
+                Edit Profile
+              </Text>
             </Button>
           </>
         ) : null}

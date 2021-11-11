@@ -3,7 +3,7 @@
 .artCard {
   position: relative;
 
-  border: 1px solid $color-neutral-80;
+  border: 1px solid $color-neutral-20;
   max-width: 292px;
   width: 100%;
   &Medium {
@@ -90,7 +90,7 @@
   .artCardPrice {
     text-transform: uppercase;
 
-    color: $color-state-warning;
+    color: $color-actions-light-purple;
   }
 }
 
@@ -99,7 +99,10 @@
 
   border-width: 1px 0 0 0;
   border-style: solid;
-  border-color: $color-neutral-80;
+  border-color: $color-neutral-20;
+  img {
+    max-width: 20px;
+  }
 }
 
 .artCardSmallLikes {

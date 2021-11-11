@@ -32,7 +32,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
         <div className={styles.upload}>
           {values.avatar ? <img alt="" src={values.preview} /> : <div className={styles.empty} />}
           <div className={styles.wrapper}>
-            <Text className={styles.text} color="lightGray" align="center">
+            <Text className={styles.text} color="gray" align="center">
               We recommend an image of at least 400 x 400. Gifs work too.
               <RequiredMark />
             </Text>

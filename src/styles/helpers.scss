@@ -57,15 +57,17 @@
 // colors
 $color-primary: #018df0;
 $color-secondary: #01c5ba;
-$color-bg: #080134;
+$color-bg: #fff;
 $color-bg2: #0b062d;
+$color-border-close-modal: #1caaa2;
 
 $color-action-default: #01c5ba;
-$color-action-hovered: #1caaa2;
-$color-action-pressed: #398d88;
+$color-action-hovered: rgba($color-primary, 0.7);
+$color-action-pressed: rgba($color-primary, 0.9);
 $color-action-disabled: #003f3b;
 
 $color-neutral-100: #080134;
+$color-neutral-90: #201c18;
 $color-neutral-80: #393556;
 $color-neutral-60: #6b6785;
 $color-neutral-40: #9c99ae;
@@ -191,7 +193,6 @@ $defaultFlexBoxJustify: center;
   line-height: 1;
   text-transform: uppercase;
 }
-
 
 //triangle
 @mixin arr($width, $height, $bg, $direction) {

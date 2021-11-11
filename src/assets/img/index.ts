@@ -46,3 +46,7 @@ export { default as resourceForGettingStarted3 } from './resourceForGettingStart
 export { default as resourceForGettingStarted2 } from './resourceForGettingStarted2.png';
 export { default as resourceForGettingStarted1 } from './resourceForGettingStarted1.png';
 export { ReactComponent as PinkHeart } from './pinkHeart.svg';
+export { ReactComponent as Art } from './Art.svg';
+export { ReactComponent as Folders } from './folders.svg';
+export { ReactComponent as Heart } from './heart.svg';
+export { ReactComponent as Me } from './me.svg';

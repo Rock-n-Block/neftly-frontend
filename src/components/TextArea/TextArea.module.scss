@@ -7,7 +7,7 @@
   font-weight: 500;
   line-height: 160%;
 
-  color: $color-neutral-10;
+  color: $color-neutral-100;
   opacity: 0.7;
   @include epilogue;
 }
@@ -27,7 +27,7 @@
 
   color: $color-neutral-0;
   background: none;
-  border: 2px solid $color-neutral-40;
+  border: 2px solid $color-neutral-20;
 
   transition: border-color 0.2s;
 
@@ -71,5 +71,5 @@
   font-size: 14px;
   line-height: 160%;
 
-  color: $color-neutral-10;
+  color: $color-neutral-100;
 }

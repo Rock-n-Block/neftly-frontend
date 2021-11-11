@@ -1,13 +1,10 @@
 @import 'src/styles/helpers';
 
-
 .section {
   text-align: center;
   margin-top: 44px;
   margin-bottom: 91px;
-
 }
-
 
 .top {
   margin: 0 auto 45px;
@@ -25,7 +22,7 @@
 
 .list {
   padding: 91px 32px 32px;
-  border-top: 1px solid $color-neutral-80;
+  border-top: 1px solid $color-neutral-20;
 
   @include flexbox(center);
   gap: 32px;
@@ -37,10 +34,10 @@
 .item {
   width: 100%;
   max-width: 616px;
-  padding:61px 0;
+  padding: 61px 0;
   @include flexbox();
   flex-direction: column;
-  background: $color-neutral-80;
+  background: $color-neutral-10;
   border-radius: 2px;
   cursor: pointer;
   @include forTablet {

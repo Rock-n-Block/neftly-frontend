@@ -6,6 +6,12 @@
   margin-bottom: 32px;
 }
 
+.form {
+  input {
+    border-color: #6b6785 !important;
+  }
+}
+
 .upload {
   @include flexbox(center, space-between);
 
@@ -40,7 +46,6 @@
     width: 100%;
   }
 }
-
 
 .load {
   position: absolute;

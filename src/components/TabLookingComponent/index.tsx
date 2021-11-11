@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 export interface ITab {
   key: string;
   title: string;
-  icon?: string;
+  icon?: JSX.Element | string;
 }
 
 type Props = {
@@ -46,7 +46,11 @@ const TabLookingComponent: FC<Props> = ({ className, activeTab, tabs, action, ta
               key={title}
               className={cx(styles.tab, { [styles.selected]: key === activeTab }, tabClassName)}
             >
-              {icon && <img className={styles.tabIcon} src={icon} alt="" />}
+              {icon && typeof icon === 'string' ? (
+                <img className={styles.tabIcon} src={icon} alt="" />
+              ) : (
+                icon
+              )}
               <Text className={styles.tabText} size="l">
                 {title}
               </Text>

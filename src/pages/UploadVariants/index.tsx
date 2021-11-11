@@ -31,7 +31,7 @@ const Upload: FC = () => {
             <H2 className={styles.title} align="center">
               Upload item
             </H2>
-            <Text className={styles.info} size="m" color="lightGray" weight="medium" align="center">
+            <Text className={styles.info} size="m" color="gray" weight="medium" align="center">
               Choose “Single” if you want your collectible to be one of a kind or “Multiple” if you
               want to sell one collectible multiple times
             </Text>
@@ -48,7 +48,7 @@ const Upload: FC = () => {
               </Link>
             ))}
           </div>
-          <Text className={styles.note} size="m" color="lightGray" weight="medium" align="center">
+          <Text className={styles.note} size="m" color="gray" weight="medium" align="center">
             We do not own your private keys and cannot access your funds without your confirmation.
           </Text>
         </div>
