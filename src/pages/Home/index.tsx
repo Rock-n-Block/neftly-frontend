@@ -3,9 +3,9 @@ import { observer } from 'mobx-react';
 
 import Banner from './Banner';
 import CreateAndSell from './CreateAndSellNft';
-import HotAuction from './HotAuction';
+// import HotAuction from './HotAuction';
 import TopUsers from './TopUsers';
-import OurArtistsToday from './OurArtistsToday';
+// import OurArtistsToday from './OurArtistsToday';
 import OurArtworkGallery from './OurArtworkGallery';
 import ResourceForGettingStarted from './ResourceForGettingStarted';
 
@@ -15,8 +15,8 @@ const Home: FC = observer(() => {
   return (
     <div className={styles.container}>
       <Banner />
-      <HotAuction />
-      <OurArtistsToday />
+      {/* <HotAuction />
+      <OurArtistsToday /> */}
       <OurArtworkGallery />
       <TopUsers />
       <CreateAndSell />
