@@ -1,56 +1,56 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import {FC, useCallback, useEffect, useState} from 'react';
 import cx from 'classnames';
-import { ArtCard, H2 } from 'components';
-import { storeApi } from 'services';
+import {H2, TitleDropdown} from 'components';
+import {storeApi} from 'services';
+import CollectionCard from "./CollectionCard";
+// import mockData from './mockCollections';
 
 import styles from './styles.module.scss';
+// import TitleDropdown from "../../../components/TitleDropdown";
+import {OptionType} from "typings";
 
 type Props = {
   className?: string;
 };
-
-const HotCollections: FC<Props> = ({ className }) => {
-  const [collections, setCollections] = useState([]);
+const dropDownOptions: OptionType[] = [
+  {
+    label: 'last 1 day',
+    value: '1 day'
+  },
+  {
+    label: 'last 3 days',
+    value: '3 days'
+  },
+  {
+    label: 'last month',
+    value: '30 month'
+  },
+]
+const HotCollections: FC<Props> = ({className}) => {
+  const [collections, setCollections] = useState<any[]>([]);
+  const [period, setPeriod] = useState<OptionType>(dropDownOptions[0]);
   const fetchHotCollections = useCallback(() => {
-    storeApi.getCollections().then(({ data }: any) => setCollections(data));
+    //TODO: add period.value
+    storeApi.getCollections().then(({data}: any) => setCollections(data));
   }, []);
+
 
   useEffect(() => {
     fetchHotCollections();
   }, [fetchHotCollections]);
   return (
     <div className={cx(styles.hotCollections, className)}>
-      <div className={styles.title}>
-        <H2>
-          Hot <span className={styles.gradientTitle}>Collections</span>
-        </H2>
-      </div>
-      <div className={styles.artCardsWrapper}>
-        {collections
-          ? collections.map((art: any) => {
-              const { avatar, tokens, name, price, asset, creator, id, media } = art;
-              return (
-                <ArtCard
-                  artId={id}
-                  key={`${id}_${media}_${creator.name}`}
-                  type="Medium"
-                  imageMain={avatar}
-                  imageSecondaryOne={tokens[0]}
-                  imageSecondaryTwo={tokens[1]}
-                  imageSecondaryThree={tokens[2]}
-                  name={name}
-                  price={price}
-                  asset={asset}
-                  allArtNumber={tokens.length}
-                  author={creator.name}
-                  authorAvatar={creator.avatar}
-                  authorId={creator.id}
-                  isCollection
-                />
-              );
-            })
-          : null}
-      </div>
+      <H2 className={styles.title} align="center">
+        Top collections over
+        <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions}/>
+      </H2>
+      <ol className={styles.collectionsWrapper}>
+        {collections.map((collection, index) => (
+          <CollectionCard avatar={collection.avatar} isVerified={collection.is_verified} id={collection.id}
+                          index={index + 1} name={collection.name} price={collection.price}/>
+        ))}
+
+      </ol>
     </div>
   );
 };
