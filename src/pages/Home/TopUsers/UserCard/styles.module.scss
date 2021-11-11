@@ -1,6 +1,6 @@
 @import 'src/styles/helpers';
 
-.collectionCard {
+.userCard {
   @include flexbox(center, flex-start);
   padding: 10px 0 10px;
   border-bottom: 1px solid $color-neutral-10;

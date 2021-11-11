@@ -1,6 +1,6 @@
 @import 'src/styles/helpers';
 
-.hotCollections {
+.topUsers {
   margin: 0 auto;
   padding: 88px;
 
@@ -19,18 +19,11 @@
 }
 
 
-.collectionsWrapper {
+.userssWrapper {
   display: grid;
   grid-template-columns:repeat(auto-fit, 240px);
   grid-template-rows: repeat(5, 1fr);
   grid-column-gap: 30px;
   grid-row-gap: 16px;
   grid-auto-flow: column;
-}
-
-
-@include forTablet {
-  .hotCollections {
-    padding: 0;
-  }
 }
