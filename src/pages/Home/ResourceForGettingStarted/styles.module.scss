@@ -2,9 +2,10 @@
 
 .resourceForGettingStarted {
   flex-wrap: wrap;
-  margin: -20px auto 0;
-  padding: 80px 0;
-  max-width: 1000px;
+  //margin: -20px auto 0;
+  @include container;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .box {

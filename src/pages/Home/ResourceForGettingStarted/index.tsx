@@ -32,7 +32,7 @@ const heplerObject = [
 const ResourceForGettingStarted: FC<Props> = ({ className }) => (
   <div className={cx(styles.resourceForGettingStarted, className)}>
     <div className={styles.title}>
-      <H2>Resources for getting started</H2>
+      <H2 align="center">Resources for getting started</H2>
     </div>
     <div className={styles.box}>
       {heplerObject.map(({ description, image }) => {
