@@ -1,10 +1,7 @@
 @import '../../styles/helpers.scss';
 
 .discover {
-  margin: 0 auto;
-  padding: 0 88px;
-
-  max-width: 1600px;
+  @include container;
 }
 
 .filterControls {

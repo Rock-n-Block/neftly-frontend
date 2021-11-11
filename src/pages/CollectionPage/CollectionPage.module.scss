@@ -1,5 +1,5 @@
-@import '../../styles/helpers.scss';
-@import '../../styles/mixins/media.scss';
+@import 'src/styles/helpers.scss';
+@import 'src/styles/mixins/media.scss';
 
 .page {
   &_user {
@@ -7,10 +7,7 @@
   }
 
   &_body {
-    margin: 0 auto;
-    padding: 0 15px;
-
-    max-width: 1470px;
+    @include container;
     display: grid;
     grid-template-columns: 1fr 5fr;
     @include b(600) {

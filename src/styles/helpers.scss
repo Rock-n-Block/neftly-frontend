@@ -244,9 +244,13 @@ $defaultFlexBoxJustify: center;
 @mixin container{
   margin: 0 auto;
   max-width: 1440px;
+  width: 100%;
   padding: 0 88px;
   @include forDesktopSm{
     padding: 0 32px;
+  }
+  @include forDesktopBig{
+    padding: 0 48px;
   }
 }
 // example
