@@ -1,4 +1,8 @@
-@import '../../styles/helpers';
+@import 'src/styles/helpers';
+
+.upload {
+  @include container;
+}
 
 .head {
   @include flexbox(center);

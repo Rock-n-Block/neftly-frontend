@@ -1,5 +1,7 @@
-@import '../../styles/helpers';
-
+@import 'src/styles/helpers';
+.page{
+  @include container;
+}
 .section {
   padding: 44px 0;
 }

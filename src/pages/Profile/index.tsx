@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 import { userApi } from 'services';
 import { useMst } from 'store';
 
-import { IExtendedInfo } from '../../typings';
+import { IExtendedInfo } from 'typings';
 
 import { About, Artworks, Favorited } from './Tabs';
 import UserMainInfo from './UserMainInfo';

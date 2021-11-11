@@ -1,10 +1,13 @@
-@import '../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .ourArtworkGallery {
-  margin: 0 auto;
-  padding: 88px;
+  @include container;
+  padding-top: 88px;
 
-  max-width: 1500px;
+
+  @include forTablet {
+    padding-top: 20px;
+  }
 
   & > * {
     &:not(:last-child) {
@@ -45,7 +48,7 @@
 
 @include forTablet {
   .ourArtworkGallery {
-    padding: 20px;
+    padding-top: 20px;
   }
 
   .howItWorksCard {

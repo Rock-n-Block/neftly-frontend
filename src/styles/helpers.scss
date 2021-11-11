@@ -241,7 +241,18 @@ $defaultFlexBoxJustify: center;
     border-color: transparent transparent transparent $bg;
   }
 }
-
+@mixin container{
+  margin: 0 auto;
+  max-width: 1440px;
+  width: 100%;
+  padding: 0 88px;
+  @include forDesktopSm{
+    padding: 0 32px;
+  }
+  @include forDesktopBig{
+    padding: 0 48px;
+  }
+}
 // example
 // +arr(500,50, #000, l)
 // +arr(500,50, #000, bl)
