@@ -11,7 +11,15 @@ import { INft, IOwner, TNullable } from 'typings';
 import styles from './styles.module.scss';
 import 'rc-tooltip/assets/bootstrap.css';
 
-import { PinkHeart, iconBurn, iconTransfer, iconRemove, iconReport, iconLink } from 'assets/img';
+import {
+  PinkHeart,
+  iconBurn,
+  iconTransfer,
+  iconRemove,
+  iconReport,
+  iconLink,
+  iconChange,
+} from 'assets/img';
 import { useLike } from 'hooks';
 import { numberFormatter } from 'utils';
 import { routes } from 'appConstants';
@@ -24,6 +32,7 @@ type Props = {
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
   isWrongChain: boolean;
+  isUserCanChangePrice: boolean;
   tooltipPlacement?: 'top' | 'bottom';
 };
 
@@ -36,9 +45,10 @@ const ViewsAndControlsComponent: FC<Props> = ({
   tooltipPlacement = 'bottom',
   isUserCanRemoveFromSale,
   isWrongChain,
+  isUserCanChangePrice,
 }) => {
   const {
-    modals: { burn, remove, transfer, report },
+    modals: { burn, remove, transfer, report, change },
     user,
   } = useMst();
   const { isLike, likeCount, handleLike } = useLike(
@@ -71,6 +81,10 @@ const ViewsAndControlsComponent: FC<Props> = ({
     remove.open(nft?.id || 0);
   }, [remove, nft]);
 
+  const handleChangePrice = useCallback(() => {
+    change.open(nft?.id || 0);
+  }, [change, nft]);
+
   const handleTransfer = useCallback(() => {
     let available = 0;
     if (Array.isArray(nft?.owners)) {
@@ -90,6 +104,12 @@ const ViewsAndControlsComponent: FC<Props> = ({
 
   const actions = useMemo(
     () => [
+      {
+        name: 'Change Price',
+        img: iconChange,
+        event: () => handleActionEvent(handleChangePrice),
+        isVisible: isUserCanChangePrice,
+      },
       {
         name: 'Transfer Token',
         img: iconTransfer,
@@ -116,14 +136,16 @@ const ViewsAndControlsComponent: FC<Props> = ({
       },
     ],
     [
-      handleActionEvent,
-      handleBurn,
+      isUserCanChangePrice,
       isOwner,
-      handleRemoveFromSale,
-      isUserCanRemoveFromSale,
-      handleTransfer,
-      handleReport,
       isWrongChain,
+      isUserCanRemoveFromSale,
+      handleActionEvent,
+      handleChangePrice,
+      handleTransfer,
+      handleRemoveFromSale,
+      handleBurn,
+      handleReport,
     ],
   );
 

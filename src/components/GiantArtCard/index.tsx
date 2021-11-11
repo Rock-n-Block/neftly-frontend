@@ -30,6 +30,7 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
     isOwner,
     isUserCanRemoveFromSale,
     isWrongChain,
+    isUserCanChangePrice
   } = useGetUserAccessForNft(nft, user.id, user.address);
   return (
     <div className={cx(styles.giantCard, className)}>
@@ -72,6 +73,7 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
           isOwner={isOwner}
           isUserCanRemoveFromSale={isUserCanRemoveFromSale}
           isWrongChain={isWrongChain}
+          isUserCanChangePrice={isUserCanChangePrice}
         />
         {!isWrongChain ? (
           <PaymentComponent

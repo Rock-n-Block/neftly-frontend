@@ -22,6 +22,7 @@ type Props = {
   isOwner: boolean;
   isUserCanRemoveFromSale: boolean;
   isWrongChain: boolean;
+  isUserCanChangePrice: boolean;
   tooltipPlacement?: 'top' | 'bottom';
 };
 
@@ -36,6 +37,7 @@ const HotAuctionCardDesktop: FC<Props> = ({
   tooltipPlacement,
   isUserCanRemoveFromSale,
   isWrongChain,
+  isUserCanChangePrice
 }) => (
   <div className={cx(styles.desktopCard, className)}>
     <div className={styles.descriptionControls}>
@@ -51,6 +53,7 @@ const HotAuctionCardDesktop: FC<Props> = ({
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
         tooltipPlacement={tooltipPlacement}
         isWrongChain={isWrongChain}
+        isUserCanChangePrice={isUserCanChangePrice}
       />
     </div>
     <div className={styles.imageWrapper}>
