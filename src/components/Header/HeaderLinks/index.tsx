@@ -26,7 +26,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
     () => [
       {
         title: 'Explore',
-        disabled: false,
+        disabled: location.pathname.includes(routes.discover.root),
         isNested: true,
         internalLinks: tags,
       },
@@ -43,7 +43,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
         disabled: !user.address,
       },
     ],
-    [user.address, tags],
+    [location.pathname, tags, user.address],
   );
 
   const [openedMenuIndex, setOpenedMenuIndex] = useState<TNullable<number>>(null);
@@ -58,7 +58,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
   return (
     <div className={cx(styles.headerNavigation, className)}>
       {nav.map(({ url, title, disabled, isNested, internalLinks }, index) => {
-        if (isNested) {
+        if (isNested && !disabled) {
           return (
             <Button
               key={title}
@@ -66,7 +66,6 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
               onMouseLeave={handleMouseLeave}
               onClick={toggleMenu}
               className={styles.internalLinkWrapperBtn}
-              disabled={disabled}
               color="transparent"
             >
               <Text>{title}</Text>
@@ -100,11 +99,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
             </Link>
           );
         }
-        return (
-          <Button key={title} color="transparent" onClick={toggleMenu}>
-            <Text>{title}</Text>
-          </Button>
-        );
+        return null;
       })}
     </div>
   );
