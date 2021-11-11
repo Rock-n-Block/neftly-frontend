@@ -14,13 +14,13 @@
 
   border: 2px solid $color-neutral-80;
 
-  .avatar{
+  .avatar {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 }
-.cardImg{
+.cardImg {
   width: 110px;
   height: 110px;
   overflow: hidden;
@@ -37,14 +37,14 @@
 }
 
 .active {
-  border-color: $color-secondary;
+  border-color: $color-primary;
 
   .subtitle {
-    color: $color-secondary;
+    color: $color-primary;
   }
 }
 
-.cardSubtitle{
+.cardSubtitle {
   width: 100%;
-  @include flexbox
+  @include flexbox;
 }

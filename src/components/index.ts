@@ -1,5 +1,7 @@
+export { default as Avatar } from './Avatar';
 export { default as ArtCardAuthor } from './ArtCardAuthor';
 export { default as Button } from './Button';
+export { default as TitleDropdown } from './TitleDropdown';
 export { default as TextInput } from './TextInput';
 export { default as Checkbox } from './Checkbox';
 export { default as Carousel } from './Carousel';
@@ -44,4 +46,5 @@ export { default as Chart } from './Chart';
 export { default as Copyable } from './Copyable';
 export { default as Header } from './Header';
 export { default as Footer } from './Footer';
+export { default as IconLinks } from './IconLinks';
 export * from './Typography';

@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { allCategory } from 'assets/img';
 import { ratesApi, storeApi } from 'services';
 import { OptionType } from 'typings';
 
@@ -13,11 +12,9 @@ const DEFAULT_FILTER_STATE = {
   is_verificated: 'All',
 };
 
-const useFilters = () => {
+const useFilters = (filterTag = '') => {
   const [isMaxPriceLoading, setMaxPriceLoading] = useState(false);
-  const [isTagsLoading, setTagsLoading] = useState(false);
   const [isRatesLoading, setRatesLoading] = useState(false);
-  const [filterTags, setFilterTags] = useState<any>([]);
   const [maxPriceFilter, setMaxPriceFilter] = useState(DEFAULT_FILTER_STATE.max_price);
   const [currencyFilter, setCurrencyFilter] = useState<OptionType>({
     value: DEFAULT_FILTER_STATE.currency,
@@ -36,7 +33,9 @@ const useFilters = () => {
     label: 'Newest',
   });
   const [filterSelectCurrencyOptions, setFilterSelectCurrencyOptions] = useState<any>([]);
-  const [tagsFilter, setTagsFilter] = useState(DEFAULT_FILTER_STATE.tags);
+  const [tagsFilter, setTagsFilter] = useState(
+    filterTag !== '' ? filterTag : DEFAULT_FILTER_STATE.tags,
+  );
   const [page, setPage] = useState(DEFAULT_FILTER_STATE.page);
   const [maxPrice, setMaxPrice] = useState(DEFAULT_FILTER_STATE.max_price);
 
@@ -89,27 +88,6 @@ const useFilters = () => {
     [handleMaxPrice, setMaxPriceLoading, handleMaxPriceFilter],
   );
 
-  const fetchTags = useCallback(async () => {
-    try {
-      setTagsLoading(true);
-      const links = await storeApi.getTags();
-      if (links.data.tags.length) {
-        setFilterTags(
-          [{ title: 'All items', icon: allCategory }].concat(
-            links.data.tags.map((tag: { title: string; icon: string }) => ({
-              title: tag.title,
-              key: tag.title,
-              icon: tag.icon,
-            })),
-          ),
-        );
-      }
-      setTagsLoading(false);
-    } catch (error) {
-      setTagsLoading(false);
-    }
-  }, []);
-
   const fetchRates = useCallback(() => {
     setRatesLoading(true);
     ratesApi
@@ -143,10 +121,6 @@ const useFilters = () => {
   }, [currencyFilter, fetchMaxPrice]);
 
   useEffect(() => {
-    fetchTags();
-  }, [fetchTags]);
-
-  useEffect(() => {
     fetchRates();
   }, [fetchRates]);
 
@@ -155,7 +129,6 @@ const useFilters = () => {
   }, [orderByFilter, tagsFilter, currencyFilter, verifiedFilter, maxPriceFilter]);
 
   return {
-    filterTags,
     maxPrice,
     maxPriceFilter,
     handleMaxPriceFilter,
@@ -172,7 +145,7 @@ const useFilters = () => {
     handleTagsFilter,
     page,
     handlePage,
-    isLoading: isMaxPriceLoading || isTagsLoading || isRatesLoading,
+    isLoading: isMaxPriceLoading || isRatesLoading,
   };
 };
 

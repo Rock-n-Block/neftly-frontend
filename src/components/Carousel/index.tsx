@@ -1,9 +1,9 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { FC, PropsWithChildren, useCallback, useState } from 'react';
 import Slider, { ResponsiveObject } from 'react-slick';
 import { arrowLeft } from 'assets/img';
 import cx from 'classnames';
-import nextId from 'react-id-generator';
 import { Button } from 'components';
 
 import styles from './styles.module.scss';
@@ -89,8 +89,8 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
   };
   return (
     <Slider className={cx(classNameProp, 'discover-slider')} {...sliderConfig}>
-      {React.Children.map(children, (child) => (
-        <div onClickCapture={handleOnItemClick} key={nextId()}>
+      {React.Children.map(children, (child, index) => (
+        <div onClickCapture={handleOnItemClick} key={index}>
           {child}
         </div>
       ))}

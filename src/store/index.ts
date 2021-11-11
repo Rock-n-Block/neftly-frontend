@@ -1,13 +1,15 @@
 import { createContext, useContext } from 'react';
 import { Instance, onSnapshot, types } from 'mobx-state-tree';
-
-import { User } from './User';
-import { Modals } from './Modals';
 import { TNullable } from 'typings';
+
+import { Modals } from './Modals';
+import { NftTags } from './NftTags';
+import { User } from './User';
 
 const RootModel = types.model({
   user: User,
   modals: Modals,
+  nftTags: NftTags,
 });
 export const Store = RootModel.create({
   user: {
@@ -42,6 +44,9 @@ export const Store = RootModel.create({
         isSuccess: false,
       },
     },
+  },
+  nftTags: {
+    tags: [],
   },
 });
 

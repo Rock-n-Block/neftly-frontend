@@ -226,7 +226,7 @@ const Profile: FC<FormikProps<IProfile>> = observer(
                 loading={values.isLoading}
                 color="blue"
               >
-                <Text size="m" color="black" weight="bold">
+                <Text size="m" color="white" weight="bold">
                   Update Profile
                 </Text>
               </Button>

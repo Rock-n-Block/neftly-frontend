@@ -1,6 +1,6 @@
 @import 'src/styles/helpers';
 
-.radio{
+.radio {
   @include flexbox(flex-start, flex-start);
 }
 
@@ -24,7 +24,6 @@
   text-align: center;
 
   &Title {
-
     font-weight: 500;
     font-size: 16px;
     line-height: 160%;
@@ -35,7 +34,6 @@
     line-height: 160%;
     color: $color-neutral-40;
     @include forDesktopSm {
-
       font-size: 13px;
     }
   }
@@ -44,6 +42,9 @@
     margin-left: 16px;
   }
 }
-.active{
-  border: 1px solid $color-action-default;
+.optionTitle {
+  color: $color-neutral-100;
+}
+.active {
+  border: 1px solid $color-primary;
 }

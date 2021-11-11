@@ -1,17 +1,15 @@
+/* eslint-disable react/no-array-index-key */
 import { FC, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { routes } from 'appConstants';
 import { PinkHeart } from 'assets/img';
 import cx from 'classnames';
-import nextId from 'react-id-generator';
 import { ArtCardAuthor, Button, Tag, Text } from 'components';
+import { IBidder } from 'typings';
 import { numberFormatter, sliceString } from 'utils';
 
-import { IBidder } from 'typings';
-
-import { routes } from 'appConstants';
-
 import styles from './styles.module.scss';
-import { toast } from 'react-toastify';
 
 type Props = {
   type?: 'Small' | 'Medium';
@@ -100,10 +98,10 @@ const ArtCard: FC<Props> = ({
         className={cx(styles[`mainImageWrapper${type}`], styles.imageWrapper)}
       >
         <div className={styles.tagContainer}>
-          {tags?.map((tag) => (
+          {tags?.map((tag, index) => (
             <Tag
               className={styles.tag}
-              key={nextId()}
+              key={index}
               type={tag.type}
               auctionEndTime={tag.auctionEndTime}
             />

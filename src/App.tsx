@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { Footer, Header } from 'components';
 import { Modals, Routes, ScrollToTop } from 'containers';
+import { useFetchTags } from 'hooks';
 
 import Connector from './services/walletConnect';
 import { Provider, rootStore } from './store';
@@ -10,7 +11,8 @@ import { Provider, rootStore } from './store';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/app.scss';
 
-function App() {
+const App = () => {
+  useFetchTags();
   return (
     <>
       <ToastContainer limit={3} />

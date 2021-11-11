@@ -2,7 +2,6 @@
 
 .footer {
   background: $color-bg2;
-  border-top: 1px solid $color-neutral-80;
 }
 
 .footerContent {
@@ -13,7 +12,7 @@
 }
 
 .linksAndControls {
-  @include flexbox(flex-start, center);
+  @include flexbox(flex-start, space-between);
 }
 
 .footerLogo {
@@ -24,6 +23,9 @@
 
 .logo {
   margin-bottom: 32px;
+  * {
+    color: $color-neutral-0 !important;
+  }
 }
 
 .footerLinks {
@@ -54,6 +56,10 @@
   & > * {
     margin-bottom: 20px;
   }
+
+  input {
+    color: $color-neutral-0;
+  }
 }
 
 .copyrightBlock {
@@ -62,9 +68,17 @@
   border-top: 1px solid $color-neutral-80;
 }
 
+.footerIconLinks {
+  margin-top: 30px;
+}
+
 @include forDesktopSm {
   .footerContent {
     padding: 30px;
+  }
+
+  .footerLogo, .linkBlock {
+    align-items: center;
   }
   .linksAndControls {
     flex-direction: column;

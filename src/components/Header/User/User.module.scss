@@ -25,7 +25,6 @@
   }
 }
 
-
 .body {
   position: absolute;
   top: calc(100% + 35px);
@@ -37,7 +36,7 @@
 
   width: 256px;
 
-  background: $color-neutral-80;
+  background: $color-neutral-0;
 
   opacity: 0;
   box-shadow: 0 16px 64px 0 rgba(31, 47, 70, 0.4);
@@ -52,7 +51,7 @@
     width: 0px;
     height: 0px;
     border: 16px solid transparent;
-    border-bottom: 16px solid $color-neutral-80;
+    border-bottom: 16px solid $color-neutral-0;
     top: -24px;
     right: 0;
   }
@@ -64,12 +63,7 @@
 
   @include m {
     top: calc(100% + 16px);
-    right: 16px;
-    left: 16px;
-
     margin: 0;
-
-    width: auto;
   }
 }
 
@@ -90,7 +84,7 @@
 .name {
   font-weight: 500;
   font-size: 20px;
-  color: $color-neutral-0;
+  color: $color-neutral-100;
   text-align: left;
   margin-bottom: 3px;
 }
@@ -98,7 +92,7 @@
 .type {
   font-weight: normal;
   font-size: 14px;
-  color: $color-actions-light-yellow;
+  color: $color-primary;
 }
 
 .item {
@@ -107,8 +101,7 @@
   display: flex;
   align-items: center;
 
-  color: $color-neutral-10;
-
+  color: $color-neutral-100;
 
   &:not(:last-child) {
     border-bottom: 1px solid $color-neutral-60;
@@ -118,7 +111,6 @@
     cursor: pointer;
 
     color: $color-action-hovered;
-
   }
 }
 

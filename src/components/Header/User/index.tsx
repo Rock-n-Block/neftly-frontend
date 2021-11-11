@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { FC, useCallback, useState } from 'react';
 import nextId from 'react-id-generator';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -23,37 +24,36 @@ const User: FC<IUserProps> = observer(({ className }) => {
   const walletConnector = useWalletConnectorContext();
   const { user } = useMst();
 
-  const dropdownOptions: Array<{
-    title: string;
-    icon: any;
-    url: string;
-  }> = [
-    {
-      title: 'Dashboard',
-      icon: <IconDashboard />,
-      url: routes.discover.root,
-    },
-    {
-      title: 'Public profile',
-      icon: <IconProfile />,
-      url: routes.profile.link(user.id),
-    },
-    {
-      title: 'Owned Artworks',
-      icon: <IconFolders />,
-      url: routes.profile.link(user.id, 'owned'),
-    },
-    {
-      title: 'Account Settings',
-      icon: <IconSettings />,
-      url: routes.profile.edit,
-    },
-    {
-      title: 'Logout',
-      icon: <IconLogout />,
-      url: '',
-    },
-  ];
+  const dropdownOptions = useCallback(
+    () => [
+      {
+        title: 'Dashboard',
+        icon: <IconDashboard />,
+        url: routes.discover.root,
+      },
+      {
+        title: 'Public profile',
+        icon: <IconProfile />,
+        url: routes.profile.link(user.id),
+      },
+      {
+        title: 'Owned Artworks',
+        icon: <IconFolders />,
+        url: routes.profile.link(user.id, 'owned'),
+      },
+      {
+        title: 'Account Settings',
+        icon: <IconSettings />,
+        url: routes.profile.edit,
+      },
+      {
+        title: 'Logout',
+        icon: <IconLogout />,
+        url: '',
+      },
+    ],
+    [user.id],
+  );
 
   const handleClose = useCallback(() => {
     setVisible(false);
@@ -94,14 +94,14 @@ const User: FC<IUserProps> = observer(({ className }) => {
               </div>
             </div>
             <div className={styles.menu}>
-              {dropdownOptions.map((option) => {
+              {dropdownOptions().map((option, index) => {
                 if (option.url?.startsWith('http')) {
                   return (
                     <a
                       className={styles.item}
                       href={option.url}
                       rel="noopener noreferrer"
-                      key={nextId()}
+                      key={index}
                     >
                       <div className={styles.icon}>{option.icon}</div>
                       <div className={styles.text}>{option.title}</div>
