@@ -1,4 +1,4 @@
-@import '../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .hotCollections {
   margin: 0 auto;
@@ -12,34 +12,22 @@
     }
   }
 }
-
-.title {
-  width: 100%;
+.title{
   @include flexbox;
-}
-
-.gradientTitle {
-  @include gradientText;
-}
-
-.artCardsWrapper {
-  @include flexbox();
+  gap: 16px;
   flex-wrap: wrap;
-
-  margin: -20px;
-
-  & > * {
-    margin: 20px;
-  }
 }
 
-.viewMoreBtnWrapper {
-  @include flexbox;
+
+.collectionsWrapper {
+  display: grid;
+  grid-template-columns:repeat(auto-fit, 240px);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 30px;
+  grid-row-gap: 16px;
+  grid-auto-flow: column;
 }
 
-.viewMoreBtn {
-  width: 150px;
-}
 
 @include forTablet {
   .hotCollections {
