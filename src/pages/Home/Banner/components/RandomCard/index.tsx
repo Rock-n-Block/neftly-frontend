@@ -36,6 +36,7 @@ const RandomCard: FC = () => {
           avatar={token.creator.avatar}
           id={token.creator.id}
           verified={token.creator.is_verificated}
+          authorTextColor="lightGray"
         />
       </div>
     </div>

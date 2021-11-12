@@ -7,7 +7,6 @@ enum Values {
   lightGray,
   secondary,
   primary,
-  inherit,
 }
 
 enum SizeValues {
