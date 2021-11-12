@@ -1,13 +1,21 @@
 @import "src/styles/helpers";
 
 .randomCard {
-  max-width: 490px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.artWrapper {
+  max-width: 500px;
+  max-height: 500px;
+  aspect-ratio: 1/1;
+  width: 100%;
 }
 
 .art {
-  object-fit: cover;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .info {

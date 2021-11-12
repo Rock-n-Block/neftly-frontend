@@ -10,7 +10,7 @@ const Banner: FC = () => (
   <div className={styles.banner}>
     <div className={styles.info}>
       <H4 className={styles.title}>
-        <Text tag="span" size="inherit" className={styles.titleRow}>
+        <Text tag="span" size="inherit" className={styles.titleRow} color="darkenGray">
           The world of
         </Text>
         <Text tag="span" size="inherit" className={styles.titleRow}>
@@ -20,7 +20,7 @@ const Banner: FC = () => (
           ARTWORK
         </Text>
       </H4>
-      <Text className={styles.description} size="xl">
+      <Text className={styles.description} size="xl" color="gray">
         Welcome to the world of rare digital art. explore the best art from hand-picked digital
         artist out there and find the hidden gem.
       </Text>

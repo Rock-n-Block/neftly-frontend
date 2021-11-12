@@ -2,18 +2,7 @@
 
 .ourArtworkGallery {
   @include container;
-  padding-top: 88px;
-
-
-  @include forTablet {
-    padding-top: 20px;
-  }
-
-  & > * {
-    &:not(:last-child) {
-      margin-bottom: 30px;
-    }
-  }
+  margin-top: 188px;
 }
 
 .title {
@@ -26,16 +15,17 @@
 }
 
 .cardsWrapper {
-  @include flexbox(center, space-around);
+  margin-top: 40px;
+  @include flexbox(flex-start, center);
   flex-wrap: wrap;
+  gap: 32px;
 }
 
 .howItWorksCard {
   @include flexbox(center, flex-start);
   flex-direction: column;
 
-  width: 300px;
-  height: 200px;
+  width: 292px;
 }
 
 .viewMoreBtnWrapper {
