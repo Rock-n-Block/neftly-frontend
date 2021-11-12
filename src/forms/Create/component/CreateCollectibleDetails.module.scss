@@ -53,14 +53,18 @@
     display: flex;
     justify-content: center;
 
+    & img{
+      max-width: 100%;
+      object-fit: contain;
+    }
+
     @include forDesktopSm {
       height: 232px;
     }
 
     .clearPreview {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      right: 0px;
       @include flexbox;
 
       width: 30px;
