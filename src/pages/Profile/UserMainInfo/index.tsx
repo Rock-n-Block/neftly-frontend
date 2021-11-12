@@ -77,64 +77,71 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
         backgroundImage: `url(${userCover || shownUser.cover || profile_page_bg_example})`,
       }}
     >
-      <div className={s.user_avatar}>
-        <img
-          src={shownUser.avatar || profile_avatar_example}
-          alt="profile_avatar_example"
-          width={130}
-          height={130}
-        />
-        {shownUser.is_verificated && <div className={s.isVerified} />}
-      </div>
-      <H2 className={s.user_name} color="white">
-        {shownUser.display_name || 'User Name'}
-      </H2>
-      <div className={s.user_info}>
-        <Copyable
-          valueToCopy={shownUser.address || zeroAddress}
-          classNameIcon={s.user_info__icon}
-          withIcon
-          title="Address"
-        >
-          <Text size="m" color="white">
-            {sliceString(shownUser.address || zeroAddress)}
-          </Text>
-        </Copyable>
-      </div>
-      <div className={s.user_buttons}>
-        {user.address && isSelf ? (
-          <>
-            <Uploader isImgOnly isButton handleUpload={handleFileUpload} isLoading={isFileLoading}>
-              <div className={s.user_button}>
-                <img src={iconEdit} alt="" />
-                <Text tag="span" color="white">
-                  Edit Banner
-                </Text>
-              </div>
-            </Uploader>
-            <Button className={s.user_button} color="outline" href={routes.profile.edit}>
-              <img src={iconSettingsWhite} alt="" />
-              <Text tag="span" color="white">
-                Edit Profile
-              </Text>
-            </Button>
-          </>
-        ) : null}
-        {user.address && !isSelf ? (
-          <Button
-            className={s.user_button}
-            color="blue"
-            onClick={handleFollowClick}
-            disabled={isFollowClickPending}
+      <div className={s.inner}>
+        <div className={s.user_avatar}>
+          <img
+            src={shownUser.avatar || profile_avatar_example}
+            alt="profile_avatar_example"
+            width={130}
+            height={130}
+          />
+          {shownUser.is_verificated && <div className={s.isVerified} />}
+        </div>
+        <H2 className={s.user_name} color="white">
+          {shownUser.display_name || 'User Name'}
+        </H2>
+        <div className={s.user_info}>
+          <Copyable
+            valueToCopy={shownUser.address || zeroAddress}
+            classNameIcon={s.user_info__icon}
+            withIcon
+            title="Address"
           >
-            {isFollowed ? (
-              <img src={iconRemoveBlack} alt="minus icon" />
-            ) : (
-              <img src={iconAddBlack} alt="plus icon" />
-            )}
-            {isFollowed ? 'Unfollow' : 'Follow'}
-          </Button>
-        ) : null}
+            <Text size="m" color="white">
+              {sliceString(shownUser.address || zeroAddress)}
+            </Text>
+          </Copyable>
+        </div>
+        <div className={s.user_buttons}>
+          {user.address && isSelf && (
+            <>
+              <Uploader
+                isImgOnly
+                isButton
+                handleUpload={handleFileUpload}
+                isLoading={isFileLoading}
+              >
+                <div className={s.user_button}>
+                  <img src={iconEdit} alt="" />
+                  <Text tag="span" color="white">
+                    Edit Banner
+                  </Text>
+                </div>
+              </Uploader>
+              <Button className={s.user_button} color="outline" href={routes.profile.edit}>
+                <img src={iconSettingsWhite} alt="" />
+                <Text tag="span" color="white">
+                  Edit Profile
+                </Text>
+              </Button>
+            </>
+          )}
+          {user.address && !isSelf && (
+            <Button
+              className={s.user_button}
+              color="blue"
+              onClick={handleFollowClick}
+              disabled={isFollowClickPending}
+            >
+              {isFollowed ? (
+                <img src={iconRemoveBlack} alt="minus icon" />
+              ) : (
+                <img src={iconAddBlack} alt="plus icon" />
+              )}
+              {isFollowed ? 'Unfollow' : 'Follow'}
+            </Button>
+          )}
+        </div>
       </div>
     </section>
   );
