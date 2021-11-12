@@ -15,7 +15,7 @@ const CreateAndSell: FC<Props> = observer(({ className }) => {
   return (
     <div className={cx(styles.ourArtworkGallery, className)}>
       <div className={styles.title}>
-        <H2>
+        <H2 align="center">
           Create and sell your <span className={styles.gradientTitle}>NFTs</span>
         </H2>
       </div>
