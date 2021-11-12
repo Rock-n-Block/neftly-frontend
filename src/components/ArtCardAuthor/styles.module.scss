@@ -2,6 +2,7 @@
 
 .artCardAuthor {
   @include flexbox(center, flex-start);
+  color: $color-neutral-100;
 }
 
 .name {
