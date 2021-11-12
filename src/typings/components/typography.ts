@@ -4,6 +4,7 @@ enum Values {
   black,
   gray,
   lightGray,
+  middleGray,
   secondary,
   primary,
   inherit,

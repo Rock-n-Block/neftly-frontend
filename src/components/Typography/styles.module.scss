@@ -86,7 +86,7 @@
   &.xxxxl {
     font-size: 48px;
   }
-  &.inherit{
+  &.inherit {
     font-size: inherit;
   }
 }
@@ -107,6 +107,10 @@
   color: $color-neutral-60;
 }
 
+.middleGray {
+  color: $color-neutral-40;
+}
+
 .lightGray {
   color: $color-neutral-20;
 }
@@ -122,8 +126,8 @@
 .red {
   color: $color-state-error;
 }
-.inherit{
-  color:inherit;
+.inherit {
+  color: inherit;
 }
 
 .normalWeight {

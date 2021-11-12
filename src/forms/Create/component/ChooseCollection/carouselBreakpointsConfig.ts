@@ -2,13 +2,6 @@ export default [
   {
     breakpoint: 1281,
     settings: {
-      slidesToShow: 5,
-      slidesToScroll: 5,
-    },
-  },
-  {
-    breakpoint: 1000,
-    settings: {
       slidesToShow: 4,
       slidesToScroll: 4,
     },
@@ -42,7 +35,7 @@ export default [
     },
   },
   {
-    breakpoint: 375,
+    breakpoint: 450,
     settings: {
       slidesToShow: 1,
       slidesToScroll: 1,

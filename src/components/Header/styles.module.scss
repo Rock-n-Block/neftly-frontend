@@ -15,11 +15,8 @@
 }
 
 .headerInner {
+  @include container;
   position: relative;
-
-  margin: 0 auto;
-  padding: 0 30px;
-  max-width: 1440px;
 
   height: 90px;
   @include flexbox(center, flex-start);

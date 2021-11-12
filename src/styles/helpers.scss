@@ -94,7 +94,7 @@ $color-state-success: #45e498;
 $color-state-warning: #fae637;
 
 $color-gradient: linear-gradient(89.92deg, #016db0 1.29%, #01ffca 99.94%);
-$color-box-shadow:0px 16px 64px -48px rgba(18, 27, 40, 0.8);
+$color-box-shadow: 0px 16px 64px -48px rgba(18, 27, 40, 0.8);
 // typography
 .text-gradient {
   display: inline-block;
@@ -120,6 +120,14 @@ $defaultFlexBoxJustify: center;
   display: flex;
   justify-content: $justify;
   align-items: $align;
+}
+
+@mixin multiplyRowsEllipsis($rows: 3) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $rows;
+  -webkit-box-orient: vertical;
 }
 
 @mixin inlineFlexbox($align: $defaultFlexBoxAlign, $justify: $defaultFlexBoxJustify) {
@@ -241,16 +249,16 @@ $defaultFlexBoxJustify: center;
     border-color: transparent transparent transparent $bg;
   }
 }
-@mixin container{
+@mixin container {
   margin: 0 auto;
   max-width: 1440px;
   width: 100%;
   padding: 0 88px;
-  @include forDesktopSm{
+  @include forDesktopSm {
     padding: 0 32px;
   }
-  @include forDesktopBig{
-    padding: 0 48px;
+  @include forDesktopBig {
+    padding: 0 32px;
   }
 }
 // example

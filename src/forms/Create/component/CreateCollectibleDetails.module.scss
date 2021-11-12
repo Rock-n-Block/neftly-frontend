@@ -53,7 +53,7 @@
     display: flex;
     justify-content: center;
 
-    & img{
+    & img {
       max-width: 100%;
       object-fit: contain;
     }
@@ -164,8 +164,13 @@
 .fieldset {
   margin-top: 32px;
 
+  &_first {
+    margin-top: 0;
+  }
+
   &Title {
     @include flexbox(center, space-between);
+    font-family: 'Epilogue', sans-serif;
   }
 
   &Row {
@@ -221,7 +226,6 @@
 
     .priceInput {
       width: 100%;
-      min-width: 219px;
     }
   }
 

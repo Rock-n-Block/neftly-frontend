@@ -52,9 +52,6 @@
   top: 0;
   left: 0;
 
-  margin-right: auto;
-  margin-left: auto;
-
   display: block;
 
   &::before {
@@ -439,10 +436,6 @@
 
 // discover slider
 .discover-slider {
-  .slick-list {
-    padding-bottom: 72px;
-  }
-
   .slick-arrow {
     bottom: 0;
   }

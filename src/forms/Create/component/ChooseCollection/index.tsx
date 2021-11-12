@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { iconCreateCircle } from 'assets/img';
 import cn from 'classnames';
-import { Carousel, EllipsisText, Modal, Text } from 'components';
+import { Carousel, Modal, Text } from 'components';
 import { observer } from 'mobx-react';
 import { userApi } from 'services/api';
 import { useMst } from 'store';
@@ -104,9 +104,7 @@ const ChooseCollection: React.FC<IProps> = observer(
                   )}
                 </div>
                 <div className={styles.cardSubtitle}>
-                  <EllipsisText>
-                    <Text tag="span">{collection.name}</Text>
-                  </EllipsisText>
+                  <Text tag="span">{collection.name}</Text>
                 </div>
               </div>
             ))}
