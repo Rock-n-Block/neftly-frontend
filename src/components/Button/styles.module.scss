@@ -1,9 +1,8 @@
 @import '../../styles/helpers.scss';
 
 .button {
-  font-weight: 400;
-  @include flexbox();
   @include epilogue;
+  @include flexbox();
   cursor: pointer;
   position: relative;
 
@@ -22,6 +21,8 @@
   &.blue {
     padding: 8px 32px;
     height: 40px;
+    font-weight: 600;
+    font-size: 16px;
 
     color: $color-neutral-0;
     background: $color-primary;
@@ -51,6 +52,8 @@
   &.pink {
     padding: 8px 32px;
     height: 40px;
+    font-weight: 600;
+    font-size: 16px;
 
     color: #fff;
     background: $color-state-error;
@@ -60,7 +63,9 @@
     padding: 8px 32px;
     height: 40px;
 
-    color: $color-neutral-100;
+    font-weight: 600;
+    font-size: 16px;
+    color: $color-primary;
     background: none;
     border: 1px solid $color-primary;
 
@@ -94,6 +99,8 @@
   &.dark {
     padding: 8px 32px;
     height: 40px;
+    font-weight: 600;
+    font-size: 16px;
 
     color: $color-neutral-0;
     background: $color-neutral-100;
