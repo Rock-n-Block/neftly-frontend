@@ -4,6 +4,8 @@
   position: relative;
   z-index: 3;
 
+  color: $color-neutral-100;
+
   &.active {
     z-index: 10;
 
@@ -81,7 +83,7 @@
 
   visibility: hidden;
 
-  background: $color-bg2;
+  background: $color-bg;
   opacity: 0;
   border: 2px solid $color-neutral-80;
 

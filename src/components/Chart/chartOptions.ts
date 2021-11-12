@@ -53,7 +53,7 @@ export const defaultChartData: IChartData = {
   labels: [],
   datasets: [
     {
-      data: [{ time: '1', data: '0' }],
+      data: [{ time: '1', data: '0' }, { time: '2', data: '5' }, { time: '3', data: '3' }, { time: '4', data: '1' }],
       fill: false,
       backgroundColor: 'transparent',
       borderColor: '#C379F6',
