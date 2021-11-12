@@ -1,7 +1,6 @@
 export { default as Avatar } from './Avatar';
 export { default as ArtCardAuthor } from './ArtCardAuthor';
 export { default as Button } from './Button';
-export { default as TitleDropdown } from './TitleDropdown';
 export { default as TextInput } from './TextInput';
 export { default as Checkbox } from './Checkbox';
 export { default as Carousel } from './Carousel';

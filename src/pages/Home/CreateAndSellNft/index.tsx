@@ -16,7 +16,7 @@ const CreateAndSell: FC<Props> = observer(({ className }) => {
     <div className={cx(styles.ourArtworkGallery, className)}>
       <div className={styles.title}>
         <H2>
-          CREATE AND SELL YOUR <span className={styles.gradientTitle}>NFTS</span>
+          Create and sell your <span className={styles.gradientTitle}>NFTs</span>
         </H2>
       </div>
       <div className={styles.cardsWrapper}>
@@ -24,8 +24,8 @@ const CreateAndSell: FC<Props> = observer(({ className }) => {
           return (
             <div key={title} className={styles.howItWorksCard}>
               <IconComponent />
-              <Text>{title}</Text>
-              <Text>{description}</Text>
+              <Text weight="medium" size="xl">{title}</Text>
+              <Text color="gray" size="m" align="center">{description}</Text>
             </div>
           );
         })}

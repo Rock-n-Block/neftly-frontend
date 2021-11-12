@@ -1,26 +1,27 @@
 import {FC, useCallback, useEffect, useState} from 'react';
 import cx from 'classnames';
-import {H2, TitleDropdown} from 'components';
+import {H2} from 'components';
 import {activityApi} from 'services';
 import CollectionCard from './CollectionCard';
 
 import styles from './styles.module.scss';
 import {OptionType} from 'typings';
+import TitleDropdown from "./TitleDropdown";
 
 type Props = {
   className?: string;
 };
 const dropDownOptions: OptionType[] = [
   {
-    label: 'last 1 day',
+    label: '1 day',
     value: 'day',
   },
   {
-    label: 'last 7 days',
+    label: '7 days',
     value: 'week',
   },
   {
-    label: 'last month',
+    label: 'month',
     value: 'month',
   },
 ];
