@@ -57,9 +57,7 @@ const Headers: FC = observer(() => {
           <HeaderLinks className={styles.headerLinks} />
           {user.address ? (
             <div className={styles.profileInfo}>
-              <Button color="transparent">
-                <Wallet />
-              </Button>
+              <Wallet />
               <User />
             </div>
           ) : (
