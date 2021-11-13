@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { Line } from 'react-chartjs-2';
 import styles from './LineWrapper.module.scss';
 import { ICurrency } from 'typings';
@@ -32,12 +32,13 @@ const LineWrapper: FC<ILineWrapper> = ({
     prevValue,
   } = useChartTooltip({ options });
 
+  const chartWrapRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className={cn(styles.chartWrapper, className)}>
+    <div className={cn(styles.chartWrapper, className)} ref={chartWrapRef}>
       <Line
         data={data}
         options={optionsWithCustomTooltip as any}
-        height={500}
         getElementAtEvent={getElementAtEvent}
       />
       {showTooltip && (
@@ -48,6 +49,7 @@ const LineWrapper: FC<ILineWrapper> = ({
           date={tooltipDate}
           currency={currency}
           prevValue={prevValue}
+          wrapRef={chartWrapRef}
         />
       )}
     </div>

@@ -14,15 +14,25 @@ type Props = {
   owners?: IOwner | IOwner[] | undefined;
 };
 
+const VerifyIcon: FC<any> = () => {
+  return(
+    <div title='verified' className={styles.verifyBody}>
+      <span className={styles.verifyMark}/>
+    </div>
+  )
+}
+
 const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
+  
   <div className={cx(styles.authorBlock, className)}>
     <div className={styles.user}>
       <Link to={routes.profile.link(creator?.id || '')} className={styles.avatarWrapper}>
         <img src={creator?.avatar} className={styles.avatar} alt="" />
+        {(creator?.is_verificated || true) ? <VerifyIcon /> : null}
       </Link>
       <div className={styles.text}>
-        <Text color="lightGray">Creator</Text>
-        <Text>{sliceString(creator?.name || '')}</Text>
+        <Text size='xs'>Creator</Text>
+        <Text size='xl'>{sliceString(creator?.name || '')}</Text>
       </div>
     </div>
     {owners && (
@@ -33,10 +43,11 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
               <div className={styles.user} key={`owner-${owner.id}`}>
                 <Link to={routes.profile.link(owner.id)} className={styles.avatarWrapper}>
                   <img src={owner.avatar} className={styles.avatar} alt="" />
+                  {(owner.is_verificated || true) ? <VerifyIcon /> : null}
                 </Link>
                 <div className={styles.text}>
-                  <Text color="lightGray">Owner</Text>
-                  <Text>{sliceString(owner.name)}</Text>
+                  <Text size='xs'>Owner</Text>
+                  <Text size='xl'>{sliceString(owner.name)}</Text>
                 </div>
               </div>
             ))}
@@ -45,10 +56,11 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
           <div className={styles.user}>
             <Link to={routes.profile.link(owners?.id)} className={styles.avatarWrapper}>
               <img src={owners?.avatar} className={styles.avatar} alt="" />
+              {(owners.is_verificated || true) ? <VerifyIcon /> : null}
             </Link>
             <div className={styles.text}>
-              <Text color="lightGray">Owner</Text>
-              <Text>{sliceString(owners?.name || '')}</Text>
+              <Text size='xs'>Owner</Text>
+              <Text size='xl'>{sliceString(owners?.name || '')}</Text>
             </div>
           </div>
         )}

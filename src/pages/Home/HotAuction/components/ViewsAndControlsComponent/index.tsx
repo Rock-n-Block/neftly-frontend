@@ -1,28 +1,31 @@
 import { FC, useCallback, useMemo, useState } from 'react';
 import cx from 'classnames';
-import Tooltip from 'rc-tooltip';
 import { observer } from 'mobx-react-lite';
 // import { toast } from 'react-toastify';
 
 import { Button, Copyable, Text } from 'components';
 import { useMst } from 'store';
 import { INft, IOwner, TNullable } from 'typings';
+import { ReactComponent as Share } from 'assets/img/NFTPreview/Share.svg';
+import { ReactComponent as Options } from 'assets/img/NFTPreview/Options.svg';
+import iconBurn from 'assets/img/NFTPreview/Burn.svg';
+import iconTransfer from 'assets/img/NFTPreview/Transfer.svg';
+import iconRemove from 'assets/img/NFTPreview/Remove.svg';
+import iconReport from 'assets/img/NFTPreview/Report.svg';
+import iconChange from 'assets/img/NFTPreview/Change_price.svg';
 
 import styles from './styles.module.scss';
 import 'rc-tooltip/assets/bootstrap.css';
 
 import {
   PinkHeart,
-  iconBurn,
-  iconTransfer,
-  iconRemove,
-  iconReport,
-  iconLink,
-  iconChange,
 } from 'assets/img';
 import { useLike } from 'hooks';
 import { numberFormatter } from 'utils';
 import { routes } from 'appConstants';
+import OptionMenu, { positionOptions } from 'components/OptionMenu';
+
+const viewsCount = 10;
 
 type Props = {
   className?: string;
@@ -33,7 +36,7 @@ type Props = {
   isUserCanRemoveFromSale: boolean;
   isWrongChain: boolean;
   isUserCanChangePrice: boolean;
-  tooltipPlacement?: 'top' | 'bottom';
+  tooltipPlacement?: positionOptions;
 };
 
 const ViewsAndControlsComponent: FC<Props> = ({
@@ -42,7 +45,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
   inStock,
   nft,
   isOwner,
-  tooltipPlacement = 'bottom',
+  tooltipPlacement,
   isUserCanRemoveFromSale,
   isWrongChain,
   isUserCanChangePrice,
@@ -109,30 +112,35 @@ const ViewsAndControlsComponent: FC<Props> = ({
         img: iconChange,
         event: () => handleActionEvent(handleChangePrice),
         isVisible: isUserCanChangePrice,
+        class: 'blue',
       },
       {
         name: 'Transfer Token',
         img: iconTransfer,
         event: () => handleActionEvent(handleTransfer),
         isVisible: isOwner && !isWrongChain,
+        class: 'blue',
       },
       {
         name: 'Remove from sale',
         img: iconRemove,
         event: () => handleActionEvent(handleRemoveFromSale),
         isVisible: isUserCanRemoveFromSale,
+        class: 'blue',
       },
       {
         name: 'Burn token',
         img: iconBurn,
         event: () => handleActionEvent(handleBurn),
         isVisible: isOwner && !isWrongChain,
+        class: 'red'
       },
       {
         name: 'Report',
         img: iconReport,
         event: () => handleActionEvent(handleReport),
         isVisible: true,
+        class: 'blue'
       },
     ],
     [
@@ -157,7 +165,8 @@ const ViewsAndControlsComponent: FC<Props> = ({
   return (
     <>
       <div className={cx(styles.viewsAndControls, className)}>
-        {inStock ? <Text color="gray">{`In Stock: ${inStock}`}</Text> : null}
+        {viewsCount ? <Text size='m' color="gray" className={styles.viewsData}>{`Views: ${viewsCount}`}</Text> : null}
+        {inStock ? <Text size='m' color="gray">{`In Stock: ${inStock}`}</Text> : null}
         <div className={styles.controls}>
           <Button
             className={cx(styles.likeButton, { [styles.likeButtonActive]: isLike })}
@@ -169,25 +178,26 @@ const ViewsAndControlsComponent: FC<Props> = ({
           </Button>
           <Copyable valueToCopy={`${window.location.origin}${routes.nft.link(nft?.id || '')}`}>
             <Button color="outline" className={styles.copyButton}>
-              <img src={iconLink} alt="" />
+              <Share />
             </Button>
           </Copyable>
-          <Tooltip
-            visible={isTooltipVisible}
-            animation="zoom"
-            trigger="click"
-            overlay={
+
+          <div className={styles.optionBtn}>
+            <Button className={styles.button} color="outline" onClick={() => setTooltipVisible(!isTooltipVisible)}>
+              <Options />
+            </Button>
+            <OptionMenu active={isTooltipVisible} position={tooltipPlacement}>
               <div className={styles.actions}>
                 {actions.map((action) => {
                   if (action.isVisible) {
                     return (
                       <div
                         key={action.name}
-                        className={styles.actionsItem}
+                        className={`${styles.actionsItem} ${styles[action.class]}`}
                         onClick={action.event}
                         role="button"
                         tabIndex={0}
-                        onKeyDown={() => {}}
+                        onKeyDown={() => { }}
                       >
                         <img src={action.img} alt="" />
                         <span>{action.name}</span>
@@ -197,14 +207,9 @@ const ViewsAndControlsComponent: FC<Props> = ({
                   return null;
                 })}
               </div>
-            }
-            onVisibleChange={(value) => setTooltipVisible(value)}
-            placement={tooltipPlacement}
-          >
-            <Button className={styles.button} color="outline">
-              <Text className={styles.dots}>&hellip;</Text>
-            </Button>
-          </Tooltip>
+            </OptionMenu>
+          </div>
+
         </div>
       </div>
     </>

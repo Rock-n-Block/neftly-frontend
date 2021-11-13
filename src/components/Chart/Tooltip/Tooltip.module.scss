@@ -6,7 +6,8 @@
   transform: translate(-50%, 0);
   transition: all 0.5s ease;
   pointer-events: none;
-  background-color: $color-neutral-80;
+  background-color: $color-neutral-0;
+  @include box-shadow($blur: 50px);
   @include flexbox(flex-start, flex-start);
   gap: 8px;
 }

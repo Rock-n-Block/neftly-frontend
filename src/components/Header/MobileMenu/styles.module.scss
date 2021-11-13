@@ -1,7 +1,7 @@
 @import '../../../styles/helpers';
 
 .container {
-  padding: 50px 30px 30px 30px;
+  padding: 28px 10px 20px;
   background: $color-bg;
   @include flexbox(flex-start, center);
   flex-direction: column;
@@ -16,8 +16,8 @@
 }
 
 .logo {
-  transform: scale(1.1);
-  margin-left: 20px;
+  transform: scale(1);
+  margin-left: 40px;
 }
 
 .mobileMenuLinks {
@@ -43,4 +43,11 @@
 
 .mobileMenuIconLinks {
   margin: 0 auto;
+  margin-top: auto;
+  & a{
+    transition: $transition;
+    &:hover{
+      filter: hue-rotate(50deg);
+    }
+  }
 }

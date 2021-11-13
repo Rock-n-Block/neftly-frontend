@@ -65,7 +65,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
               onMouseOver={() => handleMouseOver(index)}
               onMouseLeave={handleMouseLeave}
               onClick={toggleMenu}
-              className={styles.internalLinkWrapperBtn}
+              className={`${styles.internalLinkWrapperBtn} ${styles.hoverLinkMenu}`}
               color="transparent"
             >
               <Text>{title}</Text>
@@ -82,7 +82,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
                       key={tag.title}
                     >
                       <img className={styles.dropdownLinkIcon} src={tag.icon} alt="tag" />
-                      <Text color="black">{tag.title}</Text>
+                      <Text color='inherit'>{tag.title}</Text>
                     </Link>
                   );
                 })}
@@ -93,7 +93,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
         if (url) {
           return (
             <Link to={url} key={title}>
-              <Button color="transparent" onClick={toggleMenu}>
+              <Button color="transparent" className={styles.hoverLinkMenu} onClick={toggleMenu}>
                 <Text>{title}</Text>
               </Button>
             </Link>

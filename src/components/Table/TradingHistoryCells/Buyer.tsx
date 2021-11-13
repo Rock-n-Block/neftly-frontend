@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import cx from 'classnames';
-import { Text } from 'components';
+import { EllipsisText, Text } from 'components';
 
 import styles from './styles.module.scss';
+import moment from 'moment';
 
 type Props = {
   className?: string;
@@ -12,14 +13,14 @@ type Props = {
   type?: 'sell' | 'auction';
 };
 
-const TradingHistoryCells: FC<Props> = ({ className, name, avatar, date, type = 'sell' }) => (
+const TradingHistoryBuyer: FC<Props> = ({ className, name, avatar, date, type = 'sell' }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
-    <img src={avatar} alt="" />
-    <div>
-      <Text size="m">{name}</Text>
-      {type === 'sell' && <Text size="m">{date}</Text>}
+    <img className={styles.buyerAvatar} src={avatar} alt="" />
+    <div className={styles.buyerData}>
+      <EllipsisText><Text size="m">{name}</Text></EllipsisText>
+      {type === 'sell' && <Text size="xs">{moment(date).fromNow()}</Text>}
     </div>
   </div>
 );
 
-export default TradingHistoryCells;
+export default TradingHistoryBuyer;

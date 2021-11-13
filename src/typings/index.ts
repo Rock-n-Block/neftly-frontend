@@ -20,6 +20,7 @@ export interface IHistoryItem {
   method: string;
   name: string;
   price: TNullable<string>;
+  currency?: TNullable<string>;
 }
 
 export interface ICurrency {

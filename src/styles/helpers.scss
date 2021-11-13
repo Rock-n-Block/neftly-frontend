@@ -43,15 +43,15 @@
 
 // fonts
 @mixin poppins {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 @mixin monument-extended {
-  font-family: 'Monument Extended', sans-serif;
+  font-family: "Monument Extended", sans-serif;
 }
 
 @mixin epilogue {
-  font-family: 'Epilogue', sans-serif;
+  font-family: "Epilogue", sans-serif;
 }
 
 // colors
@@ -73,6 +73,7 @@ $color-neutral-60: #6b6785;
 $color-neutral-40: #9c99ae;
 $color-neutral-20: #ceccd6;
 $color-neutral-10: #e6e6eb;
+$color-neutral-7: #f5f5f5;
 $color-neutral-5: #fcfcfd;
 $color-neutral-1: #ffffff29;
 $color-neutral-0: #fff;
@@ -94,12 +95,14 @@ $color-state-success: #45e498;
 $color-state-warning: #fae637;
 
 $color-gradient: linear-gradient(89.92deg, #016db0 1.29%, #01ffca 99.94%);
-$color-box-shadow:0px 16px 64px -48px rgba(18, 27, 40, 0.8);
+$color-box-shadow: 0px 16px 64px -48px rgba(18, 27, 40, 0.8);
+
+$transition: .4s ease;
 // typography
 .text-gradient {
   display: inline-block;
 
-  font-family: 'MD', sans-serif;
+  font-family: "MD", sans-serif;
 
   background: $color-gradient;
   background-clip: text;
@@ -116,6 +119,11 @@ $color-box-shadow:0px 16px 64px -48px rgba(18, 27, 40, 0.8);
 
 $defaultFlexBoxAlign: center;
 $defaultFlexBoxJustify: center;
+
+@mixin box-shadow($x: 0, $y: 16px, $blur: 50px, $spread: 0){
+  box-shadow: $x $y $blur $spread rgba(18, 27, 40, 0.3);
+}
+
 @mixin flexbox($align: $defaultFlexBoxAlign, $justify: $defaultFlexBoxJustify) {
   display: flex;
   justify-content: $justify;
@@ -241,15 +249,15 @@ $defaultFlexBoxJustify: center;
     border-color: transparent transparent transparent $bg;
   }
 }
-@mixin container{
+@mixin container {
   margin: 0 auto;
   max-width: 1440px;
   width: 100%;
   padding: 0 88px;
-  @include forDesktopSm{
+  @include forDesktopSm {
     padding: 0 32px;
   }
-  @include forDesktopBig{
+  @include forDesktopBig {
     padding: 0 48px;
   }
 }
@@ -265,13 +273,13 @@ $defaultFlexBoxJustify: center;
 
 // media query width
 @mixin r($width) {
-  @media only screen and (max-width: $width + 'px') {
+  @media only screen and (max-width: $width + "px") {
     @content;
   }
 }
 
 @mixin rmin($width) {
-  @media only screen and (min-width: $width + 'px') {
+  @media only screen and (min-width: $width + "px") {
     @content;
   }
 }
