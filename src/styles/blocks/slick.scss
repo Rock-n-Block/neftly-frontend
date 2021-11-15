@@ -454,3 +454,9 @@
     overflow: visible;
   }
 }
+
+.slick-slider.hide-arrows {
+  .slick-arrow {
+    display: none !important;
+  }
+}

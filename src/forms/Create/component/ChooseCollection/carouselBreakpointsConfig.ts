@@ -23,7 +23,7 @@ export default [
   {
     breakpoint: 510,
     settings: {
-      slidesToShow: 1,
+      slidesToShow: 1.5,
       slidesToScroll: 1,
     },
   },
@@ -35,7 +35,7 @@ export default [
     },
   },
   {
-    breakpoint: 450,
+    breakpoint: 400,
     settings: {
       slidesToShow: 1,
       slidesToScroll: 1,

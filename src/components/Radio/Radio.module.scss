@@ -2,6 +2,9 @@
 
 .radio {
   @include flexbox(flex-start, space-between);
+  @include forTablet {
+    flex-wrap: wrap;
+  }
 }
 
 /* Hide the browser's default checkbox */
@@ -40,6 +43,9 @@
 
   & + & {
     margin-left: 16px;
+    @include forTablet {
+      margin-left: 0;
+    }
   }
 }
 .optionTitle {
