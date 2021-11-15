@@ -10,6 +10,7 @@ import {
   saleAction,
   transferAction,
 } from 'assets/img';
+import { Avatar } from 'components';
 import { sliceString } from 'utils';
 
 import s from './ActivityItem.module.scss';
@@ -20,6 +21,7 @@ interface Props {
   actionImg: string;
   userName: string;
   actionDescription: string;
+  actionDescriptionName: string;
   timeAgo: string;
 }
 
@@ -43,6 +45,7 @@ const ActivityItem: React.FC<Props> = ({
   userName,
   actionDescription,
   timeAgo,
+  actionDescriptionName,
 }) => {
   return (
     <section className={s.item}>
@@ -53,11 +56,13 @@ const ActivityItem: React.FC<Props> = ({
             alt="action"
           />
         </div>
-        <img src={userImg} alt="userAva" />
+        <Avatar id="" avatar={userImg} size="80" />
       </div>
       <div className={s.info}>
         <div className={s.name}>{userName?.length > 15 ? sliceString(userName) : userName}</div>
-        <div className={s.event}>{actionDescription}</div>
+        <div className={s.event}>
+          {actionDescription} <span>{actionDescriptionName}</span>
+        </div>
         <div className={s.time}>{timeAgo}</div>
       </div>
       <div className={s.image}>

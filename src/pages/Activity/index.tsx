@@ -52,7 +52,7 @@ const Activity: FC = observer(() => {
           <Text
             align="center"
             className={styles.pageSubtitle}
-            color="lightGray"
+            color="black"
             size="m"
             weight="medium"
           >
@@ -72,8 +72,6 @@ const Activity: FC = observer(() => {
           <div className={styles.row}>
             <div className={styles.wrapper}>
               <div className={styles.list}>
-                {/* OLD ITEMS */}
-                {/* TODO: fix this later */}
                 {items?.length ? (
                   items?.map((card: any) => (
                     <div
@@ -88,7 +86,8 @@ const Activity: FC = observer(() => {
                         userImg={card.from_image || card.to_image || profile_avatar_example}
                         actionImg={card.token_image || card.to_image}
                         userName={card.from_name || card.to_name}
-                        actionDescription={`${card.method} ${card.token_name || card.to_name}`}
+                        actionDescription={card.method}
+                        actionDescriptionName={card.token_name || card.to_name}
                         timeAgo={moment().from(card.date)}
                       />
                     </div>
