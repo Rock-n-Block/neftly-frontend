@@ -3,20 +3,49 @@ import {useLocation} from 'react-router-dom';
 import {routes} from 'appConstants';
 import cx from 'classnames';
 import {Button, Text} from 'components';
-// import { debounce } from 'lodash';
 import {useMst} from 'store';
-// import { TNullable } from 'typings';
 
 import styles from './styles.module.scss';
 import {Popover} from "containers";
 import {observer} from "mobx-react-lite";
+import {usePopover} from "../../../hooks";
+import {useHistory} from "react-router";
 
-type Props = {
+interface IHeaderLinksProps {
   toggleMenu?: () => void;
   className?: string;
 };
 
-const HeaderLinks: FC<Props> = observer(({className, toggleMenu}) => {
+interface ITag {
+  icon: string,
+  title: string
+};
+
+interface IHeaderNestedBodyProps {
+  links?: ITag[];
+};
+
+const HeaderNestedBody: FC<IHeaderNestedBodyProps> = ({links}) => {
+  const {closePopover}=usePopover();
+  const history=useHistory();
+  const handleTagClick=(title:string)=>{
+    history.push(routes.discover.filter(title));
+    closePopover();
+  }
+  return (
+    <>
+      {links?.map((tag) => (
+        <Button
+          className={styles.dropdownLink}
+          key={tag.title} color="transparent" icon={tag.icon} onClick={()=>handleTagClick(tag.title)}>
+          <Text color="black" size="m" weight="medium">{tag.title}</Text>
+        </Button>
+      ))}
+    </>
+  )
+}
+
+const HeaderLinks: FC<IHeaderLinksProps> = observer(({className, toggleMenu}) => {
   const {
     user,
     nftTags,
@@ -31,7 +60,7 @@ const HeaderLinks: FC<Props> = observer(({className, toggleMenu}) => {
         active: location.pathname.includes(routes.discover.root),
         disabled: false,
         isNested: true,
-        internalLinks: nftTags.getTags,
+        internalLinks: nftTags.getTags as ITag[],
       },
       {
         url: routes.activity.root,
@@ -62,15 +91,7 @@ const HeaderLinks: FC<Props> = observer(({className, toggleMenu}) => {
                 <Text weight="medium" size="m" color={active ? 'primary' : 'black'}>{title}</Text>
               </Popover.Button>
               <Popover.Body>
-                {internalLinks?.map((tag) => {
-                  return (
-                    <Button
-                      className={styles.dropdownLink} href={routes.discover.filter(tag.title)}
-                      key={tag.title} color="transparent" icon={tag.icon}>
-                      <Text color="black" size="m" weight="medium">{tag.title}</Text>
-                    </Button>
-                  );
-                })}
+                <HeaderNestedBody links={internalLinks}/>
               </Popover.Body>
             </Popover>
           );

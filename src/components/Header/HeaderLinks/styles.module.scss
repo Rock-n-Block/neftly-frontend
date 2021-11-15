@@ -12,6 +12,7 @@
 
 .dropdownLink {
   @include flexbox(center, flex-start);
+  width: 100%;
   &:first-of-type{
     padding-top: 0;
   }
