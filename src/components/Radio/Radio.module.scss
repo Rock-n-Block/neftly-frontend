@@ -1,7 +1,10 @@
 @import 'src/styles/helpers';
 
 .radio {
-  @include flexbox(flex-start, flex-start);
+  @include flexbox(flex-start, space-between);
+  @include forTablet {
+    flex-wrap: wrap;
+  }
 }
 
 /* Hide the browser's default checkbox */
@@ -15,7 +18,7 @@
 
 .option {
   padding: 16px;
-  max-width: 296px;
+  width: 100%;
   @include flexbox;
   flex-direction: column;
   border: 1px solid $color-neutral-80;
@@ -40,6 +43,9 @@
 
   & + & {
     margin-left: 16px;
+    @include forTablet {
+      margin-left: 0;
+    }
   }
 }
 .optionTitle {
@@ -47,4 +53,8 @@
 }
 .active {
   border: 1px solid $color-primary;
+
+  .optionTitle {
+    color: $color-primary;
+  }
 }
