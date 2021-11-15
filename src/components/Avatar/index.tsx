@@ -21,7 +21,7 @@ const Avatar: FC<IProps> = ({
   isCollection = false,
   isVerified = false,
   size = 24,
-  badgeSize = 12,
+  badgeSize = 10,
   className
 }) => {
   return (

@@ -12,14 +12,6 @@ type Props = {
   owners?: IOwner | IOwner[] | undefined;
 };
 
-/*const VerifyIcon: FC<any> = () => {
-  return(
-    <div title='verified' className={styles.verifyBody}>
-      <span className={styles.verifyMark}/>
-    </div>
-  )
-}*/
-
 const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
   
   <div className={cx(styles.authorBlock, className)}>
