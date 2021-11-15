@@ -28,7 +28,7 @@ const Tooltip: FC<IGraphTooltip> = ({ top, left, date, value, prevValue, currenc
     if (sType === 'Width') {
       return (cursor + (size + offset * 2) / 2 * ((cursor + size + offset) < winSize ? 1 : -1));
     }
-    return (cursor + (size + offset) / 2 * ((cursor + size + offset) < winSize ? 1 : -1));
+    return (cursor - size / 2);
   }, [wrapRef])
 
   return (

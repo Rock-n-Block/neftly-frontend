@@ -21,6 +21,7 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
         size="36"
         id={creator?.id || ''}
         avatar={creator?.avatar || ''}
+        isVerified={creator?.is_verificated}
       />
       <div className={styles.text}>
         <Text size='xs'>Creator</Text>
@@ -38,6 +39,7 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
                   size="36"
                   id={creator?.id || ''}
                   avatar={creator?.avatar || ''}
+                  isVerified={creator?.is_verificated}
                 />
                 <div className={styles.text}>
                   <Text size='xs'>Owner</Text>
@@ -53,6 +55,7 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
               size="36"
               id={creator?.id || ''}
               avatar={creator?.avatar || ''}
+              isVerified={creator?.is_verificated}
             />
             <div className={styles.text}>
               <Text size='xs'>Owner</Text>
