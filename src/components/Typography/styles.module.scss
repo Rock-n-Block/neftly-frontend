@@ -103,6 +103,10 @@
   color: $color-neutral-100;
 }
 
+.darkenGray {
+  color: $color-neutral-80;
+}
+
 .gray {
   color: $color-neutral-60;
 }
@@ -125,9 +129,6 @@
 
 .red {
   color: $color-state-error;
-}
-.inherit {
-  color: inherit;
 }
 
 .normalWeight {

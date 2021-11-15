@@ -15,8 +15,8 @@
 }
 
 .headerInner {
-  @include container;
   position: relative;
+  @include container;
 
   height: 90px;
   @include flexbox(center, flex-start);
@@ -77,6 +77,7 @@
   transition: 300ms;
   z-index: 99;
 }
+
 .mobileMenuOpen {
   transform: translateX(0);
 }

@@ -1,12 +1,12 @@
-import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import {FC} from 'react';
+import {Link} from 'react-router-dom';
 import {
   resourceForGettingStarted1,
   resourceForGettingStarted2,
   resourceForGettingStarted3,
 } from 'assets/img';
 import cx from 'classnames';
-import { H2, Text } from 'components';
+import {H2, Text} from 'components';
 
 import styles from './styles.module.scss';
 
@@ -29,17 +29,19 @@ const heplerObject = [
   },
 ];
 
-const ResourceForGettingStarted: FC<Props> = ({ className }) => (
+const ResourceForGettingStarted: FC<Props> = ({className}) => (
   <div className={cx(styles.resourceForGettingStarted, className)}>
     <div className={styles.title}>
       <H2 align="center">Resources for getting started</H2>
     </div>
     <div className={styles.box}>
-      {heplerObject.map(({ description, image }) => {
+      {heplerObject.map(({description, image}) => {
         return (
           <Link className={styles.resourcesBlock} to="https://google.com" key={description}>
-            <img className={styles.resourcesImage} src={image} alt={image} />
-            <Text className={styles.resourcesText}>{description}</Text>
+            <div className={styles.resourcesImageWrapper}>
+              <img className={styles.resourcesImage} src={image} alt={image}/>
+              <Text className={styles.resourcesText} weight="bold" size="m">{description}</Text>
+            </div>
           </Link>
         );
       })}

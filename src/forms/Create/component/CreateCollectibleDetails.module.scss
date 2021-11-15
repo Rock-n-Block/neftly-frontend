@@ -5,10 +5,6 @@
   @include forDesktopBig {
     flex-direction: column;
   }
-
-  input {
-    border-color: #6b6785 !important;
-  }
 }
 
 .column {
@@ -178,7 +174,7 @@
 
   &Title {
     @include flexbox(center, space-between);
-    font-family: 'Epilogue', sans-serif;
+    @include epilogue;
   }
 
   &Row {
@@ -234,6 +230,7 @@
 
     .priceInput {
       width: 100%;
+      margin-left: 5px;
     }
   }
 

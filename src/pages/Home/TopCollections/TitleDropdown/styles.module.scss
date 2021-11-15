@@ -1,4 +1,4 @@
-@import "src/styles/helpers";
+@import "../../../../styles/helpers";
 
 .titleDropdown {
   @include gradientText;
@@ -9,6 +9,7 @@
 .selected {
   @include flexbox(center, flex-start);
   cursor: pointer;
+  outline: none;
 
   &Img {
     margin-left: 12px;

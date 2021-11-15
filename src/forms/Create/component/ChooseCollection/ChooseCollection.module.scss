@@ -39,7 +39,7 @@
 
 .cardSubtitle {
   width: 100%;
-  font-family: 'Epilogue', sans-serif;
+  @include epilogue;
   padding-top: 12px;
   span {
     @include multiplyRowsEllipsis(3);
