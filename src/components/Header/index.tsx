@@ -12,8 +12,6 @@ import User from './User';
 import Wallet from './Wallet';
 
 import styles from './styles.module.scss';
-import {routes} from "appConstants";
-import {bell} from "assets/img";
 
 const Headers: FC = observer(() => {
   const {user} = useMst();
@@ -59,9 +57,6 @@ const Headers: FC = observer(() => {
           <HeaderLinks className={styles.headerLinks}/>
           {user.address ? (
             <div className={styles.profileInfo}>
-              <Button href={routes.activity.root} color="transparent">
-                <img src={bell} alt=""/>
-              </Button>
               <Wallet/>
               <User/>
             </div>
