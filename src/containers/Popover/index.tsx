@@ -1,5 +1,4 @@
 import {createContext, FC, useState} from "react";
-import OutsideClickHandler from "react-outside-click-handler";
 import PopoverButton, {IPopoverButton} from './PopoverButton';
 import PopoverBody, {IPopoverBody} from './PopoverBody';
 import styles from "./styles.module.scss";
@@ -24,14 +23,9 @@ interface IPopoverProps {
 const Popover: FC<IPopoverProps> & IPopover = ({className, children}) => {
   const [visible, setVisible] = useState(false);
 
-  const handleClickOutside = () => {
-    setVisible(false);
-  }
   return (
     <PopoverContext.Provider value={{visible, setVisible}}>
-      <OutsideClickHandler onOutsideClick={handleClickOutside}>
-        <div className={cn(styles.popoverContainer, className)}>{children}</div>
-      </OutsideClickHandler>
+      <div className={cn(styles.popoverContainer, className)}>{children}</div>
     </PopoverContext.Provider>
   )
 }
