@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ReactComponent as TradingEth } from 'assets/img/tradingEth.svg';
+import { TradingEthSVG } from 'assets/img';
 import cx from 'classnames';
 import { Text } from 'components';
 
@@ -15,7 +15,7 @@ type Props = {
 const TradingHistoryPrice: FC<Props> = ({ className, amount, asset }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
     <div className={styles.tradingIcon}>
-      <TradingEth />
+      <TradingEthSVG />
     </div>
     <Text style={{ textTransform: 'uppercase' }} size="m">
 

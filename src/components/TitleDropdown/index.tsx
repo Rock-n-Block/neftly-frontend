@@ -10,9 +10,10 @@ interface IProps {
   value: OptionType;
   setValue: (value: OptionType) => void;
   className?: string;
+  trianglePosition?: null | 'left' | 'right' | 'center';
 }
 
-const TitleDropdown: FC<IProps> = ({ options, value, setValue, className }) => {
+const TitleDropdown: FC<IProps> = ({ options, value, setValue, className, trianglePosition = null }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleClose = () => {
     setIsOpen(false);
@@ -27,7 +28,7 @@ const TitleDropdown: FC<IProps> = ({ options, value, setValue, className }) => {
         <div
           tabIndex={0}
           role="button"
-          onKeyDown={() => {}}
+          onKeyDown={() => { }}
           onClick={() => setIsOpen((prevState) => !prevState)}
           className={styles.selected}
         >
@@ -38,13 +39,14 @@ const TitleDropdown: FC<IProps> = ({ options, value, setValue, className }) => {
             className={cn(styles.selectedImg, { [styles.selectedImgOpen]: isOpen })}
           />
         </div>
-        <ul className={cn(styles.body, { [styles.activeDropdown]: isOpen })}>
+        {trianglePosition ? <div className={`${styles.triangle} ${styles[trianglePosition]}`} /> : null}
+        <ul className={cn(styles.body, { [styles.activeDropdown]: isOpen, [styles[trianglePosition || 'right']]: trianglePosition })}>
           {options.map((option) => (
             <li>
               <div
                 tabIndex={0}
                 role="button"
-                onKeyDown={() => {}}
+                onKeyDown={() => { }}
                 onClick={() => handleOptionClick(option)}
                 className={styles.option}
               >

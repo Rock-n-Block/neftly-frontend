@@ -10,10 +10,10 @@ import ViewsAndControlsComponent from 'pages/Home/HotAuction/components/ViewsAnd
 import { INft, TNullable } from 'typings';
 import { useMst } from 'store';
 import { useGetUserAccessForNft } from 'hooks';
-import { ReactComponent as Zoom } from 'assets/img/NFTPreview/Zoom.svg';
+import { Zoom } from 'assets/img';
 
 import styles from './styles.module.scss';
-import { useNoScroll } from 'hooks/useNoScroll';
+import useNoScroll from 'hooks/useNoScroll';
 
 type Props = {
   className?: string;
@@ -24,7 +24,7 @@ type Props = {
 
 const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
   const [showPreview, setShowPreview] = useState<boolean>(false);
-  const [setScroll] = useNoScroll();
+  const setScroll = useNoScroll();
 
   const { user } = useMst();
   const {

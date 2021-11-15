@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
-import { H2, TitleDropdown } from 'components';
+import { Button, H2, TitleDropdown } from 'components';
 import { activityApi } from 'services';
 import UserCard from './UserCard';
 
@@ -37,25 +37,34 @@ const TopUsers: FC<Props> = ({ className }) => {
   useEffect(() => {
     fetchTopUsers();
   }, [fetchTopUsers]);
+
+  console.log(users)
+
   return (
     <div className={cx(styles.topUsers, className)}>
       <H2 className={styles.title} align="center">
-        Top users over
-        <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions} />
+        Top collections over
+        <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions} trianglePosition='center'/>
       </H2>
-      <ol className={styles.usersWrapper}>
-        {users.map((user, index) => (
-          <UserCard
-            key={`user-${user.name}`}
-            avatar={user.avatar}
-            isVerified={user.is_verified}
-            id={user.id}
-            index={index + 1}
-            name={user.name}
-            price={user.price}
-          />
-        ))}
-      </ol>
+      {users.length !== 0 ?
+        <ol className={styles.usersWrapper}>
+          {users.map((user, index) => (
+            <>
+              <UserCard
+                key={`user-${user.name}`}
+                avatar={user.avatar}
+                isVerified={user.is_verified}
+                id={user.id}
+                index={index + 1}
+                name={user.name}
+                price={user.price}
+                profitIncrease={1234.5}
+              />
+            </>
+          ))}
+        </ol>
+        : null}
+      <Button className={styles.srcToRanking}>Go to Rankings</Button>
     </div>
   );
 };

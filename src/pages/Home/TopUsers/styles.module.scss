@@ -19,11 +19,16 @@
 }
 
 
-.userssWrapper {
+.usersWrapper {
   display: grid;
-  grid-template-columns:repeat(auto-fit, 240px);
+  grid-template-columns:repeat(auto-fit, 33.3%);
   grid-template-rows: repeat(5, 1fr);
   grid-column-gap: 30px;
   grid-row-gap: 16px;
   grid-auto-flow: column;
+}
+
+.srcToRanking{
+  margin: 0 auto;
+  padding: 0 32px;
 }

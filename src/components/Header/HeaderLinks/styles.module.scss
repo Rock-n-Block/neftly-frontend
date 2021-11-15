@@ -1,5 +1,5 @@
-@import "../../../styles/helpers";
-@import '/src/styles/mixins/media.scss';
+@import "src/styles/helpers";
+@import 'src/styles/mixins/media.scss';
 
 .headerNavigation {
   @include flexbox;

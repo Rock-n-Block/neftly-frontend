@@ -1,4 +1,5 @@
-@import '../../styles/helpers';
+@import "src/styles/helpers";
+@import "src/styles/mixins/media.scss";
 
 .header {
   border-bottom: 1px solid $color-neutral-20;
@@ -48,8 +49,8 @@
   padding: 10px;
 }
 
-.walletWrapper{
-  &:hover{
+.walletWrapper {
+  &:hover {
     filter: brightness(100%);
   }
 }
@@ -92,6 +93,10 @@
   height: 100vh;
   justify-content: flex-start;
   @include box-shadow;
+
+  @include b(541) {
+    width: 100%;
+  }
 }
 .mobileMenuOpen {
   transform: translateX(0);
@@ -104,10 +109,10 @@
   .searchDesktop,
   .headerLinks,
   .headerSearch {
-    display: none !important;
+    display: none;
   }
 
-  .profileInfo{
+  .profileInfo {
     margin-left: auto;
   }
 

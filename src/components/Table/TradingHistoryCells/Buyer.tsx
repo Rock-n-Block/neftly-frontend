@@ -5,7 +5,7 @@ import { EllipsisText, Text } from 'components';
 import styles from './styles.module.scss';
 import moment from 'moment';
 
-type Props = {
+interface IProps{
   className?: string;
   name: string;
   avatar: string;
@@ -13,7 +13,7 @@ type Props = {
   type?: 'sell' | 'auction';
 };
 
-const TradingHistoryBuyer: FC<Props> = ({ className, name, avatar, date, type = 'sell' }) => (
+const TradingHistoryBuyer: FC<IProps> = ({ className, name, avatar, date, type = 'sell' }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
     <img className={styles.buyerAvatar} src={avatar} alt="" />
     <div className={styles.buyerData}>

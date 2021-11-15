@@ -12,14 +12,14 @@ import User from './User';
 import Wallet from './Wallet';
 
 import styles from './styles.module.scss';
-import { useNoScroll } from 'hooks/useNoScroll';
+import useNoScroll from 'hooks/useNoScroll';
 
 const Headers: FC = observer(() => {
   const { user } = useMst();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConnectOpen, setConnectOpen] = useState(false);
-  const [setScroll] = useNoScroll();
+  const setScroll = useNoScroll();
   const toggleMenu = useCallback(() => {
     setScroll(!isMenuOpen)
     setIsMenuOpen(!isMenuOpen)

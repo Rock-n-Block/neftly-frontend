@@ -14,7 +14,7 @@ import RSelect, {
 //import { arrowLeft } from 'assets/img';
 import cx from 'classnames';
 import { OptionType, SelectColor, SelectProps, SelectSize } from 'typings';
-import arrow from 'assets/img/NFTPreview/Arrow_down.svg';
+import { Arrow } from 'assets/img';
 
 import { Text } from '..';
 
@@ -176,7 +176,7 @@ const Select: FC<Props> = ({
   const DropdownIndicator = useCallback(
     (props: any) => (
       <img
-        src={arrow}
+        src={Arrow}
         alt=""
         className={cx(
           disabled && styles.disabled,

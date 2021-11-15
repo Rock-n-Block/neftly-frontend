@@ -34,8 +34,8 @@ const Tooltip: FC<IGraphTooltip> = ({ top, left, date, value, prevValue, currenc
   return (
     <div
       style={{
-        top: `${calculateTooltipCords(Number(top), tooltipRef.current?.offsetHeight, 'Height')}px`,
-        left: `${calculateTooltipCords(Number(left), tooltipRef.current?.offsetWidth)}px`,
+        top: `${calculateTooltipCords(+top, tooltipRef.current?.offsetHeight, 'Height')}px`,
+        left: `${calculateTooltipCords(+left, tooltipRef.current?.offsetWidth)}px`,
       }}
       className={styles.tooltip}
       ref={tooltipRef}

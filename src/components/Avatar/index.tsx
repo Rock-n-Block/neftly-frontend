@@ -1,9 +1,8 @@
 import { routes } from "appConstants";
 import styles from "./styles.module.scss";
-import { iconVerifiedMark } from "assets/img";
+import { iconVerifiedMark, NullAvatar } from "assets/img";
 import { Link } from "react-router-dom";
 import { FC } from "react";
-import { ReactComponent as NullAvatar } from 'assets/img/ProfilePage/Profile.svg';
 import cn from "classnames";
 
 interface IProps {

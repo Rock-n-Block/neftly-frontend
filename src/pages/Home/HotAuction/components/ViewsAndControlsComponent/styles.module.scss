@@ -1,4 +1,4 @@
-@import "../../../../../styles/helpers";
+@import "/src/styles/helpers.scss";
 
 .viewsAndControls {
   width: 100%;
@@ -20,7 +20,7 @@
   }
 }
 
-.optionBtn{
+.optionBtn {
   position: relative;
 }
 
@@ -70,11 +70,11 @@
       border-top: 1px solid $color-neutral-80;
     }
     &:hover {
-      &.blue{
-        background: #33a7fa86;
+      &.blue {
+        background: rgba($color-primary, 0.4);
       }
-      &.red{
-        background: #eb5a7e8f;
+      &.red {
+        background: rgba($color-state-error, 0.4);
       }
     }
   }
