@@ -9,11 +9,10 @@ import PaymentComponent from 'pages/Home/HotAuction/components/PaymentComponent'
 import ViewsAndControlsComponent from 'pages/Home/HotAuction/components/ViewsAndControlsComponent';
 import { INft, TNullable } from 'typings';
 import { useMst } from 'store';
-import { useGetUserAccessForNft } from 'hooks';
+import { useGetUserAccessForNft, useNoScroll } from 'hooks';
 import { Zoom } from 'assets/img';
 
 import styles from './styles.module.scss';
-import useNoScroll from 'hooks/useNoScroll';
 
 type Props = {
   className?: string;

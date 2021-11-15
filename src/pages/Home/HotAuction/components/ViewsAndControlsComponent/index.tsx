@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useRef, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { observer } from 'mobx-react-lite';
 // import { toast } from 'react-toastify';
@@ -25,7 +25,7 @@ import { useLike } from 'hooks';
 import { numberFormatter } from 'utils';
 import { routes } from 'appConstants';
 import OptionMenu, { positionOptions } from 'components/OptionMenu';
-import useClickOutside from 'hooks/useClickOutside';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 const viewsCount = 10;
 
@@ -65,11 +65,6 @@ const ViewsAndControlsComponent: FC<Props> = ({
 
 
   const [isTooltipVisible, setTooltipVisible] = useState(false);
-
-  const btnRef = useRef<HTMLButtonElement>(null);
-  const menuRef = useRef(null);
-
-  useClickOutside(menuRef, () => setTooltipVisible(false), btnRef);
 
   const handleActionEvent = useCallback((event: () => void) => {
     setTooltipVisible(false);
@@ -191,31 +186,35 @@ const ViewsAndControlsComponent: FC<Props> = ({
           </Copyable>
 
           <div className={styles.optionBtn}>
-            <Button btnRef={btnRef} className={styles.button} color="outline" onClick={() => setTooltipVisible(!isTooltipVisible)}>
-              <Options />
-            </Button>
-            <OptionMenu wrapRef={menuRef} active={isTooltipVisible} position={tooltipPlacement}>
-              <div className={styles.actions}>
-                {actions.map((action) => {
-                  if (action.isVisible) {
-                    return (
-                      <div
-                        key={action.name}
-                        className={`${styles.actionsItem} ${styles[action.class]}`}
-                        onClick={action.event}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={() => { }}
-                      >
-                        <img src={action.img} alt="" />
-                        <span>{action.name}</span>
-                      </div>
-                    );
-                  }
-                  return null;
-                })}
-              </div>
-            </OptionMenu>
+            <OutsideClickHandler onOutsideClick={() => setTooltipVisible(false)}>
+
+              <Button className={styles.button} color="outline" onClick={() => setTooltipVisible(!isTooltipVisible)}>
+                <Options />
+              </Button>
+              <OptionMenu active={isTooltipVisible} position={tooltipPlacement}>
+                <div className={styles.actions}>
+                  {actions.map((action) => {
+                    if (action.isVisible) {
+                      return (
+                        <div
+                          key={action.name}
+                          className={`${styles.actionsItem} ${styles[action.class]}`}
+                          onClick={action.event}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={() => { }}
+                        >
+                          <img src={action.img} alt="" />
+                          <span>{action.name}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              </OptionMenu>
+
+            </OutsideClickHandler>
           </div>
 
         </div>

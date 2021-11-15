@@ -268,8 +268,8 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
           </div>
           <div className={styles.column}>
             <div className={styles.item}>
-              <div className={styles.fieldset}>
-                <H6>Sell method</H6>
+              <div className={cn(styles.fieldset, styles.fieldset_first)}>
+                <H6 className={styles.fieldsetTitle}>Sell method</H6>
                 <Field
                   name="sellMethod"
                   render={() => (
@@ -286,7 +286,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 />
               </div>
               <div className={styles.fieldset}>
-                <H6>Artwork Details</H6>
+                <H6 className={styles.fieldsetTitle}>Artwork Details</H6>
                 <Field
                   render={() => (
                     <TextInput
@@ -374,14 +374,14 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           );
                         }}
                       />
-                      {touched.price && errors.price && <Text color="red">{errors.price}</Text>}
                     </div>
+                    {touched.price && errors.price && <Text color="red">{errors.price}</Text>}
                     <div className={styles.postfix}>
                       {/* change dynamically */}
-                      <Text color="gray">
+                      <Text color="middleGray">
                         Minimum price 0.0001 {values.currency?.toUpperCase()}
                       </Text>
-                      <Text color="gray">
+                      <Text color="middleGray">
                         USD {stringRatesValue} PER/
                         {values.currency?.toUpperCase()}
                       </Text>

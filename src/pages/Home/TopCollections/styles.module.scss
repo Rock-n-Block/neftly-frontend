@@ -3,12 +3,17 @@
 .topCollections {
   @include container;
   margin-top: 88px;
+}
 
+.collections{
+  height: auto;
+  max-height: 0;
+  transition: $transition;
+  overflow: hidden;
+  margin-top: 20px;
 
-  & > * {
-    &:not(:last-child) {
-      margin-bottom: 30px;
-    }
+  &.open{
+      max-height: 1000px;
   }
 }
 
@@ -16,6 +21,11 @@
   @include flexbox;
   gap: 16px;
   flex-wrap: wrap;
+}
+
+.goRankingBtn{
+  margin: 20px auto 0;
+  padding: 0 32px;
 }
 
 

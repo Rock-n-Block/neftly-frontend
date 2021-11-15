@@ -130,6 +130,14 @@ $defaultFlexBoxJustify: center;
   align-items: $align;
 }
 
+@mixin multiplyRowsEllipsis($rows: 3) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $rows;
+  -webkit-box-orient: vertical;
+}
+
 @mixin inlineFlexbox($align: $defaultFlexBoxAlign, $justify: $defaultFlexBoxJustify) {
   display: inline-flex;
   justify-content: $justify;
@@ -258,7 +266,7 @@ $defaultFlexBoxJustify: center;
     padding: 0 32px;
   }
   @include forDesktopBig {
-    padding: 0 48px;
+    padding: 0 32px;
   }
 }
 // example

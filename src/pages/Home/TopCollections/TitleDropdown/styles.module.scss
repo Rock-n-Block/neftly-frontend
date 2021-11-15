@@ -31,45 +31,38 @@
   height: 0px;
   border: 16px solid transparent;
   border-bottom: 16px solid $color-neutral-0;
-  top: -24px;
-  .right {
-    right: 0;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.selectionWrapper {
+  position: absolute;
+  z-index: 999;
+  top: 60px;
+  background: $color-bg;
+  border-radius: 2px;
+  right: -28%;
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
+  color: $color-neutral-80;
+  @include box-shadow($y: 16px);
+}
+
+@include forDesktopBig{
+  .selectionWrapper{
+    right: -10px;
   }
-  .left {
-    left: 0;
-  }
-  .center{
-    left: 50%;
-    transform: translateX(-50%);
+
+  .triangle{
+    left: 87%;
   }
 }
 
 .body {
-  position: absolute;
-  z-index: 999;
-  max-height: 0;
-  max-width: 100%;
-  overflow: hidden;
-  top: 48px;
-  background: $color-neutral-80;
-  border-radius: 2px;
-  right: 0;
-  box-shadow: $color-box-shadow;
-
-  &.right{
-    right: 0;
-  }
-
-  &.left{
-    right: -20px;
-  }
-
-  &.center{
-    right: -32%;
-  }
-
-  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), padding 0.4s ease-in-out,
-    max-width 0.5s cubic-bezier(0, 1, 0, 1);
+  padding: 20px;
   li:first-child {
     padding-bottom: 12px;
   }
@@ -84,24 +77,22 @@
 }
 
 .activeDropdown {
-  max-height: 1000px;
-  max-width: 1000px;
-
-  padding: 24px;
-
-  transition: max-height 1s ease-in-out, max-width 1s ease-in-out;
+  transition: $transition;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: all;
 }
 
 .option {
   width: 208px;
   cursor: pointer;
   white-space: nowrap;
-  color: $color-neutral-10;
+  color: $color-neutral-80;
   @include epilogue;
   font-weight: 500;
   font-size: 16px;
   line-height: 160%;
-  -webkit-text-fill-color: $color-neutral-10;
+  -webkit-text-fill-color: $color-neutral-80;
   text-align: left;
   &:hover {
     -webkit-text-fill-color: $color-action-hovered;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-type Tfunc = (state?: boolean) => (...args: any) => void;
+type Tfunc = (state?: boolean) => (state: boolean) => void;
 
 const useNoScroll: Tfunc = (state = false) => {
     const [scroll, setScroll] = useState<boolean>(state);

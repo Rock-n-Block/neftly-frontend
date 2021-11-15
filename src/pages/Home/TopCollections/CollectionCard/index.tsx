@@ -10,7 +10,7 @@ interface IProps {
   name: string;
   price: string;
   isVerified?: boolean;
-  profitIncrease?: number;
+  profitIncrease?: string | number;
 }
 
 const CollectionCard: FC<IProps> = ({ index, avatar, id, name, price, isVerified = false, profitIncrease }) => {
@@ -39,11 +39,11 @@ const CollectionCard: FC<IProps> = ({ index, avatar, id, name, price, isVerified
           {price}
         </Text>
       </div>
-      {profitIncrease ?
+      {profitIncrease &&
         <div className={styles.profitIncreaseWrapper}>
           <Text className={styles.profitIncreaseValue} size='m'>{profitIncrease}%</Text>
         </div>
-        : null}
+      }
     </li>
   );
 };

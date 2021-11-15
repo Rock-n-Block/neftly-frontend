@@ -39,15 +39,13 @@ const TopUsers: FC<Props> = ({ className }) => {
     fetchTopUsers();
   }, [fetchTopUsers]);
 
-  console.log(users)
-
   return (
     <div className={cx(styles.topUsers, className)}>
       <H2 className={styles.title} align="center">
-        Top collections over
-        <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions} trianglePosition='center'/>
+        Top users over
+        <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions} />
       </H2>
-      {users.length !== 0 ?
+      <div className={`${styles.collections} ${users.length !== 0 && styles.open}`}>
         <ol className={styles.usersWrapper}>
           {users.map((user, index) => (
             <>
@@ -64,7 +62,7 @@ const TopUsers: FC<Props> = ({ className }) => {
             </>
           ))}
         </ol>
-        : null}
+      </div>
       <Button className={styles.srcToRanking}>Go to Rankings</Button>
     </div>
   );

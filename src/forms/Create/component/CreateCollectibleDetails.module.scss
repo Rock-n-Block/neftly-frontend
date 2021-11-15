@@ -1,13 +1,9 @@
-@import '../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .form {
   @include flexbox(flex-start, space-between);
   @include forDesktopBig {
     flex-direction: column;
-  }
-
-  input {
-    border-color: #6b6785 !important;
   }
 }
 
@@ -46,14 +42,15 @@
   .previewImg {
     position: relative;
     width: 100%;
-    max-width: 616px;
     height: 400px;
     overflow: hidden;
+
+    margin-bottom: 32px;
 
     display: flex;
     justify-content: center;
 
-    & img{
+    & img {
       max-width: 100%;
       object-fit: contain;
     }
@@ -107,7 +104,6 @@
   align-items: center;
 
   width: 100%;
-  max-width: 616px;
   height: 400px;
 
   background: $color-neutral-10;
@@ -122,14 +118,22 @@
     height: 232px;
   }
 
+  margin-bottom: 32px;
+
   .capture {
     pointer-events: none;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    width: 100%;
+    padding: 0 15px;
     @include flexbox;
     flex-direction: column;
+    p {
+      text-align: center;
+    }
   }
 }
 
@@ -164,8 +168,13 @@
 .fieldset {
   margin-top: 32px;
 
+  &_first {
+    margin-top: 0;
+  }
+
   &Title {
     @include flexbox(center, space-between);
+    @include epilogue;
   }
 
   &Row {
@@ -221,7 +230,7 @@
 
     .priceInput {
       width: 100%;
-      min-width: 219px;
+      margin-left: 5px;
     }
   }
 

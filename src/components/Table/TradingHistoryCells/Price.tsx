@@ -18,8 +18,7 @@ const TradingHistoryPrice: FC<Props> = ({ className, amount, asset }) => (
       <TradingEthSVG />
     </div>
     <Text style={{ textTransform: 'uppercase' }} size="m">
-
-      {`${amount == null ? "???" : toFixed(amount)} ${asset == null ? 'ETH' : asset}`}
+      {`${amount === null ? "???" : toFixed(amount, 5)} ${asset == null ? 'ETH' : asset}`}
     </Text>
   </div>
 );

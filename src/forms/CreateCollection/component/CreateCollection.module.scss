@@ -1,4 +1,4 @@
-@import '../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .title {
   @include monument-extended;
@@ -14,6 +14,9 @@
 
 .upload {
   @include flexbox(center, space-between);
+  @include forTablet {
+    flex-direction: column;
+  }
 
   img {
     width: 128px;
@@ -40,6 +43,10 @@
 
   @include flexbox(center, space-between);
   flex-direction: column;
+
+  @include forTablet {
+    margin-left: 0;
+  }
 
   .file {
     margin-top: 32px;
