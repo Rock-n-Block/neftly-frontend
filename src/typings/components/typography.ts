@@ -5,6 +5,7 @@ enum Values {
   darkenGray,
   gray,
   lightGray,
+  middleGray,
   secondary,
   primary,
 }

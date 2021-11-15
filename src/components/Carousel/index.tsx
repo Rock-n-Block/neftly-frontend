@@ -88,7 +88,10 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
     responsive,
   };
   return (
-    <Slider className={cx(classNameProp, 'discover-slider')} {...sliderConfig}>
+    <Slider
+      className={cx(classNameProp, 'discover-slider', { 'hide-arrows': hideArrows })}
+      {...sliderConfig}
+    >
       {React.Children.map(children, (child, index) => (
         <div onClickCapture={handleOnItemClick} key={index}>
           {child}
