@@ -5,7 +5,7 @@ import cn from 'classnames';
 import {Button, H4, Text, TextInput, ToastContentWithTxHash} from 'components/index';
 import {useUserBalance} from 'hooks';
 import {observer} from 'mobx-react';
-import {  useWalletConnectorContext, WalletConnect} from 'services';
+import {useWalletConnectorContext, WalletConnect} from 'services';
 import {useMst} from 'store';
 
 import styles from './Swap.module.scss';
@@ -16,12 +16,12 @@ import styles from './Swap.module.scss';
   refresh: boolean;
   setRefresh: (value: boolean) => void;
 }*/
-type TWrapped='BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX';
+type TWrapped = 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX';
 
 const Swap: React.FC = observer(
   () => {
     const walletConnector = useWalletConnectorContext();
-    const {user, modals:{swap}} = useMst();
+    const {user, modals: {swap}} = useMst();
     const balanceMain = useUserBalance(user.address, swap.main, swap.refresh);
     const balanceWrap = useUserBalance(user.address, swap.wrap, swap.refresh);
     const [swappingCurrency, setSwappingCurrency] = useState<Array<'main' | 'wrap'>>([
@@ -52,6 +52,7 @@ const Swap: React.FC = observer(
           .createTransaction('deposit', [], swap.wrap as TWrapped, '', '', '', weiValue)
           .then(async (data: any) => {
             // setRefresh(true);
+            swap.setRefresh(true);
             close();
             toast.info(<ToastContentWithTxHash txHash={data.transactionHash}/>);
           })
@@ -60,13 +61,15 @@ const Swap: React.FC = observer(
           })
           .finally(() => {
             // setRefresh(false);
+            swap.setRefresh(false);
             setLoading(false);
           });
       } else {
         walletConnector.walletService
-          .createTransaction('withdraw', [weiValue],swap.wrap as TWrapped)
+          .createTransaction('withdraw', [weiValue], swap.wrap as TWrapped)
           .then(async (data: any) => {
             // setRefresh(true);
+            swap.setRefresh(true);
             close();
             toast.info(<ToastContentWithTxHash txHash={data.transactionHash}/>);
           })
@@ -75,10 +78,11 @@ const Swap: React.FC = observer(
           })
           .finally(() => {
             // setRefresh(false);
+            swap.setRefresh(false);
             setLoading(false);
           });
       }
-    }, [close, payInput, swappingCurrency, walletConnector.walletService, swap.wrap]);
+    }, [payInput, swappingCurrency, walletConnector.walletService, swap, close]);
     const handlePayInput = useCallback((value: string) => {
       setPayInput(value);
     }, []);
