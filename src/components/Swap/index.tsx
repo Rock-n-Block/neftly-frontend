@@ -1,30 +1,29 @@
-import React, { useCallback, useState } from 'react';
-import { toast } from 'react-toastify';
-import { iconSwap } from 'assets/img';
+import React, {useCallback, useState} from 'react';
+import {toast} from 'react-toastify';
+import {iconSwap} from 'assets/img';
 import cn from 'classnames';
-import { Button, H4, Text, TextInput, ToastContentWithTxHash } from 'components';
-import { useUserBalance } from 'hooks';
-import { observer } from 'mobx-react';
-import { useWalletConnectorContext, WalletConnect } from 'services';
-import { useMst } from 'store';
+import {Button, H4, Text, TextInput, ToastContentWithTxHash} from 'components/index';
+import {useUserBalance} from 'hooks';
+import {observer} from 'mobx-react';
+import {  useWalletConnectorContext, WalletConnect} from 'services';
+import {useMst} from 'store';
 
 import styles from './Swap.module.scss';
 
-interface ISwapProps {
-  className?: string;
-  close: () => void;
+/*interface ISwapProps {
   main: string;
   wrap: 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX';
   refresh: boolean;
   setRefresh: (value: boolean) => void;
-}
+}*/
+type TWrapped='BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX';
 
-const Swap: React.FC<ISwapProps> = observer(
-  ({ className, close, main, wrap, refresh, setRefresh }) => {
+const Swap: React.FC = observer(
+  () => {
     const walletConnector = useWalletConnectorContext();
-    const { user } = useMst();
-    const balanceMain = useUserBalance(user.address, main, refresh);
-    const balanceWrap = useUserBalance(user.address, wrap, refresh);
+    const {user, modals:{swap}} = useMst();
+    const balanceMain = useUserBalance(user.address, swap.main, swap.refresh);
+    const balanceWrap = useUserBalance(user.address, swap.wrap, swap.refresh);
     const [swappingCurrency, setSwappingCurrency] = useState<Array<'main' | 'wrap'>>([
       'main',
       'wrap',
@@ -39,42 +38,47 @@ const Swap: React.FC<ISwapProps> = observer(
       }
       setPayInput('');
     }, [swappingCurrency]);
+
+    const close = useCallback(() => {
+      swap.close();
+    }, [swap])
+
     const handleSubmitConvert = useCallback(() => {
       const weiValue = WalletConnect.calcTransactionAmount(payInput, 18);
       setLoading(true);
 
       if (swappingCurrency[0] === 'main') {
         walletConnector.walletService
-          .createTransaction('deposit', [], wrap, '', '', '', weiValue)
+          .createTransaction('deposit', [], swap.wrap as TWrapped, '', '', '', weiValue)
           .then(async (data: any) => {
-            setRefresh(true);
+            // setRefresh(true);
             close();
-            toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
+            toast.info(<ToastContentWithTxHash txHash={data.transactionHash}/>);
           })
           .catch((err: any) => {
             console.error('error', err);
           })
           .finally(() => {
-            setRefresh(false);
+            // setRefresh(false);
             setLoading(false);
           });
       } else {
         walletConnector.walletService
-          .createTransaction('withdraw', [weiValue], wrap)
+          .createTransaction('withdraw', [weiValue],swap.wrap as TWrapped)
           .then(async (data: any) => {
-            setRefresh(true);
+            // setRefresh(true);
             close();
-            toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
+            toast.info(<ToastContentWithTxHash txHash={data.transactionHash}/>);
           })
           .catch((err: any) => {
             console.error('error', err);
           })
           .finally(() => {
-            setRefresh(false);
+            // setRefresh(false);
             setLoading(false);
           });
       }
-    }, [close, payInput, swappingCurrency, walletConnector.walletService, wrap, setRefresh]);
+    }, [close, payInput, swappingCurrency, walletConnector.walletService, swap.wrap]);
     const handlePayInput = useCallback((value: string) => {
       setPayInput(value);
     }, []);
@@ -86,7 +90,7 @@ const Swap: React.FC<ISwapProps> = observer(
       return user.balance?.weth;
     }, [user.balance, swappingCurrency]);
     return (
-      <div className={cn(className, styles.swap)}>
+      <div className={styles.swap}>
         <H4 className={styles.title}>Convert</H4>
         <div className={styles.wrapper}>
           <div className={styles.header}>
@@ -106,7 +110,7 @@ const Swap: React.FC<ISwapProps> = observer(
             value={payInput}
             positiveOnly
             onChange={(e) => handlePayInput(e.target.value)}
-            prefix={swappingCurrency[0] === 'main' ? main : wrap}
+            prefix={swappingCurrency[0] === 'main' ? swap.main : swap.wrap}
             prefixClassName={styles.prefix}
           />
         </div>
@@ -114,11 +118,12 @@ const Swap: React.FC<ISwapProps> = observer(
           <div
             className={styles.icon}
             onClick={handleConvert}
-            onKeyDown={() => {}}
+            onKeyDown={() => {
+            }}
             tabIndex={0}
             role="button"
           >
-            <img src={iconSwap} alt="Swap" />
+            <img src={iconSwap} alt="Swap"/>
           </div>
         </div>
         <div className={styles.wrapper}>
@@ -136,7 +141,7 @@ const Swap: React.FC<ISwapProps> = observer(
             value={payInput}
             positiveOnly
             onChange={(e) => handlePayInput(e.target.value)}
-            prefix={swappingCurrency[1] === 'main' ? main : wrap}
+            prefix={swappingCurrency[1] === 'main' ? swap.main : swap.wrap}
             prefixClassName={styles.prefix}
           />
         </div>
