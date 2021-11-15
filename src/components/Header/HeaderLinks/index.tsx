@@ -1,23 +1,25 @@
-import { FC, useEffect, useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { routes } from 'appConstants';
+import {FC, useMemo} from 'react';
+import {useLocation} from 'react-router-dom';
+import {routes} from 'appConstants';
 import cx from 'classnames';
-import { Button, Text } from 'components';
-import { debounce } from 'lodash';
-import { useMst } from 'store';
-import { TNullable } from 'typings';
+import {Button, Text} from 'components';
+// import { debounce } from 'lodash';
+import {useMst} from 'store';
+// import { TNullable } from 'typings';
 
 import styles from './styles.module.scss';
+import {Popover} from "containers";
+import {observer} from "mobx-react-lite";
 
 type Props = {
   toggleMenu?: () => void;
   className?: string;
 };
 
-const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
+const HeaderLinks: FC<Props> = observer(({className, toggleMenu}) => {
   const {
     user,
-    nftTags: { tags },
+    nftTags,
   } = useMst();
 
   const location = useLocation();
@@ -26,83 +28,64 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
     () => [
       {
         title: 'Explore',
-        disabled: location.pathname.includes(routes.discover.root),
+        active: location.pathname.includes(routes.discover.root),
+        disabled: false,
         isNested: true,
-        internalLinks: tags,
+        internalLinks: nftTags.getTags,
       },
       {
         url: routes.activity.root,
+        active: location.pathname.includes(routes.activity.root),
         title: 'Activity',
         isNested: false,
         disabled: !user.address,
       },
       {
         url: routes.create.root,
+        active: location.pathname.includes(routes.create.root),
         title: 'Create',
         isNested: false,
         disabled: !user.address,
       },
     ],
-    [location.pathname, tags, user.address],
+    [location.pathname, nftTags.getTags, user.address],
   );
 
-  const [openedMenuIndex, setOpenedMenuIndex] = useState<TNullable<number>>(null);
-
-  const handleMouseOver = debounce((index) => setOpenedMenuIndex(index), 150);
-  const handleMouseLeave = () => setOpenedMenuIndex(null);
-
-  useEffect(() => {
-    setOpenedMenuIndex(null);
-  }, [location.pathname]);
 
   return (
     <div className={cx(styles.headerNavigation, className)}>
-      {nav.map(({ url, title, disabled, isNested, internalLinks }, index) => {
+      {nav.map(({url, title, active, disabled, isNested, internalLinks}) => {
         if (isNested && !disabled) {
           return (
-            <Button
-              key={title}
-              onMouseOver={() => handleMouseOver(index)}
-              onMouseLeave={handleMouseLeave}
-              onClick={toggleMenu}
-              className={styles.internalLinkWrapperBtn}
-              color="transparent"
-            >
-              <Text>{title}</Text>
-              <div
-                className={cx(styles.internalLinksWrapper, {
-                  [styles.isOpen]: openedMenuIndex === index,
-                })}
-              >
+            <Popover>
+              <Popover.Button>
+                <Text weight="medium" size="m" color={active ? 'primary' : 'black'}>{title}</Text>
+              </Popover.Button>
+              <Popover.Body>
                 {internalLinks?.map((tag) => {
                   return (
-                    <Link
-                      className={styles.dropdownLink}
-                      to={routes.discover.filter(tag.title)}
-                      key={tag.title}
-                    >
-                      <img className={styles.dropdownLinkIcon} src={tag.icon} alt="tag" />
-                      <Text color="black">{tag.title}</Text>
-                    </Link>
+                    <Button
+                      className={styles.dropdownLink} href={routes.discover.filter(tag.title)}
+                      key={tag.title} color="transparent" icon={tag.icon}>
+                      <Text color="black" size="m" weight="medium">{tag.title}</Text>
+                    </Button>
                   );
                 })}
-              </div>
-            </Button>
+              </Popover.Body>
+            </Popover>
           );
         }
-        if (url) {
+        if (url && !disabled) {
           return (
-            <Link to={url} key={title}>
-              <Button color="transparent" onClick={toggleMenu}>
-                <Text>{title}</Text>
-              </Button>
-            </Link>
+            <Button key={title} href={url} color="transparent" onClick={toggleMenu}>
+              <Text weight="medium" size="m" color={active ? 'primary' : 'black'}>{title}</Text>
+            </Button>
           );
         }
         return null;
       })}
     </div>
   );
-};
+});
 
 export default HeaderLinks;

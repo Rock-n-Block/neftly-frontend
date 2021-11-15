@@ -41,22 +41,14 @@
 }
 
 .headerConnectBtn {
-  position: absolute;
-  top: 30%;
-  right: 5%;
-  padding: 10px;
+  margin-left: auto;
 }
 
 .profileInfo {
   margin-left: auto;
 
-  display: flex;
-
-  & > * {
-    &:not(:last-child) {
-      margin-right: 30px;
-    }
-  }
+  @include flexbox;
+  gap: 30px;
 }
 
 .mobileMenu {
@@ -86,7 +78,4 @@
     padding: 20px 20px 20px 40px;
   }
 
-  .headerConnectBtn {
-    width: 120px;
-  }
 }

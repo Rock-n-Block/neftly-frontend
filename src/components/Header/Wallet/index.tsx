@@ -112,55 +112,6 @@ const Wallet: FC<IUserProps> = observer(({className}) => {
         <WalletBody/>
       </Popover.Body>
     </Popover>
-    /* <OutsideClickHandler onOutsideClick={() => handleVisible(false)}>
-       <div className={cn(styles.user, className)}>
-         <div tabIndex={0} onKeyDown={() => {}} role="button" onClick={handleVisible}>
-           <img src={wallet} alt="Avatar" />
-         </div>
-         {visible && (
-           <div className={styles.body}>
-             <div className={styles.triangle} />
-             <div className={styles.walletLogo}>
-               <img src={imageSrc} alt="Wallet Logo" />
-               <Text className={styles.provider} size="m">
-                 {localStorage.nftcrowd_nft_providerName}
-               </Text>
-             </div>
-             <Text size="s" className={styles.balanceTitle}>
-               Your balance
-             </Text>
-             <div className={styles.balance}>
-               <H6 className={styles.title}>
-                 <EllipsisText>
-                   <Text tag="span">{toFixed(balanceMain, 5)} </Text>
-                 </EllipsisText>
-                 <Text tag="span">{MAIN}</Text>
-               </H6>
-             </div>
-             <div className={styles.balance}>
-               <H6 className={styles.title}>
-                 <EllipsisText>
-                   <Text tag="span">{toFixed(balanceWrap, 5)} </Text>
-                 </EllipsisText>
-                 <Text tag="span">{WRAP}</Text>
-               </H6>
-             </div>
-             <Button className={styles.button} color="outline" onClick={handleOpenModal}>
-               Convert
-             </Button>
-           </div>
-         )}
-         <Modal visible={visibleModal} onClose={() => handleVisibleModal(false)}>
-           <Swap
-             close={() => handleVisibleModal(false)}
-             main={MAIN}
-             wrap={WRAP}
-             refresh={refresh}
-             setRefresh={setRefresh}
-           />
-         </Modal>
-       </div>
-     </OutsideClickHandler>*/
   );
 });
 
