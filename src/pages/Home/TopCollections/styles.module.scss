@@ -1,8 +1,8 @@
 @import 'src/styles/helpers';
 
-.topUsers {
+.topCollections {
   @include container;
-  padding-top: 88px;
+  margin-top: 88px;
 
 
   & > * {
@@ -19,7 +19,7 @@
 }
 
 
-.usersWrapper {
+.collectionsWrapper {
   display: grid;
   grid-template-columns:repeat(auto-fit, 33.3%);
   grid-template-rows: repeat(5, 1fr);

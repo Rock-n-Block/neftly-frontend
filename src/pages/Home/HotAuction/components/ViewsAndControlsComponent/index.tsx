@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useMemo, useRef, useState } from 'react';
 import cx from 'classnames';
 import { observer } from 'mobx-react-lite';
 // import { toast } from 'react-toastify';
@@ -6,24 +6,26 @@ import { observer } from 'mobx-react-lite';
 import { Button, Copyable, Text } from 'components';
 import { useMst } from 'store';
 import { INft, IOwner, TNullable } from 'typings';
-import { ReactComponent as Share } from 'assets/img/NFTPreview/Share.svg';
-import { ReactComponent as Options } from 'assets/img/NFTPreview/Options.svg';
-import iconBurn from 'assets/img/NFTPreview/Burn.svg';
-import iconTransfer from 'assets/img/NFTPreview/Transfer.svg';
-import iconRemove from 'assets/img/NFTPreview/Remove.svg';
-import iconReport from 'assets/img/NFTPreview/Report.svg';
-import iconChange from 'assets/img/NFTPreview/Change_price.svg';
+
 
 import styles from './styles.module.scss';
 import 'rc-tooltip/assets/bootstrap.css';
 
 import {
+  iconBurnSVG,
+  iconChangeSVG,
+  iconRemoveSVG,
+  iconReportSVG,
+  iconTransferSVG,
+  Options,
   PinkHeart,
+  Share,
 } from 'assets/img';
 import { useLike } from 'hooks';
 import { numberFormatter } from 'utils';
 import { routes } from 'appConstants';
 import OptionMenu, { positionOptions } from 'components/OptionMenu';
+import useClickOutside from 'hooks/useClickOutside';
 
 const viewsCount = 10;
 
@@ -61,7 +63,13 @@ const ViewsAndControlsComponent: FC<Props> = ({
     !!user.address,
   );
 
+
   const [isTooltipVisible, setTooltipVisible] = useState(false);
+
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef(null);
+
+  useClickOutside(menuRef, () => setTooltipVisible(false), btnRef);
 
   const handleActionEvent = useCallback((event: () => void) => {
     setTooltipVisible(false);
@@ -109,35 +117,35 @@ const ViewsAndControlsComponent: FC<Props> = ({
     () => [
       {
         name: 'Change Price',
-        img: iconChange,
+        img: iconChangeSVG,
         event: () => handleActionEvent(handleChangePrice),
         isVisible: isUserCanChangePrice,
         class: 'blue',
       },
       {
         name: 'Transfer Token',
-        img: iconTransfer,
+        img: iconTransferSVG,
         event: () => handleActionEvent(handleTransfer),
         isVisible: isOwner && !isWrongChain,
         class: 'blue',
       },
       {
         name: 'Remove from sale',
-        img: iconRemove,
+        img: iconRemoveSVG,
         event: () => handleActionEvent(handleRemoveFromSale),
         isVisible: isUserCanRemoveFromSale,
         class: 'blue',
       },
       {
         name: 'Burn token',
-        img: iconBurn,
+        img: iconBurnSVG,
         event: () => handleActionEvent(handleBurn),
         isVisible: isOwner && !isWrongChain,
         class: 'red'
       },
       {
         name: 'Report',
-        img: iconReport,
+        img: iconReportSVG,
         event: () => handleActionEvent(handleReport),
         isVisible: true,
         class: 'blue'
@@ -183,10 +191,10 @@ const ViewsAndControlsComponent: FC<Props> = ({
           </Copyable>
 
           <div className={styles.optionBtn}>
-            <Button className={styles.button} color="outline" onClick={() => setTooltipVisible(!isTooltipVisible)}>
+            <Button btnRef={btnRef} className={styles.button} color="outline" onClick={() => setTooltipVisible(!isTooltipVisible)}>
               <Options />
             </Button>
-            <OptionMenu active={isTooltipVisible} position={tooltipPlacement}>
+            <OptionMenu wrapRef={menuRef} active={isTooltipVisible} position={tooltipPlacement}>
               <div className={styles.actions}>
                 {actions.map((action) => {
                   if (action.isVisible) {

@@ -1,11 +1,12 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
-import { Button, H2, TitleDropdown } from 'components';
+import { Button, H2 } from 'components';
 import { activityApi } from 'services';
-import UserCard from './UserCard';
 
 import styles from './styles.module.scss';
 import { OptionType } from 'typings';
+import TitleDropdown from '../TopCollections/TitleDropdown';
+import CollectionCard from '../TopCollections/CollectionCard';
 
 type Props = {
   className?: string;
@@ -50,7 +51,7 @@ const TopUsers: FC<Props> = ({ className }) => {
         <ol className={styles.usersWrapper}>
           {users.map((user, index) => (
             <>
-              <UserCard
+              <CollectionCard
                 key={`user-${user.name}`}
                 avatar={user.avatar}
                 isVerified={user.is_verified}

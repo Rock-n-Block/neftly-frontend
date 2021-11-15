@@ -82,7 +82,7 @@ const HeaderLinks: FC<Props> = ({ className, toggleMenu }) => {
                       key={tag.title}
                     >
                       <img className={styles.dropdownLinkIcon} src={tag.icon} alt="tag" />
-                      <Text color='inherit'>{tag.title}</Text>
+                      <Text>{tag.title}</Text>
                     </Link>
                   );
                 })}

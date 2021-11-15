@@ -19,7 +19,7 @@ const TradingHistoryPrice: FC<Props> = ({ className, amount, asset }) => (
     </div>
     <Text style={{ textTransform: 'uppercase' }} size="m">
 
-      {`${amount == null ? "???" : toFixed(amount)} ${asset}`}
+      {`${amount == null ? "???" : toFixed(amount)} ${asset == null ? '' : asset}`}
     </Text>
   </div>
 );

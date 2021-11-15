@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {Text, ArtCardAuthor, EllipsisText} from 'components';
 import {storeApi} from "services";
 import {INft} from "typings";
-import {routes} from "../../../../../appConstants";
+import {routes} from "appConstants";
 
 const RandomCard: FC = () => {
   const [token, setToken] = useState<INft | null>(null);
@@ -22,19 +22,23 @@ const RandomCard: FC = () => {
   return (
     <div className={styles.randomCard}>
       <Link to={routes.nft.link(token.id)}>
-        <img className={styles.art} src={token.media} alt={token.name}/>
-        <div className={styles.info}>
-          <EllipsisText className={styles.name}>
-            <Text size="xl">{token.name}</Text>
-          </EllipsisText>
-          <ArtCardAuthor
-            name={token.creator.name}
-            avatar={token.creator.avatar}
-            id={token.creator.id}
-            verified={token.creator.is_verificated}
-          />
+        <div className={styles.artWrapper}>
+          <img className={styles.art} src={token.media} alt={token.name} width={512} height={492}/>
         </div>
       </Link>
+
+      <div className={styles.info}>
+        <EllipsisText className={styles.name}>
+          <Text size="xl">{token.name}</Text>
+        </EllipsisText>
+        <ArtCardAuthor
+          name={token.creator.name}
+          avatar={token.creator.avatar}
+          id={token.creator.id}
+          verified={token.creator.is_verificated}
+          authorTextColor="lightGray"
+        />
+      </div>
     </div>
   );
 };
