@@ -8,7 +8,7 @@ import {useMst} from 'store';
 import styles from './styles.module.scss';
 import {Popover} from "containers";
 import {observer} from "mobx-react-lite";
-import {usePopover} from "../../../hooks";
+import {usePopover} from "hooks";
 import {useHistory} from "react-router";
 
 interface IHeaderLinksProps {
