@@ -24,7 +24,7 @@ const SearchTag: VFC<Props> = ({ image, title, price, asset, isAuction, inStock,
       </div>
     </div>
     <div className={styles.searchTagInfo}>
-      <Text className={cx(styles.typeText, { [styles.auction]: isAuction })}>
+      <Text size="m" weight="medium" className={cx(styles.typeText, { [styles.auction]: isAuction })}>
         {isAuction ? 'Auction' : 'Sale'}
       </Text>
       {!isAuction && <Text size="m">{`in stock: ${inStock}`}</Text>}
