@@ -19,7 +19,7 @@ const TradingHistory: FC<Props> = ({
     <div className={styles.chartFilter}>
       <Text size="l">Trading History</Text>
     </div>
-    <Text size="l" className={styles.soldOut}>10 items sold</Text>
+    <Text size="l" className={styles.soldOut}>{tableData.length} items sold</Text>
     <div className={styles.tableWrapper}>
       <Table columns={columns} data={tableData} />
     </div>
