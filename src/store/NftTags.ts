@@ -9,6 +9,11 @@ export const NftTags = types
   .model({
     tags: types.optional(types.array(Tag), []),
   })
+  .views((self) => ({
+    get getTags() {
+      return self.tags;
+    },
+  }))
   .actions((self) => {
     const setTags = (tags: any) => {
       self.tags = tags;

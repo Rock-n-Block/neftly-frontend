@@ -53,7 +53,7 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
       <div
         className={cx(
           styles.searchDropdown,
-          { [styles.isVisible]: isShowResults },
+          { [styles.isVisible]: isShowResults||isNoResults },
           classNameDropdown,
         )}
       >
@@ -84,7 +84,7 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
               );
             })}
             <Button color="transparent" onClick={() => alert('view result')}>
-              <Text>View result</Text>
+              <Text color="primary">View result</Text>
             </Button>
           </>
         )}

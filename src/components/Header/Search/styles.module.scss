@@ -1,4 +1,4 @@
-@import '../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .search {
   position: relative;
@@ -13,7 +13,8 @@
   box-sizing: border-box;
   top: 65px;
   position: absolute;
-  background: $color-neutral-80;
+  background: $color-bg;
+  box-shadow: $color-box-shadow;
   height: 0;
   transition: 200ms;
 

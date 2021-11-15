@@ -6,7 +6,7 @@ import { chainsEnum } from 'typings';
 import { getTronContract, getTokenAmount, getTokenAmountDisplay } from 'utils';
 import Web3 from 'web3';
 
-import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
+import { connectWallet as connectWalletConfig, contracts, is_production } from 'config';
 
 const MS_RETRY_TRON = 2000;
 const trxFeeLimit = 100000000

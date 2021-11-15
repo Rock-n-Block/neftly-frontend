@@ -14,6 +14,7 @@ export { default as Select } from './Select';
 export { default as RangePicker } from './RangePicker';
 export { default as Switcher } from './Switcher';
 export { default as Table } from './Table';
+export { default as Swap } from './Swap';
 export { default as GiantCard } from './GiantArtCard';
 export { default as TradingHistory } from './TradingHistory';
 export { default as TextArea } from './TextArea';
