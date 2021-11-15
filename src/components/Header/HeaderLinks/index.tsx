@@ -8,7 +8,7 @@ import {useMst} from 'store';
 import styles from './styles.module.scss';
 import {Popover} from "containers";
 import {observer} from "mobx-react-lite";
-import {usePopover} from "../../../hooks";
+import {usePopover} from "hooks";
 import {useHistory} from "react-router";
 
 interface IHeaderLinksProps {
@@ -23,21 +23,21 @@ interface ITag {
 
 interface IHeaderNestedBodyProps {
   links?: ITag[];
+  onClick: (url:string) => void;
 };
 
-const HeaderNestedBody: FC<IHeaderNestedBodyProps> = ({links}) => {
-  const {closePopover}=usePopover();
-  const history=useHistory();
-  const handleTagClick=(title:string)=>{
-    history.push(routes.discover.filter(title));
+const HeaderNestedBody: FC<IHeaderNestedBodyProps> = ({links, onClick}) => {
+  const {closePopover} = usePopover();
+  const handleTagClick = (title: string) => {
     closePopover();
+    onClick(routes.discover.filter(title))
   }
   return (
     <>
       {links?.map((tag) => (
         <Button
           className={styles.dropdownLink}
-          key={tag.title} color="transparent" icon={tag.icon} onClick={()=>handleTagClick(tag.title)}>
+          key={tag.title} color="transparent" icon={tag.icon} onClick={() => handleTagClick(tag.title)}>
           <Text color="black" size="m" weight="medium">{tag.title}</Text>
         </Button>
       ))}
@@ -50,6 +50,7 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({className, toggleMenu}) =>
     user,
     nftTags,
   } = useMst();
+  const history = useHistory();
 
   const location = useLocation();
 
@@ -79,7 +80,12 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({className, toggleMenu}) =>
     ],
     [location.pathname, nftTags.getTags, user.address],
   );
-
+  const handleMenuItemClick=(url:string)=>{
+    if(toggleMenu){
+      toggleMenu()
+    }
+    history.push(url);
+  }
 
   return (
     <div className={cx(styles.headerNavigation, className)}>
@@ -91,14 +97,14 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({className, toggleMenu}) =>
                 <Text weight="medium" size="m" color={active ? 'primary' : 'black'}>{title}</Text>
               </Popover.Button>
               <Popover.Body>
-                <HeaderNestedBody links={internalLinks}/>
+                <HeaderNestedBody links={internalLinks} onClick={handleMenuItemClick}/>
               </Popover.Body>
             </Popover>
           );
         }
         if (url && !disabled) {
           return (
-            <Button key={title} href={url} color="transparent" onClick={toggleMenu}>
+            <Button key={title} color="transparent" onClick={()=>handleMenuItemClick(url)}>
               <Text weight="medium" size="m" color={active ? 'primary' : 'black'}>{title}</Text>
             </Button>
           );

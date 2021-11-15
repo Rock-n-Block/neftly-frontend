@@ -19,15 +19,15 @@ const SearchTag: VFC<Props> = ({ image, title, price, asset, isAuction, inStock,
     <div className={styles.searchTagFlexContainer}>
       <img className={styles.searchTagImg} src={image} alt="art" />
       <div>
-        <Text>{title}</Text>
-        <Text>{`On sale for ${price}${asset}`}</Text>
+        <Text size="m" weight="medium">{title}</Text>
+        <Text size="m" color="darkenGray">{`On sale for ${price}${asset}`}</Text>
       </div>
     </div>
     <div className={styles.searchTagInfo}>
-      <Text className={cx(styles.typeText, { [styles.auction]: isAuction })}>
+      <Text size="m" weight="medium" className={cx(styles.typeText, { [styles.auction]: isAuction })}>
         {isAuction ? 'Auction' : 'Sale'}
       </Text>
-      {!isAuction && <Text>{`in stock: ${inStock}`}</Text>}
+      {!isAuction && <Text size="m">{`in stock: ${inStock}`}</Text>}
     </div>
   </div>
 );
