@@ -87,7 +87,8 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
     padding: 0;
 
     height: 100%;
-
+    margin-right: 5px;
+    width: 100%;
     font-size: 16px;
     font-weight: 600;
   }
@@ -95,7 +96,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   .singleValue {
     font-size: 16px;
     font-weight: 600;
-
+    position: relative;
     color: $color-neutral-100;
   }
 }
