@@ -10,6 +10,7 @@ export { default as iconSettingsWhite } from './icon-settings-white.svg';
 export { default as iconAddBlack } from './icon-add-black.svg';
 export { default as iconRemoveBlack } from './icon-remove-black.svg';
 export { default as iconSwap } from './icon-arrows-swap.svg';
+export { default as iconAllNFTs } from './icon-all-nfts.svg';
 export { default as iconBurn } from './icon-burn.svg';
 export { default as iconTransfer } from './icon-transfer.svg';
 export { default as iconChange } from './icon-dollar.svg';

@@ -52,22 +52,34 @@ export const useFetchNft = (
       }
       const refresh = page === 1;
       setLoading(true);
+
+      let boolIsVerified: boolean | undefined;
+      switch (is_verified) {
+        case 'verified':
+          boolIsVerified = true;
+          break;
+        case 'unverified':
+          boolIsVerified = false;
+          break;
+        default:
+          break;
+      }
+      const formattedTags = tags === 'All NFTs' ? undefined : tags;
+
       storeApi
-        .getSearchResults(
-          {
-            sort,
-            order_by,
-            tags,
-            max_price,
-            currency,
-            page,
-            is_verified,
-            creator,
-            on_sale,
-            owner,
-          },
-          textInput,
-        )
+        .getSearchResults({
+          sort,
+          order_by,
+          tags: formattedTags,
+          max_price,
+          currency,
+          page,
+          is_verified: boolIsVerified,
+          creator,
+          on_sale,
+          owner,
+          text: textInput,
+        })
         .then(({ data: { items, total_tokens } }: any) => {
           setTotalItems(() => total_tokens);
           if (refresh) {

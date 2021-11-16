@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { storeApi } from 'services';
 import { rootStore } from 'store';
+import { iconAllNFTs } from 'assets/img';
 
 const useFetchTags = () => {
   const fetchTags = useCallback(async () => {
@@ -8,8 +9,8 @@ const useFetchTags = () => {
       const {
         data: { tags },
       } = await storeApi.getTags();
-
-      rootStore.nftTags.setTags(tags);
+      const fullTags = [...[{ title: 'All NFTs', icon: iconAllNFTs }], ...tags];
+      rootStore.nftTags.setTags(fullTags);
     } catch (error) {
       console.log(error);
     }
