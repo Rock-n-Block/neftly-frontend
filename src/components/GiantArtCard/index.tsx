@@ -10,7 +10,7 @@ import ViewsAndControlsComponent from 'pages/Home/HotAuction/components/ViewsAnd
 import { INft, TNullable } from 'typings';
 import { useMst } from 'store';
 import { useGetUserAccessForNft, useNoScroll } from 'hooks';
-import { Zoom } from 'assets/img';
+import { Close, Zoom } from 'assets/img';
 
 import styles from './styles.module.scss';
 
@@ -53,7 +53,7 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
               </div>
             </div>
             <div className={`${styles.previewBlock} ${showPreview && styles.fullscreen}`}>
-              <button className={styles.mediaContentBackground} onClick={() => togglePreview(false)} type='button'> </button>
+              <button className={styles.mediaContentBackground} onClick={() => togglePreview(false)} type='button'><Close aria-label='close modal' className={styles.closeIcon} /></button>
               <button className={styles.mediaContentWrapper} onClick={() => togglePreview(true)} type='button'>
                 <img className={styles.mediaContent} src={nft.media || '/images/content/card-pic-6.jpg'} alt="Card" />
               </button>

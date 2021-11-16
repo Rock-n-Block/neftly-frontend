@@ -7,3 +7,4 @@ export { default as iconChangeSVG } from './Change_price.svg';
 export { default as iconReportSVG } from './Report.svg';
 export { ReactComponent as Share } from './Share.svg';
 export { ReactComponent as Options } from './Options.svg';
+export {ReactComponent as Close} from './Close.svg';
