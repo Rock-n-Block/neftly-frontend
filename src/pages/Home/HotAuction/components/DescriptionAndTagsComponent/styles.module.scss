@@ -1,17 +1,19 @@
-@import 'src/styles/helpers';
+@import "src/styles/helpers";
 
-.tagWrapper {
-  display: flex;
-  flex-wrap: wrap;
+.tag {
+  padding: 2px 17px;
 
-  .tag {
-    @include flexbox;
-    margin-right: 10px;
+  background: $color-neutral-10;
 
-    width: 90px;
-    height: 25px;
+  &Wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
 
-    border: 1px solid $color-neutral-80;
+  &Title {
+    margin-right: 24px;
   }
 }
 

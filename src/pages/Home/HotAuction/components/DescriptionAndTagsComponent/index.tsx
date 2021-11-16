@@ -12,24 +12,24 @@ type Props = {
 
 const DescriptionAndTagsComponent: FC<Props> = ({ className, tags, body }) => (
   <div className={className}>
-    
+
     <Text className={styles.descriptionBody} size="m">
       {body}
     </Text>
-    {tags.length ? (
-      <>
-        <Text color="gray" size="m">
-          Tags
+    {tags.length && (
+
+      <div className={styles.tagWrapper}>
+        <Text size="m" className={styles.tagTitle}>
+          Tags:
         </Text>
-        <div className={styles.tagWrapper}>
-          {tags.map((tag) => (
-            <div className={styles.tag} key={`tag-${tag.value}`}>
-              <Text size="m">{`#${tag.value}`}</Text>
-            </div>
-          ))}
-        </div>
-      </>
-    ) : null}
+        {tags.map((tag) => (
+          <div className={styles.tag} key={`tag-${tag.value}`}>
+            <Text size="s">{`#${tag.value}`}</Text>
+          </div>
+        ))}
+      </div>
+
+    )}
   </div>
 );
 

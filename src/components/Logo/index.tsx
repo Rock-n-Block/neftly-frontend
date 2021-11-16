@@ -14,7 +14,7 @@ type Props = {
 const Logo: FC<Props> = ({ className }) => (
   <Link className={cx(styles.logo, className)} to={routes.home.root}>
     <img className={styles.logoImage} src={logo} alt="" />
-    <Text className={styles.logoText}>Nftcrowd</Text>
+    <Text className={styles.logoText} size="xl">Nftcrowd</Text>
   </Link>
 );
 

@@ -8,7 +8,7 @@
   .contentWrapper {
     overflow: hidden;
     max-height: 650px;
-    flex: 0 1 650px;
+    flex: 0 0 650px;
     position: relative;
     @include flexbox(center, center);
 

@@ -10,6 +10,7 @@ export { default as useDifference } from './useDifference';
 export { default as useChartTooltip } from './useChartTooltip';
 export { default as useFetchTags } from './useFetchTags';
 export { default as useNoScroll } from './useNoScroll';
+export { default as usePopover } from './usePopover';
 export * from './useInfiniteScroll';
 export * from './useFetchNft';
 export * from './useFetchHotAuction';

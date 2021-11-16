@@ -64,7 +64,7 @@ $color-border-close-modal: #1caaa2;
 $color-action-default: #01c5ba;
 $color-action-hovered: rgba($color-primary, 0.7);
 $color-action-pressed: rgba($color-primary, 0.9);
-$color-action-disabled: #003f3b;
+$color-action-disabled: #211857;
 
 $color-neutral-100: #080134;
 $color-neutral-90: #201c18;
@@ -95,8 +95,7 @@ $color-state-success: #45e498;
 $color-state-warning: #fae637;
 
 $color-gradient:linear-gradient(89.92deg, #018DF0 1.29%, #5BBBFF 99.94%);
-$color-box-shadow:0px 16px 64px -48px rgba(18, 27, 40, 0.8);
-
+$color-box-shadow:0px 16px 50px rgba(18, 27, 40, 0.3);
 $transition: .4s ease;
 // typography
 .text-gradient {
