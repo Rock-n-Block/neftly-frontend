@@ -41,7 +41,7 @@
   cursor: pointer;
 
   // @include dark {
-  border: 2px solid $color-neutral-80;
+  border: 2px solid $color-neutral-10;
 
   transition: box-shadow 0.2s;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -85,7 +85,7 @@
 
   background: $color-bg;
   opacity: 0;
-  border: 2px solid $color-neutral-80;
+  border: 2px solid $color-neutral-10;
 
   transition: all 0.2s;
   transform: translateY(3px);

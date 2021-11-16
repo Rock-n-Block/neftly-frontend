@@ -12,9 +12,9 @@ interface IProps {
   isVerified?: boolean;
 }
 
-const UserCard: FC<IProps> = ({ index, avatar, id, name, price, isVerified = false }) => {
+const CollectionCard: FC<IProps> = ({ index, avatar, id, name, price, isVerified = false }) => {
   return (
-    <li className={styles.userCard}>
+    <li className={styles.collectionCard}>
       <Text color="secondary" weight="bold" size="m">
         {index}
       </Text>
@@ -41,4 +41,4 @@ const UserCard: FC<IProps> = ({ index, avatar, id, name, price, isVerified = fal
     </li>
   );
 };
-export default UserCard;
+export default CollectionCard;

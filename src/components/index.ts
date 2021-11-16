@@ -1,7 +1,6 @@
 export { default as Avatar } from './Avatar';
 export { default as ArtCardAuthor } from './ArtCardAuthor';
 export { default as Button } from './Button';
-export { default as TitleDropdown } from './TitleDropdown';
 export { default as TextInput } from './TextInput';
 export { default as Checkbox } from './Checkbox';
 export { default as Carousel } from './Carousel';
@@ -15,6 +14,7 @@ export { default as Select } from './Select';
 export { default as RangePicker } from './RangePicker';
 export { default as Switcher } from './Switcher';
 export { default as Table } from './Table';
+export { default as Swap } from './Swap';
 export { default as GiantCard } from './GiantArtCard';
 export { default as TradingHistory } from './TradingHistory';
 export { default as TextArea } from './TextArea';
