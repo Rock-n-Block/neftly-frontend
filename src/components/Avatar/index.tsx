@@ -1,9 +1,10 @@
 import { routes } from "appConstants";
 import styles from "./styles.module.scss";
-import { iconVerifiedMark, NullAvatar } from "assets/img";
+import { iconVerifiedMark, NullAvatarSrc } from "assets/img";
 import { Link } from "react-router-dom";
 import { FC } from "react";
 import cn from "classnames";
+import WrappedImage from "containers/ImageWrapper/WrappedImage";
 
 interface IProps {
   id: number | string;
@@ -27,10 +28,7 @@ const Avatar: FC<IProps> = ({
   return (
     <Link to={isCollection ? routes.collection.link(id || '') : routes.profile.link(id || '')}
       className={cn(styles.avatar, className)}>
-      {avatar ?
-        <img src={avatar} alt="" width={size} height={size} className={styles.avatarImg} /> :
-        <NullAvatar />
-      }
+      <WrappedImage src={avatar} className={styles.avatarImg} errorSrc={NullAvatarSrc} width={size} height={size} />
       {isVerified &&
         <img src={iconVerifiedMark} width={badgeSize} height={badgeSize} alt="verified" className={styles.verified} />}
     </Link>

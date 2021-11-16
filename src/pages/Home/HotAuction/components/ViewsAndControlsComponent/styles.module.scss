@@ -1,4 +1,4 @@
-@import "/src/styles/helpers.scss";
+@import "src/styles/helpers.scss";
 
 .viewsAndControls {
   width: 100%;
@@ -73,7 +73,7 @@
       margin-right: 7px;
     }
     & + & {
-      border-top: 1px solid $color-neutral-80;
+      border-top: 1px solid $color-neutral-10;
     }
     &:hover {
       &.blue {

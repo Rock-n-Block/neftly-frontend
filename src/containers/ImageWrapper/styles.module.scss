@@ -1,0 +1,31 @@
+.skeleton{
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+
+    background: linear-gradient(
+        89.74deg,
+        rgba(56, 56, 56, 0) 0.21%,
+        rgba(255, 255, 255, 0.06) 14.73%,
+        rgba(255, 255, 255, 0.12) 34.43%,
+        rgba(255, 255, 255, 0.12) 64.5%,
+        rgba(255, 255, 255, 0.06) 80.57%,
+        rgba(56, 56, 56, 0) 99.76%
+    );
+    animation: move 2s infinite;
+}
+
+@keyframes move {
+    100% {
+        transform: translateX(100%);
+    }
+}

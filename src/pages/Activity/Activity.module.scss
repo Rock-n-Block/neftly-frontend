@@ -1,6 +1,7 @@
 @import 'src/styles/helpers';
-.page{
+.page {
   @include container;
+  color: $color-neutral-100;
 }
 .section {
   padding: 44px 0;
@@ -13,7 +14,8 @@
 }
 
 .pageSubtitle {
-  margin-bottom: 15px;
+  margin-bottom: 45px;
+  @include epilogue;
 }
 
 .top {
@@ -68,7 +70,7 @@
 }
 
 .row {
-  margin-top: -56px;
+  margin-top: -50px;
 
   display: flex;
   align-items: flex-start;
@@ -107,7 +109,7 @@
   width: 292px;
 
   background: $color-bg;
-  border: 1px solid $color-neutral-80;
+  border: 1px solid $color-neutral-10;
   flex-shrink: 0;
 
   @include d {
@@ -137,14 +139,6 @@
   margin: 32px auto 0;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 0 15px;
-
-  width: 100%;
-  max-width: 1310px;
-}
-
 .buttonWrap {
   display: flex;
   justify-content: center;
@@ -158,5 +152,3 @@
   font-size: 16px;
   font-weight: 600;
 }
-
-

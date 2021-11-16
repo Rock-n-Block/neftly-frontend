@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Text } from 'components';
 
 import styles from './styles.module.scss';
@@ -11,31 +11,48 @@ type Props = {
   body: string;
 };
 
-const DescriptionAndTagsComponent: FC<Props> = ({ className, tags, body }) => (
-  <div className={className}>
+const DescriptionAndTagsComponent: FC<Props> = ({ className, tags, body }) => {
 
-    <Text className={styles.descriptionBody} size="m">
-      <div className={styles.hoverText}>
-        <Text>Hover to read more</Text>
-        <Cursor aria-label='hover' className={styles.cursor}/>
-      </div>
-      {body}
-    </Text>
-    {tags.length && (
+  const textRef = useRef<any>(null);
+  const [showHover, setShowHover] = useState(true);
 
-      <div className={styles.tagWrapper}>
-        <Text size="m" className={styles.tagTitle}>
-          Tags:
-        </Text>
-        {tags.map((tag) => (
-          <div className={styles.tag} key={`tag-${tag.value}`}>
-            <Text size="s">{`#${tag.value}`}</Text>
-          </div>
-        ))}
-      </div>
+  useEffect(()=>{
+   
+    if(textRef.current){
+      if(textRef.current.offsetHeight >= 100){
+        setShowHover(true);
+      }else{
+        setShowHover(false);
+      }
+    }
+  }, [textRef, body])
 
-    )}
-  </div>
-);
+  return (
+    <div className={className}>
 
+      <Text className={styles.descriptionBody} elRef={textRef}  size="m">
+        <div className={`${styles.hoverText} ${showHover && styles.showHoverNotification}`}>
+          <Text>Hover to read more</Text>
+          <Cursor aria-label='hover' className={styles.cursor} />
+        </div>
+        {body}
+      </Text>
+      {tags.length && (
+
+        <div className={styles.tagWrapper}>
+          <Text size="m" className={styles.tagTitle}>
+            Tags:
+          </Text>
+          {tags.map((tag) => (
+            <div className={styles.tag} key={`tag-${tag.value}`}>
+              <Text size="s">{`#${tag.value}`}</Text>
+            </div>
+          ))}
+        </div>
+
+      )}
+    </div>
+  );
+
+}
 export default DescriptionAndTagsComponent;

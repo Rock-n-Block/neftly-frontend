@@ -11,7 +11,6 @@ import RSelect, {
   OptionProps,
   PlaceholderProps,
 } from 'react-select';
-//import { arrowLeft } from 'assets/img';
 import cx from 'classnames';
 import { OptionType, SelectColor, SelectProps, SelectSize } from 'typings';
 import { Arrow } from 'assets/img';

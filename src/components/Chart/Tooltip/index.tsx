@@ -48,7 +48,7 @@ const Tooltip: FC<IGraphTooltip> = ({ top, left, date, value, prevValue, currenc
             {isDifferencePositive ? `+${difference}` : difference}%
           </Text>
         </Text>
-        <Text color="gray" size="m">
+        <Text size="m">
           {date}
         </Text>
       </div>

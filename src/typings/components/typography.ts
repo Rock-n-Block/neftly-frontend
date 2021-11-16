@@ -8,7 +8,7 @@ enum Values {
   middleGray,
   secondary,
   primary,
-  inherit,
+  currentColor,
 }
 
 enum SizeValues {

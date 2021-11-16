@@ -168,7 +168,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
   return (
     <>
       <div className={cx(styles.viewsAndControls, className)}>
-        {viewsCount ? <Text size='m' color="gray" className={styles.viewsData}>{`Views: ${viewsCount}`}</Text> : null}
+        {viewsCount && <Text size='m' color="gray" className={styles.viewsData}>{`Views: ${viewsCount}`}</Text>}
         {inStock ? <Text size='m' color="gray">{`In Stock: ${inStock}`}</Text> : null}
         <div className={styles.controls}>
           <Button
@@ -177,7 +177,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
             color="outline"
           >
             <PinkHeart />
-            <Text size='s' color='inherit'>{numberFormatter(likeCount || 0, 1000)}</Text>
+            <Text size='s' color='currentColor'>{numberFormatter(likeCount || 0, 1000)}</Text>
           </Button>
           <Copyable valueToCopy={`${window.location.origin}${routes.nft.link(nft?.id || '')}`}>
             <Button color="outline" className={styles.copyButton}>

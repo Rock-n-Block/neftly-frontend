@@ -1,5 +1,8 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 import { routes } from 'appConstants';
+import { GuardedRoute } from 'components';
+import { useMst } from 'store';
 import {
   Discover,
   ProfileEdit,
@@ -12,24 +15,31 @@ import {
   Nft,
 } from 'pages';
 
-const Routes = () => (
-  <Switch>
-    <Route path={routes.nft.root} component={Nft} />
-    <Route path={routes.discover.root} component={Discover} />
-    <Route exact path={routes.profile.edit} component={ProfileEdit} />
-    <Route path={routes.profile.root} component={Profile} />
-    <Route path={routes.create.single}>
-      <CreateToken />
-    </Route>
-    <Route path={routes.create.multiple}>
-      <CreateToken isMultiple />
-    </Route>
-    <Route path={routes.create.root} component={UploadVariants} />
-    <Route exact path={routes.home.root} component={Home} />
-    <Route exact path={routes.activity.root} component={Activity} />
-    <Route path={routes.collection.root} component={CollectionPage} />
-    <Redirect to={{ pathname: routes.home.root }} />
-  </Switch>
-);
+const Routes = observer(() => {
+  const { user } = useMst();
+
+  return (
+    <Switch>
+      <Route path={routes.nft.root} component={Nft} />
+      <Route path={routes.discover.root} component={Discover} />
+      <Route exact path={routes.profile.edit} component={ProfileEdit} />
+      <Route path={routes.profile.root} component={Profile} />
+
+      <Route exact path={routes.home.root} component={Home} />
+      <Route exact path={routes.activity.root} component={Activity} />
+      <Route path={routes.collection.root} component={CollectionPage} />
+      {/* GUARDED ROUTES */}
+      <GuardedRoute auth={user.isAuth} path={routes.create.single} component={CreateToken} />
+      <GuardedRoute
+        auth={user.isAuth}
+        path={routes.create.multiple}
+        render={() => <CreateToken isMultiple />}
+      />
+      <GuardedRoute auth={user.isAuth} path={routes.create.root} component={UploadVariants} />
+      {/* GUARDED ROUTES */}
+      <Redirect to={{ pathname: routes.home.root }} />
+    </Switch>
+  );
+});
 
 export default Routes;

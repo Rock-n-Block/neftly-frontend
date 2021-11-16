@@ -2,7 +2,6 @@
 
 .headerNavigation {
   @include flexbox;
-  height: 100%;
   flex-basis: 30%;
   gap: 30px;
 }

@@ -37,7 +37,7 @@ const Table: FC<TableProps> = ({ columns, data }) => {
                   case 'Buyer': {
                     return (
                       <td className={styles.cell} {...cell.getCellProps()}>
-                        <TradingHistoryBuyer name={ cellData.name} avatar={cellData.avatar} date={cellData.date} />
+                        <TradingHistoryBuyer name={cellData.name} id={cellData.id} avatar={cellData.avatar} date={cellData.date} />
                       </td>
                     );
                   }

@@ -15,6 +15,7 @@ type Props = {
   onClick?: (event: any) => void;
   type?: 'button' | 'submit';
   disabled?: boolean;
+  padding?: 'large' | 'small' | 'custom';
   // icon?: IconNames;
   icon?: string;
   loading?: boolean;
@@ -29,10 +30,11 @@ const Button: FC<PropsWithChildren<Props>> = ({
   color = 'blue',
   size = 'normal',
   isFullWidth = false,
-  onClick = () => {},
+  onClick = () => { },
   className,
   type = 'button',
   children,
+  padding = 'large',
   disabled,
   icon,
   style,
@@ -40,13 +42,13 @@ const Button: FC<PropsWithChildren<Props>> = ({
   loading,
   btnRef,
   onMouseLeave,
-  onMouseOver = () => {},
+  onMouseOver = () => { },
 }) => {
   if (href)
     return (
       <Link
         to={href}
-        className={cx(styles.button, styles[size], styles[color], className, {
+        className={cx(styles.button, styles[size], styles[color], styles[padding], className, {
           [styles.isFullWidth]: isFullWidth,
           [styles.disabled]: disabled,
         })}
@@ -61,7 +63,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
       // eslint-disable-next-line react/button-has-type
       type={type}
       ref={btnRef}
-      className={cx(styles.button, styles[size], styles[color], className, {
+      className={cx(styles.button, styles[size], styles[padding], styles[color], className, {
         [styles.isFullWidth]: isFullWidth,
         [styles.disabled]: disabled || loading,
       })}

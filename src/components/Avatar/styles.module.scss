@@ -1,4 +1,4 @@
-@import '/src/styles/helpers.scss';
+@import 'src/styles/helpers.scss';
 
 .avatar {
   position: relative;
@@ -6,7 +6,15 @@
 
   &Img {
     object-fit: cover;
+    border-radius: 100%;
+
+    box-shadow: 0 0 4px rgba($color-neutral-80, 0.2);
     border-radius: 50%;
+    transition: box-shadow 0.4s ease;
+
+    &:hover {
+      box-shadow: 0 0 12px rgba($color-neutral-80, 0.2);
+    }
   }
 }
 .verified {

@@ -1,4 +1,7 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { activityApi } from 'services';
 import {
   bidAction,
   burnAction,
@@ -10,6 +13,8 @@ import {
   saleAction,
   transferAction,
 } from 'assets/img';
+import { routes } from 'appConstants';
+import { Avatar, Text } from 'components';
 import { sliceString } from 'utils';
 
 import s from './ActivityItem.module.scss';
@@ -20,7 +25,11 @@ interface Props {
   actionImg: string;
   userName: string;
   actionDescription: string;
+  actionDescriptionName: string;
   timeAgo: string;
+  linkId: string;
+  activityId: string;
+  userId: string;
 }
 
 const ActionsIcons: { [key: string]: string } = {
@@ -43,7 +52,31 @@ const ActivityItem: React.FC<Props> = ({
   userName,
   actionDescription,
   timeAgo,
+  actionDescriptionName,
+  linkId,
+  activityId,
+  userId,
 }) => {
+  const history = useHistory();
+
+  const openNotification = (
+    method: string,
+    link_id: number | string,
+    activity_id: string | number,
+  ) => {
+    try {
+      activityApi.readNotification({ activity_id, method });
+    } catch (error) {
+      console.log('Read notification', error);
+    }
+
+    if (method === 'follow') {
+      history.push(routes.profile.link(link_id));
+    } else {
+      history.push(routes.nft.link(link_id));
+    }
+  };
+
   return (
     <section className={s.item}>
       <div className={s.avatar}>
@@ -53,14 +86,31 @@ const ActivityItem: React.FC<Props> = ({
             alt="action"
           />
         </div>
-        <img src={userImg} alt="userAva" />
+        <Avatar id={userId} avatar={userImg} size="80" />
       </div>
+
       <div className={s.info}>
-        <div className={s.name}>{userName?.length > 15 ? sliceString(userName) : userName}</div>
-        <div className={s.event}>{actionDescription}</div>
-        <div className={s.time}>{timeAgo}</div>
+        <Text size="l" className={s.name} tag="p">
+          {userName?.length > 15 ? sliceString(userName) : userName}
+        </Text>
+        <Text size="m" className={s.event} tag="p">
+          {actionDescription}{' '}
+          <Text tag="span" size="m" color="primary">
+            {actionDescriptionName}
+          </Text>
+        </Text>
+        <Text size="s" color="lightGray" className={s.time} tag="p">
+          {timeAgo}
+        </Text>
       </div>
-      <div className={s.image}>
+
+      <div
+        className={s.image}
+        onClick={() => openNotification(actionDescription, linkId, activityId)}
+        tabIndex={0}
+        onKeyDown={() => {}}
+        role="button"
+      >
         <div className={s.image_wrapper}>
           <img src={actionImg} alt="actionImg" />
         </div>

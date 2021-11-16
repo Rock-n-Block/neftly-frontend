@@ -8,11 +8,14 @@ const useNoScroll: Tfunc = (state = false) => {
 
     useEffect(() => {
         if (scroll) {
-            if (body)
+            if (body) {
                 body.style.overflow = 'hidden';
+            }
         } else
-            if (body)
+            if (body) {
                 body.style.overflow = 'auto';
+            }
+
     }, [scroll, body])
 
     return setScroll
