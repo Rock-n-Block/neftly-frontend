@@ -56,7 +56,7 @@ const Modal: React.FC<IModal> = ({
               {title ? <H3 className={styles.title}>{title}</H3> : null}
               {children}
               <button type="button" className={styles.close} onClick={onClose}>
-                <img src={iconClose} width={20} height={20} alt="close" />
+                <img src={iconClose} width={16} height={16} alt="close" />
               </button>
             </div>
           </OutsideClickHandler>
