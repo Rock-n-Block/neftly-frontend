@@ -8,7 +8,7 @@
 
     &__left {
       padding: 32px 88px 32px 0;
-      border-right: 1px solid $color-neutral-80;
+      border-right: 1px solid $color-neutral-20;
       @include forDesktopMiddle {
         padding: 20px 0 0;
         border: none;
@@ -17,6 +17,7 @@
 
     &__right {
       padding: 44px 32px;
+      padding-right: 0;
       @include forDesktopMiddle {
         padding: 32px;
         width: 100%;
