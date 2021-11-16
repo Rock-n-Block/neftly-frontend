@@ -40,7 +40,7 @@ const HotAuctionCard: FC<Props> = ({ className, nft }) => {
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
         isWrongChain={isWrongChain}
         isUserCanChangePrice={isUserCanChangePrice}
-        tooltipPlacement="top"
+        tooltipPlacement="bottom-right"
       />
       <HotAuctionCardMobile
         className={styles.mobileAuctionCard}
@@ -53,7 +53,7 @@ const HotAuctionCard: FC<Props> = ({ className, nft }) => {
         isUserCanRemoveFromSale={isUserCanRemoveFromSale}
         isWrongChain={isWrongChain}
         isUserCanChangePrice={isUserCanChangePrice}
-        tooltipPlacement="top"
+        tooltipPlacement="bottom-right"
       />
     </div>
   );

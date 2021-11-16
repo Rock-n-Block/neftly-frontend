@@ -46,7 +46,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     sort: 'items',
     on_sale: true,
   });
-
+  
   const getItem = React.useCallback(() => {
     storeApi
       .getToken(id)
@@ -75,13 +75,13 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     remove.isSuccess,
     sell.putOnSale.isSuccess,
   ]);
-
+    
   return (
     <div className={cx(styles.detailArtwork, className)}>
       <div className={styles.detailArtworkContent}>
         <Control item={breadcrumbs} />
         <GiantCard name={nft?.name || ''} nft={nft} onUpdateNft={getItem} />
-        <PriceHistory tokenId={id} currency={nft?.currency as ICurrency} />
+        <PriceHistory tokenId={id} history={nft?.history || []} currency={nft?.currency as ICurrency} />
         <div className={styles.relatedArtwork}>
           <H3>Related Artwork</H3>
           <LoadMore

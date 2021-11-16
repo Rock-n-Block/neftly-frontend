@@ -1,19 +1,15 @@
 @import "../../styles/helpers";
 
 .history {
-  height: 550px;
-  flex-basis: 50%;
+  height: 100%;
   padding: 32px;
-  border: 1px solid $color-neutral-80;
-  margin-top: 40px;
-  &:first-child {
-    margin-right: 40px;
-  }
+  border: 1px solid $color-neutral-10;
+  box-sizing: border-box;
 }
 
 .chartFilter {
   @include flexbox(baseline, space-between);
-  border-bottom: 1px solid $color-neutral-80;
+  border-bottom: 1px solid $color-neutral-10;
   padding-bottom: 20px;
 
   .chartSelect {
@@ -31,6 +27,10 @@
   overflow-y: auto;
 }
 
+.soldOut{
+  margin-top: 24px;
+}
+
 @include forDesktopBig {
   .chartAndBidders {
     flex-direction: column;
@@ -39,7 +39,6 @@
   .history {
     width: 100%;
     flex-basis: unset;
-    margin: 20px 20px 0 20px;
   }
 
   .chartWrapper {
@@ -49,11 +48,11 @@
 
 
 .tableWrapper::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 
 .tableWrapper::-webkit-scrollbar-track {
-  background: rgba(102, 214, 218, 0.4);
+  background: linear-gradient(90deg, transparent 0%, transparent 20%, rgba(102,214,218,0.4) 20%, rgba(102,214,218,0.4) 80%, transparent 80%, transparent 100%);;
 }
 
 .tableWrapper::-webkit-scrollbar-thumb {
