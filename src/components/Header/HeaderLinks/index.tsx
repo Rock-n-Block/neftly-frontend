@@ -92,7 +92,6 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({className, toggleMenu}) =>
       {nav.map(({url, title, active, disabled, isNested, internalLinks}) => {
         if (isNested && !disabled) {
           return (
-
             <Popover>
               <Popover.Button>
                 <Text weight="medium" size="m" color={active ? 'primary' : 'black'}>{title}</Text>
@@ -101,7 +100,6 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({className, toggleMenu}) =>
                 <HeaderNestedBody links={internalLinks} onClick={handleMenuItemClick}/>
               </Popover.Body>
             </Popover>
-
           );
         }
         if (url && !disabled) {

@@ -1,100 +1,18 @@
-@import "../../styles/helpers";
-@import '/src/styles/mixins/media.scss';
+@import '../../styles/helpers';
 
 .giantCard {
   display: flex;
-  border: 1px solid $color-neutral-10;
+  width: 100%;
+  border: 1px solid $color-neutral-80;
 
-  .contentWrapper {
-    overflow: hidden;
-    max-height: 650px;
-    flex: 0 1 650px;
-    position: relative;
-    @include flexbox(center, center);
-
-    @include b(541){
-      max-width: 100%;
-      flex: 0 0 100%;
-    }
-
-    & .contentOverlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      transition: $transition;
-      background: rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      pointer-events: none;
-      cursor: pointer;
-      display: flex;
-      align-items: flex-end;
-      justify-items: flex-start;
-      z-index: 1;
-    }
-
-    &:hover {
-      & .contentOverlay {
-        opacity: 1;
-        pointer-events: none;
-      }
-    }
-  }
-
-  .previewBlock {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    @include flexbox;
-    &.fullscreen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 10000;
-      & .mediaContentBackground {
-        position: absolute;
-        background: rgba(0, 0, 0, 0.4);
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-      }
-      & .mediaContent {
-        max-width: 90%;
-        max-height: 90%;
-        position: relative;
-        z-index: 1;
-      }
-    }
-  }
-
-  .mediaContent {
-    transition: $transition;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    &Wrapper {
-      width: 100%;
-      height: 100%;
-
-      @include b(1280){
-        width: auto;
-      }
-    }
-  }
-
-  .zoomWrapper {
-    width: 50px;
-    height: 50px;
-    padding: 10px;
-    color: rgba(0, 0, 0, 0.5);
+  & > img, video {
+    width: 65%;
+    height: auto;
   }
 
   .cardInfo {
     padding: 32px;
-    flex: 1 1 auto;
+    width: 35%;
 
     & > * {
       &:not(:first-child) {
@@ -105,7 +23,7 @@
 }
 
 .detailedViewsAndControl {
-  border-bottom: 1px solid $color-neutral-10;
+  border-bottom: 1px solid $color-neutral-80;
   padding-bottom: 24px;
 }
 
@@ -113,7 +31,7 @@
   .giantCard {
     flex-direction: column;
 
-    .mediaContent {
+    & > img, video {
       width: 100%;
     }
 

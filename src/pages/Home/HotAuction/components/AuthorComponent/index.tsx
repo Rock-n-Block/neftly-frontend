@@ -13,7 +13,6 @@ type Props = {
 };
 
 const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
-  
   <div className={cx(styles.authorBlock, className)}>
     <div className={styles.user}>
       <Avatar
@@ -21,11 +20,10 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
         size="36"
         id={creator?.id || ''}
         avatar={creator?.avatar || ''}
-        isVerified={creator?.is_verificated}
       />
       <div className={styles.text}>
-        <Text size='xs'>Creator</Text>
-        <Text size='xl'>{sliceString(creator?.name || '')}</Text>
+        <Text color="lightGray">Creator</Text>
+        <Text>{sliceString(creator?.name || '')}</Text>
       </div>
     </div>
     {owners && (
@@ -39,11 +37,10 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
                   size="36"
                   id={creator?.id || ''}
                   avatar={creator?.avatar || ''}
-                  isVerified={creator?.is_verificated}
                 />
                 <div className={styles.text}>
-                  <Text size='xs'>Owner</Text>
-                  <Text size='xl'>{sliceString(owner.name)}</Text>
+                  <Text color="lightGray">Owner</Text>
+                  <Text>{sliceString(owner.name)}</Text>
                 </div>
               </div>
             ))}
@@ -55,11 +52,10 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
               size="36"
               id={creator?.id || ''}
               avatar={creator?.avatar || ''}
-              isVerified={creator?.is_verificated}
             />
             <div className={styles.text}>
-              <Text size='xs'>Owner</Text>
-              <Text size='xl'>{sliceString(owners?.name || '')}</Text>
+              <Text color="lightGray">Owner</Text>
+              <Text>{sliceString(owners?.name || '')}</Text>
             </div>
           </div>
         )}

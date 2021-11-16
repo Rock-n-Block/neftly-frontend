@@ -10,7 +10,7 @@ type Props = {
   expirationDate: number;
 };
 
-const TradingHistoryExpiration: FC<Props> = ({ className, expirationDate }) => {
+const TradingHistoryCells: FC<Props> = ({ className, expirationDate }) => {
   const isExpired = expirationDate > Date.now();
   const formatFunctionMock = (date: any) => {
     return date;
@@ -29,4 +29,4 @@ const TradingHistoryExpiration: FC<Props> = ({ className, expirationDate }) => {
   );
 };
 
-export default TradingHistoryExpiration;
+export default TradingHistoryCells;

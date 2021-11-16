@@ -1,17 +1,15 @@
-@import '/src/styles/helpers.scss';
-
 .avatar {
   position: relative;
-  display: inline-block;
+display: inline-block;
 
   &Img {
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: 100%;
   }
 }
 .verified {
   position: absolute;
   right: 0;
   bottom: 0;
-  transform: translate(10%, 0);
+  transform: translate(10%,0);
 }

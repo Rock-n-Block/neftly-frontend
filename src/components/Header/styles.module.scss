@@ -23,9 +23,11 @@
 }
 
 .burger {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   display: none;
+  position: absolute;
+  left: 10px;
 }
 
 .flex {
@@ -53,13 +55,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  transform: translateX(-200%);
-  transition: $transition;
+  transform: translateX(-100%);
+  transition: 300ms;
   z-index: 99;
-  width: 50%;
-  height: 100vh;
-  justify-content: flex-start;
-  @include box-shadow;
 }
 
 .mobileMenuOpen {
@@ -73,15 +71,11 @@
   .searchDesktop,
   .headerLinks,
   .headerSearch {
-    display: none !important;
-  }
-
-  .profileInfo{
-    margin-left: auto;
+    display: none;
   }
 
   .headerInner {
-    padding: 20px 10px;
+    padding: 20px 20px 20px 40px;
   }
 
 }

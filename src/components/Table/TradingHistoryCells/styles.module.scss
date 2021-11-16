@@ -9,27 +9,8 @@
   }
 }
 
-.tradingIcon{
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-}
-
 .tradingHistoryCells .eventDeclined {
   position: absolute;
   bottom: -15px;
   left: 20px;
-}
-
-.buyer{
-  &Data{
-    height: 100%;
-    width: 80%;
-  }
-  &Avatar{
-    flex: 0 0 24px;
-    height: 24px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
 }

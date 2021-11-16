@@ -2,9 +2,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { FC } from 'react';
 import { useTable } from 'react-table';
-import { IHistoryItem, TableProps } from 'typings';
+import { TableProps } from 'typings';
+
 import styles from './styles.module.scss';
-import { TradingHistoryBuyer, TradingHistoryEvent, TradingHistoryPrice } from './TradingHistoryCells';
 
 const Table: FC<TableProps> = ({ columns, data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
@@ -31,31 +31,11 @@ const Table: FC<TableProps> = ({ columns, data }) => {
           return (
             <tr className={styles.row} {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                const cellData: IHistoryItem = cell.row.original as IHistoryItem;
-
-                switch (cell.column.Header) {
-                  case 'Buyer': {
-                    return (
-                      <td className={styles.cell} {...cell.getCellProps()}>
-                        <TradingHistoryBuyer name={ cellData.name} avatar={cellData.avatar} date={cellData.date} />
-                      </td>
-                    );
-                  }
-                  case 'Price': {
-                    return (
-                      <td className={styles.cell} {...cell.getCellProps()}>
-                        <TradingHistoryPrice amount={cellData.price as string | number} asset={cellData.currency as string} />
-                      </td>
-                    )
-                  }
-                  default: {
-                    return (
-                      <td className={styles.cell} {...cell.getCellProps()}>
-                        <TradingHistoryEvent type={cellData.method as any} />
-                      </td>
-                    )
-                  }
-                }
+                return (
+                  <td className={styles.cell} {...cell.getCellProps()}>
+                    {cell.render('Cell')}
+                  </td>
+                );
               })}
             </tr>
           );

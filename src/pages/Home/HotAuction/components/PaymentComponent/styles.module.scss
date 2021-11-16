@@ -1,18 +1,8 @@
 @import '../../../../../styles/helpers';
 
 .paymentSell {
-  border: 1px solid $color-neutral-10;
+  border: 1px solid $color-neutral-80;
   padding: 24px;
-  background: $color-neutral-7;
-}
-
-.purchaseButton{
-  margin-top: 24px;
-  @include flexbox(center, center);
-  font-size: 16px;
-  line-height: 160%;
-  font-weight: 600;
-  padding: 7.5px 72px;
 }
 
 .priceWrapper {
