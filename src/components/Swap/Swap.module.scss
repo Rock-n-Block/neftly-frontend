@@ -1,51 +1,35 @@
 @import 'src/styles/helpers';
 
-.title{
-  margin-bottom: 12px;
-}
-
 .iconWrapper {
   margin: 10px 0;
 
   @include flexbox;
 
-  &:hover {
-    cursor: pointer;
-  }
 }
 
-.title {
-  margin-bottom: 24px;
-}
 
 .header {
   @include flexbox(flex-start, space-between);
-
+  opacity: 0.7;
 }
 .swap {
   .wrapper {
     text-align: left;
 
-    @include body-bold-2;
-
     .input {
-      margin-top: 12px;
-      color: $color-neutral-0;
-      background: $color-neutral-100;
-
-      &::placeholder {
-        color: $color-neutral-40;
-      }
+      margin-top: 8px;
     }
   }
 }
 
 .btns {
   @include flexbox(flex-start, center);
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid $color-neutral-60;
 }
 
 .button {
-  margin: 20px auto 0;
   width: 100%;
 
   &:not(:last-child) {
@@ -58,5 +42,5 @@
   padding-left: 16px;
   width: 92px;
   height: 38px;
-  border-right: 2px solid $color-neutral-100;
+  border-right: 2px solid $color-neutral-10;
 }

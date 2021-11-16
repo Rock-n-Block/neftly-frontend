@@ -1,5 +1,5 @@
 import React from 'react';
-import {observer} from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 
 import {
   Modal,
@@ -12,18 +12,18 @@ import {
   Transfer,
   Report,
   ChangePrice,
-  Swap
+  Swap,
 } from 'components';
-import {useMst} from 'store';
+import { useMst } from 'store';
 
 const Modals: React.FC = () => {
   const {
-    modals: {sell, burn, remove, transfer, report, change, swap},
+    modals: { sell, burn, remove, transfer, report, change, swap },
   } = useMst();
   return (
     <>
       <Modal visible={sell.checkout.getIsOpen} onClose={sell.checkout.close} title="Checkout">
-        <Checkout/>
+        <Checkout />
       </Modal>
       <Modal
         maxWidth="565px"
@@ -31,7 +31,7 @@ const Modals: React.FC = () => {
         onClose={sell.chooseSeller.close}
         title={`Sellers (${sell.chooseSeller.sellers.length})`}
       >
-        <ChooseSeller/>
+        <ChooseSeller />
       </Modal>
       <Modal
         maxWidth="510px"
@@ -39,10 +39,10 @@ const Modals: React.FC = () => {
         onClose={sell.placeBid.close}
         title="Place a Bid"
       >
-        <PlaceBid/>
+        <PlaceBid />
       </Modal>
       <Modal maxWidth="510px" visible={burn.getIsOpen} onClose={burn.close} title="Burn token">
-        <Burn/>
+        <Burn />
       </Modal>
       <Modal
         maxWidth="510px"
@@ -50,7 +50,7 @@ const Modals: React.FC = () => {
         onClose={remove.close}
         title="Remove from sale"
       >
-        <RemoveSale/>
+        <RemoveSale />
       </Modal>
       <Modal
         maxWidth="510px"
@@ -58,7 +58,7 @@ const Modals: React.FC = () => {
         onClose={transfer.close}
         title="Transfer token"
       >
-        <Transfer/>
+        <Transfer />
       </Modal>
       <Modal
         maxWidth="510px"
@@ -66,7 +66,7 @@ const Modals: React.FC = () => {
         onClose={sell.putOnSale.close}
         title="Put on sale"
       >
-        <PutOnSale/>
+        <PutOnSale />
       </Modal>
       <Modal
         maxWidth="510px"
@@ -74,13 +74,13 @@ const Modals: React.FC = () => {
         onClose={change.close}
         title="Change price"
       >
-        <ChangePrice/>
+        <ChangePrice />
       </Modal>
       <Modal maxWidth="510px" visible={report.isOpen} onClose={report.close} title="Report">
-        <Report/>
+        <Report />
       </Modal>
-      <Modal visible={swap.isOpen} onClose={swap.close}>
-        <Swap/>
+      <Modal maxWidth="510px" title="Convert" visible={swap.isOpen} onClose={swap.close}>
+        <Swap />
       </Modal>
     </>
   );

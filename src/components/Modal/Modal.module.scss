@@ -49,18 +49,8 @@
   background: $color-bg;
 }
 
-.title {
-  padding-bottom: 24px;
-  margin-bottom: 24px;
-  border-bottom: 1px solid $color-neutral-60;
-  color: $color-neutral-100;
-  font-weight: bold;
-  @include monument-extended;
-
-  input,
-  textarea {
-    border-color: $color-neutral-40;
-  }
+.title{
+  margin-bottom: 12px;
 }
 
 .close {
@@ -73,19 +63,14 @@
   height: 42px;
 
   background: $color-neutral-0;
-  border: 1px solid $color-border-close-modal;
+  border: 1px solid $color-actions-light-pink;
 
   img {
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s;
   }
 
-  svg {
-    transition: transform 0.2s;
-    fill: $color-neutral-5;
-    transform-origin: center;
-  }
-  // }
   &:hover {
     img {
       transform: rotate(90deg);
