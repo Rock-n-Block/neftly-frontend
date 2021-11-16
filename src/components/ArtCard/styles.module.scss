@@ -2,10 +2,10 @@
 
 .artCard {
   position: relative;
-
   border: 1px solid $color-neutral-20;
-  max-width: 292px;
-  width: 100%;
+  width: 300px;
+  overflow: hidden;
+  
   &Medium {
     max-width: 402px;
   }

@@ -47,6 +47,12 @@
 .artCardsWrapper {
   @include flexbox();
   flex-wrap: wrap;
+  justify-content: flex-start;
   width: 100%;
-  gap: 35px;
+  gap: 20px;
+}
+
+.artCard{
+  width: max-content;
+  margin: 0 auto;
 }

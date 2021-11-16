@@ -123,6 +123,11 @@ $defaultFlexBoxJustify: center;
   box-shadow: $x $y $blur $spread rgba(18, 27, 40, 0.3);
 }
 
+@mixin autoGrid($min: 250px, $max: 1fr){
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min, $max));
+}
+
 @mixin flexbox($align: $defaultFlexBoxAlign, $justify: $defaultFlexBoxJustify) {
   display: flex;
   justify-content: $justify;

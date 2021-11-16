@@ -25,11 +25,16 @@
 }
 
 .likeButton {
-  @include flexbox;
+  @include flexbox($align: center);
   padding: 0 10px;
   min-width: 75px !important;
   svg {
     margin-right: 5px;
+  }
+  & p{
+   line-height: 1;
+   position: relative;
+   top: 2px;
   }
   &Active {
     svg {
@@ -49,6 +54,7 @@
   }
 
   .controls {
+    margin-top: 10px;
     justify-content: flex-start;
   }
 }

@@ -177,7 +177,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
             color="outline"
           >
             <PinkHeart />
-            {numberFormatter(likeCount || 0, 1000)}
+            <Text size='s' color='inherit'>{numberFormatter(likeCount || 0, 1000)}</Text>
           </Button>
           <Copyable valueToCopy={`${window.location.origin}${routes.nft.link(nft?.id || '')}`}>
             <Button color="outline" className={styles.copyButton}>

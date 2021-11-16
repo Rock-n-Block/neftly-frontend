@@ -37,7 +37,6 @@ export const options: ChartOptions = {
       ticks: {
         color: '#080134',
         crossAlign: 'far',
-        padding: 20,
         font: fontStyle,
       },
       grace: '1%',

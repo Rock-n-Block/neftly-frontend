@@ -46,7 +46,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     sort: 'items',
     on_sale: true,
   });
-  
+
   const getItem = React.useCallback(() => {
     storeApi
       .getToken(id)
@@ -75,7 +75,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     remove.isSuccess,
     sell.putOnSale.isSuccess,
   ]);
-    
+
   return (
     <div className={cx(styles.detailArtwork, className)}>
       <div className={styles.detailArtworkContent}>
@@ -109,21 +109,22 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
                     currency: { symbol: asset },
                   } = art;
                   return (
-                    <ArtCard
-                      key={`nft_card_${artId}`}
-                      className={styles.artCard}
-                      artId={artId}
-                      imageMain={image}
-                      name={name}
-                      price={price}
-                      asset={asset}
-                      inStockNumber={inStockNumber}
-                      author={author}
-                      authorAvatar={authorAvatar}
-                      authorId={authorId.toString()}
-                      likesNumber={likesNumber}
-                      tags={tags}
-                    />
+                    <div className={styles.artCard}>
+                      <ArtCard
+                        key={`nft_card_${artId}`}
+                        artId={artId}
+                        imageMain={image}
+                        name={name}
+                        price={price}
+                        asset={asset}
+                        inStockNumber={inStockNumber}
+                        author={author}
+                        authorAvatar={authorAvatar}
+                        authorId={authorId.toString()}
+                        likesNumber={likesNumber}
+                        tags={tags}
+                      />
+                    </div>
                   );
                 })}
             </div>
