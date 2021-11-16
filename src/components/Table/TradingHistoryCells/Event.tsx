@@ -16,7 +16,7 @@ const helperObject = {
   Mint: tradingOffer,
 };
 
-const TradingHistoryEvent: FC<Props> = ({ className, type, isDeclined }) => (
+const TradingHistoryCells: FC<Props> = ({ className, type, isDeclined }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
     <img src={helperObject[type]} alt="" />
     <Text style={{ textTransform: 'capitalize' }} size="m">
@@ -30,4 +30,4 @@ const TradingHistoryEvent: FC<Props> = ({ className, type, isDeclined }) => (
   </div>
 );
 
-export default TradingHistoryEvent;
+export default TradingHistoryCells;

@@ -51,7 +51,6 @@ const ChartComponent: FC<Props> = ({ data, period, className, currency }) => {
   const chartData = useMemo(() => {
     const newChartData = {
       ...defaultChartData,
-      labels: [],
       datasets: [{ ...defaultChartData.datasets[0], data: formatedData }],
     };
     return newChartData;
@@ -70,12 +69,10 @@ const ChartComponent: FC<Props> = ({ data, period, className, currency }) => {
     prevValue: selectedPointPrice,
   });
 
-  
-
   return (
     <>
       <div className={styles.chartInfo}>
-        <Text weight="medium" size="m" className={styles.averagePrice}>
+        <Text color="gray" size="m" className={styles.averagePrice}>
           Avg. Price
         </Text>
         <Text size="xxl" weight="bold" className={styles.averageValue}>

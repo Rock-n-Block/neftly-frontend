@@ -12,7 +12,6 @@ type Props = {
 
 const DescriptionAndTagsComponent: FC<Props> = ({ className, tags, body }) => (
   <div className={className}>
-    
     <Text className={styles.descriptionBody} size="m">
       {body}
     </Text>

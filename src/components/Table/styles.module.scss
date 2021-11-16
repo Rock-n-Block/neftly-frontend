@@ -1,10 +1,9 @@
-@import "../../styles/helpers.scss";
+@import '../../styles/helpers.scss';
 
 .table {
   border-spacing: 0;
   width: 100%;
   border: 1px solid transparent;
-  table-layout: fixed;
 }
 
 .th {
@@ -14,7 +13,7 @@
   text-align: left;
   font-size: 14px;
   font-weight: normal;
-  color: $color-neutral-80;
+  color: $color-neutral-40;
 
   &:first-child {
     border-top-left-radius: 10px;
@@ -48,8 +47,7 @@
   position: relative;
   padding: 8px;
   font-size: 14px;
-  color: black;
-  width: 33.3%;
+  color: white;
 
   @include forTablet {
     padding: 15px 5px;

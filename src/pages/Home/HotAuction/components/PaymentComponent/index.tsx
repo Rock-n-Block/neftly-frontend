@@ -209,12 +209,12 @@ const PaymentComponent: FC<Props> = observer(
         handleCheckAllowance();
       }
     }, [user.address, nft, handleCheckAllowance]);
-    
+
     return (
       <div className={cx(className, { [styles.paymentSell]: nftSellingType === 'sell' })}>
         <div className={styles.priceWrapper}>
           <div>
-            {nftSellingType === 'sell' ? <Text size='m'>Current Price</Text> : null}
+            {nftSellingType === 'sell' ? <Text color="lightGray">Current Price</Text> : null}
             {nftSellingType === 'auction' && nft?.highest_bid ? (
               <Text color="lightGray">Highest Bid</Text>
             ) : null}
@@ -249,7 +249,7 @@ const PaymentComponent: FC<Props> = observer(
         {user.address ? (
           <div className={styles.sellBtnsWrapper}>
             {isUserCanEndAuction ? (
-              <Button onClick={handleEndAuction} className={styles.purchaseButton} isFullWidth>
+              <Button onClick={handleEndAuction} isFullWidth>
                 End Auction
               </Button>
             ) : null}

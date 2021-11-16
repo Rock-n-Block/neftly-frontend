@@ -1,17 +1,10 @@
 import { ChartOptions } from 'chart.js';
 import { IChartData } from 'typings';
 
-const fontStyle = {
-  size: 16,
-  family: 'Epilogue',
-};
-
 export const options: ChartOptions = {
-  responsive: true,
-  maintainAspectRatio: true,
   parsing: {
     xAxisKey: 'time',
-    yAxisKey: 'data'
+    yAxisKey: 'data',
   },
   plugins: {
     legend: {
@@ -24,27 +17,20 @@ export const options: ChartOptions = {
   scales: {
     xAxis: {
       ticks: {
-        color: '#080134',
-        font: fontStyle,
+        color: '#FFF',
       },
-      grid: {
-        display: false,
-
-      }
     },
     yAxis: {
-      min: 0,
       ticks: {
-        color: '#080134',
+        color: '#FFF',
         crossAlign: 'far',
         padding: 20,
-        font: fontStyle,
       },
       grace: '1%',
       grid: {
         display: true,
         offset: false,
-        color: '#CECCD6',
+        color: '#393556',
         lineWidth: 1,
       },
       title: {
@@ -67,7 +53,7 @@ export const defaultChartData: IChartData = {
   labels: [],
   datasets: [
     {
-      data: [{ time: 1, data: 2 }],
+      data: [{ time: '1', data: '0' }, { time: '2', data: '5' }, { time: '3', data: '3' }, { time: '4', data: '1' }],
       fill: false,
       backgroundColor: 'transparent',
       borderColor: '#C379F6',
