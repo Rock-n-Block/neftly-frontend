@@ -44,6 +44,7 @@ export { default as ChangePrice } from './ChangePrice';
 export { default as Report } from './Report';
 export { default as Chart } from './Chart';
 export { default as Copyable } from './Copyable';
+export { default as GuardedRoute } from './GuardedRoute';
 export { default as Header } from './Header';
 export { default as Footer } from './Footer';
 export { default as IconLinks } from './IconLinks';

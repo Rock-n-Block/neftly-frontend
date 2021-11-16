@@ -98,6 +98,11 @@ export const User = types
       getMe,
       disconnect,
     };
-  });
+  })
+  .views((self) => ({
+    get isAuth() {
+      return !!localStorage.getItem('nftcrowd_nft_token') || !!self.address;
+    },
+  }));
 
 /* eslint-disable no-param-reassign */
