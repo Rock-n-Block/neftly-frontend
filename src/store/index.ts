@@ -1,10 +1,10 @@
-import { createContext, useContext } from 'react';
-import { Instance, onSnapshot, types } from 'mobx-state-tree';
-import { TNullable } from 'typings';
+import {createContext, useContext} from 'react';
+import {Instance, onSnapshot, types} from 'mobx-state-tree';
+import {TNullable} from 'typings';
 
-import { Modals } from './Modals';
-import { NftTags } from './NftTags';
-import { User } from './User';
+import {Modals} from './Modals';
+import {NftTags} from './NftTags';
+import {User} from './User';
 
 const RootModel = types.model({
   user: User,
@@ -17,7 +17,7 @@ export const Store = RootModel.create({
     is_verificated: false,
     display_name: '',
     email: '',
-    balance: { eth: '0', weth: '0' },
+    balance: {eth: '0', weth: '0'},
     follows_count: 0,
     followers_count: 0,
   },
@@ -27,6 +27,7 @@ export const Store = RootModel.create({
     transfer: {},
     report: {},
     change: {},
+    swap: {isOpen: false, main: 'ETH', wrap: 'WETH', refresh: false},
     sell: {
       checkout: {
         isOpen: false,
@@ -59,7 +60,7 @@ onSnapshot(rootStore, (snapshot) => {
 export type RootInstance = Instance<typeof RootModel>;
 const RootStoreContext = createContext<TNullable<RootInstance>>(null);
 
-export const { Provider } = RootStoreContext;
+export const {Provider} = RootStoreContext;
 
 export function useMst() {
   const store = useContext(RootStoreContext);

@@ -5,7 +5,7 @@
   @include flexbox();
   cursor: pointer;
   position: relative;
-
+  white-space: nowrap;
   &:focus {
     outline: none;
   }
