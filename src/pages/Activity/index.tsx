@@ -1,9 +1,7 @@
 import { FC, useState } from 'react';
-import nextId from 'react-id-generator';
-import { useHistory } from 'react-router-dom';
 import { IconFilter, profile_avatar_example } from 'assets/img';
 import cn from 'classnames';
-import { ActivityItem, Button, H2, Loader, Text } from 'components';
+import { ActivityItem, Button, H2, H3, Loader, Text } from 'components';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 
@@ -11,7 +9,7 @@ import Filters from './Filters';
 
 import styles from './Activity.module.scss';
 import { useFetchActivity } from 'hooks';
-import { routes } from 'appConstants';
+import { useMst } from 'store';
 
 const filters = [
   'Sales',
@@ -26,21 +24,12 @@ const filters = [
 ];
 
 const Activity: FC = observer(() => {
-  const history = useHistory();
   const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const [items, setItems] = useState<any>([]);
+  const { user } = useMst();
 
   const { totalItems, items, selectedFilters, handleFilters, handlePage, page } =
     useFetchActivity(setIsLoading);
-
-  const openNotification = (method: string, link_id: number | string) => {
-    if (method === 'follow') {
-      history.push(routes.profile.link(link_id));
-    } else {
-      history.push(routes.nft.link(link_id));
-    }
-  };
 
   return (
     <div className={styles.page}>
@@ -49,18 +38,12 @@ const Activity: FC = observer(() => {
           <H2 align="center" className={styles.pageTitle}>
             Social activity
           </H2>
-          <Text
-            align="center"
-            className={styles.pageSubtitle}
-            color="lightGray"
-            size="m"
-            weight="medium"
-          >
+          <Text align="center" className={styles.pageSubtitle} size="m" weight="medium">
             keep track of all the latest activity on the platform
           </Text>
 
           <div className={styles.top}>
-            <h1 className={cn('h2', styles.title)}>Activity</h1>
+            <H3 className={cn(styles.title)}>Activity</H3>
             <Button
               color="outline"
               className={cn('button-circle-stroke button-small tablet-show', styles.toggle)}
@@ -72,29 +55,31 @@ const Activity: FC = observer(() => {
           <div className={styles.row}>
             <div className={styles.wrapper}>
               <div className={styles.list}>
-                {/* OLD ITEMS */}
-                {/* TODO: fix this later */}
                 {items?.length ? (
-                  items?.map((card: any) => (
-                    <div
-                      key={nextId()}
-                      onClick={() => openNotification(card.method, card.token_id || card.from_id)}
-                      onKeyDown={() => {}}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      <ActivityItem
-                        activityType={card.method}
-                        userImg={card.from_image || card.to_image || profile_avatar_example}
-                        actionImg={card.token_image || card.to_image}
-                        userName={card.from_name || card.to_name}
-                        actionDescription={`${card.method} ${card.token_name || card.to_name}`}
-                        timeAgo={moment().from(card.date)}
-                      />
-                    </div>
-                  ))
+                  items
+                    ?.filter((el: any) => !el.is_viewed)
+                    .map((card: any) => (
+                      <div key={`${card.id}-${card.date}-${card.from_address}-${card.method}`}>
+                        <ActivityItem
+                          activityType={card.method}
+                          userImg={card.from_image || card.to_image || profile_avatar_example}
+                          actionImg={card.token_image || card.to_image}
+                          userName={
+                            [card.from_id, card.to_id].includes(user.id)
+                              ? 'You'
+                              : card.from_name || card.to_name
+                          }
+                          actionDescription={card.method}
+                          actionDescriptionName={card.token_name || card.to_name}
+                          timeAgo={moment().from(card.date)}
+                          linkId={card.token_id || card.from_id}
+                          activityId={card.id}
+                          userId={card.from_id || card.to_id}
+                        />
+                      </div>
+                    ))
                 ) : (
-                  <>{!isLoading && <Text>No activities</Text>}</>
+                  <>{!isLoading ? <Text>No activities</Text> : <Loader />}</>
                 )}
               </div>
 
