@@ -14,7 +14,7 @@
 }
 
 .pageSubtitle {
-  margin-bottom: 15px;
+  margin-bottom: 45px;
   @include epilogue;
 }
 
@@ -70,6 +70,8 @@
 }
 
 .row {
+  margin-top: -50px;
+
   display: flex;
   align-items: flex-start;
 
