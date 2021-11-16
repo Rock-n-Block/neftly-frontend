@@ -7,7 +7,6 @@ import { OptionType } from 'typings';
 // import FilterTag from './FilterTag';
 import styles from './styles.module.scss';
 
-
 const filterSelectArtistsOptions = [
   {
     value: 'verified',
@@ -71,7 +70,9 @@ const AdvancedFilter: FC<Props> = ({
         })} */}
       </div>
       <div>
-        <Text color="gray">Price Range</Text>
+        <Text color="gray" weight="medium" className={styles.label}>
+          Price Range
+        </Text>
         <RangePicker
           className={styles.rangeFilter}
           onChange={handleMaxPriceFilter}
@@ -83,7 +84,7 @@ const AdvancedFilter: FC<Props> = ({
         />
       </div>
       <div>
-        <Text color="gray" size="m">
+        <Text size="m" color="gray" weight="medium" className={styles.label}>
           Currency
         </Text>
         <Select
@@ -103,7 +104,7 @@ const AdvancedFilter: FC<Props> = ({
         />
       </div> */}
       <div>
-        <Text color="gray" size="m">
+        <Text size="m" color="gray" weight="medium" className={styles.label}>
           Artists
         </Text>
         <Select

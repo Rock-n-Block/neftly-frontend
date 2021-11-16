@@ -2,7 +2,16 @@ import { RefObject, useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { filter } from 'assets/img';
 import cx from 'classnames';
-import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
+import {
+  ArtCard,
+  Button,
+  H2,
+  H3,
+  Text,
+  LiveAuction,
+  Select,
+  TabLookingComponent,
+} from 'components';
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
 import { observer } from 'mobx-react-lite';
@@ -81,7 +90,10 @@ const Discover = observer(() => {
   return (
     <div className={styles.discover}>
       <H2 className={styles.title}>
-        DISCOVER <span className={styles.gradientTitle}>ARTWORK</span>
+        DISCOVER{' '}
+        <Text tag="span" size="inherit" color="primary">
+          ARTWORK
+        </Text>
       </H2>
       <div className={styles.filterControls}>
         <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">

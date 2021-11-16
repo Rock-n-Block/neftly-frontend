@@ -79,9 +79,11 @@
 }
 
 .tabIcon {
-  filter: brightness(100);
+  //filter: brightness(100);
 
   margin-right: 10px;
+  height: 26px;
+  width: auto;
 }
 
 .scrollProvider::-webkit-scrollbar {
