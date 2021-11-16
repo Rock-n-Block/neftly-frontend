@@ -24,7 +24,7 @@
 .filterAndCards {
   position: relative;
   // min-height: 620px;
-  @include flexbox(flex-start, flex-start);
+  @include flexbox(normal,normal);
   //padding: 44px 0;
   min-height: 50vh;
 
