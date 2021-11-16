@@ -3,6 +3,7 @@ import { Text } from 'components';
 
 import styles from './styles.module.scss';
 import { ITag } from '../../../../../typings';
+import { Cursor } from 'assets/img';
 
 type Props = {
   className?: string;
@@ -14,6 +15,10 @@ const DescriptionAndTagsComponent: FC<Props> = ({ className, tags, body }) => (
   <div className={className}>
 
     <Text className={styles.descriptionBody} size="m">
+      <div className={styles.hoverText}>
+        <Text>Hover to read more</Text>
+        <Cursor aria-label='hover' className={styles.cursor}/>
+      </div>
       {body}
     </Text>
     {tags.length && (
