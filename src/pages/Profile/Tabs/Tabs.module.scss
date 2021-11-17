@@ -1,15 +1,6 @@
 @import 'src/styles/helpers.scss';
 
 .tab {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  @include autoGrid;
   margin-bottom: 32px;
-  justify-items: center;
-  @include forDesktopBig {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include forDesktopSm {
-    grid-template-columns: repeat(1, 1fr);
-  }
 }

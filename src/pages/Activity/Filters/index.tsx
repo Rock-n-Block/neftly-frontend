@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-import nextId from 'react-id-generator';
 import cn from 'classnames';
 
 import { H4, Checkbox, Button } from 'components';
@@ -53,13 +52,13 @@ const Filters: React.FC<IFiltersProps> = ({
         </Button>
       </div>
       <div className={styles.group}>
-        {filters.map((x) => (
+        {filters.map((filter) => (
           <Checkbox
             className={styles.checkbox}
-            content={x}
-            value={selectedFilters.includes(x)}
-            onChange={() => handleChange(x)}
-            key={nextId()}
+            content={filter}
+            value={selectedFilters.includes(filter)}
+            onChange={() => handleChange(filter)}
+            key={filter}
           />
         ))}
       </div>
