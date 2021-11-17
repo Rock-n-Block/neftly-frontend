@@ -271,6 +271,7 @@
 .tokenProperty {
   @include flexbox(flex-start);
   width: 100%;
+  position: relative;
 
   &Name {
     width: 100%;
@@ -310,5 +311,36 @@
   color: $color-state-error;
   @include forDesktopSm {
     margin-top: 16px;
+  }
+}
+
+.btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  &_add {
+    border-color: #45b36b;
+  }
+  &_remove {
+    border-color: #f4f5f6;
+    background: #f4f5f6;
+  }
+}
+
+.detailsBtns {
+  position: absolute;
+  right: -45px;
+  bottom: 6px;
+
+  &Double {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+    transform: translateX(40px);
   }
 }
