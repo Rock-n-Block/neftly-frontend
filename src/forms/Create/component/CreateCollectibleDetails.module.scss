@@ -167,9 +167,11 @@
 
 .fieldset {
   margin-top: 32px;
+  margin-bottom: 72px;
 
   &_first {
     margin-top: 0;
+    margin-bottom: 0;
   }
 
   &Title {
@@ -264,13 +266,15 @@
 
 .tokenProperties {
   margin-top: 16px;
-  @include flexbox;
+  @include flexbox(flex-start);
   flex-direction: column;
+  width: calc(100% - 48px);
 }
 
 .tokenProperty {
   @include flexbox(flex-start);
   width: 100%;
+  position: relative;
 
   &Name {
     width: 100%;
@@ -310,5 +314,51 @@
   color: $color-state-error;
   @include forDesktopSm {
     margin-top: 16px;
+  }
+}
+
+.btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  @include flexbox;
+  &_add {
+    border-color: $color-actions-dark-green;
+    transition: all 0.2s ease;
+    &:hover {
+      background: $color-actions-dark-green;
+      svg {
+        path {
+          fill: $color-neutral-0;
+        }
+      }
+
+      transition: all 0.2s ease;
+    }
+  }
+  &_remove {
+    border-color: $color-actions-light-grey;
+    background: $color-actions-light-grey;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: $color-actions-red;
+
+      transition: all 0.2s ease;
+    }
+  }
+}
+
+.detailsBtns {
+  position: absolute;
+  right: -40px;
+  bottom: 6px;
+
+  &Double {
+    @include flexbox(center, column-reverse);
+    gap: 24px;
+    transform: translateY(56px);
   }
 }
