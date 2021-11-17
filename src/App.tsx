@@ -35,6 +35,6 @@ const App = () => {
       </GoogleReCaptchaProvider>
     </>
   );
-}
+};
 
 export default App;
