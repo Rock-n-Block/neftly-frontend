@@ -1,0 +1,74 @@
+import { Children, FC, memo, PropsWithChildren, RefObject, useCallback, useEffect, useState } from "react";
+import styles from './style.module.scss';
+import WrappedItem, { IItemPosition } from "./WrappedItem";
+
+export enum EGridJustify{
+    start,
+    center,
+    end
+}
+
+export interface IGridLayerProps {
+    minWidth: number;
+    minHeight: number;
+    wrapperRef?: RefObject<any>;
+    maxColumns?: number;
+    gap?: number;
+    justify?: EGridJustify;
+}
+
+type ICardStyles = {
+    width: number,
+    height: number,
+}
+
+const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({ minWidth, minHeight, wrapperRef, maxColumns = null, gap = 10, children, justify = 'start' }) => {
+
+    const [cardStyles, setCardStyles] = useState<ICardStyles>({ width: minWidth, height: minHeight });
+    const [columns, setColumns] = useState<number>(Math.trunc(document.documentElement.clientWidth / (cardStyles.width + gap)) - 1);
+    const childrenCount = Children.count(children);
+
+    const resizeCallback = useCallback(async () => {
+        const winWidth = wrapperRef?.current.offsetWidth || document.documentElement.clientWidth;
+
+        const newColumns = Math.trunc(winWidth / (minWidth + gap));
+
+        if ((maxColumns === null || newColumns <= maxColumns) && newColumns >= 1) {
+            await setColumns(newColumns);
+        }
+
+        setCardStyles((prevStyle: ICardStyles) => ({ ...prevStyle, width: (winWidth - gap * (columns - 1)) / columns, height: minHeight + (winWidth / columns - minWidth) }));
+
+    }, [minWidth, columns, maxColumns, gap, wrapperRef, minHeight])
+
+
+    useEffect(() => {
+        window.addEventListener('resize', resizeCallback)
+        resizeCallback();
+
+        return () => {
+            window.removeEventListener('resize', resizeCallback)
+        }
+    }, [resizeCallback])
+    console.log(justify)
+    return (
+        <section className={styles.gridWrapper} style={{ height: (cardStyles.height + gap) * Math.ceil(childrenCount / columns) }}>
+            {Children.map(children, (child, idx) => { 
+                const position: IItemPosition = {
+                    width: cardStyles.width,
+                    height: cardStyles.height,
+                    left: (idx % columns) * (cardStyles.width) + (idx % columns) * gap + (justify === EGridJustify.center ? cardStyles.width / 2 : justify === EGridJustify.end ? cardStyles.width : 0),
+                    top: (Math.trunc(idx / columns)) * (cardStyles.height + gap)
+                }
+                return (
+                    <WrappedItem position={position}>
+                        {child}
+                    </WrappedItem>
+                )
+            }
+            )}
+        </section>
+    )
+}
+
+export default memo(GridLayer);
