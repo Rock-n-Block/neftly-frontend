@@ -140,7 +140,6 @@ export class WalletConnect {
       contracts.params[contract][is_production ? 'mainnet' : 'testnet'].abi,
       method,
     );
-    console.log('buy transaction');
     let signature;
     if (transactionMethod) {
       signature = this.encodeFunctionCall(transactionMethod, data);
@@ -169,7 +168,6 @@ export class WalletConnect {
   }
 
   async trxCreateTransaction(data: any, address: string) {
-    console.log(data);
     const { transaction } = await this.tronWeb.transactionBuilder.triggerSmartContract(
       data.contractAddress,
       data.function,
@@ -178,10 +176,8 @@ export class WalletConnect {
       address,
     );
 
-    console.log(data.function, data.function.replace(/\(.*/, ''));
     const isTransferOrBurn =
       data.function.toLowerCase().includes('transfer') || data.function.includes('burn');
-    console.log(isTransferOrBurn);
 
     if (isTransferOrBurn) {
       const abiSelecteor = data.is1155 ? abiERC1155 : abiERC721;
@@ -199,7 +195,6 @@ export class WalletConnect {
   }
 
   async trxSendTransaction(transaction: any) {
-    console.log(transaction, 12312313123);
     let receipt;
     try {
       const signedMsg = await this.tronWeb.trx.sign(transaction);

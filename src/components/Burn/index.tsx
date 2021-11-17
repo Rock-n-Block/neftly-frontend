@@ -30,15 +30,15 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
       .burnToken(burn.tokenId.toString() || '', amount)
       .then(({ data }: any) => {
         if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-          console.log('TRON');
-          walletConnector.walletService.trxCreateTransaction(data.initial_tx, user.address).then(() => {
-            burn.success();
-            burn.close();
-            toast.success('Token Burned');
-            history.push('/');
-          });
+          walletConnector.walletService
+            .trxCreateTransaction(data.initial_tx, user.address)
+            .then(() => {
+              burn.success();
+              burn.close();
+              toast.success('Token Burned');
+              history.push('/');
+            });
         } else {
-          console.log('NOT TRON');
           walletConnector.walletService
             .sendTransaction(data.initial_tx)
             .then(() => {
