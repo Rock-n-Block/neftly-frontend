@@ -114,14 +114,14 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
               >
                 <div className={s.user_button}>
                   <img src={iconEdit} alt="" />
-                  <Text tag="span" color="white">
+                  <Text tag="span" color="white" weight="medium">
                     Edit Banner
                   </Text>
                 </div>
               </Uploader>
               <Button className={s.user_button} color="outline" href={routes.profile.edit}>
                 <img src={iconSettingsWhite} alt="" />
-                <Text tag="span" color="white">
+                <Text tag="span" color="white" weight="medium">
                   Edit Profile
                 </Text>
               </Button>

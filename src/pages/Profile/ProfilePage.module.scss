@@ -10,8 +10,21 @@
       padding: 32px 88px 32px 0;
       border-right: 1px solid $color-neutral-20;
       @include forDesktopMiddle {
-        padding: 20px 0 0;
+        padding: 0;
         border: none;
+        margin: 0 -32px;
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid $color-neutral-10;
+        button {
+          min-height: 72px;
+          &:first-child {
+            padding-left: 10px;
+          }
+          &:last-child {
+            padding-right: 10px;
+          }
+        }
       }
     }
 
@@ -19,8 +32,8 @@
       padding: 44px 32px;
       padding-right: 0;
       @include forDesktopMiddle {
-        padding: 32px;
         width: 100%;
+        padding: 0;
       }
     }
 
@@ -33,8 +46,7 @@
     }
 
     @include forDesktopMiddle {
-      @include flexbox;
-      flex-direction: column;
+      display: block;
     }
   }
 }
@@ -45,20 +57,23 @@
 
   button {
     margin-bottom: 25px;
-    height: 40px !important;
-
-    p {
-      font-size: 16px !important;
-    }
 
     &::before {
-      bottom: -5px !important;
+      bottom: -8px !important;
+      @include forDesktopMiddle {
+        bottom: -0px !important;
+      }
+    }
+    @include forDesktopMiddle {
+      margin-bottom: 0;
+      padding: 24px 0;
     }
   }
 
   @include forDesktopMiddle {
     flex-direction: row;
     gap: 12px;
+    align-items: center;
   }
 }
 
@@ -67,7 +82,7 @@
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 16px;
-  @include forDesktopSm {
+  @include forDesktopMiddle {
     display: none;
   }
 }

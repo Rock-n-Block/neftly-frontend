@@ -333,24 +333,8 @@ $defaultFlexBoxJustify: center;
   }
 }
 
-@mixin scroll() {
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      transparent 20%,
-      rgba(102, 214, 218, 0.4) 20%,
-      rgba(102, 214, 218, 0.4) 80%,
-      transparent 80%,
-      transparent 100%
-    );
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: $color-action-default;
-  }
+@mixin autoGrid($min: 250px, $max: 1fr, $gap: 20px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min, $max));
+  gap: $gap;
 }

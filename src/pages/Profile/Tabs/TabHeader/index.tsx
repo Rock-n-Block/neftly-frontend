@@ -13,7 +13,7 @@ const TabHeader: React.FC<IProps> = ({ title, handleOrderByFilter, orderByFilter
   return (
     <div className={s.tab_header}>
       <div className={s.page_body__top_col}>
-        <H3 className={s.title}>Artworks</H3>
+        <H3 className={s.title}>My Artworks</H3>
         <Text className={s.counter}>{title}</Text>
       </div>
       {orderByFilter && (
