@@ -139,7 +139,7 @@ const exchangeAddrs = {
     : '',
   [chainsEnum.Ethereum]: !is_production ? '0x190a5d4643e55313906344176F61724fC138501c' : '',
   [chainsEnum.Polygon]: !is_production ? '0x928724290F7F868C2fEe10720aE5b48C94c5139F' : '',
-  [chainsEnum.Tron]: !is_production ? '41636f5cc24f43433106190fb9ffa8e044a1761e75' : '',
+  [chainsEnum.Tron]: !is_production ? 'TWSrxkCTYAYg1mqHpoYxbDkW2DkYNzLwML' : '',
 };
 
 export const contracts: IContracts = {

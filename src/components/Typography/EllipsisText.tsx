@@ -3,7 +3,6 @@ import cn from 'classnames';
 
 import styles from './styles.module.scss';
 import Tooltip from 'rc-tooltip';
-// import cn from 'classnames';
 
 type Props = {
   className?: string;
