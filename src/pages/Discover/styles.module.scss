@@ -10,6 +10,11 @@
 
   .advancedFilterBtn {
     padding: 0 20px;
+
+    & .icon{
+      margin-left: 10px;
+    }
+
     &Empty {
       width: 170px;
     }

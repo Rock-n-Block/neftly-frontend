@@ -1,6 +1,6 @@
 import { RefObject, useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { filter } from 'assets/img';
+import { FilterSVG } from 'assets/img';
 import cx from 'classnames';
 import {
   ArtCard,
@@ -97,7 +97,7 @@ const Discover = observer(() => {
       </H2>
       <div className={styles.filterControls}>
         <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
-          Advanced Filter <img src={filter} className={styles.image} alt="" />
+          Advanced Filter <FilterSVG className={styles.icon}/>
         </Button>
         <TabLookingComponent
           tabClassName={styles.filterTab}

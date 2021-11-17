@@ -17,6 +17,7 @@ export { default as logo } from './Logo.svg';
 export { default as bell } from './Bell.svg';
 export { default as wallet } from './wallet.svg';
 export { default as filter } from './Filter.svg';
+export { ReactComponent as FilterSVG } from './Filter.svg';
 export { default as threeD } from './3D.svg';
 export { default as allCategory } from './allCategory.svg';
 export { default as art } from './Art.svg';
