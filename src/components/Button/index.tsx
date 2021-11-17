@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 
 type Props = {
   color?: 'blue' | 'outline' | 'transparent' | 'pink' | 'dark';
+  padding?: 'large' | 'small' | string;
   size?: any;
   isFullWidth?: boolean;
   className?: string;
@@ -26,6 +27,7 @@ type Props = {
 
 const Button: FC<PropsWithChildren<Props>> = ({
   color = 'blue',
+  padding = 'large',
   size = 'normal',
   isFullWidth = false,
   onClick = () => {},
@@ -44,11 +46,11 @@ const Button: FC<PropsWithChildren<Props>> = ({
     return (
       <Link
         to={href}
-        className={cx(styles.button, styles[size], styles[color], className, {
+        className={cx(styles.button, styles[size], styles[color], styles[`${padding.includes('large') || padding.includes('small') ? padding : ''}`], className, {
           [styles.isFullWidth]: isFullWidth,
           [styles.disabled]: disabled,
         })}
-        style={style}
+        style={!(padding.includes('large') || padding.includes('small')) ? {...style, padding} : style}
       >
         {icon && <img src={icon} className={styles.icon} alt="" />}
         {children}
@@ -58,13 +60,13 @@ const Button: FC<PropsWithChildren<Props>> = ({
     <button
       // eslint-disable-next-line react/button-has-type
       type={type}
-      className={cx(styles.button, styles[size], styles[color], className, {
+      className={cx(styles.button, styles[size], styles[color], styles[`${padding.includes('large') || padding.includes('small') ? padding : ''}`], className, {
         [styles.isFullWidth]: isFullWidth,
         [styles.disabled]: disabled || loading,
       })}
       onClick={onClick}
       disabled={disabled || loading}
-      style={style}
+      style={!(padding.includes('large') || padding.includes('small')) ? {...style, padding} : style}
       onMouseLeave={onMouseLeave}
       onMouseEnter={onMouseOver}
     >
