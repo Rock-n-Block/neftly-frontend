@@ -19,7 +19,7 @@ const ChartComponent: FC<Props> = ({ data, period, className, currency }) => {
   const [selectedPointPrice, setSelectedPointPrice] = useState(
     `${data[data.length - 2]?.avg_price || 0}`,
   );
-  const lastPointPrice = `${data[data.length - 1]?.avg_price || 0}`;
+  const lastPointPrice = `${data[0]?.avg_price || 0}`;
 
   const formatDate = useCallback(
     (date: Date) => {
@@ -66,11 +66,9 @@ const ChartComponent: FC<Props> = ({ data, period, className, currency }) => {
   };
 
   const { isDifferencePositive, difference } = useDifference({
-    value: lastPointPrice,
-    prevValue: selectedPointPrice,
+    value: selectedPointPrice,
+    prevValue: lastPointPrice,
   });
-
-  
 
   return (
     <>

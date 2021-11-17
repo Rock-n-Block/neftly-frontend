@@ -57,14 +57,6 @@
     background: $color-state-error;
   }
 
-  &.large{
-    padding: 8px 32px;
-  }
-
-  &.small{
-    padding: 8px 16px;
-  }
-
   &.outline {
     height: 40px;
 
@@ -102,7 +94,6 @@
   }
 
   &.dark {
-    padding: 8px 32px;
     height: 40px;
     font-weight: 600;
     font-size: 16px;
@@ -137,6 +128,17 @@
       }
     }
   }
+}
+
+.large{
+  padding: 8px 32px;
+  @include forTablet{
+    padding: 8px 24px;
+  }
+}
+
+.small{
+  padding: 8px 16px;
 }
 
 .transparent {

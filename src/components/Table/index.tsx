@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { FC } from 'react';
 import { useTable } from 'react-table';
-import { IHistoryItem, TableProps } from 'typings';
+import { IHistoryItem, IHistoryOwner, TableProps } from 'typings';
 import styles from './styles.module.scss';
 import { TradingHistoryBuyer, TradingHistoryEvent, TradingHistoryPrice } from './TradingHistoryCells';
 
@@ -32,19 +32,20 @@ const Table: FC<TableProps> = ({ columns, data }) => {
             <tr className={styles.row} {...row.getRowProps()}>
               {row.cells.map((cell) => {
                 const cellData: IHistoryItem = cell.row.original as IHistoryItem;
+                const owner: IHistoryOwner = (cellData.new_owner || cellData.old_owner) as IHistoryOwner;
 
                 switch (cell.column.Header) {
                   case 'Buyer': {
                     return (
                       <td className={styles.cell} {...cell.getCellProps()}>
-                        <TradingHistoryBuyer name={cellData.name} id={cellData.id} avatar={cellData.avatar} date={cellData.date} />
+                        <TradingHistoryBuyer name={owner.display_name} owner={owner} date={cellData.date} />
                       </td>
                     );
                   }
                   case 'Price': {
                     return (
                       <td className={styles.cell} {...cell.getCellProps()}>
-                        <TradingHistoryPrice amount={cellData.price as string | number} asset={cellData.currency as string} />
+                        <TradingHistoryPrice amount={cellData.price as string | number} />
                       </td>
                     )
                   }

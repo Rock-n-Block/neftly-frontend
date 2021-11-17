@@ -96,7 +96,7 @@ $color-state-warning: #fae637;
 
 $color-gradient: linear-gradient(89.92deg, #018df0 1.29%, #5bbbff 99.94%);
 $color-box-shadow: 0px 16px 50px rgba(18, 27, 40, 0.3);
-$transition: .4s ease;
+$transition: 0.4s ease;
 // typography
 .text-gradient {
   display: inline-block;
@@ -119,13 +119,56 @@ $transition: .4s ease;
 $defaultFlexBoxAlign: center;
 $defaultFlexBoxJustify: center;
 
-@mixin box-shadow($x: 0, $y: 16px, $blur: 50px, $spread: 0){
+@mixin box-shadow($x: 0, $y: 16px, $blur: 50px, $spread: 0) {
   box-shadow: $x $y $blur $spread rgba(18, 27, 40, 0.3);
 }
 
-@mixin autoGrid($min: 250px, $max: 1fr){
+@mixin autoGrid($min: 250px, $max: 1fr) {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax($min, $max));
+}
+
+@mixin customScroll($width, $height, $scroll-color, $thumb-color) {
+  &::-webkit-scrollbar {
+    height: $height + "px";
+  }
+
+  &::-webkit-scrollbar-track {
+    background: linear-gradient(
+      0deg,
+      transparent 0%,
+      transparent 20%,
+      $scroll-color 20%,
+      $scroll-color 80%,
+      transparent 80%,
+      transparent 100%
+    );
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+  }
+
+  &::-webkit-scrollbar:vertical {
+    width: $width + "px";
+    height: auto;
+  }
+
+  &::-webkit-scrollbar-track:vertical {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 20%,
+      $scroll-color 20%,
+      $scroll-color 80%,
+      transparent 80%,
+      transparent 100%
+    );
+  }
+
+  &::-webkit-scrollbar-thumb:vertical {
+    background: $thumb-color;
+  }
 }
 
 @mixin flexbox($align: $defaultFlexBoxAlign, $justify: $defaultFlexBoxJustify) {

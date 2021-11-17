@@ -9,16 +9,15 @@ import { toFixed } from 'utils';
 type Props = {
   className?: string;
   amount: number | string;
-  asset: string;
 };
 
-const TradingHistoryPrice: FC<Props> = ({ className, amount, asset }) => (
+const TradingHistoryPrice: FC<Props> = ({ className, amount }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
     <div className={styles.tradingIcon}>
       <TradingEthSVG />
     </div>
     <Text style={{ textTransform: 'uppercase' }} size="m">
-      {`${amount === null ? "???" : toFixed(amount, 5)} ${asset == null ? 'ETH' : asset}`}
+      {`${amount === null ? "???" : toFixed(amount, 5)} ETH`}
     </Text>
   </div>
 );

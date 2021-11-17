@@ -1,150 +1,188 @@
-@import '../../styles/helpers.scss';
+@import "../../styles/helpers.scss";
 
-.h1 {
+.type_h1 {
   font-size: 80px;
+  @include forTablet {
+    font-size: 40px;
+  }
 }
 
-.h2 {
+.type_h2 {
   font-size: 40px;
   line-height: 120%;
+  @include forTablet {
+    font-size: 28px;
+  }
 }
 
-.h3 {
+.type_h3 {
   font-size: 36px;
+  @include forTablet {
+    font-size: 28px;
+  }
 }
 
-.h4 {
+.type_h4 {
   font-size: 28px;
+  @include forTablet {
+    font-size: 20px;
+  }
 }
 
-.h5 {
+.type_h5 {
   font-size: 20px;
+  @include forTablet {
+    font-size: 16px;
+  }
 }
-
-.h6 {
+.type_h6 {
   font-size: 16px;
+  @include forTablet {
+    font-size: 14px;
+  }
 }
 
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
+.type_h1,
+.type_h2,
+.type_h3,
+.type_h4,
+.type_h5,
+.type_h6 {
   @include monument-extended;
 }
 
-.center {
+.align_center {
   text-align: center;
 }
 
-.left {
+.align_left {
   text-align: left;
 }
 
-.right {
+.align_right {
   text-align: right;
 }
 
-.text {
-  &.xxxs {
-    font-size: 10px;
-  }
+.align_inherit {
+  text-align: inherit;
+}
 
-  &.xxs {
-    font-size: 11px;
-  }
+.size_xxxs {
+  font-size: 10px;
+}
 
-  &.xs {
-    font-size: 12px;
-  }
+.size_xxs {
+  font-size: 11px;
+}
 
-  &.s {
-    font-size: 14px;
-  }
+.size_xs {
+  font-size: 12px;
+}
 
-  &.m {
+.size_s {
+  font-size: 14px;
+}
+
+.size_m {
+  font-size: 16px;
+}
+
+.size_l {
+  font-size: 18px;
+  @include forTablet {
     font-size: 16px;
-  }
-
-  &.l {
-    font-size: 18px;
-  }
-
-  &.xl {
-    font-size: 20px;
-  }
-
-  &.xxl {
-    font-size: 24px;
-  }
-
-  &.xxxl {
-    font-size: 32px;
-  }
-
-  &.xxxxl {
-    font-size: 48px;
-  }
-  &.inherit {
-    font-size: inherit;
   }
 }
 
-.error {
+.size_xl {
+  font-size: 20px;
+  @include forTablet {
+    font-size: 18px;
+  }
+}
+
+.size_xxl {
+  font-size: 24px;
+  @include forTablet {
+    font-size: 20px;
+  }
+}
+
+.size_xxxl {
+  font-size: 32px;
+  @include forTablet {
+    font-size: 24px;
+  }
+}
+
+.size_xxxxl {
+  font-size: 48px;
+  @include forTablet {
+    font-size: 32px;
+  }
+}
+.size_inherit {
+  font-size: inherit;
+}
+
+.color_error {
   color: $color-state-error;
 }
 
-.white {
+.color_white {
   color: $color-neutral-0;
 }
 
-.black {
+.color_black {
   color: $color-neutral-100;
 }
 
-.darkenGray {
+.color_darkenGray {
   color: $color-neutral-80;
 }
 
-.gray {
+.color_gray {
   color: $color-neutral-60;
 }
 
-.middleGray {
+.color_middleGray {
   color: $color-neutral-40;
 }
 
-.lightGray {
+.color_lightGray {
   color: $color-neutral-20;
 }
 
-.secondary {
+.color_secondary {
   color: $color-secondary;
 }
 
-.primary {
+.color_primary {
   color: $color-primary;
 }
 
-.red {
+.color_red {
   color: $color-state-error;
 }
 
-.currentColor{
+.color_inherit {
   color: inherit;
 }
 
-.normalWeight {
+.weight_normal {
   font-weight: 400;
 }
 
-.mediumWeight {
+.weight_medium {
   font-weight: 500;
 }
 
-.boldWeight {
+.weight_bold {
   font-weight: 700;
+}
+
+.weight_inherit {
+  font-weight: inherit;
 }
 
 .ellipsis {
@@ -153,7 +191,7 @@
   overflow: hidden;
   white-space: nowrap;
 }
-@import 'src/styles/helpers';
+@import "src/styles/helpers";
 
 .tooltip {
   .rc-tooltip-arrow {

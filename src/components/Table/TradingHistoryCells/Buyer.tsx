@@ -8,15 +8,14 @@ import moment from 'moment';
 interface IProps {
   className?: string;
   name: string;
-  avatar: string;
   date: string;
-  id: number;
+  owner: any;
   type?: 'sell' | 'auction';
 };
 
-const TradingHistoryBuyer: FC<IProps> = ({ id, className, name, avatar, date, type = 'sell' }) => (
+const TradingHistoryBuyer: FC<IProps> = ({ owner, className, name, date, type = 'sell' }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
-    <Avatar className={styles.buyerAvatar} avatar={avatar} id={id}/>
+    <Avatar className={styles.buyerAvatar} avatar={owner.avatar} id={owner.id} isVerified={owner.is_verificated} />
     <div className={styles.buyerData}>
       <EllipsisText><Text size="m">{name}</Text></EllipsisText>
       {type === 'sell' && <Text size="xs">{moment(date).fromNow()}</Text>}

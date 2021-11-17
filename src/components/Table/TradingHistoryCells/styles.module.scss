@@ -2,6 +2,7 @@
 
 .tradingHistoryCells {
   position: relative;
+  gap: 10px;
   @include flexbox(center, flex-start);
   & > img {
     margin-right: 5px;

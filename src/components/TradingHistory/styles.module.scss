@@ -46,15 +46,27 @@
   }
 }
 
-
 .tableWrapper::-webkit-scrollbar {
-  width: 4px;
+  height: 4px;
 }
 
 .tableWrapper::-webkit-scrollbar-track {
-  background: linear-gradient(90deg, transparent 0%, transparent 20%, rgba(102,214,218,0.4) 20%, rgba(102,214,218,0.4) 80%, transparent 80%, transparent 100%);;
+  background: linear-gradient(0deg, transparent 0%, transparent 20%, rgba(102,214,218,0.4) 20%, rgba(102,214,218,0.4) 80%, transparent 80%, transparent 100%);
 }
 
 .tableWrapper::-webkit-scrollbar-thumb {
+  background: $color-action-default;
+}
+
+.tableWrapper::-webkit-scrollbar:vertical {
+  width: 4px;
+  height: auto;
+}
+
+.tableWrapper::-webkit-scrollbar-track:vertical {
+  background: linear-gradient(90deg, transparent 0%, transparent 20%, rgba(102,214,218,0.4) 20%, rgba(102,214,218,0.4) 80%, transparent 80%, transparent 100%);
+}
+
+.tableWrapper::-webkit-scrollbar-thumb:vertical {
   background: $color-action-default;
 }

@@ -8,7 +8,7 @@ enum Values {
   middleGray,
   secondary,
   primary,
-  currentColor,
+  inherit,
 }
 
 enum SizeValues {
@@ -29,12 +29,14 @@ enum WeightValues {
   normal,
   medium,
   bold,
+  inherit,
 }
 
 enum Aligns {
   center,
   left,
   right,
+  inherit,
 }
 
 enum HeadingTypes {
