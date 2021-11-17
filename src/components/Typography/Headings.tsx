@@ -24,11 +24,11 @@ const createHeading =
   }: Props) => {
     const hProps = {
       className: cx(
-        styles[type],
-        styles[color],
-        styles[`${weight}Weight`],
+        styles[`type_${type}`],
+        styles[`color_${color}`],
+        styles[`align_${align}`],
+        styles[`weight_${weight}`],
         className,
-        styles[align],
       ),
       children,
       ...rest,
