@@ -167,9 +167,11 @@
 
 .fieldset {
   margin-top: 32px;
+  margin-bottom: 72px;
 
   &_first {
     margin-top: 0;
+    margin-bottom: 0;
   }
 
   &Title {
@@ -264,8 +266,9 @@
 
 .tokenProperties {
   margin-top: 16px;
-  @include flexbox;
+  @include flexbox(flex-start);
   flex-direction: column;
+  width: calc(100% - 48px);
 }
 
 .tokenProperty {
@@ -319,28 +322,43 @@
   height: 32px;
   border-radius: 12px;
   border: 2px solid transparent;
-  display: flex;
-  align-items: center;
   cursor: pointer;
-  justify-content: center;
+  @include flexbox;
   &_add {
-    border-color: #45b36b;
+    border-color: $color-actions-dark-green;
+    transition: all 0.2s ease;
+    &:hover {
+      background: $color-actions-dark-green;
+      svg {
+        path {
+          fill: $color-neutral-0;
+        }
+      }
+
+      transition: all 0.2s ease;
+    }
   }
   &_remove {
-    border-color: #f4f5f6;
-    background: #f4f5f6;
+    border-color: $color-actions-light-grey;
+    background: $color-actions-light-grey;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: $color-actions-red;
+
+      transition: all 0.2s ease;
+    }
   }
 }
 
 .detailsBtns {
   position: absolute;
-  right: -45px;
+  right: -40px;
   bottom: 6px;
 
   &Double {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 10px;
-    transform: translateX(40px);
+    @include flexbox(center, column-reverse);
+    gap: 24px;
+    transform: translateY(56px);
   }
 }

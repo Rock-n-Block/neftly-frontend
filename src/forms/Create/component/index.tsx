@@ -1,6 +1,8 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
-import { iconUpload, iconClose, iconPropAdd, iconPropRemove } from 'assets/img';
+import { iconUpload, iconClose } from 'assets/img';
+import {ReactComponent as IconPropAdd} from 'assets/img/icons/icon-prop-add.svg'
+import {ReactComponent as IconPropDelete} from 'assets/img/icons/icon-prop-delete.svg'
 import cn from 'classnames';
 import {
   Button,
@@ -504,7 +506,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                                 tabIndex={0}
                                 onKeyDown={() => {}}
                               >
-                                <img src={iconPropAdd} alt="" />
+                                <IconPropAdd />
                               </div>
                             ) : null}
                             {values.details.length !== 1 ? (
@@ -515,7 +517,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                                 tabIndex={0}
                                 onKeyDown={() => {}}
                               >
-                                <img src={iconPropRemove} alt="" />
+                                <IconPropDelete />
                               </div>
                             ) : null}
                           </div>
