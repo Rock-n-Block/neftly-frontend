@@ -212,6 +212,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         color="transparent"
                         className={styles.clearPreview}
                         onClick={handleClearImg}
+                        padding="0"
                       >
                         <img src={iconClose} alt="clear img" />
                       </Button>

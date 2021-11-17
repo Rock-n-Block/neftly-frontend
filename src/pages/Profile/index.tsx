@@ -88,6 +88,7 @@ const ProfilePage: FC = observer(() => {
     },
     [user.address],
   );
+
   return (
     <section className={s.page}>
       <UserMainInfo userId={userId} setCurrentUser={setCurrentUser} />

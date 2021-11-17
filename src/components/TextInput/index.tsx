@@ -146,7 +146,7 @@ const TextInput: React.FC<Props> = ({
           {...props}
           style={
             elWidth
-              ? { paddingLeft: `${elWidth + 16}px`, paddingRight: suffix ? '74px' : '' }
+              ? { paddingLeft: `${elWidth}px`, paddingRight: suffix ? '74px' : '' }
               : { paddingRight: suffix ? '74px' : '' }
           }
         />

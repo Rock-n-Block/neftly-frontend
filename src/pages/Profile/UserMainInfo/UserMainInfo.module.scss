@@ -5,6 +5,10 @@
   background-color: $color-primary;
   background-size: cover;
   padding: 52px 0;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: 50%;
+  animation: up-to-down 80s linear infinite;
 
   &::after {
     content: '';
@@ -16,6 +20,24 @@
     background-color: rgba(0, 0, 0, 0.2);
     z-index: 1;
     pointer-events: none;
+  }
+}
+
+@keyframes up-to-down {
+  0% {
+    background-position-y: 50%;
+  }
+  25% {
+    background-position-y: 100%;
+  }
+  50% {
+    background-position-y: 50%;
+  }
+  75% {
+    background-position-y: 0%;
+  }
+  100% {
+    background-position-y: 50%;
   }
 }
 

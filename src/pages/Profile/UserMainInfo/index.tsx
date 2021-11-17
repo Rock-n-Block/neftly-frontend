@@ -5,7 +5,6 @@ import { routes, zeroAddress } from 'appConstants';
 import {
   iconAddBlack,
   iconEdit,
-  iconRemoveBlack,
   iconSettingsWhite,
   profile_avatar_example,
   profile_page_bg_example,
@@ -134,11 +133,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
               onClick={handleFollowClick}
               disabled={isFollowClickPending}
             >
-              {isFollowed ? (
-                <img src={iconRemoveBlack} alt="minus icon" />
-              ) : (
-                <img src={iconAddBlack} alt="plus icon" />
-              )}
+              {!isFollowed && <img src={iconAddBlack} alt="plus icon" />}
               {isFollowed ? 'Unfollow' : 'Follow'}
             </Button>
           )}

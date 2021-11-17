@@ -1,19 +1,20 @@
-@import "src/styles/helpers";
+@import 'src/styles/helpers';
 
 .column {
   padding: 44px 32px;
   height: 100%;
 
   & + & {
-    border-left: 1px solid $color-neutral-80;
-    @include forDesktopSm{
+    border-left: 1px solid $color-neutral-10;
+    padding-bottom: 44px;
+    @include forDesktopSm {
       width: 100%;
       border: none;
     }
   }
 
-  @include forTablet{
-    padding: 22px 32px;
+  @include forDesktopSm {
+    padding: 0;
     width: 100%;
   }
 }
@@ -23,15 +24,26 @@
   padding-bottom: 32px;
   @include flexbox(flex-start, flex-start);
   gap: 32px;
-  border-bottom: 1px solid $color-neutral-80;
+  border-bottom: 1px solid $color-neutral-10;
+}
+
+.subtitle {
+  @include epilogue;
+  margin-top: 16px;
+  line-height: 1.5;
 }
 
 .description {
-  word-break: break-all;
   margin-top: 32px;
   max-width: 474px;
-  color: $color-neutral-10;
   white-space: pre-line;
+  @include epilogue;
+  line-height: 1.6;
+
+  @include forDesktopSm {
+    max-width: 100%;
+    margin-bottom: 64px;
+  }
 }
 
 .socials {
@@ -48,4 +60,5 @@
 
 .registered {
   margin-top: 16px;
+  @include epilogue;
 }
