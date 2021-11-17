@@ -14,7 +14,7 @@ import PriceHistory from './PriceHistory';
 
 import styles from './styles.module.scss';
 import { routes } from 'appConstants';
-import GridLayer from 'containers/GridLayer';
+import GridLayer, { EGridJustify } from 'containers/GridLayer';
 
 const breadcrumbs = [
   {
@@ -95,7 +95,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
             handleLoadMore={handleLoadMore}
           >
             <div ref={wrapRef} className={styles.artCardsWrapper}>
-              <GridLayer gap={40} wrapperRef={wrapRef} minWidth={300} minHeight={400}>
+              <GridLayer gap={40} wrapperRef={wrapRef} minWidth={300} minHeight={400} justify={EGridJustify.center}>
                 {nftCards
                   .filter((art) => art.id !== Number(id))
                   .map((art) => {

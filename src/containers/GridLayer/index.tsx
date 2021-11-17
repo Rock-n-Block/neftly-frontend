@@ -2,7 +2,7 @@ import { Children, FC, memo, PropsWithChildren, RefObject, useCallback, useEffec
 import styles from './style.module.scss';
 import WrappedItem, { IItemPosition } from "./WrappedItem";
 
-export enum EGridJustify{
+export enum EGridJustify {
     start,
     center,
     end
@@ -50,14 +50,14 @@ const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({ minWidth, minHeight
             window.removeEventListener('resize', resizeCallback)
         }
     }, [resizeCallback])
-    console.log(justify)
+    
     return (
         <section className={styles.gridWrapper} style={{ height: (cardStyles.height + gap) * Math.ceil(childrenCount / columns) }}>
-            {Children.map(children, (child, idx) => { 
+            {Children.map(children, (child, idx) => {
                 const position: IItemPosition = {
                     width: cardStyles.width,
                     height: cardStyles.height,
-                    left: (idx % columns) * (cardStyles.width) + (idx % columns) * gap + (justify === EGridJustify.center ? cardStyles.width / 2 : justify === EGridJustify.end ? cardStyles.width : 0),
+                    left: (idx % columns) * (cardStyles.width) + (idx % columns) * gap + ((justify === EGridJustify.center && idx >= childrenCount - childrenCount % columns) ? cardStyles.width / 2 : 0) + ((justify === EGridJustify.end && idx >= childrenCount - childrenCount % columns) ? cardStyles.width : 0),
                     top: (Math.trunc(idx / columns)) * (cardStyles.height + gap)
                 }
                 return (
