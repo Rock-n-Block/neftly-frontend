@@ -7,7 +7,7 @@ import { Button, Copyable, Text } from 'components';
 import { useMst } from 'store';
 import { INft, IOwner, TNullable } from 'typings';
 
-
+import { routes } from 'appConstants';
 import styles from './styles.module.scss';
 import 'rc-tooltip/assets/bootstrap.css';
 
@@ -23,7 +23,6 @@ import {
 } from 'assets/img';
 import { useLike } from 'hooks';
 import { numberFormatter } from 'utils';
-import { routes } from 'appConstants';
 import OptionMenu, { positionOptions } from 'components/OptionMenu';
 import OutsideClickHandler from 'react-outside-click-handler';
 
