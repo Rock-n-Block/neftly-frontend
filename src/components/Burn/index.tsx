@@ -1,15 +1,15 @@
 import { useCallback, useState } from 'react';
+import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import cn from 'classnames';
+import { Button, TextInput } from 'components';
 import { observer } from 'mobx-react-lite';
-
 import { storeApi } from 'services/api';
 import { useWalletConnectorContext } from 'services/walletConnect';
-import { Button, TextInput } from 'components';
 import { useMst } from 'store';
+import { chainsEnum } from 'typings';
 
 import styles from './Burn.module.scss';
-import { useHistory } from 'react-router';
 
 interface IBurnProps {
   className?: string;
@@ -17,6 +17,7 @@ interface IBurnProps {
 
 const Burn: React.FC<IBurnProps> = ({ className }) => {
   const {
+    user,
     modals: { burn },
   } = useMst();
   const history = useHistory();
@@ -28,21 +29,32 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
     storeApi
       .burnToken(burn.tokenId.toString() || '', amount)
       .then(({ data }: any) => {
-        walletConnector.walletService
-          .sendTransaction(data.initial_tx)
-          .then(() => {
+        if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
+          console.log('TRON');
+          walletConnector.walletService.trxCreateTransaction(data.initial_tx, user.address).then(() => {
             burn.success();
             burn.close();
             toast.success('Token Burned');
             history.push('/');
-          })
-          .finally(() => setIsLoading(false));
+          });
+        } else {
+          console.log('NOT TRON');
+          walletConnector.walletService
+            .sendTransaction(data.initial_tx)
+            .then(() => {
+              burn.success();
+              burn.close();
+              toast.success('Token Burned');
+              history.push('/');
+            })
+            .finally(() => setIsLoading(false));
+        }
       })
       .catch(() => {
         toast.error('Bid modal sendTranscation');
         setIsLoading(false);
       });
-  }, [burn, amount, walletConnector.walletService, history]);
+  }, [burn, amount, walletConnector.walletService, user.address, history]);
 
   return (
     <div className={cn(className, styles.transfer)}>

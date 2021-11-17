@@ -3,13 +3,15 @@ import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import BigNumber from 'bignumber.js/bignumber';
 import { Observable } from 'rxjs';
 import { chainsEnum } from 'typings';
-import { getTronContract, getTokenAmount, getTokenAmountDisplay } from 'utils';
+import { getTokenAmount, getTokenAmountDisplay, getTronContract } from 'utils';
 import Web3 from 'web3';
 
+import abiERC721 from '../../appConstants/abiERC721.json';
+import abiERC1155 from '../../appConstants/abiERC1155.json';
 import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
 
 const MS_RETRY_TRON = 2000;
-const trxFeeLimit = 100000000
+const trxFeeLimit = 100000000;
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
@@ -138,7 +140,7 @@ export class WalletConnect {
       contracts.params[contract][is_production ? 'mainnet' : 'testnet'].abi,
       method,
     );
-
+    console.log('buy transaction');
     let signature;
     if (transactionMethod) {
       signature = this.encodeFunctionCall(transactionMethod, data);
@@ -167,30 +169,37 @@ export class WalletConnect {
   }
 
   async trxCreateTransaction(data: any, address: string) {
-    console.log(
-      'contractAddress',
-      data.contractAddress,
-      'function',
-      data.function,
-      'options',
-      data.options,
-      'parameter',
-      data.parameter,
-      'address',
-      address,
-    );
-    const { transaction } = await window.tronWeb.transactionBuilder.triggerSmartContract(
+    console.log(data);
+    const { transaction } = await this.tronWeb.transactionBuilder.triggerSmartContract(
       data.contractAddress,
       data.function,
       data.options,
       data.parameter,
       address,
     );
+
+    console.log(data.function, data.function.replace(/\(.*/, ''));
+    const isTransferOrBurn =
+      data.function.toLowerCase().includes('transfer') || data.function.includes('burn');
+    console.log(isTransferOrBurn);
+
+    if (isTransferOrBurn) {
+      const abiSelecteor = data.is1155 ? abiERC1155 : abiERC721;
+      const methodName = data.function.replace(/\(.*/, '');
+      const params = data.parameter.map((param: any) => param.value);
+      const contract = await this.tronWeb.contract(abiSelecteor, data.contractAddress);
+      await contract[methodName](...params).send({
+        from: address,
+      });
+
+      return null;
+    }
+
     return this.trxSendTransaction(transaction);
   }
 
   async trxSendTransaction(transaction: any) {
-    console.log('transaction', transaction);
+    console.log(transaction, 12312313123);
     let receipt;
     try {
       const signedMsg = await this.tronWeb.trx.sign(transaction);
@@ -199,7 +208,6 @@ export class WalletConnect {
       console.log(err);
     }
 
-    // receipt will need in future to check transaction in explorer bt txId
     return receipt;
   }
 

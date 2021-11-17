@@ -1,20 +1,18 @@
 import { FC, useCallback, useMemo, useState } from 'react';
+import { routes } from 'appConstants';
+import { iconBurn, iconLink, iconRemove, iconReport, iconTransfer, PinkHeart } from 'assets/img';
 import cx from 'classnames';
-import Tooltip from 'rc-tooltip';
-import { observer } from 'mobx-react-lite';
 // import { toast } from 'react-toastify';
-
 import { Button, Copyable, Text } from 'components';
+import { useLike } from 'hooks';
+import { observer } from 'mobx-react-lite';
+import Tooltip from 'rc-tooltip';
 import { useMst } from 'store';
 import { INft, IOwner, TNullable } from 'typings';
-
-import styles from './styles.module.scss';
-import 'rc-tooltip/assets/bootstrap.css';
-
-import { PinkHeart, iconBurn, iconTransfer, iconRemove, iconReport, iconLink } from 'assets/img';
-import { useLike } from 'hooks';
 import { numberFormatter } from 'utils';
-import { routes } from 'appConstants';
+
+import 'rc-tooltip/assets/bootstrap.css';
+import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
