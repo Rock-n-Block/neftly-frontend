@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import cx from 'classnames';
 import { observer } from 'mobx-react-lite';
@@ -14,6 +14,7 @@ import PriceHistory from './PriceHistory';
 
 import styles from './styles.module.scss';
 import { routes } from 'appConstants';
+import GridLayer, { EGridJustify } from 'containers/GridLayer';
 
 const breadcrumbs = [
   {
@@ -40,6 +41,8 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
   const [nft, setNft] = useState<TNullable<INft>>(null);
 
   const { page, handleLoadMore } = useLoadMore(1);
+
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   const [allPages, , nftCards, isLoading] = useFetchNft({
     page,
@@ -91,41 +94,43 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
             allPages={allPages}
             handleLoadMore={handleLoadMore}
           >
-            <div className={styles.artCardsWrapper}>
-              {nftCards
-                .filter((art) => art.id !== Number(id))
-                .map((art) => {
-                  const {
-                    id: artId,
-                    media: image,
-                    name,
-                    price,
-                    available: inStockNumber,
-                    creator: { name: author },
-                    creator: { avatar: authorAvatar },
-                    creator: { id: authorId },
-                    tags,
-                    like_count: likesNumber,
-                    currency: { symbol: asset },
-                  } = art;
-                  return (
-                    <ArtCard
-                      key={`nft_card_${artId}`}
-                      className={styles.artCard}
-                      artId={artId}
-                      imageMain={image}
-                      name={name}
-                      price={price}
-                      asset={asset}
-                      inStockNumber={inStockNumber}
-                      author={author}
-                      authorAvatar={authorAvatar}
-                      authorId={authorId.toString()}
-                      likesNumber={likesNumber}
-                      tags={tags}
-                    />
-                  );
-                })}
+            <div ref={wrapRef} className={styles.artCardsWrapper}>
+              <GridLayer gap={40} wrapperRef={wrapRef} minWidth={300} minHeight={400} justify={EGridJustify.center}>
+                {nftCards
+                  .filter((art) => art.id !== Number(id))
+                  .map((art) => {
+                    const {
+                      id: artId,
+                      media: image,
+                      name,
+                      price,
+                      available: inStockNumber,
+                      creator: { name: author },
+                      creator: { avatar: authorAvatar },
+                      creator: { id: authorId },
+                      tags,
+                      like_count: likesNumber,
+                      currency: { symbol: asset },
+                    } = art;
+                    return (
+                      <ArtCard
+                        key={`nft_card_${artId}`}
+                        className={styles.artCard}
+                        artId={artId}
+                        imageMain={image}
+                        name={name}
+                        price={price}
+                        asset={asset}
+                        inStockNumber={inStockNumber}
+                        author={author}
+                        authorAvatar={authorAvatar}
+                        authorId={authorId.toString()}
+                        likesNumber={likesNumber}
+                        tags={tags}
+                      />
+                    );
+                  })}
+              </GridLayer>
             </div>
           </LoadMore>
         </div>

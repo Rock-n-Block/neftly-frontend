@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { storeApi } from 'services';
 import { INft } from 'typings';
 
@@ -29,7 +29,7 @@ export const useFetchLiked = (props: IProps): [number, number, INft[], boolean] 
         } else if (items) {
           setNftCards((prev: INft[]) => [...prev, ...items]);
         }
-        if (!items && refresh) {
+        if (!items?.length && refresh) {
           setNftCards([]);
         }
         setAllPages(Math.ceil(total_tokens / NUMBER_NFTS_PER_PAGE));

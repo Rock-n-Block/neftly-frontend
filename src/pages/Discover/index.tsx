@@ -53,7 +53,7 @@ const Discover = observer(() => {
     page,
     sort: 'items',
     order_by: orderByFilter.value,
-    tags: tagsFilter,
+    tags: tagsFilter === 'All NFTs' ? '' : tagsFilter,
     max_price: maxPriceFilter,
     currency: currencyFilter.value,
     is_verified: verifiedFilter.value,
