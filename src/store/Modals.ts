@@ -1,4 +1,4 @@
-import { types, getSnapshot, applySnapshot, getParent } from 'mobx-state-tree';
+import {types, getSnapshot, applySnapshot, getParent} from 'mobx-state-tree';
 
 const NftCollection = types.model({
   address: types.string,
@@ -185,6 +185,37 @@ const PutOnSale = types
       self.isSuccess = true;
     },
   }));
+const Swap = types
+  .model({
+    isOpen: types.optional(types.boolean, false),
+    main: types.string,
+    wrap: types.string,
+    refresh: types.boolean
+  })
+  .views((self) => ({
+    get getIsOpen() {
+      if (
+        self.isOpen
+      ) {
+        return true;
+      }
+      return false;
+    },
+  }))
+  .actions((self) => ({
+    close: () => {
+      self.isOpen = false;
+    },
+    open: (main:string, wrap:string, refresh:boolean) => {
+      self.isOpen = true;
+      self.main = main;
+      self.wrap = wrap;
+      self.refresh = refresh;
+    },
+    setRefresh: (refresh: boolean) => {
+      self.refresh = refresh;
+    }
+  }));
 
 const SellModals = types
   .model({
@@ -308,6 +339,33 @@ const Report = types
       },
     };
   });
+const Change = types
+  .model({
+    tokenId: types.optional(types.number, 0),
+    isSuccess: types.optional(types.boolean, false),
+  })
+  .views((self) => ({
+    get getIsOpen() {
+      return !!self.tokenId;
+    },
+  }))
+  .actions((self) => {
+    let initialState = {};
+    return {
+      afterCreate: () => {
+        initialState = getSnapshot(self);
+      },
+      close: () => {
+        applySnapshot(self, initialState);
+      },
+      open: (tokenId: number) => {
+        self.tokenId = tokenId;
+      },
+      success: () => {
+        self.isSuccess = true;
+      },
+    };
+  });
 
 export const Modals = types.model({
   sell: SellModals,
@@ -315,4 +373,6 @@ export const Modals = types.model({
   remove: Remove,
   transfer: Transfer,
   report: Report,
+  change: Change,
+  swap: Swap
 });

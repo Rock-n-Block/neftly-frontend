@@ -3,7 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { is_production } from 'config';
 import { observer } from 'mobx-react';
-import { connectTron, userApi, WalletConnect } from 'services';
+import { connectTron, userApi } from 'services';
+import {WalletConnect} from 'services/walletService'
 import { rootStore } from 'store';
 import { chainsEnum } from 'typings';
 

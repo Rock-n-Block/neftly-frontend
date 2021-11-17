@@ -59,7 +59,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
     height: 40px;
 
     background: none;
-    border: 1px solid $color-neutral-80;
+    border: 1px solid $color-neutral-20;
 
     &:hover {
       border-color: $color-neutral-60;
@@ -97,7 +97,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
     font-size: 16px;
     font-weight: 600;
 
-    color: $color-neutral-0;
+    color: $color-neutral-100;
   }
 }
 
@@ -161,7 +161,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   margin: 30px 0 0 0;
 
   background: $color-bg;
-  border: 1px solid $color-neutral-80;
+  border: 1px solid $color-neutral-20;
   border-radius: 0;
 
   &.dark {
@@ -180,9 +180,10 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   padding: 10px 20px;
 
   background-color: none;
+  color: red;
 
   &:not(:last-child) {
-    border-bottom: 1px solid $color-neutral-80;
+    border-bottom: 1px solid $color-neutral-20;
   }
 
   // &:hover {

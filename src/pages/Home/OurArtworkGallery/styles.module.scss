@@ -1,11 +1,12 @@
-@import '../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .ourArtworkGallery {
   position: relative;
-  margin: 0 auto;
-  padding: 88px 88px 0 88px;
-
-  max-width: 1600px;
+  @include container;
+  padding-top: 88px;
+  @include forDesktopSm {
+    padding-top: 20px;
+  }
 }
 
 .title {
@@ -51,5 +52,5 @@
   .ourArtworkGallery {
     padding: 20px;
   }
-  
+
 }

@@ -2,10 +2,12 @@ enum Values {
   white,
   red,
   black,
+  darkenGray,
   gray,
   lightGray,
+  middleGray,
   secondary,
-  inherit,
+  primary,
 }
 
 enum SizeValues {

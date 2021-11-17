@@ -2,23 +2,7 @@
 
 .artCardAuthor {
   @include flexbox(center, flex-start);
-}
-
-.avatar {
-  position: relative;
-
-  &Img {
-    width: 24px;
-    height: 24px;
-    object-fit: cover;
-    border-radius: 100%;
-  }
-}
-
-.verified {
-  position: absolute;
-  right: -4px;
-  bottom: 0;
+  color: $color-neutral-100;
 }
 
 .name {

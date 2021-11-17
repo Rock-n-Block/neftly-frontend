@@ -1,0 +1,17 @@
+@import 'src/styles/helpers';
+
+.text {
+  margin-bottom: 24px;
+}
+
+.btns {
+  margin-top: 32px;
+}
+
+.button {
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}

@@ -1,9 +1,9 @@
 import axios from 'core/axios';
-import { TNullable } from 'typings';
+import {TNullable} from 'typings';
 
 export default {
   burnToken: (id: string, amount?: string) =>
-    axios.post(`store/${id}/burn/?network=${localStorage.nftcrowd_nft_chainName}`, { amount }),
+    axios.post(`store/${id}/burn/?network=${localStorage.nftcrowd_nft_chainName}`, {amount}),
   createToken: (data: any) =>
     axios.post(`store/create_token/?network=${localStorage.nftcrowd_nft_chainName}`, data),
   // createToken: (data: any, details: any) => {
@@ -17,7 +17,7 @@ export default {
   saveCollection: (data: any) =>
     axios.post(`store/save_collection/?network=${localStorage.nftcrowd_nft_chainName}`, data),
   transferToken: (id: string, address: string, amount?: string) => {
-    const data = { address, amount };
+    const data = {address, amount};
     if (!amount) delete data.amount;
     return axios.post(`store/transfer/${id}/?network=${localStorage.nftcrowd_nft_chainName}`, data);
   },
@@ -30,8 +30,12 @@ export default {
     ),
   getTags: () => axios.get(`store/tags/?network=${localStorage.nftcrowd_nft_chainName}`),
   getFavorites: () => axios.get(`store/favorites/?network=${localStorage.nftcrowd_nft_chainName}`),
-  getCollections: () =>
-    axios.get(`store/hot_collections/?network=${localStorage.nftcrowd_nft_chainName}`),
+  getCollections: () =>// TODO: add period
+    axios.get(`store/hot_collections/`, {
+      params: {
+        network: localStorage.nftcrowd_nft_chainName,
+      }
+    }),
   getHotBids: () => axios.get(`store/hot_bids/?network=${localStorage.nftcrowd_nft_chainName}`),
   getCollectionById: (id: number | string, page: number) =>
     axios.get(`store/collection/${id}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`),
@@ -54,7 +58,7 @@ export default {
   getUserCollections: (address: string, page: number) =>
     axios.get(`store/collections/${address}/${page}/`),
   getSearchResults: (queries: any, text?: string) => {
-    const queriesCopy = { ...queries };
+    const queriesCopy = {...queries};
     switch (queriesCopy.is_verified) {
       case 'All':
         delete queriesCopy.is_verified;
@@ -158,8 +162,18 @@ export default {
     }
     return axios.patch(`/store/${id}/?network=${localStorage.nftcrowd_nft_chainName}`, data);
   },
+  changePrice: (id: number | string, price: string | number) =>
+    axios.patch(`/store/${id}/?network=${localStorage.nftcrowd_nft_chainName}`, {
+      price,
+    }),
   getMaxPrice: (currency: string) => axios.get(`/store/max_price/?currency=${currency}`),
   getHotAuction: () => axios.get(`/store/most_bidded/`),
   getCollection: (id: string, page: number) =>
     axios.get(`/store/collection/${id}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`),
+  getRandomToken: () =>
+    axios.get(`/store/get_random_token/`, {
+      params: {
+        network: localStorage.nftcrowd_nft_chainName
+      }
+    }),
 };

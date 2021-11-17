@@ -186,9 +186,9 @@ $minHeight: 250px;
 
   font-size: 14px;
 
-  color: white;
+  color: $color-neutral-100;
   background-color: transparent;
-  border: 1px solid $color-neutral-80;
+  border: 1px solid $color-neutral-20;
   border-radius: 6px;
 
   -moz-appearance: textfield;

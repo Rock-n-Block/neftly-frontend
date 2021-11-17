@@ -1,13 +1,14 @@
-@import '../../../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .searchTag {
-  padding: 8px;
+  //padding: 8px;
 }
 
 .searchTagImg {
   width: 48px;
   height: 48px;
   margin-right: 16px;
+  object-fit: contain;
 }
 
 .searchTag {
@@ -23,8 +24,8 @@
 }
 
 .typeText {
-  color: $color-actions-light-pink;
+  color: $color-actions-light-purple;
   &.auction {
-    color: $color-actions-light-purple;
+    color: $color-actions-light-pink;
   }
 }

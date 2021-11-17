@@ -1,25 +1,21 @@
 import styles from './styles.module.scss';
-import { Text } from 'components';
-import { Link } from 'react-router-dom';
-import { routes } from 'appConstants';
+import { Text,Avatar } from 'components';
 import { FC } from 'react';
-import { iconVerifiedMark } from 'assets/img';
+import {TextColor} from "typings";
 
 interface IProps {
-  id: string;
+  id: number|string;
   avatar: string;
   name: string;
   verified?: boolean;
+  authorTextColor?:TextColor;
 }
 
-const ArtCardAuthor: FC<IProps> = ({ id, avatar, name, verified = false }) => {
+const ArtCardAuthor: FC<IProps> = ({ id, avatar, name, verified = false,authorTextColor='black' }) => {
   return (
     <div className={styles.artCardAuthor}>
-      <Link to={routes.profile.link(id || '')} className={styles.avatar}>
-        <img src={avatar} alt="" width={24} height={24} className={styles.avatarImg} />
-        {verified && <img src={iconVerifiedMark} alt="verified" className={styles.verified} />}
-      </Link>
-      <Text className={styles.name} color="inherit">
+      <Avatar avatar={avatar} id={id} isVerified={verified} size={24} badgeSize={12}/>
+      <Text className={styles.name} color={authorTextColor}>
         {name}
       </Text>
     </div>

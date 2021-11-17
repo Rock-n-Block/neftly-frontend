@@ -3,11 +3,16 @@
 .artCard {
   position: relative;
 
-  border: 1px solid $color-neutral-80;
-  max-width: 292px;
+  border: 1px solid $color-neutral-20;
   width: 100%;
   &Medium {
     max-width: 402px;
+  }
+
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 12px rgba($color-neutral-80, 0.2);
   }
 }
 
@@ -45,6 +50,10 @@
     top: 50%;
     left: 0;
     transform: translate(0, -50%);
+
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
 }
 
@@ -90,7 +99,7 @@
   .artCardPrice {
     text-transform: uppercase;
 
-    color: $color-state-warning;
+    color: $color-actions-light-purple;
   }
 }
 
@@ -99,7 +108,7 @@
 
   border-width: 1px 0 0 0;
   border-style: solid;
-  border-color: $color-neutral-80;
+  border-color: $color-neutral-20;
 }
 
 .artCardSmallLikes {

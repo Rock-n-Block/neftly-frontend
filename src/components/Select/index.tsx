@@ -100,7 +100,7 @@ const Select: FC<Props> = ({
         <Text
           {...props}
           tag="span"
-          color="gray"
+          color="black"
           weight="medium"
           className={cx(styles.optionText, classNameOptionText)}
         />

@@ -57,15 +57,17 @@
 // colors
 $color-primary: #018df0;
 $color-secondary: #01c5ba;
-$color-bg: #080134;
+$color-bg: #fff;
 $color-bg2: #0b062d;
+$color-border-close-modal: #1caaa2;
 
 $color-action-default: #01c5ba;
-$color-action-hovered: #1caaa2;
-$color-action-pressed: #398d88;
-$color-action-disabled: #003f3b;
+$color-action-hovered: rgba($color-primary, 0.7);
+$color-action-pressed: rgba($color-primary, 0.9);
+$color-action-disabled: #211857;
 
 $color-neutral-100: #080134;
+$color-neutral-90: #201c18;
 $color-neutral-80: #393556;
 $color-neutral-60: #6b6785;
 $color-neutral-40: #9c99ae;
@@ -91,8 +93,8 @@ $color-state-error: #ef466f;
 $color-state-success: #45e498;
 $color-state-warning: #fae637;
 
-$color-gradient: linear-gradient(89.92deg, #016db0 1.29%, #01ffca 99.94%);
-
+$color-gradient: linear-gradient(89.92deg, #018df0 1.29%, #5bbbff 99.94%);
+$color-box-shadow: 0px 16px 50px rgba(18, 27, 40, 0.3);
 // typography
 .text-gradient {
   display: inline-block;
@@ -118,6 +120,14 @@ $defaultFlexBoxJustify: center;
   display: flex;
   justify-content: $justify;
   align-items: $align;
+}
+
+@mixin multiplyRowsEllipsis($rows: 3) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $rows;
+  -webkit-box-orient: vertical;
 }
 
 @mixin inlineFlexbox($align: $defaultFlexBoxAlign, $justify: $defaultFlexBoxJustify) {
@@ -192,7 +202,6 @@ $defaultFlexBoxJustify: center;
   text-transform: uppercase;
 }
 
-
 //triangle
 @mixin arr($width, $height, $bg, $direction) {
   width: 0;
@@ -240,7 +249,18 @@ $defaultFlexBoxJustify: center;
     border-color: transparent transparent transparent $bg;
   }
 }
-
+@mixin container {
+  margin: 0 auto;
+  max-width: 1440px;
+  width: 100%;
+  padding: 0 88px;
+  @include forDesktopSm {
+    padding: 0 32px;
+  }
+  @include forDesktopBig {
+    padding: 0 32px;
+  }
+}
 // example
 // +arr(500,50, #000, l)
 // +arr(500,50, #000, bl)
@@ -311,4 +331,10 @@ $defaultFlexBoxJustify: center;
   @at-root .dark-mode & {
     @content;
   }
+}
+
+@mixin autoGrid($min: 250px, $max: 1fr, $gap: 20px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min, $max));
+  gap: $gap;
 }

@@ -1,0 +1,41 @@
+@import "src/styles/helpers";
+
+.body {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+
+  padding: 24px;
+
+  background: $color-neutral-0;
+
+  opacity: 0;
+
+  /* Pop Up */
+  box-shadow: $color-box-shadow;
+
+  transform: translate(0,70px);
+  animation: showUser 0.4s forwards;
+
+  .triangle {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border: 16px solid transparent;
+    border-bottom: 16px solid $color-neutral-0;
+    top: -24px;
+    right: 0;
+  }
+
+}
+
+@keyframes showUser {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

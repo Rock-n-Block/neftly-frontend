@@ -92,38 +92,40 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
             handleLoadMore={handleLoadMore}
           >
             <div className={styles.artCardsWrapper}>
-              {nftCards.map((art) => {
-                const {
-                  id: artId,
-                  media: image,
-                  name,
-                  price,
-                  available: inStockNumber,
-                  creator: { name: author },
-                  creator: { avatar: authorAvatar },
-                  creator: { id: authorId },
-                  tags,
-                  like_count: likesNumber,
-                  currency: { symbol: asset },
-                } = art;
-                return (
-                  <ArtCard
-                    key={`nft_card_${artId}`}
-                    className={styles.artCard}
-                    artId={artId}
-                    imageMain={image}
-                    name={name}
-                    price={price}
-                    asset={asset}
-                    inStockNumber={inStockNumber}
-                    author={author}
-                    authorAvatar={authorAvatar}
-                    authorId={authorId.toString()}
-                    likesNumber={likesNumber}
-                    tags={tags}
-                  />
-                );
-              })}
+              {nftCards
+                .filter((art) => art.id !== Number(id))
+                .map((art) => {
+                  const {
+                    id: artId,
+                    media: image,
+                    name,
+                    price,
+                    available: inStockNumber,
+                    creator: { name: author },
+                    creator: { avatar: authorAvatar },
+                    creator: { id: authorId },
+                    tags,
+                    like_count: likesNumber,
+                    currency: { symbol: asset },
+                  } = art;
+                  return (
+                    <ArtCard
+                      key={`nft_card_${artId}`}
+                      className={styles.artCard}
+                      artId={artId}
+                      imageMain={image}
+                      name={name}
+                      price={price}
+                      asset={asset}
+                      inStockNumber={inStockNumber}
+                      author={author}
+                      authorAvatar={authorAvatar}
+                      authorId={authorId.toString()}
+                      likesNumber={likesNumber}
+                      tags={tags}
+                    />
+                  );
+                })}
             </div>
           </LoadMore>
         </div>

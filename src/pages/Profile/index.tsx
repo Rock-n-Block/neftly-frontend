@@ -1,7 +1,7 @@
 import { FC, useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import { useLocation } from 'react-router-dom';
-import { art, folders, heart, me } from 'assets/img';
+import { Art, Folders, Heart, Me } from 'assets/img';
 import cn from 'classnames';
 import { TabLookingComponent } from 'components';
 import { useFetchLiked, useFetchNft, useFilters, useTabs } from 'hooks';
@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 import { userApi } from 'services';
 import { useMst } from 'store';
 
-import { IExtendedInfo } from '../../typings';
+import { IExtendedInfo } from 'typings';
 
 import { About, Artworks, Favorited } from './Tabs';
 import UserMainInfo from './UserMainInfo';
@@ -20,22 +20,22 @@ const tabs = [
   {
     title: 'Created',
     key: 'created',
-    icon: art,
+    icon: <Art />,
   },
   {
     title: 'Owned',
     key: 'owned',
-    icon: folders,
+    icon: <Folders />,
   },
   {
     title: 'Favorited',
     key: 'favorited',
-    icon: heart,
+    icon: <Heart />,
   },
   {
     title: 'About Me',
     key: 'about',
-    icon: me,
+    icon: <Me />,
   },
 ];
 

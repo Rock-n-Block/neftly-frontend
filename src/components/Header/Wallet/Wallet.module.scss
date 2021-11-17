@@ -1,6 +1,6 @@
-@import '../../../styles/helpers';
+@import 'src/styles/helpers';
 
-.user {
+.wallet {
   position: relative;
 
   @include m {
@@ -24,76 +24,16 @@
 }
 
 .wallet {
-  margin-left: 12px;
 
   @include m {
     display: none;
   }
 }
 
-.body {
-  position: absolute;
-  top: calc(100% + 35px);
-  left: -500%;
-  z-index: 1000;
-
-  margin-left: -128px;
-  padding: 24px;
-
-  width: 256px;
-
-  background: $color-neutral-80;
-
-  opacity: 0;
-  box-shadow: 0 16px 64px 0 rgba(31, 47, 70, 0.4);
-
-  transform: scale(0.9);
-  transform-origin: 50% 50px;
-  animation: showUser 0.4s forwards;
-  will-change: transform;
-
-  .triangle {
-    position: absolute;
-    width: 0px;
-    height: 0px;
-    border: 16px solid transparent;
-    border-bottom: 16px solid $color-neutral-80;
-    top: -24px;
-    right: 0;
-  }
-
-  @include t {
-    right: 0;
-    left: auto;
-  }
-
-  @include m {
-    top: calc(100% + 16px);
-    right: 16px;
-    left: 16px;
-
-    margin: 0;
-
-    width: auto;
-  }
-}
-
-@keyframes showUser {
-  0% {
-    opacity: 0;
-
-    transform: scale(0.9);
-  }
-
-  100% {
-    opacity: 1;
-
-    transform: scale(1);
-  }
-}
 
 .title {
   @include flexbox(flex-start, space-between);
+  gap: 32px;
 }
 
 .name {
@@ -290,7 +230,7 @@
 
 .balanceTitle {
   @include epilogue;
-  color: $color-neutral-20;
+  color: $color-neutral-60;
 }
 
 .balanceTitle,

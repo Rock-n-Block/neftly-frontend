@@ -87,6 +87,12 @@ export default observer(({ isSingle }: any) => {
 
       formData.append('media', values.media);
       if (values.format !== 'image') {
+        if (!values.cover) {
+          toast.info('Upload a preview for the video');
+          setFieldValue('isLoading', false);
+          return;
+        }
+
         formData.append('cover', values.cover);
       }
       formData.append('format', values.format);
@@ -103,7 +109,7 @@ export default observer(({ isSingle }: any) => {
                   toast.info(<ToastContentWithTxHash txHash={res.transaction.txID} />);
                 }
               })
-              .catch(( response : any) => {
+              .catch((response: any) => {
                 if (response && response.data && response.data.name) {
                   toast.error(response.data.name);
                 } else {

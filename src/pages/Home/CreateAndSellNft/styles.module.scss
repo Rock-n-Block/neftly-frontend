@@ -1,16 +1,8 @@
-@import '../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .ourArtworkGallery {
-  margin: 0 auto;
-  padding: 88px;
-
-  max-width: 1500px;
-
-  & > * {
-    &:not(:last-child) {
-      margin-bottom: 30px;
-    }
-  }
+  @include container;
+  margin-top: 188px;
 }
 
 .title {
@@ -23,16 +15,17 @@
 }
 
 .cardsWrapper {
-  @include flexbox(center, space-around);
+  margin-top: 40px;
+  @include flexbox(flex-start, center);
   flex-wrap: wrap;
+  gap: 32px;
 }
 
 .howItWorksCard {
   @include flexbox(center, flex-start);
   flex-direction: column;
 
-  width: 300px;
-  height: 200px;
+  width: 292px;
 }
 
 .viewMoreBtnWrapper {
@@ -45,7 +38,7 @@
 
 @include forTablet {
   .ourArtworkGallery {
-    padding: 20px;
+    padding-top: 20px;
   }
 
   .howItWorksCard {

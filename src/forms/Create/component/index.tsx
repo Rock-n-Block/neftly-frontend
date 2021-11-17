@@ -186,10 +186,10 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         <div className={styles.icon}>
                           <img alt="" src={iconUpload} />
                         </div>
-                        <Text className={styles.category} size="m" weight="medium" color="white">
+                        <Text className={styles.category} size="m" weight="medium" color="black">
                           Upload preview cover
                         </Text>
-                        <Text className={styles.note} color="lightGray">
+                        <Text className={styles.note} color="black">
                           Drag or choose your file to upload
                         </Text>
                         <Text className={styles.format} size="xxs" color="gray">
@@ -251,10 +251,10 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       <div className={styles.icon}>
                         <img alt="" src={iconUpload} />
                       </div>
-                      <Text className={styles.category} size="m" weight="medium" color="white">
+                      <Text className={styles.category} size="m" weight="medium" color="black">
                         Upload preview
                       </Text>
-                      <Text className={styles.note} color="lightGray">
+                      <Text className={styles.note} color="black">
                         Drag or choose your file to upload
                       </Text>
                       <Text className={styles.format} size="xxs" color="gray">
@@ -268,8 +268,8 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
           </div>
           <div className={styles.column}>
             <div className={styles.item}>
-              <div className={styles.fieldset}>
-                <H6>Sell method</H6>
+              <div className={cn(styles.fieldset, styles.fieldset_first)}>
+                <H6 className={styles.fieldsetTitle}>Sell method</H6>
                 <Field
                   name="sellMethod"
                   render={() => (
@@ -286,7 +286,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 />
               </div>
               <div className={styles.fieldset}>
-                <H6>Artwork Details</H6>
+                <H6 className={styles.fieldsetTitle}>Artwork Details</H6>
                 <Field
                   render={() => (
                     <TextInput
@@ -326,7 +326,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 )}
                 <div className={styles.fieldsetRow}>
                   <div className={cn(styles.price, styles.fieldsetRowColumn)}>
-                    <Text className={styles.label} size="m" weight="medium">
+                    <Text className={styles.label} color="black" size="m" weight="medium">
                       {`${values.sellMethod === 'fixedPrice' ? 'Price' : 'Minimal Bid'}`}{' '}
                       <RequiredMark />
                     </Text>
@@ -374,14 +374,14 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           );
                         }}
                       />
-                      {touched.price && errors.price && <Text color="red">{errors.price}</Text>}
                     </div>
+                    {touched.price && errors.price && <Text color="red">{errors.price}</Text>}
                     <div className={styles.postfix}>
                       {/* change dynamically */}
-                      <Text color="gray">
+                      <Text color="middleGray">
                         Minimum price 0.0001 {values.currency?.toUpperCase()}
                       </Text>
-                      <Text color="gray">
+                      <Text color="middleGray">
                         USD {stringRatesValue} PER/
                         {values.currency?.toUpperCase()}
                       </Text>
@@ -428,7 +428,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   </div>
                 </div>
                 <div className={styles.fee}>
-                  <Text color="secondary">
+                  <Text color="primary">
                     Service fee {serviceFee}%
                     <br />
                     You will receive {stringRecieveValue} {values.currency?.toUpperCase()}

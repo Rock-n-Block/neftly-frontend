@@ -5,16 +5,14 @@
   position: relative;
 
   &.scrollTips {
-    
   }
 }
 .scrollTip {
-  
   position: absolute;
   content: ' ';
   width: 10px;
   height: 80%;
-  background: $color-secondary;
+  background: $color-primary;
   filter: blur(4px);
   top: 10%;
 }
@@ -29,19 +27,16 @@
       border-radius: 0 50% 50% 0;
       left: 0;
     }
-  
+
     &:after {
       @extend .scrollTip;
       border-radius: 50% 0 0 50%;
       right: 0;
     }
   }
-  
 }
 
 .tabWrapper {
-  margin: 0 auto;
-
   width: max-content;
   @include flexbox(center, space-around);
 
@@ -59,14 +54,25 @@
       width: 0;
       height: 2px;
 
-      background: $color-secondary;
+      background: $color-primary;
 
       transition: 150ms ease-out;
     }
 
+    svg {
+      display: block;
+      margin-right: 10px;
+    }
+
     &.selected {
+      p {
+        color: $color-primary;
+      }
       &::before {
         width: 100%;
+      }
+      path {
+        fill: $color-primary;
       }
     }
   }

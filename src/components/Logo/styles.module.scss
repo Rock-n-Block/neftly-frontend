@@ -20,5 +20,5 @@
 }
 
 .logo .logoText {
-  font-size: 22px !important;
+  @include monument-extended;
 }

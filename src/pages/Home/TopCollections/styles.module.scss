@@ -1,0 +1,29 @@
+@import 'src/styles/helpers';
+
+.topCollections {
+  @include container;
+  margin-top: 88px;
+
+
+  & > * {
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.title {
+  @include flexbox;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+
+.collectionsWrapper {
+  display: grid;
+  grid-template-columns:repeat(auto-fit, 240px);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 30px;
+  grid-row-gap: 16px;
+  grid-auto-flow: column;
+}

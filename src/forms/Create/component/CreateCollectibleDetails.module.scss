@@ -42,12 +42,18 @@
   .previewImg {
     position: relative;
     width: 100%;
-    max-width: 616px;
     height: 400px;
     overflow: hidden;
 
+    margin-bottom: 32px;
+
     display: flex;
     justify-content: center;
+
+    & img {
+      max-width: 100%;
+      object-fit: contain;
+    }
 
     @include forDesktopSm {
       height: 232px;
@@ -55,14 +61,13 @@
 
     .clearPreview {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      right: 0px;
       @include flexbox;
 
       width: 30px;
       height: 30px;
 
-      background: $color-neutral-100;
+      background: $color-neutral-0;
       border: 1px solid $color-actions-light-pink;
 
       img {
@@ -99,11 +104,10 @@
   align-items: center;
 
   width: 100%;
-  max-width: 616px;
   height: 400px;
 
-  background: $color-neutral-80;
-  border: 1px dashed $color-neutral-0;
+  background: $color-neutral-10;
+  border: 1px dashed $color-neutral-100;
 
   input[type='file'],
   input[type='file']::-webkit-file-upload-button {
@@ -114,14 +118,22 @@
     height: 232px;
   }
 
+  margin-bottom: 32px;
+
   .capture {
     pointer-events: none;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    width: 100%;
+    padding: 0 15px;
     @include flexbox;
     flex-direction: column;
+    p {
+      text-align: center;
+    }
   }
 }
 
@@ -156,8 +168,13 @@
 .fieldset {
   margin-top: 32px;
 
+  &_first {
+    margin-top: 0;
+  }
+
   &Title {
     @include flexbox(center, space-between);
+    @include epilogue;
   }
 
   &Row {
@@ -201,6 +218,8 @@
   width: 100%;
   flex-direction: column;
 
+  color: $color-neutral-100;
+
   .dropdown {
     margin-right: -2px;
   }
@@ -211,7 +230,7 @@
 
     .priceInput {
       width: 100%;
-      min-width: 219px;
+      margin-left: 5px;
     }
   }
 
@@ -231,10 +250,9 @@
   line-height: 160%;
   text-transform: capitalize;
 
-  color: $color-neutral-10;
+  color: $color-neutral-100;
   opacity: 0.7;
 }
-
 
 .fee {
   margin-top: 4px;

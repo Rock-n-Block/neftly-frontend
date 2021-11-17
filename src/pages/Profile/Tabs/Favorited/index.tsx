@@ -42,43 +42,44 @@ const Favorited: FC<IProps> = memo(
         <TabHeader title={`${totalItems} artworks liked`} />
 
         <div className={s.tab}>
-          {nftCards.map((artCard: any) => {
-            const {
-              media,
-              name,
-              price,
-              currency,
-              available,
-              creator,
-              like_count,
-              tags,
-              id,
-              highest_bid,
-              minimal_bid,
-              bids,
-              is_liked,
-            } = artCard;
-            const artPrice = price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid;
-            return (
-              <ArtCard
-                artId={id}
-                key={id}
-                imageMain={media}
-                name={name}
-                price={artPrice}
-                asset={currency.symbol.toUpperCase()}
-                inStockNumber={available}
-                author={creator.name}
-                authorAvatar={creator.avatar}
-                authorId={creator.id}
-                likesNumber={like_count}
-                tags={tags}
-                bids={bids}
-                isLiked={is_liked}
-                likeAction={likeAction}
-              />
-            );
-          })}
+          {nftCards &&
+            nftCards.map((artCard: any) => {
+              const {
+                media,
+                name,
+                price,
+                currency,
+                available,
+                creator,
+                like_count,
+                tags,
+                id,
+                highest_bid,
+                minimal_bid,
+                bids,
+                is_liked,
+              } = artCard;
+              const artPrice = price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid;
+              return (
+                <ArtCard
+                  artId={id}
+                  key={id}
+                  imageMain={media}
+                  name={name}
+                  price={artPrice}
+                  asset={currency.symbol.toUpperCase()}
+                  inStockNumber={available}
+                  author={creator.name}
+                  authorAvatar={creator.avatar}
+                  authorId={creator.id}
+                  likesNumber={like_count}
+                  tags={tags}
+                  bids={bids}
+                  isLiked={is_liked}
+                  likeAction={likeAction}
+                />
+              );
+            })}
         </div>
         <div ref={anchorRef as RefObject<HTMLDivElement>} />
       </>

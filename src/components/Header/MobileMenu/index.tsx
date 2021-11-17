@@ -20,7 +20,7 @@ const MobileMenu: FC<Props> = ({ className, toggleMenu }) => {
       <Logo className={styles.logo} />
       <Search className={styles.mobileSearch} isDesktop={false} />
       <div className={styles.connectWrapper}>
-        <HeaderLinks toggleMenu={toggleMenu} className={styles.mobileMenuLinks} />
+        <HeaderLinks toggleMenu={toggleMenu} className={styles.mobileMenuLinks}/>
       </div>
       <IconLinks className={styles.mobileMenuIconLinks} />
       <Text align="center" className={styles.bottomText} size="xs" color="lightGray">

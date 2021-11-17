@@ -8,7 +8,7 @@ import { Loader } from '..';
 import styles from './styles.module.scss';
 
 type Props = {
-  color?: 'blue' | 'outline' | 'transparent' | 'pink';
+  color?: 'blue' | 'outline' | 'transparent' | 'pink' | 'dark';
   size?: any;
   isFullWidth?: boolean;
   className?: string;

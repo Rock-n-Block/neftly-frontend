@@ -6,8 +6,17 @@
   margin-bottom: 32px;
 }
 
+.form {
+  input {
+    border-color: #6b6785 !important;
+  }
+}
+
 .upload {
   @include flexbox(center, space-between);
+  @include forTablet {
+    flex-direction: column;
+  }
 
   img {
     width: 128px;
@@ -35,12 +44,15 @@
   @include flexbox(center, space-between);
   flex-direction: column;
 
+  @include forTablet {
+    margin-left: 0;
+  }
+
   .file {
     margin-top: 32px;
     width: 100%;
   }
 }
-
 
 .load {
   position: absolute;

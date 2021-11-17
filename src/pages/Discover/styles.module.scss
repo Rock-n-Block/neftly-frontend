@@ -1,10 +1,7 @@
 @import '../../styles/helpers.scss';
 
 .discover {
-  margin: 0 auto;
-  padding: 0 88px;
-
-  max-width: 1600px;
+  @include container;
 }
 
 .filterControls {
@@ -33,7 +30,6 @@
 
   .filter {
     position: absolute;
-    margin-top: 30px;
     left: 0;
     transition: 200ms;
     transform: translateX(-100vw);
@@ -46,17 +42,9 @@
   .filterResultsContainer {
     flex-basis: 100%;
 
-    padding: 0 10px;
-
     .filterResults {
-      @include flexbox(center, flex-start);
-      flex-wrap: wrap;
-
-      margin: 0 -16px;
-
-      & > * {
-        margin: 10px;
-      }
+      margin-top: 24px;
+      @include autoGrid;
     }
 
     &.withFilter {

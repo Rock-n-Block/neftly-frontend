@@ -1,11 +1,11 @@
-@import '../../styles/helpers';
+@import 'src/styles/helpers';
 
 .header {
-  border-bottom: 1px solid $color-neutral-80;
+  border-bottom: 1px solid $color-neutral-20;
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: $color-neutral-100;
+  background: $color-bg;
   transition: top 0.4s;
   width: 100%;
 }
@@ -16,10 +16,7 @@
 
 .headerInner {
   position: relative;
-
-  margin: 0 auto;
-  padding: 0 30px;
-  max-width: 1440px;
+  @include container;
 
   height: 90px;
   @include flexbox(center, flex-start);
@@ -44,31 +41,14 @@
 }
 
 .headerConnectBtn {
-  position: absolute;
-  top: 30%;
-  right: 5%;
-}
-
-.profileImageWrapper {
-  width: 45px;
-  height: 45px;
-
-  & > img {
-    width: 100%;
-    height: 100%;
-  }
+  margin-left: auto;
 }
 
 .profileInfo {
   margin-left: auto;
 
-  display: flex;
-
-  & > * {
-    &:not(:last-child) {
-      margin-right: 30px;
-    }
-  }
+  @include flexbox;
+  gap: 30px;
 }
 
 .mobileMenu {
@@ -79,6 +59,7 @@
   transition: 300ms;
   z-index: 99;
 }
+
 .mobileMenuOpen {
   transform: translateX(0);
 }
@@ -97,7 +78,4 @@
     padding: 20px 20px 20px 40px;
   }
 
-  .headerConnectBtn {
-    width: 120px;
-  }
 }
