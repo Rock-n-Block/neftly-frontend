@@ -40,7 +40,7 @@ type Props = {
  * @param {Color} [color] - color of text {black}
  * @param {Align} [align] - align of text {left}
  * @param {Weight} [weight] - font weight {normal}
- * @returns 
+ * @returns Text component
  */
 const Text: FC<PropsWithChildren<Props>> = ({
   tag = 'p',

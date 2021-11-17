@@ -2,26 +2,44 @@
 
 .type_h1 {
   font-size: 80px;
+  @include forTablet {
+    font-size: 40px;
+  }
 }
 
 .type_h2 {
   font-size: 40px;
   line-height: 120%;
+  @include forTablet {
+    font-size: 28px;
+  }
 }
 
 .type_h3 {
   font-size: 36px;
+  @include forTablet {
+    font-size: 28px;
+  }
 }
 
 .type_h4 {
   font-size: 28px;
+  @include forTablet {
+    font-size: 20px;
+  }
 }
 
 .type_h5 {
   font-size: 20px;
+  @include forTablet {
+    font-size: 16px;
+  }
 }
 .type_h6 {
   font-size: 16px;
+  @include forTablet {
+    font-size: 14px;
+  }
 }
 
 .type_h1,
@@ -45,7 +63,7 @@
   text-align: right;
 }
 
-.align_inherit{
+.align_inherit {
   text-align: inherit;
 }
 
@@ -71,22 +89,37 @@
 
 .size_l {
   font-size: 18px;
+  @include forTablet {
+    font-size: 16px;
+  }
 }
 
 .size_xl {
   font-size: 20px;
+  @include forTablet {
+    font-size: 18px;
+  }
 }
 
 .size_xxl {
   font-size: 24px;
+  @include forTablet {
+    font-size: 20px;
+  }
 }
 
 .size_xxxl {
   font-size: 32px;
+  @include forTablet {
+    font-size: 24px;
+  }
 }
 
 .size_xxxxl {
   font-size: 48px;
+  @include forTablet {
+    font-size: 32px;
+  }
 }
 .size_inherit {
   font-size: inherit;
