@@ -1,5 +1,5 @@
-import {FC} from 'react';
-import {observer} from 'mobx-react';
+import { FC } from 'react';
+import { observer } from 'mobx-react';
 
 import Banner from './Banner';
 import CreateAndSell from './CreateAndSellNft';
@@ -14,13 +14,13 @@ import styles from './Home.module.scss';
 const Home: FC = observer(() => {
   return (
     <div className={styles.container}>
-      <Banner/>
+      <Banner />
       {/* <HotAuction />
       <OurArtistsToday /> */}
       {/* <OurArtworkGallery />*/}
-      <TopCollections/>
-      <CreateAndSell/>
-      <ResourceForGettingStarted/>
+      <TopCollections />
+      <CreateAndSell />
+      <ResourceForGettingStarted />
     </div>
   );
 });

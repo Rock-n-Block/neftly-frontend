@@ -32,4 +32,7 @@ export const routes = {
   connectWallet: {
     root: '/connect',
   },
+  lostPage: {
+    root: '/404',
+  },
 };

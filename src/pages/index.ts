@@ -8,3 +8,4 @@ export { default as CreateToken } from './CreateToken';
 export { default as UploadVariants } from './UploadVariants';
 export { default as CollectionPage } from './CollectionPage';
 export { default as ConnectWallet } from './ConnectWallet';
+export { default as LostPage404 } from './LostPage404';

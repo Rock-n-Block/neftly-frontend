@@ -22,11 +22,11 @@ export const useFetchLiked = (props: IProps): [number, number, INft[], boolean] 
     setIsLoading(true);
     storeApi
       .getLiked(address, page)
-      .then(({ data: { items, total_tokens } }: any) => {
+      .then(({ data: { items, total_tokens } }) => {
         setTotalItems(total_tokens);
         if (refresh) {
           setNftCards(items);
-        } else {
+        } else if (items) {
           setNftCards((prev: INft[]) => [...prev, ...items]);
         }
         if (!items?.length && refresh) {
