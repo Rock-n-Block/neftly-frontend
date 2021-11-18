@@ -4,13 +4,13 @@
 .detailArtworkContent {
   @include container;
   padding-bottom: 88px;
-  @include forDesktopMiddle{
+  @include forDesktopMiddle {
     padding-bottom: 40px;
   }
-  @include forDesktopSm{
+  @include forDesktopSm {
     padding-bottom: 20px;
   }
-  @include b(541){
+  @include b(541) {
     padding: 0 12px;
   }
 }
@@ -45,14 +45,11 @@
 }
 
 .artCardsWrapper {
-  @include flexbox();
-  flex-wrap: wrap;
-  justify-content: flex-start;
   width: 100%;
-  gap: 20px;
+  @include autoGrid;
 }
 
-.artCard{
-  width: max-content;
-  margin: 0 auto;
-}
+// .artCard {
+//   width: max-content;
+//   margin: 0 auto;
+// }
