@@ -173,6 +173,7 @@ const ArtCard: FC<Props> = ({
                 className={cx(styles.artCardHeart, { [styles.artCardHeartActive]: isLike })}
                 onClick={handleLike}
                 color="transparent"
+                padding="0"
               >
                 <PinkHeart />
               </Button>

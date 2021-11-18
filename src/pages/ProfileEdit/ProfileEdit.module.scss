@@ -1,16 +1,12 @@
 @import 'src/styles/helpers';
 
-.profileEdit {
-  @include container;
-}
-
 .top {
   text-align: center;
-  margin-top: 69px;
   padding-bottom: 45px;
-  border-bottom: 1px solid $color-neutral-80;
+  padding-top: 25px;
+  border-bottom: 1px solid $color-neutral-10;
   @include m {
-    padding: 0px 32px 32px;
+    padding: 0px 10px 32px;
   }
 }
 
@@ -25,9 +21,4 @@
   margin-top: 16px;
 
   @include flexbox;
-}
-
-
-.control {
-  margin-left: 20px;
 }

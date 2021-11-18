@@ -4,6 +4,11 @@
   position: relative;
   background-color: $color-primary;
   background-size: cover;
+  padding: 52px 0;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: 50%;
+  animation: up-to-down 80s linear infinite;
 
   &::after {
     content: '';
@@ -18,10 +23,27 @@
   }
 }
 
+@keyframes up-to-down {
+  0% {
+    background-position-y: 50%;
+  }
+  25% {
+    background-position-y: 100%;
+  }
+  50% {
+    background-position-y: 50%;
+  }
+  75% {
+    background-position-y: 0%;
+  }
+  100% {
+    background-position-y: 50%;
+  }
+}
+
 .inner {
   @include flexbox;
   flex-direction: column;
-  height: 45vh;
 
   position: relative;
   z-index: 3;
@@ -71,14 +93,12 @@
 }
 
 .user_button {
-  padding: 6px 33px;
   font-weight: 600;
   font-size: 16px;
   @include flexbox;
   gap: 8px;
   @include forTablet {
-    padding: 6px 12px;
-    font-size: 15px;
+    padding: 6px 12px !important;
   }
 }
 
@@ -99,7 +119,7 @@
 
     position: absolute;
     left: 7px;
-    bottom: 5px;
+    bottom: 6px;
 
     width: 6px;
     height: 12px;

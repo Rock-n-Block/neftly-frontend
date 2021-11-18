@@ -22,7 +22,7 @@ const Control: React.FC<IControlProps> = ({ className, item }) => {
               {x.url ? (
                 <Link color="lightGray" name={x.title} className={styles.link} link={x.url} />
               ) : (
-                <Text size="m" color="white">
+                <Text size="m" weight="medium" color="primary">
                   {x.title}
                 </Text>
               )}
