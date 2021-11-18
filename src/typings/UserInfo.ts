@@ -30,11 +30,9 @@ export interface IOwner extends Omit<IBaseInfo, 'address'> {
   quantity: number;
 }
 
-export type IAppliedFilter =
-  | {
-      label: string;
-      value: string;
-    }
-  | string;
+export type IAppliedFilter = {
+  label: string;
+  value: string;
+};
 
 export type AdvancedFilterType = Record<string, IAppliedFilter>;

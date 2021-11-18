@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { Switcher, Text } from 'components';
 import { debounce } from 'lodash';
-import Slider from 'rc-slider';
+import Slider, {createSliderWithTooltip} from 'rc-slider';
 import { validateOnlyNumbers } from 'utils';
 
 import 'rc-slider/assets/index.css';
@@ -27,6 +27,8 @@ type Props = {
   onSwitcher?: (value: boolean) => void;
   isDebounce?: boolean;
 };
+
+const TooltipSlider = createSliderWithTooltip(Slider);
 
 const RangePicker: FC<Props> = ({
   top,
@@ -140,7 +142,7 @@ const RangePicker: FC<Props> = ({
           </button>
         )}
 
-        <Slider
+        <TooltipSlider
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore (rc-slider show that className invalid prop, but exist
           className={cx(styles.slider, 'rc-slider-wrap', className)}
@@ -150,6 +152,7 @@ const RangePicker: FC<Props> = ({
           step={step}
           vertical={isVertical}
           onChange={handleChangeRange}
+          
           railStyle={
             isVertical
               ? {

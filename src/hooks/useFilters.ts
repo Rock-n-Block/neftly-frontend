@@ -7,18 +7,24 @@ const DEFAULT_FILTER_STATE = {
   order_by: '-date',
   tags: 'All items',
   max_price: 0,
-  currency: '',
+  currency: 'weth',
   page: 1,
   is_verificated: 'All',
 };
 
+const defaultValues = DEFAULT_FILTER_STATE;
+export type TDefaultValues = typeof defaultValues;
+
 const useFilters = (filterTag = '') => {
   const [isMaxPriceLoading, setMaxPriceLoading] = useState(false);
   const [isRatesLoading, setRatesLoading] = useState(false);
-  const [maxPriceFilter, setMaxPriceFilter] = useState(DEFAULT_FILTER_STATE.max_price);
+  const [maxPriceFilter, setMaxPriceFilter] = useState<OptionType>({
+    value: DEFAULT_FILTER_STATE.max_price.toString(),
+    label: `0 ETH - ${DEFAULT_FILTER_STATE.max_price} ETH`
+  });
   const [currencyFilter, setCurrencyFilter] = useState<OptionType>({
     value: DEFAULT_FILTER_STATE.currency,
-    label: '',
+    label: 'WETH',
   });
   const [likesFilter, setLikesFilter] = useState<OptionType>({
     value: '',
@@ -40,7 +46,10 @@ const useFilters = (filterTag = '') => {
   const [maxPrice, setMaxPrice] = useState(DEFAULT_FILTER_STATE.max_price);
 
   const handleMaxPriceFilter = useCallback((value: number) => {
-    setMaxPriceFilter(value);
+    setMaxPriceFilter({
+      value: value.toString(),
+      label: `0 ETH - ${value} ETH`
+    });
   }, []);
 
   const handleCurrencyFilter = useCallback((value: OptionType) => {
@@ -129,6 +138,7 @@ const useFilters = (filterTag = '') => {
   }, [orderByFilter, tagsFilter, currencyFilter, verifiedFilter, maxPriceFilter]);
 
   return {
+    defaultValues,
     maxPrice,
     maxPriceFilter,
     handleMaxPriceFilter,

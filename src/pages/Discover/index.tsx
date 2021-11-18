@@ -56,6 +56,7 @@ const Discover = observer(() => {
     page,
     handlePage,
     isLoading,
+    defaultValues,
   } = useFilters(filterTag);
 
   const [allPages, totalItems, nftCards, isNftsLoading] = useFetchNft({
@@ -63,7 +64,7 @@ const Discover = observer(() => {
     sort: 'items',
     order_by: orderByFilter.value,
     tags: tagsFilter === 'All NFTs' ? '' : tagsFilter,
-    max_price: maxPriceFilter,
+    max_price: +maxPriceFilter.value,
     currency: currencyFilter.value,
     is_verified: verifiedFilter.value,
     on_sale: true,
@@ -86,7 +87,6 @@ const Discover = observer(() => {
       setFilterOpen(false);
     }
   }, [nftCards.length]);
-
   return (
     <div className={styles.discover}>
       <H2 className={styles.title}>
@@ -96,21 +96,23 @@ const Discover = observer(() => {
         </Text>
       </H2>
       <div className={styles.filterControls}>
-        <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
-          Advanced Filter <FilterSVG className={styles.icon}/>
-        </Button>
-        <TabLookingComponent
-          tabClassName={styles.filterTab}
-          tabs={convertedTagsForComponents}
-          action={handleTagsFilter}
-          activeTab={tagsFilter}
-        />
-        <Select
-          onChange={handleOrderByFilter as any}
-          value={orderByFilter}
-          options={selectOptions}
-          classNameSelect={styles.select}
-        />
+        <div className={styles.filterBody}>
+          <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
+            Advanced Filter <FilterSVG className={styles.icon} />
+          </Button>
+          <TabLookingComponent
+            tabClassName={styles.filterTab}
+            tabs={convertedTagsForComponents}
+            action={handleTagsFilter}
+            activeTab={tagsFilter}
+          />
+          <Select
+            onChange={handleOrderByFilter as any}
+            value={orderByFilter}
+            options={selectOptions}
+            classNameSelect={styles.select}
+          />
+        </div>
       </div>
       <div className={cx(styles.filterAndCards, { [styles.open]: isFilterOpen })}>
         <AdvancedFilter
@@ -123,6 +125,7 @@ const Discover = observer(() => {
           handleCurrencyFilter={handleCurrencyFilter}
           verifiedFilter={verifiedFilter}
           handleVerifiedFilter={handleVerifiedFilter}
+          defaultValues={defaultValues}
         />
         <div
           className={cx(styles.filterResultsContainer, {
@@ -133,41 +136,41 @@ const Discover = observer(() => {
           <div className={styles.filterResults}>
             {nftCards.length
               ? nftCards.map((artCard: any) => {
-                  const {
-                    media,
-                    name,
-                    price,
-                    currency,
-                    available,
-                    creator,
-                    like_count,
-                    tags,
-                    id,
-                    highest_bid,
-                    minimal_bid,
-                    bids,
-                    is_liked,
-                  } = artCard;
-                  return (
-                    <ArtCard
-                      artId={id}
-                      key={id}
-                      imageMain={media}
-                      name={name}
-                      price={price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid}
-                      asset={currency.symbol.toUpperCase()}
-                      inStockNumber={available}
-                      author={creator.name}
-                      authorAvatar={creator.avatar}
-                      authorId={creator.id}
-                      likesNumber={like_count}
-                      tags={tags}
-                      bids={bids}
-                      isLiked={is_liked}
-                      likeAction={likeAction}
-                    />
-                  );
-                })
+                const {
+                  media,
+                  name,
+                  price,
+                  currency,
+                  available,
+                  creator,
+                  like_count,
+                  tags,
+                  id,
+                  highest_bid,
+                  minimal_bid,
+                  bids,
+                  is_liked,
+                } = artCard;
+                return (
+                  <ArtCard
+                    artId={id}
+                    key={id}
+                    imageMain={media}
+                    name={name}
+                    price={price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid}
+                    asset={currency.symbol.toUpperCase()}
+                    inStockNumber={available}
+                    author={creator.name}
+                    authorAvatar={creator.avatar}
+                    authorId={creator.id}
+                    likesNumber={like_count}
+                    tags={tags}
+                    bids={bids}
+                    isLiked={is_liked}
+                    likeAction={likeAction}
+                  />
+                );
+              })
               : null}
           </div>
         </div>

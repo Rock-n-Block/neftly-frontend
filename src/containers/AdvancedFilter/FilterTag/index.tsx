@@ -14,7 +14,7 @@ type Props = {
 const FilterTag: FC<Props> = ({ label, closeTag, className }) => (
   <div className={cx(styles.filterTag, className)}>
     {label}
-    <Button onClick={closeTag} color="transparent">
+    <Button padding="0" onClick={closeTag} color="transparent">
       <img src={cross} alt="" />
     </Button>
   </div>
