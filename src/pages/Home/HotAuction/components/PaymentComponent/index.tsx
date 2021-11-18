@@ -11,6 +11,7 @@ import { useMst } from 'store';
 import { chainsEnum, INft, TNullable } from 'typings';
 
 import styles from './styles.module.scss';
+import { toast } from 'react-toastify';
 
 type Props = {
   className?: string;
@@ -40,7 +41,8 @@ const PaymentComponent: FC<Props> = observer(
     const [isApproved, setApproved] = React.useState<boolean>(false);
     const [isApproving, setApproving] = React.useState<boolean>(false);
 
-    const ExchangeAddress = contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address
+    const ExchangeAddress =
+      contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address;
 
     const currentPrice = React.useMemo(() => {
       if (nft) {
@@ -74,11 +76,7 @@ const PaymentComponent: FC<Props> = observer(
         }
         if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
           walletService
-            .trxCheckAllowance(
-              nft.currency.symbol.toUpperCase(),
-              ExchangeAddress,
-              user.address,
-            )
+            .trxCheckAllowance(nft.currency.symbol.toUpperCase(), ExchangeAddress, user.address)
             .then((res: boolean) => {
               setApproved(res);
             })
@@ -88,11 +86,7 @@ const PaymentComponent: FC<Props> = observer(
             });
         } else {
           walletService
-            .checkTokenAllowance(
-              nft.currency.symbol.toUpperCase(),
-              18,
-              ExchangeAddress,
-            )
+            .checkTokenAllowance(nft.currency.symbol.toUpperCase(), 18, ExchangeAddress)
             .then((res: boolean) => {
               setApproved(res);
             })
@@ -109,10 +103,7 @@ const PaymentComponent: FC<Props> = observer(
         setApproving(true);
         if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
           walletService
-            .trxApproveToken(
-              nft.currency.symbol.toUpperCase(),
-              ExchangeAddress
-            )
+            .trxApproveToken(nft.currency.symbol.toUpperCase(), ExchangeAddress)
             .then(() => {
               setApproved(true);
             })
@@ -122,11 +113,7 @@ const PaymentComponent: FC<Props> = observer(
             .finally(() => setApproving(false));
         } else {
           walletService
-            .approveToken(
-              nft.currency.symbol.toUpperCase(),
-              18,
-              ExchangeAddress,
-            )
+            .approveToken(nft.currency.symbol.toUpperCase(), 18, ExchangeAddress)
             .then(() => {
               setApproved(true);
             })
@@ -173,13 +160,31 @@ const PaymentComponent: FC<Props> = observer(
 
     const handleEndAuction = React.useCallback(() => {
       if (nft) {
-        storeApi.endAuction(nft?.id).then(({ data }: any) =>
-          walletService.sendTransaction(data.initial_tx).then(() => {
-            if (onUpdateNft) {
-              onUpdateNft();
+        storeApi
+          .verificateBet(nft.id)
+          .then((response: any) => {
+            if (response.data.invalid_bet && Object.keys(response.data.invalid_bet).length) {
+              toast.error({
+                message: 'Highest bid is not correct',
+              });
+              if (onUpdateNft) {
+                onUpdateNft();
+              }
+            } else {
+              storeApi.endAuction(nft?.id).then(({ data }: any) =>
+                walletService.sendTransaction(data.initial_tx).then(() => {
+                  if (onUpdateNft) {
+                    onUpdateNft();
+                  }
+                }),
+              );
             }
-          }),
-        );
+          })
+          .catch(() => {
+            toast.error({
+              message: 'Something went wrong',
+            });
+          });
       }
     }, [nft, walletService, onUpdateNft]);
 

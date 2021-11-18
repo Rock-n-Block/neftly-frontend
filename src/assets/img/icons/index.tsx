@@ -22,6 +22,8 @@ export { default as iconCloudUploadBlack } from './icon-cloud-upload-black.svg';
 export { default as iconCreateCircle } from './icon-create-circle.svg';
 export { default as iconVerifiedMark } from './icon-verified-mark.svg';
 export { default as iconCloudUpload } from './icon-cloud-upload.svg';
+export { default as iconPropAdd } from './icon-prop-add.svg';
+export { default as iconPropRemove } from './icon-prop-delete.svg';
 export { ReactComponent as IconCoin } from './icon-coin.svg';
 export { ReactComponent as IconEth } from './icon-eth.svg';
 export { ReactComponent as IconDashboard } from './icon-dashboard.svg';
