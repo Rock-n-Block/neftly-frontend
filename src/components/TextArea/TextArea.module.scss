@@ -46,6 +46,16 @@
   &:focus {
     border-color: $color-neutral-60;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+
+    color: $color-neutral-80;
+    border-color: $color-neutral-80;
+    @include placeholder {
+      color: $color-neutral-80;
+    }
+  }
 }
 
 .edit {

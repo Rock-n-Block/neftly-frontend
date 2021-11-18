@@ -36,7 +36,7 @@ const ProfileForm: React.FC = () => {
       facebook: Yup.string().max(50),
     }),
 
-    handleSubmit: (values, { setFieldValue, setFieldError }) => {
+    handleSubmit: (values, { setFieldValue, setFieldError, setSubmitting }) => {
       setFieldValue('isLoading', true);
       const formData = new FormData();
       formData.append('avatar', values.avatar || '');
@@ -64,6 +64,7 @@ const ProfileForm: React.FC = () => {
         })
         .finally(() => {
           setFieldValue('isLoading', false);
+          setSubmitting(false);
         });
     },
 

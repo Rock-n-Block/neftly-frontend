@@ -12,6 +12,7 @@ interface ITextAreaProps {
   value?: string;
   editable?: boolean;
   maxLettersCount?: number;
+  disabled?: boolean;
 }
 
 const TextArea: React.FC<ITextAreaProps> = ({
@@ -20,6 +21,7 @@ const TextArea: React.FC<ITextAreaProps> = ({
   onChange,
   value,
   maxLettersCount,
+  disabled,
   ...props
 }) => {
   const handleChange = (e: any) => {
@@ -37,7 +39,13 @@ const TextArea: React.FC<ITextAreaProps> = ({
     <div className={cn(styles.field, className)}>
       {label && <div className={styles.label}>{label}</div>}
       <div className={styles.wrap}>
-        <textarea value={value} onChange={handleChange} className={styles.textarea} {...props} />
+        <textarea
+          disabled={disabled}
+          value={value}
+          onChange={handleChange}
+          className={styles.textarea}
+          {...props}
+        />
         {maxLettersCount ? (
           <p className={styles.counter}>
             {value?.length}/{maxLettersCount}

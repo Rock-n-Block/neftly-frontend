@@ -107,11 +107,12 @@ const Profile: FC<FormikProps<IProfile>> = observer(
                 <Field
                   id="bio"
                   name="bio"
-                  render={() => (
+                  render={({ form: { isSubmitting } }: FieldProps) => (
                     <TextArea
                       name="bio"
                       className={styles.field}
                       label="Bio"
+                      disabled={isSubmitting}
                       value={values.bio}
                       onChange={handleChange}
                       placeholder="About yourselt in a few words"
