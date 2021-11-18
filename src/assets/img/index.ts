@@ -2,6 +2,7 @@ export * from './ActivityPage';
 export * from './icons';
 export * from './ProfilePage';
 export * from './upload';
+export * from './LostPage404';
 export { default as facebookLogo } from './FacebookLogo.svg';
 export { default as instagramLogo } from './InstagramLogo.svg';
 export { default as twitterLogo } from './twitterLogo.svg';

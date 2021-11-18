@@ -7,3 +7,4 @@ export { default as Activity } from './Activity';
 export { default as CreateToken } from './CreateToken';
 export { default as UploadVariants } from './UploadVariants';
 export { default as CollectionPage } from './CollectionPage';
+export { default as LostPage404 } from './LostPage404';
