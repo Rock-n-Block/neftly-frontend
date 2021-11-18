@@ -20,7 +20,6 @@ const useChartTooltip = ({ options }: IProps) => {
     if (!chart) {
       return;
     }
-
     // hide the tooltip when chartjs determines you've hovered out
     if (tooltip.opacity === 0) {
       setShowTooltip(false);

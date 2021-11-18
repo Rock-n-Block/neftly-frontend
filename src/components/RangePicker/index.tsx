@@ -1,8 +1,8 @@
-import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { Switcher, Text } from 'components';
 import { debounce } from 'lodash';
-import Slider, {createSliderWithTooltip} from 'rc-slider';
+import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { validateOnlyNumbers } from 'utils';
 
 import 'rc-slider/assets/index.css';
@@ -45,14 +45,19 @@ const RangePicker: FC<Props> = ({
   className,
   classNameWrap,
   valueSwitcher,
-  onChange = () => {},
-  onSwitcher = () => {},
+  onChange = () => { },
+  onSwitcher = () => { },
   isDebounce,
   currency
 }) => {
   const [localValue, setLocalValue] = useState('');
 
   const [debouncedCallApi] = useState(() => debounce(onChange, 1000));
+
+
+  useEffect(() => {
+    setLocalValue(value.toString());
+  }, [value])
 
   const handleChangeRange = useCallback(
     (val: number) => {
@@ -148,7 +153,7 @@ const RangePicker: FC<Props> = ({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore (rc-slider show that className invalid prop, but exist
           className={cx(styles.slider, 'rc-slider-wrap', className)}
-          value={value || +localValue}
+          value={+localValue || value}
           min={min}
           max={max}
           step={step}
@@ -157,9 +162,9 @@ const RangePicker: FC<Props> = ({
           railStyle={
             isVertical
               ? {
-                  width: 6,
-                  backgroundColor: 'white',
-                }
+                width: 6,
+                backgroundColor: 'white',
+              }
               : {}
           }
         />

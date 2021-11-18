@@ -1,4 +1,4 @@
-@import '../../../../../styles/helpers';
+@import 'src/styles/helpers';
 
 .authorBlock {
   @include flexbox(flex-start, space-between);
@@ -10,6 +10,42 @@
 
 .avatar {
   margin-right: 10px;
+  position: relative;
+  width: 32px;
+  height: 32px;
+
+  & img:nth-child(1) {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.verify{
+  &Body{
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: $color-primary;
+    right: 0;
+    bottom: -2px;
+    border: 2px solid $color_bg;
+  }
+
+  &Mark{
+    position: relative;
+    border-bottom: 2px solid $color_bg;
+    border-left: 2px solid $color_bg;
+    width: 6px;
+    height: 4px;
+    display: block;
+    top: 40%;
+    left: 50%;
+    transform: translate(-55%, -50%) rotate(-45deg) scale(.9);
+  }
 }
 
 .owners {

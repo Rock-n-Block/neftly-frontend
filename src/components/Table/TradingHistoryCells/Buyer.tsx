@@ -1,25 +1,26 @@
 import { FC } from 'react';
 import cx from 'classnames';
-import { Text } from 'components';
+import { Avatar, EllipsisText, Text } from 'components';
 
 import styles from './styles.module.scss';
+import moment from 'moment';
 
-type Props = {
+interface IProps {
   className?: string;
   name: string;
-  avatar: string;
   date: string;
+  owner: any;
   type?: 'sell' | 'auction';
 };
 
-const TradingHistoryCells: FC<Props> = ({ className, name, avatar, date, type = 'sell' }) => (
+const TradingHistoryBuyer: FC<IProps> = ({ owner, className, name, date, type = 'sell' }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
-    <img src={avatar} alt="" />
-    <div>
-      <Text size="m">{name}</Text>
-      {type === 'sell' && <Text size="m">{date}</Text>}
+    <Avatar className={styles.buyerAvatar} avatar={owner.avatar} id={owner.id} isVerified={owner.is_verificated} />
+    <div className={styles.buyerData}>
+      <EllipsisText><Text size="m">{name}</Text></EllipsisText>
+      {type === 'sell' && <Text size="xs">{moment(date).fromNow()}</Text>}
     </div>
   </div>
 );
 
-export default TradingHistoryCells;
+export default TradingHistoryBuyer;

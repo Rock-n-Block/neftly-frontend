@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import { Art, Folders, Heart, Me } from 'assets/img';
 import cn from 'classnames';
-import { TabLookingComponent } from 'components';
+import { Text, TabLookingComponent } from 'components';
 import { useFetchLiked, useFetchNft, useFilters, useTabs } from 'hooks';
 import { observer } from 'mobx-react';
 import { userApi } from 'services';
@@ -88,14 +88,16 @@ const ProfilePage: FC = observer(() => {
     },
     [user.address],
   );
+
   return (
     <section className={s.page}>
       <UserMainInfo userId={userId} setCurrentUser={setCurrentUser} />
 
       <div className={s.page_body}>
         <div className={s.page_body__left}>
-          <div className={s.subtitle}>Menu</div>
-          {/* TODO: change mobile view */}
+          <Text tag="p" size="m" className={s.subtitle}>
+            Menu
+          </Text>
           <TabLookingComponent
             className={s.tabs}
             tabs={tabs}
@@ -105,7 +107,7 @@ const ProfilePage: FC = observer(() => {
         </div>
 
         <div className={cn(s.page_body__right, activeTab === 'about' && s.page_body__about)}>
-          {activeTab === 'created' || activeTab === 'owned' ? (
+          {(activeTab === 'created' || activeTab === 'owned') && (
             <Artworks
               likeAction={likeAction}
               page={page}
@@ -118,7 +120,7 @@ const ProfilePage: FC = observer(() => {
               handleOrderByFilter={handleOrderByFilter}
               nftCards={nftCards}
             />
-          ) : null}
+          )}
           {activeTab === 'favorited' && (
             <Favorited
               page={page}

@@ -1,4 +1,4 @@
-@import '../../styles/helpers';
+@import 'src/styles/helpers';
 
 .footer {
   background: $color-bg2;
@@ -87,7 +87,7 @@
         width: 100%;
         margin-bottom: 30px;
         padding-bottom: 30px;
-        border-bottom: 1px solid $color-neutral-80;
+        border-bottom: 1px solid $color-neutral-10;
       }
     }
   }

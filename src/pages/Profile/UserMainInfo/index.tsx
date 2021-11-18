@@ -1,10 +1,10 @@
 import { FC, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
+
 import { routes, zeroAddress } from 'appConstants';
 import {
   iconAddBlack,
   iconEdit,
-  iconRemoveBlack,
   iconSettingsWhite,
   profile_avatar_example,
   profile_page_bg_example,
@@ -113,14 +113,14 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
               >
                 <div className={s.user_button}>
                   <img src={iconEdit} alt="" />
-                  <Text tag="span" color="white">
+                  <Text tag="span" color="white" weight="medium">
                     Edit Banner
                   </Text>
                 </div>
               </Uploader>
               <Button className={s.user_button} color="outline" href={routes.profile.edit}>
                 <img src={iconSettingsWhite} alt="" />
-                <Text tag="span" color="white">
+                <Text tag="span" color="white" weight="medium">
                   Edit Profile
                 </Text>
               </Button>
@@ -133,11 +133,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
               onClick={handleFollowClick}
               disabled={isFollowClickPending}
             >
-              {isFollowed ? (
-                <img src={iconRemoveBlack} alt="minus icon" />
-              ) : (
-                <img src={iconAddBlack} alt="plus icon" />
-              )}
+              {!isFollowed && <img src={iconAddBlack} alt="plus icon" />}
               {isFollowed ? 'Unfollow' : 'Follow'}
             </Button>
           )}

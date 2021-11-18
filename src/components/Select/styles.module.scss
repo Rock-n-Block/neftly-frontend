@@ -1,4 +1,4 @@
-@import '../../styles/helpers.scss';
+@import "../../styles/helpers.scss";
 
 @mixin disabled {
   pointer-events: none;
@@ -50,16 +50,14 @@
   }
 }
 
-$box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px rgba(0, 0, 0, 0.11);
-
 :root {
   .select .control {
     box-sizing: border-box;
-    min-width: 140px;
+    min-width: 120px;
     height: 40px;
-
     background: none;
-    border: 1px solid $color-neutral-20;
+    border: 2px solid $color-neutral-10;
+    border-radius: $border-radius;
 
     &:hover {
       border-color: $color-neutral-60;
@@ -85,19 +83,19 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 
   .valueContainer {
     padding: 0;
-
     height: 100%;
-    min-height: 21px;
-
+    margin-right: 5px;
+    width: 100%;
     font-size: 16px;
     font-weight: 600;
   }
 
   .singleValue {
     font-size: 16px;
-    font-weight: 600;
-
-    color: $color-neutral-100;
+    font-weight: 500;
+    position: relative;
+    color: $color-neutral-80;
+    top: 12px;
   }
 }
 
@@ -108,7 +106,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 .control {
   height: 50px;
 
-  border-radius: 0 !important;
+  border-radius: $border-radius;
 
   &.focused {
     box-shadow: none;
@@ -123,7 +121,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   }
 
   &.m {
-    padding: 10px 20px;
+    padding: 0px 20px;
 
     height: 44px;
   }
@@ -158,20 +156,13 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 }
 
 :root .menu {
-  margin: 30px 0 0 0;
-
-  background: $color-bg;
-  border: 1px solid $color-neutral-20;
-  border-radius: 0;
-
-  &.dark {
-    box-shadow: none;
-  }
+  border: 2px solid $color-neutral-20;
 }
 
 :root .menuList {
   padding-top: 0;
   padding-bottom: 0;
+  overflow: hidden;
 }
 
 :root .option {
@@ -180,12 +171,8 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   padding: 10px 20px;
 
   background-color: none;
-  color: red;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid $color-neutral-20;
-  }
-
+  transition: $transition;
+  
   // &:hover {
   //   background-color: $color-neutral-20;
   // }
@@ -193,7 +180,9 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   }
 
   &.focused {
-    background-color: $color-neutral-20;
+    color: $color-bg;
+    background-color: rgba($color-primary, 0.4);
+
   }
 }
 
@@ -209,13 +198,15 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 }
 
 .dropdownIndicator {
-  width: 25px;
+  width: 20px;
+  height: 20px;
+  object-fit: fill;
 
   transition: all 200ms ease-in;
-  transform: rotate(-90deg);
+  transform: rotate(0deg);
 
   &.open {
-    transform: rotate(-270deg);
+    transform: rotate(180deg);
   }
 
   &.disabled {

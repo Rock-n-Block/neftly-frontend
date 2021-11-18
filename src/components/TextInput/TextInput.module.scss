@@ -1,4 +1,4 @@
-@import '../../styles/helpers';
+@import 'src/styles/helpers';
 
 .wrap {
   position: relative;
@@ -103,7 +103,8 @@
   top: calc(50%);
   left: 2px;
   transform: translateY(-50%);
-  padding-left: 5px;
+  padding-left: 16px;
+  color: $color-neutral-100;
 }
 
 .suffix {

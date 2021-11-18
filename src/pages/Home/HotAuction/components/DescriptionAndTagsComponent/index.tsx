@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Text } from 'components';
 
 import styles from './styles.module.scss';
 import { ITag } from '../../../../../typings';
+import { Cursor } from 'assets/img';
 
 type Props = {
   className?: string;
@@ -10,26 +11,48 @@ type Props = {
   body: string;
 };
 
-const DescriptionAndTagsComponent: FC<Props> = ({ className, tags, body }) => (
-  <div className={className}>
-    <Text className={styles.descriptionBody} size="m">
-      {body}
-    </Text>
-    {tags.length ? (
-      <>
-        <Text color="gray" size="m">
-          Tags
-        </Text>
+const DescriptionAndTagsComponent: FC<Props> = ({ className, tags, body }) => {
+
+  const textRef = useRef<any>(null);
+  const [showHover, setShowHover] = useState(true);
+
+  useEffect(()=>{
+   
+    if(textRef.current){
+      if(textRef.current.offsetHeight >= 100){
+        setShowHover(true);
+      }else{
+        setShowHover(false);
+      }
+    }
+  }, [textRef, body])
+
+  return (
+    <div className={className}>
+
+      <Text className={styles.descriptionBody} elRef={textRef}  size="m">
+        <div className={`${styles.hoverText} ${showHover && styles.showHoverNotification}`}>
+          <Text>Hover to read more</Text>
+          <Cursor aria-label='hover' className={styles.cursor} />
+        </div>
+        {body}
+      </Text>
+      {tags.length && (
+
         <div className={styles.tagWrapper}>
+          <Text size="m" className={styles.tagTitle}>
+            Tags:
+          </Text>
           {tags.map((tag) => (
             <div className={styles.tag} key={`tag-${tag.value}`}>
-              <Text size="m">{`#${tag.value}`}</Text>
+              <Text size="s">{`#${tag.value}`}</Text>
             </div>
           ))}
         </div>
-      </>
-    ) : null}
-  </div>
-);
 
+      )}
+    </div>
+  );
+
+}
 export default DescriptionAndTagsComponent;

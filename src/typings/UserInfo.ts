@@ -33,6 +33,7 @@ export interface IOwner extends Omit<IBaseInfo, 'address'> {
 export type IAppliedFilter = {
   label: string;
   value: string;
+  field?: string;
 };
 
 export type AdvancedFilterType = Record<string, IAppliedFilter>;

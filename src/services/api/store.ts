@@ -25,8 +25,7 @@ export default {
   // saveCollection: (data: any, tx_hash: string) => axios.post(`store/save_collection/${tx_hash}`, data),
   getExplore: (page: number, filter: string, sort: string) =>
     axios.get(
-      `store/hot/${page}/?network=${localStorage.nftcrowd_nft_chainName}&sort=${sort}${
-        filter !== 'all' ? `&tag=${filter}` : ''
+      `store/hot/${page}/?network=${localStorage.nftcrowd_nft_chainName}&sort=${sort}${filter !== 'all' ? `&tag=${filter}` : ''
       }`,
     ),
   getTags: () =>
@@ -57,7 +56,9 @@ export default {
     return axios.post(`/store/buy/?network=${localStorage.nftcrowd_nft_chainName}`, data);
   },
   getLiked: (address: string, page: number) =>
-    axios.get(`store/liked/${address}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`),
+    axios.get(
+      `store/liked/${address}/?network=${localStorage.nftcrowd_nft_chainName}&page=${page}`,
+    ),
   getCreated: (address: string, page: number) =>
     axios.get(`store/created/${address}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`),
   getCollectibles: (address: string, page: string) =>
@@ -127,8 +128,7 @@ export default {
   },
   getFee: (currency: TNullable<string>) =>
     axios.get(
-      `/store/fee/?network=${localStorage.nftcrowd_nft_chainName}${
-        currency ? `&currency=${currency}` : ''
+      `/store/fee/?network=${localStorage.nftcrowd_nft_chainName}${currency ? `&currency=${currency}` : ''
       }`,
     ),
   setCollectionCover: (file: any, id: string) => {

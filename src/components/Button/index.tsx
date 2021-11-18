@@ -1,4 +1,4 @@
-import { CSSProperties, FC, PropsWithChildren, SyntheticEvent } from 'react';
+import { CSSProperties, FC, PropsWithChildren, RefObject, SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 // import { IconNames } from 'typings';
@@ -22,6 +22,7 @@ type Props = {
   onMouseOver?: (event: SyntheticEvent) => void;
   style?: CSSProperties;
   href?: string;
+  btnRef?: RefObject<HTMLButtonElement>;
 };
 
 /**
@@ -52,18 +53,19 @@ type Props = {
 
 const Button: FC<PropsWithChildren<Props>> = ({
   color = 'blue',
-  padding = 'large',
   size = 'normal',
   isFullWidth = false,
   onClick = () => { },
   className,
   type = 'button',
   children,
+  padding = 'large',
   disabled,
   icon,
   style,
   href,
   loading,
+  btnRef,
   onMouseLeave,
   onMouseOver = () => { },
 }) => {
@@ -83,7 +85,8 @@ const Button: FC<PropsWithChildren<Props>> = ({
     );
   return (
     <button
-      // eslint-disable-next-line react/button-has-type
+      ref={btnRef}
+       // eslint-disable-next-line react/button-has-type
       type={type}
       className={cx(styles.button, styles[size], styles[color], styles[`${padding.includes('large') || padding.includes('small') ? padding : ''}`], className, {
         [styles.isFullWidth]: isFullWidth,

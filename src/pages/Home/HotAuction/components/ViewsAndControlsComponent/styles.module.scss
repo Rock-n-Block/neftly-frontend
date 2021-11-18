@@ -1,9 +1,13 @@
-@import '../../../../../styles/helpers';
+@import "src/styles/helpers.scss";
 
 .viewsAndControls {
   width: 100%;
   margin-top: 10px;
   @include flexbox(center, space-between);
+}
+
+.viewsData {
+  margin-right: 32px;
 }
 
 .controls {
@@ -16,11 +20,21 @@
   }
 }
 
+.optionBtn {
+  position: relative;
+}
+
 .likeButton {
-  @include flexbox;
+  @include flexbox($align: center);
   padding: 0 10px;
+  min-width: 75px !important;
   svg {
     margin-right: 5px;
+  }
+  & p{
+   line-height: 1;
+   position: relative;
+   top: 2px;
   }
   &Active {
     svg {
@@ -30,7 +44,7 @@
     }
   }
 }
-.copyButton{
+.copyButton {
   @include flexbox;
   padding: 0 10px;
 }
@@ -40,6 +54,7 @@
   }
 
   .controls {
+    margin-top: 10px;
     justify-content: flex-start;
   }
 }
@@ -53,20 +68,27 @@
     line-height: 29px;
     cursor: pointer;
     transition: 0.3s;
+    color: $color-neutral-100;
     img {
       margin-right: 7px;
     }
     & + & {
-      border-top: 1px solid $color-neutral-80;
+      border-top: 1px solid $color-neutral-10;
     }
     &:hover {
-      background: $color-neutral-80;
+      &.blue {
+        background: rgba($color-primary, 0.4);
+      }
+      &.red {
+        background: rgba($color-state-error, 0.4);
+      }
     }
   }
 }
 
 .button {
   position: relative;
+  min-width: 38px;
 }
 
 .dots {

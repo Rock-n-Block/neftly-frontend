@@ -12,31 +12,35 @@ const DEFAULT_FILTER_STATE = {
   is_verificated: 'All',
 };
 
+
+
 const defaultValues = DEFAULT_FILTER_STATE;
 export type TDefaultValues = typeof defaultValues;
 
 const useFilters = (filterTag = '') => {
 
-  //const [filtersState, setFilterState] = useState(defaultValues)
-
   const [isMaxPriceLoading, setMaxPriceLoading] = useState(false);
   const [isRatesLoading, setRatesLoading] = useState(false);
 
-  const [maxPriceFilter, setMaxPriceFilter] = useState<OptionType>({
+  const [maxPriceFilter, setMaxPriceFilter] = useState({
     value: DEFAULT_FILTER_STATE.max_price.toString(),
     label: `0 ETH - ${DEFAULT_FILTER_STATE.max_price} ETH`,
+    field: 'max_price',
   });
-  const [currencyFilter, setCurrencyFilter] = useState<OptionType>({
+  const [currencyFilter, setCurrencyFilter] = useState({
     value: DEFAULT_FILTER_STATE.currency,
     label: 'WETH',
+    field: 'currency'
   });
-  const [likesFilter, setLikesFilter] = useState<OptionType>({
+  const [likesFilter, setLikesFilter] = useState({
     value: '',
     label: '',
+    field: 'likes'
   });
-  const [verifiedFilter, setVerifiedFilter] = useState<OptionType>({
+  const [verifiedFilter, setVerifiedFilter] = useState({
     value: DEFAULT_FILTER_STATE.is_verificated,
     label: DEFAULT_FILTER_STATE.is_verificated,
+    field: 'is_verificated'
   });
   const [orderByFilter, setOrderByFilter] = useState<OptionType>({
     value: DEFAULT_FILTER_STATE.order_by,
@@ -50,22 +54,32 @@ const useFilters = (filterTag = '') => {
   const [maxPrice, setMaxPrice] = useState(DEFAULT_FILTER_STATE.max_price);
 
   const handleMaxPriceFilter = useCallback((value: number) => {
-    setMaxPriceFilter({
+    setMaxPriceFilter(prev => ({
+      ...prev,
       value: value.toString(),
       label: `0 ETH - ${value} ETH`
-    });
+    }));
   }, []);
 
   const handleCurrencyFilter = useCallback((value: OptionType) => {
-    setCurrencyFilter(value);
+    setCurrencyFilter(prev => ({
+      ...prev,
+      ...value
+    }));
   }, []);
 
   const handleLikesFilter = useCallback((value: OptionType) => {
-    setLikesFilter(value);
+    setLikesFilter(prev => ({
+      ...prev,
+      ...value
+    }));
   }, []);
 
   const handleVerifiedFilter = useCallback((value: OptionType) => {
-    setVerifiedFilter(value);
+    setVerifiedFilter(prev => ({
+      ...prev,
+      ...value
+    }));
   }, []);
 
   const handleTagsFilter = useCallback((value: string) => {

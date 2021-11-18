@@ -1,0 +1,11 @@
+export { default as Arrow } from './Arrow_down.svg';
+export { ReactComponent as Zoom } from './Zoom.svg';
+export { default as iconBurnSVG } from './Burn.svg';
+export { default as iconTransferSVG } from './Transfer.svg';
+export { default as iconRemoveSVG } from './Remove.svg';
+export { default as iconChangeSVG } from './Change_price.svg';
+export { default as iconReportSVG } from './Report.svg';
+export { ReactComponent as Share } from './Share.svg';
+export { ReactComponent as Options } from './Options.svg';
+export { ReactComponent as Close } from './Close.svg';
+export { ReactComponent as Cursor } from './Cursor.svg';

@@ -1,0 +1,11 @@
+@import '/src/styles/helpers.scss';
+
+.body {
+  @include container;
+  margin: 44px auto;
+}
+
+.top {
+  padding: 45px 0;
+  border-bottom: 1px solid $color-neutral-10;
+}

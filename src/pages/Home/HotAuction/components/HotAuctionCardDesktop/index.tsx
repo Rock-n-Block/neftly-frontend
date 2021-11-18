@@ -11,6 +11,7 @@ import ViewsAndControlsComponent from '../ViewsAndControlsComponent';
 import { INft } from 'typings';
 
 import styles from './styles.module.scss';
+import { positionOptions } from 'components/OptionMenu';
 
 type Props = {
   className?: string;
@@ -23,7 +24,7 @@ type Props = {
   isUserCanRemoveFromSale: boolean;
   isWrongChain: boolean;
   isUserCanChangePrice: boolean;
-  tooltipPlacement?: 'top' | 'bottom';
+  tooltipPlacement?: positionOptions;
 };
 
 const HotAuctionCardDesktop: FC<Props> = ({

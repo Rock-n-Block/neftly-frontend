@@ -19,7 +19,7 @@ const filterSelectArtistsOptions = [
   },
   {
     value: 'All',
-    label: 'All', 
+    label: 'All',
   }
 ];
 
@@ -75,14 +75,13 @@ const AdvancedFilter: FC<Props> = ({
           <Text color="inherit">Clear all</Text>
         </Button>
       </div>
-      {console.log(appliedFilters)}
       <div className={styles.tagContainer}>
         {appliedFilters.filter((filter: IAppliedFilter) => !Object.values(defaultValues).includes(filter.value)).map((filter: IAppliedFilter) =>
           <FilterTag
             key={filter.value}
             className={styles.filterTag}
             label={filter.label}
-            closeTag={() => {}}
+            closeTag={() => { resetFilter(filter.field) }}
           />
         )
         }
@@ -98,7 +97,7 @@ const AdvancedFilter: FC<Props> = ({
           currency={currencyFilter.value}
           min={0}
           max={maxPrice}
-          step={maxPrice/100}
+          step={maxPrice / 100}
           isDebounce
         />
       </div>
