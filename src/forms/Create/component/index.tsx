@@ -1,8 +1,8 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
-import { iconUpload, iconClose } from 'assets/img';
-import {ReactComponent as IconPropAdd} from 'assets/img/icons/icon-prop-add.svg'
-import {ReactComponent as IconPropDelete} from 'assets/img/icons/icon-prop-delete.svg'
+import { iconUpload } from 'assets/img';
+import { ReactComponent as IconPropAdd } from 'assets/img/icons/icon-prop-add.svg';
+import { ReactComponent as IconPropDelete } from 'assets/img/icons/icon-prop-delete.svg';
 import cn from 'classnames';
 import {
   Button,
@@ -26,7 +26,7 @@ import styles from './CreateCollectibleDetails.module.scss';
 import { ratesApi } from 'services';
 import BigNumber from 'bignumber.js/bignumber';
 
-const royaltiesOptions = ['10', '20', '30'];
+const royaltiesOptions = ['10%', '20%', '30%'];
 
 interface IRate {
   rate: string;
@@ -47,7 +47,7 @@ export interface ICreateForm {
   description: string;
   price: number;
   minimalBid: number;
-  creatorRoyalty: '10' | '20' | '30';
+  creatorRoyalty: '10%' | '20%' | '30%';
   collection: number;
   details: IProperti[];
   selling: boolean;
@@ -180,13 +180,6 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 {values.cover ? (
                   <div className={styles.previewImg}>
                     <img src={values.coverPreview} alt="Preview" />
-                    <Button
-                      color="transparent"
-                      className={styles.clearPreview}
-                      onClick={handleClearImg}
-                    >
-                      <img src={iconClose} alt="clear img" />
-                    </Button>
                   </div>
                 ) : (
                   <>
@@ -229,14 +222,6 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     <>
                       <img src={values.preview} alt="Media" />
                       {/* TODO: add same btn to video/audio  */}
-                      <Button
-                        color="transparent"
-                        className={styles.clearPreview}
-                        onClick={handleClearImg}
-                        padding="0"
-                      >
-                        <img src={iconClose} alt="clear img" />
-                      </Button>
                     </>
                   )}
                   {values.format === 'video' && (
@@ -285,6 +270,11 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     </div>
                   </div>
                 </>
+              )}
+              {values.media && (
+                <Button className={styles.clean} onClick={handleClearImg}>
+                  Clear
+                </Button>
               )}
             </div>
           </div>
@@ -443,7 +433,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           setValue={(value) => setFieldValue('creatorRoyalty', value)}
                           options={royaltiesOptions}
                           className={styles.dropdown}
-                          value={`${values.creatorRoyalty}%`}
+                          value={`${values.creatorRoyalty}`}
                         />
                       )}
                     />

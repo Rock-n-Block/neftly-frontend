@@ -23,7 +23,7 @@ export default observer(({ isSingle }: any) => {
     description: '',
     price: 0,
     minimalBid: 0,
-    creatorRoyalty: '10',
+    creatorRoyalty: '10%',
     collection: 25,
     details: [{ name: '', amount: '' }],
     selling: true,
@@ -70,7 +70,7 @@ export default observer(({ isSingle }: any) => {
       } else {
         formData.append('minimal_bid', values.minimalBid.toString());
       }
-      formData.append('creator_royalty', values.creatorRoyalty);
+      formData.append('creator_royalty', values.creatorRoyalty.replace('%', ''));
       formData.append('collection', values.collection.toString());
 
       if (values.details[0].name) {
