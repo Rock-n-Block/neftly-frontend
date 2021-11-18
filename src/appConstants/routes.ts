@@ -29,6 +29,9 @@ export const routes = {
   activity: {
     root: '/activity',
   },
+  connectWallet: {
+    root: '/connect',
+  },
   lostPage: {
     root: '/404',
   },

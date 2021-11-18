@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { activityApi } from 'services';
 import {
   bidAction,
   burnAction,
@@ -28,7 +27,6 @@ interface Props {
   actionDescriptionName: string;
   timeAgo: string;
   linkId: string;
-  activityId: string;
   userId: string;
 }
 
@@ -54,22 +52,11 @@ const ActivityItem: React.FC<Props> = ({
   timeAgo,
   actionDescriptionName,
   linkId,
-  activityId,
   userId,
 }) => {
   const history = useHistory();
 
-  const openNotification = (
-    method: string,
-    link_id: number | string,
-    activity_id: string | number,
-  ) => {
-    try {
-      activityApi.readNotification({ activity_id, method });
-    } catch (error) {
-      console.log('Read notification', error);
-    }
-
+  const openNotification = (method: string, link_id: number | string) => {
     if (method === 'follow') {
       history.push(routes.profile.link(link_id));
     } else {
@@ -106,7 +93,7 @@ const ActivityItem: React.FC<Props> = ({
 
       <div
         className={s.image}
-        onClick={() => openNotification(actionDescription, linkId, activityId)}
+        onClick={() => openNotification(actionDescription, linkId)}
         tabIndex={0}
         onKeyDown={() => {}}
         role="button"
