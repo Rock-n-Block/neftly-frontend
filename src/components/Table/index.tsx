@@ -2,9 +2,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { FC } from 'react';
 import { useTable } from 'react-table';
-import { TableProps } from 'typings';
-
+import { IHistoryItem, IHistoryOwner, TableProps } from 'typings';
 import styles from './styles.module.scss';
+import { TradingHistoryBuyer, TradingHistoryEvent, TradingHistoryPrice } from './TradingHistoryCells';
 
 const Table: FC<TableProps> = ({ columns, data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
@@ -31,11 +31,32 @@ const Table: FC<TableProps> = ({ columns, data }) => {
           return (
             <tr className={styles.row} {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                return (
-                  <td className={styles.cell} {...cell.getCellProps()}>
-                    {cell.render('Cell')}
-                  </td>
-                );
+                const cellData: IHistoryItem = cell.row.original as IHistoryItem;
+                const owner: IHistoryOwner = (cellData.new_owner || cellData.old_owner) as IHistoryOwner;
+
+                switch (cell.column.Header) {
+                  case 'Buyer': {
+                    return (
+                      <td className={styles.cell} {...cell.getCellProps()}>
+                        <TradingHistoryBuyer name={owner.display_name} owner={owner} date={cellData.date} />
+                      </td>
+                    );
+                  }
+                  case 'Price': {
+                    return (
+                      <td className={styles.cell} {...cell.getCellProps()}>
+                        <TradingHistoryPrice amount={cellData.price as string | number} />
+                      </td>
+                    )
+                  }
+                  default: {
+                    return (
+                      <td className={styles.cell} {...cell.getCellProps()}>
+                        <TradingHistoryEvent type={cellData.method as any} />
+                      </td>
+                    )
+                  }
+                }
               })}
             </tr>
           );

@@ -1,25 +1,32 @@
 import { FC, useCallback, useMemo, useState } from 'react';
-import { routes } from 'appConstants';
-import {
-  iconBurn,
-  iconChange,
-  iconLink,
-  iconRemove,
-  iconReport,
-  iconTransfer,
-  PinkHeart,
-} from 'assets/img';
 import cx from 'classnames';
-import { Button, Copyable, Text } from 'components';
-import { useLike } from 'hooks';
 import { observer } from 'mobx-react-lite';
-import Tooltip from 'rc-tooltip';
+// import { toast } from 'react-toastify';
+
+import { Button, Copyable, Text } from 'components';
 import { useMst } from 'store';
 import { INft, IOwner, TNullable } from 'typings';
-import { numberFormatter } from 'utils';
 
-import 'rc-tooltip/assets/bootstrap.css';
+import { routes } from 'appConstants';
 import styles from './styles.module.scss';
+import 'rc-tooltip/assets/bootstrap.css';
+
+import {
+  iconBurnSVG,
+  iconChangeSVG,
+  iconRemoveSVG,
+  iconReportSVG,
+  iconTransferSVG,
+  Options,
+  PinkHeart,
+  Share,
+} from 'assets/img';
+import { useLike } from 'hooks';
+import { numberFormatter } from 'utils';
+import OptionMenu, { positionOptions } from 'components/OptionMenu';
+import OutsideClickHandler from 'react-outside-click-handler';
+
+const viewsCount = 10;
 
 type Props = {
   className?: string;
@@ -30,7 +37,7 @@ type Props = {
   isUserCanRemoveFromSale: boolean;
   isWrongChain: boolean;
   isUserCanChangePrice: boolean;
-  tooltipPlacement?: 'top' | 'bottom';
+  tooltipPlacement?: positionOptions;
 };
 
 const ViewsAndControlsComponent: FC<Props> = ({
@@ -39,7 +46,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
   inStock,
   nft,
   isOwner,
-  tooltipPlacement = 'bottom',
+  tooltipPlacement,
   isUserCanRemoveFromSale,
   isWrongChain,
   isUserCanChangePrice,
@@ -54,6 +61,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
     nft?.id,
     !!user.address,
   );
+
 
   const [isTooltipVisible, setTooltipVisible] = useState(false);
 
@@ -103,33 +111,38 @@ const ViewsAndControlsComponent: FC<Props> = ({
     () => [
       {
         name: 'Change Price',
-        img: iconChange,
+        img: iconChangeSVG,
         event: () => handleActionEvent(handleChangePrice),
         isVisible: isUserCanChangePrice,
+        class: 'blue',
       },
       {
         name: 'Transfer Token',
-        img: iconTransfer,
+        img: iconTransferSVG,
         event: () => handleActionEvent(handleTransfer),
         isVisible: isOwner && !isWrongChain,
+        class: 'blue',
       },
       {
         name: 'Remove from sale',
-        img: iconRemove,
+        img: iconRemoveSVG,
         event: () => handleActionEvent(handleRemoveFromSale),
         isVisible: isUserCanRemoveFromSale,
+        class: 'blue',
       },
       {
         name: 'Burn token',
-        img: iconBurn,
+        img: iconBurnSVG,
         event: () => handleActionEvent(handleBurn),
         isVisible: isOwner && !isWrongChain,
+        class: 'red'
       },
       {
         name: 'Report',
-        img: iconReport,
+        img: iconReportSVG,
         event: () => handleActionEvent(handleReport),
         isVisible: true,
+        class: 'blue'
       },
     ],
     [
@@ -154,7 +167,8 @@ const ViewsAndControlsComponent: FC<Props> = ({
   return (
     <>
       <div className={cx(styles.viewsAndControls, className)}>
-        {inStock ? <Text color="gray">{`In Stock: ${inStock}`}</Text> : null}
+        {viewsCount && <Text size='m' color="gray" className={styles.viewsData}>{`Views: ${viewsCount}`}</Text>}
+        {inStock ? <Text size='m' color="gray">{`In Stock: ${inStock}`}</Text> : null}
         <div className={styles.controls}>
           <Button
             className={cx(styles.likeButton, { [styles.likeButtonActive]: isLike })}
@@ -162,46 +176,46 @@ const ViewsAndControlsComponent: FC<Props> = ({
             color="outline"
           >
             <PinkHeart />
-            {numberFormatter(likeCount || 0, 1000)}
+            <Text size='s' color='inherit'>{numberFormatter(likeCount || 0, 1000)}</Text>
           </Button>
           <Copyable valueToCopy={`${window.location.origin}${routes.nft.link(nft?.id || '')}`}>
             <Button color="outline" className={styles.copyButton}>
-              <img src={iconLink} alt="" />
+              <Share />
             </Button>
           </Copyable>
-          <Tooltip
-            visible={isTooltipVisible}
-            animation="zoom"
-            trigger="click"
-            overlay={
-              <div className={styles.actions}>
-                {actions.map((action) => {
-                  if (action.isVisible) {
-                    return (
-                      <div
-                        key={action.name}
-                        className={styles.actionsItem}
-                        onClick={action.event}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={() => {}}
-                      >
-                        <img src={action.img} alt="" />
-                        <span>{action.name}</span>
-                      </div>
-                    );
-                  }
-                  return null;
-                })}
-              </div>
-            }
-            onVisibleChange={(value) => setTooltipVisible(value)}
-            placement={tooltipPlacement}
-          >
-            <Button className={styles.button} color="outline">
-              <Text className={styles.dots}>&hellip;</Text>
-            </Button>
-          </Tooltip>
+
+          <div className={styles.optionBtn}>
+            <OutsideClickHandler onOutsideClick={() => setTooltipVisible(false)}>
+
+              <Button className={styles.button} color="outline" onClick={() => setTooltipVisible(!isTooltipVisible)}>
+                <Options />
+              </Button>
+              <OptionMenu active={isTooltipVisible} position={tooltipPlacement}>
+                <div className={styles.actions}>
+                  {actions.map((action) => {
+                    if (action.isVisible) {
+                      return (
+                        <div
+                          key={action.name}
+                          className={`${styles.actionsItem} ${styles[action.class]}`}
+                          onClick={action.event}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={() => { }}
+                        >
+                          <img src={action.img} alt="" />
+                          <span>{action.name}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              </OptionMenu>
+
+            </OutsideClickHandler>
+          </div>
+
         </div>
       </div>
     </>

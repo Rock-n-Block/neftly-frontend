@@ -1,4 +1,5 @@
 @import 'src/styles/helpers';
+@import '/src/styles/mixins/media.scss';
 
 .detailArtworkContent {
   @include container;
@@ -8,6 +9,9 @@
   }
   @include forDesktopSm{
     padding-bottom: 20px;
+  }
+  @include b(541){
+    padding: 0 12px;
   }
 }
 
@@ -29,7 +33,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    border-top: 1px solid $color-neutral-80;
+    border-top: 0px solid $color-neutral-80;
   }
   h3 {
     margin-bottom: 20px;
@@ -43,6 +47,12 @@
 .artCardsWrapper {
   @include flexbox();
   flex-wrap: wrap;
+  justify-content: flex-start;
   width: 100%;
-  gap: 35px;
+  gap: 20px;
+}
+
+.artCard{
+  width: max-content;
+  margin: 0 auto;
 }

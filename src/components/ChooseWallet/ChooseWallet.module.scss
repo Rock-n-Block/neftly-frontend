@@ -1,4 +1,4 @@
-@import '../../styles/helpers';
+@import 'src/styles/helpers';
 
 .container {
   @include flexbox(flex-start, space-between);

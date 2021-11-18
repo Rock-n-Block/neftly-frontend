@@ -1,4 +1,4 @@
-import { createElement, CSSProperties, FC, PropsWithChildren } from 'react';
+import { createElement, CSSProperties, FC, PropsWithChildren, RefObject } from 'react';
 import cx from 'classnames';
 import {
   TextAlign as Align,
@@ -19,6 +19,7 @@ type Props = {
   color?: Color;
   align?: Align;
   weight?: Weight;
+  elRef?: RefObject<any>
 };
 
 /**
@@ -51,11 +52,13 @@ const Text: FC<PropsWithChildren<Props>> = ({
   color = 'black',
   align = 'left',
   weight = 'normal',
+  elRef,
 }) =>
   createElement(
     tag,
     {
       style,
+      ref: elRef,
       className: cx(
         styles.text,
         styles[`size_${size}`],

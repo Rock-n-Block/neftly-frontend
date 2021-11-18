@@ -84,7 +84,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
       <div className={styles.detailArtworkContent}>
         <Control item={breadcrumbs} />
         <GiantCard name={nft?.name || ''} nft={nft} onUpdateNft={getItem} />
-        <PriceHistory tokenId={id} currency={nft?.currency as ICurrency} />
+        <PriceHistory tokenId={id} history={nft?.history || []} currency={nft?.currency as ICurrency} />
         <div className={styles.relatedArtwork}>
           <H3>Related Artwork</H3>
           <LoadMore

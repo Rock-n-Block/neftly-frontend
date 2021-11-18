@@ -10,9 +10,10 @@ interface IProps {
   name: string;
   price: string;
   isVerified?: boolean;
+  profitIncrease?: string | number;
 }
 
-const CollectionCard: FC<IProps> = ({ index, avatar, id, name, price, isVerified = false }) => {
+const CollectionCard: FC<IProps> = ({ index, avatar, id, name, price, isVerified = false, profitIncrease }) => {
   return (
     <li className={styles.collectionCard}>
       <Text color="secondary" weight="bold" size="m">
@@ -33,11 +34,16 @@ const CollectionCard: FC<IProps> = ({ index, avatar, id, name, price, isVerified
             {name}
           </Text>
         </EllipsisText>
-        <Text size="m" color="red" className={styles.price}>
+        <Text size="m" className={styles.price}>
           <IconEth />
           {price}
         </Text>
       </div>
+      {profitIncrease &&
+        <div className={styles.profitIncreaseWrapper}>
+          <Text className={styles.profitIncreaseValue} size='m'>{profitIncrease}%</Text>
+        </div>
+      }
     </li>
   );
 };

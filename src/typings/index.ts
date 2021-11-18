@@ -13,13 +13,30 @@ export type ArtistType = {
   asset?: string;
 };
 
-export interface IHistoryItem {
+export interface IHistoryOwner {
   avatar: string;
+  address: string;
+  bio?: string;
+  created_at: string;
+  custom_url: string;
+  display_name: string;
+  facebook?: TNullable<string>;
+  id: string;
+  instagram?: TNullable<string>;
+  is_verificated: boolean;
+  site?: TNullable<string>;
+  twitter: TNullable<string>
+}
+
+export interface IHistoryItem {
   date: string;
-  id: number;
   method: string;
   name: string;
   price: TNullable<string>;
+  new_owner: TNullable<IHistoryOwner>;
+  old_owner: TNullable<IHistoryOwner>;
+  USD_price: TNullable<string>;
+  amount: TNullable<string>;
 }
 
 export interface ICurrency {

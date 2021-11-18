@@ -1,23 +1,25 @@
 import { FC } from 'react';
-import { tradingEth } from 'assets/img';
+import { TradingEthSVG } from 'assets/img';
 import cx from 'classnames';
 import { Text } from 'components';
 
 import styles from './styles.module.scss';
+import { toFixed } from 'utils';
 
 type Props = {
   className?: string;
   amount: number | string;
-  asset: string;
 };
 
-const TradingHistoryCells: FC<Props> = ({ className, amount, asset }) => (
+const TradingHistoryPrice: FC<Props> = ({ className, amount }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
-    <img src={tradingEth} alt="" />
+    <div className={styles.tradingIcon}>
+      <TradingEthSVG />
+    </div>
     <Text style={{ textTransform: 'uppercase' }} size="m">
-      {`${amount} ${asset}`}
+      {`${amount === null ? "???" : toFixed(amount, 5)} ETH`}
     </Text>
   </div>
 );
 
-export default TradingHistoryCells;
+export default TradingHistoryPrice;

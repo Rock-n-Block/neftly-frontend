@@ -19,7 +19,7 @@ const ChartComponent: FC<Props> = ({ data, period, className, currency }) => {
   const [selectedPointPrice, setSelectedPointPrice] = useState(
     `${data[data.length - 2]?.avg_price || 0}`,
   );
-  const lastPointPrice = `${data[data.length - 1]?.avg_price || 0}`;
+  const lastPointPrice = `${data[0]?.avg_price || 0}`;
 
   const formatDate = useCallback(
     (date: Date) => {
@@ -51,6 +51,7 @@ const ChartComponent: FC<Props> = ({ data, period, className, currency }) => {
   const chartData = useMemo(() => {
     const newChartData = {
       ...defaultChartData,
+      labels: [],
       datasets: [{ ...defaultChartData.datasets[0], data: formatedData }],
     };
     return newChartData;
@@ -65,14 +66,14 @@ const ChartComponent: FC<Props> = ({ data, period, className, currency }) => {
   };
 
   const { isDifferencePositive, difference } = useDifference({
-    value: lastPointPrice,
-    prevValue: selectedPointPrice,
+    value: selectedPointPrice,
+    prevValue: lastPointPrice,
   });
 
   return (
     <>
       <div className={styles.chartInfo}>
-        <Text color="gray" size="m" className={styles.averagePrice}>
+        <Text weight="medium" size="m" className={styles.averagePrice}>
           Avg. Price
         </Text>
         <Text size="xxl" weight="bold" className={styles.averageValue}>
