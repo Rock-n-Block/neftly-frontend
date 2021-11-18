@@ -13,6 +13,7 @@ import {
   CollectionPage,
   Home,
   Nft,
+  LostPage404,
 } from 'pages';
 
 const Routes = observer(() => {
@@ -28,6 +29,7 @@ const Routes = observer(() => {
       <Route exact path={routes.home.root} component={Home} />
       <Route exact path={routes.activity.root} component={Activity} />
       <Route path={routes.collection.root} component={CollectionPage} />
+      <Route path={routes.lostPage.root} component={LostPage404} />
       {/* GUARDED ROUTES */}
       <GuardedRoute auth={user.isAuth} path={routes.create.single} component={CreateToken} />
       <GuardedRoute
@@ -37,7 +39,7 @@ const Routes = observer(() => {
       />
       <GuardedRoute auth={user.isAuth} path={routes.create.root} component={UploadVariants} />
       {/* GUARDED ROUTES */}
-      <Redirect to={{ pathname: routes.home.root }} />
+      <Redirect to={{ pathname: routes.lostPage.root }} />
     </Switch>
   );
 });

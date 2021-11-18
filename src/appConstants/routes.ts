@@ -29,4 +29,7 @@ export const routes = {
   activity: {
     root: '/activity',
   },
+  lostPage: {
+    root: '/404',
+  },
 };
