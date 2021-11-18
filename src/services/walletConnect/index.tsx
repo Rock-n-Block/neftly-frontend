@@ -100,7 +100,7 @@ class Connector extends React.Component<
                 this.disconnect();
               }
               toast.error(
-                `Wrong Network, please select ${
+                `Wrong Network, please select ${chainName} ${
                   is_production ? 'mainnet' : 'testnet'
                 } network in your wallet and try again`,
               );
