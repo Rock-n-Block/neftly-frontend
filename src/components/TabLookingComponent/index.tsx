@@ -51,6 +51,7 @@ const TabLookingComponent: FC<Props> = ({ className, activeTab, tabs, action, ta
               ) : (
                 icon
               )}
+              
               <Text className={styles.tabText} size="l">
                 {title}
               </Text>

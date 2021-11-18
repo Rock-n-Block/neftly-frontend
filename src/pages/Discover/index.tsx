@@ -11,6 +11,7 @@ import {
   LiveAuction,
   Select,
   TabLookingComponent,
+  Loader,
 } from 'components';
 import { AdvancedFilter } from 'containers';
 import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
@@ -23,7 +24,7 @@ import { toFixed } from 'utils';
 import styles from './styles.module.scss';
 
 const Discover = observer(() => {
-  const [isFilterOpen, setFilterOpen] = useState(false);
+  const [isFilterOpen, setFilterOpen] = useState(true);
   const { user, nftTags } = useMst();
 
   const convertedTagsForComponents = nftTags.tags.map((tag) => {
@@ -57,6 +58,7 @@ const Discover = observer(() => {
     handlePage,
     isLoading,
     defaultValues,
+    resetFilter,
   } = useFilters(filterTag);
 
   const [allPages, totalItems, nftCards, isNftsLoading] = useFetchNft({
@@ -85,6 +87,8 @@ const Discover = observer(() => {
   useEffect(() => {
     if (!nftCards.length) {
       setFilterOpen(false);
+    } else {
+      setFilterOpen(true);
     }
   }, [nftCards.length]);
   return (
@@ -126,53 +130,57 @@ const Discover = observer(() => {
           verifiedFilter={verifiedFilter}
           handleVerifiedFilter={handleVerifiedFilter}
           defaultValues={defaultValues}
+          resetFilter={resetFilter}
         />
         <div
           className={cx(styles.filterResultsContainer, {
             [styles.withFilter]: isFilterOpen,
           })}
         >
-          <H3>{totalItems} results</H3>
-          <div className={styles.filterResults}>
-            {nftCards.length
-              ? nftCards.map((artCard: any) => {
-                const {
-                  media,
-                  name,
-                  price,
-                  currency,
-                  available,
-                  creator,
-                  like_count,
-                  tags,
-                  id,
-                  highest_bid,
-                  minimal_bid,
-                  bids,
-                  is_liked,
-                } = artCard;
-                return (
-                  <ArtCard
-                    artId={id}
-                    key={id}
-                    imageMain={media}
-                    name={name}
-                    price={price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid}
-                    asset={currency.symbol.toUpperCase()}
-                    inStockNumber={available}
-                    author={creator.name}
-                    authorAvatar={creator.avatar}
-                    authorId={creator.id}
-                    likesNumber={like_count}
-                    tags={tags}
-                    bids={bids}
-                    isLiked={is_liked}
-                    likeAction={likeAction}
-                  />
-                );
-              })
-              : null}
-          </div>
+          {isNftsLoading ? <Loader /> :
+            <>
+              <H3>{totalItems} results</H3>
+              <div className={styles.filterResults}>
+                {nftCards.length
+                  ? nftCards.map((artCard: any) => {
+                    const {
+                      media,
+                      name,
+                      price,
+                      currency,
+                      available,
+                      creator,
+                      like_count,
+                      tags,
+                      id,
+                      highest_bid,
+                      minimal_bid,
+                      bids,
+                      is_liked,
+                    } = artCard;
+                    return (
+                      <ArtCard
+                        artId={id}
+                        key={id}
+                        imageMain={media}
+                        name={name}
+                        price={price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid}
+                        asset={currency.symbol.toUpperCase()}
+                        inStockNumber={available}
+                        author={creator.name}
+                        authorAvatar={creator.avatar}
+                        authorId={creator.id}
+                        likesNumber={like_count}
+                        tags={tags}
+                        bids={bids}
+                        isLiked={is_liked}
+                        likeAction={likeAction}
+                      />
+                    );
+                  })
+                  : null}
+              </div>
+            </>}
         </div>
       </div>
       <div ref={anchorRef as RefObject<HTMLDivElement>} />

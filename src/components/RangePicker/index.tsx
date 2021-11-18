@@ -26,6 +26,7 @@ type Props = {
   onChange?: (value: number) => void;
   onSwitcher?: (value: boolean) => void;
   isDebounce?: boolean;
+  currency?: string;
 };
 
 const TooltipSlider = createSliderWithTooltip(Slider);
@@ -47,6 +48,7 @@ const RangePicker: FC<Props> = ({
   onChange = () => {},
   onSwitcher = () => {},
   isDebounce,
+  currency
 }) => {
   const [localValue, setLocalValue] = useState('');
 
@@ -84,10 +86,10 @@ const RangePicker: FC<Props> = ({
           className={styles.valueInput}
           onChange={handleChangeInput}
         />
-        <Text className={styles.maxValue}>{max}</Text>
+        {/*<Text className={styles.maxValue}>{max} {currency?.toUpperCase()}</Text>*/}
       </div>
     ),
-    [top, value, max, handleChangeInput, localValue],
+    [top, value, handleChangeInput, localValue],
   );
 
   return (
@@ -146,13 +148,12 @@ const RangePicker: FC<Props> = ({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore (rc-slider show that className invalid prop, but exist
           className={cx(styles.slider, 'rc-slider-wrap', className)}
-          value={+localValue || value}
+          value={value || +localValue}
           min={min}
           max={max}
           step={step}
           vertical={isVertical}
           onChange={handleChangeRange}
-          
           railStyle={
             isVertical
               ? {
@@ -162,6 +163,11 @@ const RangePicker: FC<Props> = ({
               : {}
           }
         />
+
+        <div className={styles.valuesWrapper}>
+          <Text weight='bold' tag='span' className={styles.min}>{min} {currency?.toUpperCase()}</Text>
+          <Text weight='bold' tag='span' className={styles.max}>{max} {currency?.toUpperCase()}</Text>
+        </div>
 
         {isManageBtnVisible && (
           <button

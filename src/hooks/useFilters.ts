@@ -5,7 +5,7 @@ import { OptionType } from 'typings';
 const DEFAULT_FILTER_STATE = {
   type: 'items',
   order_by: '-date',
-  tags: 'All items',
+  tags: 'All NFTs',
   max_price: 0,
   currency: 'weth',
   page: 1,
@@ -16,11 +16,15 @@ const defaultValues = DEFAULT_FILTER_STATE;
 export type TDefaultValues = typeof defaultValues;
 
 const useFilters = (filterTag = '') => {
+
+  //const [filtersState, setFilterState] = useState(defaultValues)
+
   const [isMaxPriceLoading, setMaxPriceLoading] = useState(false);
   const [isRatesLoading, setRatesLoading] = useState(false);
+
   const [maxPriceFilter, setMaxPriceFilter] = useState<OptionType>({
     value: DEFAULT_FILTER_STATE.max_price.toString(),
-    label: `0 ETH - ${DEFAULT_FILTER_STATE.max_price} ETH`
+    label: `0 ETH - ${DEFAULT_FILTER_STATE.max_price} ETH`,
   });
   const [currencyFilter, setCurrencyFilter] = useState<OptionType>({
     value: DEFAULT_FILTER_STATE.currency,
@@ -80,6 +84,40 @@ const useFilters = (filterTag = '') => {
   const handleMaxPrice = useCallback((value: number) => {
     setMaxPrice(value);
   }, []);
+
+  const resetFilter = useCallback((key?: string) => {
+    switch (key) {
+      case 'max_price': {
+        handleMaxPriceFilter(maxPrice);
+        break;
+      }
+      case 'currency': {
+        handleCurrencyFilter({
+          value: DEFAULT_FILTER_STATE.currency,
+          label: 'WETH',
+        })
+        break;
+      }
+      case 'is_verificated': {
+        handleVerifiedFilter({
+          value: DEFAULT_FILTER_STATE.is_verificated,
+          label: DEFAULT_FILTER_STATE.is_verificated,
+        })
+        break;
+      }
+      default: {
+        handleMaxPriceFilter(maxPrice);
+        handleCurrencyFilter({
+          value: DEFAULT_FILTER_STATE.currency,
+          label: 'WETH',
+        })
+        handleVerifiedFilter({
+          value: DEFAULT_FILTER_STATE.is_verificated,
+          label: DEFAULT_FILTER_STATE.is_verificated,
+        })
+      }
+    }
+  }, [handleVerifiedFilter, handleMaxPriceFilter, handleCurrencyFilter, maxPrice])
 
   const fetchMaxPrice = useCallback(
     (currency: string) => {
@@ -155,6 +193,7 @@ const useFilters = (filterTag = '') => {
     handleTagsFilter,
     page,
     handlePage,
+    resetFilter,
     isLoading: isMaxPriceLoading || isRatesLoading,
   };
 };

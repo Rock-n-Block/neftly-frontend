@@ -35,9 +35,8 @@ type Props = {
   verifiedFilter: OptionType;
   handleVerifiedFilter: (value: any) => void;
   defaultValues: TDefaultValues;
+  resetFilter: (key?: string) => void;
 };
-
-//type TFilters = 'currency' | 'amount' | 'artist'
 
 const AdvancedFilter: FC<Props> = ({
   isMobile,
@@ -50,7 +49,8 @@ const AdvancedFilter: FC<Props> = ({
   handleCurrencyFilter,
   verifiedFilter,
   handleVerifiedFilter,
-  defaultValues
+  defaultValues,
+  resetFilter
 }) => {
 
   const [appliedFilters, setAppliedFilters] = useState<IAppliedFilter[]>([maxPriceFilter, currencyFilter, verifiedFilter])
@@ -71,16 +71,18 @@ const AdvancedFilter: FC<Props> = ({
       )}
       <div className={styles.advancedFilterApplied}>
         <Text color='lightGray'>Applied Filters</Text>
-        <Button padding='0' className={styles.clearBtn} color="transparent">
+        <Button padding='0' onClick={resetFilter} className={styles.clearBtn} color="transparent">
           <Text color="inherit">Clear all</Text>
         </Button>
       </div>
+      {console.log(appliedFilters)}
       <div className={styles.tagContainer}>
         {appliedFilters.filter((filter: IAppliedFilter) => !Object.values(defaultValues).includes(filter.value)).map((filter: IAppliedFilter) =>
           <FilterTag
             key={filter.value}
             className={styles.filterTag}
             label={filter.label}
+            closeTag={() => {}}
           />
         )
         }
@@ -89,11 +91,11 @@ const AdvancedFilter: FC<Props> = ({
         <Text color="gray" weight="medium" className={styles.label}>
           Price Range
         </Text>
-        {console.log(maxPriceFilter.value)}
         <RangePicker
           className={styles.rangeFilter}
           onChange={handleMaxPriceFilter}
           value={+maxPriceFilter.value}
+          currency={currencyFilter.value}
           min={0}
           max={maxPrice}
           step={maxPrice/100}
