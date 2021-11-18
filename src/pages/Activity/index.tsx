@@ -56,28 +56,25 @@ const Activity: FC = observer(() => {
             <div className={styles.wrapper}>
               <div className={styles.list}>
                 {items?.length ? (
-                  items
-                    ?.filter((el: any) => !el.is_viewed)
-                    .map((card: any) => (
-                      <div key={`${card.id}-${card.date}-${card.from_address}-${card.method}`}>
-                        <ActivityItem
-                          activityType={card.method}
-                          userImg={card.from_image || card.to_image || profile_avatar_example}
-                          actionImg={card.token_image || card.to_image}
-                          userName={
-                            [card.from_id, card.to_id].includes(user.id)
-                              ? 'You'
-                              : card.from_name || card.to_name
-                          }
-                          actionDescription={card.method}
-                          actionDescriptionName={card.token_name || card.to_name}
-                          timeAgo={moment().from(card.date)}
-                          linkId={card.token_id || card.from_id}
-                          activityId={card.id}
-                          userId={card.from_id || card.to_id}
-                        />
-                      </div>
-                    ))
+                  items.map((card: any) => (
+                    <div key={`${card.id}-${card.date}-${card.from_address}-${card.method}`}>
+                      <ActivityItem
+                        activityType={card.method}
+                        userImg={card.from_image || card.to_image || profile_avatar_example}
+                        actionImg={card.token_image || card.to_image}
+                        userName={
+                          [card.from_id, card.to_id].includes(user.id)
+                            ? 'You'
+                            : card.from_name || card.to_name
+                        }
+                        actionDescription={card.method}
+                        actionDescriptionName={card.token_name || card.to_name}
+                        timeAgo={moment().from(card.date)}
+                        linkId={card.token_id || card.from_id}
+                        userId={card.from_id || card.to_id}
+                      />
+                    </div>
+                  ))
                 ) : (
                   <>{!isLoading ? <Text>No activities</Text> : <Loader />}</>
                 )}

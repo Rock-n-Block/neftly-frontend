@@ -38,6 +38,7 @@ const Filters: React.FC<IFiltersProps> = ({
           color="transparent"
           onClick={() => selectAll()}
           type="button"
+          padding="0"
           className={styles.button}
         >
           Select all

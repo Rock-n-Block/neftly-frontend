@@ -1,9 +1,9 @@
-import {FC, useCallback, useRef, useState} from 'react';
+import { FC, useCallback, useRef, useState } from 'react';
 import cx from 'classnames';
-import {Burger, Button, ChooseWallet, Logo, Modal} from 'components';
-import {observer} from 'mobx-react-lite';
-import {useMst} from 'store';
-import {TNullable} from 'typings';
+import { Burger, Button, ChooseWallet, Logo, Modal } from 'components';
+import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
+import { TNullable } from 'typings';
 
 import HeaderLinks from './HeaderLinks';
 import MobileMenu from './MobileMenu';
@@ -14,7 +14,7 @@ import Wallet from './Wallet';
 import styles from './styles.module.scss';
 
 const Headers: FC = observer(() => {
-  const {user} = useMst();
+  const { user } = useMst();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConnectOpen, setConnectOpen] = useState(false);
@@ -50,15 +50,15 @@ const Headers: FC = observer(() => {
       <header ref={headerRef} className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.flex}>
-            <Burger className={styles.burger} onClick={toggleMenu} isMenuOpen={isMenuOpen}/>
-            <Logo className={styles.headerLogo}/>
+            <Burger className={styles.burger} onClick={toggleMenu} isMenuOpen={isMenuOpen} />
+            <Logo className={styles.headerLogo} />
           </div>
-          <Search className={styles.searchDesktop}/>
-          <HeaderLinks className={styles.headerLinks}/>
+          <Search className={styles.searchDesktop} />
+          <HeaderLinks className={styles.headerLinks} />
           {user.address ? (
             <div className={styles.profileInfo}>
-              <Wallet/>
-              <User/>
+              <Wallet />
+              <User />
             </div>
           ) : (
             <Button onClick={handleOpenConnect} className={styles.headerConnectBtn} color="blue">
@@ -68,7 +68,7 @@ const Headers: FC = observer(() => {
           {isMenuOpen && (
             <MobileMenu
               toggleMenu={toggleMenu}
-              className={cx(styles.mobileMenu, {[styles.mobileMenuOpen]: isMenuOpen})}
+              className={cx(styles.mobileMenu, { [styles.mobileMenuOpen]: isMenuOpen })}
             />
           )}
         </div>
@@ -78,7 +78,7 @@ const Headers: FC = observer(() => {
         onClose={handleCloseConnect}
         title="Pick a wallet"
       >
-        <ChooseWallet/>
+        <ChooseWallet />
       </Modal>
     </>
   );

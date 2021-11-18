@@ -29,4 +29,7 @@ export const routes = {
   activity: {
     root: '/activity',
   },
+  connectWallet: {
+    root: '/connect',
+  },
 };

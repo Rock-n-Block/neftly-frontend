@@ -33,11 +33,13 @@ const Banner: FC = observer(() => {
           <Button href={routes.discover.root} color="blue" className={styles.button}>
             Explore
           </Button>
-          {user.isAuth && (
-            <Button href={routes.create.root} color="outline" className={styles.button}>
-              Create
-            </Button>
-          )}
+          <Button
+            href={user.isAuth ? routes.create.root : routes.connectWallet.root}
+            color="outline"
+            className={styles.button}
+          >
+            Create
+          </Button>
         </div>
       </div>
       <RandomCard />
