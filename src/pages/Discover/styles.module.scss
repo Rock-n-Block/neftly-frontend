@@ -1,6 +1,13 @@
 @import "../../styles/helpers.scss";
 
 .discover {
+  &Title {
+    margin-right: 24px;
+
+    @include forDesktopSm {
+      margin-right: 0;
+    }
+  }
 }
 
 .filterBody {
@@ -10,7 +17,7 @@
     padding: 0 20px;
     color: $color-neutral-80 !important;
     border: 2px solid $color-neutral-10 !important;
-    &:hover{
+    &:hover {
       background: rgba($color-neutral-10, 0.5) !important;
     }
 
@@ -74,10 +81,10 @@
   }
 }
 
-.modal{
+.modal {
   display: none;
 
-  @include forDesktopSm{
+  @include forDesktopSm {
     display: block;
   }
 }
@@ -122,8 +129,8 @@
         grid-area: select;
       }
 
-      .select{
-        width: auto
+      .select {
+        width: auto;
       }
     }
   }

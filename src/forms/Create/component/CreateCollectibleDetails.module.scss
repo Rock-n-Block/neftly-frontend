@@ -357,7 +357,8 @@
   bottom: 6px;
 
   &Double {
-    @include flexbox(center, column-reverse);
+    @include flexbox(center, center);
+    flex-direction: column-reverse;
     gap: 24px;
     transform: translateY(56px);
   }

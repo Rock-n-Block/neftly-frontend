@@ -14,7 +14,7 @@ import PriceHistory from './PriceHistory';
 
 import styles from './styles.module.scss';
 import { routes } from 'appConstants';
-import GridLayer, { EGridJustify } from 'containers/GridLayer';
+// import GridLayer, { EGridJustify } from 'containers/GridLayer';
 
 const breadcrumbs = [
   {
@@ -84,7 +84,11 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
       <div className={styles.detailArtworkContent}>
         <Control item={breadcrumbs} />
         <GiantCard name={nft?.name || ''} nft={nft} onUpdateNft={getItem} />
-        <PriceHistory tokenId={id} history={nft?.history || []} currency={nft?.currency as ICurrency} />
+        <PriceHistory
+          tokenId={id}
+          history={nft?.history || []}
+          currency={nft?.currency as ICurrency}
+        />
         <div className={styles.relatedArtwork}>
           <H3>Related Artwork</H3>
           <LoadMore
@@ -95,43 +99,43 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
             handleLoadMore={handleLoadMore}
           >
             <div ref={wrapRef} className={styles.artCardsWrapper}>
-              <GridLayer gap={40} wrapperRef={wrapRef} minWidth={300} minHeight={400} justify={EGridJustify.center}>
-                {nftCards
-                  .filter((art) => art.id !== Number(id))
-                  .map((art) => {
-                    const {
-                      id: artId,
-                      media: image,
-                      name,
-                      price,
-                      available: inStockNumber,
-                      creator: { name: author },
-                      creator: { avatar: authorAvatar },
-                      creator: { id: authorId },
-                      tags,
-                      like_count: likesNumber,
-                      currency: { symbol: asset },
-                    } = art;
-                    return (
-                      <ArtCard
-                        key={`nft_card_${artId}`}
-                        className={styles.artCard}
-                        artId={artId}
-                        imageMain={image}
-                        name={name}
-                        price={price}
-                        asset={asset}
-                        inStockNumber={inStockNumber}
-                        author={author}
-                        authorAvatar={authorAvatar}
-                        authorId={authorId.toString()}
-                        likesNumber={likesNumber}
-                        tags={tags}
-                      />
-                    );
-                  })}
-              </GridLayer>
+              {/* <GridLayer gap={40} wrapperRef={wrapRef} minWidth={300} minHeight={400} justify={EGridJustify.center}> */}
+              {nftCards
+                .filter((art) => art.id !== Number(id))
+                .map((art) => {
+                  const {
+                    id: artId,
+                    media: image,
+                    name,
+                    price,
+                    available: inStockNumber,
+                    creator: { name: author },
+                    creator: { avatar: authorAvatar },
+                    creator: { id: authorId },
+                    tags,
+                    like_count: likesNumber,
+                    currency: { symbol: asset },
+                  } = art;
+                  return (
+                    <ArtCard
+                      key={`nft_card_${artId}`}
+                      className={styles.artCard}
+                      artId={artId}
+                      imageMain={image}
+                      name={name}
+                      price={price}
+                      asset={asset}
+                      inStockNumber={inStockNumber}
+                      author={author}
+                      authorAvatar={authorAvatar}
+                      authorId={authorId.toString()}
+                      likesNumber={likesNumber}
+                      tags={tags}
+                    />
+                  );
+                })}
             </div>
+            {/* </GridLayer> */}
           </LoadMore>
         </div>
       </div>

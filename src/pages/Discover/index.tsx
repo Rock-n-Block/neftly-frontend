@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useState } from 'react';
+import { RefObject, useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FilterSVG } from 'assets/img';
 import cx from 'classnames';
@@ -77,6 +77,12 @@ const Discover = observer(() => {
 
   const { width } = useResize();
 
+  useEffect(()=>{
+    if(width <= 780 && isFilterOpen){
+      setFilterOpen(false)
+    }
+  }, [width, isFilterOpen])
+
   const likeAction = useCallback(
     (id): Promise<any> => {
       if (!user.address) {
@@ -107,8 +113,8 @@ const Discover = observer(() => {
       </Modal>}
 
       <H2 className={styles.title}>
-        <Text tag='span' size='inherit'>
-          DISCOVER{' '}
+        <Text className={styles.discoverTitle} tag='span' size='inherit'>
+          DISCOVER
         </Text>
         <Text tag="span" size="inherit" color="primary">
           ARTWORK

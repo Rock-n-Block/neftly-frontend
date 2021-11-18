@@ -51,7 +51,10 @@ const ChooseCollection: React.FC<IProps> = observer(
             return coll.standart === 'ERC1155';
           });
           setCollections(newCollections);
-          handleCollectionChange(newCollections[0].id);
+          // handleCollectionChange(newCollections[0].id);
+          handleCollectionChange(
+            newCollections.find((collection: any) => collection.is_default).id,
+          );
         })
         .catch((err) => console.error(err, 'get single'));
     }, [handleCollectionChange, isSingle]);
