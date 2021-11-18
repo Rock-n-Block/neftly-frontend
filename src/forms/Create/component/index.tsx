@@ -1,6 +1,8 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { iconUpload, iconClose } from 'assets/img';
+import {ReactComponent as IconPropAdd} from 'assets/img/icons/icon-prop-add.svg'
+import {ReactComponent as IconPropDelete} from 'assets/img/icons/icon-prop-delete.svg'
 import cn from 'classnames';
 import {
   Button,
@@ -136,6 +138,25 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       [handleChange, setFieldValue, values.details],
     );
 
+    const handleAddProperty = useCallback(() => {
+      setFieldValue('details', [
+        ...values.details,
+        {
+          size: '',
+          amount: '',
+        },
+      ]);
+    }, [setFieldValue, values.details]);
+
+    const handleRemoveProperty = useCallback(
+      (elemIndex: number) => {
+        const newValue = values.details.filter((_, index) => index !== elemIndex);
+
+        setFieldValue('details', newValue);
+      },
+      [setFieldValue, values.details],
+    );
+
     const fetchRates = useCallback(() => {
       ratesApi.getRates().then(({ data }: any) => {
         setRates(data);
@@ -212,6 +233,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                         color="transparent"
                         className={styles.clearPreview}
                         onClick={handleClearImg}
+                        padding="0"
                       >
                         <img src={iconClose} alt="clear img" />
                       </Button>
@@ -470,6 +492,36 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                               />
                             )}
                           />
+
+                          <div
+                            className={cn(styles.detailsBtns, {
+                              [styles.detailsBtnsDouble]:
+                                index === values.details.length - 1 && index !== 0,
+                            })}
+                          >
+                            {values.details.length === index + 1 && values.details.length < 10 ? (
+                              <div
+                                className={cn(styles.btn, styles.btn_add)}
+                                onClick={handleAddProperty}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={() => {}}
+                              >
+                                <IconPropAdd />
+                              </div>
+                            ) : null}
+                            {values.details.length !== 1 ? (
+                              <div
+                                className={cn(styles.btn, styles.btn_remove)}
+                                onClick={() => handleRemoveProperty(index)}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={() => {}}
+                              >
+                                <IconPropDelete />
+                              </div>
+                            ) : null}
+                          </div>
                         </div>
                       ));
                     }}

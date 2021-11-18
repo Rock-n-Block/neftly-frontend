@@ -29,5 +29,7 @@
 }
 
 .button {
-  width: 100%;
+  @include forTablet {
+    padding: 6px 12px !important;
+  }
 }

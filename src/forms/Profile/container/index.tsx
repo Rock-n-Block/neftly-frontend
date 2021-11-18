@@ -19,7 +19,6 @@ const ProfileForm: React.FC = () => {
     twitter: user.twitter || '',
     instagram: user.instagram || '',
     facebook: user.facebook || '',
-    // email: user.email || '',
     avatar: '',
     preview: `https://${user.avatar}` || '',
     isLoading: false,
@@ -35,10 +34,9 @@ const ProfileForm: React.FC = () => {
       twitter: Yup.string().max(50),
       instagram: Yup.string().max(50),
       facebook: Yup.string().max(50),
-      // email: Yup.string().email('Invalid email'),
     }),
 
-    handleSubmit: (values, { setFieldValue, setFieldError }) => {
+    handleSubmit: (values, { setFieldValue, setFieldError, setSubmitting }) => {
       setFieldValue('isLoading', true);
       const formData = new FormData();
       formData.append('avatar', values.avatar || '');
@@ -66,6 +64,7 @@ const ProfileForm: React.FC = () => {
         })
         .finally(() => {
           setFieldValue('isLoading', false);
+          setSubmitting(false);
         });
     },
 

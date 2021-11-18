@@ -27,7 +27,7 @@ const ProfileEdit: FC = observer(() => {
         <H2 className={styles.title} align="center">
           Edit profile
         </H2>
-        <Text className={styles.info} color="lightGray" weight="medium" size="m" align="center">
+        <Text className={styles.info} color="gray" weight="medium" size="m" align="center">
           You can set preferred display name, create your profile URL and manage other personal
           settings.
         </Text>

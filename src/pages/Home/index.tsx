@@ -1,5 +1,5 @@
-import {FC} from 'react';
-import {observer} from 'mobx-react';
+import { FC } from 'react';
+import { observer } from 'mobx-react';
 
 import Banner from './Banner';
 import CreateAndSell from './CreateAndSellNft';

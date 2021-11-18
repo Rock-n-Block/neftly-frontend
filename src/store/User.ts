@@ -101,7 +101,7 @@ export const User = types
   })
   .views((self) => ({
     get isAuth() {
-      return !!localStorage.getItem('nftcrowd_nft_token') || !!self.address;
+      return !!self.address || !!localStorage.getItem('nftcrowd_nft_token');
     },
   }));
 

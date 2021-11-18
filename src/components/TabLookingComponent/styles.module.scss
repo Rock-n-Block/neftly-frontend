@@ -20,20 +20,6 @@
 .tabContainer {
   position: relative;
   overflow-x: auto;
-
-  &.scrollTips {
-    &:before {
-      @extend .scrollTip;
-      border-radius: 0 50% 50% 0;
-      left: 0;
-    }
-
-    &:after {
-      @extend .scrollTip;
-      border-radius: 50% 0 0 50%;
-      right: 0;
-    }
-  }
 }
 
 .tabWrapper {

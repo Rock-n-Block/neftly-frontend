@@ -38,7 +38,7 @@ const Profile: FC<FormikProps<IProfile>> = observer(
               </div>
               <div className={styles.details}>
                 <H5 className={styles.stage}>Profile photo</H5>
-                <Text color="lightGray" className={styles.fileInfo}>
+                <Text color="gray" className={styles.fileInfo}>
                   We recommend an image of at least 400x400. Gifs work too{' '}
                   <span role="img" aria-label="hooray">
                     🙌
@@ -59,7 +59,7 @@ const Profile: FC<FormikProps<IProfile>> = observer(
               </div>
             </div>
             <div className={styles.item}>
-              <Text size="xl" className={styles.category} color="lightGray">
+              <Text size="xl" className={styles.category}>
                 Account info
               </Text>
               <div className={styles.fieldset}>
@@ -100,37 +100,19 @@ const Profile: FC<FormikProps<IProfile>> = observer(
                       onBlur={(e: SyntheticEvent) => handleBlur(e)}
                       type="text"
                       placeholder="Your custom URL"
-                      prefix="site.net/"
+                      prefix="nftcrowd.com/"
                     />
                   )}
                 />
-                {/* <Field
-                  id="email"
-                  name="email"
-                  render={({ form: { isSubmitting } }: FieldProps) => (
-                    <TextInput
-                      name="email"
-                      className={styles.field}
-                      disabled={isSubmitting}
-                      label="email"
-                      value={values.email}
-                      onChange={handleChange}
-                      onBlur={(e: SyntheticEvent) => handleBlur(e)}
-                      type="text"
-                      placeholder="Add your email here"
-                    />
-                  )}
-                />
-                {errors.email && touched.email && <Text color="red">Invalid email</Text>} */}
-
                 <Field
                   id="bio"
                   name="bio"
-                  render={() => (
+                  render={({ form: { isSubmitting } }: FieldProps) => (
                     <TextArea
                       name="bio"
                       className={styles.field}
                       label="Bio"
+                      disabled={isSubmitting}
                       value={values.bio}
                       onChange={handleChange}
                       placeholder="About yourselt in a few words"
@@ -143,7 +125,7 @@ const Profile: FC<FormikProps<IProfile>> = observer(
           </div>
           <div className={cn(styles.col, styles.right)}>
             <div className={styles.item}>
-              <Text size="xl" className={styles.category} color="lightGray">
+              <Text size="xl" className={styles.category}>
                 Social Account
               </Text>
               <div className={styles.fieldset}>
@@ -225,6 +207,7 @@ const Profile: FC<FormikProps<IProfile>> = observer(
                 className={cn('button', styles.submitButton)}
                 loading={values.isLoading}
                 color="blue"
+                type="submit"
               >
                 <Text size="m" color="white" weight="bold">
                   Update Profile

@@ -2,6 +2,9 @@
 
 .container {
   @include flexbox(flex-start, space-between);
+  @include forDesktopSm {
+    display: block;
+  }
 }
 
 .box {
@@ -12,13 +15,35 @@
     padding-left: 30px;
   }
   &:first-of-type {
-    border-right: 1px solid $color-neutral-60;
+    border-right: 1px solid $color-neutral-10;
   }
   &_title {
     font-weight: 500;
     color: $color-neutral-100;
     font-size: 18px;
     line-height: 29px;
+
+    @include epilogue;
+    @include forDesktopSm {
+      margin-bottom: 16px;
+    }
+  }
+
+  @include forDesktopSm {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+
+    & + & {
+      padding-right: 0px;
+      padding-left: 0px;
+      padding-top: 32px;
+      border-top: 1px solid $color-neutral-10;
+    }
+    &:first-of-type {
+      border-right: none;
+      padding-bottom: 32px;
+    }
   }
 }
 
@@ -33,19 +58,37 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 29px;
+  border-radius: $border-radius;
+  position: relative;
+
+  @include forDesktopSm {
+    height: 103px;
+    margin-top: 0;
+    padding: 0 10px;
+    justify-content: center;
+    align-items: center;
+  }
 
   &_wrapper {
     @include flexbox(center);
+    @include forDesktopSm {
+      flex-direction: column;
+      text-align: center;
+    }
     img {
       width: 32px;
       height: 32px;
       margin-right: 10px;
+      @include forDesktopSm {
+        margin-right: 0;
+      }
     }
   }
 
   & > img {
-    transition: 0.3s;
+    position: absolute;
     opacity: 0;
+    right: 25px;
   }
   &_active {
     background: $color-primary;
@@ -56,7 +99,14 @@
   }
   &_wallet {
     &:hover {
-      background: rgba($color-primary, 0.4);
+      background: $color-primary;
+      color: $color-neutral-0;
     }
+  }
+}
+
+@include forDesktopSm {
+  .wallets {
+    @include autoGrid(200px);
   }
 }

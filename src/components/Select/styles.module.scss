@@ -57,9 +57,8 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
     box-sizing: border-box;
     min-width: 120px;
     height: 40px;
-
     background: none;
-    border: 1px solid $color-neutral-80;
+    border: 2px solid $color-neutral-100;
 
     &:hover {
       border-color: $color-neutral-60;
@@ -85,7 +84,6 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
 
   .valueContainer {
     padding: 0;
-
     height: 100%;
     margin-right: 5px;
     width: 100%;
@@ -98,6 +96,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
     font-weight: 600;
     position: relative;
     color: $color-neutral-100;
+    top: 12px;
   }
 }
 
@@ -123,7 +122,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   }
 
   &.m {
-    padding: 10px 20px;
+    padding: 0px 20px;
 
     height: 44px;
   }
@@ -161,7 +160,7 @@ $box-shadow: 0 3.88054px 10.1959px rgba(0, 0, 0, 0.131144), 0 2.1754px 5.71576px
   margin: 30px 0 0 0;
 
   background: $color-bg;
-  border: 1px solid $color-neutral-20;
+  border: 2px solid $color-neutral-100;
   border-radius: 0;
 
   &.dark {

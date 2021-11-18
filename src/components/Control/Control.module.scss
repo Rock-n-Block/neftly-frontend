@@ -1,7 +1,8 @@
 @import 'src/styles/helpers';
 
 .control {
-  margin: 40px 0;
+  @include container;
+  margin: 40px auto;
 }
 
 .control .container {
@@ -15,7 +16,6 @@
 }
 
 .item {
-
   &:not(:last-child) {
     margin-right: 33px;
 
