@@ -29,7 +29,7 @@ const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({ minWidth, minHeight
     const childrenCount = Children.count(children);
 
     const resizeCallback = useCallback(async () => {
-        const winWidth = wrapperRef?.current.offsetWidth || document.documentElement.clientWidth;
+        const winWidth = wrapperRef?.current?.offsetWidth || document.documentElement.clientWidth;
 
         const newColumns = Math.trunc(winWidth / (minWidth + gap));
 

@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useState } from 'react';
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { filter } from 'assets/img';
 import cx from 'classnames';
@@ -10,6 +10,7 @@ import { userApi } from 'services';
 import { useMst } from 'store';
 import { selectOptions } from 'typings';
 import { toFixed } from 'utils';
+import GridLayer, { EGridJustify } from 'containers/GridLayer';
 
 import styles from './styles.module.scss';
 
@@ -23,6 +24,8 @@ const Discover = observer(() => {
       key: tag.title,
     };
   });
+
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   const { search } = useLocation();
   const filterTag = search.replace(/^(.*?)=/, '');
@@ -119,8 +122,9 @@ const Discover = observer(() => {
         >
           <H3>{totalItems} results</H3>
           <div className={styles.filterResults}>
-            {nftCards.length
-              ? nftCards.map((artCard: any) => {
+            <GridLayer gap={40} wrapperRef={wrapRef} minWidth={250} minHeight={350} justify={EGridJustify.start}>
+              {nftCards.length
+                ? nftCards.map((artCard: any) => {
                   const {
                     media,
                     name,
@@ -156,7 +160,8 @@ const Discover = observer(() => {
                     />
                   );
                 })
-              : null}
+                : null}
+            </GridLayer>
           </div>
         </div>
       </div>

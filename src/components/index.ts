@@ -1,4 +1,5 @@
 export { default as Avatar } from './Avatar';
+export { default as Skeleton } from './Skeletons';
 export { default as ArtCardAuthor } from './ArtCardAuthor';
 export { default as Button } from './Button';
 export { default as TextInput } from './TextInput';

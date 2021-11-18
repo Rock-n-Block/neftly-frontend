@@ -21,4 +21,7 @@
 
 .logo .logoText {
   @include monument-extended;
+  @include forTablet{
+    font-size: 14px;
+  }
 }

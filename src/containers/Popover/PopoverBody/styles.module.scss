@@ -2,20 +2,14 @@
 
 .body {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 100%;
+
   z-index: 999;
-
   padding: 24px;
-
   background: $color-neutral-0;
-
   opacity: 0;
-
   /* Pop Up */
   box-shadow: $color-box-shadow;
-
-  transform: translate(0,70px);
   animation: showUser 0.4s forwards;
 
   .triangle {
@@ -25,9 +19,31 @@
     border: 16px solid transparent;
     border-bottom: 16px solid $color-neutral-0;
     top: -24px;
-    right: 0;
   }
 
+  &.right {
+    right: 0;
+
+    & .triangle {
+      right: 0;
+    }
+  }
+  &.center {
+    left: 50%;
+    transform: translateX(-50%);
+
+    & .triangle {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  .left {
+    left: 0;
+
+    & .triangle{
+      left: 0;
+    }
+  }
 }
 
 @keyframes showUser {
