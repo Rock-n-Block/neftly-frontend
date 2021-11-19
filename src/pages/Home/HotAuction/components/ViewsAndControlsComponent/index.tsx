@@ -187,7 +187,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
           <div className={styles.optionBtn}>
             <OutsideClickHandler onOutsideClick={() => setTooltipVisible(false)}>
 
-              <Button className={styles.button} color="outline" onClick={() => setTooltipVisible(!isTooltipVisible)}>
+              <Button padding='0' className={styles.button} color="outline" onClick={() => setTooltipVisible(!isTooltipVisible)}>
                 <Options />
               </Button>
               <OptionMenu active={isTooltipVisible} position={tooltipPlacement}>
