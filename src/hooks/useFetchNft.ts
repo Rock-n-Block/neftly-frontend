@@ -54,7 +54,7 @@ export const useFetchNft = (
       const refresh = page === 1;
       setLoading(true);
 
-      let boolIsVerified = is_verified === 'verified';
+      const boolIsVerified = is_verified === 'verified';
 
       const formattedTags = tags === 'All NFTs' ? undefined : tags;
 
