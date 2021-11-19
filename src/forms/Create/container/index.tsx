@@ -115,6 +115,7 @@ export default observer(({ isSingle }: any) => {
                 } else {
                   toast.error('Create Token failed');
                 }
+                storeApi.rejectTransaction({ type: 'token', id: data.token.id });
                 console.error('Backend Create token failure', response);
               });
           } else {
@@ -133,6 +134,7 @@ export default observer(({ isSingle }: any) => {
                 } else {
                   toast.error('Create Token failed');
                 }
+                storeApi.rejectTransaction({ type: 'token', id: data.token.id });
                 console.error('Backend Create token failure', response);
               })
               .finally(() => {
