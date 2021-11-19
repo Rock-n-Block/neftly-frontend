@@ -24,6 +24,7 @@ interface IProps {
 export const useFetchNft = (
   props: IProps,
   isDebounce = false,
+  isIntervalUpdate = false,
 ): [number, number, INft[], boolean, (textValue: string) => void] => {
   const {
     page,
@@ -36,7 +37,7 @@ export const useFetchNft = (
     creator,
     owner,
     on_sale,
-    text = '',
+    text,
     isCanFetch = true,
     isOnlyForOwnerOrCreator,
   } = props;
@@ -52,22 +53,25 @@ export const useFetchNft = (
       }
       const refresh = page === 1;
       setLoading(true);
+
+      const boolIsVerified = is_verified === 'verified';
+
+      const formattedTags = tags === 'All NFTs' ? undefined : tags;
+
       storeApi
-        .getSearchResults(
-          {
-            sort,
-            order_by,
-            tags,
-            max_price,
-            currency,
-            page,
-            is_verified,
-            creator,
-            on_sale,
-            owner,
-          },
-          textInput,
-        )
+        .getSearchResults({
+          sort,
+          order_by,
+          tags: formattedTags,
+          max_price,
+          currency,
+          page,
+          is_verified: boolIsVerified,
+          creator,
+          on_sale,
+          owner,
+          text: textInput,
+        })
         .then(({ data: { items, total_tokens } }: any) => {
           setTotalItems(() => total_tokens);
           if (refresh) {
@@ -113,9 +117,18 @@ export const useFetchNft = (
   ).current;
 
   useEffect(() => {
+    let interval: any = null;
     if (!isDebounce) {
       fetchSearch();
+      if (isIntervalUpdate && !interval) {
+        interval = setInterval(fetchSearch, 60000);
+      }
     }
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, [
     page,
     sort,
@@ -129,6 +142,7 @@ export const useFetchNft = (
     text,
     isDebounce,
     fetchSearch,
+    isIntervalUpdate,
   ]);
 
   return [allPages, totalItems, nftCards, isLoading, debouncedFetch];

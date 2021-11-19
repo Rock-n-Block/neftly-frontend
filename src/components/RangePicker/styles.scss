@@ -1,9 +1,25 @@
-@import '../../styles/helpers.scss';
+@import "../../styles/helpers.scss";
 
 $trackSize: 16px;
 
 .rc-slider-mark {
   display: none;
+}
+
+.rc-slider-tooltip {
+  &-inner{
+    background: $color-neutral-10;
+    color: $color-neutral-100;
+    font-weight: 700;
+    border-radius: $border-radius;
+    padding: 4px 8px;
+    height: auto;
+    font-size: 14px;
+    @include epilogue;
+  }
+  &-arrow{
+    border-top-color: $color-neutral-10 !important;
+  }
 }
 
 .rc-slider {
@@ -14,28 +30,27 @@ $trackSize: 16px;
   .rc-slider-rail {
     height: $trackSize;
 
-    background-color: $color-neutral-0;
-    border-radius: 2px;
-    opacity: 0.1;
+    background: $color-neutral-10;
+    border-radius: $border-radius;
   }
 
   .rc-slider-track {
     height: $trackSize;
 
     background: $color-primary;
-    border-radius: 2px;
+    border-radius: $border-radius;
 
     transition: 0.2s width;
   }
 
   .rc-slider-handle {
-    margin-top: -8px;
-
-    width: 28px;
-    height: 28px;
+    margin-top: -4px;
+    box-sizing: border-box;
+    width: 24px;
+    height: 24px;
 
     background-color: $color-primary;
-    border: 4px solid $color-neutral-0;
+    border: 4px solid $color-neutral-10;
     border-radius: 20px;
     box-shadow: none;
 
