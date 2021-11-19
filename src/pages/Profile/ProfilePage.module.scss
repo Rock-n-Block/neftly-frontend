@@ -49,10 +49,11 @@
 .tabs {
   flex-direction: column;
   align-items: flex-start !important;
+  
 
-  button {
+  a {
     margin-bottom: 25px;
-    padding: 0 !important;
+    padding: 8px 0 !important;
 
     &::before {
       bottom: -8px !important;

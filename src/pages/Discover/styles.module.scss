@@ -45,22 +45,31 @@
 .filterAndCards {
   @include container;
   position: relative;
-  @include flexbox(normal, normal);
   min-height: 50vh;
+  transition: 200ms;
+  transform: translateX(0);
+  @include flexbox(normal, normal);
   gap: 32px;
 
-  transition: 200ms;
 
   .filter {
+    flex: 0 1 0;
     height: auto;
     border-top: 1px solid $color-neutral-10;
     border-right: 1px solid $color-neutral-10;
     transition: 200ms;
     transform: translateX(-100vw);
 
-    &.open {
+    &.specClass{
+      display: none;
+      &.open{
+        display: block;
+      }
+    }
+
+    &.open{
       transform: translateX(0);
-      display: block;
+      flex: 0 0 300px;
     }
   }
 

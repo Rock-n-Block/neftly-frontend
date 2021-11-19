@@ -42,7 +42,6 @@
   @include body-bold-2;
 }
 
-
 .switch {
   flex-shrink: 0;
   margin-left: 16px;
@@ -50,15 +49,12 @@
 
 .row {
   @include flexbox(center, normal);
-  padding-top: 12px;
-
-  &:first-child {
-    border-bottom: 1px solid $color-neutral-60;
+  & + & {
+    margin-top: 12px;
   }
 
-  &Input {
-    background: $color-neutral-100;
-    padding: 0 10px;
+  &:last-child {
+    border-bottom: 1px solid $color-neutral-60;
   }
 
   .input {
@@ -70,13 +66,15 @@
       line-height: 24px;
       border-radius: 0;
       border: none;
+      &:hover {
+        box-shadow: none;
+      }
     }
   }
 }
 
 .col {
   @include body-2;
-
 
   &:nth-child(2) {
     margin-left: auto;
@@ -95,4 +93,12 @@
   &:not(:last-child) {
     margin-bottom: 8px;
   }
+}
+
+.prefix {
+  @include flexbox(center, flex-start);
+  padding-left: 16px;
+  width: 92px;
+  height: 38px;
+  border-right: 2px solid $color-neutral-40;
 }

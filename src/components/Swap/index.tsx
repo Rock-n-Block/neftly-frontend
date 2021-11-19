@@ -8,6 +8,9 @@ import { useWalletConnectorContext, WalletConnect } from 'services';
 import { useMst } from 'store';
 
 import styles from './Swap.module.scss';
+import { chainsEnum } from 'typings';
+import { getTokenAmount, getTronContract } from 'utils';
+import { contracts, is_production } from 'config';
 
 /*interface ISwapProps {
   main: string;
@@ -45,26 +48,73 @@ const Swap: React.FC = observer(() => {
   }, [swap]);
 
   const handleSubmitConvert = useCallback(() => {
-    const weiValue = WalletConnect.calcTransactionAmount(payInput, 18);
+    const weiValue =
+      localStorage.nftcrowd_nft_chainName === chainsEnum.Tron
+        ? getTokenAmount(payInput, 6)
+        : WalletConnect.calcTransactionAmount(payInput, 18);
     setLoading(true);
 
     if (swappingCurrency[0] === 'main') {
-      walletConnector.walletService
-        .createTransaction('deposit', [], swap.wrap as TWrapped, '', '', '', weiValue)
-        .then(async (data: any) => {
-          // setRefresh(true);
-          swap.setRefresh(true);
-          close();
-          toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
-        })
-        .catch((err: any) => {
-          console.error('error', err);
-        })
-        .finally(() => {
-          // setRefresh(false);
-          swap.setRefresh(false);
-          setLoading(false);
+      if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
+        const { address } = contracts.params.WTRX[is_production ? 'mainnet' : 'testnet'];
+        getTronContract(address).then((contract: any) => {
+          contract
+            .deposit()
+            .send({ from: user.address, callValue: weiValue })
+            .then(async (data: any) => {
+              // setRefresh(true);
+              swap.setRefresh(true);
+              close();
+              toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
+            })
+            .catch((err: any) => {
+              console.error('error', err);
+            })
+            .finally(() => {
+              // setRefresh(false);
+              swap.setRefresh(false);
+              setLoading(false);
+            });
         });
+      } else {
+        walletConnector.walletService
+          .createTransaction('deposit', [], swap.wrap as TWrapped, '', '', '', weiValue)
+          .then(async (data: any) => {
+            // setRefresh(true);
+            swap.setRefresh(true);
+            close();
+            toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
+          })
+          .catch((err: any) => {
+            console.error('error', err);
+          })
+          .finally(() => {
+            // setRefresh(false);
+            swap.setRefresh(false);
+            setLoading(false);
+          });
+      }
+    } else if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
+      const { address } = contracts.params.WTRX[is_production ? 'mainnet' : 'testnet'];
+      getTronContract(address).then((contract: any) => {
+        contract
+          .withdraw(weiValue)
+          .send({ from: user.address, callValue: weiValue })
+          .then(async (data: any) => {
+            // setRefresh(true);
+            swap.setRefresh(true);
+            close();
+            toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
+          })
+          .catch((err: any) => {
+            console.error('error', err);
+          })
+          .finally(() => {
+            // setRefresh(false);
+            swap.setRefresh(false);
+            setLoading(false);
+          });
+      });
     } else {
       walletConnector.walletService
         .createTransaction('withdraw', [weiValue], swap.wrap as TWrapped)
@@ -83,7 +133,7 @@ const Swap: React.FC = observer(() => {
           setLoading(false);
         });
     }
-  }, [payInput, swappingCurrency, walletConnector.walletService, swap, close]);
+  }, [payInput, swappingCurrency, user.address, walletConnector.walletService, swap, close]);
   const handlePayInput = useCallback((value: string) => {
     setPayInput(value);
   }, []);

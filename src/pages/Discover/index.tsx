@@ -15,7 +15,6 @@ import {
   Text,
 } from 'components';
 import { AdvancedFilter } from 'containers';
-//import GridLayer, { EGridJustify } from 'containers/GridLayer';
 import { useFetchNft, useFilters, useInfiniteScroll, useWindowSize } from 'hooks';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
@@ -38,10 +37,10 @@ const Discover = observer(() => {
     };
   });
 
-  //const wrapRef = useRef<HTMLDivElement>(null);
-
   const { search } = useLocation();
-  const filterTag = search.replace(/^(.*?)=/, '');
+  const filterTag =
+    search.includes('tags') || search.includes('filters') ? search.replace(/^(.*?)=/, '') : '';
+  const textSearch = search.includes('text') ? search.replace(/^(.*?text)=/, '') : '';
 
   const handleOpenFilter = useCallback(() => {
     setFilterOpen(!isFilterOpen);
@@ -77,15 +76,18 @@ const Discover = observer(() => {
     is_verified: verifiedFilter.value,
     on_sale: true,
     isCanFetch: !isLoading,
+    text: textSearch,
   });
 
   const { width } = useWindowSize();
-
+  
   useEffect(() => {
-    if (width <= mobileBreakPoint && isFilterOpen) {
+    if (width <= mobileBreakPoint) {
       setFilterOpen(false);
+    } else {
+      setFilterOpen(true);
     }
-  }, [width, isFilterOpen]);
+  }, [width]);
 
   const likeAction = useCallback(
     (id): Promise<any> => {
@@ -96,6 +98,7 @@ const Discover = observer(() => {
     },
     [user.address],
   );
+
   const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading || isNftsLoading);
   return (
     <div className={styles.discover}>
@@ -151,7 +154,7 @@ const Discover = observer(() => {
       </div>
       <div className={cx(styles.filterAndCards, { [styles.open]: isFilterOpen })}>
         <AdvancedFilter
-          className={cx(styles.filter, { [styles.open]: isFilterOpen })}
+          className={cx(styles.filter, styles.specClass, { [styles.open]: isFilterOpen })}
           filterSelectCurrencyOptions={filterSelectCurrencyOptions}
           maxPrice={maxPrice}
           maxPriceFilter={maxPriceFilter}

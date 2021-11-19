@@ -109,7 +109,9 @@ class Connector extends React.Component<
 
           const eventSubs = this.state.provider.connectWallet.eventSubscriber().subscribe(
             (res: any) => {
-              console.log(res);
+              if (res.name === 'accountsChanged' && rootStore.user.address !== res.address) {
+                this.disconnect();
+              }
             },
             (err: any) => {
               console.log(err);

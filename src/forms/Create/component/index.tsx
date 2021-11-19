@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
-import { iconUpload } from 'assets/img';
+import { iconUpload, IconRefresh } from 'assets/img';
 import { ReactComponent as IconPropAdd } from 'assets/img/icons/icon-prop-add.svg';
 import { ReactComponent as IconPropDelete } from 'assets/img/icons/icon-prop-delete.svg';
 import cn from 'classnames';
@@ -88,6 +88,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     const history = useHistory();
     const [rates, setRates] = useState<IRate[]>([]);
     const [addToCollection, setAddToCollection] = useState(true);
+    const [isRefresh, setIsRefresh] = useState(true);
     const serviceFee = 3; // TODO: remove after get service fee request
     const stringRecieveValue =
       (parseFloat(`${values.price || values.minimalBid}`) * (100 - serviceFee)) / 100 || 0;
@@ -513,7 +514,10 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
             </div>
             <div className={cn(styles.fieldset, styles.addCollection)}>
               <H6 className={styles.fieldsetTitle}>
-                Add to collection
+                <div>
+                  Add to collection
+                  <IconRefresh className={styles.refresh} onClick={() => setIsRefresh(true)} />
+                </div>
                 <Switch
                   value={addToCollection}
                   setValue={() => setAddToCollection(!addToCollection)}
@@ -525,6 +529,8 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   activeCollectionId={values.collection}
                   onChange={(value: any) => setFieldValue('collection', value)}
                   isSingle={isSingle}
+                  isRefresh={isRefresh}
+                  setIsRefresh={setIsRefresh}
                 />
               )}
             </div>

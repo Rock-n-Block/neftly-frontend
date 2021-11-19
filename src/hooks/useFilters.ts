@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useTabs } from 'hooks';
 import { ratesApi, storeApi } from 'services';
 import { OptionType } from 'typings';
 
@@ -47,6 +48,13 @@ const useFilters = (filterTag = '') => {
   const [tagsFilter, setTagsFilter] = useState(
     filterTag !== '' ? filterTag : DEFAULT_FILTER_STATE.tags,
   );
+
+  const { activeTab } = useTabs([], tagsFilter);
+
+  useEffect(() => {
+    setTagsFilter(activeTab);
+  }, [setTagsFilter, activeTab]);
+
   const [page, setPage] = useState(DEFAULT_FILTER_STATE.page);
   const [maxPrice, setMaxPrice] = useState(DEFAULT_FILTER_STATE.max_price);
 

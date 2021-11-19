@@ -1,9 +1,8 @@
-@import 'src/styles/helpers';
+@import "src/styles/helpers";
 
 .advancedFilter {
   padding: 44px 32px 24px;
   width: 300px;
-  display: none;
   height: fit-content;
   background: $color-bg;
   z-index: 10;
@@ -56,7 +55,7 @@
 
   &.selected {
     &::after {
-      content: '';
+      content: "";
 
       position: absolute;
       top: 50%;

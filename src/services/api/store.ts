@@ -116,7 +116,7 @@ export default {
       },
       {
         params: {
-          network: localStorage.nftcrowd_nft_chainName,
+          network: localStorage.nftcrowd_nft_chainName || 'undefined',
           sort,
           order_by,
           owner,
