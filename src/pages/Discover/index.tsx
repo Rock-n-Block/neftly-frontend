@@ -25,7 +25,9 @@ const Discover = observer(() => {
   });
 
   const { search } = useLocation();
-  const filterTag = search.replace(/^(.*?)=/, '');
+  const filterTag = search.replace(/^(.*?text)=/, '');
+  console.log(filterTag);
+  const textSearch = search.replace(/^(.*?text)=/, '');
 
   const handleOpenFilter = useCallback(() => {
     setFilterOpen(!isFilterOpen);
@@ -59,6 +61,7 @@ const Discover = observer(() => {
     is_verified: verifiedFilter.value,
     on_sale: true,
     isCanFetch: !isLoading,
+    text: textSearch,
   });
 
   const likeAction = useCallback(
