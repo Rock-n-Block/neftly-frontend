@@ -41,7 +41,9 @@ const Discover = observer(() => {
   //const wrapRef = useRef<HTMLDivElement>(null);
 
   const { search } = useLocation();
-  const filterTag = search.replace(/^(.*?)=/, '');
+  const filterTag =
+    search.includes('tags') || search.includes('filters') ? search.replace(/^(.*?)=/, '') : '';
+  const textSearch = search.includes('text') ? search.replace(/^(.*?text)=/, '') : '';
 
   const handleOpenFilter = useCallback(() => {
     setFilterOpen(!isFilterOpen);
@@ -77,6 +79,7 @@ const Discover = observer(() => {
     is_verified: verifiedFilter.value,
     on_sale: true,
     isCanFetch: !isLoading,
+    text: textSearch,
   });
 
   const { width } = useWindowSize();
