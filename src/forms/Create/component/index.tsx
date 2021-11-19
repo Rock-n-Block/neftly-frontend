@@ -123,15 +123,6 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
         if (type === 'amount') {
           localProperties[index].amount = e.target.value;
         }
-        if (
-          localProperties[localProperties.length - 1].name &&
-          localProperties[localProperties.length - 1].amount
-        ) {
-          localProperties.push({
-            name: '',
-            amount: '',
-          });
-        }
         setFieldValue('details', localProperties);
         handleChange(e);
       },

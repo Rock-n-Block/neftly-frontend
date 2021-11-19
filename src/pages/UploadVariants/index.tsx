@@ -1,26 +1,26 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
-import { single, multiple } from 'assets/img';
+import { upload } from 'assets/img';
 
 import styles from './UploadVariants.module.scss';
 import { Button, H2, Text } from 'components';
 import { routes } from 'appConstants';
 
-const items = [
-  {
-    key: 'single',
-    url: routes.create.single,
-    buttonText: 'Create Single',
-    image: single,
-  },
-  {
-    key: 'multiple',
-    url: routes.create.multiple,
-    buttonText: 'Create Multiple',
-    image: multiple,
-  },
-];
+// const items = [
+//   {
+//     key: 'single',
+//     url: routes.create.single,
+//     buttonText: 'Create Single',
+//     image: upload,
+//   },
+//   {
+//     key: 'multiple',
+//     url: routes.create.multiple,
+//     buttonText: 'Create Multiple',
+//     image: upload,
+//   },
+// ];
 
 const Upload: FC = () => {
   return (
@@ -37,7 +37,7 @@ const Upload: FC = () => {
             </Text>
           </div>
           <div className={styles.list}>
-            {items.map((option) => (
+            {/* {items.map((option) => (
               <Link className={styles.item} key={`upload_option_${option.key}`} to={option.url}>
                 <div className={styles.preview}>
                   <img src={option.image} alt="Upload" />
@@ -46,7 +46,35 @@ const Upload: FC = () => {
                   {option.buttonText}
                 </Button>
               </Link>
-            ))}
+            ))} */}
+            <Link className={styles.item} to={routes.create.single}>
+              <div className={styles.preview}>
+                <img src={upload} alt="Upload" />
+              </div>
+              <Button color="blue" className={styles.button}>
+                Create Single
+              </Button>
+            </Link>
+            <Link className={styles.item} to={routes.create.multiple}>
+              <div className={styles.prewiew_anim}>
+                <div className={styles.preview}>
+                  <img src={upload} alt="Upload" />
+                </div>
+                <div className={cn(styles.preview, styles.anim_item)}>
+                  <img src={upload} alt="Upload" />
+                </div>
+                <div className={cn(styles.preview, styles.anim_item)}>
+                  <img src={upload} alt="Upload" />
+                </div>
+                <div className={cn(styles.preview, styles.anim_item)}>
+                  <img src={upload} alt="Upload" />
+                </div>
+              </div>
+
+              <Button color="blue" className={styles.button}>
+                Create Multiple
+              </Button>
+            </Link>
           </div>
           <Text className={styles.note} size="m" color="gray" weight="medium" align="center">
             We do not own your private keys and cannot access your funds without your confirmation.

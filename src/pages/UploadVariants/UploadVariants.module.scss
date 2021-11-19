@@ -1,5 +1,5 @@
 @import 'src/styles/helpers';
-.upload{
+.upload {
 }
 .section {
   text-align: center;
@@ -48,11 +48,13 @@
 }
 
 .preview {
-  margin-bottom: 24px;
+  margin-bottom: 64px;
+  position: relative;
+  z-index: 6;
 
   img {
     width: 100%;
-    max-width: 108px;
+    max-width: 169px;
 
     border-radius: 8px;
   }
@@ -69,5 +71,51 @@
   line-height: 160%;
   @include forTablet {
     flex-direction: column;
+  }
+}
+
+.prewiew_anim {
+  position: relative;
+  // left: 10px;
+}
+
+.anim_item {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@for $i from 1 through 3 {
+  .anim_item:nth-child(#{$i + 1}) {
+    z-index: $i;
+    top: $i * 10px;
+    left: $i * -10px;
+    opacity: ($i + 1) / 10;
+    animation: move#{$i * 10}px 4s linear infinite;
+  }
+}
+
+@for $i from 1 through 3 {
+  @keyframes move#{$i * 10}px {
+    0% {
+      top: 0;
+      left: 0;
+    }
+
+    20% {
+      top: $i * 10px;
+      left: $i * -10px;
+    }
+
+    70% {
+      top: 0px;
+      left: 0px;
+    }
+
+    100% {
+      top: 0px;
+      left: 0px;
+      opacity: 0;
+    }
   }
 }

@@ -100,6 +100,7 @@ export default observer(({ isSingle }: any) => {
       storeApi
         .createToken(formData)
         .then(({ data }) => {
+          console.log(data );
           if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
             walletConnector.walletService
               .trxCreateTransaction(data.initial_tx, user.address)
@@ -141,6 +142,7 @@ export default observer(({ isSingle }: any) => {
           }
         })
         .catch(({ response }) => {
+          storeApi.removeReject('token', 'token');
           if (response.data && response.data.name) {
             toast.error(response.data.name);
           } else {
