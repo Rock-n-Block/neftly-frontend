@@ -5,20 +5,21 @@
   width: 100%;
 
   &.desktop {
-    width: 500px;
+    max-width: 450px;
   }
 }
 
 .searchDropdown {
   width: 100%;
   box-sizing: border-box;
-  top: 65px;
+  top: 100%;
   position: absolute;
   background: $color-bg;
   box-shadow: $color-box-shadow;
   height: 0;
   transition: 200ms;
   z-index: 1;
+  border: 0 0 $border-radius $border-radius;
 
   &.desktop {
     width: 500px;

@@ -1,7 +1,7 @@
 @import 'src/styles/helpers';
 
 .container {
-  padding: 28px 10px 20px;
+  padding: 33px 10px 20px;
   background: $color-bg;
   @include flexbox(flex-start, center);
   flex-direction: column;

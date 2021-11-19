@@ -2,7 +2,7 @@ import { FC, useCallback, useState } from 'react';
 import cx from 'classnames';
 import { observer } from 'mobx-react-lite';
 
-import { H2, EllipsisText } from 'components';
+import { H2, EllipsisText, Skeleton } from 'components';
 import AuthorComponent from 'pages/Home/HotAuction/components/AuthorComponent';
 import DescriptionAndTagsComponent from 'pages/Home/HotAuction/components/DescriptionAndTagsComponent';
 import PaymentComponent from 'pages/Home/HotAuction/components/PaymentComponent';
@@ -19,9 +19,10 @@ type Props = {
   name: string;
   nft: TNullable<INft>;
   onUpdateNft?: () => void;
+  isFetching?: boolean;
 };
 
-const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
+const GiantCard: FC<Props> = ({ isFetching, className, nft, onUpdateNft }) => {
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const setScroll = useNoScroll();
 
@@ -44,22 +45,24 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
 
   return (
     <div className={cx(styles.giantCard, className)}>
+
       <div className={styles.contentWrapper}>
-        {nft?.format === 'image' && (
-          <>
-            <div className={styles.contentOverlay}>
-              <div className={styles.zoomWrapper}>
-                <Zoom />
+        {isFetching ? <Skeleton /> :
+          nft?.format === 'image' && (
+            <>
+              <div className={styles.contentOverlay}>
+                <div className={styles.zoomWrapper}>
+                  <Zoom />
+                </div>
               </div>
-            </div>
-            <div className={`${styles.previewBlock} ${showPreview && styles.fullscreen}`}>
-              <button className={styles.mediaContentBackground} onClick={() => togglePreview(false)} type='button'><Close aria-label='close modal' className={styles.closeIcon} /></button>
-              <button className={styles.mediaContentWrapper} onClick={() => togglePreview(true)} type='button'>
-                <img className={styles.mediaContent} src={nft.media || '/images/content/card-pic-6.jpg'} alt="Card" />
-              </button>
-            </div>
-          </>
-        )}
+              <div className={`${styles.previewBlock} ${showPreview && styles.fullscreen}`}>
+                <button className={styles.mediaContentBackground} onClick={() => togglePreview(false)} type='button'><Close aria-label='close modal' className={styles.closeIcon} /></button>
+                <button className={styles.mediaContentWrapper} onClick={() => togglePreview(true)} type='button'>
+                  <img className={styles.mediaContent} src={nft.media || '/images/content/card-pic-6.jpg'} alt="Card" />
+                </button>
+              </div>
+            </>
+          )}
         {nft?.format === 'video' &&
           (nft.animation ? (
             <video className={styles.mediaContent} controls>
@@ -84,11 +87,13 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
           ) : (
             <img className={styles.mediaContent} src={nft.media || '/images/content/card-pic-6.jpg'} alt="Card" />
           ))}
+
       </div>
+
       <div className={styles.cardInfo}>
-        <EllipsisText className={styles.cardName}>
+        {isFetching ? <Skeleton width='30%' height='25px'/> : <EllipsisText className={styles.cardName}>
           <H2>{nft?.name || ''}</H2>
-        </EllipsisText>
+        </EllipsisText>}
         <ViewsAndControlsComponent
           className={styles.detailedViewsAndControl}
           likes={nft?.like_count || 0}

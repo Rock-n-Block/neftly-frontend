@@ -29,14 +29,13 @@ const DescriptionAndTagsComponent: FC<Props> = ({ className, tags, body }) => {
 
   return (
     <div className={className}>
-
-      <Text className={styles.descriptionBody} elRef={textRef}  size="m">
+      <div className={styles.descriptionBody} ref={textRef}>
         <div className={`${styles.hoverText} ${showHover && styles.showHoverNotification}`}>
           <Text>Hover to read more</Text>
           <Cursor aria-label='hover' className={styles.cursor} />
         </div>
         {body}
-      </Text>
+      </div>
       {tags.length && (
 
         <div className={styles.tagWrapper}>

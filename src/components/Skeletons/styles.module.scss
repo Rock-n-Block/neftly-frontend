@@ -1,17 +1,5 @@
-.wrapper {
+.skeleton{
     position: relative;
-    overflow: hidden;
-}
-
-.skeleton {
-    position: absolute;
-}
-
-.image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    vertical-align: baseline;
 }
 
 .skeleton::after {
