@@ -179,11 +179,4 @@ export default {
         network: localStorage.nftcrowd_nft_chainName,
       },
     }),
-  removeReject: (id: number | string, type: string) =>
-    axios.post('/store/remove-reject/', {
-      data: {
-        id,
-        type,
-      },
-    }),
 };
