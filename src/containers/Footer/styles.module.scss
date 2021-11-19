@@ -5,9 +5,9 @@
 }
 
 .footerContent {
-  margin: 0 auto;
-  padding: 88px 88px 20px 88px;
-  max-width: 1500px;
+  @include container;
+  padding-top: 60px !important;
+  padding-bottom: 60px !important;
 }
 
 .controlAndSocial {
@@ -22,6 +22,8 @@
 
 .linksAndLogo {
   @include flexbox(flex-start, space-between);
+  border-top: 1px solid $color-neutral-80;
+  padding: 24px 0;
 
   .footerLogo {
     flex-basis: 25%;
@@ -49,20 +51,18 @@
     .linkBlock {
       @include flexbox(flex-start, flex-start);
       flex-direction: column;
-    
-    
+
       .footerBtnLink {
         margin: 4px 0;
         @include flexbox(center, flex-start);
       }
-    
+
       & > * {
         margin-bottom: 24px;
       }
     }
   }
 }
-
 
 .footerLinks {
   flex-basis: 50%;
@@ -109,7 +109,7 @@
 
   .copytrightLinks {
     @include flexbox();
-  
+
     .copyRightLink {
       margin: 0 4px;
     }
@@ -136,26 +136,24 @@
   .linksAndLogo {
     @include flexbox();
     flex-direction: column;
-    padding: 24px 0;
-    border-top: 1px solid $color-neutral-80;
 
     .footerLogo {
       max-width: unset;
     }
-  
+
     .linkBlockContainer {
       flex-wrap: wrap;
       border-top: 1px solid $color-neutral-80;
-  
+
       .linkBlock {
         margin: 24px 0;
         align-items: flex-start;
         flex-basis: 50%;
-              
+
         .footerBtnLink {
           margin: 4px 0;
         }
-      
+
         & > * {
           margin-bottom: 24px;
         }
@@ -168,5 +166,3 @@
     flex-direction: column;
   }
 }
-
-
