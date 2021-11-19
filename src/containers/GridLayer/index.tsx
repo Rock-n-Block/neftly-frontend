@@ -1,74 +1,102 @@
-import { Children, FC, memo, PropsWithChildren, RefObject, useCallback, useEffect, useState } from "react";
+import {
+  Children,
+  FC,
+  memo,
+  PropsWithChildren,
+  RefObject,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+
+import WrappedItem, { IItemPosition } from './WrappedItem';
+
 import styles from './style.module.scss';
-import WrappedItem, { IItemPosition } from "./WrappedItem";
 
 export enum EGridJustify {
-    start,
-    center,
-    end
+  start,
+  center,
+  end,
 }
 
 export interface IGridLayerProps {
-    minWidth: number;
-    minHeight: number;
-    wrapperRef?: RefObject<any>;
-    maxColumns?: number;
-    gap?: number;
-    justify?: EGridJustify;
+  minWidth: number;
+  minHeight: number;
+  wrapperRef?: RefObject<any>;
+  maxColumns?: number;
+  gap?: number;
+  justify?: EGridJustify;
 }
 
 type ICardStyles = {
-    width: number,
-    height: number,
-}
+  width: number;
+  height: number;
+};
 
-const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({ minWidth, minHeight, wrapperRef, maxColumns = null, gap = 10, children, justify = 'start' }) => {
+const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({
+  minWidth,
+  minHeight,
+  wrapperRef,
+  maxColumns = null,
+  gap = 10,
+  children,
+  justify = 'start',
+}) => {
+  const [cardStyles, setCardStyles] = useState<ICardStyles>({ width: minWidth, height: minHeight });
+  const [columns, setColumns] = useState<number>(
+    Math.trunc(document.documentElement.clientWidth / (cardStyles.width + gap)) - 1,
+  );
+  const childrenCount = Children.count(children);
 
-    const [cardStyles, setCardStyles] = useState<ICardStyles>({ width: minWidth, height: minHeight });
-    const [columns, setColumns] = useState<number>(Math.trunc(document.documentElement.clientWidth / (cardStyles.width + gap)) - 1);
-    const childrenCount = Children.count(children);
+  const resizeCallback = useCallback(async () => {
+    const winWidth = wrapperRef?.current.offsetWidth || document.documentElement.clientWidth;
 
-    const resizeCallback = useCallback(async () => {
-        const winWidth = wrapperRef?.current.offsetWidth || document.documentElement.clientWidth;
+    const newColumns = Math.trunc(winWidth / (minWidth + gap));
 
-        const newColumns = Math.trunc(winWidth / (minWidth + gap));
+    if ((maxColumns === null || newColumns <= maxColumns) && newColumns >= 1) {
+      await setColumns(newColumns);
+    }
 
-        if ((maxColumns === null || newColumns <= maxColumns) && newColumns >= 1) {
-            await setColumns(newColumns);
-        }
+    setCardStyles((prevStyle: ICardStyles) => ({
+      ...prevStyle,
+      width: (winWidth - gap * (columns - 1)) / columns,
+      height: minHeight + (winWidth / columns - minWidth),
+    }));
+  }, [minWidth, columns, maxColumns, gap, wrapperRef, minHeight]);
 
-        setCardStyles((prevStyle: ICardStyles) => ({ ...prevStyle, width: (winWidth - gap * (columns - 1)) / columns, height: minHeight + (winWidth / columns - minWidth) }));
+  useEffect(() => {
+    window.addEventListener('resize', resizeCallback);
+    resizeCallback();
 
-    }, [minWidth, columns, maxColumns, gap, wrapperRef, minHeight])
+    return () => {
+      window.removeEventListener('resize', resizeCallback);
+    };
+  }, [resizeCallback]);
 
-
-    useEffect(() => {
-        window.addEventListener('resize', resizeCallback)
-        resizeCallback();
-
-        return () => {
-            window.removeEventListener('resize', resizeCallback)
-        }
-    }, [resizeCallback])
-    
-    return (
-        <section className={styles.gridWrapper} style={{ height: (cardStyles.height + gap) * Math.ceil(childrenCount / columns) }}>
-            {Children.map(children, (child, idx) => {
-                const position: IItemPosition = {
-                    width: cardStyles.width,
-                    height: cardStyles.height,
-                    left: (idx % columns) * (cardStyles.width) + (idx % columns) * gap + ((justify === EGridJustify.center && idx >= childrenCount - childrenCount % columns) ? cardStyles.width / 2 : 0) + ((justify === EGridJustify.end && idx >= childrenCount - childrenCount % columns) ? cardStyles.width : 0),
-                    top: (Math.trunc(idx / columns)) * (cardStyles.height + gap)
-                }
-                return (
-                    <WrappedItem position={position}>
-                        {child}
-                    </WrappedItem>
-                )
-            }
-            )}
-        </section>
-    )
-}
+  return (
+    <section
+      className={styles.gridWrapper}
+      style={{ height: (cardStyles.height + gap) * Math.ceil(childrenCount / columns) }}
+    >
+      {Children.map(children, (child, idx) => {
+        const position: IItemPosition = {
+          width: cardStyles.width,
+          height: cardStyles.height,
+          left:
+            (idx % columns) * cardStyles.width +
+            (idx % columns) * gap +
+            (justify === EGridJustify.center && idx >= childrenCount - (childrenCount % columns)
+              ? cardStyles.width / 2
+              : 0) +
+            (justify === EGridJustify.end && idx >= childrenCount - (childrenCount % columns)
+              ? cardStyles.width
+              : 0),
+          top: Math.trunc(idx / columns) * (cardStyles.height + gap),
+        };
+        return <WrappedItem position={position}>{child}</WrappedItem>;
+      })}
+    </section>
+  );
+};
 
 export default memo(GridLayer);

@@ -1,16 +1,15 @@
 import { FC, useCallback, useState } from 'react';
+import { Close, Zoom } from 'assets/img';
 import cx from 'classnames';
+import { EllipsisText, H2 } from 'components';
+import { useGetUserAccessForNft, useNoScroll } from 'hooks';
 import { observer } from 'mobx-react-lite';
-
-import { H2, EllipsisText } from 'components';
 import AuthorComponent from 'pages/Home/HotAuction/components/AuthorComponent';
 import DescriptionAndTagsComponent from 'pages/Home/HotAuction/components/DescriptionAndTagsComponent';
 import PaymentComponent from 'pages/Home/HotAuction/components/PaymentComponent';
 import ViewsAndControlsComponent from 'pages/Home/HotAuction/components/ViewsAndControlsComponent';
-import { INft, TNullable } from 'typings';
 import { useMst } from 'store';
-import { useGetUserAccessForNft, useNoScroll } from 'hooks';
-import { Close, Zoom } from 'assets/img';
+import { INft, TNullable } from 'typings';
 
 import styles from './styles.module.scss';
 
@@ -34,14 +33,17 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
     isOwner,
     isUserCanRemoveFromSale,
     isWrongChain,
-    isUserCanChangePrice
+    isUserCanChangePrice,
   } = useGetUserAccessForNft(nft, user.id, user.address);
 
-  const togglePreview = useCallback((state: boolean) => {
-    setScroll(state)
-    setShowPreview(state)
-  }, [setScroll])
-
+  const togglePreview = useCallback(
+    (state: boolean) => {
+      setScroll(state);
+      setShowPreview(state);
+    },
+    [setScroll],
+  );
+  console.log(nft);
   return (
     <div className={cx(styles.giantCard, className)}>
       <div className={styles.contentWrapper}>
@@ -53,9 +55,23 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
               </div>
             </div>
             <div className={`${styles.previewBlock} ${showPreview && styles.fullscreen}`}>
-              <button className={styles.mediaContentBackground} onClick={() => togglePreview(false)} type='button'><Close aria-label='close modal' className={styles.closeIcon} /></button>
-              <button className={styles.mediaContentWrapper} onClick={() => togglePreview(true)} type='button'>
-                <img className={styles.mediaContent} src={nft.media || '/images/content/card-pic-6.jpg'} alt="Card" />
+              <button
+                className={styles.mediaContentBackground}
+                onClick={() => togglePreview(false)}
+                type="button"
+              >
+                <Close aria-label="close modal" className={styles.closeIcon} />
+              </button>
+              <button
+                className={styles.mediaContentWrapper}
+                onClick={() => togglePreview(true)}
+                type="button"
+              >
+                <img
+                  className={styles.mediaContent}
+                  src={nft.media || '/images/content/card-pic-6.jpg'}
+                  alt="Card"
+                />
               </button>
             </div>
           </>
@@ -67,12 +83,20 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
               <track kind="captions" />
             </video>
           ) : (
-            <img className={styles.mediaContent} src={nft.media || '/images/content/card-pic-6.jpg'} alt="Card" />
+            <img
+              className={styles.mediaContent}
+              src={nft.media || '/images/content/card-pic-6.jpg'}
+              alt="Card"
+            />
           ))}
         {nft?.format === 'audio' &&
           (nft.animation ? (
             <>
-              <img className={styles.mediaContent} src={nft.media || '/images/content/card-pic-6.jpg'} alt="Card" />
+              <img
+                className={styles.mediaContent}
+                src={nft.media || '/images/content/card-pic-6.jpg'}
+                alt="Card"
+              />
               <audio controls>
                 <source
                   src={nft.animation}
@@ -82,7 +106,11 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
               </audio>
             </>
           ) : (
-            <img className={styles.mediaContent} src={nft.media || '/images/content/card-pic-6.jpg'} alt="Card" />
+            <img
+              className={styles.mediaContent}
+              src={nft.media || '/images/content/card-pic-6.jpg'}
+              alt="Card"
+            />
           ))}
       </div>
       <div className={styles.cardInfo}>
@@ -111,9 +139,13 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
           />
         ) : null}
         <AuthorComponent creator={nft?.creator} owners={nft?.owners} />
-        <DescriptionAndTagsComponent className={styles.description} tags={nft?.tags || []} body={nft?.description || ''} />
+        <DescriptionAndTagsComponent
+          className={styles.description}
+          tags={nft?.tags || []}
+          body={nft?.description || ''}
+        />
       </div>
-    </div >
+    </div>
   );
 };
 

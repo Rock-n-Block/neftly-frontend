@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import cx from 'classnames';
-import { Text, Avatar } from 'components';
+import { Avatar, Text } from 'components';
+import { IBaseInfo, IOwner, TOptionable } from 'typings';
+import { sliceString } from 'utils';
 
 import styles from './styles.module.scss';
-import { sliceString } from 'utils';
-import { IBaseInfo, IOwner, TOptionable } from 'typings';
 
 type Props = {
   className?: string;
@@ -13,7 +13,6 @@ type Props = {
 };
 
 const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
-  
   <div className={cx(styles.authorBlock, className)}>
     <div className={styles.user}>
       <Avatar
@@ -24,8 +23,8 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
         isVerified={creator?.is_verificated}
       />
       <div className={styles.text}>
-        <Text size='xs'>Creator</Text>
-        <Text size='xl'>{sliceString(creator?.name || '')}</Text>
+        <Text size="xs">Creator</Text>
+        <Text size="xl">{sliceString(creator?.name || '')}</Text>
       </div>
     </div>
     {owners && (
@@ -42,8 +41,8 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
                   isVerified={creator?.is_verificated}
                 />
                 <div className={styles.text}>
-                  <Text size='xs'>Owner</Text>
-                  <Text size='xl'>{sliceString(owner.name)}</Text>
+                  <Text size="xs">Owner</Text>
+                  <Text size="xl">{sliceString(owner.name)}</Text>
                 </div>
               </div>
             ))}
@@ -53,13 +52,13 @@ const AuthorComponent: FC<Props> = ({ className, creator, owners }) => (
             <Avatar
               className={styles.avatar}
               size="36"
-              id={creator?.id || ''}
-              avatar={creator?.avatar || ''}
-              isVerified={creator?.is_verificated}
+              id={owners?.id || ''}
+              avatar={owners?.avatar || ''}
+              isVerified={owners?.is_verificated}
             />
             <div className={styles.text}>
-              <Text size='xs'>Owner</Text>
-              <Text size='xl'>{sliceString(owners?.name || '')}</Text>
+              <Text size="xs">Owner</Text>
+              <Text size="xl">{sliceString(owners?.name || '')}</Text>
             </div>
           </div>
         )}

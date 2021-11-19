@@ -1,19 +1,18 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { routes } from 'appConstants';
 import cx from 'classnames';
-import { observer } from 'mobx-react-lite';
-
 import { ArtCard, Control, GiantCard, H3 } from 'components';
+import { LoadMore } from 'containers';
+import { useFetchNft, useLoadMore } from 'hooks';
+import { observer } from 'mobx-react-lite';
 import { storeApi } from 'services/api';
 import { useMst } from 'store';
 import { ICurrency, INft, TNullable } from 'typings';
-import { useLoadMore, useFetchNft } from 'hooks';
-import { LoadMore } from 'containers';
 
 import PriceHistory from './PriceHistory';
 
 import styles from './styles.module.scss';
-import { routes } from 'appConstants';
 // import GridLayer, { EGridJustify } from 'containers/GridLayer';
 
 const breadcrumbs = [
