@@ -15,7 +15,7 @@ import {
   Modal,
 } from 'components';
 import { AdvancedFilter } from 'containers';
-import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
+import { useFetchNft, useFilters, useInfiniteScroll, useWindowSize } from 'hooks';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { useMst } from 'store';
@@ -23,7 +23,8 @@ import { selectOptions } from 'typings';
 import { toFixed } from 'utils';
 
 import styles from './styles.module.scss';
-import useResize from 'hooks/useWindowSize';
+
+const mobileBreakPoint = 780;
 
 const Discover = observer(() => {
   const [isFilterOpen, setFilterOpen] = useState(true);
@@ -75,10 +76,10 @@ const Discover = observer(() => {
     isCanFetch: !isLoading,
   });
 
-  const { width } = useResize();
+  const { width } = useWindowSize();
 
-  useEffect(()=>{
-    if(width <= 780 && isFilterOpen){
+  useEffect(() => {
+    if (width <= mobileBreakPoint && isFilterOpen) {
       setFilterOpen(false)
     }
   }, [width, isFilterOpen])
@@ -96,7 +97,7 @@ const Discover = observer(() => {
 
   return (
     <div className={styles.discover}>
-      {width <= 780 && <Modal visible={isFilterOpen} onClose={() => setFilterOpen(false)} title="Advanced Filters">
+      {width <= mobileBreakPoint && <Modal visible={isFilterOpen} onClose={() => setFilterOpen(false)} title="Advanced Filters">
         <AdvancedFilter
           className={cx(styles.mobileAdvancedFilter)}
           filterSelectCurrencyOptions={filterSelectCurrencyOptions}
@@ -165,8 +166,8 @@ const Discover = observer(() => {
             <>
               <H3>{totalItems} results</H3>
               <div className={styles.filterResults}>
-                {nftCards.length
-                  ? nftCards.map((artCard: any) => {
+                {!!nftCards.length
+                  && nftCards.map((artCard: any) => {
                     const {
                       media,
                       name,
@@ -202,7 +203,7 @@ const Discover = observer(() => {
                       />
                     );
                   })
-                  : null}
+                }
               </div>
             </>}
         </div>

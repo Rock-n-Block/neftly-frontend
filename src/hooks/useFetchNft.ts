@@ -53,7 +53,7 @@ export const useFetchNft = (
       const refresh = page === 1;
       setLoading(true);
 
-      let boolIsVerified: boolean | undefined;
+      let boolIsVerified = false;
       switch (is_verified) {
         case 'verified':
           boolIsVerified = true;

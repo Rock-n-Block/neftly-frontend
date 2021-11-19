@@ -9,7 +9,7 @@ const useFetchTags = () => {
       const {
         data: { tags },
       } = await storeApi.getTags();
-      const fullTags = [...[{ title: 'All NFTs', icon: iconAllNFTs }], ...tags];
+      const fullTags = [{ title: 'All NFTs', icon: iconAllNFTs }, ...tags];
       rootStore.nftTags.setTags(fullTags);
     } catch (error) {
       console.log(error);
