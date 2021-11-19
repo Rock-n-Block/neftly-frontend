@@ -18,6 +18,7 @@ import { Arrow } from 'assets/img';
 import { Text } from '..';
 
 import styles from './styles.module.scss';
+import { EllipsisText } from 'components/Typography';
 
 const ROOT = document.querySelector('body');
 
@@ -31,7 +32,7 @@ const Select: FC<Props> = ({
   options,
   value,
   placeholder = '',
-  onChange = () => {},
+  onChange = () => { },
   label = '',
   customLabel = undefined,
   error = '',
@@ -260,9 +261,11 @@ const Select: FC<Props> = ({
         />
 
         {error && withErrorText && (
-          <Text size="xxs" color="red" align="right" className={styles.errorText}>
-            {error}
-          </Text>
+          <EllipsisText>
+            <Text size="xxs" color="red" align="right" className={styles.errorText}>
+              {error}
+            </Text>
+          </EllipsisText>
         )}
       </div>
     </div>

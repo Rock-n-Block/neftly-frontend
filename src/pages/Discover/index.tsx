@@ -1,10 +1,21 @@
 import { RefObject, useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { filter } from 'assets/img';
+import { FilterSVG } from 'assets/img';
 import cx from 'classnames';
-import { ArtCard, Button, H2, H3, LiveAuction, Select, TabLookingComponent } from 'components';
+import {
+  ArtCard,
+  Button,
+  H2,
+  H3,
+  Text,
+  LiveAuction,
+  Select,
+  TabLookingComponent,
+  Loader,
+  Modal,
+} from 'components';
 import { AdvancedFilter } from 'containers';
-import { useFetchNft, useFilters, useInfiniteScroll } from 'hooks';
+import { useFetchNft, useFilters, useInfiniteScroll, useWindowSize } from 'hooks';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { useMst } from 'store';
@@ -13,8 +24,10 @@ import { toFixed } from 'utils';
 
 import styles from './styles.module.scss';
 
+const mobileBreakPoint = 780;
+
 const Discover = observer(() => {
-  const [isFilterOpen, setFilterOpen] = useState(false);
+  const [isFilterOpen, setFilterOpen] = useState(true);
   const { user, nftTags } = useMst();
 
   const convertedTagsForComponents = nftTags.tags.map((tag) => {
@@ -47,6 +60,8 @@ const Discover = observer(() => {
     page,
     handlePage,
     isLoading,
+    defaultValues,
+    resetFilter,
   } = useFilters(filterTag);
 
   const [allPages, totalItems, nftCards, isNftsLoading] = useFetchNft({
@@ -54,12 +69,20 @@ const Discover = observer(() => {
     sort: 'items',
     order_by: orderByFilter.value,
     tags: tagsFilter === 'All NFTs' ? '' : tagsFilter,
-    max_price: maxPriceFilter,
+    max_price: +maxPriceFilter.value,
     currency: currencyFilter.value,
     is_verified: verifiedFilter.value,
     on_sale: true,
     isCanFetch: !isLoading,
   });
+
+  const { width } = useWindowSize();
+
+  useEffect(() => {
+    if (width <= mobileBreakPoint && isFilterOpen) {
+      setFilterOpen(false)
+    }
+  }, [width, isFilterOpen])
 
   const likeAction = useCallback(
     (id): Promise<any> => {
@@ -72,33 +95,53 @@ const Discover = observer(() => {
   );
   const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading || isNftsLoading);
 
-  useEffect(() => {
-    if (!nftCards.length) {
-      setFilterOpen(false);
-    }
-  }, [nftCards.length]);
-
   return (
     <div className={styles.discover}>
+      {width <= mobileBreakPoint && <Modal visible={isFilterOpen} onClose={() => setFilterOpen(false)} title="Advanced Filters">
+        <AdvancedFilter
+          className={cx(styles.mobileAdvancedFilter)}
+          filterSelectCurrencyOptions={filterSelectCurrencyOptions}
+          maxPrice={maxPrice}
+          maxPriceFilter={maxPriceFilter}
+          handleMaxPriceFilter={handleMaxPriceFilter}
+          currencyFilter={currencyFilter}
+          handleCurrencyFilter={handleCurrencyFilter}
+          verifiedFilter={verifiedFilter}
+          handleVerifiedFilter={handleVerifiedFilter}
+          defaultValues={defaultValues}
+          resetFilter={resetFilter}
+        />
+      </Modal>}
+
       <H2 className={styles.title}>
-        DISCOVER <span className={styles.gradientTitle}>ARTWORK</span>
+        <Text className={styles.discoverTitle} tag='span' size='inherit'>
+          DISCOVER
+        </Text>
+        <Text tag="span" size="inherit" color="primary">
+          ARTWORK
+        </Text>
       </H2>
       <div className={styles.filterControls}>
-        <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
-          Advanced Filter <img src={filter} className={styles.image} alt="" />
-        </Button>
-        <TabLookingComponent
-          tabClassName={styles.filterTab}
-          tabs={convertedTagsForComponents}
-          action={handleTagsFilter}
-          activeTab={tagsFilter}
-        />
-        <Select
-          onChange={handleOrderByFilter as any}
-          value={orderByFilter}
-          options={selectOptions}
-          classNameSelect={styles.select}
-        />
+        <div className={styles.filterBody}>
+          <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
+            <Text tag='span' color='inherit'>Advanced Filter</Text> <FilterSVG className={styles.icon} />
+          </Button>
+          <TabLookingComponent
+            wrapClassName={styles.tabArea}
+            tabClassName={styles.filterTab}
+            tabs={convertedTagsForComponents}
+            action={handleTagsFilter}
+            activeTab={tagsFilter}
+          />
+          <Select
+            className={styles.selectArea}
+            onChange={handleOrderByFilter as any}
+            value={orderByFilter}
+            options={selectOptions}
+            classNameSelect={styles.select}
+          />
+
+        </div>
       </div>
       <div className={cx(styles.filterAndCards, { [styles.open]: isFilterOpen })}>
         <AdvancedFilter
@@ -111,58 +154,63 @@ const Discover = observer(() => {
           handleCurrencyFilter={handleCurrencyFilter}
           verifiedFilter={verifiedFilter}
           handleVerifiedFilter={handleVerifiedFilter}
+          defaultValues={defaultValues}
+          resetFilter={resetFilter}
         />
         <div
           className={cx(styles.filterResultsContainer, {
             [styles.withFilter]: isFilterOpen,
           })}
         >
-          <H3>{totalItems} results</H3>
-          <div className={styles.filterResults}>
-            {nftCards.length
-              ? nftCards.map((artCard: any) => {
-                  const {
-                    media,
-                    name,
-                    price,
-                    currency,
-                    available,
-                    creator,
-                    like_count,
-                    tags,
-                    id,
-                    highest_bid,
-                    minimal_bid,
-                    bids,
-                    is_liked,
-                  } = artCard;
-                  return (
-                    <ArtCard
-                      artId={id}
-                      key={id}
-                      imageMain={media}
-                      name={name}
-                      price={price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid}
-                      asset={currency.symbol.toUpperCase()}
-                      inStockNumber={available}
-                      author={creator.name}
-                      authorAvatar={creator.avatar}
-                      authorId={creator.id}
-                      likesNumber={like_count}
-                      tags={tags}
-                      bids={bids}
-                      isLiked={is_liked}
-                      likeAction={likeAction}
-                    />
-                  );
-                })
-              : null}
-          </div>
+          {isNftsLoading ? <Loader /> :
+            <>
+              <H3>{totalItems} results</H3>
+              <div className={styles.filterResults}>
+                {!!nftCards.length
+                  && nftCards.map((artCard: any) => {
+                    const {
+                      media,
+                      name,
+                      price,
+                      currency,
+                      available,
+                      creator,
+                      like_count,
+                      tags,
+                      id,
+                      highest_bid,
+                      minimal_bid,
+                      bids,
+                      is_liked,
+                    } = artCard;
+                    return (
+                      <ArtCard
+                        artId={id}
+                        key={id}
+                        imageMain={media}
+                        name={name}
+                        price={price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid}
+                        asset={currency.symbol.toUpperCase()}
+                        inStockNumber={available}
+                        author={creator.name}
+                        authorAvatar={creator.avatar}
+                        authorId={creator.id}
+                        likesNumber={like_count}
+                        tags={tags}
+                        bids={bids}
+                        isLiked={is_liked}
+                        likeAction={likeAction}
+                      />
+                    );
+                  })
+                }
+              </div>
+            </>}
         </div>
       </div>
       <div ref={anchorRef as RefObject<HTMLDivElement>} />
       <LiveAuction className={styles.liveAuction} />
-    </div>
+    </div >
   );
 });
 

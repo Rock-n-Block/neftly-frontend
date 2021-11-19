@@ -1,4 +1,4 @@
-@import '../../styles/helpers.scss';
+@import "../../styles/helpers.scss";
 
 .scrollProvider {
   overflow-x: auto;
@@ -9,7 +9,7 @@
 }
 .scrollTip {
   position: absolute;
-  content: ' ';
+  content: " ";
   width: 10px;
   height: 80%;
   background: $color-primary;
@@ -20,11 +20,15 @@
 .tabContainer {
   position: relative;
   overflow-x: auto;
+  padding: 0 20px;
 }
 
 .tabWrapper {
   width: max-content;
   @include flexbox(center, space-around);
+  @include forTablet {
+    border-bottom: 1px solid $color-neutral-10;
+  }
 
   .tab {
     position: relative;
@@ -32,7 +36,7 @@
     height: 100%;
 
     &::before {
-      content: ' ';
+      content: " ";
 
       position: absolute;
       bottom: 0;
@@ -65,9 +69,11 @@
 }
 
 .tabIcon {
-  filter: brightness(100);
+  //filter: brightness(100);
 
   margin-right: 10px;
+  height: 26px;
+  width: auto;
 }
 
 .scrollProvider::-webkit-scrollbar {
