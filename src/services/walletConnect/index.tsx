@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { is_production } from 'config';
 import { observer } from 'mobx-react';
 import { connectTron, userApi } from 'services';
-import {WalletConnect} from 'services/walletService'
+import { WalletConnect } from 'services/walletService';
 import { rootStore } from 'store';
 import { chainsEnum } from 'typings';
 
@@ -104,6 +104,17 @@ class Connector extends React.Component<
                   is_production ? 'mainnet' : 'testnet'
                 } network in your wallet and try again`,
               );
+            },
+          );
+
+          const eventSubs = this.state.provider.connectWallet.eventSubscriber().subscribe(
+            (res: any) => {
+              console.log(res);
+            },
+            (err: any) => {
+              console.log(err);
+              eventSubs.unsubscribe();
+              this.disconnect();
             },
           );
         }
