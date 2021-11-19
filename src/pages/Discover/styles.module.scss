@@ -1,4 +1,4 @@
-@import "../../styles/helpers.scss";
+@import '../../styles/helpers.scss';
 
 .discover {
   &Title {
@@ -53,12 +53,19 @@
 
 
   .filter {
-    flex: 0 0 0%;
+    flex: 0 1 0;
     height: auto;
     border-top: 1px solid $color-neutral-10;
     border-right: 1px solid $color-neutral-10;
     transition: 200ms;
     transform: translateX(-100vw);
+
+    &.specClass{
+      display: none;
+      &.open{
+        display: block;
+      }
+    }
 
     &.open{
       transform: translateX(0);
@@ -116,8 +123,8 @@
       justify-content: center;
       margin-bottom: 20px;
       grid-template-areas:
-        "filter select"
-        "tab tab";
+        'filter select'
+        'tab tab';
 
       .advancedFilterBtn {
         grid-area: filter;
