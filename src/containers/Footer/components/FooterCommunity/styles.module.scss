@@ -1,0 +1,46 @@
+@import 'src/styles/helpers';
+
+.container {
+// TODO: Place your component styles here
+}
+
+.footerCommunity {
+  & > * {
+    margin-bottom: 24px;
+  }
+}
+
+.footerLogoLinks {
+  display: flex;
+
+  .footerIconLink {
+    @include flexbox();
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: $color-primary;
+
+    &:not(:last-child) {
+      margin-right: 24px;
+    }
+
+    &:hover {
+      filter: brightness(85%);
+    }
+  }
+}
+
+
+@include forTablet {
+  .footerLogoLinks {
+    .footerIconLink {
+      width: 40px;
+      height: 40px;
+  
+      &:not(:last-child) {
+        margin-right: 12px;
+      }
+    }
+  }
+}
+

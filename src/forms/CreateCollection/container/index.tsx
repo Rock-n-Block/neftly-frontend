@@ -71,7 +71,11 @@ export default observer(({ isSingle, onClose }: any) => {
                 } else {
                   toast.error('Create Collection failed');
                 }
+                storeApi.rejectTransaction({ type: 'collection', id: data.collection.id });
                 console.error('Wallet Create collection failure', response);
+              })
+              .finally(() => {
+                setFieldValue('isLoading', false);
               });
           } else {
             walletConnector.walletService
@@ -83,12 +87,13 @@ export default observer(({ isSingle, onClose }: any) => {
                 toast.success('Collection Created');
                 onClose();
               })
-              .catch(( response ) => {
+              .catch((response) => {
                 if (response && response.data && response.data.name) {
                   toast.error(response.data.name);
                 } else {
                   toast.error('Create Collection failed');
                 }
+                storeApi.rejectTransaction({ type: 'collection', id: data.collection.id });
                 console.error('Wallet Create collection failure', response);
               })
               .finally(() => {
@@ -101,7 +106,7 @@ export default observer(({ isSingle, onClose }: any) => {
           if (response && response.data && response.data.name) {
             toast.error(response.data.name);
           } else {
-            toast.error('Create Token failed');
+            toast.error('Create Collection failed');
           }
           console.error('Wallet Create collection failure', response);
         })
