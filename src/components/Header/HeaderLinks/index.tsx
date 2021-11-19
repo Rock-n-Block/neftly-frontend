@@ -93,7 +93,7 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
       {nav.map(({ url, title, active, disabled, isNested, internalLinks }) => {
         if (isNested && !disabled) {
           return (
-            <Popover position='center'>
+            <Popover position='center' key={title}>
               <Popover.Button className={`${styles.linkBtn} ${active && styles.active}`}>
                 <Text className={styles.linkTitle} size="m" color={active ? 'primary' : 'black'}>
                   {title}
