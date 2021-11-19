@@ -24,6 +24,7 @@ interface IProps {
 export const useFetchNft = (
   props: IProps,
   isDebounce = false,
+  isIntervalUpdate = false,
 ): [number, number, INft[], boolean, (textValue: string) => void] => {
   const {
     page,
@@ -113,9 +114,18 @@ export const useFetchNft = (
   ).current;
 
   useEffect(() => {
+    let interval: any = null;
     if (!isDebounce) {
       fetchSearch();
+      if (isIntervalUpdate && !interval) {
+        interval = setInterval(fetchSearch, 60000);
+      }
     }
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, [
     page,
     sort,
@@ -129,6 +139,7 @@ export const useFetchNft = (
     text,
     isDebounce,
     fetchSearch,
+    isIntervalUpdate,
   ]);
 
   return [allPages, totalItems, nftCards, isLoading, debouncedFetch];

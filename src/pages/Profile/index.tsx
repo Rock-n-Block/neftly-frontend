@@ -65,13 +65,17 @@ const ProfilePage: FC = observer(() => {
     isLoading: isFiltersLoading,
   } = useFilters();
 
-  const [allPages, totalItems, nftCards, isNftsLoading] = useFetchNft({
-    page,
-    sort: 'items',
-    [creatorOrOwner]: userId,
-    order_by: orderByFilter.value,
-    isOnlyForOwnerOrCreator: true,
-  });
+  const [allPages, totalItems, nftCards, isNftsLoading] = useFetchNft(
+    {
+      page,
+      sort: 'items',
+      [creatorOrOwner]: userId,
+      order_by: orderByFilter.value,
+      isOnlyForOwnerOrCreator: true,
+    },
+    false,
+    true,
+  );
 
   const [allPagesLiked, totalItemsLiked, nftCardsLicked, isLickesLoading] = useFetchLiked({
     page,
