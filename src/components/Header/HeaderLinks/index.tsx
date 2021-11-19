@@ -34,7 +34,7 @@ const HeaderNestedBody: FC<IHeaderNestedBodyProps> = ({ links, onClick }) => {
   };
   return (
     <>
-      {links?.map((tag) => (
+      {links?.length !== 0 && links?.map((tag) => (
         <Button
           className={styles.dropdownLink}
           key={tag.title}

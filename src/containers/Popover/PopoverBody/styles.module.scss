@@ -2,15 +2,16 @@
 
 .body {
   position: absolute;
-  top: 100%;
+  top: calc(100%);
 
   z-index: 999;
-  padding: 24px;
+  padding: 16px;
   background: $color-neutral-0;
   opacity: 0;
   /* Pop Up */
   box-shadow: $color-box-shadow;
   animation: showUser 0.4s forwards;
+  border-radius: $border-radius;
 
   .triangle {
     position: absolute;
@@ -25,7 +26,7 @@
     right: 0;
 
     & .triangle {
-      right: 0;
+      right: 5px;
     }
   }
   &.center {
@@ -41,7 +42,7 @@
     left: 0;
 
     & .triangle{
-      left: 0;
+      left: 5px;
     }
   }
 }

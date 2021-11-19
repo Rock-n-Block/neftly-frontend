@@ -2,6 +2,7 @@
 
 .headerNavigation {
   @include flexbox;
+  margin-left: auto;
   flex-basis: 30%;
   gap: 30px;
   height: 100%;
@@ -10,6 +11,7 @@
 .linkBtn {
   height: 100%;
   position: relative;
+  border-radius: 0;
 
   &::after {
     position: absolute;
@@ -33,6 +35,8 @@
 .dropdownLink {
   @include flexbox(center, flex-start);
   width: 100%;
+  border-radius: 0;
+
   &:first-of-type {
     padding-top: 0;
   }

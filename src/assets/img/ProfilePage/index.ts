@@ -4,3 +4,8 @@ export { default as profile_avatar_example } from './profile_avatar_example.png'
 export { default as profile_page_bg_example } from './profile_page_bg_example.png';
 export { ReactComponent as NullAvatar } from './Profile.svg';
 export { default as NullAvatarSrc } from './Profile.svg';
+export { ReactComponent as Favorite } from './Favorite.svg';
+export { ReactComponent as Collections } from './Collections.svg';
+export { ReactComponent as ProfileUser } from './ProfileUser.svg';
+export { ReactComponent as Settings } from './Settings.svg';
+export { ReactComponent as Disconnect } from './Disconnect.svg';
