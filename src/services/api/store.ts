@@ -25,7 +25,8 @@ export default {
   // saveCollection: (data: any, tx_hash: string) => axios.post(`store/save_collection/${tx_hash}`, data),
   getExplore: (page: number, filter: string, sort: string) =>
     axios.get(
-      `store/hot/${page}/?network=${localStorage.nftcrowd_nft_chainName}&sort=${sort}${filter !== 'all' ? `&tag=${filter}` : ''
+      `store/hot/${page}/?network=${localStorage.nftcrowd_nft_chainName}&sort=${sort}${
+        filter !== 'all' ? `&tag=${filter}` : ''
       }`,
     ),
   getTags: () =>
@@ -111,7 +112,7 @@ export default {
       },
       {
         params: {
-          network: localStorage.nftcrowd_nft_chainName,
+          network: localStorage.nftcrowd_nft_chainName || 'undefined',
           sort,
           order_by,
           owner,
@@ -128,7 +129,8 @@ export default {
   },
   getFee: (currency: TNullable<string>) =>
     axios.get(
-      `/store/fee/?network=${localStorage.nftcrowd_nft_chainName}${currency ? `&currency=${currency}` : ''
+      `/store/fee/?network=${localStorage.nftcrowd_nft_chainName}${
+        currency ? `&currency=${currency}` : ''
       }`,
     ),
   setCollectionCover: (file: any, id: string) => {

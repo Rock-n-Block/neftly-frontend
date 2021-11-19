@@ -16,6 +16,8 @@ interface IProps {
   activeCollectionId: number;
   onChange: (value: number) => void;
   className?: string;
+  isRefresh: boolean;
+  setIsRefresh: (value: boolean) => void;
 }
 
 interface ICollection {
@@ -25,7 +27,7 @@ interface ICollection {
 }
 
 const ChooseCollection: React.FC<IProps> = observer(
-  ({ isSingle, activeCollectionId, onChange, className }) => {
+  ({ isSingle, activeCollectionId, onChange, className, isRefresh, setIsRefresh }) => {
     const { user } = useMst();
 
     const [collections, setCollections] = useState<ICollection[]>([]);
@@ -56,21 +58,22 @@ const ChooseCollection: React.FC<IProps> = observer(
             newCollections.find((collection: any) => collection.is_default).id,
           );
         })
-        .catch((err) => console.error(err, 'get single'));
-    }, [handleCollectionChange, isSingle]);
+        .catch((err) => console.error(err, 'get single'))
+        .finally(() => setIsRefresh(false));
+    }, [handleCollectionChange, isSingle, setIsRefresh]);
 
     const handleOpenModal = () => {
       setIsModalVisible(true);
     };
 
     useEffect(() => {
-      if (user.address) {
+      if (user.address && isRefresh) {
         getCollections();
       }
       // getCollections forces api requests on each keystroke in form
       // TODO: rework this component
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user.address]);
+    }, [user.address, isRefresh]);
 
     return (
       <div className={cn(styles.cards, className)}>

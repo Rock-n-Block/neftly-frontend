@@ -53,7 +53,7 @@
     margin-top: 12px;
   }
 
-  &:first-child {
+  &:last-child {
     border-bottom: 1px solid $color-neutral-60;
   }
 
@@ -93,4 +93,12 @@
   &:not(:last-child) {
     margin-bottom: 8px;
   }
+}
+
+.prefix {
+  @include flexbox(center, flex-start);
+  padding-left: 16px;
+  width: 92px;
+  height: 38px;
+  border-right: 2px solid $color-neutral-40;
 }

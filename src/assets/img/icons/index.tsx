@@ -26,6 +26,7 @@ export { default as iconCloudUpload } from './icon-cloud-upload.svg';
 export { default as iconPropAdd } from './icon-prop-add.svg';
 export { default as iconPropRemove } from './icon-prop-delete.svg';
 export { ReactComponent as IconCoin } from './icon-coin.svg';
+export { ReactComponent as IconRefresh } from './icon-refresh.svg';
 export { ReactComponent as IconEth } from './icon-eth.svg';
 export { ReactComponent as IconDashboard } from './icon-dashboard.svg';
 export { ReactComponent as IconSettings } from './icon-settings.svg';
