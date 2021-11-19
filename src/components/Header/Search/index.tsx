@@ -31,6 +31,7 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
     {
       text: inputValue,
       page: searchResultPage,
+      is_verified: 'All',
     },
     true,
   );
@@ -77,7 +78,7 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
                     id,
                   } = nft;
                   return (
-                    <li className={styles.searchItem}>
+                    <li className={styles.searchItem} key={`${nft.creator}-${nft.name}`}>
                       <Link to={routes.nft.link(id)} onClick={() => setInputValue('')} key={index}>
                         <SearchTag
                           image={media}
@@ -96,6 +97,7 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
                 color="transparent"
                 className={styles.viewResults}
                 to={routes.discover.input(inputValue)}
+                onClick={clearInput}
               >
                 <Text color="primary">View result</Text>
               </Link>

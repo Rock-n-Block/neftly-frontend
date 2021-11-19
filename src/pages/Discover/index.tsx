@@ -41,8 +41,9 @@ const Discover = observer(() => {
   //const wrapRef = useRef<HTMLDivElement>(null);
 
   const { search } = useLocation();
-  const filterTag = search.includes('tags') ? search.replace(/^(.*?text)=/, '') : '';
-  const textSearch = search.replace(/^(.*?text)=/, '');
+  const filterTag =
+    search.includes('tags') || search.includes('filters') ? search.replace(/^(.*?)=/, '') : '';
+  const textSearch = search.includes('text') ? search.replace(/^(.*?text)=/, '') : '';
 
   const handleOpenFilter = useCallback(() => {
     setFilterOpen(!isFilterOpen);
