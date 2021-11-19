@@ -218,4 +218,5 @@ export default {
         network: localStorage.nftcrowd_nft_chainName,
       },
     }),
+  rejectTransaction: (data: any) => axios.post('/store/remove-reject/', data),
 };

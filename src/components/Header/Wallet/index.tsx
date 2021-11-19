@@ -1,17 +1,16 @@
-import {FC, useCallback, useEffect} from 'react';
-import {wallet} from 'assets/img';
+import { FC, useCallback, useEffect } from 'react';
+import { wallet } from 'assets/img';
 import cn from 'classnames';
-import {Button, EllipsisText, H6, Text} from 'components';
-import {chains} from 'config';
-import {usePopover, useUserBalance} from 'hooks';
-import {observer} from 'mobx-react';
-import {useMst} from 'store';
-import {chainsEnum} from 'typings';
-import {toFixed} from 'utils';
-
+import { Button, EllipsisText, H6, Text } from 'components';
+import { chains } from 'config';
+import { usePopover, useUserBalance } from 'hooks';
+import { observer } from 'mobx-react';
+import { useMst } from 'store';
+import { chainsEnum } from 'typings';
+import { toFixed } from 'utils';
 
 import styles from './Wallet.module.scss';
-import {Popover} from "containers";
+import { Popover } from 'containers';
 
 // import Theme from '../../Theme';
 
@@ -40,22 +39,22 @@ const WalletBody: FC = observer(() => {
       MAIN = 'MATIC';
       WRAP = 'WMATIC';
   }
-  const {user, modals: {swap}} = useMst();
-  const {closePopover} = usePopover();
-
-  // const [refresh, setRefresh] = useState(false);
+  const {
+    user,
+    modals: { swap },
+  } = useMst();
+  const { closePopover } = usePopover();
 
   const imageSrc =
     chains[chains[chainsEnum[localStorage.nftcrowd_nft_chainName as chainsEnum]].name].provider[
       localStorage.nftcrowd_nft_providerName
-      ].img;
-  const balanceMain = useUserBalance(user.address, MAIN, swap.refresh);
+    ].img;
+  const balanceMain = useUserBalance(user.address, MAIN, swap.refresh, true);
   user.setBalance(balanceMain, 'eth');
-  const balanceWrap = useUserBalance(user.address, WRAP, swap.refresh);
+  const balanceWrap = useUserBalance(user.address, WRAP, swap.refresh, true);
   user.setBalance(balanceWrap, 'weth');
 
   const handleOpenModal = useCallback(async () => {
-    // setVisibleModal(true);
     swap.open(MAIN, WRAP, false);
     closePopover();
   }, [closePopover, swap]);
@@ -67,9 +66,9 @@ const WalletBody: FC = observer(() => {
   return (
     <>
       <div className={styles.body}>
-        <div className={styles.triangle}/>
+        <div className={styles.triangle} />
         <div className={styles.walletLogo}>
-          <img src={imageSrc} alt="Wallet Logo"/>
+          <img src={imageSrc} alt="Wallet Logo" />
           <Text className={styles.provider} size="m">
             {localStorage.nftcrowd_nft_providerName}
           </Text>
@@ -98,18 +97,17 @@ const WalletBody: FC = observer(() => {
         </Button>
       </div>
     </>
-  )
+  );
 });
 
-const Wallet: FC<IUserProps> = observer(({className}) => {
-
+const Wallet: FC<IUserProps> = observer(({ className }) => {
   return (
     <Popover className={cn(styles.wallet, className)}>
       <Popover.Button>
-        <img src={wallet} alt="Avatar"/>
+        <img src={wallet} alt="Avatar" />
       </Popover.Button>
       <Popover.Body>
-        <WalletBody/>
+        <WalletBody />
       </Popover.Body>
     </Popover>
   );

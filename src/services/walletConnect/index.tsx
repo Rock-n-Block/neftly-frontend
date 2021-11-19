@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { is_production } from 'config';
 import { observer } from 'mobx-react';
 import { connectTron, userApi } from 'services';
-import {WalletConnect} from 'services/walletService'
+import { WalletConnect } from 'services/walletService';
 import { rootStore } from 'store';
 import { chainsEnum } from 'typings';
 
@@ -106,6 +106,17 @@ class Connector extends React.Component<
               );
             },
           );
+
+          const eventSubs = this.state.provider.connectWallet.eventSubscriber().subscribe(
+            (res: any) => {
+              console.log(res);
+            },
+            (err: any) => {
+              console.log(err);
+              eventSubs.unsubscribe();
+              this.disconnect();
+            },
+          );
         }
       } catch (err) {
         console.error(err);
@@ -115,11 +126,11 @@ class Connector extends React.Component<
   };
 
   disconnect() {
-    rootStore.user.disconnect();
     delete localStorage.nftcrowd_nft_chainName;
     delete localStorage.nftcrowd_nft_providerName;
     delete localStorage.walletconnect;
     delete localStorage.nftcrowd_nft_token;
+    rootStore.user.disconnect();
 
     this.props.history.push('/');
   }

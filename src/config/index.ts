@@ -8,22 +8,16 @@ import {
   walletConnectImg,
 } from 'assets/img';
 import { chainsEnum, IConnectWallet, IContracts } from 'typings';
+import { INetwork } from '@amfi/connect-wallet/dist/interface';
 
-import {
-  bep20Abi,
-  erc20Abi,
-  nftAbi,
-  wbnbTestnetAbi,
-  wethTestnetAbi,
-  wTrx,
-} from './abi';
+import { bep20Abi, erc20Abi, nftAbi, wbnbTestnetAbi, wethTestnetAbi, wTrx } from './abi';
 
 export const is_production = false;
 
 export const chains: {
   [key: string]: {
     name: chainsEnum;
-    chainId: number;
+    network: INetwork;
     provider: {
       [key: string]: any;
     };
@@ -33,7 +27,10 @@ export const chains: {
 } = {
   [chainsEnum.Ethereum]: {
     name: chainsEnum.Ethereum,
-    chainId: is_production ? 1 : 4,
+    network: {
+      chainName: chainsEnum.Ethereum,
+      chainID: is_production ? 1 : 4,
+    },
     img: ethLogo,
     explorer: is_production ? '' : '',
     provider: {
@@ -57,7 +54,19 @@ export const chains: {
   },
   [chainsEnum['Binance-Smart-Chain']]: {
     name: chainsEnum['Binance-Smart-Chain'],
-    chainId: is_production ? 56 : 97,
+    network: {
+      chainID: is_production ? 56 : 97,
+      chainName: is_production ? 'Binance Smart Chain' : 'Binance Smart Chain Testnet',
+      nativeCurrency: {
+        name: 'BNB',
+        symbol: 'BNB',
+        decimals: 18,
+      },
+      rpc: is_production
+        ? 'https://bsc-dataseed.binance.org/'
+        : 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+      blockExplorerUrl: is_production ? 'https://bscscan.com' : 'https://testnet.bscscan.com',
+    },
     img: bnbLogo,
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
@@ -81,7 +90,19 @@ export const chains: {
   },
   [chainsEnum.Polygon]: {
     name: chainsEnum.Polygon,
-    chainId: is_production ? 137 : 80001,
+    network: {
+      chainID: is_production ? 137 : 80001,
+      chainName: chainsEnum.Polygon,
+      nativeCurrency: {
+        name: 'MATIC',
+        symbol: 'MATIC',
+        decimals: 18,
+      },
+      rpc: is_production ? 'https://rpc-mainnet.maticvigil.com/' : 'https://rpc-mumbai.matic.today',
+      blockExplorerUrl: is_production
+        ? 'https://explorer.matic.network/'
+        : 'https://explorer-mumbai.maticvigil.com/',
+    },
     img: polygonLogo,
     provider: {
       MetaMask: { name: 'MetaMask', img: metamaskImg },
@@ -93,8 +114,8 @@ export const chains: {
           rpc: {
             rpc: {
               [is_production ? 137 : 80001]: is_production
-                ? 'https://bsc-dataseed.binance.org/'
-                : 'https://data-seed-prebsc-2-s1.binance.org:8545/',
+                ? 'https://rpc-mainnet.maticvigil.com/'
+                : 'https://rpc-mumbai.matic.today',
             },
             chainId: is_production ? 137 : 80001,
           },
@@ -105,7 +126,10 @@ export const chains: {
   },
   [chainsEnum.Tron]: {
     name: chainsEnum.Tron,
-    chainId: is_production ? 1 : 0,
+    network: {
+      chainName: chainsEnum.Tron,
+      chainID: 0,
+    },
     img: tronChain,
     provider: {
       TronLink: { name: 'TronLink', img: tronLink },
@@ -124,10 +148,7 @@ export const connectWallet = (
   return {
     wallets: ['MetaMask', 'WalletConnect'],
     blockchains: ['Ethereum', 'Binance Smart Chain', 'Polygon'],
-    network: {
-      name: chain.name.toString(),
-      chainID: chain.chainId,
-    },
+    network: chain.network,
     provider: chain.provider,
     settings: { providerType: true },
   };

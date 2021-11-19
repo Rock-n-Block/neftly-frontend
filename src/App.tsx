@@ -1,8 +1,8 @@
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { Footer, Header } from 'components';
-import { Modals, Routes, ScrollToTop } from 'containers';
+import { Header } from 'components';
+import { Footer, Modals, Routes, ScrollToTop } from 'containers';
 import { useFetchTags } from 'hooks';
 
 import Connector from './services/walletConnect';
