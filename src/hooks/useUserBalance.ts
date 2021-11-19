@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { contracts, is_production } from 'config';
 import { getTronBalance } from 'services/tron';
-import { getTronContract } from 'utils';
+import { getTokenAmountDisplay, getTronContract } from 'utils';
 
 import { useWalletConnectorContext, WalletConnect } from 'services';
 
@@ -36,6 +36,8 @@ export default (
     req.then((data: string | number) => {
       if (currency.toUpperCase() === 'TRX') {
         setBalance(data.toString());
+      } else if (currency.toUpperCase() === 'WTRX') {
+        setBalance(getTokenAmountDisplay(data.toString(), 6));
       } else {
         setBalance(WalletConnect.weiToEth(data.toString()));
       }

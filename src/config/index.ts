@@ -234,7 +234,7 @@ export const contracts: IContracts = {
         abi: wTrx,
       },
       testnet: {
-        address: '41d351e1784dc2ba00b6011924c515dcfce4501488',
+        address: 'TLi1ygS2MEr926gyFUWYNxeBJ24yVGDZse',
         abi: wTrx,
       },
     },
