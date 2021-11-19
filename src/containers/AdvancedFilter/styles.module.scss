@@ -1,15 +1,27 @@
-@import '../../styles//helpers.scss';
+@import 'src/styles/helpers';
 
 .advancedFilter {
-  padding: 32px;
+  padding: 44px 32px 24px;
   width: 300px;
   height: fit-content;
   background: $color-bg;
-  border: 3px solid $color-neutral-20;
   z-index: 10;
+  
+  @include forDesktopSm{
+    padding: 0;
+    width: 100%;
+  }
 
   & > * {
     margin-bottom: 30px;
+  }
+
+  &Applied{
+    @include flexbox(center, space-between);
+
+    .clearBtn{
+      color: $color-primary;
+    }
   }
 }
 
@@ -78,4 +90,7 @@
   width: 42px;
   height: 42px;
   // background-color: $color-neutral-80;
+}
+.label{
+  opacity: 0.7;
 }

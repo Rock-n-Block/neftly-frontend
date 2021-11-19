@@ -35,7 +35,7 @@ export const useFetchUser = (props: IProps) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isSelf, setIsSelf] = useState(false);
 
-  const fetchUser = () => {
+  const fetchUser = useCallback(() => {
     setLoading(true);
     userApi
       .getUser({ id })
@@ -48,7 +48,7 @@ export const useFetchUser = (props: IProps) => {
       .finally(() => {
         setLoading(false);
       });
-  };
+  }, [id, setLoading, successCallback]);
 
   const checkIsFollowed = useCallback(() => {
     return !!user.followers.find((follower) => follower.id.toString() === myUser.id.toString());
@@ -64,8 +64,7 @@ export const useFetchUser = (props: IProps) => {
 
   useEffect(() => {
     fetchUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id, fetchUser]);
 
   useEffect(() => {
     if (!myUser.id) {
@@ -74,7 +73,6 @@ export const useFetchUser = (props: IProps) => {
     setIsFollowed(checkIsFollowed());
     setIsFollowing(checkIsFollowing());
     setIsSelf(checkIsSelf());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkIsFollowed, checkIsFollowing, checkIsSelf, myUser.id]);
 
   return {
