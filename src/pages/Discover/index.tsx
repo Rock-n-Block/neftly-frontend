@@ -25,8 +25,7 @@ const Discover = observer(() => {
   });
 
   const { search } = useLocation();
-  const filterTag = search.replace(/^(.*?text)=/, '');
-  console.log(filterTag);
+  const filterTag = search.includes('tags') ? search.replace(/^(.*?text)=/, '') : '';
   const textSearch = search.replace(/^(.*?text)=/, '');
 
   const handleOpenFilter = useCallback(() => {

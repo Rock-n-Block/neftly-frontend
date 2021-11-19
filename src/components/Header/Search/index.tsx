@@ -82,7 +82,7 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
                         <SearchTag
                           image={media}
                           title={name}
-                          price={price}
+                          price={price || '?'}
                           asset={symbol}
                           isAuction={is_auc_selling}
                           inStock={total_supply}
