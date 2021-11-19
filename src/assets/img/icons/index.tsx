@@ -1,6 +1,7 @@
 export * from './social';
 export * from './wallets';
 export * from './chains';
+export * from './socialNew';
 export { default as iconArrowDown } from './icon-arrow-down.svg';
 export { default as iconArrowDownBlue } from './icon-arrow-down-blue.svg';
 export { default as iconClose } from './icon-close.svg';

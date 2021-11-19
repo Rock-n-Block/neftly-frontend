@@ -1,0 +1,172 @@
+@import 'src/styles/helpers';
+
+.footer {
+  background: $color-bg2;
+}
+
+.footerContent {
+  margin: 0 auto;
+  padding: 88px 88px 20px 88px;
+  max-width: 1500px;
+}
+
+.controlAndSocial {
+  display: flex;
+  & > * {
+    &:first-child {
+      margin-right: 40px;
+      flex-basis: 50%;
+    }
+  }
+}
+
+.linksAndLogo {
+  @include flexbox(flex-start, space-between);
+
+  .footerLogo {
+    flex-basis: 25%;
+    @include flexbox(flex-start, flex-start);
+    flex-direction: column;
+    max-width: 320px;
+
+    .footerLogoChild {
+      margin-bottom: 24px;
+    }
+
+    .logo {
+      margin-bottom: 32px;
+      * {
+        color: $color-neutral-0 !important;
+      }
+    }
+  }
+
+  .linkBlockContainer {
+    @include flexbox(flex-start, space-around);
+    flex-basis: 75%;
+    width: 100%;
+
+    .linkBlock {
+      @include flexbox(flex-start, flex-start);
+      flex-direction: column;
+    
+    
+      .footerBtnLink {
+        margin: 4px 0;
+        @include flexbox(center, flex-start);
+      }
+    
+      & > * {
+        margin-bottom: 24px;
+      }
+    }
+  }
+}
+
+
+.footerLinks {
+  flex-basis: 50%;
+  @include flexbox(flex-start, center);
+
+  & > .linkBlock {
+    &:not(:last-child) {
+      margin-right: 100px;
+    }
+  }
+}
+
+.footerActions {
+  flex-basis: 25%;
+
+  margin-bottom: 64px;
+
+  & > * {
+    margin-bottom: 24px;
+  }
+
+  input {
+    color: $color-neutral-0;
+  }
+}
+
+.footerIconLinks {
+  margin-top: 32px;
+}
+
+.connect {
+  .connectText {
+    @include poppins;
+    &:hover {
+      color: $color-action-hovered;
+    }
+  }
+}
+
+.copyrightBlock {
+  height: 100px;
+  @include flexbox(center, space-between);
+  border-top: 1px solid $color-neutral-80;
+
+  .copytrightLinks {
+    @include flexbox();
+  
+    .copyRightLink {
+      margin: 0 4px;
+    }
+  }
+}
+
+@include forDesktopBig {
+  .footerContent {
+    padding: 44px 44px 10px 44px;
+  }
+}
+
+@include forDesktopSm {
+  .footerContent {
+    padding: 32px 32px 0 32px;
+  }
+
+  .controlAndSocial {
+    @include flexbox();
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+
+  .linksAndLogo {
+    @include flexbox();
+    flex-direction: column;
+    padding: 24px 0;
+    border-top: 1px solid $color-neutral-80;
+
+    .footerLogo {
+      max-width: unset;
+    }
+  
+    .linkBlockContainer {
+      flex-wrap: wrap;
+      border-top: 1px solid $color-neutral-80;
+  
+      .linkBlock {
+        margin: 24px 0;
+        align-items: flex-start;
+        flex-basis: 50%;
+              
+        .footerBtnLink {
+          margin: 4px 0;
+        }
+      
+        & > * {
+          margin-bottom: 24px;
+        }
+      }
+    }
+  }
+
+  .copyrightBlock {
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+
