@@ -26,7 +26,7 @@ import styles from './CreateCollectibleDetails.module.scss';
 import { ratesApi } from 'services';
 import BigNumber from 'bignumber.js/bignumber';
 
-const royaltiesOptions = ['10%', '20%', '30%'];
+const royaltiesOptions = ['10', '20', '30'];
 
 interface IRate {
   rate: string;
@@ -47,7 +47,7 @@ export interface ICreateForm {
   description: string;
   price: number;
   minimalBid: number;
-  creatorRoyalty: '10%' | '20%' | '30%';
+  creatorRoyalty: '10' | '20' | '30';
   collection: number;
   details: IProperti[];
   selling: boolean;
@@ -424,7 +424,8 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           setValue={(value) => setFieldValue('creatorRoyalty', value)}
                           options={royaltiesOptions}
                           className={styles.dropdown}
-                          value={`${values.creatorRoyalty}`}
+                          value={`${values.creatorRoyalty}%`}
+                          withPercent
                         />
                       )}
                     />

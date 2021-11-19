@@ -7,21 +7,6 @@ import styles from './UploadVariants.module.scss';
 import { Button, H2, Text } from 'components';
 import { routes } from 'appConstants';
 
-// const items = [
-//   {
-//     key: 'single',
-//     url: routes.create.single,
-//     buttonText: 'Create Single',
-//     image: upload,
-//   },
-//   {
-//     key: 'multiple',
-//     url: routes.create.multiple,
-//     buttonText: 'Create Multiple',
-//     image: upload,
-//   },
-// ];
-
 const Upload: FC = () => {
   return (
     <div className={styles.upload}>
@@ -37,16 +22,6 @@ const Upload: FC = () => {
             </Text>
           </div>
           <div className={styles.list}>
-            {/* {items.map((option) => (
-              <Link className={styles.item} key={`upload_option_${option.key}`} to={option.url}>
-                <div className={styles.preview}>
-                  <img src={option.image} alt="Upload" />
-                </div>
-                <Button color="blue" className={styles.button}>
-                  {option.buttonText}
-                </Button>
-              </Link>
-            ))} */}
             <Link className={styles.item} to={routes.create.single}>
               <div className={styles.preview}>
                 <img src={upload} alt="Upload" />

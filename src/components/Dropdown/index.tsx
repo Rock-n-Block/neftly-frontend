@@ -15,6 +15,7 @@ interface IDropdownProps {
   isWithImage?: boolean;
   isWritable?: boolean;
   name?: string;
+  withPercent?: boolean;
 }
 
 const Dropdown: FC<IDropdownProps> = ({
@@ -25,6 +26,7 @@ const Dropdown: FC<IDropdownProps> = ({
   isWithImage,
   isWritable,
   name,
+  withPercent = false,
 }) => {
   const [visible, setVisible] = useState(false);
 
@@ -69,6 +71,7 @@ const Dropdown: FC<IDropdownProps> = ({
                     key={`dropdown_option_${option}`}
                   >
                     {option}
+                    {withPercent && '%'}
                   </div>
                 ))
               : options.map((option) => (
