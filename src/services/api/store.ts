@@ -1,5 +1,6 @@
 import axios from 'core/axios';
 import { TNullable } from 'typings';
+import { IGetSearchResultParams } from '../../typings/api/search';
 
 export default {
   burnToken: (id: string, amount?: string) =>
@@ -24,11 +25,15 @@ export default {
   // saveCollection: (data: any, tx_hash: string) => axios.post(`store/save_collection/${tx_hash}`, data),
   getExplore: (page: number, filter: string, sort: string) =>
     axios.get(
-      `store/hot/${page}/?network=${localStorage.nftcrowd_nft_chainName}&sort=${sort}${
-        filter !== 'all' ? `&tag=${filter}` : ''
+      `store/hot/${page}/?network=${localStorage.nftcrowd_nft_chainName}&sort=${sort}${filter !== 'all' ? `&tag=${filter}` : ''
       }`,
     ),
-  getTags: () => axios.get(`store/tags/?network=${localStorage.nftcrowd_nft_chainName}`),
+  getTags: () =>
+    axios.get(`store/tags/`, {
+      params: {
+        network: localStorage.nftcrowd_nft_chainName,
+      },
+    }),
   getFavorites: () => axios.get(`store/favorites/?network=${localStorage.nftcrowd_nft_chainName}`),
   getCollections: () =>
     // TODO: add period
@@ -60,7 +65,7 @@ export default {
     axios.get(`store/owned/${address}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`),
   getUserCollections: (address: string, page: number) =>
     axios.get(`store/collections/${address}/${page}/`),
-  getSearchResults: (queries: any, text?: string) => {
+  /* getSearchResults: (queries: any, text?: string) => {
     const queriesCopy = { ...queries };
     switch (queriesCopy.is_verified) {
       case 'All':
@@ -85,11 +90,45 @@ export default {
     return axios.post(`/store/search/${query}`, {
       text: text || '',
     });
+  },*/
+  getSearchResults: ({
+    sort,
+    order_by,
+    owner,
+    on_sale,
+    text,
+    tags,
+    currency,
+    is_verified,
+    max_price,
+    page,
+    creator,
+  }: IGetSearchResultParams) => {
+    return axios.post(
+      `/store/search/`,
+      {
+        text: text || '',
+      },
+      {
+        params: {
+          network: localStorage.nftcrowd_nft_chainName,
+          sort,
+          order_by,
+          owner,
+          on_sale,
+          currency,
+          is_verified,
+          max_price,
+          page,
+          creator,
+          tags,
+        },
+      },
+    );
   },
   getFee: (currency: TNullable<string>) =>
     axios.get(
-      `/store/fee/?network=${localStorage.nftcrowd_nft_chainName}${
-        currency ? `&currency=${currency}` : ''
+      `/store/fee/?network=${localStorage.nftcrowd_nft_chainName}${currency ? `&currency=${currency}` : ''
       }`,
     ),
   setCollectionCover: (file: any, id: string) => {

@@ -105,9 +105,30 @@ $minHeight: 250px;
   }
 }
 
+.valuesWrapper{
+  position: relative;
+  width: 100%;
+  margin-bottom: 28px;
+
+  .max,
+  .min{
+    position: absolute;
+    top: 5px;
+  }
+
+  .max{
+    right: 0;
+  }
+
+  .min{
+    left: 0;
+  }
+}
+
 .sliderContainer {
   width: 100%;
   @include flexbox;
+  flex-direction: column;
 }
 
 .manageBtn {
@@ -179,16 +200,14 @@ $minHeight: 250px;
 }
 
 .valueInput {
-  padding-left: 12px;
-
-  min-width: 130px;
-  height: 30px;
-
-  font-size: 14px;
+  padding: 8px 16px 8px 16px;
+  width: 100%;
+  
+  font-size: 16px;
 
   color: $color-neutral-100;
   background-color: transparent;
-  border: 1px solid $color-neutral-20;
+  border: 2px solid $color-neutral-20;
   border-radius: 6px;
 
   -moz-appearance: textfield;

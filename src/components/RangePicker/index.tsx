@@ -1,8 +1,8 @@
-import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { Switcher, Text } from 'components';
 import { debounce } from 'lodash';
-import Slider from 'rc-slider';
+import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { validateOnlyNumbers } from 'utils';
 
 import 'rc-slider/assets/index.css';
@@ -26,7 +26,10 @@ type Props = {
   onChange?: (value: number) => void;
   onSwitcher?: (value: boolean) => void;
   isDebounce?: boolean;
+  currency?: string;
 };
+
+const TooltipSlider = createSliderWithTooltip(Slider);
 
 const RangePicker: FC<Props> = ({
   top,
@@ -42,13 +45,19 @@ const RangePicker: FC<Props> = ({
   className,
   classNameWrap,
   valueSwitcher,
-  onChange = () => {},
-  onSwitcher = () => {},
+  onChange = () => { },
+  onSwitcher = () => { },
   isDebounce,
+  currency
 }) => {
   const [localValue, setLocalValue] = useState('');
 
   const [debouncedCallApi] = useState(() => debounce(onChange, 1000));
+
+
+  useEffect(() => {
+    setLocalValue(value.toString());
+  }, [value])
 
   const handleChangeRange = useCallback(
     (val: number) => {
@@ -82,10 +91,10 @@ const RangePicker: FC<Props> = ({
           className={styles.valueInput}
           onChange={handleChangeInput}
         />
-        <Text className={styles.maxValue}>{max}</Text>
+        {/*<Text className={styles.maxValue}>{max} {currency?.toUpperCase()}</Text>*/}
       </div>
     ),
-    [top, value, max, handleChangeInput, localValue],
+    [top, value, handleChangeInput, localValue],
   );
 
   return (
@@ -140,7 +149,7 @@ const RangePicker: FC<Props> = ({
           </button>
         )}
 
-        <Slider
+        <TooltipSlider
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore (rc-slider show that className invalid prop, but exist
           className={cx(styles.slider, 'rc-slider-wrap', className)}
@@ -153,12 +162,17 @@ const RangePicker: FC<Props> = ({
           railStyle={
             isVertical
               ? {
-                  width: 6,
-                  backgroundColor: 'white',
-                }
+                width: 6,
+                backgroundColor: 'white',
+              }
               : {}
           }
         />
+
+        <div className={styles.valuesWrapper}>
+          <Text weight='bold' tag='span' className={styles.min}>{min} {currency?.toUpperCase()}</Text>
+          <Text weight='bold' tag='span' className={styles.max}>{max} {currency?.toUpperCase()}</Text>
+        </div>
 
         {isManageBtnVisible && (
           <button
