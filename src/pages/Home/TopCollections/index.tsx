@@ -6,8 +6,7 @@ import CollectionCard from './CollectionCard';
 
 import styles from './styles.module.scss';
 import { OptionType } from 'typings';
-import TitleDropdown from "./TitleDropdown";
-import { toFixed } from 'utils';
+import TitleDropdown from './TitleDropdown';
 
 type Props = {
   className?: string;
@@ -32,7 +31,7 @@ const TopCollections: FC<Props> = ({ className }) => {
   const fetchTopCollections = useCallback(() => {
     //TODO: add fetchTopCollections request
     activityApi
-      .getTopUsers({ type: 'seller', sortPeriod: period.value })
+      .getTopCollections({ type: 'seller', sortPeriod: period.value })
       .then(({ data }: any) => setCollections(data));
   }, [period.value]);
 
@@ -46,18 +45,17 @@ const TopCollections: FC<Props> = ({ className }) => {
         <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions} />
       </H2>
       <div className={`${styles.collections} ${collections.length !== 0 && styles.open}`}>
-
         <ol className={styles.collectionsWrapper}>
           {collections.map((collection, index) => (
             <CollectionCard
               key={`collection-${collection.name}`}
-              avatar={collection.avatar}
+              avatar={collection.collection.avatar}
               isVerified={collection.is_verified}
-              id={collection.id}
+              id={collection.collection.id}
               index={index + 1}
-              name={collection.name}
+              name={collection.collection.name}
               price={collection.price}
-              profitIncrease={toFixed(12345.678, 2)}
+              profitIncrease={collection.difference || '0'}
             />
           ))}
         </ol>

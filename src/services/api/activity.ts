@@ -51,6 +51,16 @@ export default {
         network: localStorage?.nftcrowd_nft_chainName,
       },
     }),
+
+  getTopCollections: ({ type, sortPeriod }: TTopUserReq) =>
+    axios.get('/activity/top-collections/', {
+      params: {
+        type,
+        sort_period: sortPeriod,
+        network: localStorage?.nftcrowd_nft_chainName,
+      },
+    }),
+
   getPriceHistory: (
     id: string,
     period: TPriceHistoryPeriod,

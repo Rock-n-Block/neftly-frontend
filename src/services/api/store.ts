@@ -45,7 +45,11 @@ export default {
     }),
   getHotBids: () => axios.get(`store/hot_bids/?network=${localStorage.nftcrowd_nft_chainName}`),
   getCollectionById: (id: number | string, page: number) =>
-    axios.get(`store/collection/${id}/${page}/?network=${localStorage.nftcrowd_nft_chainName}`),
+    axios.get(`store/collection/${id}/?network=${localStorage.nftcrowd_nft_chainName}`, {
+      params: {
+        page,
+      },
+    }),
   getToken: (id: number | string) =>
     axios.get(`store/${id}/?network=${localStorage.nftcrowd_nft_chainName}`),
   buyToken: (id: number | string, amount: number, sellerId?: string | number) => {
