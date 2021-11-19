@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
-import { Button, H2 } from 'components';
+import { H2 } from 'components';
 import { activityApi } from 'services';
 import CollectionCard from './CollectionCard';
 
@@ -62,7 +62,6 @@ const TopCollections: FC<Props> = ({ className }) => {
           ))}
         </ol>
       </div>
-      <Button className={styles.goRankingBtn}>Go to Rankings</Button>
     </div >
   );
 };
