@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from 'react';
 import { Close, Zoom } from 'assets/img';
 import cx from 'classnames';
-import { EllipsisText, H2 } from 'components';
+import { EllipsisText, H2, Skeleton } from 'components';
 import { useGetUserAccessForNft, useNoScroll } from 'hooks';
 import { observer } from 'mobx-react-lite';
 import AuthorComponent from 'pages/Home/HotAuction/components/AuthorComponent';
@@ -18,9 +18,10 @@ type Props = {
   name: string;
   nft: TNullable<INft>;
   onUpdateNft?: () => void;
+  isFetching?: boolean;
 };
 
-const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
+const GiantCard: FC<Props> = ({ isFetching, className, nft, onUpdateNft }) => {
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const setScroll = useNoScroll();
 
@@ -47,34 +48,38 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
   return (
     <div className={cx(styles.giantCard, className)}>
       <div className={styles.contentWrapper}>
-        {nft?.format === 'image' && (
-          <>
-            <div className={styles.contentOverlay}>
-              <div className={styles.zoomWrapper}>
-                <Zoom />
+        {isFetching ? (
+          <Skeleton />
+        ) : (
+          nft?.format === 'image' && (
+            <>
+              <div className={styles.contentOverlay}>
+                <div className={styles.zoomWrapper}>
+                  <Zoom />
+                </div>
               </div>
-            </div>
-            <div className={`${styles.previewBlock} ${showPreview && styles.fullscreen}`}>
-              <button
-                className={styles.mediaContentBackground}
-                onClick={() => togglePreview(false)}
-                type="button"
-              >
-                <Close aria-label="close modal" className={styles.closeIcon} />
-              </button>
-              <button
-                className={styles.mediaContentWrapper}
-                onClick={() => togglePreview(true)}
-                type="button"
-              >
-                <img
-                  className={styles.mediaContent}
-                  src={nft.media || '/images/content/card-pic-6.jpg'}
-                  alt="Card"
-                />
-              </button>
-            </div>
-          </>
+              <div className={`${styles.previewBlock} ${showPreview && styles.fullscreen}`}>
+                <button
+                  className={styles.mediaContentBackground}
+                  onClick={() => togglePreview(false)}
+                  type="button"
+                >
+                  <Close aria-label="close modal" className={styles.closeIcon} />
+                </button>
+                <button
+                  className={styles.mediaContentWrapper}
+                  onClick={() => togglePreview(true)}
+                  type="button"
+                >
+                  <img
+                    className={styles.mediaContent}
+                    src={nft.media || '/images/content/card-pic-6.jpg'}
+                    alt="Card"
+                  />
+                </button>
+              </div>
+            </>
+          )
         )}
         {nft?.format === 'video' &&
           (nft.animation ? (
@@ -100,7 +105,7 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
               <audio controls>
                 <source
                   src={nft.animation}
-                // type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+                  // type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
                 />
                 <track kind="captions" />
               </audio>
@@ -113,10 +118,15 @@ const GiantCard: FC<Props> = ({ className, nft, onUpdateNft }) => {
             />
           ))}
       </div>
+
       <div className={styles.cardInfo}>
-        <EllipsisText className={styles.cardName}>
-          <H2>{nft?.name || ''}</H2>
-        </EllipsisText>
+        {isFetching ? (
+          <Skeleton width="30%" height="25px" />
+        ) : (
+          <EllipsisText className={styles.cardName}>
+            <H2>{nft?.name || ''}</H2>
+          </EllipsisText>
+        )}
         <ViewsAndControlsComponent
           className={styles.detailedViewsAndControl}
           likes={nft?.like_count || 0}

@@ -43,8 +43,9 @@ const TitleDropdown: FC<IProps> = ({ options, value, setValue, className }) => {
           <div className={`${styles.triangle}`} />
           <ul className={cn(styles.body, { [styles.activeDropdown]: isOpen })}>
             {options.map((option) => (
-              <li>
+              <li key={option.value}>
                 <div
+                  key={option.value}
                   tabIndex={0}
                   role="button"
                   onKeyDown={() => {}}

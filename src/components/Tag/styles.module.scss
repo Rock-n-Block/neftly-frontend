@@ -1,17 +1,58 @@
-@import 'src/styles/helpers';
+@import "src/styles/helpers";
 
 .container {
   // TODO: Place your component styles here
 }
 
 .tag {
-  padding: 1px 8px;
+  padding: 5px 10px 5px 5px;
   @include flexbox;
   width: fit-content;
+  border-radius: 16px;
 
   & > img {
     margin-right: 3px;
   }
+}
+
+.VirtualWorlds,
+.Utility {
+  background: $color-actions-dark-green;
+  color: $color-actions-light-green;
+  background: $color-bg;
+}
+
+.Photography,
+.Sports {
+  background: $color-actions-dark-pink;
+  color: $color-actions-light-pink;
+  background: $color-bg;
+}
+
+.Featured,
+.New{
+  background: $color-actions-dark-red;
+  color: $color-actions-red;
+  background: $color-bg;
+}
+
+.Collections,
+.Music{
+  background: $color-actions-dark-yellow;
+  color: $color-actions-light-yellow;
+  background: $color-bg;
+}
+
+.Art{
+  background: $color-actions-dark-purple;
+  color: $color-actions-light-purple;
+  background: $color-bg;
+}
+
+.DomainNames{
+  background: $color-actions-dark-blue;
+  color: $color-actions-light-blue;
+  background: $color-bg;
 }
 
 .rare {
@@ -40,4 +81,5 @@
 
 .tagText {
   text-transform: capitalize;
+  white-space: nowrap;
 }

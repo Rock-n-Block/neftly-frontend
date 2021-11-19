@@ -1,45 +1,73 @@
-@import '../../styles/helpers.scss';
+@import "../../styles/helpers.scss";
 
 .discover {
-  @include container;
+  &Title {
+    margin-right: 24px;
+
+    @include forDesktopSm {
+      margin-right: 0;
+    }
+  }
 }
 
-.filterControls {
+.filterBody {
+  @include container;
   @include flexbox(center, space-between);
-
   .advancedFilterBtn {
     padding: 0 20px;
+    color: $color-neutral-80 !important;
+    border: 2px solid $color-neutral-10 !important;
+    &:hover {
+      background: rgba($color-neutral-10, 0.5) !important;
+    }
+
+    & .icon {
+      margin-left: 10px;
+    }
+
     &Empty {
       width: 170px;
     }
   }
 
   .filterTab {
-    padding: 20px 15px;
+    padding: 24px 15px;
+    box-shadow: inset 0px -1px 0px transparent;
   }
 }
 
-.filterAndCards {
+.filterControls {
+  border-bottom: 1px solid $color-neutral-10;
   position: relative;
-  // min-height: 620px;
-  @include flexbox(flex-start, flex-end);
-  padding: 44px 0;
-  min-height: 50vh;
+  top: 1px;
+}
 
+.filterAndCards {
+  @include container;
+  position: relative;
+  min-height: 50vh;
   transition: 200ms;
+  transform: translateX(0);
+  @include flexbox(normal, normal);
+  gap: 32px;
+
 
   .filter {
-    position: absolute;
-    left: 0;
+    flex: 0 0 0%;
+    height: auto;
+    border-top: 1px solid $color-neutral-10;
+    border-right: 1px solid $color-neutral-10;
     transition: 200ms;
     transform: translateX(-100vw);
 
-    &.open {
+    &.open{
       transform: translateX(0);
+      flex: 0 0 300px;
     }
   }
 
   .filterResultsContainer {
+    margin-top: 44px;
     flex-basis: 100%;
 
     .filterResults {
@@ -56,8 +84,59 @@
   }
 }
 
-.mobileAdvancedFilter {
+.modal {
   display: none;
+
+  @include forDesktopSm {
+    display: block;
+  }
+}
+
+@include forDesktopSm {
+  .filter {
+    display: none;
+  }
+
+  .filterAndCards {
+    padding: 0 18px;
+    .filterResultsContainer {
+      &.withFilter {
+        flex-basis: 100%;
+      }
+    }
+  }
+
+  .filterControls {
+    border-bottom: 1px solid transparent;
+
+    .filterBody {
+      padding: 0 24px;
+      display: grid;
+      gap: 18px;
+      justify-content: center;
+      margin-bottom: 20px;
+      grid-template-areas:
+        "filter select"
+        "tab tab";
+
+      .advancedFilterBtn {
+        grid-area: filter;
+        padding: 0 5px;
+      }
+
+      .tabArea {
+        grid-area: tab;
+      }
+
+      .selectArea {
+        grid-area: select;
+      }
+
+      .select {
+        width: auto;
+      }
+    }
+  }
 }
 
 .title {
@@ -67,6 +146,7 @@
 }
 
 .liveAuction {
+  @include container;
   margin-top: 100px;
 }
 
@@ -93,7 +173,11 @@
 
 .title {
   text-align: center;
-  margin: 44px 0 20px;
+  @include container;
+  margin-top: 44px;
+  margin-bottom: 20px;
+  @include flexbox;
+  flex-wrap: wrap;
 }
 
 @include forDesktopSm {
@@ -107,16 +191,6 @@
 
   .mobileAdvancedFilter {
     display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateX(-100%);
-    transition: 300ms;
-    z-index: 10;
-
-    &.open {
-      transform: translateX(0);
-    }
   }
 
   .filterResults,
@@ -129,7 +203,7 @@
     &.withFilter {
       flex-basis: 100%;
       .filterResults {
-        @include flexbox(center, center);
+        @include autoGrid;
       }
     }
   }

@@ -34,7 +34,7 @@ const HeaderNestedBody: FC<IHeaderNestedBodyProps> = ({ links, onClick }) => {
   };
   return (
     <>
-      {links?.map((tag) => (
+      {links?.length !== 0 && links?.map((tag) => (
         <Button
           className={styles.dropdownLink}
           key={tag.title}
@@ -93,9 +93,9 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
       {nav.map(({ url, title, active, disabled, isNested, internalLinks }) => {
         if (isNested && !disabled) {
           return (
-            <Popover>
-              <Popover.Button>
-                <Text weight="medium" size="m" color={active ? 'primary' : 'black'}>
+            <Popover position='center' key={title}>
+              <Popover.Button className={`${styles.linkBtn} ${active && styles.active}`}>
+                <Text className={styles.linkTitle} size="m" color={active ? 'primary' : 'black'}>
                   {title}
                 </Text>
               </Popover.Button>
@@ -112,6 +112,7 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
               key={title}
               color="transparent"
               onClick={() => handleMenuItemClick(url)}
+              className={`${styles.linkBtn} ${active && styles.active}`}
             >
               <Text weight="medium" size="m" color={active ? 'primary' : 'black'}>
                 {title}

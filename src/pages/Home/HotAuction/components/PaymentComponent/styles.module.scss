@@ -14,6 +14,10 @@
   font-weight: 600;
   width: auto;
   padding: 7.5px 72px;
+  @include forDesktopSm{
+    padding: 8px 12px;
+    width: 100%;
+  }
 }
 
 .priceWrapper {

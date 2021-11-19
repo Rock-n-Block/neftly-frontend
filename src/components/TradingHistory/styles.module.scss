@@ -1,4 +1,4 @@
-@import 'src/styles/helpers';
+@import "src/styles/helpers";
 
 .history {
   height: 100%;
@@ -27,7 +27,7 @@
   overflow-y: auto;
 }
 
-.soldOut{
+.soldOut {
   margin-top: 24px;
 }
 
@@ -46,12 +46,24 @@
   }
 }
 
+.tableHistoryCell {
+  @include flexbox(center, space-between);
+}
+
 .tableWrapper::-webkit-scrollbar {
   height: 4px;
 }
 
 .tableWrapper::-webkit-scrollbar-track {
-  background: linear-gradient(0deg, transparent 0%, transparent 20%, rgba(102,214,218,0.4) 20%, rgba(102,214,218,0.4) 80%, transparent 80%, transparent 100%);
+  background: linear-gradient(
+    0deg,
+    transparent 0%,
+    transparent 20%,
+    rgba(102, 214, 218, 0.4) 20%,
+    rgba(102, 214, 218, 0.4) 80%,
+    transparent 80%,
+    transparent 100%
+  );
 }
 
 .tableWrapper::-webkit-scrollbar-thumb {
@@ -64,7 +76,15 @@
 }
 
 .tableWrapper::-webkit-scrollbar-track:vertical {
-  background: linear-gradient(90deg, transparent 0%, transparent 20%, rgba(102,214,218,0.4) 20%, rgba(102,214,218,0.4) 80%, transparent 80%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 20%,
+    rgba(102, 214, 218, 0.4) 20%,
+    rgba(102, 214, 218, 0.4) 80%,
+    transparent 80%,
+    transparent 100%
+  );
 }
 
 .tableWrapper::-webkit-scrollbar-thumb:vertical {

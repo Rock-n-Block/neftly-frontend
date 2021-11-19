@@ -9,6 +9,8 @@ type Props = {
   className?: string;
   type: 'rare' | 'featured' | 'auction';
   auctionEndTime?: string;
+  media?: string;
+  value?: string;
 };
 
 const helperObject = {
@@ -17,10 +19,10 @@ const helperObject = {
   auction: '',
 };
 
-const Tag: FC<Props> = ({ className, type, auctionEndTime = '1:52:09' }) => (
-  <div className={cx(styles[type], className)}>
-    <img src={helperObject[type]} alt="" />
-    <Text className={styles.tagText}>{type !== 'auction' ? type : `${auctionEndTime} left`}</Text>
+const Tag: FC<Props> = ({ className, type, auctionEndTime = '1:52:09', media, value }) => (
+  <div className={cx(styles[type], styles.tag, className, styles[value?.split(' ').join('') || 'default'])}>
+    <img src={media || helperObject[type]} alt="" />
+    <Text color='inherit' className={styles.tagText}>{type !== 'auction' ? value : `${auctionEndTime} left`}</Text>
   </div>
 );
 

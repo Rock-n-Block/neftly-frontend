@@ -1,14 +1,14 @@
 import { FC, useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import { useLocation } from 'react-router-dom';
+import { routes } from 'appConstants';
 import { Art, Folders, Heart, Me } from 'assets/img';
 import cn from 'classnames';
-import { Text, TabLookingComponent } from 'components';
+import { TabLookingComponent, Text } from 'components';
 import { useFetchLiked, useFetchNft, useFilters, useTabs } from 'hooks';
 import { observer } from 'mobx-react';
 import { userApi } from 'services';
 import { useMst } from 'store';
-
 import { IExtendedInfo } from 'typings';
 
 import { About, Artworks, Favorited } from './Tabs';
@@ -16,35 +16,43 @@ import UserMainInfo from './UserMainInfo';
 
 import s from './ProfilePage.module.scss';
 
-const tabs = [
-  {
-    title: 'Created',
-    key: 'created',
-    icon: <Art />,
-  },
-  {
-    title: 'Owned',
-    key: 'owned',
-    icon: <Folders />,
-  },
-  {
-    title: 'Favorited',
-    key: 'favorited',
-    icon: <Heart />,
-  },
-  {
-    title: 'About Me',
-    key: 'about',
-    icon: <Me />,
-  },
-];
-
 const ProfilePage: FC = observer(() => {
   const { user } = useMst();
   const { userId } = useParams<{ userId: string }>();
   const initialTab = useLocation().search?.replace('?tab=', '') || '';
-  const { activeTab, setActiveTab } = useTabs(tabs, initialTab);
   const [currentUser, setCurrentUser] = useState<IExtendedInfo>({} as IExtendedInfo);
+
+  const tabs = useMemo(
+    () => [
+      {
+        title: 'Created',
+        key: 'created',
+        icon: <Art />,
+        url: routes.profile.link(userId, 'created'),
+      },
+      {
+        title: 'Owned',
+        key: 'owned',
+        icon: <Folders />,
+        url: routes.profile.link(userId, 'owned'),
+      },
+      {
+        title: 'Favorited',
+        key: 'favorited',
+        icon: <Heart />,
+        url: routes.profile.link(userId, 'favorited'),
+      },
+      {
+        title: 'About Me',
+        key: 'about',
+        icon: <Me />,
+        url: routes.profile.link(userId, 'about'),
+      },
+    ],
+    [userId],
+  );
+
+  const { activeTab, setActiveTab } = useTabs(tabs, initialTab);
 
   const creatorOrOwner = useMemo(() => {
     switch (activeTab) {
@@ -72,6 +80,7 @@ const ProfilePage: FC = observer(() => {
       [creatorOrOwner]: userId,
       order_by: orderByFilter.value,
       isOnlyForOwnerOrCreator: true,
+      is_verified: 'All',
     },
     false,
     true,

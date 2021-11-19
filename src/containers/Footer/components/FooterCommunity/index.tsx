@@ -45,7 +45,7 @@ const FooterCommunity: FC<Props> = ({ className }) => {
       <div className={styles.footerLogoLinks}>
         {helperObject.map(({ icon, link }) => {
           return (
-            <a href={link} className={styles.footerIconLink}>
+            <a href={link} key={link+icon} className={styles.footerIconLink}>
               <img src={icon} alt={icon} />
             </a>
           );

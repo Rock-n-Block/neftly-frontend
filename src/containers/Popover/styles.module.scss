@@ -3,4 +3,5 @@
 .popoverContainer {
   position: relative;
   @include flexbox;
+  height: 100%;
 }

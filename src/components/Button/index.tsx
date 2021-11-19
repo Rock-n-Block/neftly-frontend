@@ -16,7 +16,6 @@ type Props = {
   onClick?: (event: any) => void;
   type?: 'button' | 'submit';
   disabled?: boolean;
-  // icon?: IconNames;
   icon?: string;
   loading?: boolean;
   onMouseLeave?: (event: any) => void;
