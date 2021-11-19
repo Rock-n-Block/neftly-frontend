@@ -24,7 +24,8 @@
 
   color: $color-neutral-100;
   background: none;
-  border: 2px solid $color-neutral-10;
+  border-radius: 12px;
+  border: 2px solid $color-neutral-40;
 
   transition: border-color 0.2s;
 
@@ -69,16 +70,17 @@
 }
 
 .field .wrap .inputButton {
+  padding: 0;
   position: absolute;
   right: 3px;
 
-  width: 35px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
 
   transform: rotate(180deg);
 
   & > img {
-    filter: brightness(0) saturate(100%);
+    filter: brightness(400) saturate(0%);
   }
 }
 
