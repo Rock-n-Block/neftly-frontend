@@ -1,20 +1,19 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { routes } from 'appConstants';
 import cx from 'classnames';
-import { observer } from 'mobx-react-lite';
-
 import { ArtCard, Control, GiantCard, H3 } from 'components';
+import { LoadMore } from 'containers';
+import GridLayer, { EGridJustify } from 'containers/GridLayer';
+import { useFetchNft, useLoadMore } from 'hooks';
+import { observer } from 'mobx-react-lite';
 import { storeApi } from 'services/api';
 import { useMst } from 'store';
 import { ICurrency, INft, TNullable } from 'typings';
-import { useLoadMore, useFetchNft } from 'hooks';
-import { LoadMore } from 'containers';
 
 import PriceHistory from './PriceHistory';
 
 import styles from './styles.module.scss';
-import { routes } from 'appConstants';
-import GridLayer, { EGridJustify } from 'containers/GridLayer';
 
 const breadcrumbs = [
   {
@@ -59,8 +58,8 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
       .catch((err) => {
         history.push('/');
         console.error(err);
-      }).finally(() => setIsFetching(false));
-
+      })
+      .finally(() => setIsFetching(false));
   }, [id, history, setIsFetching]);
 
   useEffect(() => getItem(), [getItem]);
@@ -81,7 +80,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     remove.isSuccess,
     sell.putOnSale.isSuccess,
   ]);
-  
+
   return (
     <div className={cx(styles.detailArtwork, className)}>
       <div className={styles.detailArtworkContent}>
@@ -102,7 +101,13 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
             handleLoadMore={handleLoadMore}
           >
             <div ref={wrapRef} className={styles.artCardsWrapper}>
-              <GridLayer gap={40} wrapperRef={wrapRef} minWidth={250} minHeight={350} justify={EGridJustify.center}>
+              <GridLayer
+                gap={40}
+                wrapperRef={wrapRef}
+                minWidth={250}
+                minHeight={350}
+                justify={EGridJustify.center}
+              >
                 {nftCards
                   .filter((art) => art.id !== Number(id))
                   .map((art) => {

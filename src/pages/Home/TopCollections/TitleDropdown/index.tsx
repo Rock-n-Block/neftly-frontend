@@ -1,9 +1,10 @@
 import { FC, useState } from 'react';
-import { OptionType } from 'typings';
-import cn from 'classnames';
-import styles from './styles.module.scss';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { iconArrowDownBlue } from 'assets/img';
+import cn from 'classnames';
+import { OptionType } from 'typings';
+
+import styles from './styles.module.scss';
 
 interface IProps {
   options: OptionType[];
@@ -27,13 +28,11 @@ const TitleDropdown: FC<IProps> = ({ options, value, setValue, className }) => {
         <div
           tabIndex={0}
           role="button"
-          onKeyDown={() => {
-          }}
+          onKeyDown={() => {}}
           onClick={() => setIsOpen((prevState) => !prevState)}
           className={styles.selected}
         >
-          last{' '}
-          {value.label}
+          last {value.label}
           <img
             src={iconArrowDownBlue}
             alt=""
@@ -49,8 +48,7 @@ const TitleDropdown: FC<IProps> = ({ options, value, setValue, className }) => {
                   key={option.value}
                   tabIndex={0}
                   role="button"
-                  onKeyDown={() => {
-                  }}
+                  onKeyDown={() => {}}
                   onClick={() => handleOptionClick(option)}
                   className={styles.option}
                 >

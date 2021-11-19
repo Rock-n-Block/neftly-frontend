@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const useTabs = (allTabs: any[], initialTab?: string) => {
-  const [activeTab, setActiveTab] = useState(initialTab || allTabs[0].key);
+  const [activeTab, setActiveTab] = useState(initialTab || allTabs[0]?.key);
   const location = useLocation();
 
   useEffect(() => {
@@ -11,8 +11,7 @@ const useTabs = (allTabs: any[], initialTab?: string) => {
     if (currentTab !== activeTab) {
       setActiveTab(currentTab);
     }
-    
-  }, [location.search, activeTab, setActiveTab])
+  }, [location.search, activeTab, setActiveTab]);
 
   return { activeTab, setActiveTab };
 };

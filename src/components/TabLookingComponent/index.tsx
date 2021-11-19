@@ -8,6 +8,7 @@ export interface ITab {
   key: string;
   title: string;
   icon?: JSX.Element | string;
+  url?: string;
 }
 
 type Props = {
@@ -20,6 +21,7 @@ type Props = {
 };
 
 const TabLookingComponent: FC<Props> = ({ className, activeTab, tabs, action, tabClassName, wrapClassName }) => {
+
   const handleClick = (key: string) => {
     action(key);
   };
@@ -40,11 +42,12 @@ const TabLookingComponent: FC<Props> = ({ className, activeTab, tabs, action, ta
     <div className={cx(styles.tabContainer, wrapClassName, { [styles.scrollTips]: getIsScrollTips() })}>
       <div ref={scrollProviderRef} className={styles.scrollProvider}>
         <div ref={tabWrapperRef} className={cx(styles.tabWrapper, className)}>
-          {tabs.map(({ title, icon, key }) => (
+          {tabs.map(({ title, icon, key, url }) => (
             <Button
               onClick={() => handleClick(key)}
               color="transparent"
               key={title}
+              href={url}
               className={cx(styles.tab, { [styles.selected]: key === activeTab }, tabClassName)}
             >
               {icon && typeof icon === 'string' ? (

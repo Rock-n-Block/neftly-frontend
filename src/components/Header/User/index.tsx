@@ -6,20 +6,19 @@ import { routes } from 'appConstants';
 import { Collections, Disconnect, Favorite, ProfileUser, Settings } from 'assets/img';
 import cn from 'classnames';
 import { Loader, Text } from 'components';
+import { Popover } from 'containers';
+import { usePopover } from 'hooks';
 import { observer } from 'mobx-react';
 import { useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
 
 import styles from './User.module.scss';
-import { Popover } from "containers";
-import { usePopover } from "hooks";
 
 interface IUserProps {
   className?: string;
 }
 
 const UserBody: FC<{ user: any }> = ({ user }) => {
-
   const dropdownOptions = useMemo(
     () => [
       {
@@ -54,17 +53,11 @@ const UserBody: FC<{ user: any }> = ({ user }) => {
   const { closePopover } = usePopover();
   const walletConnector = useWalletConnectorContext();
   return (
-
     <ul className={styles.menu}>
       {dropdownOptions.map((option, index) => {
         if (option.url?.startsWith('http')) {
           return (
-            <a
-              className={styles.item}
-              href={option.url}
-              rel="noopener noreferrer"
-              key={index}
-            >
+            <a className={styles.item} href={option.url} rel="noopener noreferrer" key={index}>
               <div className={styles.icon}>{option.icon}</div>
               <div className={styles.text}>{option.title}</div>
             </a>
@@ -79,7 +72,9 @@ const UserBody: FC<{ user: any }> = ({ user }) => {
             replace
           >
             <div className={styles.icon}>{option.icon}</div>
-            <Text className={styles.text} weight="medium" size="m">{option.title}</Text>
+            <Text className={styles.text} weight="medium" size="m">
+              {option.title}
+            </Text>
           </Link>
         ) : (
           <div
@@ -88,26 +83,25 @@ const UserBody: FC<{ user: any }> = ({ user }) => {
             key={nextId()}
             onClick={() => walletConnector.disconnect()}
             role="button"
-            onKeyDown={() => {
-            }}
+            onKeyDown={() => {}}
           >
             <div className={styles.icon}>{option.icon}</div>
-            <Text className={styles.text} weight="medium" size="m">{option.title}</Text>
+            <Text className={styles.text} weight="medium" size="m">
+              {option.title}
+            </Text>
           </div>
         );
       })}
     </ul>
-
-  )
-}
+  );
+};
 
 const User: FC<IUserProps> = observer(({ className }) => {
   const { user } = useMst();
   return (
     <Popover className={cn(styles.user, className)}>
       <Popover.Button className={styles.popoverBtn}>
-        {user.avatar ? <img src={user.avatar} alt="Avatar" /> :
-          <Loader />}
+        {user.avatar ? <img src={user.avatar} alt="Avatar" /> : <Loader />}
       </Popover.Button>
       <Popover.Body className={styles.popoverBody}>
         <UserBody user={user} />

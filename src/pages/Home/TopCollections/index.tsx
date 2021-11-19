@@ -62,6 +62,7 @@ const TopCollections: FC<Props> = ({ className }) => {
           ))}
         </ol>
       </div>
+      {/*<Button className={styles.goRankingBtn}>Go to Rankings</Button>*/}
     </div >
   );
 };
