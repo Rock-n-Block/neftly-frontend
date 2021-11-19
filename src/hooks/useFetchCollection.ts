@@ -36,7 +36,7 @@ export const useFetchCollection = (
     const refresh = page === 1;
     setLoading(true);
     storeApi
-      .getCollection(collectionId, page)
+      .getCollectionById(collectionId, page)
       .then(({ data }: any) => {
         setCollection(data);
         const filteredTokens =
