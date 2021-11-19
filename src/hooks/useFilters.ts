@@ -7,18 +7,15 @@ const DEFAULT_FILTER_STATE = {
   order_by: '-date',
   tags: 'All NFTs',
   max_price: 0,
-  currency: 'weth',
+  currency: 'All',
   page: 1,
   is_verificated: 'All',
 };
-
-
 
 const defaultValues = DEFAULT_FILTER_STATE;
 export type TDefaultValues = typeof defaultValues;
 
 const useFilters = (filterTag = '') => {
-
   const [isMaxPriceLoading, setMaxPriceLoading] = useState(false);
   const [isRatesLoading, setRatesLoading] = useState(false);
 
@@ -29,18 +26,18 @@ const useFilters = (filterTag = '') => {
   });
   const [currencyFilter, setCurrencyFilter] = useState({
     value: DEFAULT_FILTER_STATE.currency,
-    label: 'WETH',
-    field: 'currency'
+    label: 'All',
+    field: 'currency',
   });
   const [likesFilter, setLikesFilter] = useState({
     value: '',
     label: '',
-    field: 'likes'
+    field: 'likes',
   });
   const [verifiedFilter, setVerifiedFilter] = useState({
     value: DEFAULT_FILTER_STATE.is_verificated,
     label: DEFAULT_FILTER_STATE.is_verificated,
-    field: 'is_verificated'
+    field: 'is_verificated',
   });
   const [orderByFilter, setOrderByFilter] = useState<OptionType>({
     value: DEFAULT_FILTER_STATE.order_by,
@@ -54,31 +51,31 @@ const useFilters = (filterTag = '') => {
   const [maxPrice, setMaxPrice] = useState(DEFAULT_FILTER_STATE.max_price);
 
   const handleMaxPriceFilter = useCallback((value: number) => {
-    setMaxPriceFilter(prev => ({
+    setMaxPriceFilter((prev) => ({
       ...prev,
       value: value.toString(),
-      label: `0 ETH - ${value} ETH`
+      label: `0 ETH - ${value} ETH`,
     }));
   }, []);
 
   const handleCurrencyFilter = useCallback((value: OptionType) => {
-    setCurrencyFilter(prev => ({
+    setCurrencyFilter((prev) => ({
       ...prev,
-      ...value
+      ...value,
     }));
   }, []);
 
   const handleLikesFilter = useCallback((value: OptionType) => {
-    setLikesFilter(prev => ({
+    setLikesFilter((prev) => ({
       ...prev,
-      ...value
+      ...value,
     }));
   }, []);
 
   const handleVerifiedFilter = useCallback((value: OptionType) => {
-    setVerifiedFilter(prev => ({
+    setVerifiedFilter((prev) => ({
       ...prev,
-      ...value
+      ...value,
     }));
   }, []);
 
@@ -99,39 +96,42 @@ const useFilters = (filterTag = '') => {
     setMaxPrice(value);
   }, []);
 
-  const resetFilter = useCallback((key?: string) => {
-    switch (key) {
-      case 'max_price': {
-        handleMaxPriceFilter(maxPrice);
-        break;
+  const resetFilter = useCallback(
+    (key?: string) => {
+      switch (key) {
+        case 'max_price': {
+          handleMaxPriceFilter(maxPrice);
+          break;
+        }
+        case 'currency': {
+          handleCurrencyFilter({
+            value: DEFAULT_FILTER_STATE.currency,
+            label: 'WETH',
+          });
+          break;
+        }
+        case 'is_verificated': {
+          handleVerifiedFilter({
+            value: DEFAULT_FILTER_STATE.is_verificated,
+            label: DEFAULT_FILTER_STATE.is_verificated,
+          });
+          break;
+        }
+        default: {
+          handleMaxPriceFilter(maxPrice);
+          handleCurrencyFilter({
+            value: DEFAULT_FILTER_STATE.currency,
+            label: 'WETH',
+          });
+          handleVerifiedFilter({
+            value: DEFAULT_FILTER_STATE.is_verificated,
+            label: DEFAULT_FILTER_STATE.is_verificated,
+          });
+        }
       }
-      case 'currency': {
-        handleCurrencyFilter({
-          value: DEFAULT_FILTER_STATE.currency,
-          label: 'WETH',
-        })
-        break;
-      }
-      case 'is_verificated': {
-        handleVerifiedFilter({
-          value: DEFAULT_FILTER_STATE.is_verificated,
-          label: DEFAULT_FILTER_STATE.is_verificated,
-        })
-        break;
-      }
-      default: {
-        handleMaxPriceFilter(maxPrice);
-        handleCurrencyFilter({
-          value: DEFAULT_FILTER_STATE.currency,
-          label: 'WETH',
-        })
-        handleVerifiedFilter({
-          value: DEFAULT_FILTER_STATE.is_verificated,
-          label: DEFAULT_FILTER_STATE.is_verificated,
-        })
-      }
-    }
-  }, [handleVerifiedFilter, handleMaxPriceFilter, handleCurrencyFilter, maxPrice])
+    },
+    [handleVerifiedFilter, handleMaxPriceFilter, handleCurrencyFilter, maxPrice],
+  );
 
   const fetchMaxPrice = useCallback(
     (currency: string) => {
@@ -154,13 +154,14 @@ const useFilters = (filterTag = '') => {
     ratesApi
       .getRates()
       .then(({ data }: any) => {
-        setFilterSelectCurrencyOptions(
-          data.map((currency: any) => ({
+        setFilterSelectCurrencyOptions([
+          { value: 'All', label: 'All' },
+          ...data.map((currency: any) => ({
             value: currency.symbol,
             label: currency.symbol.toUpperCase(),
           })),
-        );
-        handleCurrencyFilter({ value: data[0].symbol, label: data[0].symbol.toUpperCase() });
+        ]);
+        handleCurrencyFilter({ value: 'All', label: 'All' });
       })
       .catch((err: Error) => {
         console.error(err);

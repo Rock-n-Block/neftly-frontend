@@ -6,7 +6,7 @@ export interface IPopoverButton {
   className?: string;
 }
 
-const PopoverButton: FC<IPopoverButton> = ({ className, children }) => {
+const PopoverButton: FC<IPopoverButton> = ({ className, children}) => {
   const { changePopoverVisibility } = usePopover();
 
   return (

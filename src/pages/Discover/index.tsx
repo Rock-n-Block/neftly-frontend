@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useState } from 'react';
+import { RefObject, useCallback, useEffect, /*useRef,*/ useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FilterSVG } from 'assets/img';
 import cx from 'classnames';
@@ -7,14 +7,15 @@ import {
   Button,
   H2,
   H3,
-  Text,
   LiveAuction,
-  Select,
-  TabLookingComponent,
   Loader,
   Modal,
+  Select,
+  TabLookingComponent,
+  Text,
 } from 'components';
 import { AdvancedFilter } from 'containers';
+//import GridLayer, { EGridJustify } from 'containers/GridLayer';
 import { useFetchNft, useFilters, useInfiniteScroll, useWindowSize } from 'hooks';
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
@@ -36,6 +37,8 @@ const Discover = observer(() => {
       key: tag.title,
     };
   });
+
+  //const wrapRef = useRef<HTMLDivElement>(null);
 
   const { search } = useLocation();
   const filterTag = search.replace(/^(.*?)=/, '');
@@ -80,9 +83,9 @@ const Discover = observer(() => {
 
   useEffect(() => {
     if (width <= mobileBreakPoint && isFilterOpen) {
-      setFilterOpen(false)
+      setFilterOpen(false);
     }
-  }, [width, isFilterOpen])
+  }, [width, isFilterOpen]);
 
   const likeAction = useCallback(
     (id): Promise<any> => {
@@ -94,27 +97,28 @@ const Discover = observer(() => {
     [user.address],
   );
   const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading || isNftsLoading);
-
   return (
     <div className={styles.discover}>
-      {width <= mobileBreakPoint && <Modal visible={isFilterOpen} onClose={() => setFilterOpen(false)} title="Advanced Filters">
-        <AdvancedFilter
-          className={cx(styles.mobileAdvancedFilter)}
-          filterSelectCurrencyOptions={filterSelectCurrencyOptions}
-          maxPrice={maxPrice}
-          maxPriceFilter={maxPriceFilter}
-          handleMaxPriceFilter={handleMaxPriceFilter}
-          currencyFilter={currencyFilter}
-          handleCurrencyFilter={handleCurrencyFilter}
-          verifiedFilter={verifiedFilter}
-          handleVerifiedFilter={handleVerifiedFilter}
-          defaultValues={defaultValues}
-          resetFilter={resetFilter}
-        />
-      </Modal>}
+      {width <= mobileBreakPoint && (
+        <Modal visible={isFilterOpen} onClose={() => setFilterOpen(false)} title="Advanced Filters">
+          <AdvancedFilter
+            className={cx(styles.mobileAdvancedFilter)}
+            filterSelectCurrencyOptions={filterSelectCurrencyOptions}
+            maxPrice={maxPrice}
+            maxPriceFilter={maxPriceFilter}
+            handleMaxPriceFilter={handleMaxPriceFilter}
+            currencyFilter={currencyFilter}
+            handleCurrencyFilter={handleCurrencyFilter}
+            verifiedFilter={verifiedFilter}
+            handleVerifiedFilter={handleVerifiedFilter}
+            defaultValues={defaultValues}
+            resetFilter={resetFilter}
+          />
+        </Modal>
+      )}
 
       <H2 className={styles.title}>
-        <Text className={styles.discoverTitle} tag='span' size='inherit'>
+        <Text className={styles.discoverTitle} tag="span" size="inherit">
           DISCOVER
         </Text>
         <Text tag="span" size="inherit" color="primary">
@@ -124,7 +128,10 @@ const Discover = observer(() => {
       <div className={styles.filterControls}>
         <div className={styles.filterBody}>
           <Button className={styles.advancedFilterBtn} onClick={handleOpenFilter} color="outline">
-            <Text tag='span' color='inherit'>Advanced Filter</Text> <FilterSVG className={styles.icon} />
+            <Text tag="span" color="inherit">
+              Advanced Filter
+            </Text>{' '}
+            <FilterSVG className={styles.icon} />
           </Button>
           <TabLookingComponent
             wrapClassName={styles.tabArea}
@@ -140,7 +147,6 @@ const Discover = observer(() => {
             options={selectOptions}
             classNameSelect={styles.select}
           />
-
         </div>
       </div>
       <div className={cx(styles.filterAndCards, { [styles.open]: isFilterOpen })}>
@@ -162,12 +168,14 @@ const Discover = observer(() => {
             [styles.withFilter]: isFilterOpen,
           })}
         >
-          {isNftsLoading ? <Loader /> :
+          {isNftsLoading ? (
+            <Loader />
+          ) : (
             <>
               <H3>{totalItems} results</H3>
               <div className={styles.filterResults}>
-                {!!nftCards.length
-                  && nftCards.map((artCard: any) => {
+                {!!nftCards.length &&
+                  nftCards.map((artCard: any) => {
                     const {
                       media,
                       name,
@@ -202,15 +210,15 @@ const Discover = observer(() => {
                         likeAction={likeAction}
                       />
                     );
-                  })
-                }
+                  })}
               </div>
-            </>}
+            </>
+          )}
         </div>
       </div>
       <div ref={anchorRef as RefObject<HTMLDivElement>} />
       <LiveAuction className={styles.liveAuction} />
-    </div >
+    </div>
   );
 });
 

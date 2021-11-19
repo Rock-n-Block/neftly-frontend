@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import { Burger, Button, ChooseWallet, Logo, Modal } from 'components';
 import { observer } from 'mobx-react-lite';
@@ -12,7 +12,9 @@ import User from './User';
 import Wallet from './Wallet';
 
 import styles from './styles.module.scss';
-import { useNoScroll } from 'hooks';
+import { useNoScroll, useWindowSize } from 'hooks';
+
+const mobilePoint = 1280;
 
 const Headers: FC = observer(() => {
   const { user } = useMst();
@@ -34,6 +36,8 @@ const Headers: FC = observer(() => {
     setConnectOpen(false);
   }, []);
 
+  const { width } = useWindowSize();
+
   const headerRef = useRef<TNullable<HTMLDivElement>>(null);
 
   let prevScrollpos = window.pageYOffset;
@@ -50,6 +54,13 @@ const Headers: FC = observer(() => {
       }
     }
   };
+
+  useEffect(() => {
+    if (width > mobilePoint) {
+      setIsMenuOpen(false);
+      setScroll(false);
+    }
+  }, [width, setScroll])
 
   return (
     <>

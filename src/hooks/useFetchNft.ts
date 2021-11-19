@@ -54,17 +54,16 @@ export const useFetchNft = (
       const refresh = page === 1;
       setLoading(true);
 
-      const boolIsVerified = is_verified === 'verified';
-
+      const boolIsVerified = is_verified === 'All' ? undefined : is_verified === 'verified';
+      const formattedCurrency = currency === 'All' ? undefined : currency;
       const formattedTags = tags === 'All NFTs' ? undefined : tags;
-
       storeApi
         .getSearchResults({
           sort,
           order_by,
           tags: formattedTags,
           max_price,
-          currency,
+          currency: formattedCurrency,
           page,
           is_verified: boolIsVerified,
           creator,
@@ -112,7 +111,7 @@ export const useFetchNft = (
       }
       setTotalItems(0);
       setNftCards([]);
-      return () => {};
+      return () => { };
     }, 1000),
   ).current;
 

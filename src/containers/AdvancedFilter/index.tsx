@@ -2,11 +2,12 @@ import { FC, useEffect, useState } from 'react';
 import { cross } from 'assets/img';
 import cx from 'classnames';
 import { Button, H3, RangePicker, Select, Text } from 'components';
+import { TDefaultValues } from 'hooks/useFilters';
 import { IAppliedFilter, OptionType } from 'typings';
 
-import styles from './styles.module.scss';
 import FilterTag from './FilterTag';
-import { TDefaultValues } from 'hooks/useFilters';
+
+import styles from './styles.module.scss';
 
 const filterSelectArtistsOptions = [
   {
@@ -20,7 +21,7 @@ const filterSelectArtistsOptions = [
   {
     value: 'All',
     label: 'All',
-  }
+  },
 ];
 
 type Props = {
@@ -50,41 +51,47 @@ const AdvancedFilter: FC<Props> = ({
   verifiedFilter,
   handleVerifiedFilter,
   defaultValues,
-  resetFilter
+  resetFilter,
 }) => {
-
-  const [appliedFilters, setAppliedFilters] = useState<IAppliedFilter[]>([maxPriceFilter, currencyFilter, verifiedFilter])
+  const [appliedFilters, setAppliedFilters] = useState<IAppliedFilter[]>([
+    maxPriceFilter,
+    currencyFilter,
+    verifiedFilter,
+  ]);
 
   useEffect(() => {
-    setAppliedFilters([maxPriceFilter, currencyFilter, verifiedFilter])
-  }, [maxPriceFilter, currencyFilter, verifiedFilter])
+    setAppliedFilters([maxPriceFilter, currencyFilter, verifiedFilter]);
+  }, [maxPriceFilter, currencyFilter, verifiedFilter]);
 
   return (
     <div className={cx(styles.advancedFilter, { [styles.mobile]: isMobile }, className)}>
       {isMobile && (
         <div className={styles.advancedFilterFlex}>
-          <H3 color='lightGray'>Advanced Filter</H3>
+          <H3 color="lightGray">Advanced Filter</H3>
           <Button color="outline" className={styles.advancedFilterCloseBtn}>
             <img src={cross} alt="" />
           </Button>
         </div>
       )}
       <div className={styles.advancedFilterApplied}>
-        <Text color='lightGray'>Applied Filters</Text>
-        <Button padding='0' onClick={resetFilter} className={styles.clearBtn} color="transparent">
+        <Text color="lightGray">Applied Filters</Text>
+        <Button padding="0" onClick={resetFilter} className={styles.clearBtn} color="transparent">
           <Text color="inherit">Clear all</Text>
         </Button>
       </div>
       <div className={styles.tagContainer}>
-        {appliedFilters.filter((filter: IAppliedFilter) => !Object.values(defaultValues).includes(filter.value)).map((filter: IAppliedFilter) =>
-          <FilterTag
-            key={filter.value}
-            className={styles.filterTag}
-            label={filter.label}
-            closeTag={() => { resetFilter(filter.field) }}
-          />
-        )
-        }
+        {appliedFilters
+          .filter((filter: IAppliedFilter) => !Object.values(defaultValues).includes(filter.value))
+          .map((filter: IAppliedFilter) => (
+            <FilterTag
+              key={filter.value}
+              className={styles.filterTag}
+              label={filter.label}
+              closeTag={() => {
+                resetFilter(filter.field);
+              }}
+            />
+          ))}
       </div>
       <div>
         <Text color="gray" weight="medium" className={styles.label}>

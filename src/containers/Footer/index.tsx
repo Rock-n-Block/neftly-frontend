@@ -135,7 +135,7 @@ const Footers: React.FC = observer(() => {
             </div>
             {linksHelperObject.map(({ linkBlockTitle, linkArray, isInternal }) => {
               return (
-                <div className={styles.linkBlock}>
+                <div key={linkBlockTitle+isInternal} className={styles.linkBlock}>
                   <Text weight="bold" size="m" color="white">
                     {linkBlockTitle}
                   </Text>

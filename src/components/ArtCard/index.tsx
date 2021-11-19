@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { routes } from 'appConstants';
@@ -61,6 +61,27 @@ const ArtCard: FC<Props> = ({
   const [isLike, setIsLike] = useState(isLiked);
   const [likesCount, setLikesCount] = useState(likesNumber || (isLiked ? 1 : 0));
 
+  const wrapRef = useRef<HTMLAnchorElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  const onMouseOver = useCallback(() => {
+    if (wrapRef.current && imgRef.current) {
+      const div = wrapRef.current;
+      const img = imgRef.current;
+      const mouseMoveEvent = (e: any) => {
+        const moveX = 100 - (e.offsetX / div.offsetWidth) * 100;
+        const moveY = 100 - (e.offsetY / div.offsetHeight) * 100
+        img.style.objectPosition = `${moveX}% ${moveY}%`;
+      }
+      div.addEventListener('mousemove', mouseMoveEvent)
+      div.onmouseleave = function () {
+        div.removeEventListener('mousemove', mouseMoveEvent);
+        img.style.objectPosition = '50% 50%';
+        div.onmouseleave = null;
+      }
+    }
+  }, [imgRef, wrapRef]);
+
   const handleLike = useCallback(() => {
     if (!likeAction) {
       return;
@@ -91,11 +112,13 @@ const ArtCard: FC<Props> = ({
         });
     }
   }, [artId, isLike, isLiked, likeAction, likesNumber]);
+
   return (
     <div className={cx(styles.artCard, className, styles[`artCard${type}`])}>
       <Link
         to={isCollection ? routes.collection.link(artId) : routes.nft.link(artId)}
         className={cx(styles[`mainImageWrapper${type}`], styles.imageWrapper)}
+        onMouseOver={onMouseOver} onFocus={() => { }} innerRef={wrapRef}
       >
         <div className={styles.tagContainer}>
           {tags?.map((tag, index) => (
@@ -104,10 +127,12 @@ const ArtCard: FC<Props> = ({
               key={index}
               type={tag.type}
               auctionEndTime={tag.auctionEndTime}
+              media={tag.media}
+              value={tag.value}
             />
           ))}
         </div>
-        <img className={styles.mainImage} src={imageMain} alt="" />
+        <img ref={imgRef} className={styles.mainImage} src={imageMain} alt="" />
       </Link>
       {type === 'Medium' && (
         <div className={cx(styles.secondaryImagesContainer)}>

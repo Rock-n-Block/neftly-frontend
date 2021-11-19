@@ -29,7 +29,7 @@ const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({ minWidth, minHeight
     const childrenCount = Children.count(children);
 
     const resizeCallback = useCallback(async () => {
-        const winWidth = wrapperRef?.current.offsetWidth || document.documentElement.clientWidth;
+        const winWidth = wrapperRef?.current?.offsetWidth || document.documentElement.clientWidth;
 
         const newColumns = Math.trunc(winWidth / (minWidth + gap));
 
@@ -50,7 +50,7 @@ const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({ minWidth, minHeight
             window.removeEventListener('resize', resizeCallback)
         }
     }, [resizeCallback])
-    
+
     return (
         <section className={styles.gridWrapper} style={{ height: (cardStyles.height + gap) * Math.ceil(childrenCount / columns) }}>
             {Children.map(children, (child, idx) => {
@@ -61,7 +61,7 @@ const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({ minWidth, minHeight
                     top: (Math.trunc(idx / columns)) * (cardStyles.height + gap)
                 }
                 return (
-                    <WrappedItem position={position}>
+                    <WrappedItem key={position.width + position.top} position={position}>
                         {child}
                     </WrappedItem>
                 )

@@ -1,24 +1,27 @@
 import { FC } from 'react';
-import { tradingOffer, tradingPurchase } from 'assets/img';
 import cx from 'classnames';
 import { Text } from 'components';
 
 import styles from './styles.module.scss';
+import { Burn, Buy, Listing, Mint, Transfer } from 'assets/img';
 
 type Props = {
   className?: string;
-  type: 'Mint' | 'Buy';
+  type: 'Listing' | 'Mint' | 'Buy' | 'Transfer' | 'Burn';
   isDeclined?: boolean;
 };
 
-const helperObject = {
-  Buy: tradingPurchase,
-  Mint: tradingOffer,
-};
+const Icons = {
+  Listing,
+  Mint,
+  Buy,
+  Transfer,
+  Burn,
+}
 
 const TradingHistoryEvent: FC<Props> = ({ className, type, isDeclined }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
-    <img src={helperObject[type]} alt="" />
+    <img src={Icons[type]} alt="" />
     <Text style={{ textTransform: 'capitalize' }} size="m">
       {type}
     </Text>

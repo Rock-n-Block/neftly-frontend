@@ -10,13 +10,13 @@ export interface IPopoverBody {
 }
 
 const PopoverBody: FC<IPopoverBody> = ({className, children}) => {
-  const {visible, closePopover} = usePopover();
+  const {visible, closePopover, position} = usePopover();
 
   if (!visible) {
     return (null)
   }
   return (
-    <div className={cn(styles.body, className)}>
+    <div className={cn(styles.body, className, styles[position || 'right'])}>
       <OutsideClickHandler onOutsideClick={closePopover}>
         <div className={styles.triangle}/>
         {children}

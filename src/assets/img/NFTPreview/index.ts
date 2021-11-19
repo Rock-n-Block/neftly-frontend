@@ -1,4 +1,9 @@
 export { default as Arrow } from './Arrow_down.svg';
+export { default as Burn } from './BurnH.svg';
+export { default as Listing } from './Listing.svg';
+export { default as Buy } from './Buy.svg';
+export { default as Mint } from './Mint.svg';
+export { default as Transfer } from './Transfer.svg';
 export { ReactComponent as Zoom } from './Zoom.svg';
 export { default as iconBurnSVG } from './Burn.svg';
 export { default as iconTransferSVG } from './Transfer.svg';
