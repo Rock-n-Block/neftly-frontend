@@ -115,11 +115,11 @@ class Connector extends React.Component<
   };
 
   disconnect() {
-    rootStore.user.disconnect();
     delete localStorage.nftcrowd_nft_chainName;
     delete localStorage.nftcrowd_nft_providerName;
     delete localStorage.walletconnect;
     delete localStorage.nftcrowd_nft_token;
+    rootStore.user.disconnect();
 
     this.props.history.push('/');
   }
