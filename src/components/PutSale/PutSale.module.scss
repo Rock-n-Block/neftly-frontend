@@ -42,7 +42,6 @@
   @include body-bold-2;
 }
 
-
 .switch {
   flex-shrink: 0;
   margin-left: 16px;
@@ -50,15 +49,12 @@
 
 .row {
   @include flexbox(center, normal);
-  padding-top: 12px;
+  & + & {
+    margin-top: 12px;
+  }
 
   &:first-child {
     border-bottom: 1px solid $color-neutral-60;
-  }
-
-  &Input {
-    background: $color-neutral-100;
-    padding: 0 10px;
   }
 
   .input {
@@ -70,13 +66,15 @@
       line-height: 24px;
       border-radius: 0;
       border: none;
+      &:hover {
+        box-shadow: none;
+      }
     }
   }
 }
 
 .col {
   @include body-2;
-
 
   &:nth-child(2) {
     margin-left: auto;
