@@ -425,7 +425,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           options={royaltiesOptions}
                           className={styles.dropdown}
                           value={`${values.creatorRoyalty}%`}
-                          withPercent
+                          suffix="%"
                         />
                       )}
                     />
