@@ -1,8 +1,8 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
-import { iconUpload, iconClose } from 'assets/img';
-import {ReactComponent as IconPropAdd} from 'assets/img/icons/icon-prop-add.svg'
-import {ReactComponent as IconPropDelete} from 'assets/img/icons/icon-prop-delete.svg'
+import { iconUpload } from 'assets/img';
+import { ReactComponent as IconPropAdd } from 'assets/img/icons/icon-prop-add.svg';
+import { ReactComponent as IconPropDelete } from 'assets/img/icons/icon-prop-delete.svg';
 import cn from 'classnames';
 import {
   Button,
@@ -123,15 +123,6 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
         if (type === 'amount') {
           localProperties[index].amount = e.target.value;
         }
-        if (
-          localProperties[localProperties.length - 1].name &&
-          localProperties[localProperties.length - 1].amount
-        ) {
-          localProperties.push({
-            name: '',
-            amount: '',
-          });
-        }
         setFieldValue('details', localProperties);
         handleChange(e);
       },
@@ -180,13 +171,6 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 {values.cover ? (
                   <div className={styles.previewImg}>
                     <img src={values.coverPreview} alt="Preview" />
-                    <Button
-                      color="transparent"
-                      className={styles.clearPreview}
-                      onClick={handleClearImg}
-                    >
-                      <img src={iconClose} alt="clear img" />
-                    </Button>
                   </div>
                 ) : (
                   <>
@@ -229,14 +213,6 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     <>
                       <img src={values.preview} alt="Media" />
                       {/* TODO: add same btn to video/audio  */}
-                      <Button
-                        color="transparent"
-                        className={styles.clearPreview}
-                        onClick={handleClearImg}
-                        padding="0"
-                      >
-                        <img src={iconClose} alt="clear img" />
-                      </Button>
                     </>
                   )}
                   {values.format === 'video' && (
@@ -285,6 +261,11 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     </div>
                   </div>
                 </>
+              )}
+              {values.media && (
+                <Button className={styles.clean} onClick={handleClearImg}>
+                  Clear
+                </Button>
               )}
             </div>
           </div>
@@ -444,6 +425,7 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                           options={royaltiesOptions}
                           className={styles.dropdown}
                           value={`${values.creatorRoyalty}%`}
+                          suffix="%"
                         />
                       )}
                     />

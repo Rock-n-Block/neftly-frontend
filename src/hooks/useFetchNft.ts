@@ -36,7 +36,7 @@ export const useFetchNft = (
     creator,
     owner,
     on_sale,
-    text = '',
+    text,
     isCanFetch = true,
     isOnlyForOwnerOrCreator,
   } = props;
