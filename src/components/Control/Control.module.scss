@@ -1,8 +1,9 @@
-@import 'src/styles/helpers';
+@import "src/styles/helpers";
 
 .control {
   @include container;
   margin: 40px auto;
+  padding: 0 !important;
 }
 
 .control .container {
@@ -20,7 +21,7 @@
     margin-right: 33px;
 
     &::after {
-      content: '';
+      content: "";
       margin-left: 33px;
       display: inline-block;
       width: 7px;
