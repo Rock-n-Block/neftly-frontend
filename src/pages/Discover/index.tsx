@@ -39,7 +39,7 @@ const Discover = observer(() => {
 
   const { search } = useLocation();
   const filterTag =
-    search.includes('tags') || search.includes('filters') ? search.replace(/^(.*?)=/, '') : '';
+    search.includes('tags') || search.includes('filters') ? search.replace(/^(.*?)=/, '') : ' ';
   const textSearch = search.includes('text') ? search.replace(/^(.*?text)=/, '') : '';
 
   const handleOpenFilter = useCallback(() => {
@@ -70,7 +70,7 @@ const Discover = observer(() => {
     page,
     sort: 'items',
     order_by: orderByFilter.value,
-    tags: tagsFilter === 'All NFTs' ? '' : tagsFilter,
+    tags: (textSearch && ' ') || tagsFilter === 'All NFTs' ? '' : tagsFilter,
     max_price: +maxPriceFilter.value,
     currency: currencyFilter.value,
     is_verified: verifiedFilter.value,
@@ -153,19 +153,21 @@ const Discover = observer(() => {
         </div>
       </div>
       <div className={cx(styles.filterAndCards, { [styles.open]: isFilterOpen })}>
-        <AdvancedFilter
-          className={cx(styles.filter, styles.specClass, { [styles.open]: isFilterOpen })}
-          filterSelectCurrencyOptions={filterSelectCurrencyOptions}
-          maxPrice={maxPrice}
-          maxPriceFilter={maxPriceFilter}
-          handleMaxPriceFilter={handleMaxPriceFilter}
-          currencyFilter={currencyFilter}
-          handleCurrencyFilter={handleCurrencyFilter}
-          verifiedFilter={verifiedFilter}
-          handleVerifiedFilter={handleVerifiedFilter}
-          defaultValues={defaultValues}
-          resetFilter={resetFilter}
-        />
+        <div className={styles.sticky}>
+          <AdvancedFilter
+            className={cx(styles.filter, styles.specClass, { [styles.open]: isFilterOpen })}
+            filterSelectCurrencyOptions={filterSelectCurrencyOptions}
+            maxPrice={maxPrice}
+            maxPriceFilter={maxPriceFilter}
+            handleMaxPriceFilter={handleMaxPriceFilter}
+            currencyFilter={currencyFilter}
+            handleCurrencyFilter={handleCurrencyFilter}
+            verifiedFilter={verifiedFilter}
+            handleVerifiedFilter={handleVerifiedFilter}
+            defaultValues={defaultValues}
+            resetFilter={resetFilter}
+          />
+        </div>
         <div
           className={cx(styles.filterResultsContainer, {
             [styles.withFilter]: isFilterOpen,
