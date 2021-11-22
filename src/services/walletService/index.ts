@@ -184,11 +184,11 @@ export class WalletConnect {
       const methodName = data.function.replace(/\(.*/, '');
       const params = data.parameter.map((param: any) => param.value);
       const contract = await this.tronWeb.contract(abiSelecteor, data.contractAddress);
-      await contract[methodName](...params).send({
+      const result = await contract[methodName](...params).send({
         from: address,
       });
 
-      return null;
+      return { result };
     }
 
     return this.trxSendTransaction(transaction);
