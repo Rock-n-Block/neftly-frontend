@@ -15,7 +15,7 @@ const App = () => {
   useFetchTags();
   return (
     <>
-      <ToastContainer limit={3} />
+      <ToastContainer limit={3} pauseOnFocusLoss={false} />
       <GoogleReCaptchaProvider
         reCaptchaKey="6LfRLJscAAAAAEsnpB4vjDK-ZZABY6blkCiXk49v"
         language="en"

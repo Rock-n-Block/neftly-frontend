@@ -47,16 +47,15 @@ const Transfer: React.FC<ITransferProps> = ({ className }) => {
                 transfer.success();
                 transfer.close();
                 toast.success('Token Transfered');
-                // toast.info(<ToastContentWithTxHash txHash={res.transaction.txID} />);
               }
             })
             .catch(({ response }) => {
               if (response && response.data && response.data.name) {
                 toast.error(response.data.name);
               } else {
-                toast.error('Create Collection failed');
+                toast.error('Transfer failed');
               }
-              console.error('Wallet Create collection failure', response);
+              console.error('transfer failure', response);
             });
         } else {
           walletService
