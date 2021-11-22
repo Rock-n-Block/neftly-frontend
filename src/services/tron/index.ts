@@ -1,7 +1,8 @@
-import { TronStatus } from 'appConstants';
+import { routes, TronStatus } from 'appConstants';
 import { userApi } from 'services';
 import { rootStore } from 'store';
 import { TronState } from 'typings/tron';
+import { history } from 'utils';
 
 /* eslint-disable no-await-in-loop */
 const MS_RETRY_TRON = 2000;
@@ -80,6 +81,7 @@ export async function connectTron() {
       await delay(MS_RETRY_TRON);
     }
     await setConnect();
+    history.push(routes.home.root);
   } catch (err) {
     console.error(err);
   }

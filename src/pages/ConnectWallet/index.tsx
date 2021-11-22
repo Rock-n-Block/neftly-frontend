@@ -1,5 +1,4 @@
 import { VFC } from 'react';
-
 import { ChooseWallet, H2 } from 'components';
 
 import styles from './ConnectWallet.module.scss';
