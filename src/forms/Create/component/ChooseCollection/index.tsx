@@ -5,9 +5,10 @@ import { Carousel, Modal, Text } from 'components';
 import { observer } from 'mobx-react';
 import { userApi } from 'services/api';
 import { useMst } from 'store';
-import carouselBreakpointsConfig from './carouselBreakpointsConfig';
 
 import { CreateCollection } from '../../../index';
+
+import carouselBreakpointsConfig from './carouselBreakpointsConfig';
 
 import styles from './ChooseCollection.module.scss';
 
@@ -18,6 +19,7 @@ interface IProps {
   className?: string;
   isRefresh: boolean;
   setIsRefresh: (value: boolean) => void;
+  addToCollection: boolean;
 }
 
 interface ICollection {
@@ -27,10 +29,19 @@ interface ICollection {
 }
 
 const ChooseCollection: React.FC<IProps> = observer(
-  ({ isSingle, activeCollectionId, onChange, className, isRefresh, setIsRefresh }) => {
+  ({
+    isSingle,
+    activeCollectionId,
+    onChange,
+    className,
+    isRefresh,
+    setIsRefresh,
+    addToCollection,
+  }) => {
     const { user } = useMst();
 
     const [collections, setCollections] = useState<ICollection[]>([]);
+    const [defaultCollectionId, setDefaultCollectionId] = useState(0);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleCollectionChange = useCallback(
@@ -52,15 +63,20 @@ const ChooseCollection: React.FC<IProps> = observer(
             }
             return coll.standart === 'ERC1155';
           });
-          setCollections(newCollections);
-          // handleCollectionChange(newCollections[0].id);
-          handleCollectionChange(
-            newCollections.find((collection: any) => collection.is_default).id,
+          const filteredCollections = newCollections.filter(
+            (collection: any) => !collection.is_default,
           );
+          const defCollectionId = newCollections.find(
+            (collection: any) => collection.is_default,
+          ).id;
+          setCollections(filteredCollections);
+          setDefaultCollectionId(defCollectionId);
+
+          // handleCollectionChange(newCollections[0].id);
         })
         .catch((err) => console.error(err, 'get single'))
         .finally(() => setIsRefresh(false));
-    }, [handleCollectionChange, isSingle, setIsRefresh]);
+    }, [isSingle, setIsRefresh]);
 
     const handleOpenModal = () => {
       setIsModalVisible(true);
@@ -74,6 +90,15 @@ const ChooseCollection: React.FC<IProps> = observer(
       // TODO: rework this component
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.address, isRefresh]);
+
+    useEffect(() => {
+      if (!addToCollection) {
+        handleCollectionChange(defaultCollectionId);
+      } else {
+        handleCollectionChange(0);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [addToCollection]);
 
     return (
       <div className={cn(styles.cards, className)}>
@@ -92,6 +117,7 @@ const ChooseCollection: React.FC<IProps> = observer(
             </Text>
           </div>
           {!!collections.length &&
+            addToCollection &&
             collections.map((collection) => (
               <div
                 onClick={() => handleCollectionChange(collection.id)}
