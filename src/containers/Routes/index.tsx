@@ -1,21 +1,21 @@
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { routes } from 'appConstants';
 import { GuardedRoute } from 'components';
-import { useMst } from 'store';
+import { observer } from 'mobx-react-lite';
 import {
-  Discover,
-  ProfileEdit,
-  Profile,
   Activity,
-  UploadVariants,
-  CreateToken,
   CollectionPage,
-  Home,
-  Nft,
   ConnectWallet,
+  CreateToken,
+  Discover,
+  Home,
   LostPage404,
+  Nft,
+  Profile,
+  ProfileEdit,
+  UploadVariants,
 } from 'pages';
+import { useMst } from 'store';
 
 const Routes = observer(() => {
   const { user } = useMst();

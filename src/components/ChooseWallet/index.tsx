@@ -1,12 +1,11 @@
 import React from 'react';
-import cn from 'classnames';
-import { connectTron } from 'services/tron';
-import { chainsEnum } from 'typings';
-
 import { arrowRight } from 'assets/img';
-import { chains } from 'config';
-import { useWalletConnectorContext } from 'services/walletConnect';
+import cn from 'classnames';
 import { Text } from 'components';
+import { chains } from 'config';
+import { connectTron } from 'services/tron';
+import { useWalletConnectorContext } from 'services/walletConnect';
+import { chainsEnum } from 'typings';
 
 import styles from './ChooseWallet.module.scss';
 
