@@ -74,9 +74,9 @@ const AdvancedFilter: FC<Props> = ({
         </div>
       )}
       <div className={styles.advancedFilterApplied}>
-        <Text color="lightGray">Applied Filters</Text>
+        <Text size='m' color="lightGray">Applied Filters</Text>
         <Button padding="0" onClick={resetFilter} className={styles.clearBtn} color="transparent">
-          <Text color="inherit">Clear all</Text>
+          <Text size='m' color="inherit">Clear all</Text>
         </Button>
       </div>
       <div className={styles.tagContainer}>
@@ -94,7 +94,7 @@ const AdvancedFilter: FC<Props> = ({
           ))}
       </div>
       <div>
-        <Text color="gray" weight="medium" className={styles.label}>
+        <Text size='m' color="gray" weight="medium" className={styles.label}>
           Price Range
         </Text>
         <RangePicker
