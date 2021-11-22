@@ -80,7 +80,7 @@ const Discover = observer(() => {
   });
 
   const { width } = useWindowSize();
-  
+
   useEffect(() => {
     if (width <= mobileBreakPoint) {
       setFilterOpen(false);
@@ -171,52 +171,49 @@ const Discover = observer(() => {
             [styles.withFilter]: isFilterOpen,
           })}
         >
-          {isNftsLoading ? (
-            <Loader />
-          ) : (
-            <>
-              <H3>{totalItems} results</H3>
-              <div className={styles.filterResults}>
-                {!!nftCards.length &&
-                  nftCards.map((artCard: any) => {
-                    const {
-                      media,
-                      name,
-                      price,
-                      currency,
-                      available,
-                      creator,
-                      like_count,
-                      tags,
-                      id,
-                      highest_bid,
-                      minimal_bid,
-                      bids,
-                      is_liked,
-                    } = artCard;
-                    return (
-                      <ArtCard
-                        artId={id}
-                        key={id}
-                        imageMain={media}
-                        name={name}
-                        price={price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid}
-                        asset={currency.symbol.toUpperCase()}
-                        inStockNumber={available}
-                        author={creator.name}
-                        authorAvatar={creator.avatar}
-                        authorId={creator.id}
-                        likesNumber={like_count}
-                        tags={tags}
-                        bids={bids}
-                        isLiked={is_liked}
-                        likeAction={likeAction}
-                      />
-                    );
-                  })}
-              </div>
-            </>
-          )}
+          <>
+            <H3>{totalItems} results</H3>
+            <div className={styles.filterResults}>
+              {!!nftCards.length &&
+                nftCards.map((artCard: any) => {
+                  const {
+                    media,
+                    name,
+                    price,
+                    currency,
+                    available,
+                    creator,
+                    like_count,
+                    tags,
+                    id,
+                    highest_bid,
+                    minimal_bid,
+                    bids,
+                    is_liked,
+                  } = artCard;
+                  return (
+                    <ArtCard
+                      artId={id}
+                      key={id}
+                      imageMain={media}
+                      name={name}
+                      price={price || (highest_bid && toFixed(highest_bid.amount)) || minimal_bid}
+                      asset={currency.symbol.toUpperCase()}
+                      inStockNumber={available}
+                      author={creator.name}
+                      authorAvatar={creator.avatar}
+                      authorId={creator.id}
+                      likesNumber={like_count}
+                      tags={tags}
+                      bids={bids}
+                      isLiked={is_liked}
+                      likeAction={likeAction}
+                    />
+                  );
+                })}
+            </div>
+          </>
+          {isNftsLoading && <Loader />}
         </div>
       </div>
       <div ref={anchorRef as RefObject<HTMLDivElement>} />
