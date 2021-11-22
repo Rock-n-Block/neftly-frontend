@@ -118,7 +118,6 @@ export default observer(({ isSingle }: any) => {
                   toast.error('Create Token failed');
                 }
                 storeApi.rejectTransaction({ type: 'token', id: data.token.id });
-                console.error('Backend Create token failure', response);
               });
           } else {
             walletConnector.walletService
@@ -137,7 +136,6 @@ export default observer(({ isSingle }: any) => {
                   toast.error('Create Token failed');
                 }
                 storeApi.rejectTransaction({ type: 'token', id: data.token.id });
-                console.error('Backend Create token failure', response);
               })
               .finally(() => {
                 setFieldValue('isLoading', false);
@@ -150,7 +148,6 @@ export default observer(({ isSingle }: any) => {
           } else {
             toast.error('Create Token failed');
           }
-          console.error('Backend Create token failure', response.data);
           setFieldValue('isLoading', false);
         });
     },
