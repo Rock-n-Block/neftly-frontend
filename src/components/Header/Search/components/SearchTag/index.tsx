@@ -33,7 +33,7 @@ const SearchTag: VFC<Props> = ({ image, title, price, asset, isAuction, inStock,
       >
         {isAuction ? 'Auction' : 'Sale'}
       </Text>
-      {!isAuction && <Text size="m">{`in stock: ${inStock}`}</Text>}
+      {!isAuction && <Text size="s">{`in stock: ${inStock}`}</Text>}
     </div>
   </div>
 );
