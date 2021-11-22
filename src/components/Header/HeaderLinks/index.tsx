@@ -85,6 +85,13 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
         isNested: true,
         internalLinks: nftTags.getTags,
       },
+
+      {
+        url: routes.activity.root,
+        active: location.pathname.includes(routes.activity.root),
+        title: 'Activity',
+        isNested: false,
+      },
       {
         title: 'Resources',
         active: location.pathname.includes(routes.discover.root),
@@ -92,12 +99,6 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
         isNested: true,
         isLinks: true,
         internalLinks: resourcesHelperObject,
-      },
-      {
-        url: routes.activity.root,
-        active: location.pathname.includes(routes.activity.root),
-        title: 'Activity',
-        isNested: false,
       },
       {
         url: user.address ? routes.create.root : routes.connectWallet.root,
