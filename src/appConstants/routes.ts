@@ -36,4 +36,7 @@ export const routes = {
   lostPage: {
     root: '/404',
   },
+  comingSoon: {
+    root: '/soon',
+  },
 };

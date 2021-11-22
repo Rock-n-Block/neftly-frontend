@@ -1,34 +1,36 @@
+import { routes } from './routes';
+
 export const resourcesHelperObject = [
   {
     label: 'Help Center',
-    link: 'https://google.com',
+    link: routes.comingSoon.root,
   },
   {
     label: 'Platform Status',
-    link: 'https://google.com',
+    link: routes.comingSoon.root,
   },
   {
     label: 'Partners',
-    link: 'https://google.com',
+    link: routes.comingSoon.root,
   },
   {
     label: 'Suggestions',
-    link: 'https://google.com',
+    link: routes.comingSoon.root,
   },
   {
     label: 'Discord Community',
-    link: 'https://google.com',
+    link: routes.comingSoon.root,
   },
   {
     label: 'Blog',
-    link: 'https://google.com',
+    link: routes.comingSoon.root,
   },
   {
     label: 'Docs',
-    link: 'https://google.com',
+    link: routes.comingSoon.root,
   },
   {
     label: 'Newsletter',
-    link: 'https://google.com',
+    link: routes.comingSoon.root,
   },
 ];
