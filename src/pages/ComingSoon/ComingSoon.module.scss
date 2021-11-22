@@ -1,0 +1,18 @@
+@import '/src/styles/helpers.scss';
+
+.top {
+  padding: 45px 0;
+  @include flexbox(center);
+  flex-direction: column;
+
+  border-bottom: 2px solid $color-neutral-10;
+}
+
+.body {
+  padding: 45px 15px;
+  @include flexbox(normal, center);
+  flex-grow: 1;
+}
+.title {
+  margin-bottom: 16px;
+}
