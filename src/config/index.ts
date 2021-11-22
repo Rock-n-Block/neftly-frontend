@@ -98,10 +98,12 @@ export const chains: {
         symbol: 'MATIC',
         decimals: 18,
       },
-      rpc: is_production ? 'https://rpc-mainnet.maticvigil.com/' : 'https://rpc-mumbai.matic.today',
+      rpc: is_production
+        ? 'https://rpc-mainnet.maticvigil.com/'
+        : 'https://matic-mumbai.chainstacklabs.com',
       blockExplorerUrl: is_production
         ? 'https://explorer.matic.network/'
-        : 'https://explorer-mumbai.maticvigil.com/',
+        : 'https://mumbai.polygonscan.com/',
     },
     img: polygonLogo,
     provider: {
@@ -115,7 +117,7 @@ export const chains: {
             rpc: {
               [is_production ? 137 : 80001]: is_production
                 ? 'https://rpc-mainnet.maticvigil.com/'
-                : 'https://rpc-mumbai.matic.today',
+                : 'https://matic-mumbai.chainstacklabs.com',
             },
             chainId: is_production ? 137 : 80001,
           },

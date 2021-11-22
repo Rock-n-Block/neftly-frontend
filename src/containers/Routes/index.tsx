@@ -15,6 +15,7 @@ import {
   Nft,
   ConnectWallet,
   LostPage404,
+  ComingSoon,
 } from 'pages';
 
 const Routes = observer(() => {
@@ -32,6 +33,7 @@ const Routes = observer(() => {
       <Route path={routes.collection.root} component={CollectionPage} />
       <Route path={routes.connectWallet.root} component={ConnectWallet} />
       <Route path={routes.lostPage.root} component={LostPage404} />
+      <Route path={routes.comingSoon.root} component={ComingSoon} />
       {/* GUARDED ROUTES */}
       <GuardedRoute auth={user.isAuth} path={routes.create.single} component={CreateToken} />
       <GuardedRoute

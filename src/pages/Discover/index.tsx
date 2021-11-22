@@ -215,7 +215,11 @@ const Discover = observer(() => {
                 })}
             </div>
           </>
-          {isNftsLoading && <Loader />}
+          {isNftsLoading && (
+            <div className={styles.loaderBox}>
+              <Loader />
+            </div>
+          )}
         </div>
       </div>
       <div ref={anchorRef as RefObject<HTMLDivElement>} />

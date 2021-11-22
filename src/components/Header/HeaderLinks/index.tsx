@@ -1,15 +1,15 @@
 import { FC, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
-import { routes } from 'appConstants';
+import { useHistory } from 'react-router';
+import { Link, useLocation } from 'react-router-dom';
+import { resourcesHelperObject, routes } from 'appConstants';
 import cx from 'classnames';
 import { Button, Text } from 'components';
+import { Popover } from 'containers';
+import { usePopover } from 'hooks';
+import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
 
 import styles from './styles.module.scss';
-import { Popover } from 'containers';
-import { observer } from 'mobx-react-lite';
-import { usePopover } from 'hooks';
-import { useHistory } from 'react-router';
 
 interface IHeaderLinksProps {
   toggleMenu?: () => void;
@@ -17,36 +17,55 @@ interface IHeaderLinksProps {
 }
 
 interface ITag {
-  icon: string;
-  title: string;
+  icon?: string;
+  title?: string;
+  label?: string;
+  link?: string;
 }
 
 interface IHeaderNestedBodyProps {
+  isLinks?: boolean;
   links?: ITag[];
   onClick: (url: string) => void;
 }
 
-const HeaderNestedBody: FC<IHeaderNestedBodyProps> = ({ links, onClick }) => {
+const HeaderNestedBody: FC<IHeaderNestedBodyProps> = ({ isLinks = false, links, onClick }) => {
   const { closePopover } = usePopover();
   const handleTagClick = (title: string) => {
     closePopover();
     onClick(routes.discover.filter(title));
   };
+
+  if (isLinks && links) {
+    return (
+      <>
+        {links?.length !== 0 &&
+          links?.map(({ label, link }) => (
+            <Link className={styles.dropdownLink} key={label} to={link as string}>
+              <Text color="black" size="m" weight="medium">
+                {label}
+              </Text>
+            </Link>
+          ))}
+      </>
+    );
+  }
   return (
     <>
-      {links?.length !== 0 && links?.map((tag) => (
-        <Button
-          className={styles.dropdownLink}
-          key={tag.title}
-          color="transparent"
-          icon={tag.icon}
-          onClick={() => handleTagClick(tag.title)}
-        >
-          <Text color="black" size="m" weight="medium">
-            {tag.title}
-          </Text>
-        </Button>
-      ))}
+      {links?.length !== 0 &&
+        links?.map((tag) => (
+          <Button
+            className={styles.dropdownLink}
+            key={tag.title}
+            color="transparent"
+            icon={tag.icon}
+            onClick={() => handleTagClick(tag.title as string)}
+          >
+            <Text color="black" size="m" weight="medium">
+              {tag.title}
+            </Text>
+          </Button>
+        ))}
     </>
   );
 };
@@ -64,13 +83,22 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
         active: location.pathname.includes(routes.discover.root),
         disabled: false,
         isNested: true,
-        internalLinks: nftTags.getTags as ITag[],
+        internalLinks: nftTags.getTags,
       },
+
       {
         url: routes.activity.root,
         active: location.pathname.includes(routes.activity.root),
         title: 'Activity',
         isNested: false,
+      },
+      {
+        title: 'Resources',
+        active: location.pathname.includes(routes.discover.root),
+        disabled: false,
+        isNested: true,
+        isLinks: true,
+        internalLinks: resourcesHelperObject,
       },
       {
         url: user.address ? routes.create.root : routes.connectWallet.root,
@@ -90,17 +118,21 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
 
   return (
     <div className={cx(styles.headerNavigation, className)}>
-      {nav.map(({ url, title, active, disabled, isNested, internalLinks }) => {
+      {nav.map(({ url, title, active, disabled, isNested, internalLinks, isLinks }) => {
         if (isNested && !disabled) {
           return (
-            <Popover position='center' key={title}>
+            <Popover position="center" key={title}>
               <Popover.Button className={`${styles.linkBtn} ${active && styles.active}`}>
                 <Text className={styles.linkTitle} size="m" color={active ? 'primary' : 'black'}>
                   {title}
                 </Text>
               </Popover.Button>
               <Popover.Body>
-                <HeaderNestedBody links={internalLinks} onClick={handleMenuItemClick} />
+                <HeaderNestedBody
+                  links={internalLinks}
+                  isLinks={isLinks}
+                  onClick={handleMenuItemClick}
+                />
               </Popover.Body>
             </Popover>
           );
