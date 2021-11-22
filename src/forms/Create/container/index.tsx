@@ -10,6 +10,7 @@ import { chainsEnum } from 'typings';
 import * as Yup from 'yup';
 
 import CreateForm, { ICreateForm } from '../component';
+import { routes } from 'appConstants';
 
 export default observer(({ isSingle }: any) => {
   const history = useHistory();
@@ -107,6 +108,7 @@ export default observer(({ isSingle }: any) => {
                 if (res.result) {
                   toast.success('Token Created');
                   toast.info(<ToastContentWithTxHash txHash={res.transaction.txID} />);
+                  history.push(`${routes.profile.link(user.id)}?tab=owned`);
                 }
               })
               .catch((response: any) => {
@@ -123,7 +125,7 @@ export default observer(({ isSingle }: any) => {
               .sendTransaction(data.initial_tx)
               .on('transactionHash', (txHash: string) => {
                 toast.info(<ToastContentWithTxHash txHash={txHash} />);
-                history.push('/');
+                history.push(`${routes.profile.link(user.id)}?tab=owned`);
               })
               .then(() => {
                 toast.success('Token Created');
