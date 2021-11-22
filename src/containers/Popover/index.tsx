@@ -1,8 +1,10 @@
 import { createContext, FC, useCallback, useState } from 'react';
-import PopoverButton, { IPopoverButton } from './PopoverButton';
-import PopoverBody, { IPopoverBody } from './PopoverBody';
-import styles from './styles.module.scss';
 import cn from 'classnames';
+
+import PopoverBody, { IPopoverBody } from './PopoverBody';
+import PopoverButton, { IPopoverButton } from './PopoverButton';
+
+import styles from './styles.module.scss';
 
 type TPosition = 'left' | 'center' | 'right';
 export interface IPopoverContext {
