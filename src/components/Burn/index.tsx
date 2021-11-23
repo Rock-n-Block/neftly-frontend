@@ -7,7 +7,6 @@ import { observer } from 'mobx-react-lite';
 import { storeApi } from 'services/api';
 import { useWalletConnectorContext } from 'services/walletConnect';
 import { useMst } from 'store';
-import { chainsEnum } from 'typings';
 
 import styles from './Burn.module.scss';
 
@@ -29,26 +28,15 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
     storeApi
       .burnToken(burn.tokenId.toString() || '', amount)
       .then(({ data }: any) => {
-        if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-          walletConnector.walletService
-            .trxCreateTransaction(data.initial_tx, user.address)
-            .then(() => {
-              burn.success();
-              burn.close();
-              toast.success('Token Burned');
-              history.push('/');
-            });
-        } else {
-          walletConnector.walletService
-            .sendTransaction(data.initial_tx)
-            .then(() => {
-              burn.success();
-              burn.close();
-              toast.success('Token Burned');
-              history.push('/');
-            })
-            .finally(() => setIsLoading(false));
-        }
+        walletConnector.walletService
+          .sendTransaction(data.initial_tx)
+          .then(() => {
+            burn.success();
+            burn.close();
+            toast.success('Token Burned');
+            history.push('/');
+          })
+          .finally(() => setIsLoading(false));
       })
       .catch(() => {
         toast.error('Bid modal sendTranscation');

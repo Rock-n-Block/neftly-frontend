@@ -1,16 +1,8 @@
-import {
-  tronChain,
-  tronLink,
-  bnbLogo,
-  ethLogo,
-  polygonLogo,
-  metamaskImg,
-  walletConnectImg,
-} from 'assets/img';
-import { chainsEnum, IConnectWallet, IContracts } from 'typings';
 import { INetwork } from '@amfi/connect-wallet/dist/interface';
+import { bnbLogo, ethLogo, metamaskImg, polygonLogo, walletConnectImg } from 'assets/img';
+import { chainsEnum, IConnectWallet, IContracts } from 'typings';
 
-import { bep20Abi, erc20Abi, nftAbi, wbnbTestnetAbi, wethTestnetAbi, wTrx } from './abi';
+import { bep20Abi, erc20Abi, nftAbi, wbnbTestnetAbi, wethTestnetAbi } from './abi';
 
 export const is_production = false;
 
@@ -126,18 +118,6 @@ export const chains: {
     },
     explorer: is_production ? '' : '',
   },
-  [chainsEnum.Tron]: {
-    name: chainsEnum.Tron,
-    network: {
-      chainName: chainsEnum.Tron,
-      chainID: 0,
-    },
-    img: tronChain,
-    provider: {
-      TronLink: { name: 'TronLink', img: tronLink },
-    },
-    explorer: is_production ? 'https://tronscan.org' : 'https://shasta.tronscan.org',
-  },
 };
 
 export const connectWallet = (
@@ -162,7 +142,6 @@ const exchangeAddrs = {
     : '',
   [chainsEnum.Ethereum]: !is_production ? '0x190a5d4643e55313906344176F61724fC138501c' : '',
   [chainsEnum.Polygon]: !is_production ? '0x928724290F7F868C2fEe10720aE5b48C94c5139F' : '',
-  [chainsEnum.Tron]: !is_production ? 'TWSrxkCTYAYg1mqHpoYxbDkW2DkYNzLwML' : '',
 };
 
 export const contracts: IContracts = {
@@ -228,16 +207,6 @@ export const contracts: IContracts = {
       testnet: {
         address: '0x86652c1301843B4E06fBfbBDaA6849266fb2b5e7',
         abi: wethTestnetAbi,
-      },
-    },
-    WTRX: {
-      mainnet: {
-        address: '41891cdb91d149f23b1a45d9c5ca78a88d0cb44c18',
-        abi: wTrx,
-      },
-      testnet: {
-        address: 'TLi1ygS2MEr926gyFUWYNxeBJ24yVGDZse',
-        abi: wTrx,
       },
     },
   },

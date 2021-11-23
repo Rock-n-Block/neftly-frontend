@@ -1,5 +1,5 @@
 import React from 'react';
-import { INft, IOwner, chainsEnum, TNullable } from 'typings';
+import { chainsEnum, INft, IOwner, TNullable } from 'typings';
 
 export default (nft: TNullable<INft>, userId: string | number, userAddress: string) => {
   const isOwner = React.useMemo(() => {
@@ -34,12 +34,6 @@ export default (nft: TNullable<INft>, userId: string | number, userAddress: stri
     ) {
       return false;
     }
-    if (
-      nft?.network.name === chainsEnum.Tron &&
-      localStorage.nftcrowd_nft_chainName === chainsEnum.Tron
-    ) {
-      return false;
-    }
     return true;
   }, [nft, userAddress]);
 
@@ -59,7 +53,7 @@ export default (nft: TNullable<INft>, userId: string | number, userAddress: stri
     }
     return false;
   }, [nft, isOwner, userId, isWrongChain]);
-  
+
   const isUserCanChangePrice = React.useMemo(() => {
     if (userId && nft && !isWrongChain) {
       if (nft.is_selling && isOwner) {
@@ -140,6 +134,6 @@ export default (nft: TNullable<INft>, userId: string | number, userAddress: stri
     isUserCanEnterInAuction,
     isUserCanPutOnSale,
     isUserCanEndAuction,
-    isUserCanChangePrice
+    isUserCanChangePrice,
   };
 };

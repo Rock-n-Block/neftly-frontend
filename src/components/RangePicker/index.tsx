@@ -127,7 +127,7 @@ const RangePicker: FC<Props> = ({
           <Text className={styles.label}>{label}</Text>
           {isCurrenciesVisible && (
             <Text size="m" className={styles.currency}>
-              {value} TRX{' '}
+              {value}{' '}
               <Text tag="span" color="secondary">
                 value
               </Text>

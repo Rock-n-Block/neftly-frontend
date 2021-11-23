@@ -4,7 +4,6 @@ export enum chainsEnum {
   Ethereum = 'Ethereum',
   'Binance-Smart-Chain' = 'Binance-Smart-Chain',
   'Polygon' = 'Polygon',
-  'Tron' = 'Tron',
 }
 
 export interface IConnectWallet {

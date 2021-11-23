@@ -1,7 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { contracts, is_production } from 'config';
-import { getTronBalance } from 'services/tron';
-import { getTokenAmountDisplay, getTronContract } from 'utils';
 
 import { useWalletConnectorContext, WalletConnect } from 'services';
 
@@ -17,13 +14,7 @@ export default (
 
   const getUserBalance = useCallback(async () => {
     let req: Promise<any>;
-    if (currency.toUpperCase() === 'TRX') {
-      req = getTronBalance(userAddress);
-    } else if (currency.toUpperCase() === 'WTRX') {
-      const { address } = contracts.params.WTRX[is_production ? 'mainnet' : 'testnet'];
-      const contract = await getTronContract(address);
-      req = contract.balanceOf(userAddress).call();
-    } else if (
+    if (
       currency.toUpperCase() === 'BNB' ||
       currency.toUpperCase() === 'ETH' ||
       currency.toUpperCase() === 'MATIC'
@@ -34,13 +25,7 @@ export default (
     }
 
     req.then((data: string | number) => {
-      if (currency.toUpperCase() === 'TRX') {
-        setBalance(data.toString());
-      } else if (currency.toUpperCase() === 'WTRX') {
-        setBalance(getTokenAmountDisplay(data.toString(), 6));
-      } else {
-        setBalance(WalletConnect.weiToEth(data.toString()));
-      }
+      setBalance(WalletConnect.weiToEth(data.toString()));
     });
   }, [walletService, userAddress, currency]);
 

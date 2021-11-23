@@ -35,8 +35,6 @@ export { ReactComponent as TradingEthSVG } from './tradingEth.svg';
 export { default as heart } from './heart.svg';
 export { default as me } from './me.svg';
 export { default as folders } from './folders.svg';
-export { default as tronChain } from './tronChain.svg';
-export { default as tronLink } from './tronLink.svg';
 export { default as bidAction } from './bidAction.svg';
 export { default as burnAction } from './burnAction.svg';
 export { default as followingAction } from './followingAction.svg';

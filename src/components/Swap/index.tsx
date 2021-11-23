@@ -8,17 +8,14 @@ import { useWalletConnectorContext, WalletConnect } from 'services';
 import { useMst } from 'store';
 
 import styles from './Swap.module.scss';
-import { chainsEnum } from 'typings';
-import { getTokenAmount, getTronContract } from 'utils';
-import { contracts, is_production } from 'config';
 
 /*interface ISwapProps {
   main: string;
-  wrap: 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX';
+  wrap: 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC';
   refresh: boolean;
   setRefresh: (value: boolean) => void;
 }*/
-type TWrapped = 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX';
+type TWrapped = 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC';
 
 const Swap: React.FC = observer(() => {
   const walletConnector = useWalletConnectorContext();
@@ -49,75 +46,12 @@ const Swap: React.FC = observer(() => {
 
   const handleSubmitConvert = useCallback(() => {
     const weiValue =
-      localStorage.nftcrowd_nft_chainName === chainsEnum.Tron
-        ? getTokenAmount(payInput, 6)
-        : WalletConnect.calcTransactionAmount(payInput, 18);
+      localStorage.nftcrowd_nft_chainName === WalletConnect.calcTransactionAmount(payInput, 18);
     setLoading(true);
 
     if (swappingCurrency[0] === 'main') {
-      if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-        const { address } = contracts.params.WTRX[is_production ? 'mainnet' : 'testnet'];
-        getTronContract(address).then((contract: any) => {
-          contract
-            .deposit()
-            .send({ from: user.address, callValue: weiValue })
-            .then(async (data: any) => {
-              // setRefresh(true);
-              swap.setRefresh(true);
-              close();
-              toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
-            })
-            .catch((err: any) => {
-              console.error('error', err);
-            })
-            .finally(() => {
-              // setRefresh(false);
-              swap.setRefresh(false);
-              setLoading(false);
-            });
-        });
-      } else {
-        walletConnector.walletService
-          .createTransaction('deposit', [], swap.wrap as TWrapped, '', '', '', weiValue)
-          .then(async (data: any) => {
-            // setRefresh(true);
-            swap.setRefresh(true);
-            close();
-            toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
-          })
-          .catch((err: any) => {
-            console.error('error', err);
-          })
-          .finally(() => {
-            // setRefresh(false);
-            swap.setRefresh(false);
-            setLoading(false);
-          });
-      }
-    } else if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-      const { address } = contracts.params.WTRX[is_production ? 'mainnet' : 'testnet'];
-      getTronContract(address).then((contract: any) => {
-        contract
-          .withdraw(weiValue)
-          .send({ from: user.address, callValue: weiValue })
-          .then(async (data: any) => {
-            // setRefresh(true);
-            swap.setRefresh(true);
-            close();
-            toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
-          })
-          .catch((err: any) => {
-            console.error('error', err);
-          })
-          .finally(() => {
-            // setRefresh(false);
-            swap.setRefresh(false);
-            setLoading(false);
-          });
-      });
-    } else {
       walletConnector.walletService
-        .createTransaction('withdraw', [weiValue], swap.wrap as TWrapped)
+        .createTransaction('deposit', [], swap.wrap as TWrapped, '', '', '', weiValue)
         .then(async (data: any) => {
           // setRefresh(true);
           swap.setRefresh(true);
@@ -133,6 +67,22 @@ const Swap: React.FC = observer(() => {
           setLoading(false);
         });
     }
+    walletConnector.walletService
+      .createTransaction('withdraw', [weiValue], swap.wrap as TWrapped)
+      .then(async (data: any) => {
+        // setRefresh(true);
+        swap.setRefresh(true);
+        close();
+        toast.info(<ToastContentWithTxHash txHash={data.transactionHash} />);
+      })
+      .catch((err: any) => {
+        console.error('error', err);
+      })
+      .finally(() => {
+        // setRefresh(false);
+        swap.setRefresh(false);
+        setLoading(false);
+      });
   }, [payInput, swappingCurrency, user.address, walletConnector.walletService, swap, close]);
   const handlePayInput = useCallback((value: string) => {
     setPayInput(value);

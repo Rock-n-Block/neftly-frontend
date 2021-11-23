@@ -3,29 +3,17 @@ import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import BigNumber from 'bignumber.js/bignumber';
 import { Observable } from 'rxjs';
 import { chainsEnum } from 'typings';
-import { getTokenAmount, getTokenAmountDisplay, getTronContract } from 'utils';
 import Web3 from 'web3';
 
-import abiERC721 from '../../appConstants/abiERC721.json';
-import abiERC1155 from '../../appConstants/abiERC1155.json';
 import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
-
-const MS_RETRY_TRON = 2000;
-const trxFeeLimit = 100000000;
-
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 export class WalletConnect {
   public connectWallet: ConnectWallet;
-
-  public tronWeb: any;
 
   public walletAddress = '';
 
   constructor() {
     this.connectWallet = new ConnectWallet();
-    this.tronWeb = null;
-    this.connectTronWeb();
   }
 
   public async initWalletConnect(
@@ -58,24 +46,7 @@ export class WalletConnect {
     return this.connectWallet.currentWeb3();
   }
 
-  async connectTronWeb() {
-    try {
-      if (!window.tronWeb?.defaultAddress?.base58) {
-        await delay(MS_RETRY_TRON);
-      }
-      this.tronWeb = window.tronWeb;
-    } catch (err) {
-      console.error(err);
-    }
-  }
-  // Promise<string | number>
-
   public async getTokenBalance(contractAbi: string) {
-    if (contractAbi === 'WTRX') {
-      const { address } = contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'];
-      const contract = await getTronContract(address);
-      return contract.balanceOf(this.walletAddress).call();
-    }
     const contract = this.connectWallet.getContract({
       address: contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'].address,
       abi: contracts.params[contractAbi][is_production ? 'mainnet' : 'testnet'].abi,
@@ -130,7 +101,7 @@ export class WalletConnect {
   async createTransaction(
     method: string,
     data: Array<any>,
-    contract: 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'WTRX' | 'NFT',
+    contract: 'BEP20' | 'WETH' | 'WBNB' | 'WMATIC' | 'NFT',
     tx?: any,
     tokenAddress?: string,
     walletAddress?: string,
@@ -165,45 +136,6 @@ export class WalletConnect {
       ...transactionConfig,
       from: this.walletAddress,
     });
-  }
-
-  async trxCreateTransaction(data: any, address: string) {
-    const { transaction } = await this.tronWeb.transactionBuilder.triggerSmartContract(
-      data.contractAddress,
-      data.function,
-      data.options,
-      data.parameter,
-      address,
-    );
-
-    const isTransferOrBurn =
-      data.function.toLowerCase().includes('transfer') || data.function.includes('burn');
-
-    if (isTransferOrBurn) {
-      const abiSelecteor = data.is1155 ? abiERC1155 : abiERC721;
-      const methodName = data.function.replace(/\(.*/, '');
-      const params = data.parameter.map((param: any) => param.value);
-      const contract = await this.tronWeb.contract(abiSelecteor, data.contractAddress);
-      const result = await contract[methodName](...params).send({
-        from: address,
-      });
-
-      return { result };
-    }
-
-    return this.trxSendTransaction(transaction);
-  }
-
-  async trxSendTransaction(transaction: any) {
-    let receipt;
-    try {
-      const signedMsg = await this.tronWeb.trx.sign(transaction);
-      receipt = await window.tronWeb.trx.sendRawTransaction(signedMsg);
-    } catch (err: any) {
-      console.log(err);
-    }
-
-    return receipt;
   }
 
   async totalSupply(tokenAddress: string, abi: Array<any>, tokenDecimals: number) {
@@ -257,32 +189,6 @@ export class WalletConnect {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  async trxTotalSupply(contract: any) {
-    const { _hex } = await contract.totalSupply().call();
-    const totalSupply = new BigNumber(_hex).toString();
-    return +getTokenAmountDisplay(totalSupply, 6);
-  }
-
-  async trxCheckAllowance(contractName: string, approvedAddress: string, walletAddress: string) {
-    try {
-      const contract = await this.tronWeb.contract().at(WalletConnect.getAddress(contractName));
-
-      const { _hex } = await contract.allowance(walletAddress, approvedAddress).call();
-      let result: number | string | null = new BigNumber(_hex).toString();
-      const totalSupply = await this.trxTotalSupply(contract);
-
-      result = result === '0' ? null : +getTokenAmount(result, 6);
-      if (result && new BigNumber(result).minus(totalSupply).isPositive()) {
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.log('Allowance error', error);
-      return false;
-    }
-  }
-
   async approveToken(
     contractName: string,
     tokenDecimals: number,
@@ -306,20 +212,6 @@ export class WalletConnect {
         data: approveSignature,
       });
     } catch (error) {
-      return error;
-    }
-  }
-
-  async trxApproveToken(contractName: string, approvedAddress: string) {
-    try {
-      const contract = await this.tronWeb.contract().at(WalletConnect.getAddress(contractName));
-
-      const amount = WalletConnect.calcTransactionAmount(90071992000.5474099, 6);
-      const res = await contract.approve(approvedAddress, amount).send({ feeLimit: trxFeeLimit });
-      console.log('res', res);
-      return true;
-    } catch (error) {
-      console.log('Approve error', error);
       return error;
     }
   }

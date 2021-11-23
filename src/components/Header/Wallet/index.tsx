@@ -12,14 +12,12 @@ import { toFixed } from 'utils';
 import styles from './Wallet.module.scss';
 import { Popover } from 'containers';
 
-// import Theme from '../../Theme';
-
 interface IUserProps {
   className?: string;
 }
 
 let MAIN: string;
-let WRAP: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC' | 'WTRX';
+let WRAP: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC';
 
 const WalletBody: FC = observer(() => {
   switch (localStorage.nftcrowd_nft_chainName) {
@@ -30,10 +28,6 @@ const WalletBody: FC = observer(() => {
     case 'Ethereum':
       MAIN = 'ETH';
       WRAP = 'WETH';
-      break;
-    case 'Tron':
-      MAIN = 'TRX';
-      WRAP = 'WTRX';
       break;
     default:
       MAIN = 'MATIC';

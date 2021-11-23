@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite';
 import { storeApi } from 'services/api';
 import { useWalletConnectorContext } from 'services/walletConnect';
 import { useMst } from 'store';
-import { chainsEnum, INft, TNullable } from 'typings';
+import { INft, TNullable } from 'typings';
 
 import styles from './styles.module.scss';
 import { toast } from 'react-toastify';
@@ -74,54 +74,30 @@ const PaymentComponent: FC<Props> = observer(
           setApproved(true);
           return;
         }
-        if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-          walletService
-            .trxCheckAllowance(nft.currency.symbol.toUpperCase(), ExchangeAddress, user.address)
-            .then((res: boolean) => {
-              setApproved(res);
-            })
-            .catch((err: any) => {
-              setApproved(false);
-              console.error(err, 'check');
-            });
-        } else {
-          walletService
-            .checkTokenAllowance(nft.currency.symbol.toUpperCase(), 18, ExchangeAddress)
-            .then((res: boolean) => {
-              setApproved(res);
-            })
-            .catch((err: any) => {
-              setApproved(false);
-              console.error(err, 'check');
-            });
-        }
+        walletService
+          .checkTokenAllowance(nft.currency.symbol.toUpperCase(), 18, ExchangeAddress)
+          .then((res: boolean) => {
+            setApproved(res);
+          })
+          .catch((err: any) => {
+            setApproved(false);
+            console.error(err, 'check');
+          });
       }
     }, [nft, walletService, ExchangeAddress, user.address]);
 
     const handleApproveToken = React.useCallback(() => {
       if (nft) {
-        setApproving(true);
-        if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-          walletService
-            .trxApproveToken(nft.currency.symbol.toUpperCase(), ExchangeAddress)
-            .then(() => {
-              setApproved(true);
-            })
-            .catch((err: any) => {
-              console.error(err, 'err approve');
-            })
-            .finally(() => setApproving(false));
-        } else {
-          walletService
-            .approveToken(nft.currency.symbol.toUpperCase(), 18, ExchangeAddress)
-            .then(() => {
-              setApproved(true);
-            })
-            .catch((err: any) => {
-              console.error(err, 'err approve');
-            })
-            .finally(() => setApproving(false));
-        }
+      setApproving(true);
+        walletService
+          .approveToken(nft.currency.symbol.toUpperCase(), 18, ExchangeAddress)
+          .then(() => {
+            setApproved(true);
+          })
+          .catch((err: any) => {
+            console.error(err, 'err approve');
+          })
+          .finally(() => setApproving(false));
       }
     }, [ExchangeAddress, nft, walletService]);
 
@@ -232,23 +208,7 @@ const PaymentComponent: FC<Props> = observer(
             {!!nft?.minimal_bid && (
               <Text color="lightGray">{`Minimal bid ${nft.minimal_bid} ${nft?.currency.symbol}`}</Text>
             )}
-            {/*{nftSellingType === 'sell' && (
-              <Text size="m" className={styles.growthWrapper}>
-                <img
-                  className={cx(styles.growth, { [styles.negativeGrowth]: !isDifferencePositive })}
-                  src={growthImg}
-                  alt=""
-                />
-                {`${isDifferencePositive ? '+' : ''}${difference || '0'}%`}
-              </Text>
-            )}*/}
           </div>
-          {/* {type === 'auction' && (
-          <div>
-            <Text color="lightGray">Auction Ending in</Text>
-            <Text size="xl">14.45</Text>
-          </div>
-          )} */}
         </div>
 
         {user.address ? (

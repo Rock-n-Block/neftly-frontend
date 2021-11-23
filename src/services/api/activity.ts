@@ -1,6 +1,7 @@
-import { IBackendPriceHistory, TPriceHistoryPeriod, TTopUserReq } from 'typings';
-import axios from '../../core/axios';
 import { AxiosResponse } from 'axios';
+import { IBackendPriceHistory, TPriceHistoryPeriod, TTopUserReq } from 'typings';
+
+import axios from '../../core/axios';
 
 export default {
   getActivity: (page: string | number, query: any) => {

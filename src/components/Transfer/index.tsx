@@ -5,7 +5,6 @@ import { Button, Text, TextInput } from 'components';
 import { observer } from 'mobx-react-lite';
 import { storeApi, useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
-import { chainsEnum } from 'typings';
 
 import styles from './Transfer.module.scss';
 
@@ -39,41 +38,21 @@ const Transfer: React.FC<ITransferProps> = ({ className }) => {
     storeApi
       .transferToken(transfer.tokenId.toString() || '', inputValue, amount)
       .then(({ data }: any) => {
-        if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-          walletService
-            .trxCreateTransaction(data.initial_tx, user.address)
-            .then((res: any) => {
-              if (res.result) {
-                transfer.success();
-                transfer.close();
-                toast.success('Token Transfered');
-              }
-            })
-            .catch(({ response }) => {
-              if (response && response.data && response.data.name) {
-                toast.error(response.data.name);
-              } else {
-                toast.error('Transfer failed');
-              }
-              console.error('transfer failure', response);
+        walletService
+          .sendTransaction(data.initial_tx)
+          .then(() => {
+            transfer.success();
+            transfer.close();
+            toast.success('Token Transfered');
+          })
+          .catch((e: any) => {
+            toast.error({
+              message: 'Error',
+              description: 'Token Transfer failed',
             });
-        } else {
-          walletService
-            .sendTransaction(data.initial_tx)
-            .then(() => {
-              transfer.success();
-              transfer.close();
-              toast.success('Token Transfered');
-            })
-            .catch((e: any) => {
-              toast.error({
-                message: 'Error',
-                description: 'Token Transfer failed',
-              });
-              console.error('Token Transfer failed', e);
-            })
-            .finally(() => setIsLoading(false));
-        }
+            console.error('Token Transfer failed', e);
+          })
+          .finally(() => setIsLoading(false));
       })
       .catch((e: any) => {
         toast.error({

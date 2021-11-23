@@ -3,7 +3,6 @@ import { arrowRight } from 'assets/img';
 import cn from 'classnames';
 import { Text } from 'components';
 import { chains } from 'config';
-import { connectTron } from 'services/tron';
 import { useWalletConnectorContext } from 'services/walletConnect';
 import { chainsEnum } from 'typings';
 
@@ -52,12 +51,10 @@ const ChooseWallet: React.FC = () => {
         </Text>
         <div className={styles.wallets}>
           {Object.keys(chains[activeChain].provider).map((wallet: any) => {
-            const connectAction =
-              wallet === 'TronLink' ? connectTron : () => connect(activeChain, wallet);
             return (
               <div
                 className={cn(styles.item, styles.item_wallet)}
-                onClick={connectAction}
+                onClick={() => connect(activeChain, wallet)}
                 onKeyDown={() => {}}
                 role="button"
                 tabIndex={0}

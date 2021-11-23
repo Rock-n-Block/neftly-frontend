@@ -38,51 +38,27 @@ const Checkout: React.FC = observer(() => {
           sell.nft.standart === 'ERC721' ? '' : sell.nft.sellerId,
         )
         .then(({ data }) => {
-          if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-            walletService
-              .trxCreateTransaction(data.initial_tx, user.address)
-              .then((res: any) => {
-                toast.success('success');
-                storeApi
-                  .trackTransaction(res.transactionHash, sell.nft.tokenId, sell.nft.sellerId)
-                  .then(() => {
-                    setTimeout(() => {
-                      sell.checkout.success();
-                      sell.checkout.close();
-                    }, 1000);
-                  });
-              })
-              .catch((error: any) => {
-                toast.error({
-                  message: 'Error',
-                  description: 'Something went wrong',
+          walletService
+            .sendTransaction(data.initial_tx)
+            .then((res: any) => {
+              toast.success('success');
+              storeApi
+                .trackTransaction(res.transactionHash, sell.nft.tokenId, sell.nft.sellerId)
+                .then(() => {
+                  setTimeout(() => {
+                    sell.checkout.success();
+                    sell.checkout.close();
+                  }, 1000);
                 });
-                console.error(error);
-              })
-              .finally(() => setIsLoading(false));
-          } else {
-            walletService
-              .sendTransaction(data.initial_tx)
-              .then((res: any) => {
-                toast.success('success');
-                storeApi
-                  .trackTransaction(res.transactionHash, sell.nft.tokenId, sell.nft.sellerId)
-                  .then(() => {
-                    setTimeout(() => {
-                      sell.checkout.success();
-                      sell.checkout.close();
-                    }, 1000);
-                  });
-              })
-              .catch((error: any) => {
-                toast.error({
-                  message: 'Error',
-                  description: 'Something went wrong',
-                });
-                console.error(error);
-              })
-              .finally(() => setIsLoading(false));
-          }
+            })
+            .catch((error: any) => {
+              toast.error({
+                message: 'Error',
+                description: 'Something went wrong',
+              });
+              console.error(error);
+            })
+            .finally(() => setIsLoading(false));
         })
         .catch((error: any) => {
           toast.error({

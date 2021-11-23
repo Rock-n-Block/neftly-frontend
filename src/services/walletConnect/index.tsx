@@ -1,13 +1,13 @@
 import React, { createContext, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { routes } from 'appConstants';
 import { is_production } from 'config';
 import { observer } from 'mobx-react';
-import { connectTron, userApi } from 'services';
+import { userApi } from 'services';
 import { WalletConnect } from 'services/walletService';
 import { rootStore } from 'store';
 import { chainsEnum } from 'typings';
-import { routes } from 'appConstants';
 
 declare global {
   interface Window {
@@ -17,7 +17,7 @@ declare global {
 }
 
 const walletConnectorContext = createContext<{
-  connect: (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect' | 'TronLink') => void;
+  connect: (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => void;
   disconnect: () => void;
   walletService: WalletConnect;
 }>({
@@ -47,19 +47,12 @@ class Connector extends React.Component<
   componentDidMount() {
     if (window.ethereum) {
       if (localStorage.nftcrowd_nft_chainName && localStorage.nftcrowd_nft_providerName) {
-        if (localStorage.nftcrowd_nft_chainName === 'Tron') {
-          connectTron();
-          return;
-        }
         this.connect(localStorage.nftcrowd_nft_chainName, localStorage.nftcrowd_nft_providerName);
       }
     }
   }
 
-  connect = async (
-    chainName: chainsEnum,
-    providerName: 'MetaMask' | 'WalletConnect' | 'TronLink',
-  ) => {
+  connect = async (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => {
     if (window.ethereum) {
       try {
         const isConnected = await this.state.provider.initWalletConnect(
