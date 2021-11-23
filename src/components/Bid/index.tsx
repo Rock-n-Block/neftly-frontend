@@ -90,19 +90,22 @@ const Bid: React.FC<IBidProps> = observer(
               placeholder="Enter bid"
               value={bidValue}
               onChange={(e) => setBidValue(e.target.value)}
+              positiveOnly
             />
             <div className={styles.col}>{currency.toUpperCase()}</div>
           </div>
           {available > 1 && (
             <div className={styles.input_row}>
               <TextInput
-                name="bid"
+                name="quantity"
                 label=""
                 type="number"
                 className={styles.input}
                 placeholder="Enter quantity"
                 value={quantity.toString()}
                 onChange={(e) => setQuantity(e.target.value)}
+                positiveOnly
+                integer
               />
               <div className={styles.col}>Quantity</div>
             </div>

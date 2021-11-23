@@ -111,6 +111,8 @@ const Transfer: React.FC<ITransferProps> = ({ className }) => {
             type="number"
             name="amount"
             placeholder="Paste amount of transfered tokens"
+            positiveOnly
+            integer
           />
         </div>
       )}

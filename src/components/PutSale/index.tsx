@@ -125,6 +125,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
             onChange={(e) => setPriceValue(e.target.value)}
             prefix={sell.nft.currency.toUpperCase()}
             prefixClassName={styles.prefix}
+            positiveOnly
           />
           {/* <div className={styles.col}>{sell.nft.currency.toUpperCase()}</div> */}
         </div>
