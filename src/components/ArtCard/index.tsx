@@ -63,22 +63,23 @@ const ArtCard: FC<Props> = ({
 
   const wrapRef = useRef<HTMLAnchorElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+  const offset = 2.5;
 
   const onMouseOver = useCallback(() => {
     if (wrapRef.current && imgRef.current) {
       const div = wrapRef.current;
       const img = imgRef.current;
       const mouseMoveEvent = (e: any) => {
-        const moveX = 100 - (e.offsetX / div.offsetWidth) * 100;
-        const moveY = 100 - (e.offsetY / div.offsetHeight) * 100
+        const moveX = 100 - ((e.offsetX - offset) / div.offsetWidth) * 100;
+        const moveY = 100 - ((e.offsetX - offset) / div.offsetHeight) * 100;
         img.style.objectPosition = `${moveX}% ${moveY}%`;
-      }
-      div.addEventListener('mousemove', mouseMoveEvent)
+      };
+      div.addEventListener('mousemove', mouseMoveEvent);
       div.onmouseleave = function () {
         div.removeEventListener('mousemove', mouseMoveEvent);
         img.style.objectPosition = '50% 50%';
         div.onmouseleave = null;
-      }
+      };
     }
   }, [imgRef, wrapRef]);
 
@@ -118,7 +119,9 @@ const ArtCard: FC<Props> = ({
       <Link
         to={isCollection ? routes.collection.link(artId) : routes.nft.link(artId)}
         className={cx(styles[`mainImageWrapper${type}`], styles.imageWrapper)}
-        onMouseOver={onMouseOver} onFocus={() => { }} innerRef={wrapRef}
+        onMouseOver={onMouseOver}
+        onFocus={() => { }}
+        innerRef={wrapRef}
       >
         <div className={styles.tagContainer}>
           {tags?.map((tag, index) => (

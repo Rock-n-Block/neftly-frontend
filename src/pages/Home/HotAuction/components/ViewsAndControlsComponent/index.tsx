@@ -1,16 +1,6 @@
 import { FC, useCallback, useMemo, useState } from 'react';
-import cx from 'classnames';
-import { observer } from 'mobx-react-lite';
-// import { toast } from 'react-toastify';
-
-import { Button, Copyable, Text } from 'components';
-import { useMst } from 'store';
-import { INft, IOwner, TNullable } from 'typings';
-
+import OutsideClickHandler from 'react-outside-click-handler';
 import { routes } from 'appConstants';
-import styles from './styles.module.scss';
-import 'rc-tooltip/assets/bootstrap.css';
-
 import {
   iconBurnSVG,
   iconChangeSVG,
@@ -21,12 +11,18 @@ import {
   PinkHeart,
   Share,
 } from 'assets/img';
-import { useLike } from 'hooks';
-import { numberFormatter } from 'utils';
+import cx from 'classnames';
+// import { toast } from 'react-toastify';
+import { Button, Copyable, Text } from 'components';
 import OptionMenu, { positionOptions } from 'components/OptionMenu';
-import OutsideClickHandler from 'react-outside-click-handler';
+import { useLike } from 'hooks';
+import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
+import { INft, IOwner, TNullable } from 'typings';
+import { numberFormatter } from 'utils';
 
-const viewsCount = 10;
+import 'rc-tooltip/assets/bootstrap.css';
+import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
@@ -61,7 +57,6 @@ const ViewsAndControlsComponent: FC<Props> = ({
     nft?.id,
     !!user.address,
   );
-
 
   const [isTooltipVisible, setTooltipVisible] = useState(false);
 
@@ -135,14 +130,14 @@ const ViewsAndControlsComponent: FC<Props> = ({
         img: iconBurnSVG,
         event: () => handleActionEvent(handleBurn),
         isVisible: isOwner && !isWrongChain,
-        class: 'red'
+        class: 'red',
       },
       {
         name: 'Report',
         img: iconReportSVG,
         event: () => handleActionEvent(handleReport),
         isVisible: true,
-        class: 'blue'
+        class: 'blue',
       },
     ],
     [
@@ -167,8 +162,8 @@ const ViewsAndControlsComponent: FC<Props> = ({
   return (
     <>
       <div className={cx(styles.viewsAndControls, className)}>
-        {viewsCount && <Text size='m' color="gray" className={styles.viewsData}>{`Views: ${viewsCount}`}</Text>}
-        {inStock ? <Text size='m' color="gray">{`In Stock: ${inStock}`}</Text> : null}
+        <Text size="m" color="gray" className={styles.viewsData}>{`Views: ${nft?.views}`}</Text>
+        {inStock ? <Text size="m" color="gray">{`In Stock: ${inStock}`}</Text> : null}
         <div className={styles.controls}>
           <Button
             className={cx(styles.likeButton, { [styles.likeButtonActive]: isLike })}
@@ -176,7 +171,9 @@ const ViewsAndControlsComponent: FC<Props> = ({
             color="outline"
           >
             <PinkHeart />
-            <Text size='s' color='inherit'>{numberFormatter(likeCount || 0, 1000)}</Text>
+            <Text size="s" color="inherit">
+              {numberFormatter(likeCount || 0, 1000)}
+            </Text>
           </Button>
           <Copyable valueToCopy={`${window.location.origin}${routes.nft.link(nft?.id || '')}`}>
             <Button color="outline" className={styles.copyButton}>
@@ -186,8 +183,12 @@ const ViewsAndControlsComponent: FC<Props> = ({
 
           <div className={styles.optionBtn}>
             <OutsideClickHandler onOutsideClick={() => setTooltipVisible(false)}>
-
-              <Button padding='0' className={styles.button} color="outline" onClick={() => setTooltipVisible(!isTooltipVisible)}>
+              <Button
+                padding="0"
+                className={styles.button}
+                color="outline"
+                onClick={() => setTooltipVisible(!isTooltipVisible)}
+              >
                 <Options />
               </Button>
               <OptionMenu active={isTooltipVisible} position={tooltipPlacement}>
@@ -201,7 +202,7 @@ const ViewsAndControlsComponent: FC<Props> = ({
                           onClick={action.event}
                           role="button"
                           tabIndex={0}
-                          onKeyDown={() => { }}
+                          onKeyDown={() => {}}
                         >
                           <img src={action.img} alt="" />
                           <span>{action.name}</span>
@@ -212,10 +213,8 @@ const ViewsAndControlsComponent: FC<Props> = ({
                   })}
                 </div>
               </OptionMenu>
-
             </OutsideClickHandler>
           </div>
-
         </div>
       </div>
     </>

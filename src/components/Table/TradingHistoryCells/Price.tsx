@@ -1,24 +1,32 @@
 import { FC } from 'react';
-import { TradingEthSVG } from 'assets/img';
 import cx from 'classnames';
 import { Text } from 'components';
+import { ICurrency } from 'typings';
+import { toFixed } from 'utils';
+
+import { TEventType } from './Event';
 
 import styles from './styles.module.scss';
-import { toFixed } from 'utils';
 
 type Props = {
   className?: string;
   amount: number | string;
+  currency: ICurrency;
+  type: TEventType;
 };
 
-const TradingHistoryPrice: FC<Props> = ({ className, amount }) => (
+const TradingHistoryPrice: FC<Props> = ({ className, amount, currency, type }) => (
   <div className={cx(styles.tradingHistoryCells, className)}>
-    <div className={styles.tradingIcon}>
-      <TradingEthSVG />
-    </div>
-    <Text style={{ textTransform: 'uppercase' }} size="m">
-      {`${amount === null ? "???" : toFixed(amount, 5)} ETH`}
-    </Text>
+    {!(type === 'Mint' || type === 'Transfer') && (
+      <>
+        <div className={styles.tradingIcon}>
+          <img src={currency.image} alt={currency.name} />
+        </div>
+        <Text description={amount?.toString()} style={{ textTransform: 'uppercase' }} size="m">
+          {`${amount === null ? '???' : toFixed(amount, 5)} ${currency?.symbol.toUpperCase()}`}
+        </Text>
+      </>
+    )}
   </div>
 );
 
