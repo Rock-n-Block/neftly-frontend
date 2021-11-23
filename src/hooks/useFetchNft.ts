@@ -57,7 +57,6 @@ export const useFetchNft = (
       const boolIsVerified = is_verified === 'All' ? undefined : is_verified === 'verified';
       const formattedCurrency = currency === 'All' ? undefined : currency;
       const formattedTags = tags === 'All NFTs' ? undefined : tags;
-      
       storeApi
         .getSearchResults({
           sort,
