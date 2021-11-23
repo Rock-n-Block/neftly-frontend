@@ -69,8 +69,6 @@
 
       &.open {
         display: block;
-        // position: sticky;
-        // top: 0;
         gap: 32px;
         margin-right: 30px;
       }
@@ -92,9 +90,6 @@
 
     &.withFilter {
       flex-basis: calc(100% - 320px);
-      //.filterResults {
-      //  @include flexbox(center, flex-end);
-      //}
     }
   }
 }

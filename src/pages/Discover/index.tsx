@@ -19,7 +19,7 @@ import { useFetchNft, useFilters, useInfiniteScroll, useScrollDown, useWindowSiz
 import { observer } from 'mobx-react-lite';
 import { userApi } from 'services';
 import { useMst } from 'store';
-import { selectOptions } from 'typings';
+import { selectOptions, TNullable } from 'typings';
 import { toFixed } from 'utils';
 
 import styles from './styles.module.scss';
@@ -91,8 +91,8 @@ const Discover = observer(() => {
     },
     [user.address],
   );
-  const cardsRef = useRef<HTMLDivElement | null>(null);
-  const filtersRef = useRef<HTMLDivElement | null>(null);
+  const cardsRef = useRef<TNullable<HTMLDivElement>>(null);
+  const filtersRef = useRef<TNullable<HTMLDivElement>>(null);
   const anchorRef = useInfiniteScroll(page, allPages, handlePage, isLoading || isNftsLoading);
 
   useScrollDown(filtersRef, '0px', '64px');
