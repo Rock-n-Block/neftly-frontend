@@ -14,7 +14,6 @@ interface ITransferProps {
 
 const Transfer: React.FC<ITransferProps> = ({ className }) => {
   const {
-    user,
     modals: { transfer },
   } = useMst();
   const { walletService } = useWalletConnectorContext();
@@ -62,7 +61,7 @@ const Transfer: React.FC<ITransferProps> = ({ className }) => {
         console.error('Token Transfer failed', e);
         setIsLoading(false);
       });
-  }, [amount, inputValue, transfer, user.address, walletService]);
+  }, [amount, inputValue, transfer, walletService]);
 
   return (
     <div className={cn(className, styles.transfer)}>

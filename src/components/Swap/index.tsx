@@ -83,7 +83,7 @@ const Swap: React.FC = observer(() => {
         swap.setRefresh(false);
         setLoading(false);
       });
-  }, [payInput, swappingCurrency, user.address, walletConnector.walletService, swap, close]);
+  }, [payInput, swappingCurrency, walletConnector.walletService, swap, close]);
   const handlePayInput = useCallback((value: string) => {
     setPayInput(value);
   }, []);

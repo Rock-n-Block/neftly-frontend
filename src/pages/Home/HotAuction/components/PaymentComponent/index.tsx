@@ -84,7 +84,7 @@ const PaymentComponent: FC<Props> = observer(
             console.error(err, 'check');
           });
       }
-    }, [nft, walletService, ExchangeAddress, user.address]);
+    }, [nft, walletService, ExchangeAddress]);
 
     const handleApproveToken = React.useCallback(() => {
       if (nft) {

@@ -1,16 +1,15 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
-import BigNumber from 'bignumber.js/bignumber';
 import { toast } from 'react-toastify';
-
-import { useMst } from '../../store';
+import BigNumber from 'bignumber.js/bignumber';
 import { Button, TextInput } from 'components';
 import { useUserBalance } from 'hooks';
+import { observer } from 'mobx-react-lite';
+
 import { storeApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
+import { useMst } from '../../store';
 
 import styles from './Checkout.module.scss';
-import { chainsEnum } from 'typings';
 
 const Checkout: React.FC = observer(() => {
   const {
@@ -69,7 +68,7 @@ const Checkout: React.FC = observer(() => {
           setIsLoading(false);
         });
     }
-  }, [walletService, quantity, user.id, sell, user.address]);
+  }, [walletService, quantity, user.id, sell]);
 
   const userWillPay = React.useMemo(() => {
     return new BigNumber(sell.nft.price || 0)

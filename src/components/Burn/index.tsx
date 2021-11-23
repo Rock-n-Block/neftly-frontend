@@ -16,7 +16,6 @@ interface IBurnProps {
 
 const Burn: React.FC<IBurnProps> = ({ className }) => {
   const {
-    user,
     modals: { burn },
   } = useMst();
   const history = useHistory();
@@ -42,7 +41,7 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
         toast.error('Bid modal sendTranscation');
         setIsLoading(false);
       });
-  }, [burn, amount, walletConnector.walletService, user.address, history]);
+  }, [burn, amount, walletConnector.walletService, history]);
 
   return (
     <div className={cn(className, styles.transfer)}>
