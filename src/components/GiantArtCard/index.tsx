@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useRef, useState } from 'react';
 import { Close, Zoom } from 'assets/img';
 import cx from 'classnames';
 import { EllipsisText, H2, Skeleton } from 'components';
@@ -12,6 +12,11 @@ import { useMst } from 'store';
 import { INft, TNullable } from 'typings';
 
 import styles from './styles.module.scss';
+
+type TImagePosition = {
+  left: string | number;
+  top: string | number;
+};
 
 type Props = {
   className?: string;
@@ -44,7 +49,28 @@ const GiantCard: FC<Props> = ({ isFetching, className, nft, onUpdateNft }) => {
     },
     [setScroll],
   );
-  console.log(nft);
+
+  const mediaRef = useRef<HTMLImageElement>(null);
+  const [imagePosition, setImagePosition] = useState<TImagePosition | null>(null);
+  const onPreviewClick = useCallback(
+    (state: boolean) => {
+      if (mediaRef.current) {
+        if (state) {
+          const boundRect = mediaRef.current.getBoundingClientRect();
+          const win = document.documentElement.getBoundingClientRect();
+          setImagePosition({
+            left: (win.width - boundRect.width) / 2 - boundRect.left,
+            top: -win.y + (window.innerHeight * 0.5 - boundRect.height) / 2,
+          });
+        } else {
+          setImagePosition(null);
+        }
+      }
+      togglePreview(state);
+    },
+    [mediaRef, togglePreview],
+  );
+
   return (
     <div className={cx(styles.giantCard, className)}>
       <div className={styles.contentWrapper}>
@@ -53,29 +79,41 @@ const GiantCard: FC<Props> = ({ isFetching, className, nft, onUpdateNft }) => {
         ) : (
           nft?.format === 'image' && (
             <>
-              <div className={styles.contentOverlay}>
-                <div className={styles.zoomWrapper}>
+              <button
+                className={styles.mediaContentWrapper}
+                onClick={() => onPreviewClick(true)}
+                type="button"
+              >
+                <div className={styles.overlay}>
                   <Zoom />
                 </div>
-              </div>
-              <div className={`${styles.previewBlock} ${showPreview && styles.fullscreen}`}>
-                <button
-                  className={styles.mediaContentBackground}
-                  onClick={() => togglePreview(false)}
-                  type="button"
-                >
-                  <Close aria-label="close modal" className={styles.closeIcon} />
-                </button>
-                <button
-                  className={styles.mediaContentWrapper}
-                  onClick={() => togglePreview(true)}
-                  type="button"
+                <img
+                  className={styles.mediaContent}
+                  src={nft.media || '/images/content/card-pic-6.jpg'}
+                  alt="Card"
+                />
+              </button>
+              <div className={`${styles.preview} ${showPreview && styles.active}`}>
+                <div
+                  className={`${styles.previewImage} ${showPreview && styles.active}`}
+                  style={{
+                    transform: `translate(${imagePosition?.left || 0}px, ${imagePosition?.top || 0
+                      }px)`,
+                  }}
                 >
                   <img
+                    ref={mediaRef}
                     className={styles.mediaContent}
                     src={nft.media || '/images/content/card-pic-6.jpg'}
                     alt="Card"
                   />
+                </div>
+                <button
+                  type="button"
+                  className={`${styles.background} ${showPreview && styles.active}`}
+                  onClick={() => onPreviewClick(false)}
+                >
+                  <Close />
                 </button>
               </div>
             </>
@@ -105,7 +143,7 @@ const GiantCard: FC<Props> = ({ isFetching, className, nft, onUpdateNft }) => {
               <audio controls>
                 <source
                   src={nft.animation}
-                  // type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+                // type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
                 />
                 <track kind="captions" />
               </audio>

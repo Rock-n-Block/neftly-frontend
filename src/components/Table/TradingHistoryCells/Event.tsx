@@ -5,18 +5,20 @@ import { Text } from 'components';
 import styles from './styles.module.scss';
 import { Burn, Buy, Listing, Mint, Transfer } from 'assets/img';
 
+export type TEventType = 'Listing' | 'Mint' | 'Buy' | 'Transfer' | 'Burn';
+
 type Props = {
   className?: string;
-  type: 'Listing' | 'Mint' | 'Buy' | 'Transfer' | 'Burn';
+  type: TEventType;
   isDeclined?: boolean;
 };
 
 const Icons = {
-  Listing,
+  Burn,
   Mint,
   Buy,
   Transfer,
-  Burn,
+  Listing,
 }
 
 const TradingHistoryEvent: FC<Props> = ({ className, type, isDeclined }) => (

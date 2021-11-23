@@ -6,91 +6,93 @@
   border: 1px solid $color-neutral-10;
 
   .contentWrapper {
-    overflow: hidden;
     max-height: 650px;
     flex: 0 0 50%;
+    position: relative;
     max-width: 650px;
     @include forDesktopBig {
       max-width: 100%;
     }
-    position: relative;
-    @include flexbox(center, center);
 
     @include b(541) {
       max-width: 100%;
       flex: 0 0 100%;
     }
 
-    & .contentOverlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      transition: $transition;
-      background: rgba($color-neutral-80, 0.3);
-      opacity: 0;
-      pointer-events: none;
-      cursor: pointer;
-      display: flex;
-      align-items: flex-end;
-      justify-items: flex-start;
-      z-index: 1;
-    }
-
-    &:hover {
-      & .contentOverlay {
-        opacity: 1;
+    .mediaContentWrapper {
+      & .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: $transition;
+        background: rgba($color-neutral-80, 0.3);
+        opacity: 0;
         pointer-events: none;
+        cursor: pointer;
+        display: flex;
+        align-items: flex-end;
+        justify-items: flex-start;
+
+        & svg {
+          width: 20px;
+          height: 20px;
+          margin: 7px;
+        }
+      }
+
+      &:hover {
+        & .overlay {
+          opacity: 1;
+          pointer-events: none;
+        }
       }
     }
   }
 
-  .previewBlock {
+  .preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
     width: 100%;
     height: 100%;
-    position: relative;
-    @include flexbox;
+    pointer-events: none;
+    opacity: 0;
+    transition: $transition;
 
-    .closeIcon {
-      display: none;
+    &.active{
+      opacity: 1;
     }
 
-    &.fullscreen {
+    &Image {
+      min-width: 100%;
+      min-height: 100%;
+      transition: $transition;
+      position: relative;
+
+      &.active {
+        z-index: 10001;
+      }
+    }
+
+    .background {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 10000;
+      background: rgba($color-neutral-80, 0.3);
+      @include flexbox(flex-start, flex-end);
+      pointer-events: none;
 
-      .closeIcon {
-        display: block;
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        width: 25px;
-        height: 25px;
-        color: $color-neutral-0;
-        transition: $transition;
-
-        &:hover {
-          animation: rotate $transition;
-        }
+      svg {
+        margin: 15px;
       }
 
-      & .mediaContentBackground {
-        position: absolute;
-        background: rgba($color-neutral-80, 0.5);
-        width: 100%;
-        height: 100%;
-      }
-      & .mediaContent {
-        max-width: 90%;
-        max-height: 90%;
-        position: relative;
-        z-index: 1;
-        cursor: default;
+      &.active {
+        pointer-events: all;
       }
     }
   }
@@ -109,8 +111,8 @@
 
   .mediaContent {
     transition: $transition;
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     &Wrapper {
       width: 100%;

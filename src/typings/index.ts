@@ -37,6 +37,7 @@ export interface IHistoryItem {
   old_owner: TNullable<IHistoryOwner>;
   USD_price: TNullable<string>;
   amount: TNullable<string>;
+  currency: ICurrency;
 }
 
 export interface ICurrency {
@@ -108,6 +109,7 @@ export interface INft {
     native_symbol: string;
   };
   currency_service_fee: number;
+  views: number;
 }
 
 export interface ITag {
