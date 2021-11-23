@@ -78,8 +78,8 @@ const Footers: React.FC = observer(() => {
         <div className={styles.linksAndLogo}>
           <div className={cx(styles.footerLogo, styles.footerLogoChild)}>
             <Logo className={styles.logo} />
-            <Text className={styles.footerLogoChild} size="xxl" color="white">
-              The New Creative Economy.
+            <Text className={styles.footerLogoChild} size="xl" color="white">
+              The New Creative Economy
             </Text>
             <Text className={styles.footerLogoChild} size="m" color="white">
               The world’s first and largest digital marketplace for crypto collectibles and

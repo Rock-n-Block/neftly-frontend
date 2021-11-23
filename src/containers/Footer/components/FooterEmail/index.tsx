@@ -17,7 +17,7 @@ const FooterEmail: FC<Props> = ({ className }) => (
       Join our mailing list to stay in the loop with our newest feature releases, NFT drops, and
       tips and tricks for navigating OpenSea.
     </Text>
-    <TextInput isButton placeholder="Enter your email" type="text" />
+    <TextInput isButton placeholder="Enter your email" type="text" className={styles.button} />
   </div>
 );
 

@@ -11,7 +11,7 @@
 }
 
 .controlAndSocial {
-  display: flex;
+  @include flexbox(flex-start, space-between);
   & > * {
     &:first-child {
       margin-right: 40px;
@@ -42,9 +42,10 @@
   }
 
   .linkBlockContainer {
-    @include flexbox(flex-start, space-around);
+    @include flexbox(flex-start, space-between);
     flex-basis: 75%;
     width: 100%;
+    margin-left: 30px;
 
     .linkBlock {
       @include flexbox(flex-start, flex-start);

@@ -108,7 +108,8 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
         </div>
         {sell.nft.currency.toUpperCase() === 'BNB' ||
         sell.nft.currency.toUpperCase() === 'ETH' ||
-        sell.nft.currency.toUpperCase() === 'MATIC' ? (
+        sell.nft.currency.toUpperCase() === 'MATIC' ||
+        sell.nft.currency.toUpperCase() === 'TRX' ? (
           ''
         ) : (
           <Switch className={styles.switch} value={price} setValue={setPrice} />
@@ -125,6 +126,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
             onChange={(e) => setPriceValue(e.target.value)}
             prefix={sell.nft.currency.toUpperCase()}
             prefixClassName={styles.prefix}
+            positiveOnly
           />
           {/* <div className={styles.col}>{sell.nft.currency.toUpperCase()}</div> */}
         </div>

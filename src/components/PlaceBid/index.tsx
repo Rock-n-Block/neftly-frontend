@@ -69,7 +69,10 @@ const PlaceBid: React.FC = () => {
           value={bid}
           onChange={handleChangeBid}
           required
+          prefix={sell.nft.currency.toUpperCase()}
+          prefixClassName={styles.prefix}
           className={styles.input}
+          positiveOnly
         />
         {sell.nft.standart === 'ERC1155' ? (
           <>
@@ -83,6 +86,8 @@ const PlaceBid: React.FC = () => {
               name="amount"
               placeholder="e.g. 1"
               required
+              positiveOnly
+              integer
             />
           </>
         ) : (
