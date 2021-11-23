@@ -1,12 +1,14 @@
+/* eslint-disable react/no-array-index-key */
 import { FC, useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
 import { H2 } from 'components';
 import { activityApi } from 'services';
+import { OptionType } from 'typings';
+
 import CollectionCard from './CollectionCard';
+import TitleDropdown from './TitleDropdown';
 
 import styles from './styles.module.scss';
-import { OptionType } from 'typings';
-import TitleDropdown from './TitleDropdown';
 
 type Props = {
   className?: string;
@@ -48,7 +50,7 @@ const TopCollections: FC<Props> = ({ className }) => {
         <ol className={styles.collectionsWrapper}>
           {collections.map((collection, index) => (
             <CollectionCard
-              key={`collection-${collection.name}`}
+              key={index}
               avatar={collection.collection.avatar}
               isVerified={collection.is_verified}
               id={collection.collection.id}
@@ -61,7 +63,7 @@ const TopCollections: FC<Props> = ({ className }) => {
         </ol>
       </div>
       {/*<Button className={styles.goRankingBtn}>Go to Rankings</Button>*/}
-    </div >
+    </div>
   );
 };
 
