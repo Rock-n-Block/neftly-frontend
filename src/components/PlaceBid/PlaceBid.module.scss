@@ -10,3 +10,11 @@
 .input + .subtitle {
   margin-top: 20px;
 }
+
+.prefix {
+  @include flexbox(center, flex-start);
+  padding-left: 16px;
+  width: 92px;
+  height: 38px;
+  border-right: 2px solid $color-neutral-40;
+}
