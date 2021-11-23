@@ -94,7 +94,7 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
       },
       {
         title: 'Resources',
-        active: location.pathname.includes(routes.discover.root),
+        // active: location.pathname.includes(routes.discover.root),
         disabled: false,
         isNested: true,
         isLinks: true,

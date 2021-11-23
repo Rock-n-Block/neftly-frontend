@@ -12,7 +12,7 @@ import User from './User';
 import Wallet from './Wallet';
 
 import styles from './styles.module.scss';
-import { useNoScroll, useWindowSize } from 'hooks';
+import { useNoScroll, useWindowSize, useScrollDown } from 'hooks';
 
 const mobilePoint = 1280;
 
@@ -23,10 +23,9 @@ const Headers: FC = observer(() => {
   const [isConnectOpen, setConnectOpen] = useState(false);
   const setScroll = useNoScroll();
   const toggleMenu = useCallback(() => {
-    setScroll(!isMenuOpen)
-    setIsMenuOpen(!isMenuOpen)
+    setScroll(!isMenuOpen);
+    setIsMenuOpen(!isMenuOpen);
   }, [isMenuOpen, setScroll]);
-
 
   const handleOpenConnect = useCallback(() => {
     setConnectOpen(true);
@@ -39,28 +38,14 @@ const Headers: FC = observer(() => {
   const { width } = useWindowSize();
 
   const headerRef = useRef<TNullable<HTMLDivElement>>(null);
-
-  let prevScrollpos = window.pageYOffset;
-  window.onscroll = function () {
-    const currentScrollPos = window.pageYOffset;
-    if (headerRef.current) {
-      if (prevScrollpos - currentScrollPos < -50) {
-        headerRef.current.style.top = `-${headerRef.current.offsetHeight}px`;
-        prevScrollpos = currentScrollPos;
-      }
-      if (prevScrollpos - currentScrollPos > 50) {
-        headerRef.current.style.top = '0';
-        prevScrollpos = currentScrollPos;
-      }
-    }
-  };
+  useScrollDown(headerRef);
 
   useEffect(() => {
     if (width > mobilePoint) {
       setIsMenuOpen(false);
       setScroll(false);
     }
-  }, [width, setScroll])
+  }, [width, setScroll]);
 
   return (
     <>
