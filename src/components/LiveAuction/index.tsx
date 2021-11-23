@@ -73,20 +73,22 @@ const LiveAuction: React.FC<IProps> = ({ className }) => {
               tags,
             } = artCard;
             return (
-              <ArtCard
-                artId={id}
-                key={id}
-                imageMain={image}
-                name={name}
-                price={price}
-                asset={asset}
-                inStockNumber={inStockNumber}
-                author={author}
-                authorAvatar={authorAvatar}
-                authorId={authorId}
-                likesNumber={likesNumber}
-                tags={tags}
-              />
+              <div className={styles.liveCard}>
+                <ArtCard
+                  artId={id}
+                  key={id}
+                  imageMain={image}
+                  name={name}
+                  price={price}
+                  asset={asset}
+                  inStockNumber={inStockNumber}
+                  author={author}
+                  authorAvatar={authorAvatar}
+                  authorId={authorId}
+                  likesNumber={likesNumber}
+                  tags={tags}
+                />
+              </div>
             );
           })}
         </Carousel>

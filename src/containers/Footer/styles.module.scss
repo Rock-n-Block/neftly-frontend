@@ -49,20 +49,18 @@
     .linkBlock {
       @include flexbox(flex-start, flex-start);
       flex-direction: column;
-    
-    
+
       .footerBtnLink {
         margin: 4px 0;
         @include flexbox(center, flex-start);
       }
-    
+
       & > * {
         margin-bottom: 24px;
       }
     }
   }
 }
-
 
 .footerLinks {
   flex-basis: 50%;
@@ -109,7 +107,7 @@
 
   .copytrightLinks {
     @include flexbox();
-  
+
     .copyRightLink {
       margin: 0 4px;
     }
@@ -142,20 +140,20 @@
     .footerLogo {
       max-width: unset;
     }
-  
+
     .linkBlockContainer {
       flex-wrap: wrap;
       border-top: 1px solid $color-neutral-80;
-  
+
       .linkBlock {
         margin: 24px 0;
         align-items: flex-start;
         flex-basis: 50%;
-              
+
         .footerBtnLink {
           margin: 4px 0;
         }
-      
+
         & > * {
           margin-bottom: 24px;
         }
@@ -168,5 +166,3 @@
     flex-direction: column;
   }
 }
-
-
