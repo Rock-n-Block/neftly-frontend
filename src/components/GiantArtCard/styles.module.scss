@@ -32,8 +32,7 @@
         pointer-events: none;
         cursor: pointer;
         display: flex;
-        align-items: flex-end;
-        justify-items: flex-start;
+        @include flexbox(flex-end, flex-start);
 
         & svg {
           width: 20px;

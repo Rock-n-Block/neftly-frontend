@@ -51,7 +51,7 @@ const GiantCard: FC<Props> = ({ isFetching, className, nft, onUpdateNft }) => {
   );
 
   const mediaRef = useRef<HTMLImageElement>(null);
-  const [imagePosition, setImagePosition] = useState<TImagePosition | null>(null);
+  const [imagePosition, setImagePosition] = useState<TNullable<TImagePosition>>(null);
   const onPreviewClick = useCallback(
     (state: boolean) => {
       if (mediaRef.current) {
