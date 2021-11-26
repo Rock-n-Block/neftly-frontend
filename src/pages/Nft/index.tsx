@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { routes } from 'appConstants';
