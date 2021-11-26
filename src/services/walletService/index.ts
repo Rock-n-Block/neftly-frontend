@@ -8,7 +8,12 @@ import Web3 from 'web3';
 
 import abiERC721 from '../../appConstants/abiERC721.json';
 import abiERC1155 from '../../appConstants/abiERC1155.json';
-import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
+import {
+  connectWallet as connectWalletConfig,
+  contracts,
+  is_production,
+  exchangeAddrs,
+} from 'config';
 
 const MS_RETRY_TRON = 2000;
 const trxFeeLimit = 100000000;
@@ -93,12 +98,10 @@ export class WalletConnect {
       address: tokenAddress,
       abi: contracts.params.BEP20[is_production ? 'mainnet' : 'testnet'].abi,
     });
+    const ExchangeAddress = exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum];
 
     const result = await contract.methods
-      .isApprovedForAll(
-        this.walletAddress,
-        contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address,
-      )
+      .isApprovedForAll(this.walletAddress, ExchangeAddress)
       .call();
 
     return result;
