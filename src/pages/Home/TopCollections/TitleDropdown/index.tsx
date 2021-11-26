@@ -33,30 +33,32 @@ const TitleDropdown: FC<IProps> = ({ options, value, setValue, className }) => {
           className={styles.selected}
         >
           last {value.label}
-          <img
-            src={iconArrowDownBlue}
-            alt=""
-            className={cn(styles.selectedImg, { [styles.selectedImgOpen]: isOpen })}
-          />
-        </div>
-        <div className={cn(styles.selectionWrapper, { [styles.activeDropdown]: isOpen })}>
-          <div className={`${styles.triangle}`} />
-          <ul className={cn(styles.body, { [styles.activeDropdown]: isOpen })}>
-            {options.map((option) => (
-              <li key={option.value}>
-                <div
-                  key={option.value}
-                  tabIndex={0}
-                  role="button"
-                  onKeyDown={() => {}}
-                  onClick={() => handleOptionClick(option)}
-                  className={styles.option}
-                >
-                  {option.label}
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className={styles.dropdownContainer}>
+            <img
+              src={iconArrowDownBlue}
+              alt=""
+              className={cn(styles.selectedImg, { [styles.selectedImgOpen]: isOpen })}
+            />
+            <div className={cn(styles.selectionWrapper, { [styles.activeDropdown]: isOpen })}>
+              <div className={`${styles.triangle}`} />
+              <ul className={cn(styles.body, { [styles.activeDropdown]: isOpen })}>
+                {options.map((option) => (
+                  <li key={option.value}>
+                    <div
+                      key={option.value}
+                      tabIndex={0}
+                      role="button"
+                      onKeyDown={() => {}}
+                      onClick={() => handleOptionClick(option)}
+                      className={styles.option}
+                    >
+                      {option.label}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </OutsideClickHandler>
     </div>

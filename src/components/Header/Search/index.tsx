@@ -3,7 +3,7 @@ import { useCallback, useState, VFC } from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from 'appConstants';
 import cx from 'classnames';
-import { H5, Text, TextInput } from 'components';
+import { H5, Text, TextInput, Button } from 'components';
 import Loader from 'components/Loader';
 import { useFetchNft } from 'hooks';
 import { INft } from 'typings';
@@ -67,7 +67,7 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
             <>
               <H5>{`Artworks (${totalItems})`}</H5>
               <ul className={styles.searchResults}>
-                {nftCards.map((nft: INft, index) => {
+                {nftCards.slice(0, 5).map((nft: INft, index) => {
                   const {
                     media,
                     name,
@@ -93,13 +93,10 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
                   );
                 })}
               </ul>
-              <Link
-                color="transparent"
-                className={styles.viewResults}
-                to={routes.discover.input(inputValue)}
-                onClick={clearInput}
-              >
-                <Text color="primary">View result</Text>
+              <Link to={routes.discover.input(inputValue)}>
+                <Button color="blue" className={styles.viewResults} onClick={clearInput}>
+                  <Text color="white">View all results</Text>
+                </Button>
               </Link>
             </>
           )}

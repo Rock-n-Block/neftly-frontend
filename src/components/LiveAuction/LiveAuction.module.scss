@@ -1,13 +1,18 @@
 .liveAuction {
+  overflow: hidden;
+  padding-bottom: 25px;
   .title {
     margin-bottom: 24px;
   }
 
-  button{
+  button {
     top: -64px;
   }
 }
 
-.noItems{
+.noItems {
   text-align: center;
+}
+.liveCard {
+  margin-right: 15px;
 }

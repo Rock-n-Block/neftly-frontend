@@ -37,28 +37,22 @@
   pointer-events: none;
 }
 
+.dropdownContainer {
+  position: relative;
+}
+
 .selectionWrapper {
   position: absolute;
   z-index: 999;
   top: 60px;
   background: $color-bg;
   border-radius: 2px;
-  right: -30.5%;
+  left: 50%;
   opacity: 0;
-  transform: scale(0.6);
+  transform: translate(-47.5%, 0);
   pointer-events: none;
   color: $color-neutral-80;
   @include box-shadow($y: 16px);
-}
-
-@include forDesktopBig{
-  .selectionWrapper{
-    right: -10px;
-  }
-
-  .triangle{
-    left: 87%;
-  }
 }
 
 .body {
@@ -79,7 +73,6 @@
 .activeDropdown {
   transition: $transition;
   opacity: 1;
-  transform: scale(1);
   pointer-events: all;
 }
 

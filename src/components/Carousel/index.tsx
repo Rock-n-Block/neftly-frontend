@@ -31,7 +31,12 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
   function PrevArrow(props: any) {
     const { className, onClick } = props;
     return (
-      <Button color="outline" className={cx(className, styles.arrowLeft)} onClick={onClick}>
+      <Button
+        padding="0"
+        color="outline"
+        className={cx(className, styles.arrowLeft)}
+        onClick={onClick}
+      >
         <img src={arrowLeft} alt="" />
       </Button>
     );
@@ -41,7 +46,12 @@ const SimpleSlider: FC<PropsWithChildren<Props>> = ({
   function NextArrow(props: any) {
     const { className, onClick } = props;
     return (
-      <Button color="outline" className={cx(className, styles.arrowRight)} onClick={onClick}>
+      <Button
+        padding="0"
+        color="outline"
+        className={cx(className, styles.arrowRight)}
+        onClick={onClick}
+      >
         <img src={arrowLeft} alt="" />
       </Button>
     );

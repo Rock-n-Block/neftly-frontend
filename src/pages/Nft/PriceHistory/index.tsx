@@ -71,6 +71,7 @@ const PriceHistory: FC<IProps> = ({ tokenId, currency, history }) => {
         <TradingHistory
           columns={TradingTableHeader}
           tableData={history}
+          currency={currency}
         />
       </div>
     </div>

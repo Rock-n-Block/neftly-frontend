@@ -19,7 +19,8 @@ type Props = {
   color?: Color;
   align?: Align;
   weight?: Weight;
-  elRef?: RefObject<any>
+  elRef?: RefObject<any>;
+  description?: string;
 };
 
 /**
@@ -53,12 +54,14 @@ const Text: FC<PropsWithChildren<Props>> = ({
   align = 'left',
   weight = 'normal',
   elRef,
+  description,
 }) =>
   createElement(
     tag,
     {
       style,
       ref: elRef,
+      description,
       className: cx(
         styles.text,
         styles[`size_${size}`],

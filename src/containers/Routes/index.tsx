@@ -1,21 +1,22 @@
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { routes } from 'appConstants';
 import { GuardedRoute } from 'components';
-import { useMst } from 'store';
+import { observer } from 'mobx-react-lite';
 import {
-  Discover,
-  ProfileEdit,
-  Profile,
   Activity,
-  UploadVariants,
-  CreateToken,
   CollectionPage,
-  Home,
-  Nft,
+  ComingSoon,
   ConnectWallet,
+  CreateToken,
+  Discover,
+  Home,
   LostPage404,
+  Nft,
+  Profile,
+  ProfileEdit,
+  UploadVariants,
 } from 'pages';
+import { useMst } from 'store';
 
 const Routes = observer(() => {
   const { user } = useMst();
@@ -32,6 +33,7 @@ const Routes = observer(() => {
       <Route path={routes.collection.root} component={CollectionPage} />
       <Route path={routes.connectWallet.root} component={ConnectWallet} />
       <Route path={routes.lostPage.root} component={LostPage404} />
+      <Route path={routes.comingSoon.root} component={ComingSoon} />
       {/* GUARDED ROUTES */}
       <GuardedRoute auth={user.isAuth} path={routes.create.single} component={CreateToken} />
       <GuardedRoute

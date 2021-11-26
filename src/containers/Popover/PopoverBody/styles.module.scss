@@ -2,7 +2,8 @@
 
 .body {
   position: absolute;
-  top: calc(100%);
+  top: 100%;
+  min-width: 200px;
 
   z-index: 999;
   padding: 16px;

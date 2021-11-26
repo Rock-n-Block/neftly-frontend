@@ -1,6 +1,14 @@
+@import 'src/styles/helpers';
+
 .footerEmail {
   min-width: 250px;
   & > * {
     margin-bottom: 24px;
+  }
+}
+
+.button {
+  input {
+    color: $color-neutral-0;
   }
 }

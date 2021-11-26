@@ -51,7 +51,6 @@ const ChangePrice: React.FC<IChangePriceProps> = ({ className }) => {
           type="text"
           name="price"
           placeholder="Paste price"
-          integer
           positiveOnly
         />
       </div>

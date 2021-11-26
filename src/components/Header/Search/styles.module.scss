@@ -19,7 +19,7 @@
   height: 0;
   transition: 200ms;
   z-index: 1;
-  border: 0 0 $border-radius $border-radius;
+  border-radius: 0 0 $border-radius $border-radius;
 
   &.desktop {
     width: 500px;

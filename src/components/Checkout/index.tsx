@@ -130,6 +130,8 @@ const Checkout: React.FC = observer(() => {
                 name="amount"
                 placeholder="1"
                 required
+                positiveOnly
+                integer
               />
             </div>
           ) : (

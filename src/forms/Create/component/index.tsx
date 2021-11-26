@@ -1,8 +1,9 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
-import { iconUpload, IconRefresh } from 'assets/img';
+import { IconRefresh, iconUpload } from 'assets/img';
 import { ReactComponent as IconPropAdd } from 'assets/img/icons/icon-prop-add.svg';
 import { ReactComponent as IconPropDelete } from 'assets/img/icons/icon-prop-delete.svg';
+import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
 import {
   Button,
@@ -19,12 +20,11 @@ import {
 import { IRadioButton } from 'components/Radio';
 import { Field, FieldArray, Form, FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
+import { ratesApi } from 'services';
 
 import ChooseCollection from './ChooseCollection';
 
 import styles from './CreateCollectibleDetails.module.scss';
-import { ratesApi } from 'services';
-import BigNumber from 'bignumber.js/bignumber';
 
 const royaltiesOptions = ['10', '20', '30'];
 
@@ -523,22 +523,21 @@ const CreateForm: FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   setValue={() => setAddToCollection(!addToCollection)}
                 />
               </H6>
-              {addToCollection && (
-                <ChooseCollection
-                  className={styles.collections}
-                  activeCollectionId={values.collection}
-                  onChange={(value: any) => setFieldValue('collection', value)}
-                  isSingle={isSingle}
-                  isRefresh={isRefresh}
-                  setIsRefresh={setIsRefresh}
-                />
-              )}
+              <ChooseCollection
+                className={styles.collections}
+                activeCollectionId={values.collection}
+                onChange={(value: any) => setFieldValue('collection', value)}
+                isSingle={isSingle}
+                isRefresh={isRefresh}
+                setIsRefresh={setIsRefresh}
+                addToCollection={addToCollection}
+              />
             </div>
             <div className={styles.btns}>
               <Button
                 className={cn('button', styles.button, styles.submitBtn)}
                 onClick={onSubmit}
-                disabled={values.isLoading}
+                disabled={values.isLoading || !values.collection}
               >
                 Create item
               </Button>

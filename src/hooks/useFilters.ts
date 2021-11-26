@@ -114,7 +114,7 @@ const useFilters = (filterTag = '') => {
         case 'currency': {
           handleCurrencyFilter({
             value: DEFAULT_FILTER_STATE.currency,
-            label: 'WETH',
+            label: 'All',
           });
           break;
         }
@@ -129,7 +129,7 @@ const useFilters = (filterTag = '') => {
           handleMaxPriceFilter(maxPrice);
           handleCurrencyFilter({
             value: DEFAULT_FILTER_STATE.currency,
-            label: 'WETH',
+            label: 'All',
           });
           handleVerifiedFilter({
             value: DEFAULT_FILTER_STATE.is_verificated,

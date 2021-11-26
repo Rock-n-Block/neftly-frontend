@@ -26,6 +26,7 @@ export interface IGridLayerProps {
   maxColumns?: number;
   gap?: number;
   justify?: EGridJustify;
+  depenednciesForChange?: Array<any>;
 }
 
 type ICardStyles = {
@@ -41,6 +42,7 @@ const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({
   gap = 10,
   children,
   justify = 'start',
+  depenednciesForChange = null,
 }) => {
   const [cardStyles, setCardStyles] = useState<ICardStyles>({ width: minWidth, height: minHeight });
   const [columns, setColumns] = useState<number>(
@@ -66,12 +68,16 @@ const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({
 
   useEffect(() => {
     window.addEventListener('resize', resizeCallback);
-    resizeCallback();
 
+    resizeCallback();
     return () => {
       window.removeEventListener('resize', resizeCallback);
     };
-  }, [resizeCallback]);
+  }, [resizeCallback, wrapperRef]);
+
+  useEffect(() => {
+    resizeCallback();
+  }, [depenednciesForChange, resizeCallback]);
 
   return (
     <section
@@ -94,7 +100,7 @@ const GridLayer: FC<PropsWithChildren<IGridLayerProps>> = ({
           top: Math.trunc(idx / columns) * (cardStyles.height + gap),
         };
         return (
-          <WrappedItem key={position.width + position.top} position={position}>
+          <WrappedItem key={child?.toString()} position={position}>
             {child}
           </WrappedItem>
         );

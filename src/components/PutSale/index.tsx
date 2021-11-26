@@ -7,8 +7,9 @@ import { observer } from 'mobx-react-lite';
 import { Button, Switch, TextInput, Text } from 'components';
 import { storeApi, useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
+import { chainsEnum } from 'typings';
 import { useUserBalance } from 'hooks';
-import { is_production, contracts } from 'config';
+import { exchangeAddrs } from 'config';
 import { IconCoin } from 'assets/img';
 
 import styles from './PutSale.module.scss';
@@ -18,6 +19,7 @@ interface IPutSaleProps {
 }
 
 const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
+  const ExchangeAddress = exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum];
   const { walletService } = useWalletConnectorContext();
   const {
     user,
@@ -48,7 +50,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
       if (!isAppr) {
         await walletService.createTransaction(
           'setApprovalForAll',
-          [contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address, true],
+          [ExchangeAddress, true],
           'NFT',
           false,
           sell.nft.collection.address,
@@ -57,7 +59,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
     } catch (err) {
       throw Error;
     }
-  }, [handleCheckApproveNft, sell.nft.collection.address, walletService]);
+  }, [handleCheckApproveNft, sell.nft.collection.address, walletService, ExchangeAddress]);
 
   const fetchStore = useCallback(() => {
     setIsLoading(true);
@@ -108,7 +110,8 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
         </div>
         {sell.nft.currency.toUpperCase() === 'BNB' ||
         sell.nft.currency.toUpperCase() === 'ETH' ||
-        sell.nft.currency.toUpperCase() === 'MATIC' ? (
+        sell.nft.currency.toUpperCase() === 'MATIC' ||
+        sell.nft.currency.toUpperCase() === 'TRX' ? (
           ''
         ) : (
           <Switch className={styles.switch} value={price} setValue={setPrice} />
@@ -125,6 +128,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
             onChange={(e) => setPriceValue(e.target.value)}
             prefix={sell.nft.currency.toUpperCase()}
             prefixClassName={styles.prefix}
+            positiveOnly
           />
           {/* <div className={styles.col}>{sell.nft.currency.toUpperCase()}</div> */}
         </div>

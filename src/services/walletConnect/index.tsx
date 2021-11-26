@@ -7,6 +7,7 @@ import { connectTron, userApi } from 'services';
 import { WalletConnect } from 'services/walletService';
 import { rootStore } from 'store';
 import { chainsEnum } from 'typings';
+import { routes } from 'appConstants';
 
 declare global {
   interface Window {
@@ -93,6 +94,7 @@ class Connector extends React.Component<
                 rootStore.user.setAddress(userAccount.address);
                 rootStore.user.getMe();
               }
+              this.props.history.push(routes.home.root);
             },
             (err: any) => {
               console.error('getAccount wallet connect - get user account err: ', err);
