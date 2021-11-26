@@ -1,5 +1,5 @@
-@import "src/styles/helpers";
-@import "src/styles/mixins/media";
+@import 'src/styles/helpers';
+@import 'src/styles/mixins/media';
 
 .wrapper {
   margin-top: 40px;
@@ -12,9 +12,10 @@
   padding: 32px;
   border: 1px solid $color-neutral-10;
   flex: 0 0 60%;
+  border-radius: $border-radius;
 }
 
-.tradingHistoryWrapper{
+.tradingHistoryWrapper {
   flex: 0 0 37%;
 }
 
@@ -38,7 +39,7 @@
   margin-top: 20px;
   max-width: 650px;
 
-  @include forDesktopBig{
+  @include forDesktopBig {
     max-width: none;
   }
 
@@ -47,8 +48,8 @@
   }
 }
 
-@include b(1280){
-  .wrapper{
+@include b(1280) {
+  .wrapper {
     flex-direction: column;
     max-height: 1000px;
   }
