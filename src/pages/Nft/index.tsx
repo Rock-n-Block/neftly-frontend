@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { routes } from 'appConstants';
@@ -126,7 +127,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
                     } = art;
                     return (
                       <ArtCard
-                        key={`nft_card_${artId}`}
+                        key={`nft_card_${art.id}`}
                         className={styles.artCard}
                         artId={artId}
                         imageMain={image}

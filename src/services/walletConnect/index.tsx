@@ -88,13 +88,13 @@ class Connector extends React.Component<
                   });
 
                   localStorage.nftcrowd_nft_token = login.data.key;
+                  this.props.history.push(routes.home.root);
                 }
                 localStorage.nftcrowd_nft_chainName = chainName;
                 localStorage.nftcrowd_nft_providerName = providerName;
                 rootStore.user.setAddress(userAccount.address);
                 rootStore.user.getMe();
               }
-              this.props.history.push(routes.home.root);
             },
             (err: any) => {
               console.error('getAccount wallet connect - get user account err: ', err);
