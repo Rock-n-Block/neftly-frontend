@@ -42,15 +42,20 @@ const Checkout: React.FC = observer(() => {
             walletService
               .trxCreateTransaction(data.initial_tx, user.address)
               .then((res: any) => {
-                toast.success('success');
-                storeApi
-                  .trackTransaction(res.transactionHash, sell.nft.tokenId, sell.nft.sellerId)
-                  .then(() => {
-                    setTimeout(() => {
-                      sell.checkout.success();
-                      sell.checkout.close();
-                    }, 1000);
-                  });
+                console.log('data', data)
+                if (res) {
+                  toast.success('success');
+                  storeApi
+                    .trackTransaction(res.transactionHash, sell.nft.tokenId, sell.nft.sellerId)
+                    .then(() => {
+                      setTimeout(() => {
+                        sell.checkout.success();
+                        sell.checkout.close();
+                      }, 1000);
+                    });
+                } else {
+                  toast.error('Something went wrong');
+                }
               })
               .catch((error: any) => {
                 toast.error({
