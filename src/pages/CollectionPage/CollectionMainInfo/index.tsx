@@ -28,24 +28,33 @@ const CollectionMainInfo: React.FC<ICollectionMainInfo> = ({
       className={s.user}
       style={{
         backgroundImage: `url(${cover || profile_page_bg_example})`,
+        backgroundSize: 'contain',
       }}
     >
-      <div className={s.user_avatar}>
-        <img src={avatar || profile_avatar_example} alt="profile_avatar_example" />
-      </div>
-      <H2 className={s.user_name}>{name}</H2>
-      <div className={s.user_info}>
-        <Copyable
-          valueToCopy={address || zeroAddress}
-          classNameIcon={s.user_info__icon}
-          withIcon
-          title="Address"
-        >
-          <Text size="m">{sliceString(address || zeroAddress)}</Text>
-        </Copyable>
-      </div>
-      <div className={s.user_info}>
-        <div className={s.user_info__value}>{description}</div>
+      <div className={s.inner}>
+        <div className={s.user_avatar}>
+          <img src={avatar || profile_avatar_example} alt="profile_avatar_example" />
+        </div>
+        <H2 color="white" className={s.user_name}>
+          {name}
+        </H2>
+        <div className={s.user_info}>
+          {address && (
+            <Copyable
+              valueToCopy={address || zeroAddress}
+              classNameIcon={s.user_info__icon}
+              withIcon
+              title="Address"
+            >
+              <Text color="white" size="m">
+                {sliceString(address || zeroAddress)}
+              </Text>
+            </Copyable>
+          )}
+        </div>
+        <div className={s.user_info}>
+          <div className={s.user_info__value}>{description}</div>
+        </div>
       </div>
     </section>
   );

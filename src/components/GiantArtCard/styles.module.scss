@@ -1,9 +1,10 @@
-@import "src/styles/helpers.scss";
-@import "src/styles/mixins/media.scss";
+@import 'src/styles/helpers.scss';
+@import 'src/styles/mixins/media.scss';
 
 .giantCard {
   display: flex;
   border: 1px solid $color-neutral-10;
+  border-radius: $border-radius;
 
   .contentWrapper {
     max-height: 650px;
@@ -61,7 +62,7 @@
     opacity: 0;
     transition: $transition;
 
-    &.active{
+    &.active {
       opacity: 1;
     }
 

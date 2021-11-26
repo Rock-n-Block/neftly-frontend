@@ -1,10 +1,11 @@
-@import "src/styles/helpers";
+@import 'src/styles/helpers';
 
 .history {
   height: 100%;
   padding: 32px;
   border: 1px solid $color-neutral-10;
   box-sizing: border-box;
+  border-radius: $border-radius;
 }
 
 .chartFilter {

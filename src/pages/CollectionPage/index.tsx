@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 
 import CollectionMainInfo from './CollectionMainInfo/index';
 
-import { H3, ArtCard, Button, TabLookingComponent, Loader } from 'components';
+import { H3, ArtCard, Button, Loader } from 'components';
 
 import s from './CollectionPage.module.scss';
 
@@ -26,7 +26,7 @@ const tabs = [
 
 const CollectionPage: React.FC = () => {
   const initialTab = useLocation().search?.replace('?tab=', '') || '';
-  const { activeTab, setActiveTab } = useTabs(tabs, initialTab);
+  const { activeTab } = useTabs(tabs, initialTab);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const { collectionId } = useParams<{ collectionId: string }>();
@@ -42,7 +42,7 @@ const CollectionPage: React.FC = () => {
     <section className={s.page}>
       <div className={s.page_user}>
         <CollectionMainInfo
-          cover={collection.cover}
+          cover={collection.avatar}
           avatar={collection.avatar}
           name={collection.name}
           address={collection.address}
@@ -51,7 +51,7 @@ const CollectionPage: React.FC = () => {
       </div>
 
       <div className={s.page_body}>
-        <div className={s.page_body__left}>
+        {/* <div className={s.page_body__left}>
           <div className={s.subtitle}>Menu</div>
           <TabLookingComponent
             className={s.tabs}
@@ -59,7 +59,7 @@ const CollectionPage: React.FC = () => {
             activeTab={activeTab}
             action={setActiveTab}
           />
-        </div>
+        </div> */}
 
         <div className={s.page_body__right}>
           <div className={s.page_body__top}>
