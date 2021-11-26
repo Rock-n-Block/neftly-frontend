@@ -87,7 +87,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     !Object.is(localStorage.nftcrowd_nft_chainName, undefined) &&
     !Object.is(nft, null)
   ) {
-    toast.error(`Unsupported chain. (Connect to the ${nft?.network.name} to see "${nft?.name}")`);
+    toast.error(`Unsupported chain. (Connect to ${nft?.network.name} to see "${nft?.name}")`);
     return <Redirect to="/" />;
   }
 
