@@ -32,11 +32,15 @@ const Burn: React.FC<IBurnProps> = ({ className }) => {
         if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
           walletConnector.walletService
             .trxCreateTransaction(data.initial_tx, user.address)
-            .then(() => {
-              burn.success();
-              burn.close();
-              toast.success('Token Burned');
-              history.push('/');
+            .then((res: any) => {
+              if (res) {
+                burn.success();
+                burn.close();
+                toast.success('Token Burned');
+                history.push('/');
+              } else {
+                toast.error('Something went wrong');
+              }
             });
         } else {
           walletConnector.walletService

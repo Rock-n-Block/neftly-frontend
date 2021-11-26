@@ -47,6 +47,8 @@ const Transfer: React.FC<ITransferProps> = ({ className }) => {
                 transfer.success();
                 transfer.close();
                 toast.success('Token Transfered');
+              } else {
+                toast.error('Something went wrong');
               }
             })
             .catch(({ response }) => {

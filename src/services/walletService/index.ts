@@ -88,6 +88,26 @@ export class WalletConnect {
     this.walletAddress = address;
   }
 
+  async checkNftTrxTokenAllowance(tokenAddress: string, userAddress: string) {
+    const data = {
+      contractAddress: tokenAddress,
+      feeLimit: trxFeeLimit,
+      function: 'isApprovedForAll(address,address)',
+      options: {},
+      parameter: [
+        { type: 'address', value: userAddress },
+        {
+          type: 'address',
+          value: contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address,
+        },
+      ],
+    };
+
+    const result = await this.trxCreateTransaction(data, userAddress);
+
+    return result.result;
+  }
+
   async checkNftTokenAllowance(tokenAddress: string) {
     const contract = this.connectWallet.getContract({
       address: tokenAddress,
@@ -168,6 +188,7 @@ export class WalletConnect {
   }
 
   async trxCreateTransaction(data: any, address: string) {
+    console.log('data', data, 'address', address);
     const { transaction } = await this.tronWeb.transactionBuilder.triggerSmartContract(
       data.contractAddress,
       data.function,
@@ -175,6 +196,7 @@ export class WalletConnect {
       data.parameter,
       address,
     );
+    console.log('transaction', transaction);
 
     const isTransferOrBurn =
       data.function.toLowerCase().includes('transfer') || data.function.includes('burn');
