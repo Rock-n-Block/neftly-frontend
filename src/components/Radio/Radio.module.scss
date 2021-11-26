@@ -17,6 +17,8 @@
 }
 
 .option {
+  border-radius: $border-radius;
+
   padding: 16px;
   width: 100%;
   @include flexbox;

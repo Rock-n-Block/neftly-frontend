@@ -123,7 +123,12 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
           return (
             <Popover position="center" key={title}>
               <Popover.Button className={`${styles.linkBtn} ${active && styles.active}`}>
-                <Text className={styles.linkTitle} size="m" color={active ? 'primary' : 'black'}>
+                <Text
+                  weight="medium"
+                  className={styles.linkTitle}
+                  size="m"
+                  color={active ? 'primary' : 'black'}
+                >
                   {title}
                 </Text>
               </Popover.Button>

@@ -74,6 +74,8 @@
   transition: $transition;
   opacity: 1;
   pointer-events: all;
+
+  border-radius: $border-radius;
 }
 
 .option {

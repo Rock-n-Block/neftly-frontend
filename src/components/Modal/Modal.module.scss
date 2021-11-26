@@ -46,10 +46,12 @@
   width: 100%;
   max-width: 755px;
 
+  border-radius: $border-radius;
+
   background: $color-bg;
 }
 
-.title{
+.title {
   margin-bottom: 12px;
 }
 
@@ -64,6 +66,7 @@
 
   background: $color-neutral-0;
   border: 1px solid $color-actions-light-pink;
+  border-radius: $border-radius;
 
   img {
     width: 16px;
