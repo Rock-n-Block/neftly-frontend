@@ -1,6 +1,7 @@
 @import 'src/styles/helpers';
 
 .footerEmail {
+  @include epilogue;
   min-width: 250px;
   & > * {
     margin-bottom: 24px;
@@ -8,7 +9,12 @@
 }
 
 .button {
+  border: 0px !important;
   input {
     color: $color-neutral-0;
   }
+}
+
+.text {
+  line-height: 1.5;
 }
