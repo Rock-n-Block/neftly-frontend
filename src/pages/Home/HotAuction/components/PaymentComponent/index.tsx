@@ -3,7 +3,7 @@ import React, { FC, useMemo } from 'react';
 import BigNumber from 'bignumber.js/bignumber';
 import cx from 'classnames';
 import { Button, H4, Text } from 'components';
-import { contracts, is_production } from 'config';
+import { exchangeAddrs } from 'config';
 import { observer } from 'mobx-react-lite';
 import { storeApi } from 'services/api';
 import { useWalletConnectorContext } from 'services/walletConnect';
@@ -41,8 +41,7 @@ const PaymentComponent: FC<Props> = observer(
     const [isApproved, setApproved] = React.useState<boolean>(false);
     const [isApproving, setApproving] = React.useState<boolean>(false);
 
-    const ExchangeAddress =
-      contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address;
+    const ExchangeAddress = exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum];
 
     const currentPrice = React.useMemo(() => {
       if (nft) {
