@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { routes } from 'appConstants';
 import cx from 'classnames';
 import { ArtCard, Control, GiantCard, H3 } from 'components';
@@ -86,6 +87,7 @@ const DetailArtwork: FC<Props> = observer(({ className }) => {
     !Object.is(localStorage.nftcrowd_nft_chainName, undefined) &&
     !Object.is(nft, null)
   ) {
+    toast.error(`Unsupported chain. (Connect to the ${nft?.network.name} to see "${nft?.name}")`);
     return <Redirect to="/" />;
   }
 
