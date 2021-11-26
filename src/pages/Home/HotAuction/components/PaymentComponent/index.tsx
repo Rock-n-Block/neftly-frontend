@@ -253,6 +253,16 @@ const PaymentComponent: FC<Props> = observer(
 
         {user.address ? (
           <div className={styles.sellBtnsWrapper}>
+            {!isApproved && isUserCanApprove && (nft?.is_selling || nft?.is_auc_selling) ? (
+              <Button
+                padding="custom"
+                loading={isApproving}
+                onClick={handleApproveToken}
+                className={styles.purchaseButton}
+              >
+                Approve Token
+              </Button>
+            ) : null}
             {isUserCanEndAuction ? (
               <Button padding="custom" onClick={handleEndAuction} className={styles.purchaseButton}>
                 End Auction
@@ -278,16 +288,6 @@ const PaymentComponent: FC<Props> = observer(
                   Put on Sale
                 </Button>
               </>
-            ) : null}
-            {!isApproved && isUserCanApprove && (nft?.is_selling || nft?.is_auc_selling) ? (
-              <Button
-                padding="custom"
-                loading={isApproving}
-                onClick={handleApproveToken}
-                className={styles.purchaseButton}
-              >
-                Approve Token
-              </Button>
             ) : null}
           </div>
         ) : null}
