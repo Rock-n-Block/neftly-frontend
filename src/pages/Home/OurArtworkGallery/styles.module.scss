@@ -4,6 +4,7 @@
   position: relative;
   @include container;
   padding-top: 88px;
+
   @include forDesktopSm {
     padding-top: 20px;
   }
