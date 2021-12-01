@@ -32,7 +32,7 @@
 .collectionsWrapper {
   display: grid;
   grid-template-columns:repeat(auto-fit, 33.3%);
-  grid-template-rows: repeat(5, 1fr);
+  // grid-template-rows: repeat(5, 1fr);
   grid-column-gap: 30px;
   grid-row-gap: 16px;
   grid-auto-flow: column;

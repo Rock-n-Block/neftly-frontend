@@ -4,6 +4,8 @@
   position: relative;
   border: 1px solid $color-neutral-20;
   width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
   height: 100%;
   border-radius: $border-radius;
   @include flexbox;
