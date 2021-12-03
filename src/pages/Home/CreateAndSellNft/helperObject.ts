@@ -1,28 +1,20 @@
-import { AuthorHomePage, BookHomePage, SaleHomePage, WalletHomePage } from 'assets/img';
+import { PlanetHomePage, PenHomePage, CloudHomePage } from 'assets/img';
 
 export const createAndSellNftHelperObject = [
   {
-    IconComponent: WalletHomePage,
-    title: 'Set up your wallet',
-    description:
-      'Once you’ve set up your wallet of choice, connect it to OpenSea by clicking the wallet icon in the top right corner. Learn about the wallets we support.',
+    IconComponent: CloudHomePage,
+    title: 'Upload your best and unique work',
+    description: 'Start upload your work by creating an account and connect  the crypto wallet.',
   },
   {
-    IconComponent: BookHomePage,
-    title: 'Create your collection',
-    description:
-      'Click My Collections and set up your collection. Add social links, a description, profile & banner images, and set a secondary sales fee.',
+    IconComponent: PenHomePage,
+    title: 'Fill out product info & price',
+    description: 'Fill out the required info and set for pricing and buying option.',
   },
   {
-    IconComponent: AuthorHomePage,
-    title: 'Add your NFTs',
+    IconComponent: PlanetHomePage,
+    title: 'Voila!, your product is on the radar',
     description:
-      'Upload your work (image, video, audio, or 3D art), add a title and description, and customize your NFTs with properties, stats, and unlockable content.',
-  },
-  {
-    IconComponent: SaleHomePage,
-    title: 'List them for sale',
-    description:
-      'Choose between auctions, fixed-price listings, and declining-price listings. You choose how you want to sell your NFTs, and we help you sell them!',
+      'Let we work on your products,  just monitor the traffic on the dashboard and waiting for the income, then relax.',
   },
 ];

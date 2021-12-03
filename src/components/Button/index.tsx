@@ -8,7 +8,7 @@ import { Loader } from '..';
 import styles from './styles.module.scss';
 
 type Props = {
-  color?: 'blue' | 'outline' | 'transparent' | 'pink' | 'dark';
+  color?: 'purple' | 'outline' | 'transparent' | 'pink' | 'dark' | 'black';
   padding?: 'large' | 'small' | string;
   size?: any;
   isFullWidth?: boolean;
@@ -36,7 +36,7 @@ type Props = {
  * * 10px 10px 10px 10px
  * @param {CSSProperties}  [style] - inline styles {}
  * @param {any} [size] - font size of text {normal}
- * @param {Color} [color] - color of text {blue}
+ * @param {Color} [color] - color of text {purple}
  * @param {boolean} [isFullWidth] - set the with of the element 100% {false}
  * @param {(event: any) => void} [onClick] - the callback which will be called after element has been clicked {() => { }}
  * @param {'button' | 'submit'} [type] - type of button {'button'}
@@ -52,7 +52,7 @@ type Props = {
  */
 
 const Button: FC<PropsWithChildren<Props>> = ({
-  color = 'blue',
+  color = 'purple',
   size = 'normal',
   isFullWidth = false,
   onClick = () => { },

@@ -63,7 +63,7 @@ const Headers: FC = observer(() => {
               <User />
             </div>
           ) : (
-            <Button onClick={handleOpenConnect} className={styles.headerConnectBtn} color="blue">
+            <Button onClick={handleOpenConnect} className={styles.headerConnectBtn} color="black">
               Connect Wallet
             </Button>
           )}

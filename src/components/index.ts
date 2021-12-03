@@ -48,4 +48,5 @@ export { default as Copyable } from './Copyable';
 export { default as GuardedRoute } from './GuardedRoute';
 export { default as Header } from './Header';
 export { default as IconLinks } from './IconLinks';
+export { default as GradientBlock } from './GradientBlock';
 export * from './Typography';

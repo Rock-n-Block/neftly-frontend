@@ -3,6 +3,7 @@
 .ourArtworkGallery {
   @include container;
   margin-top: 188px;
+  margin-bottom: 126px;
 }
 
 .title {
@@ -16,9 +17,8 @@
 
 .cardsWrapper {
   margin-top: 40px;
-  @include flexbox(flex-start, center);
+  @include flexbox(flex-start, space-between);
   flex-wrap: wrap;
-  gap: 32px;
 }
 
 .howItWorksCard {
@@ -44,4 +44,8 @@
   .howItWorksCard {
     margin-bottom: 70px;
   }
+}
+
+.button{
+  margin: 0 auto;
 }

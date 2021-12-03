@@ -19,7 +19,7 @@
     cursor: not-allowed;
   }
 
-  &.blue {
+  &.purple {
     height: 40px;
     font-weight: 600;
     font-size: 16px;
@@ -63,9 +63,9 @@
 
     font-weight: 600;
     font-size: 16px;
-    color: $color-primary;
+    color: $color-neutral-100;
     background: none;
-    border: 1px solid $color-primary;
+    border: 1px solid $color-neutral-100;
 
     & > svg {
       fill: $color-neutral-0;
@@ -116,6 +116,41 @@
     &:active {
       background: rgba($color-neutral-100, 0.9);
       border-color: rgba($color-neutral-100, 0.9);
+      color: $color-neutral-0;
+    }
+
+    &.disabled {
+      color: $color-neutral-40;
+      background: $color-neutral-80;
+      border-color: $color-neutral-60;
+
+      & > svg {
+        fill: $color-neutral-20;
+      }
+    }
+  }
+  &.black {
+    height: 40px;
+    font-weight: 600;
+    font-size: 16px;
+
+    color: $color-neutral-0;
+    background: $color-black;
+    border: 1px solid $color-black;
+
+    & > svg {
+      fill: $color-neutral-0;
+    }
+
+    &:hover {
+      background: rgba($color-black, 0.7);
+      border-color: rgba($color-black, 0.7);
+      color: $color-neutral-0;
+    }
+
+    &:active {
+      background: rgba($color-black, 0.9);
+      border-color: rgba($color-black, 0.9);
       color: $color-neutral-0;
     }
 

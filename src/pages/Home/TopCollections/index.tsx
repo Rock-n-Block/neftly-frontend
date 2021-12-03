@@ -47,7 +47,12 @@ const TopCollections: FC<Props> = ({ className }) => {
         <TitleDropdown value={period} setValue={setPeriod} options={dropDownOptions} />
       </H2>
       <div className={`${styles.collections} ${collections.length !== 0 && styles.open}`}>
-        <ol className={styles.collectionsWrapper}>
+        <ol
+          className={styles.collectionsWrapper}
+          style={{
+            gridTemplateRows: `repeat(${collections.length > 5 ? 5 : collections.length}, 1fr)`,
+          }}
+        >
           {collections.map((collection, index) => (
             <CollectionCard
               key={index}

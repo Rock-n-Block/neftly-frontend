@@ -206,7 +206,7 @@ const Profile: FC<FormikProps<IProfile>> = observer(
                 onClick={() => handleSubmit()}
                 className={cn('button', styles.submitButton)}
                 loading={values.isLoading}
-                color="blue"
+                color="purple"
                 type="submit"
               >
                 <Text size="m" color="white" weight="bold">

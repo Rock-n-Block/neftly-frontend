@@ -26,7 +26,7 @@ const Upload: FC = () => {
               <div className={styles.preview}>
                 <img src={upload} alt="Upload" />
               </div>
-              <Button color="blue" className={styles.button}>
+              <Button color="purple" className={styles.button}>
                 Create Single
               </Button>
             </Link>
@@ -46,7 +46,7 @@ const Upload: FC = () => {
                 </div>
               </div>
 
-              <Button color="blue" className={styles.button}>
+              <Button color="purple" className={styles.button}>
                 Create Multiple
               </Button>
             </Link>

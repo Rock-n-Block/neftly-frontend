@@ -1,140 +1,101 @@
 import { Link } from 'react-router-dom';
-import { resourcesHelperObject, routes } from 'appConstants';
-import cx from 'classnames';
-import { Button, Logo, Text } from 'components';
+import { routes } from 'appConstants';
+import { Button, Logo, Text, TextInput } from 'components';
 import { observer } from 'mobx-react';
 import { useMst } from 'store';
-
-import { FooterCommunity, FooterEmail } from './components';
 
 import styles from './styles.module.scss';
 
 const Footers: React.FC = observer(() => {
   const {
-    nftTags: { tags },
+    user,
   } = useMst();
 
   const accountHelperObject = [
     {
-      label: 'Profile',
+      label: 'Download',
       link: routes.profile.root,
     },
     {
-      label: 'Favourites',
+      label: 'Demos',
       link: `${routes.profile.root}/favourite`,
     },
     {
-      label: 'My Collection',
+      label: 'Support',
       link: `${routes.profile.root}/myCollectction`,
     },
-    {
-      label: 'Settings',
-      link: routes.profile.edit,
-    },
   ];
 
-  const companyHelperObject = [
+  const stacks = [
     {
-      label: 'About',
-      link: 'https://google.com',
+      label: 'Discover',
+      link: routes.profile.root,
     },
     {
-      label: 'Careers',
-      link: 'https://google.com',
-    },
-  ];
-
-  const linksHelperObject = [
-    {
-      linkBlockTitle: 'My Account',
-      linkArray: accountHelperObject,
-      isInternal: true,
+      label: 'Connect wallet',
+      link: `${routes.profile.root}/favourite`,
     },
     {
-      linkBlockTitle: 'Resources',
-      linkArray: resourcesHelperObject,
-      isInternal: false,
-    },
-    {
-      linkBlockTitle: 'Company',
-      linkArray: companyHelperObject,
-      isInternal: false,
+      label: 'Create item',
+      link: `${routes.profile.root}/myCollectction`,
     },
   ];
-
-  const LinkBody = ({ title }: { title: string }) => (
-    <Button color="transparent" padding="0" className={styles.footerBtnLink}>
-      <Text color="lightGray">{title}</Text>
-    </Button>
-  );
 
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
-        <div className={styles.controlAndSocial}>
-          <FooterEmail />
-          <FooterCommunity />
-        </div>
-        <div className={styles.linksAndLogo}>
-          <div className={cx(styles.footerLogo, styles.footerLogoChild)}>
+        <div className={styles.linksAndControls}>
+          <div className={styles.footerLogo}>
             <Logo className={styles.logo} />
-            <Text className={styles.footerLogoChild} size="xl" color="white">
-              The New Creative Economy
+            <Text size="xxl" weight='bold' color="black">
+              The New Creative
             </Text>
-            <Text className={styles.footerLogoChild} size="m" color="white">
-              The world’s first and largest digital marketplace for crypto collectibles and
-              non-fungible tokens (NFTs). Buy, sell, and discover exclusive digital items.
+            <Text size="xxl" weight='bold' color="black">
+              Economy.
             </Text>
           </div>
-          <div className={styles.linkBlockContainer}>
+          <div className={styles.linkBlock}>
+            <Text weight="bold" size="m">
+              Stacks
+            </Text>
+            {stacks.map(({ label, link }) => {
+              return (
+                <Link to={link} key={label}>
+                  <Button className={styles.button} color="transparent">
+                    <Text color="lightGray">{label}</Text>
+                  </Button>
+                </Link>
+              );
+            })}
+          </div>
+          {user.address && (
             <div className={styles.linkBlock}>
-              <Text weight="bold" size="m" color="white">
-                Marketplace
+              <Text weight="bold" size="m">
+                Info
               </Text>
-              {tags.map(({ title }) => {
+              {accountHelperObject.map(({ label, link }) => {
                 return (
-                  <Link to={routes.discover.filter(title)} key={title}>
-                    <LinkBody title={title} />
+                  <Link to={link} key={label}>
+                    <Button className={styles.button} color="transparent">
+                      <Text color="lightGray">{label}</Text>
+                    </Button>
                   </Link>
                 );
               })}
             </div>
-            {linksHelperObject.map(({ linkBlockTitle, linkArray, isInternal }) => {
-              return (
-                <div key={linkBlockTitle + isInternal} className={styles.linkBlock}>
-                  <Text weight="bold" size="m" color="white">
-                    {linkBlockTitle}
-                  </Text>
-                  {linkArray.map(({ label, link }) => {
-                    return isInternal ? (
-                      <Link to={link} key={label}>
-                        <LinkBody title={label} />
-                      </Link>
-                    ) : (
-                      <a href={link} key={label}>
-                        <LinkBody title={label} />
-                      </a>
-                    );
-                  })}
-                </div>
-              );
-            })}
+          )}
+          <div className={styles.footerActions}>
+            <Text color="black" weight="bold" size="m">
+              Join Newsletter
+            </Text>
+            <Text color="lightGray" size="m">
+              Subscribe our newsletter to get more free design course and resource
+            </Text>
+            <TextInput isButton placeholder="Enter your email" type="text" />
           </div>
         </div>
         <div className={styles.copyrightBlock}>
           <Text color="gray">Copyright © 2021 UI8 LLC. All rights reserved</Text>
-          <div className={styles.copytrightLinks}>
-            <a href="https://google.com" className={styles.copyRightLink}>
-              <Text weight="bold" color="lightGray">
-                Privacy Policy
-              </Text>
-            </a>
-            <a href="https://google.com" className={styles.copyRightLink}>
-              <Text weight="bold" color="lightGray">
-                Terms of Service
-              </Text>
-            </a>
-          </div>
         </div>
       </div>
     </footer>

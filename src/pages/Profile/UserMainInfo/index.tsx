@@ -129,7 +129,7 @@ const UserMainInfo: FC<IProps> = observer(({ userId, setCurrentUser }) => {
           {user.address && !isSelf && (
             <Button
               className={s.user_button}
-              color="blue"
+              color="purple"
               onClick={handleFollowClick}
               disabled={isFollowClickPending}
             >

@@ -43,19 +43,21 @@
 
 // fonts
 @mixin poppins {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 @mixin monument-extended {
-  font-family: "Monument Extended", sans-serif;
+  font-family: 'Monument Extended', sans-serif;
 }
 
 @mixin epilogue {
-  font-family: "Epilogue", sans-serif;
+  font-family: 'Epilogue', sans-serif;
 }
 
 // colors
-$color-primary: #018df0;
+$color-primary: #674df6;
+$color-purple: #c379f6;
+$color-black: #000000;
 $color-secondary: #01c5ba;
 $color-bg: #fff;
 $color-bg2: #0b062d;
@@ -71,10 +73,12 @@ $color-neutral-90: #201c18;
 $color-neutral-80: #393556;
 $color-neutral-60: #6b6785;
 $color-neutral-40: #9c99ae;
-$color-neutral-20: #ceccd6;
+$color-neutral-30: #d1d1d1;
+$color-neutral-20: #848494;
 $color-neutral-10: #e6e6eb;
 $color-neutral-7: #f5f5f5;
 $color-neutral-5: #fcfcfd;
+$color-neutral-3: #fafafa;
 $color-neutral-1: #ffffff29;
 $color-neutral-0: #fff;
 
@@ -82,22 +86,24 @@ $color-actions-light-green: #5df0cd;
 $color-actions-dark-green: #45b36b;
 $color-actions-light-pink: #ff72d2;
 $color-actions-light-purple: #c379f6;
+$color-actions-dark-purple: #674df6;
 $color-actions-light-yellow: #ffd166;
 $color-actions-light-blue: #6b6785;
 $color-actions-dark-green: #064462;
 $color-actions-dark-pink: #561857;
-$color-actions-dark-purple: #2d1446;
+// $color-actions-dark-purple: #2d1446;
 $color-actions-dark-yellow: #433340;
 $color-actions-dark-blue: #211857;
 $color-actions-dark-red: #571848;
 $color-actions-light-grey: #f4f5f6;
+$color-actions-dark-grey: #e8e8e8;
 $color-actions-red: #ea5424;
 
 $color-state-error: #ef466f;
 $color-state-success: #45e498;
 $color-state-warning: #fae637;
 
-$color-gradient: linear-gradient(89.92deg, #018df0 1.29%, #5bbbff 99.94%);
+$color-gradient: linear-gradient(90deg, #6f45ff 0%, #ff6365 100%);
 $color-box-shadow: 0px 16px 50px rgba(18, 27, 40, 0.3);
 $transition: 0.4s ease;
 
@@ -106,7 +112,7 @@ $border-radius: 12px;
 .text-gradient {
   display: inline-block;
 
-  font-family: "MD", sans-serif;
+  font-family: 'MD', sans-serif;
 
   background: $color-gradient;
   background-clip: text;
@@ -135,7 +141,7 @@ $defaultFlexBoxJustify: center;
 
 @mixin customScroll($width, $height, $scroll-color, $thumb-color) {
   &::-webkit-scrollbar {
-    height: $height + "px";
+    height: $height + 'px';
   }
 
   &::-webkit-scrollbar-track {
@@ -155,7 +161,7 @@ $defaultFlexBoxJustify: center;
   }
 
   &::-webkit-scrollbar:vertical {
-    width: $width + "px";
+    width: $width + 'px';
     height: auto;
   }
 
@@ -333,13 +339,13 @@ $defaultFlexBoxJustify: center;
 
 // media query width
 @mixin r($width) {
-  @media only screen and (max-width: $width + "px") {
+  @media only screen and (max-width: $width + 'px') {
     @content;
   }
 }
 
 @mixin rmin($width) {
-  @media only screen and (min-width: $width + "px") {
+  @media only screen and (min-width: $width + 'px') {
     @content;
   }
 }

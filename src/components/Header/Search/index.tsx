@@ -12,6 +12,7 @@ import { SearchTag } from './components';
 
 import styles from './styles.module.scss';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { iconSearch } from 'assets/img';
 
 type Props = {
   className?: string;
@@ -54,7 +55,14 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
   return (
     <div className={cx(styles.search, { [styles.desktop]: isDesktop }, className)}>
       <OutsideClickHandler onOutsideClick={clearInput}>
-        <TextInput onChange={handleInput} value={inputValue} placeholder="Search" type="text" />
+        <TextInput
+          onChange={handleInput}
+          value={inputValue}
+          placeholder="Search by tags, themes, artists, etc"
+          type="text"
+          className={styles.searchInput}
+          icon={iconSearch}
+        />
         {isLoading && <Loader className={styles.searchLoader} />}
         <div
           className={cx(
@@ -94,7 +102,7 @@ const Search: VFC<Props> = ({ isDesktop = true, className, classNameDropdown }) 
                 })}
               </ul>
               <Link to={routes.discover.input(inputValue)}>
-                <Button color="blue" className={styles.viewResults} onClick={clearInput}>
+                <Button color="purple" className={styles.viewResults} onClick={clearInput}>
                   <Text color="white">View all results</Text>
                 </Button>
               </Link>

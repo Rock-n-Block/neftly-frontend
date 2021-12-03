@@ -1,65 +1,27 @@
 @import 'src/styles/helpers';
 
-.footer {
-  background: $color-bg2;
-}
-
 .footerContent {
   margin: 0 auto;
-  padding: 88px 88px 20px 88px;
-  max-width: 1440px;
+  padding: 64px 0 22px;
+
+  border-top: 1px solid $color-neutral-30;
+  max-width: 1500px;
 }
 
-.controlAndSocial {
+.linksAndControls {
   @include flexbox(flex-start, space-between);
-  & > * {
-    &:first-child {
-      margin-right: 40px;
-      flex-basis: 50%;
-    }
-  }
 }
 
-.linksAndLogo {
-  @include flexbox(flex-start, space-between);
+.footerLogo {
+  flex-basis: 25%;
+  @include flexbox(flex-start, flex-start);
+  flex-direction: column;
+}
 
-  .footerLogo {
-    flex-basis: 25%;
-    @include flexbox(flex-start, flex-start);
-    flex-direction: column;
-    max-width: 320px;
-
-    .footerLogoChild {
-      margin-bottom: 24px;
-    }
-
-    .logo {
-      margin-bottom: 32px;
-      * {
-        color: $color-neutral-0 !important;
-      }
-    }
-  }
-
-  .linkBlockContainer {
-    @include flexbox(flex-start, space-between);
-    flex-basis: 75%;
-    width: 100%;
-    margin-left: 30px;
-
-    .linkBlock {
-      @include flexbox(flex-start, flex-start);
-      flex-direction: column;
-
-      .footerBtnLink {
-        margin: 4px 0;
-        @include flexbox(center, flex-start);
-      }
-
-      & > * {
-        margin-bottom: 24px;
-      }
-    }
+.logo {
+  margin-bottom: 32px;
+  * {
+    color: $color-neutral-0 !important;
   }
 }
 
@@ -74,13 +36,26 @@
   }
 }
 
+.linkBlock {
+  @include flexbox(flex-start, flex-start);
+  flex-direction: column;
+
+  .button {
+    padding-left: 0;
+  }
+
+  & > * {
+    margin-bottom: 20px;
+  }
+}
+
 .footerActions {
   flex-basis: 25%;
 
-  margin-bottom: 64px;
+  margin-bottom: 60px;
 
   & > * {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   input {
@@ -88,8 +63,36 @@
   }
 }
 
+.copyrightBlock {
+  padding-top: 32px;
+  @include flexbox;
+  border-top: 1px solid $color-neutral-30;
+}
+
 .footerIconLinks {
-  margin-top: 32px;
+  margin-top: 30px;
+}
+
+@include forDesktopSm {
+  .footerContent {
+    padding: 30px;
+  }
+
+  .footerLogo,
+  .linkBlock {
+    align-items: center;
+  }
+  .linksAndControls {
+    flex-direction: column;
+    & > * {
+      &:not(:last-child) {
+        width: 100%;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid $color-neutral-80;
+      }
+    }
+  }
 }
 
 .connect {
@@ -98,72 +101,5 @@
     &:hover {
       color: $color-action-hovered;
     }
-  }
-}
-
-.copyrightBlock {
-  height: 100px;
-  @include flexbox(center, space-between);
-  border-top: 1px solid $color-neutral-80;
-
-  .copytrightLinks {
-    @include flexbox();
-
-    .copyRightLink {
-      margin: 0 4px;
-    }
-  }
-}
-
-@include forDesktopBig {
-  .footerContent {
-    padding: 32px 32px 10px 32px;
-  }
-}
-
-@include forDesktopSm {
-  .footerContent {
-    padding: 32px 32px 0 32px;
-  }
-
-  .controlAndSocial {
-    @include flexbox();
-    flex-direction: column;
-    margin-bottom: 24px;
-  }
-
-  .linksAndLogo {
-    @include flexbox();
-    flex-direction: column;
-    padding: 24px 0;
-    border-top: 1px solid $color-neutral-80;
-
-    .footerLogo {
-      max-width: unset;
-    }
-
-    .linkBlockContainer {
-      flex-wrap: wrap;
-      border-top: 1px solid $color-neutral-80;
-
-      .linkBlock {
-        margin: 24px 0;
-        align-items: flex-start;
-        flex-basis: 50%;
-
-        .footerBtnLink {
-          margin: 4px 0;
-        }
-
-        & > * {
-          margin-bottom: 24px;
-        }
-      }
-    }
-  }
-
-  .copyrightBlock {
-    justify-content: center;
-    flex-direction: column;
   }
 }

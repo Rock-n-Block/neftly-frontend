@@ -1,7 +1,11 @@
+@import 'src/styles/helpers';
+
 .liveAuction {
+  @include container;
   overflow: hidden;
   padding-bottom: 25px;
   .title {
+    text-align: center;
     margin-bottom: 24px;
   }
 

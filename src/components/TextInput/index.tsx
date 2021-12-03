@@ -4,7 +4,7 @@ import { arrowLeft } from 'assets/img';
 import cn from 'classnames';
 import { Text } from 'components';
 import Button from 'components/Button';
-import { IconNames } from 'typings';
+// import { IconNames } from 'typings';
 
 import styles from './TextInput.module.scss';
 
@@ -24,7 +24,7 @@ interface Props {
   value?: string;
   disabled?: boolean;
   error?: boolean;
-  icon?: IconNames;
+  icon?: any;
   isButton?: boolean;
   integer?: boolean;
   positiveOnly?: boolean;
@@ -134,6 +134,7 @@ const TextInput: React.FC<Props> = ({
           {label}
         </Text>
       )}
+      {icon && <img src={icon} alt="" className={styles.icon} />}
       <div className={styles.wrap}>
         {prefixElement}
         <input

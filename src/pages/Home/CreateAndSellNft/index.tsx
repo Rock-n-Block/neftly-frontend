@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import cx from 'classnames';
-import { H2, Text } from 'components';
+import { Button, H2, Text } from 'components';
 import { observer } from 'mobx-react-lite';
 
 import { createAndSellNftHelperObject } from './helperObject';
@@ -16,7 +16,7 @@ const CreateAndSell: FC<Props> = observer(({ className }) => {
     <div className={cx(styles.ourArtworkGallery, className)}>
       <div className={styles.title}>
         <H2 align="center">
-          Create and sell your <span className={styles.gradientTitle}>NFTs</span>
+          HOW IT WORK FOR <span className={styles.gradientTitle}>DESIGNER</span>
         </H2>
       </div>
       <div className={styles.cardsWrapper}>
@@ -24,12 +24,19 @@ const CreateAndSell: FC<Props> = observer(({ className }) => {
           return (
             <div key={title} className={styles.howItWorksCard}>
               <IconComponent />
-              <Text weight="medium" size="xl">{title}</Text>
-              <Text color="gray" size="m" align="center">{description}</Text>
+              <Text weight="medium" size="xl">
+                {title}
+              </Text>
+              <Text color="gray" size="m" align="center">
+                {description}
+              </Text>
             </div>
           );
         })}
       </div>
+      <Button color="purple" className={styles.button}>
+        Start selling now
+      </Button>
     </div>
   );
 });

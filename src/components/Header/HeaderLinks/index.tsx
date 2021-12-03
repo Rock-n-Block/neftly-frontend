@@ -79,7 +79,7 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
   const nav = useMemo(
     () => [
       {
-        title: 'Explore',
+        title: 'Discover',
         active: location.pathname.includes(routes.discover.root),
         disabled: false,
         isNested: true,
@@ -123,7 +123,7 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
           return (
             <Popover position="center" key={title}>
               <Popover.Button className={`${styles.linkBtn} ${active && styles.active}`}>
-                <Text className={styles.linkTitle} size="m" color={active ? 'primary' : 'black'}>
+                <Text className={styles.linkTitle} size="m" color={active ? 'purple' : 'black'}>
                   {title}
                 </Text>
               </Popover.Button>
@@ -146,7 +146,7 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
               onClick={() => handleMenuItemClick(url)}
               className={`${styles.linkBtn} ${active && styles.active}`}
             >
-              <Text weight="medium" size="m" color={active ? 'primary' : 'black'}>
+              <Text weight="medium" size="m" color={active ? 'purple' : 'black'}>
                 {title}
               </Text>
             </Button>

@@ -27,10 +27,9 @@
 
   &Row {
     font-size: 40px !important;
-
-    &:not(:first-child) {
-      @include gradientText;
-    }
+  }
+  &Gradient{
+    @include gradientText;
   }
 
   @include forDesktopMiddle {

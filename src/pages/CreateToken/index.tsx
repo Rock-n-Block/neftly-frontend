@@ -30,7 +30,7 @@ const CreateToken: React.FC<IProps> = observer(({ isMultiple = false }) => {
           <Text className={styles.info} size="m" color="lightGray" weight="medium" align="center">
             Upload your best artwork here and get your money
           </Text>
-          <Button color="blue" className={styles.switch} onClick={handleTypeChange}>
+          <Button color="purple" className={styles.switch} onClick={handleTypeChange}>
             Switch to {isSingle ? 'Multiple' : 'Single'}
           </Button>
         </div>
