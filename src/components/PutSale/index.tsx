@@ -37,57 +37,37 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
 
   const handleCheckApproveNft = useCallback(async () => {
     try {
-      let result;
-      if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-        result = await walletService.checkNftTrxTokenAllowance(
-          sell.nft.collection.address,
-          user.address,
-        );
-      } else {
-        result = await walletService.checkNftTokenAllowance(sell.nft.collection.address);
-      }
+      const result = await walletService.checkNftTokenAllowance(sell.nft.collection.address);
       return result;
     } catch (err) {
       console.error(err);
       return false;
     }
-  }, [sell.nft.collection.address, user.address, walletService]);
+  }, [sell.nft.collection.address, walletService]);
 
   const handleApproveNft = useCallback(async () => {
     try {
       const isAppr = await handleCheckApproveNft();
       if (!isAppr) {
-        if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
-          await walletService.trxCreateTransaction(
-            {
-              contractAddress: sell.nft.collection.address,
-              feeLimit: 100000000,
-              function: 'setApprovalForAll(address,bool)',
-              options: {},
-              parameter: [
-                {
-                  type: 'address',
-                  value: ExchangeAddress,
-                },
-                { type: 'bool', value: true },
-              ],
-            },
-            user.address,
-          );
-        } else {
-          await walletService.createTransaction(
-            'setApprovalForAll',
-            [ExchangeAddress, true],
-            'NFT',
-            false,
-            sell.nft.collection.address,
-          );
-        }
+        await walletService.createTransaction(
+          'setApprovalForAll',
+          [ExchangeAddress, true],
+          'NFT',
+          false,
+          sell.nft.collection.address,
+        );
       }
     } catch (err) {
       throw Error;
     }
-  }, [handleCheckApproveNft, sell.nft.collection.address, user.address, walletService, ExchangeAddress]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    handleCheckApproveNft,
+    sell.nft.collection.address,
+    user.address,
+    walletService,
+    ExchangeAddress,
+  ]);
 
   const fetchStore = useCallback(() => {
     setIsLoading(true);

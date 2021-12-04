@@ -91,7 +91,7 @@
     right: 25px;
   }
   &_active {
-    background: $color-primary;
+    background: $color-dark;
     color: $color-neutral-0;
     & > img {
       opacity: 1;
@@ -99,7 +99,7 @@
   }
   &_wallet {
     &:hover {
-      background: $color-primary;
+      background: $color-dark;
       color: $color-neutral-0;
     }
   }

@@ -6,7 +6,7 @@
 
   width: fit-content;
 
-  background: $color-primary;
+  background: $color-dark;
   @include flexbox(center, space-between);
 
   img {
