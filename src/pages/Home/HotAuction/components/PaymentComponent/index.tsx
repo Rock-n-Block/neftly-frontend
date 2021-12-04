@@ -3,7 +3,7 @@ import React, { FC, useMemo } from 'react';
 import BigNumber from 'bignumber.js/bignumber';
 import cx from 'classnames';
 import { Button, H4, Text } from 'components';
-import { contracts, is_production } from 'config';
+import { exchangeAddrs } from 'config';
 import { observer } from 'mobx-react-lite';
 import { storeApi } from 'services/api';
 import { useWalletConnectorContext } from 'services/walletConnect';
@@ -41,8 +41,7 @@ const PaymentComponent: FC<Props> = observer(
     const [isApproved, setApproved] = React.useState<boolean>(false);
     const [isApproving, setApproving] = React.useState<boolean>(false);
 
-    const ExchangeAddress =
-      contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address;
+    const ExchangeAddress = exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum];
 
     const currentPrice = React.useMemo(() => {
       if (nft) {
@@ -195,7 +194,7 @@ const PaymentComponent: FC<Props> = observer(
       <div className={cx(className, { [styles.paymentSell]: nftSellingType === 'sell' })}>
         <div className={styles.priceWrapper}>
           <div>
-            {nftSellingType === 'sell' ? <Text size='m'>Current Price</Text> : null}
+            {nftSellingType === 'sell' ? <Text size="m">Current Price</Text> : null}
             {nftSellingType === 'auction' && nft?.highest_bid ? (
               <Text color="lightGray">Highest Bid</Text>
             ) : null}
@@ -213,30 +212,41 @@ const PaymentComponent: FC<Props> = observer(
 
         {user.address ? (
           <div className={styles.sellBtnsWrapper}>
+            {!isApproved && isUserCanApprove && (nft?.is_selling || nft?.is_auc_selling) ? (
+              <Button
+                padding="custom"
+                loading={isApproving}
+                onClick={handleApproveToken}
+                className={styles.purchaseButton}
+              >
+                Approve Token
+              </Button>
+            ) : null}
             {isUserCanEndAuction ? (
-              <Button padding='custom' onClick={handleEndAuction} className={styles.purchaseButton}>
+              <Button padding="custom" onClick={handleEndAuction} className={styles.purchaseButton}>
                 End Auction
               </Button>
             ) : null}
             {isUserCanBuyNft && isApproved ? (
-              <Button padding='custom' onClick={handleBuyNft} className={styles.purchaseButton}>
+              <Button padding="custom" onClick={handleBuyNft} className={styles.purchaseButton}>
                 Purchase Now
               </Button>
             ) : null}
             {isUserCanEnterInAuction && isApproved ? (
-              <Button padding='custom' onClick={handlePlaceBid} className={styles.purchaseButton}>
+              <Button padding="custom" onClick={handlePlaceBid} className={styles.purchaseButton}>
                 Place a Bid
               </Button>
             ) : null}
             {isUserCanPutOnSale ? (
-              <Button padding='custom' onClick={handlePutOnSale} className={styles.purchaseButton}>
-                Put on Sale
-              </Button>
-            ) : null}
-            {!isApproved && isUserCanApprove && (nft?.is_selling || nft?.is_auc_selling) ? (
-              <Button padding='custom' loading={isApproving} onClick={handleApproveToken} className={styles.purchaseButton}>
-                Approve Token
-              </Button>
+              <>
+                <Button
+                  padding="custom"
+                  onClick={handlePutOnSale}
+                  className={styles.purchaseButton}
+                >
+                  Put on Sale
+                </Button>
+              </>
             ) : null}
           </div>
         ) : null}

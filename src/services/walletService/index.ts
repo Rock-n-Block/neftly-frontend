@@ -5,7 +5,12 @@ import { Observable } from 'rxjs';
 import { chainsEnum } from 'typings';
 import Web3 from 'web3';
 
-import { connectWallet as connectWalletConfig, contracts, is_production } from '../../config';
+import {
+  connectWallet as connectWalletConfig,
+  contracts,
+  is_production,
+  exchangeAddrs,
+} from '../../config';
 
 export class WalletConnect {
   public connectWallet: ConnectWallet;
@@ -64,12 +69,10 @@ export class WalletConnect {
       address: tokenAddress,
       abi: contracts.params.BEP20[is_production ? 'mainnet' : 'testnet'].abi,
     });
+    const ExchangeAddress = exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum];
 
     const result = await contract.methods
-      .isApprovedForAll(
-        this.walletAddress,
-        contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address,
-      )
+      .isApprovedForAll(this.walletAddress, ExchangeAddress)
       .call();
 
     return result;

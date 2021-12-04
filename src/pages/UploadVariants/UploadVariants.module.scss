@@ -22,7 +22,7 @@
 }
 
 .list {
-  padding: 91px 32px 32px;
+  padding: 32px 32px 32px;
   border-top: 1px solid $color-neutral-20;
 
   @include flexbox(center);
@@ -40,7 +40,7 @@
   @include flexbox();
   flex-direction: column;
   background: $color-neutral-10;
-  border-radius: 2px;
+  border-radius: $border-radius;
   cursor: pointer;
   @include forTablet {
     flex-direction: column;

@@ -136,6 +136,7 @@
 
       .tabArea {
         grid-area: tab;
+        padding: 0;
       }
 
       .selectArea {
@@ -147,6 +148,10 @@
       }
     }
   }
+}
+
+.tabArea {
+  padding: 0 20px;
 }
 
 .title {

@@ -7,8 +7,9 @@ import { observer } from 'mobx-react-lite';
 import { Button, Switch, TextInput, Text } from 'components';
 import { storeApi, useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
+import { chainsEnum } from 'typings';
 import { useUserBalance } from 'hooks';
-import { is_production, contracts } from 'config';
+import { exchangeAddrs } from 'config';
 import { IconCoin } from 'assets/img';
 
 import styles from './PutSale.module.scss';
@@ -18,6 +19,7 @@ interface IPutSaleProps {
 }
 
 const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
+  const ExchangeAddress = exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum];
   const { walletService } = useWalletConnectorContext();
   const {
     user,
@@ -26,7 +28,8 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
   const [price, setPrice] = useState(
     sell.nft.currency.toUpperCase() === 'BNB' ||
       sell.nft.currency.toUpperCase() === 'ETH' ||
-      sell.nft.currency.toUpperCase() === 'MATIC',
+      sell.nft.currency.toUpperCase() === 'MATIC' ||
+      sell.nft.currency.toUpperCase() === 'TRX',
   );
   const [priceValue, setPriceValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -34,30 +37,57 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
 
   const handleCheckApproveNft = useCallback(async () => {
     try {
-      const result = await walletService.checkNftTokenAllowance(sell.nft.collection.address);
+      let result;
+      if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
+        result = await walletService.checkNftTrxTokenAllowance(
+          sell.nft.collection.address,
+          user.address,
+        );
+      } else {
+        result = await walletService.checkNftTokenAllowance(sell.nft.collection.address);
+      }
       return result;
     } catch (err) {
       console.error(err);
       return false;
     }
-  }, [sell.nft.collection.address, walletService]);
+  }, [sell.nft.collection.address, user.address, walletService]);
 
   const handleApproveNft = useCallback(async () => {
     try {
       const isAppr = await handleCheckApproveNft();
       if (!isAppr) {
-        await walletService.createTransaction(
-          'setApprovalForAll',
-          [contracts.params.EXCHANGE[is_production ? 'mainnet' : 'testnet'].address, true],
-          'NFT',
-          false,
-          sell.nft.collection.address,
-        );
+        if (localStorage.nftcrowd_nft_chainName === chainsEnum.Tron) {
+          await walletService.trxCreateTransaction(
+            {
+              contractAddress: sell.nft.collection.address,
+              feeLimit: 100000000,
+              function: 'setApprovalForAll(address,bool)',
+              options: {},
+              parameter: [
+                {
+                  type: 'address',
+                  value: ExchangeAddress,
+                },
+                { type: 'bool', value: true },
+              ],
+            },
+            user.address,
+          );
+        } else {
+          await walletService.createTransaction(
+            'setApprovalForAll',
+            [ExchangeAddress, true],
+            'NFT',
+            false,
+            sell.nft.collection.address,
+          );
+        }
       }
     } catch (err) {
       throw Error;
     }
-  }, [handleCheckApproveNft, sell.nft.collection.address, walletService]);
+  }, [handleCheckApproveNft, sell.nft.collection.address, user.address, walletService, ExchangeAddress]);
 
   const fetchStore = useCallback(() => {
     setIsLoading(true);

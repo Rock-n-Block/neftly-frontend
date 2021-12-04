@@ -33,7 +33,7 @@ const HeaderNestedBody: FC<IHeaderNestedBodyProps> = ({ isLinks = false, links, 
   const { closePopover } = usePopover();
   const handleTagClick = (title: string) => {
     closePopover();
-    onClick(routes.discover.filter(title));
+    onClick(routes.discover.filter(title === 'All NFTs' ? '' : title));
   };
 
   if (isLinks && links) {
