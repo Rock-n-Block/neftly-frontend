@@ -57,6 +57,14 @@
     color: #fff;
     background: $color-state-error;
   }
+  &.blue {
+    height: 40px;
+    font-weight: 600;
+    font-size: 16px;
+
+    color: #fff;
+    background: $color-secondary;
+  }
 
   &.outline {
     height: 40px;

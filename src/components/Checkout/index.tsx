@@ -137,6 +137,7 @@ const Checkout: React.FC = observer(() => {
             isFullWidth
             onClick={handleBuyToken}
             disabled={+quantity > +sell.nft.tokenAvailable || +userWillPay > +balance}
+            color="blue"
           >
             Pay Now
           </Button>

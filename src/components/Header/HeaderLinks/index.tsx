@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
 import { useHistory } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
-import { resourcesHelperObject, routes } from 'appConstants';
+import { routes } from 'appConstants';
 import cx from 'classnames';
 import { Button, Text } from 'components';
 import { Popover } from 'containers';
@@ -92,14 +92,14 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
         title: 'Activity',
         isNested: false,
       },
-      {
-        title: 'Resources',
-        // active: location.pathname.includes(routes.discover.root),
-        disabled: false,
-        isNested: true,
-        isLinks: true,
-        internalLinks: resourcesHelperObject,
-      },
+      // {
+      //   title: 'Resources',
+      //   // active: location.pathname.includes(routes.discover.root),
+      //   disabled: false,
+      //   isNested: true,
+      //   isLinks: true,
+      //   internalLinks: resourcesHelperObject,
+      // },
       {
         url: user.address ? routes.create.root : routes.connectWallet.root,
         active: location.pathname.includes(routes.create.root),
@@ -118,7 +118,7 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
 
   return (
     <div className={cx(styles.headerNavigation, className)}>
-      {nav.map(({ url, title, active, disabled, isNested, internalLinks, isLinks }) => {
+      {nav.map(({ url, title, active, disabled, isNested, internalLinks }) => {
         if (isNested && !disabled) {
           return (
             <Popover position="center" key={title}>
@@ -130,7 +130,7 @@ const HeaderLinks: FC<IHeaderLinksProps> = observer(({ className, toggleMenu }) 
               <Popover.Body>
                 <HeaderNestedBody
                   links={internalLinks}
-                  isLinks={isLinks}
+                  // isLinks={isLinks}
                   onClick={handleMenuItemClick}
                 />
               </Popover.Body>

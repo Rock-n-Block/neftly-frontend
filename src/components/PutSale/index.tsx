@@ -60,7 +60,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
     } catch (err) {
       throw Error;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     handleCheckApproveNft,
     sell.nft.collection.address,
@@ -171,6 +171,7 @@ const PutSale: React.FC<IPutSaleProps> = ({ className }) => {
           onClick={fetchStore}
           className={cn('button', styles.button)}
           loading={isLoading}
+          color="blue"
           isFullWidth
         >
           Put on sale

@@ -70,6 +70,7 @@ const Report: React.FC<IReportProps> = ({ className }) => {
           className={cn('button', styles.button)}
           onClick={submitReport}
           loading={isLoading}
+          color="blue"
         >
           Send now
         </Button>

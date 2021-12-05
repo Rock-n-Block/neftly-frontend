@@ -12,6 +12,7 @@ interface IProps {
   handleUpload?: (value: File) => void;
   className?: string;
   isButton?: boolean;
+  colorButton?: 'purple' | 'outline' | 'transparent' | 'pink' | 'dark' | 'black' | 'blue';
   formikValue?: string | 'cover'; // cover for video/audio
   setFormat?: (format: string) => void;
   maxSizeInMb?: number;
@@ -35,6 +36,7 @@ const Uploader: FC<IProps> = ({
   formikValue,
   isButton = false,
   isLoading,
+  colorButton = 'outline',
   handleUpload,
   setFormat,
   maxSizeInMb = 5,
@@ -79,7 +81,7 @@ const Uploader: FC<IProps> = ({
       {isButton ? (
         <>
           <input {...getInputProps()} />
-          <Button color="outline" className={styles.button} onClick={open} disabled={isLoading}>
+          <Button color={colorButton} className={styles.button} onClick={open} disabled={isLoading}>
             {children || 'Upload'}
           </Button>
         </>

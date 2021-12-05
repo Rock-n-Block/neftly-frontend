@@ -55,13 +55,10 @@
 
     &.selected {
       p {
-        color: $color-primary;
-      }
-      &::before {
-        width: 100%;
+        color: $color-secondary;
       }
       path {
-        fill: $color-primary;
+        fill: $color-secondary;
       }
     }
   }

@@ -19,7 +19,7 @@
   opacity: 0;
 
   &:checked + .inner .box {
-    background: $color-primary;
+    background: $color-orange;
 
     &::before {
       background: $color-neutral-0;
@@ -60,7 +60,7 @@
     width: 16px;
     height: 16px;
 
-    background: $color-primary;
+    background: $color-orange;
     border-radius: 50%;
 
     transition: all 0.2s;

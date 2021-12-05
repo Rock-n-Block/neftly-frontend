@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-import { iconSwap } from 'assets/img';
+import { IconSwap } from 'assets/img';
 import { Button, Text, TextInput, ToastContentWithTxHash } from 'components';
 import { useUserBalance } from 'hooks';
 import { observer } from 'mobx-react';
@@ -120,7 +120,7 @@ const Swap: React.FC = observer(() => {
       </div>
       <div className={styles.iconWrapper}>
         <Button color="transparent" onClick={handleConvert}>
-          <img src={iconSwap} alt="Swap" />
+          <IconSwap />
         </Button>
       </div>
       <div className={styles.wrapper}>
@@ -148,7 +148,7 @@ const Swap: React.FC = observer(() => {
           onClick={handleSubmitConvert}
           loading={isLoading}
           disabled={+payInput > +currentBalance || +payInput <= 0}
-          color="purple"
+          color="blue"
         >
           Convert
         </Button>

@@ -52,6 +52,7 @@ const Profile: FC<FormikProps<IProfile>> = observer(
                       isImgOnly
                       formikValue="avatar"
                       isButton
+                      colorButton='black'
                       className={styles.fileUpload}
                     />
                   )}

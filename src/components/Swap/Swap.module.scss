@@ -5,8 +5,12 @@
 
   @include flexbox;
 
+  svg {
+    rect {
+      fill: $color-secondary;
+    }
+  }
 }
-
 
 .header {
   @include flexbox(flex-start, space-between);
