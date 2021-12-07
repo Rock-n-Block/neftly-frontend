@@ -37,19 +37,19 @@ export default {
         queries = queries.concat(`${formattedKey},`);
       });
     return axios.get('activity/', {
-      params: { page, network: localStorage?.nftcrowd_nft_chainName, type: queries },
+      params: { page, network: localStorage?.lessnft_nft_chainName, type: queries },
     });
   },
   getNotification: () =>
-    axios.get(`activity/notification/?network=${localStorage.nftcrowd_nft_chainName}`),
+    axios.get(`activity/notification/?network=${localStorage.lessnft_nft_chainName}`),
   readNotification: (data: any) =>
-    axios.post(`/activity/notification/?network=${localStorage.nftcrowd_nft_chainName}`, data),
+    axios.post(`/activity/notification/?network=${localStorage.lessnft_nft_chainName}`, data),
   getTopUsers: ({ type, sortPeriod }: TTopUserReq) =>
     axios.get('/activity/topusers/', {
       params: {
         type,
         sort_period: sortPeriod,
-        network: localStorage?.nftcrowd_nft_chainName,
+        network: localStorage?.lessnft_nft_chainName,
       },
     }),
 
@@ -58,7 +58,7 @@ export default {
       params: {
         type,
         sort_period: sortPeriod,
-        network: localStorage?.nftcrowd_nft_chainName,
+        network: localStorage?.lessnft_nft_chainName,
       },
     }),
 

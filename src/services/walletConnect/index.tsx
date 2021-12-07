@@ -46,8 +46,8 @@ class Connector extends React.Component<
 
   componentDidMount() {
     if (window.ethereum) {
-      if (localStorage.nftcrowd_nft_chainName && localStorage.nftcrowd_nft_providerName) {
-        this.connect(localStorage.nftcrowd_nft_chainName, localStorage.nftcrowd_nft_providerName);
+      if (localStorage.lessnft_nft_chainName && localStorage.lessnft_nft_providerName) {
+        this.connect(localStorage.lessnft_nft_chainName, localStorage.lessnft_nft_providerName);
       }
     }
   }
@@ -67,7 +67,7 @@ class Connector extends React.Component<
                 this.disconnect();
               } else {
                 this.state.provider.setAccountAddress(userAccount.address);
-                if (!localStorage.nftcrowd_nft_token) {
+                if (!localStorage.lessnft_nft_token) {
                   const metMsg: any = await userApi.getMsg();
                   const signedMsg = await this.state.provider.connectWallet.signMsg(
                     userAccount.address,
@@ -80,11 +80,11 @@ class Connector extends React.Component<
                     signedMsg,
                   });
 
-                  localStorage.nftcrowd_nft_token = login.data.key;
+                  localStorage.lessnft_nft_token = login.data.key;
                   this.props.history.push(routes.home.root);
                 }
-                localStorage.nftcrowd_nft_chainName = chainName;
-                localStorage.nftcrowd_nft_providerName = providerName;
+                localStorage.lessnft_nft_chainName = chainName;
+                localStorage.lessnft_nft_providerName = providerName;
                 rootStore.user.setAddress(userAccount.address);
                 rootStore.user.getMe();
               }
@@ -123,10 +123,10 @@ class Connector extends React.Component<
   };
 
   disconnect() {
-    delete localStorage.nftcrowd_nft_chainName;
-    delete localStorage.nftcrowd_nft_providerName;
+    delete localStorage.lessnft_nft_chainName;
+    delete localStorage.lessnft_nft_providerName;
     delete localStorage.walletconnect;
-    delete localStorage.nftcrowd_nft_token;
+    delete localStorage.lessnft_nft_token;
     rootStore.user.disconnect();
 
     this.props.history.push('/');

@@ -61,7 +61,7 @@
 
 .user_name {
   margin-top: 16px;
-  @include monument-extended;
+  @include sora;
   line-height: 120%;
   @include forTablet {
     font-size: 24px;

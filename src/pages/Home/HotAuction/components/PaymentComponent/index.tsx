@@ -42,7 +42,7 @@ const PaymentComponent: FC<Props> = observer(
     const [isApproving, setApproving] = React.useState<boolean>(false);
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-    const ExchangeAddress = exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum];
+    const ExchangeAddress = exchangeAddrs[localStorage.lessnft_nft_chainName as chainsEnum];
 
     const currentPrice = React.useMemo(() => {
       if (nft) {

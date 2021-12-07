@@ -69,7 +69,7 @@ export class WalletConnect {
       address: tokenAddress,
       abi: contracts.params.BEP20[is_production ? 'mainnet' : 'testnet'].abi,
     });
-    const ExchangeAddress = exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum];
+    const ExchangeAddress = exchangeAddrs[localStorage.lessnft_nft_chainName as chainsEnum];
 
     const result = await contract.methods
       .isApprovedForAll(this.walletAddress, ExchangeAddress)

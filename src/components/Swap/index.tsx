@@ -46,7 +46,7 @@ const Swap: React.FC = observer(() => {
 
   const handleSubmitConvert = useCallback(() => {
     const weiValue =
-      localStorage.nftcrowd_nft_chainName === WalletConnect.calcTransactionAmount(payInput, 18);
+      localStorage.lessnft_nft_chainName === WalletConnect.calcTransactionAmount(payInput, 18);
     setLoading(true);
 
     if (swappingCurrency[0] === 'main') {

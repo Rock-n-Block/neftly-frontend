@@ -37,7 +37,7 @@
 }
 
 .user_name {
-  @include monument-extended;
+  @include sora;
   margin-bottom: 5px;
   @include forTablet {
     font-size: 24px;

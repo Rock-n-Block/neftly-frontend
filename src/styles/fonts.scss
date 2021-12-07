@@ -1,19 +1,22 @@
 @import './mixins/media';
 
-//Monument Extended
-@include font-face(
-  'Monument Extended',
-  '../../assets/fonts/Monument-Extended/Monument-Extended-Regular',
-  normal
-);
-@include font-face(
-  'Monument Extended',
-  '../../assets/fonts/Monument-Extended/Monument-Extended-Bold',
-  800
-);
+// //Monument Extended
+// @include font-face(
+//   'Monument Extended',
+//   '../../assets/fonts/Monument-Extended/Monument-Extended-Regular',
+//   normal
+// );
+// @include font-face(
+//   'Monument Extended',
+//   '../../assets/fonts/Monument-Extended/Monument-Extended-Bold',
+//   800
+// );
 
 //Poppins
 @include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-Regular', normal, normal, 'ttf');
+
+//Sora
+@include font-face('Sora', '../../assets/fonts/Sora/Sora-SemiBold', 600, normal, 'ttf');
 
 //Epilogue
 @include font-face(

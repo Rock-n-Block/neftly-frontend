@@ -138,10 +138,10 @@ export const connectWallet = (
 
 export const exchangeAddrs = {
   [chainsEnum['Binance-Smart-Chain']]: !is_production
-    ? '0x5Fb28cD9423c19FD990d02a44DaFF7787932D709'
+    ? '0xE303dD7146E67D3Bd438e54971ebd9076908e7d5'
     : '',
-  [chainsEnum.Ethereum]: !is_production ? '0x190a5d4643e55313906344176F61724fC138501c' : '',
-  [chainsEnum.Polygon]: !is_production ? '0x928724290F7F868C2fEe10720aE5b48C94c5139F' : '',
+  [chainsEnum.Ethereum]: !is_production ? '0xE303dD7146E67D3Bd438e54971ebd9076908e7d5' : '',
+  [chainsEnum.Polygon]: !is_production ? '0x0d669902B1E2Dc2E7b229D5d9b3D15c3D719d3c1' : '',
 };
 
 export const contracts: IContracts = {
@@ -181,11 +181,11 @@ export const contracts: IContracts = {
     },
     EXCHANGE: {
       mainnet: {
-        address: exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum],
+        address: exchangeAddrs[localStorage.lessnft_nft_chainName as chainsEnum],
         abi: [],
       },
       testnet: {
-        address: exchangeAddrs[localStorage.nftcrowd_nft_chainName as chainsEnum],
+        address: exchangeAddrs[localStorage.lessnft_nft_chainName as chainsEnum],
         abi: [],
       },
     },

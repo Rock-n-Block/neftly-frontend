@@ -81,7 +81,7 @@
 }
 
 .stage {
-  @include monument-extended;
+  @include sora;
   margin-bottom: 8px;
 }
 
@@ -128,7 +128,7 @@
 }
 
 .category {
-  @include monument-extended;
+  @include sora;
   margin-bottom: 24px;
 
   font-size: 20px;

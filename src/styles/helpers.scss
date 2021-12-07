@@ -54,6 +54,10 @@
   font-family: 'Epilogue', sans-serif;
 }
 
+@mixin sora {
+  font-family: 'Sora', sans-serif;
+}
+
 // colors
 $color-primary: #674df6;
 $color-dark: #2f2f37;

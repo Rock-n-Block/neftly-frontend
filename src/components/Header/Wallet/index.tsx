@@ -20,7 +20,7 @@ let MAIN: string;
 let WRAP: 'WBNB' | 'WETH' | 'NFT' | 'BEP20' | 'WMATIC';
 
 const WalletBody: FC = observer(() => {
-  switch (localStorage.nftcrowd_nft_chainName) {
+  switch (localStorage.lessnft_nft_chainName) {
     case 'Binance-Smart-Chain':
       MAIN = 'BNB';
       WRAP = 'WBNB';
@@ -40,8 +40,8 @@ const WalletBody: FC = observer(() => {
   const { closePopover } = usePopover();
 
   const imageSrc =
-    chains[chains[chainsEnum[localStorage.nftcrowd_nft_chainName as chainsEnum]].name].provider[
-      localStorage.nftcrowd_nft_providerName
+    chains[chains[chainsEnum[localStorage.lessnft_nft_chainName as chainsEnum]].name].provider[
+      localStorage.lessnft_nft_providerName
     ].img;
   const balanceMain = useUserBalance(user.address, MAIN, swap.refresh, true);
   user.setBalance(balanceMain, 'eth');
@@ -64,7 +64,7 @@ const WalletBody: FC = observer(() => {
         <div className={styles.walletLogo}>
           <img src={imageSrc} alt="Wallet Logo" />
           <Text className={styles.provider} size="m">
-            {localStorage.nftcrowd_nft_providerName}
+            {localStorage.lessnft_nft_providerName}
           </Text>
         </div>
         <Text size="s" className={styles.balanceTitle}>

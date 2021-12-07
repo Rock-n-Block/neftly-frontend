@@ -8,7 +8,7 @@
   padding: 44px 0;
   flex-direction: column;
   gap: 16px;
-  @include monument-extended;
+  @include sora;
   border-bottom: 1px solid $color-neutral-10;
 
   button {
