@@ -112,7 +112,7 @@ const ChooseCollection: React.FC<IProps> = observer(
             className={cn(styles.card, !activeCollectionId && styles.active)}
           >
             <img src={iconCreateCircle} alt="create" className={styles.plus} />
-            <Text className={styles.subtitle} color="black">
+            <Text className={styles.subtitle} color="primary">
               Create collection
             </Text>
           </div>
